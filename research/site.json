@@ -1,0 +1,6027 @@
+{
+ "schema": "aps-site/1",
+ "generated": "2026-10-08",
+ "center": {
+  "lat": 41.703517,
+  "lon": -87.9881281,
+  "definition": "least-squares circle centre of the OSM outer wall of Bldg 400 (relation 3126234); the infield roundabout centre is at (-1.3, -0.7) m and the inner-wall circle fit centre at (-1.5, -0.8) m",
+  "uncertaintyM": 1.5
+ },
+ "frame": "x east, y north, metres; origin = ring centre; local equirectangular projection (cos(lat0) scaling), error < 1 cm over the site. For three.js use X = x, Z = -y (Y up). SCALE NOTE (verifier): the projection uses a spherical mean Earth radius R = 6371.0 km for both axes. Against WGS84 local radii at 41.7 N (meridional 6363.7 km, prime-vertical 6387.6 km), x (east) values are ~0.26% short and y (north) values ~0.12% long, i.e. up to ~0.5 m at 200 m from the centre. \"<1 cm\" refers to projection non-linearity only. This is irrelevant for the 3D map but matters if anyone compares against survey coordinates.",
+ "ring": {
+  "electronOrbitRadiusM": 175.64,
+  "electronOrbitRadiusNote": "mean radius = C/2pi with APS-U C = 1103.6083 m (FDR Table 2.3); original APS design C = 1104 m, measured 1103.986 m",
+  "idStraightApothemM": 175.5,
+  "idStraightApothemNote": "perpendicular distance from ring centre to each ID straight line; geometric estimate 175.3 + 0.04*d m (d = half dipole spacing ~5 m) for a 40-fold ring of C~1104 m; APS-U kept the ID straights/tangent lines fixed (FDR 2-2.1.1, 3-4) VERIFIER: independent estimate from an equiangular 80-gon (exterior angle 4.5 deg, C = 1103.99 m pre-upgrade, since APS-U kept the ID tangent lines): h_ID = 175.62 - 0.0098*(L_ID - L_mid) m, L_ID - L_mid ~ 5-10 m -> 175.52-175.57 m; 175.5 +/- 0.15 m is consistent.",
+  "circumferenceM": {
+   "APS-U (FDR 2019)": 1103.6083,
+   "original design": 1104.0,
+   "original measured": 1103.986
+  },
+  "hallInnerRadiusM": 170.7,
+  "hallInnerRadiusNote": "inner (infield-facing) wall of the ring building = inner wall of the storage-ring tunnel; median of OSM inner-ring vertices excluding notches; circle fit r=169.3 m (rms 4.0 m, notches included); imagery roof edge ~169.5-170 m",
+  "hallOuterRadiusM": 197.3,
+  "hallOuterRadiusNote": "OSM outer wall (circle fit rms 0.04 m), consistent with roof edge in Esri imagery (~194-197 m incl. dark outer strip) and in the FDR Fig. 5.7 aerial photo. CONFLICT: APS Fast Facts says hall outer diameter is 1,225 ft (373 m -> r = 186.7 m); that cannot accommodate HEXM station D at 70-77 m from source (needs r >= 191.6 m), so the 1,225-ft figure is treated as approximate/other definition. VERIFIER: independent least-squares fit of OSM relation 3126234 outer way (258 nodes) reproduces centre lat/lon 41.703517, -87.988128 and r = 197.29 m (R = 6371.0 km scale; 197.4 +/- 0.4 m with WGS84 local radii; the OSM circle was evidently drawn with a circle tool, rms 0.04 m). Fast Facts PDF (PSC_16_6) does say \"The outer diameter of the APS experiment hall is 1,225 feet\" (373.4 m); with ID tangent lines at 175.5 m that would put the wall only ~64 m from the source along the beam, too short for the HEXM 20-ID-D hutch (instrument 70.2 m, beamstop 76.7 m, FDR Table 4.28). Treat 1,225 ft as erroneous or a different definition.",
+  "tunnelAndRatchetWall": {
+   "tunnelInnerWallRadiusM": 170.7,
+   "ratchetWallApproxRadiusM": 178.0,
+   "note": "ESTIMATE: front-end exits the ratchet (shield) wall at ~24-25 m from the source (PDR ch.6: ratchet wall z~24 m; FE exit mask at 25.4 m, FDR tables) -> r ~ sqrt(175.5^2+24^2) ~ 177 m on the beam line; ratchet tooth geometry not found in public sources"
+  },
+  "experimentFloorRadialWidthM": 19.3,
+  "maxBeamlineLengthInsideHallM": 90.2,
+  "zones": "A-E = sectors 1-35 (x-ray beamlines), F = sectors 36-40 (RF + injection) (FDR ch.5, 5-1: \"Zones A through E (sectors 1 through 35) ... Zone F (sectors 36 through 40) contains magnet girders, and radio frequency (RF) and injection equipment\"). The per-sector zone letters A-E in sectors.table (7 sectors per zone) are an UNSOURCED placeholder: the FDR gives no zone boundaries, and the colour blocks in FDR Fig. 5.7 are removal work groups (37-2, 3-6, 7-10, 11-14, 15-17, 18-21, 22-25, 26-30, 31-36), not zones. Do not display A-E letters as fact.",
+  "machineParameters": {
+   "energyGeV": 6.0,
+   "designNaturalEmittancePmRad": 41.68,
+   "measuredEmittance": "world-record 45 pm.rad measured at 50 mA (APS news 2024-08-23; as low as 28 pm in round-beam mode); previous record 134 pm (ESRF-EBS)",
+   "beamCurrentMA": 200,
+   "fullCurrentReached": "200 mA first reached 4 Feb 2025 and used for user operations since (APS news 2025-02-27)",
+   "harmonicNumber": 1296,
+   "rfFrequencyMHz": 352.05598518,
+   "rfNote": "APS-U ring RF is 341 ppm higher than pre-upgrade (351.935 MHz) because the circumference shrank to 1103.6083 m; the booster keeps 351.9149761 MHz with h = 432 (FDR 2-2.1.1, Tables 2.42, 2.48)",
+   "energyLossPerTurnMeV": "2.87 (bare lattice) to <4.47 with IDs (FDR Table 2.42)",
+   "rfCavities": "12 single-cell copper 352-MHz cavities, 4 each in sectors 36, 37, 40; 6.43 MV total (FDR Table 2.42, ch.5)",
+   "bunchModes": "48-bunch and 324-bunch, with on-axis swap-out injection (Calvey, I.FAST 2024; FDR 2-2.8)",
+   "milestones": "storage-ring removal began May 2023; first module installed 12 Jul 2023 (IPAC24 TUZN2 slides); first stored beam 20 Apr 2024; first x-rays to a beamline 17 Jun 2024; 200 mA 4 Feb 2025 (APS news)",
+   "sources": [
+    "FDR-2",
+    "APS-news-2024-04-20",
+    "APS-news-2024-06-18",
+    "APS-news-2024-08-23",
+    "APS-news-2025-02-27",
+    "Calvey-IFAST24",
+    "IPAC24-TUZN2"
+   ]
+  }
+ },
+ "sectors": {
+  "count": 40,
+  "beamlineSectors": "1-35",
+  "machineSectors": "36-40 (Zone F)",
+  "numberingDirection": "clockwise seen from above (= electron and x-ray travel direction)",
+  "sector1AngleDeg": 69.8,
+  "sector1AngleDefinition": "azimuth (CCW from +x east) of the centre of the sector-1 ID straight / 1-ID source point; compass bearing from ring centre = 20.2 deg (NNE)",
+  "sector1AngleUncertaintyDeg": 1.0,
+  "anglePerSector": -9.0,
+  "formula": "phi_N = 69.8 - 9*(N-1) deg (mod 360); ID source = 175.5 m * (cos phi_N, sin phi_N); ID beam direction = phi_N - 90 deg; BM beam direction = phi_N - 90 - 5.0625 deg - 0.0286 deg (the last term = the as-built 0.5 mrad inboard angular shift of all BM beamlines, MEDSI'25 TUOA01; inboard = clockwise for this clockwise ring)",
+  "injectionSector": 39,
+  "rfSectors": [
+   36,
+   37,
+   40
+  ],
+  "bunchLengtheningSector": 38,
+  "superDoors": {
+   "A": 2,
+   "B": 10,
+   "C": 17,
+   "D": 24,
+   "E": 30,
+   "note": "super-door vestibules on the inner wall (OSM notches at az 60.5, 349.2, 285.9, 223.5, 169.4 deg) coincide within ~1 deg with the ID straights of sectors 2, 10, 17, 24, 30 for phi_1=69.8; letters A-E and approximate sectors from FDR Fig. 5.7"
+  },
+  "derivation": [
+   "LBB corridors: ISN (19-ID) corridor direction 177.5-177.6 deg (OSM edges + Esri imagery edge fit), +~0.3 deg for the inboard-deflecting M3 mirror -> phi_19 ~ 267.8 -> phi_1 ~ 69.8",
+   "HEXM (20-ID, no net horizontal deflection): corridor/office-row direction 168.1 (imagery) to 169.5 (OSM) -> phi_1 69.1-70.5",
+   "APS beamline-directory graphic registered to OSM (rot 179.49 deg, 6 control points): drawn ISN/HEXM lines -> phi_1 ~ 68.9-69.3",
+   "Super doors at ID straights (hypothesis, consistent with all five doors sharing one lattice phase) -> phi_1 ~ 70.1",
+   "Check: with phi_1=69.8 the 19-ID line reaches 220 m (ISN instrument) and the 20-ID line 180-197 m (HEXM E station) inside the OSM LBB footprint",
+   "Check: FDR Fig. 5.7 sector numerals (mean over 40, eccentricity cancelled) sit 1.4 deg CCW of phi_N, i.e. within the 9-deg sector boxes"
+  ],
+  "notes": "Accelerator nomenclature (FDR Fig. 2.17) places \"the ID straight of sector N\" at the downstream end of accelerator sector N; the N-BM source is 5.0625 deg (9*pi/320 rad) downstream of the N-ID source (FDR 3-4), 5.36 mrad into B:M3 for APS-U, shifted ~1.8 m upstream and ~42 mm inboard vs. the original APS (FDR ch.3; ch.2 quotes 2.908 m / 39 mm). bmSourceXYApprox uses s = 15 m downstream of the ID centre (+/-1.5 m). Experiment-floor area of Zone F (sectors 36-40) is labelled \"Experiment Assembly Area\" on the APS graphic. VERIFIER (as-built): MEDSI'25 TUOA01 (Schmidt et al.) reports that, because of the new BM source, \"all BM beamlines were required to move inboard by 42 mm with an additional 0.5 mrad inboard angular shift\"; this confirms the FDR ch.3 value (42.3 mm) over the ch.2 value (39 mm). bmBeamDirDeg and bmBeamHitsOuterWallXY below include the 0.5 mrad shift (changes the wall hit point by <5 cm). BM data are given for every sector 1-35 for geometry only: in 2026 user BM beamlines exist only where bmBeamline2026 is non-null (16 sectors). In ~16 sectors the ID straight holds two canted undulators 1.0 mrad apart (idFrontEndFDR2019), which feed two independent ID branches.",
+  "table": [
+   {
+    "sector": 1,
+    "zone": "A",
+    "idStraightAzDeg": 69.8,
+    "idSourceXY": [
+     60.6,
+     164.71
+    ],
+    "idBeamDirDeg": 339.8,
+    "idBeamHitsOuterWallXY": [
+     145.21,
+     133.58
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     74.52,
+     159.1
+    ],
+    "bmBeamDirDeg": 334.71,
+    "bmBeamHitsOuterWallXY": [
+     156.23,
+     120.49
+    ],
+    "floorLabelXY": [
+     117.56,
+     144.14
+    ],
+    "compassBearingOfStraightDeg": 20.2,
+    "lom": "431",
+    "lomSection": "431-A",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "1-ID-B,C,E"
+    ],
+    "bmBeamline2026": [
+     "1-BM-B,C"
+    ]
+   },
+   {
+    "sector": 2,
+    "zone": "A",
+    "idStraightAzDeg": 60.8,
+    "idSourceXY": [
+     85.62,
+     153.2
+    ],
+    "idBeamDirDeg": 330.8,
+    "idBeamHitsOuterWallXY": [
+     164.31,
+     109.22
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     98.49,
+     145.49
+    ],
+    "bmBeamDirDeg": 325.71,
+    "bmBeamHitsOuterWallXY": [
+     173.16,
+     94.58
+    ],
+    "floorLabelXY": [
+     138.66,
+     123.98
+    ],
+    "compassBearingOfStraightDeg": 29.2,
+    "lom": "431",
+    "lomSection": "431-B",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": "A",
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "2-ID-D",
+     "2-ID-E"
+    ],
+    "bmBeamline2026": [
+     "2-BM-A,B"
+    ]
+   },
+   {
+    "sector": 3,
+    "zone": "A",
+    "idStraightAzDeg": 51.8,
+    "idSourceXY": [
+     108.53,
+     137.92
+    ],
+    "idBeamDirDeg": 321.8,
+    "idBeamHitsOuterWallXY": [
+     179.38,
+     82.17
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     120.04,
+     128.29
+    ],
+    "bmBeamDirDeg": 316.71,
+    "bmBeamHitsOuterWallXY": [
+     185.82,
+     66.33
+    ],
+    "floorLabelXY": [
+     156.35,
+     100.76
+    ],
+    "compassBearingOfStraightDeg": 38.2,
+    "lom": "431",
+    "lomSection": "431-D",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "3-ID-B,C,D"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 4,
+    "zone": "A",
+    "idStraightAzDeg": 42.8,
+    "idSourceXY": [
+     128.77,
+     119.24
+    ],
+    "idBeamDirDeg": 312.8,
+    "idBeamHitsOuterWallXY": [
+     190.02,
+     53.1
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     138.63,
+     107.93
+    ],
+    "bmBeamDirDeg": 307.71,
+    "bmBeamHitsOuterWallXY": [
+     193.91,
+     36.44
+    ],
+    "floorLabelXY": [
+     170.18,
+     75.06
+    ],
+    "compassBearingOfStraightDeg": 47.2,
+    "lom": "431",
+    "lomSection": "431-E",
+    "featureBeamline": "POLAR (4-ID-B,G,H)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "4-ID-B,G,H"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 5,
+    "zone": "A",
+    "idStraightAzDeg": 33.8,
+    "idSourceXY": [
+     145.84,
+     97.63
+    ],
+    "idBeamDirDeg": 303.8,
+    "idBeamHitsOuterWallXY": [
+     195.99,
+     22.72
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     153.81,
+     84.91
+    ],
+    "bmBeamDirDeg": 298.71,
+    "bmBeamHitsOuterWallXY": [
+     197.22,
+     5.65
+    ],
+    "floorLabelXY": [
+     179.83,
+     47.51
+    ],
+    "compassBearingOfStraightDeg": 56.2,
+    "lom": "432",
+    "lomSection": "432-A",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "5-ID-B,C,D"
+    ],
+    "bmBeamline2026": [
+     "5-BM-B"
+    ]
+   },
+   {
+    "sector": 6,
+    "zone": "A",
+    "idStraightAzDeg": 24.8,
+    "idSourceXY": [
+     159.31,
+     73.61
+    ],
+    "idBeamDirDeg": 294.8,
+    "idBeamHitsOuterWallXY": [
+     197.13,
+     -8.22
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     165.2,
+     59.81
+    ],
+    "bmBeamDirDeg": 289.71,
+    "bmBeamHitsOuterWallXY": [
+     195.68,
+     -25.26
+    ],
+    "floorLabelXY": [
+     185.05,
+     18.8
+    ],
+    "compassBearingOfStraightDeg": 65.2,
+    "lom": "432",
+    "lomSection": "432-B",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "6-ID-B",
+     "6-ID-C",
+     "6-ID-D"
+    ],
+    "bmBeamline2026": [
+     "6-BM-A,B"
+    ]
+   },
+   {
+    "sector": 7,
+    "zone": "A",
+    "idStraightAzDeg": 15.8,
+    "idSourceXY": [
+     168.87,
+     47.79
+    ],
+    "idBeamDirDeg": 285.8,
+    "idBeamHitsOuterWallXY": [
+     193.42,
+     -38.96
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     172.52,
+     33.23
+    ],
+    "bmBeamDirDeg": 280.71,
+    "bmBeamHitsOuterWallXY": [
+     189.31,
+     -55.57
+    ],
+    "floorLabelXY": [
+     185.71,
+     -10.38
+    ],
+    "compassBearingOfStraightDeg": 74.2,
+    "lom": "432",
+    "lomSection": "432-D",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "7-ID-B",
+     "7-ID-B,C,D",
+     "7-ID-C",
+     "7-ID-D"
+    ],
+    "bmBeamline2026": [
+     "7-BM-B"
+    ]
+   },
+   {
+    "sector": 8,
+    "zone": "B",
+    "idStraightAzDeg": 6.8,
+    "idSourceXY": [
+     174.27,
+     20.78
+    ],
+    "idBeamDirDeg": 276.8,
+    "idBeamHitsOuterWallXY": [
+     184.94,
+     -68.74
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     175.59,
+     5.83
+    ],
+    "bmBeamDirDeg": 271.71,
+    "bmBeamHitsOuterWallXY": [
+     178.29,
+     -84.5
+    ],
+    "floorLabelXY": [
+     181.8,
+     -39.31
+    ],
+    "compassBearingOfStraightDeg": 83.2,
+    "lom": "432",
+    "lomSection": "432-E",
+    "featureBeamline": "XPCS (8-ID-E,I)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "8-ID-E,I"
+    ],
+    "bmBeamline2026": [
+     "8-BM-B"
+    ]
+   },
+   {
+    "sector": 9,
+    "zone": "B",
+    "idStraightAzDeg": 357.8,
+    "idSourceXY": [
+     175.37,
+     -6.74
+    ],
+    "idBeamDirDeg": 267.8,
+    "idBeamHitsOuterWallXY": [
+     171.91,
+     -96.82
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     174.35,
+     -21.71
+    ],
+    "bmBeamDirDeg": 262.71,
+    "bmBeamHitsOuterWallXY": [
+     162.88,
+     -111.34
+    ],
+    "floorLabelXY": [
+     173.41,
+     -67.26
+    ],
+    "compassBearingOfStraightDeg": 92.2,
+    "lom": "433",
+    "lomSection": "433-A",
+    "featureBeamline": "CSSI (9-ID-D)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "9-ID-D"
+    ],
+    "bmBeamline2026": [
+     "9-BM-B,C"
+    ]
+   },
+   {
+    "sector": 10,
+    "zone": "B",
+    "idStraightAzDeg": 348.8,
+    "idSourceXY": [
+     172.16,
+     -34.09
+    ],
+    "idBeamDirDeg": 258.8,
+    "idBeamHitsOuterWallXY": [
+     154.65,
+     -122.52
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     168.8,
+     -48.72
+    ],
+    "bmBeamDirDeg": 253.71,
+    "bmBeamHitsOuterWallXY": [
+     143.45,
+     -135.46
+    ],
+    "floorLabelXY": [
+     160.76,
+     -93.56
+    ],
+    "compassBearingOfStraightDeg": 101.2,
+    "lom": "433",
+    "lomSection": "433-B",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": "B",
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "10-ID-B"
+    ],
+    "bmBeamline2026": [
+     "10-BM-B"
+    ]
+   },
+   {
+    "sector": 11,
+    "zone": "B",
+    "idStraightAzDeg": 339.8,
+    "idSourceXY": [
+     164.71,
+     -60.6
+    ],
+    "idBeamDirDeg": 249.8,
+    "idBeamHitsOuterWallXY": [
+     133.58,
+     -145.21
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     159.1,
+     -74.52
+    ],
+    "bmBeamDirDeg": 244.71,
+    "bmBeamHitsOuterWallXY": [
+     120.49,
+     -156.23
+    ],
+    "floorLabelXY": [
+     144.14,
+     -117.56
+    ],
+    "compassBearingOfStraightDeg": 110.2,
+    "lom": "433",
+    "lomSection": "433-D",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "11-ID-B",
+     "11-ID-C",
+     "11-ID-D"
+    ],
+    "bmBeamline2026": [
+     "11-BM-B"
+    ]
+   },
+   {
+    "sector": 12,
+    "zone": "B",
+    "idStraightAzDeg": 330.8,
+    "idSourceXY": [
+     153.2,
+     -85.62
+    ],
+    "idBeamDirDeg": 240.8,
+    "idBeamHitsOuterWallXY": [
+     109.22,
+     -164.31
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     145.49,
+     -98.49
+    ],
+    "bmBeamDirDeg": 235.71,
+    "bmBeamHitsOuterWallXY": [
+     94.58,
+     -173.16
+    ],
+    "floorLabelXY": [
+     123.98,
+     -138.66
+    ],
+    "compassBearingOfStraightDeg": 119.2,
+    "lom": "433",
+    "lomSection": "433-E",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "12-ID-B",
+     "12-ID-E"
+    ],
+    "bmBeamline2026": [
+     "12-BM-B"
+    ]
+   },
+   {
+    "sector": 13,
+    "zone": "B",
+    "idStraightAzDeg": 321.8,
+    "idSourceXY": [
+     137.92,
+     -108.53
+    ],
+    "idBeamDirDeg": 231.8,
+    "idBeamHitsOuterWallXY": [
+     82.17,
+     -179.38
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     128.29,
+     -120.04
+    ],
+    "bmBeamDirDeg": 226.71,
+    "bmBeamHitsOuterWallXY": [
+     66.33,
+     -185.82
+    ],
+    "floorLabelXY": [
+     100.76,
+     -156.35
+    ],
+    "compassBearingOfStraightDeg": 128.2,
+    "lom": "434",
+    "lomSection": "434-A",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "13-ID-C,D",
+     "13-ID-E"
+    ],
+    "bmBeamline2026": [
+     "13-BM-C",
+     "13-BM-D"
+    ]
+   },
+   {
+    "sector": 14,
+    "zone": "B",
+    "idStraightAzDeg": 312.8,
+    "idSourceXY": [
+     119.24,
+     -128.77
+    ],
+    "idBeamDirDeg": 222.8,
+    "idBeamHitsOuterWallXY": [
+     53.1,
+     -190.02
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     107.93,
+     -138.63
+    ],
+    "bmBeamDirDeg": 217.71,
+    "bmBeamHitsOuterWallXY": [
+     36.44,
+     -193.91
+    ],
+    "floorLabelXY": [
+     75.06,
+     -170.18
+    ],
+    "compassBearingOfStraightDeg": 137.2,
+    "lom": "434",
+    "lomSection": "434-B",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "14-ID-B"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 15,
+    "zone": "C",
+    "idStraightAzDeg": 303.8,
+    "idSourceXY": [
+     97.63,
+     -145.84
+    ],
+    "idBeamDirDeg": 213.8,
+    "idBeamHitsOuterWallXY": [
+     22.72,
+     -195.99
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     84.91,
+     -153.81
+    ],
+    "bmBeamDirDeg": 208.71,
+    "bmBeamHitsOuterWallXY": [
+     5.65,
+     -197.22
+    ],
+    "floorLabelXY": [
+     47.51,
+     -179.83
+    ],
+    "compassBearingOfStraightDeg": 146.2,
+    "lom": "434",
+    "lomSection": "434-D",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "15-ID-B,E",
+     "15-ID-C,D"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 16,
+    "zone": "C",
+    "idStraightAzDeg": 294.8,
+    "idSourceXY": [
+     73.61,
+     -159.31
+    ],
+    "idBeamDirDeg": 204.8,
+    "idBeamHitsOuterWallXY": [
+     -8.22,
+     -197.13
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     59.81,
+     -165.2
+    ],
+    "bmBeamDirDeg": 199.71,
+    "bmBeamHitsOuterWallXY": [
+     -25.26,
+     -195.68
+    ],
+    "floorLabelXY": [
+     18.8,
+     -185.05
+    ],
+    "compassBearingOfStraightDeg": 155.2,
+    "lom": "434",
+    "lomSection": "434-E",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "16-ID-B",
+     "16-ID-D,E"
+    ],
+    "bmBeamline2026": [
+     "16-BM-B/D"
+    ]
+   },
+   {
+    "sector": 17,
+    "zone": "C",
+    "idStraightAzDeg": 285.8,
+    "idSourceXY": [
+     47.79,
+     -168.87
+    ],
+    "idBeamDirDeg": 195.8,
+    "idBeamHitsOuterWallXY": [
+     -38.96,
+     -193.42
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     33.23,
+     -172.52
+    ],
+    "bmBeamDirDeg": 190.71,
+    "bmBeamHitsOuterWallXY": [
+     -55.57,
+     -189.31
+    ],
+    "floorLabelXY": [
+     -10.38,
+     -185.71
+    ],
+    "compassBearingOfStraightDeg": 164.2,
+    "lom": "435",
+    "lomSection": "435-A",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": "C",
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "17-ID-B"
+    ],
+    "bmBeamline2026": [
+     "17-BM-B"
+    ]
+   },
+   {
+    "sector": 18,
+    "zone": "C",
+    "idStraightAzDeg": 276.8,
+    "idSourceXY": [
+     20.78,
+     -174.27
+    ],
+    "idBeamDirDeg": 186.8,
+    "idBeamHitsOuterWallXY": [
+     -68.74,
+     -184.94
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     5.83,
+     -175.59
+    ],
+    "bmBeamDirDeg": 181.71,
+    "bmBeamHitsOuterWallXY": [
+     -84.5,
+     -178.29
+    ],
+    "floorLabelXY": [
+     -39.31,
+     -181.8
+    ],
+    "compassBearingOfStraightDeg": 173.2,
+    "lom": "435",
+    "lomSection": "435-B",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "18-ID-D"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 19,
+    "zone": "C",
+    "idStraightAzDeg": 267.8,
+    "idSourceXY": [
+     -6.74,
+     -175.37
+    ],
+    "idBeamDirDeg": 177.8,
+    "idBeamHitsOuterWallXY": [
+     -96.82,
+     -171.91
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -21.71,
+     -174.35
+    ],
+    "bmBeamDirDeg": 172.71,
+    "bmBeamHitsOuterWallXY": [
+     -111.34,
+     -162.88
+    ],
+    "floorLabelXY": [
+     -67.26,
+     -173.41
+    ],
+    "compassBearingOfStraightDeg": 182.2,
+    "lom": "435",
+    "lomSection": "435-D (+444 LBB)",
+    "featureBeamline": "ISN (19-ID-E, in LBB)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "19-ID-E"
+    ],
+    "bmBeamline2026": [
+     "19-BM-D"
+    ]
+   },
+   {
+    "sector": 20,
+    "zone": "C",
+    "idStraightAzDeg": 258.8,
+    "idSourceXY": [
+     -34.09,
+     -172.16
+    ],
+    "idBeamDirDeg": 168.8,
+    "idBeamHitsOuterWallXY": [
+     -122.52,
+     -154.65
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -48.72,
+     -168.8
+    ],
+    "bmBeamDirDeg": 163.71,
+    "bmBeamHitsOuterWallXY": [
+     -135.46,
+     -143.45
+    ],
+    "floorLabelXY": [
+     -93.56,
+     -160.76
+    ],
+    "compassBearingOfStraightDeg": 191.2,
+    "lom": "435",
+    "lomSection": "435-E (+444 LBB)",
+    "featureBeamline": "HEXM (20-ID-D,E; E in LBB)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "20-ID-D,E"
+    ],
+    "bmBeamline2026": [
+     "20-BM-B"
+    ]
+   },
+   {
+    "sector": 21,
+    "zone": "C",
+    "idStraightAzDeg": 249.8,
+    "idSourceXY": [
+     -60.6,
+     -164.71
+    ],
+    "idBeamDirDeg": 159.8,
+    "idBeamHitsOuterWallXY": [
+     -145.21,
+     -133.58
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -74.52,
+     -159.1
+    ],
+    "bmBeamDirDeg": 154.71,
+    "bmBeamHitsOuterWallXY": [
+     -156.23,
+     -120.49
+    ],
+    "floorLabelXY": [
+     -117.56,
+     -144.14
+    ],
+    "compassBearingOfStraightDeg": 200.2,
+    "lom": "436",
+    "lomSection": "436-A",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "21-ID-D",
+     "21-ID-F",
+     "21-ID-G"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 22,
+    "zone": "D",
+    "idStraightAzDeg": 240.8,
+    "idSourceXY": [
+     -85.62,
+     -153.2
+    ],
+    "idBeamDirDeg": 150.8,
+    "idBeamHitsOuterWallXY": [
+     -164.31,
+     -109.22
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -98.49,
+     -145.49
+    ],
+    "bmBeamDirDeg": 145.71,
+    "bmBeamHitsOuterWallXY": [
+     -173.16,
+     -94.58
+    ],
+    "floorLabelXY": [
+     -138.66,
+     -123.98
+    ],
+    "compassBearingOfStraightDeg": 209.2,
+    "lom": "436",
+    "lomSection": "436-B",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "22-ID-D",
+     "22-ID-E"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 23,
+    "zone": "D",
+    "idStraightAzDeg": 231.8,
+    "idSourceXY": [
+     -108.53,
+     -137.92
+    ],
+    "idBeamDirDeg": 141.8,
+    "idBeamHitsOuterWallXY": [
+     -179.38,
+     -82.17
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -120.04,
+     -128.29
+    ],
+    "bmBeamDirDeg": 136.71,
+    "bmBeamHitsOuterWallXY": [
+     -185.82,
+     -66.33
+    ],
+    "floorLabelXY": [
+     -156.35,
+     -100.76
+    ],
+    "compassBearingOfStraightDeg": 218.2,
+    "lom": "436",
+    "lomSection": "436-D",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "23-ID-B",
+     "23-ID-D"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 24,
+    "zone": "D",
+    "idStraightAzDeg": 222.8,
+    "idSourceXY": [
+     -128.77,
+     -119.24
+    ],
+    "idBeamDirDeg": 132.8,
+    "idBeamHitsOuterWallXY": [
+     -190.02,
+     -53.1
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -138.63,
+     -107.93
+    ],
+    "bmBeamDirDeg": 127.71,
+    "bmBeamHitsOuterWallXY": [
+     -193.91,
+     -36.44
+    ],
+    "floorLabelXY": [
+     -170.18,
+     -75.06
+    ],
+    "compassBearingOfStraightDeg": 227.2,
+    "lom": "436",
+    "lomSection": "436-E",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": "D",
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "24-ID-C",
+     "24-ID-E"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 25,
+    "zone": "D",
+    "idStraightAzDeg": 213.8,
+    "idSourceXY": [
+     -145.84,
+     -97.63
+    ],
+    "idBeamDirDeg": 123.8,
+    "idBeamHitsOuterWallXY": [
+     -195.99,
+     -22.72
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -153.81,
+     -84.91
+    ],
+    "bmBeamDirDeg": 118.71,
+    "bmBeamHitsOuterWallXY": [
+     -197.22,
+     -5.65
+    ],
+    "floorLabelXY": [
+     -179.83,
+     -47.51
+    ],
+    "compassBearingOfStraightDeg": 236.2,
+    "lom": "441",
+    "lomSection": "441",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "25-ID-C",
+     "25-ID-D,E"
+    ],
+    "bmBeamline2026": null,
+    "apsuRelocatedProgram": "ASL - Advanced Spectroscopy & LERIX (not one of the nine feature beamlines; APS-U relocation, FDR 4-10): canted undulators; 25-ID-C = Advanced Spectroscopy branch (outboard mirrors), 25-ID-D,E = LERIX / time-resolved branch (inboard mirror). Programs moved from 20-ID and 11-ID-D (FDR 4-10.1); APS news 2022-08-18 adds that it shares space with the ns time-resolved programs formerly at sectors 7 and 11."
+   },
+   {
+    "sector": 26,
+    "zone": "D",
+    "idStraightAzDeg": 204.8,
+    "idSourceXY": [
+     -159.31,
+     -73.61
+    ],
+    "idBeamDirDeg": 114.8,
+    "idBeamHitsOuterWallXY": [
+     -197.13,
+     8.22
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -165.2,
+     -59.81
+    ],
+    "bmBeamDirDeg": 109.71,
+    "bmBeamHitsOuterWallXY": [
+     -195.68,
+     25.26
+    ],
+    "floorLabelXY": [
+     -185.05,
+     -18.8
+    ],
+    "compassBearingOfStraightDeg": 245.2,
+    "lom": "441",
+    "lomSection": "441",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "26-ID-C"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 27,
+    "zone": "D",
+    "idStraightAzDeg": 195.8,
+    "idSourceXY": [
+     -168.87,
+     -47.79
+    ],
+    "idBeamDirDeg": 105.8,
+    "idBeamHitsOuterWallXY": [
+     -193.42,
+     38.96
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -172.52,
+     -33.23
+    ],
+    "bmBeamDirDeg": 100.71,
+    "bmBeamHitsOuterWallXY": [
+     -189.31,
+     55.57
+    ],
+    "floorLabelXY": [
+     -185.71,
+     10.38
+    ],
+    "compassBearingOfStraightDeg": 254.2,
+    "lom": "441",
+    "lomSection": "441",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "27-ID-B"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 28,
+    "zone": "D",
+    "idStraightAzDeg": 186.8,
+    "idSourceXY": [
+     -174.27,
+     -20.78
+    ],
+    "idBeamDirDeg": 96.8,
+    "idBeamHitsOuterWallXY": [
+     -184.94,
+     68.74
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -175.59,
+     -5.83
+    ],
+    "bmBeamDirDeg": 91.71,
+    "bmBeamHitsOuterWallXY": [
+     -178.29,
+     84.5
+    ],
+    "floorLabelXY": [
+     -181.8,
+     39.31
+    ],
+    "compassBearingOfStraightDeg": 263.2,
+    "lom": "437",
+    "lomSection": "437-B",
+    "featureBeamline": "CHEX (28-ID-B..G)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "28-ID-B,C",
+     "28-ID-D,E",
+     "28-ID-F",
+     "28-ID-G"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 29,
+    "zone": "E",
+    "idStraightAzDeg": 177.8,
+    "idSourceXY": [
+     -175.37,
+     6.74
+    ],
+    "idBeamDirDeg": 87.8,
+    "idBeamHitsOuterWallXY": [
+     -171.91,
+     96.82
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -174.35,
+     21.71
+    ],
+    "bmBeamDirDeg": 82.71,
+    "bmBeamHitsOuterWallXY": [
+     -162.88,
+     111.34
+    ],
+    "floorLabelXY": [
+     -173.41,
+     67.26
+    ],
+    "compassBearingOfStraightDeg": 272.2,
+    "lom": "437",
+    "lomSection": "437-D",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "29-ID-C,D"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 30,
+    "zone": "E",
+    "idStraightAzDeg": 168.8,
+    "idSourceXY": [
+     -172.16,
+     34.09
+    ],
+    "idBeamDirDeg": 78.8,
+    "idBeamHitsOuterWallXY": [
+     -154.65,
+     122.52
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -168.8,
+     48.72
+    ],
+    "bmBeamDirDeg": 73.71,
+    "bmBeamHitsOuterWallXY": [
+     -143.45,
+     135.46
+    ],
+    "floorLabelXY": [
+     -160.76,
+     93.56
+    ],
+    "compassBearingOfStraightDeg": 281.2,
+    "lom": "437",
+    "lomSection": "437-E",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": "E",
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "30-ID-B,C"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 31,
+    "zone": "E",
+    "idStraightAzDeg": 159.8,
+    "idSourceXY": [
+     -164.71,
+     60.6
+    ],
+    "idBeamDirDeg": 69.8,
+    "idBeamHitsOuterWallXY": [
+     -133.58,
+     145.21
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -159.1,
+     74.52
+    ],
+    "bmBeamDirDeg": 64.71,
+    "bmBeamHitsOuterWallXY": [
+     -120.49,
+     156.23
+    ],
+    "floorLabelXY": [
+     -144.14,
+     117.56
+    ],
+    "compassBearingOfStraightDeg": 290.2,
+    "lom": "438",
+    "lomSection": "438-A",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "31-ID-D",
+     "31-ID-E"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 32,
+    "zone": "E",
+    "idStraightAzDeg": 150.8,
+    "idSourceXY": [
+     -153.2,
+     85.62
+    ],
+    "idBeamDirDeg": 60.8,
+    "idBeamHitsOuterWallXY": [
+     -109.22,
+     164.31
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -145.49,
+     98.49
+    ],
+    "bmBeamDirDeg": 55.71,
+    "bmBeamHitsOuterWallXY": [
+     -94.58,
+     173.16
+    ],
+    "floorLabelXY": [
+     -123.98,
+     138.66
+    ],
+    "compassBearingOfStraightDeg": 299.2,
+    "lom": "438",
+    "lomSection": "438-B",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "special: beam size monitor, no beamline",
+    "idStations2026": [
+     "32-ID-B,C"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 33,
+    "zone": "E",
+    "idStraightAzDeg": 141.8,
+    "idSourceXY": [
+     -137.92,
+     108.53
+    ],
+    "idBeamDirDeg": 51.8,
+    "idBeamHitsOuterWallXY": [
+     -82.17,
+     179.38
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -128.29,
+     120.04
+    ],
+    "bmBeamDirDeg": 46.71,
+    "bmBeamHitsOuterWallXY": [
+     -66.33,
+     185.82
+    ],
+    "floorLabelXY": [
+     -100.76,
+     156.35
+    ],
+    "compassBearingOfStraightDeg": 308.2,
+    "lom": "438",
+    "lomSection": "438-D",
+    "featureBeamline": "PtychoProbe (33-ID-C)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "standard",
+    "idStations2026": [
+     "33-ID-C"
+    ],
+    "bmBeamline2026": [
+     "33-BM-C"
+    ],
+    "featureBeamlineNote": "APS directory/phone list 2026 lists the user station as 33-ID-C; the 2019 FDR planned 33-ID-D at ~70 m from the source."
+   },
+   {
+    "sector": 34,
+    "zone": "E",
+    "idStraightAzDeg": 132.8,
+    "idSourceXY": [
+     -119.24,
+     128.77
+    ],
+    "idBeamDirDeg": 42.8,
+    "idBeamHitsOuterWallXY": [
+     -53.1,
+     190.02
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -107.93,
+     138.63
+    ],
+    "bmBeamDirDeg": 37.71,
+    "bmBeamHitsOuterWallXY": [
+     -36.44,
+     193.91
+    ],
+    "floorLabelXY": [
+     -75.06,
+     170.18
+    ],
+    "compassBearingOfStraightDeg": 317.2,
+    "lom": "438",
+    "lomSection": "438-E",
+    "featureBeamline": "ATOMIC (34-ID-F) + 3DMN (34-ID-E)",
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "canted undulators (2 IDs, 1.0 mrad apart)",
+    "bmFrontEndFDR2019": "none (port capped)",
+    "idStations2026": [
+     "34-ID-E",
+     "34-ID-F"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 35,
+    "zone": "E",
+    "idStraightAzDeg": 123.8,
+    "idSourceXY": [
+     -97.63,
+     145.84
+    ],
+    "idBeamDirDeg": 33.8,
+    "idBeamHitsOuterWallXY": [
+     -22.72,
+     195.99
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": [
+     -84.91,
+     153.81
+    ],
+    "bmBeamDirDeg": 28.71,
+    "bmBeamHitsOuterWallXY": [
+     -5.65,
+     197.22
+    ],
+    "floorLabelXY": [
+     -47.51,
+     179.83
+    ],
+    "compassBearingOfStraightDeg": 326.2,
+    "lom": "438",
+    "lomSection": "438-F",
+    "featureBeamline": null,
+    "machineFunction": null,
+    "superDoor": null,
+    "idFrontEndFDR2019": "inline high-heat-load (1-2 IDs in tandem)",
+    "bmFrontEndFDR2019": "special: ASD diagnostics beamline",
+    "idStations2026": [
+     "35-ID-B",
+     "35-ID-B,C,D,E",
+     "35-ID-C",
+     "35-ID-D,E"
+    ],
+    "bmBeamline2026": null
+   },
+   {
+    "sector": 36,
+    "zone": "F",
+    "idStraightAzDeg": 114.8,
+    "idSourceXY": [
+     -73.61,
+     159.31
+    ],
+    "idBeamDirDeg": 24.8,
+    "idBeamHitsOuterWallXY": [
+     8.22,
+     197.13
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": null,
+    "bmBeamDirDeg": null,
+    "bmBeamHitsOuterWallXY": null,
+    "floorLabelXY": [
+     -64.53,
+     174.45
+    ],
+    "compassBearingOfStraightDeg": 335.2,
+    "lom": null,
+    "lomSection": null,
+    "featureBeamline": null,
+    "machineFunction": "RF: 4 single-cell 352-MHz copper cavities (FDR 2019 2-3.10, ch.5). RF power is being moved from klystrons to solid-state amplifiers, one sector (4 cavities) at a time: the first sector was being installed in June 2026, full storage-ring deployment expected by 2028 (APS news 2026-06-10); the APS Strategic Plan 2025-29 orders the work sector 36, then 40, then 37.",
+    "superDoor": null
+   },
+   {
+    "sector": 37,
+    "zone": "F",
+    "idStraightAzDeg": 105.8,
+    "idSourceXY": [
+     -47.79,
+     168.87
+    ],
+    "idBeamDirDeg": 15.8,
+    "idBeamHitsOuterWallXY": [
+     38.96,
+     193.42
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": null,
+    "bmBeamDirDeg": null,
+    "bmBeamHitsOuterWallXY": null,
+    "floorLabelXY": [
+     -36.45,
+     182.39
+    ],
+    "compassBearingOfStraightDeg": 344.2,
+    "lom": null,
+    "lomSection": null,
+    "featureBeamline": null,
+    "machineFunction": "RF: 4 single-cell 352-MHz copper cavities (FDR 2019 2-3.10, ch.5). RF power is being moved from klystrons to solid-state amplifiers, one sector (4 cavities) at a time: the first sector was being installed in June 2026, full storage-ring deployment expected by 2028 (APS news 2026-06-10); the APS Strategic Plan 2025-29 orders the work sector 36, then 40, then 37.",
+    "superDoor": null
+   },
+   {
+    "sector": 38,
+    "zone": "F",
+    "idStraightAzDeg": 96.8,
+    "idSourceXY": [
+     -20.78,
+     174.27
+    ],
+    "idBeamDirDeg": 6.8,
+    "idBeamHitsOuterWallXY": [
+     68.74,
+     184.94
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": null,
+    "bmBeamDirDeg": null,
+    "bmBeamHitsOuterWallXY": null,
+    "floorLabelXY": [
+     -7.46,
+     185.85
+    ],
+    "compassBearingOfStraightDeg": 353.2,
+    "lom": null,
+    "lomSection": null,
+    "featureBeamline": null,
+    "machineFunction": "As built: passive (beam-driven) superconducting 4th-harmonic 1408-MHz bunch-lengthening cavity, 2.1 K, up to 1.3 MV, in one half of the 5-m straight (IPAC24 WEPS10); the other half holds the longitudinal bunch-by-bunch feedback kicker pair and the swap-out extraction stripline kickers (IPAC24 TUZN2 slides: \"S38 longitudinal feedback kicker pair\", \"S38 Stripline Kickers Bakeout\"; FDR 2-2.8.2: extraction kickers share the S38 straight with the harmonic cavity). The sector-38 main-RF cavities were removed (FDR ch.5).",
+    "superDoor": null
+   },
+   {
+    "sector": 39,
+    "zone": "F",
+    "idStraightAzDeg": 87.8,
+    "idSourceXY": [
+     6.74,
+     175.37
+    ],
+    "idBeamDirDeg": 357.8,
+    "idBeamHitsOuterWallXY": [
+     96.82,
+     171.91
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": null,
+    "bmBeamDirDeg": null,
+    "bmBeamHitsOuterWallXY": null,
+    "floorLabelXY": [
+     21.7,
+     184.73
+    ],
+    "compassBearingOfStraightDeg": 2.2,
+    "lom": null,
+    "lomSection": null,
+    "featureBeamline": null,
+    "machineFunction": "Injection: DC Lambertson septum + 3 fast stripline injection kickers in the S39 ID straight (on-axis vertical swap-out injection); the replaced bunch is dumped in the swap-out dump inside S39A:M1 after a decoherence pre-kick and 3 extraction kicks in S38 (FDR 2-2.8, 2-3.x Table 2.29). World-first multi-bunch swap-out injection demonstrated 29 Apr 2024 (APS news 2024-04-30).",
+    "superDoor": null
+   },
+   {
+    "sector": 40,
+    "zone": "F",
+    "idStraightAzDeg": 78.8,
+    "idSourceXY": [
+     34.09,
+     172.16
+    ],
+    "idBeamDirDeg": 348.8,
+    "idBeamHitsOuterWallXY": [
+     122.52,
+     154.65
+    ],
+    "idBeamLengthToOuterWallM": 90.2,
+    "bmSourceXYApprox": null,
+    "bmBeamDirDeg": null,
+    "bmBeamHitsOuterWallXY": null,
+    "floorLabelXY": [
+     50.33,
+     179.06
+    ],
+    "compassBearingOfStraightDeg": 11.2,
+    "lom": null,
+    "lomSection": null,
+    "featureBeamline": null,
+    "machineFunction": "RF: 4 single-cell 352-MHz copper cavities (FDR 2019 2-3.10, ch.5). RF power is being moved from klystrons to solid-state amplifiers, one sector (4 cavities) at a time: the first sector was being installed in June 2026, full storage-ring deployment expected by 2028 (APS news 2026-06-10); the APS Strategic Plan 2025-29 orders the work sector 36, then 40, then 37.",
+    "superDoor": null
+   }
+  ],
+  "sector1AngleCrossChecks": {
+   "LBB_containment_bound_deg": [
+    68.6,
+    70.2
+   ],
+   "LBB_containment_note": "range of phi_1 for which the 19-ID line at 213-227 m (ISN end station, FDR Table 4.49: window 213 m, instrument 220 m, beamstop 227 m) AND the 20-ID line at 177.7-197 m (HEXM E station, FDR Table 4.28) both fall inside the OSM footprint of Bldg 444",
+   "ISN_corridor_deg": 69.8,
+   "HEXM_corridor_deg": [
+    69.1,
+    70.5
+   ],
+   "APS_graphic_deg": [
+    68.9,
+    69.3
+   ],
+   "superDoor_hypothesis_deg": 70.1,
+   "LOM_consistency": "standard LOMs 432-434 start ~13.6+/-1 deg CCW of the outer-wall crossing of their first sector ID line and end ~8.8 deg CCW of their last sector line: consistent placement, not an absolute calibration",
+   "verifierRecheck": {
+    "LBB_containment_deg": [
+     68.6,
+     70.25
+    ],
+    "LBB_containment_note": "reproduced independently from OSM way 1370112035 (ISN at 213, 220, 227 m with a 5.0 mrad M3 turn at 35 m; HEXM at 180.7 and 197 m)",
+    "ISN_corridor_position_deg": 69.4,
+    "ISN_corridor_position_note": "phi_1 for which the ISN line (source on the 175.5 m apothem, 0.29 deg inboard turn at 35 m) passes through the centre-line of the OSM ISN corridor (edges of LOM 436 polygon, 3 stations from x=-150 to -205 m); +/-0.4 deg per metre of beam offset from corridor centre, +/-0.6 deg for 1.5 m centre uncertainty",
+    "HEXM_corridor_position_deg": [
+     68.3,
+     68.9
+    ],
+    "HEXM_corridor_position_note": "same method for the HEXM corridor; weak, because that corridor also carries a row of offices (FDR 4-1.2), so the beam need not be on its centre-line",
+    "corridor_directions_reproduced": "OSM corridor wall directions re-measured with WGS84 local radii: ISN 177.25-177.88 (mean 177.6) deg, HEXM 169.3-169.7 deg (same as the dossier)",
+    "verdict": "No primary survey source exists publicly; all methods give 68.9-70.5 deg; an inverse-variance mean is ~69.6 deg. 69.8 deg is kept, with uncertainty +/-1.0 deg (not +/-0.7). A 0.2 deg change moves ID source points by 0.6 m and the LBB end stations by ~0.8 m."
+   }
+  },
+  "zoneLettersSource": "inferred placeholder (7 per zone), not sourced; see ring.zones",
+  "sector38AsBuiltSource": "IPAC24 WEPS10 + IPAC24 TUZN2 slides (S38 named explicitly for the feedback and stripline kickers)"
+ },
+ "buildings": [
+  {
+   "id": "400",
+   "name": "APS ring building (Bldg 400): storage-ring tunnel + mezzanine + experiment hall",
+   "osmId": "relation/3126234",
+   "role": "ring",
+   "polygon": [
+    [
+     197.29,
+     0.0
+    ],
+    [
+     196.21,
+     20.63
+    ],
+    [
+     192.98,
+     41.02
+    ],
+    [
+     187.63,
+     60.97
+    ],
+    [
+     180.23,
+     80.25
+    ],
+    [
+     170.86,
+     98.65
+    ],
+    [
+     159.61,
+     115.96
+    ],
+    [
+     146.62,
+     132.01
+    ],
+    [
+     132.01,
+     146.61
+    ],
+    [
+     115.97,
+     159.61
+    ],
+    [
+     98.65,
+     170.86
+    ],
+    [
+     80.25,
+     180.23
+    ],
+    [
+     60.97,
+     187.63
+    ],
+    [
+     41.02,
+     192.98
+    ],
+    [
+     20.63,
+     196.21
+    ],
+    [
+     0.0,
+     197.29
+    ],
+    [
+     -20.62,
+     196.21
+    ],
+    [
+     -41.01,
+     192.98
+    ],
+    [
+     -60.96,
+     187.63
+    ],
+    [
+     -80.24,
+     180.23
+    ],
+    [
+     -98.64,
+     170.86
+    ],
+    [
+     -115.96,
+     159.61
+    ],
+    [
+     -132.01,
+     146.61
+    ],
+    [
+     -146.61,
+     132.01
+    ],
+    [
+     -159.6,
+     115.96
+    ],
+    [
+     -170.85,
+     98.65
+    ],
+    [
+     -180.22,
+     80.25
+    ],
+    [
+     -187.63,
+     60.97
+    ],
+    [
+     -192.97,
+     41.02
+    ],
+    [
+     -196.2,
+     20.63
+    ],
+    [
+     -197.28,
+     0.0
+    ],
+    [
+     -196.2,
+     -20.62
+    ],
+    [
+     -192.97,
+     -41.01
+    ],
+    [
+     -187.63,
+     -60.96
+    ],
+    [
+     -180.22,
+     -80.24
+    ],
+    [
+     -170.85,
+     -98.64
+    ],
+    [
+     -159.6,
+     -115.96
+    ],
+    [
+     -146.61,
+     -132.01
+    ],
+    [
+     -132.01,
+     -146.61
+    ],
+    [
+     -115.96,
+     -159.6
+    ],
+    [
+     -98.64,
+     -170.85
+    ],
+    [
+     -80.24,
+     -180.23
+    ],
+    [
+     -60.96,
+     -187.63
+    ],
+    [
+     -41.01,
+     -192.97
+    ],
+    [
+     -20.62,
+     -196.2
+    ],
+    [
+     0.0,
+     -197.28
+    ],
+    [
+     20.63,
+     -196.2
+    ],
+    [
+     41.02,
+     -192.97
+    ],
+    [
+     60.97,
+     -187.63
+    ],
+    [
+     80.25,
+     -180.23
+    ],
+    [
+     98.65,
+     -170.85
+    ],
+    [
+     115.97,
+     -159.6
+    ],
+    [
+     132.01,
+     -146.61
+    ],
+    [
+     146.62,
+     -132.01
+    ],
+    [
+     159.61,
+     -115.96
+    ],
+    [
+     170.86,
+     -98.64
+    ],
+    [
+     180.23,
+     -80.24
+    ],
+    [
+     187.63,
+     -60.96
+    ],
+    [
+     192.98,
+     -41.01
+    ],
+    [
+     196.21,
+     -20.62
+    ]
+   ],
+   "holes": [
+    [
+     [
+      -86.88,
+      146.93
+     ],
+     [
+      -65.89,
+      157.95
+     ],
+     [
+      -47.08,
+      164.51
+     ],
+     [
+      -33.23,
+      167.32
+     ],
+     [
+      -12.3,
+      169.94
+     ],
+     [
+      4.71,
+      170.4
+     ],
+     [
+      25.11,
+      168.57
+     ],
+     [
+      42.93,
+      165.62
+     ],
+     [
+      68.46,
+      156.26
+     ],
+     [
+      80.59,
+      150.93
+     ],
+     [
+      80.35,
+      137.14
+     ],
+     [
+      106.31,
+      134.94
+     ],
+     [
+      121.93,
+      121.35
+     ],
+     [
+      135.81,
+      102.54
+     ],
+     [
+      126.73,
+      96.16
+     ],
+     [
+      132.29,
+      88.31
+     ],
+     [
+      145.39,
+      66.02
+     ],
+     [
+      148.53,
+      58.56
+     ],
+     [
+      154.3,
+      37.99
+     ],
+     [
+      166.0,
+      41.36
+     ],
+     [
+      171.89,
+      17.92
+     ],
+     [
+      171.89,
+      -12.76
+     ],
+     [
+      170.43,
+      -29.85
+     ],
+     [
+      161.97,
+      -31.68
+     ],
+     [
+      166.56,
+      -47.12
+     ],
+     [
+      155.37,
+      -75.59
+     ],
+     [
+      143.05,
+      -97.45
+     ],
+     [
+      125.41,
+      -119.32
+     ],
+     [
+      107.41,
+      -135.85
+     ],
+     [
+      91.98,
+      -146.69
+     ],
+     [
+      70.11,
+      -158.62
+     ],
+     [
+      52.3,
+      -165.06
+     ],
+     [
+      44.05,
+      -158.32
+     ],
+     [
+      34.13,
+      -166.83
+     ],
+     [
+      21.75,
+      -169.97
+     ],
+     [
+      8.44,
+      -170.94
+     ],
+     [
+      -17.69,
+      -171.86
+     ],
+     [
+      -40.66,
+      -167.26
+     ],
+     [
+      -71.7,
+      -155.51
+     ],
+     [
+      -90.82,
+      -144.85
+     ],
+     [
+      -105.14,
+      -135.48
+     ],
+     [
+      -120.94,
+      -121.52
+     ],
+     [
+      -116.53,
+      -107.37
+     ],
+     [
+      -139.31,
+      -97.82
+     ],
+     [
+      -156.03,
+      -68.24
+     ],
+     [
+      -160.99,
+      -55.01
+     ],
+     [
+      -166.69,
+      -32.78
+     ],
+     [
+      -169.44,
+      -13.12
+     ],
+     [
+      -170.6,
+      5.65
+     ],
+     [
+      -167.77,
+      28.62
+     ],
+     [
+      -160.51,
+      30.83
+     ],
+     [
+      -164.35,
+      46.12
+     ],
+     [
+      -161.23,
+      58.17
+     ],
+     [
+      -153.49,
+      74.73
+     ],
+     [
+      -140.11,
+      97.57
+     ],
+     [
+      -123.67,
+      117.76
+     ],
+     [
+      -105.83,
+      133.6
+     ]
+    ]
+   ],
+   "heightGuessM": 11.0,
+   "heightNote": "guess; hall roof ~10-12 m",
+   "notes": "Outer wall: OSM outer ring is a near-perfect circle (r=197.29 m, rms 0.04 m), resampled here at 60 vertices. Hole = inner wall (OSM, simplified with 0.30 m tolerance; notches = super-door vestibules + an unidentified inner annex at az 14-37 deg)."
+  },
+  {
+   "id": "401",
+   "name": "Building 401 - Central Lab/Office Building (XSD, AES, ASD)",
+   "osmId": "way/757487865",
+   "osmName": "APS Building 401",
+   "role": "office",
+   "polygon": [
+    [
+     28.01,
+     226.63
+    ],
+    [
+     22.13,
+     222.41
+    ],
+    [
+     24.34,
+     218.37
+    ],
+    [
+     21.95,
+     217.08
+    ],
+    [
+     23.02,
+     215.3
+    ],
+    [
+     21.89,
+     213.91
+    ],
+    [
+     26.46,
+     207.43
+    ],
+    [
+     27.73,
+     208.34
+    ],
+    [
+     28.72,
+     206.75
+    ],
+    [
+     33.77,
+     210.16
+    ],
+    [
+     36.09,
+     206.82
+    ],
+    [
+     37.52,
+     207.8
+    ],
+    [
+     41.72,
+     202.0
+    ],
+    [
+     31.15,
+     194.81
+    ],
+    [
+     43.3,
+     192.48
+    ],
+    [
+     59.18,
+     188.21
+    ],
+    [
+     87.32,
+     176.92
+    ],
+    [
+     73.9,
+     197.69
+    ],
+    [
+     76.76,
+     199.78
+    ],
+    [
+     70.13,
+     209.47
+    ],
+    [
+     67.62,
+     207.7
+    ],
+    [
+     63.71,
+     213.55
+    ],
+    [
+     66.61,
+     215.39
+    ],
+    [
+     60.71,
+     224.62
+    ],
+    [
+     77.52,
+     235.19
+    ],
+    [
+     81.17,
+     229.25
+    ],
+    [
+     85.59,
+     232.0
+    ],
+    [
+     92.98,
+     236.96
+    ],
+    [
+     89.62,
+     242.27
+    ],
+    [
+     99.75,
+     249.04
+    ],
+    [
+     114.9,
+     225.9
+    ],
+    [
+     132.89,
+     238.5
+    ],
+    [
+     134.86,
+     235.5
+    ],
+    [
+     141.18,
+     239.87
+    ],
+    [
+     127.35,
+     261.23
+    ],
+    [
+     121.1,
+     257.2
+    ],
+    [
+     118.03,
+     262.28
+    ],
+    [
+     136.44,
+     274.14
+    ],
+    [
+     126.33,
+     289.5
+    ],
+    [
+     40.14,
+     234.35
+    ]
+   ],
+   "nVertices": 40,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    81.12,
+    235.12
+   ],
+   "centroidAzDeg": 71.0,
+   "centroidRangeM": 248.7,
+   "areaM2": 4422.0,
+   "heightGuessM": 18.0,
+   "heightNote": "guess (multi-storey office wing)",
+   "notes": "Divisions from the OSM/Argonne site-map description. The 1995 site plan (PAC95 Galayda Fig. 1) points \"CONTROL CENTER\" at the junction of 401 with the ring building, and the APS building-monitor page lists a \"CONTROL CENTER, 1st floor: all operators in the MCR\" next to the 401 wings; so the Main Control Room is in the 401 complex where it meets the ring (exact wing not confirmed)."
+  },
+  {
+   "id": "402",
+   "name": "Building 402 - APS Conference Center (400+ seat auditorium)",
+   "osmId": "way/232798783",
+   "osmName": "APS Conference Center (402)",
+   "role": "conference",
+   "polygon": [
+    [
+     40.14,
+     234.35
+    ],
+    [
+     36.49,
+     239.69
+    ],
+    [
+     40.32,
+     244.64
+    ],
+    [
+     42.15,
+     250.34
+    ],
+    [
+     41.79,
+     255.3
+    ],
+    [
+     40.68,
+     259.89
+    ],
+    [
+     38.48,
+     264.49
+    ],
+    [
+     30.95,
+     269.08
+    ],
+    [
+     23.97,
+     270.91
+    ],
+    [
+     15.33,
+     269.26
+    ],
+    [
+     9.45,
+     266.69
+    ],
+    [
+     4.31,
+     261.36
+    ],
+    [
+     -0.08,
+     253.13
+    ],
+    [
+     -0.08,
+     246.64
+    ],
+    [
+     1.4,
+     240.24
+    ],
+    [
+     6.51,
+     235.09
+    ],
+    [
+     9.09,
+     233.25
+    ],
+    [
+     14.16,
+     231.56
+    ],
+    [
+     16.94,
+     231.32
+    ],
+    [
+     22.87,
+     231.59
+    ],
+    [
+     27.46,
+     232.71
+    ],
+    [
+     30.4,
+     228.11
+    ]
+   ],
+   "nVertices": 22,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    21.5,
+    250.08
+   ],
+   "centroidAzDeg": 85.1,
+   "centroidRangeM": 251.0,
+   "areaM2": 1359.0,
+   "heightGuessM": 12.0,
+   "heightNote": "guess",
+   "notes": "OSM description (from map.anl.gov): \"Conference Center featuring a 400-plus seat auditorium and classrooms accommodating 100-180 people\"; opened 1996. Labelled \"Multi-function building\" on the 1995 site plan."
+  },
+  {
+   "id": "411",
+   "name": "Building 411 - Linear accelerator tunnel",
+   "osmId": "way/1378754812",
+   "osmName": "APS Linear Accelerator Tunnel (411)",
+   "role": "injector",
+   "polygon": [
+    [
+     34.31,
+     67.66
+    ],
+    [
+     102.18,
+     87.57
+    ],
+    [
+     100.05,
+     94.82
+    ],
+    [
+     32.18,
+     74.91
+    ]
+   ],
+   "nVertices": 4,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    67.18,
+    81.24
+   ],
+   "centroidAzDeg": 50.4,
+   "centroidRangeM": 105.4,
+   "areaM2": 534.0,
+   "heightGuessM": 5.0,
+   "heightNote": "guess (bermed tunnel)"
+  },
+  {
+   "id": "412",
+   "name": "Building 412 - Injection wing (linac end, Particle Accumulator Ring)",
+   "osmId": "way/232798785",
+   "osmName": "APS Injection Wing (412)",
+   "role": "injector",
+   "polygon": [
+    [
+     22.68,
+     75.03
+    ],
+    [
+     -16.21,
+     64.29
+    ],
+    [
+     -16.59,
+     67.85
+    ],
+    [
+     -29.27,
+     64.63
+    ],
+    [
+     -27.91,
+     59.8
+    ],
+    [
+     -35.18,
+     58.01
+    ],
+    [
+     -28.52,
+     33.07
+    ],
+    [
+     38.9,
+     51.07
+    ],
+    [
+     32.18,
+     74.91
+    ],
+    [
+     23.83,
+     72.3
+    ]
+   ],
+   "nVertices": 10,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    0.93,
+    55.11
+   ],
+   "centroidAzDeg": 89.0,
+   "centroidRangeM": 55.1,
+   "areaM2": 1901.0,
+   "heightGuessM": 8.0,
+   "heightNote": "guess"
+  },
+  {
+   "id": "413",
+   "name": "Building 413 - Linac Extension Area (LEA)",
+   "osmId": "way/557447083",
+   "osmName": "APS LEA Linac Extension (413)",
+   "role": "injector",
+   "polygon": [
+    [
+     -113.35,
+     41.82
+    ],
+    [
+     -110.34,
+     30.51
+    ],
+    [
+     -98.2,
+     33.73
+    ],
+    [
+     -101.22,
+     45.05
+    ]
+   ],
+   "nVertices": 4,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -105.78,
+    37.78
+   ],
+   "centroidAzDeg": 160.3,
+   "centroidRangeM": 112.3,
+   "areaM2": 147.0,
+   "heightGuessM": 5.0,
+   "heightNote": "guess",
+   "notes": "Linac Extension Area: the enclosure that formerly housed LEUTL (Low-Energy Undulator Test Line); re-commissioned 2023 as an accelerator R&D beamline (~15 m of beamline ending in a dump), first beam at 425 MeV, reached via the PAR bypass, PAR-to-booster and booster-bypass lines (IBIC2023 WEP017). The OSM polygon (147 m2) is probably only part of the ~50-m enclosure."
+  },
+  {
+   "id": "420",
+   "name": "Building 420 - RF/Extraction wing (booster RF & extraction, ring RF; includes N-S corridor to 412)",
+   "osmId": "way/1378754811",
+   "osmName": "APS RF Extraction Wing (420)",
+   "role": "injector",
+   "polygon": [
+    [
+     -88.92,
+     115.96
+    ],
+    [
+     -61.25,
+     131.67
+    ],
+    [
+     -56.7,
+     133.63
+    ],
+    [
+     -52.3,
+     125.54
+    ],
+    [
+     -45.68,
+     128.0
+    ],
+    [
+     -47.4,
+     136.44
+    ],
+    [
+     -40.47,
+     139.76
+    ],
+    [
+     -30.83,
+     142.18
+    ],
+    [
+     -14.46,
+     144.72
+    ],
+    [
+     -2.97,
+     144.95
+    ],
+    [
+     7.39,
+     71.06
+    ],
+    [
+     11.89,
+     72.26
+    ],
+    [
+     2.3,
+     145.55
+    ],
+    [
+     1.9,
+     170.33
+    ],
+    [
+     -9.0,
+     170.02
+    ],
+    [
+     -20.77,
+     168.88
+    ],
+    [
+     -30.74,
+     167.63
+    ],
+    [
+     -42.99,
+     165.34
+    ],
+    [
+     -52.58,
+     162.6
+    ],
+    [
+     -64.51,
+     158.43
+    ],
+    [
+     -82.67,
+     149.14
+    ],
+    [
+     -90.99,
+     144.04
+    ],
+    [
+     -104.1,
+     134.82
+    ]
+   ],
+   "nVertices": 23,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -42.82,
+    142.39
+   ],
+   "centroidAzDeg": 106.7,
+   "centroidRangeM": 148.7,
+   "areaM2": 3116.0,
+   "heightGuessM": 7.0,
+   "heightNote": "guess",
+   "notes": "1995 site plan: \"RF / Extraction building\" inside the booster ring. That the storage-ring RF power sources are here is plausible but NOT verified."
+  },
+  {
+   "id": "431",
+   "name": "LOM 431 - Lab/Office Module, sectors 1-4",
+   "osmId": "way/1388815929",
+   "osmName": "APS Lab/Office Module (431)",
+   "role": "lom",
+   "polygon": [
+    [
+     179.19,
+     82.58
+    ],
+    [
+     189.93,
+     86.65
+    ],
+    [
+     188.52,
+     89.3
+    ],
+    [
+     192.26,
+     103.37
+    ],
+    [
+     178.05,
+     107.97
+    ],
+    [
+     181.01,
+     123.37
+    ],
+    [
+     166.76,
+     126.19
+    ],
+    [
+     165.86,
+     126.79
+    ],
+    [
+     167.16,
+     141.19
+    ],
+    [
+     153.12,
+     142.78
+    ],
+    [
+     151.71,
+     143.76
+    ],
+    [
+     151.67,
+     158.09
+    ],
+    [
+     137.28,
+     158.15
+    ],
+    [
+     136.13,
+     158.98
+    ],
+    [
+     134.38,
+     173.64
+    ],
+    [
+     120.03,
+     171.54
+    ],
+    [
+     118.27,
+     172.76
+    ],
+    [
+     115.31,
+     186.34
+    ],
+    [
+     101.35,
+     183.2
+    ],
+    [
+     95.88,
+     185.5
+    ],
+    [
+     90.6,
+     175.26
+    ],
+    [
+     101.18,
+     169.38
+    ],
+    [
+     111.71,
+     162.63
+    ],
+    [
+     142.22,
+     136.74
+    ],
+    [
+     158.36,
+     117.69
+    ]
+   ],
+   "nVertices": 25,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    146.26,
+    139.21
+   ],
+   "centroidAzDeg": 43.6,
+   "centroidRangeM": 201.9,
+   "areaM2": 2256.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess (2 storeys)"
+  },
+  {
+   "id": "432",
+   "name": "LOM 432 - Lab/Office Module, sectors 5-8",
+   "osmId": "way/1371217883",
+   "osmName": "APS Lab/Office Module (432)",
+   "role": "lom",
+   "polygon": [
+    [
+     201.51,
+     78.26
+    ],
+    [
+     184.43,
+     70.1
+    ],
+    [
+     189.74,
+     54.1
+    ],
+    [
+     192.77,
+     42.11
+    ],
+    [
+     195.09,
+     29.5
+    ],
+    [
+     196.73,
+     15.13
+    ],
+    [
+     197.26,
+     4.26
+    ],
+    [
+     197.23,
+     -5.56
+    ],
+    [
+     196.14,
+     -21.51
+    ],
+    [
+     193.4,
+     -39.08
+    ],
+    [
+     204.74,
+     -41.95
+    ],
+    [
+     205.14,
+     -38.58
+    ],
+    [
+     215.97,
+     -29.76
+    ],
+    [
+     207.77,
+     -17.33
+    ],
+    [
+     218.3,
+     -7.09
+    ],
+    [
+     208.38,
+     3.88
+    ],
+    [
+     217.86,
+     15.12
+    ],
+    [
+     207.17,
+     25.88
+    ],
+    [
+     215.21,
+     38.89
+    ],
+    [
+     203.33,
+     47.93
+    ],
+    [
+     209.92,
+     60.71
+    ],
+    [
+     197.9,
+     67.05
+    ],
+    [
+     196.73,
+     70.63
+    ],
+    [
+     203.38,
+     73.52
+    ]
+   ],
+   "nVertices": 24,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    202.21,
+    17.46
+   ],
+   "centroidAzDeg": 4.9,
+   "centroidRangeM": 203.0,
+   "areaM2": 1871.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess (2 storeys)"
+  },
+  {
+   "id": "433",
+   "name": "LOM 433 - Lab/Office Module, sectors 9-12",
+   "osmId": "way/1388827703",
+   "osmName": "APS Lab/Office Module (433)",
+   "role": "lom",
+   "polygon": [
+    [
+     141.45,
+     -155.02
+    ],
+    [
+     143.8,
+     -152.66
+    ],
+    [
+     157.77,
+     -152.03
+    ],
+    [
+     157.33,
+     -137.9
+    ],
+    [
+     158.5,
+     -136.53
+    ],
+    [
+     173.08,
+     -134.81
+    ],
+    [
+     171.45,
+     -120.41
+    ],
+    [
+     172.09,
+     -119.4
+    ],
+    [
+     185.78,
+     -116.19
+    ],
+    [
+     182.7,
+     -102.33
+    ],
+    [
+     183.84,
+     -100.62
+    ],
+    [
+     196.78,
+     -95.71
+    ],
+    [
+     192.32,
+     -82.48
+    ],
+    [
+     192.96,
+     -80.91
+    ],
+    [
+     205.9,
+     -74.5
+    ],
+    [
+     199.96,
+     -61.63
+    ],
+    [
+     200.54,
+     -59.05
+    ],
+    [
+     189.35,
+     -55.46
+    ],
+    [
+     182.24,
+     -75.62
+    ],
+    [
+     173.38,
+     -94.06
+    ],
+    [
+     167.97,
+     -103.53
+    ],
+    [
+     156.1,
+     -120.64
+    ],
+    [
+     149.78,
+     -128.42
+    ],
+    [
+     142.66,
+     -136.25
+    ],
+    [
+     133.77,
+     -145.02
+    ]
+   ],
+   "nVertices": 25,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    172.52,
+    -107.64
+   ],
+   "centroidAzDeg": 328.0,
+   "centroidRangeM": 203.3,
+   "areaM2": 1836.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess (2 storeys)"
+  },
+  {
+   "id": "434",
+   "name": "LOM 434 - Lab/Office Module, sectors 13-16",
+   "osmId": "way/1388827707",
+   "osmName": "APS Lab/Office Module (434)",
+   "role": "lom",
+   "polygon": [
+    [
+     23.08,
+     -195.93
+    ],
+    [
+     24.01,
+     -208.36
+    ],
+    [
+     26.59,
+     -208.04
+    ],
+    [
+     38.31,
+     -216.26
+    ],
+    [
+     46.57,
+     -204.79
+    ],
+    [
+     48.01,
+     -204.32
+    ],
+    [
+     60.56,
+     -210.82
+    ],
+    [
+     67.71,
+     -198.83
+    ],
+    [
+     69.22,
+     -198.21
+    ],
+    [
+     82.34,
+     -203.69
+    ],
+    [
+     87.86,
+     -190.45
+    ],
+    [
+     89.62,
+     -189.67
+    ],
+    [
+     102.77,
+     -193.77
+    ],
+    [
+     107.11,
+     -180.36
+    ],
+    [
+     108.78,
+     -179.21
+    ],
+    [
+     122.29,
+     -181.89
+    ],
+    [
+     125.59,
+     -168.41
+    ],
+    [
+     127.43,
+     -166.3
+    ],
+    [
+     132.27,
+     -172.07
+    ],
+    [
+     136.45,
+     -168.81
+    ],
+    [
+     124.26,
+     -153.26
+    ],
+    [
+     111.74,
+     -162.62
+    ],
+    [
+     102.13,
+     -168.82
+    ],
+    [
+     89.72,
+     -175.73
+    ],
+    [
+     75.34,
+     -182.35
+    ],
+    [
+     61.17,
+     -187.56
+    ],
+    [
+     46.06,
+     -191.84
+    ],
+    [
+     35.75,
+     -194.03
+    ]
+   ],
+   "nVertices": 28,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    79.07,
+    -187.37
+   ],
+   "centroidAzDeg": 292.9,
+   "centroidRangeM": 203.4,
+   "areaM2": 1970.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess (2 storeys)"
+  },
+  {
+   "id": "435",
+   "name": "LOM 435 - Lab/Office Module, sectors 17-20",
+   "osmId": "way/1388827706",
+   "osmName": "APS Lab/Office Module (435)",
+   "role": "lom",
+   "polygon": [
+    [
+     -109.25,
+     -164.26
+    ],
+    [
+     -120.51,
+     -180.37
+    ],
+    [
+     -115.76,
+     -183.19
+    ],
+    [
+     -112.01,
+     -177.56
+    ],
+    [
+     -109.56,
+     -178.64
+    ],
+    [
+     -105.52,
+     -192.44
+    ],
+    [
+     -92.53,
+     -188.52
+    ],
+    [
+     -90.58,
+     -189.31
+    ],
+    [
+     -85.16,
+     -202.31
+    ],
+    [
+     -72.14,
+     -197.5
+    ],
+    [
+     -70.34,
+     -197.45
+    ],
+    [
+     -63.61,
+     -210.45
+    ],
+    [
+     -51.21,
+     -203.85
+    ],
+    [
+     -49.07,
+     -203.91
+    ],
+    [
+     -41.14,
+     -215.72
+    ],
+    [
+     -29.77,
+     -208.05
+    ],
+    [
+     -28.1,
+     -207.97
+    ],
+    [
+     -18.61,
+     -219.16
+    ],
+    [
+     -7.74,
+     -209.47
+    ],
+    [
+     -4.63,
+     -209.8
+    ],
+    [
+     -4.35,
+     -197.25
+    ],
+    [
+     -14.5,
+     -196.75
+    ],
+    [
+     -30.1,
+     -194.98
+    ],
+    [
+     -39.73,
+     -193.26
+    ],
+    [
+     -55.77,
+     -189.24
+    ],
+    [
+     -70.05,
+     -184.42
+    ],
+    [
+     -81.13,
+     -179.84
+    ],
+    [
+     -97.53,
+     -171.48
+    ]
+   ],
+   "nVertices": 28,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -61.41,
+    -193.93
+   ],
+   "centroidAzDeg": 252.4,
+   "centroidRangeM": 203.4,
+   "areaM2": 1985.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess (2 storeys)"
+  },
+  {
+   "id": "436",
+   "name": "LOM 436 - Lab/Office Module, sectors 21-24 (OSM polygon also contains the ISN & HEXM transport corridors and office row to the LBB)",
+   "osmId": "way/1388827704",
+   "osmName": "APS Lab/Office Module (436)",
+   "role": "lom",
+   "polygon": [
+    [
+     -183.4,
+     -72.67
+    ],
+    [
+     -194.72,
+     -77.17
+    ],
+    [
+     -193.56,
+     -80.02
+    ],
+    [
+     -198.42,
+     -93.63
+    ],
+    [
+     -185.22,
+     -98.29
+    ],
+    [
+     -184.41,
+     -99.6
+    ],
+    [
+     -187.56,
+     -114.02
+    ],
+    [
+     -173.71,
+     -117.06
+    ],
+    [
+     -172.73,
+     -118.62
+    ],
+    [
+     -174.71,
+     -132.8
+    ],
+    [
+     -160.42,
+     -134.79
+    ],
+    [
+     -159.62,
+     -135.93
+    ],
+    [
+     -159.31,
+     -140.85
+    ],
+    [
+     -199.59,
+     -133.24
+    ],
+    [
+     -200.59,
+     -139.92
+    ],
+    [
+     -159.24,
+     -147.46
+    ],
+    [
+     -159.64,
+     -150.42
+    ],
+    [
+     -145.77,
+     -150.82
+    ],
+    [
+     -144.6,
+     -151.9
+    ],
+    [
+     -143.37,
+     -166.24
+    ],
+    [
+     -207.48,
+     -163.86
+    ],
+    [
+     -207.65,
+     -167.01
+    ],
+    [
+     -167.52,
+     -168.94
+    ],
+    [
+     -167.57,
+     -170.97
+    ],
+    [
+     -115.38,
+     -173.02
+    ],
+    [
+     -113.31,
+     -170.08
+    ],
+    [
+     -126.57,
+     -168.76
+    ],
+    [
+     -126.86,
+     -166.94
+    ],
+    [
+     -119.59,
+     -156.9
+    ],
+    [
+     -132.42,
+     -146.21
+    ],
+    [
+     -138.41,
+     -140.59
+    ],
+    [
+     -147.54,
+     -130.88
+    ],
+    [
+     -158.16,
+     -117.88
+    ],
+    [
+     -166.66,
+     -105.46
+    ],
+    [
+     -173.69,
+     -93.5
+    ]
+   ],
+   "nVertices": 35,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -163.11,
+    -132.29
+   ],
+   "centroidAzDeg": 219.0,
+   "centroidRangeM": 210.0,
+   "areaM2": 2566.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess; corridors ~4-5 m"
+  },
+  {
+   "id": "437",
+   "name": "LOM 437 - Lab/Office Module, sectors 28-30",
+   "osmId": "way/1388815931",
+   "osmName": "APS Lab/Office Module (437)",
+   "role": "lom",
+   "polygon": [
+    [
+     -156.6,
+     138.28
+    ],
+    [
+     -159.27,
+     136.73
+    ],
+    [
+     -173.24,
+     134.72
+    ],
+    [
+     -171.33,
+     120.35
+    ],
+    [
+     -172.23,
+     119.13
+    ],
+    [
+     -186.04,
+     115.64
+    ],
+    [
+     -182.97,
+     101.77
+    ],
+    [
+     -183.69,
+     100.34
+    ],
+    [
+     -197.19,
+     95.55
+    ],
+    [
+     -192.62,
+     82.41
+    ],
+    [
+     -193.1,
+     80.59
+    ],
+    [
+     -206.09,
+     74.4
+    ],
+    [
+     -200.05,
+     61.59
+    ],
+    [
+     -200.48,
+     59.9
+    ],
+    [
+     -212.78,
+     52.31
+    ],
+    [
+     -205.33,
+     40.13
+    ],
+    [
+     -205.74,
+     36.99
+    ],
+    [
+     -194.03,
+     35.67
+    ],
+    [
+     -191.14,
+     48.84
+    ],
+    [
+     -186.33,
+     64.81
+    ],
+    [
+     -182.39,
+     75.2
+    ],
+    [
+     -177.77,
+     85.54
+    ],
+    [
+     -172.23,
+     96.21
+    ],
+    [
+     -163.82,
+     109.92
+    ],
+    [
+     -154.05,
+     123.25
+    ],
+    [
+     -148.06,
+     130.38
+    ]
+   ],
+   "nVertices": 26,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -182.91,
+    88.91
+   ],
+   "centroidAzDeg": 154.1,
+   "centroidRangeM": 203.4,
+   "areaM2": 1836.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess (2 storeys)"
+  },
+  {
+   "id": "438",
+   "name": "LOM 438 - Lab/Office Module, sectors 31-35",
+   "osmId": "way/1388815934",
+   "osmName": "APS Lab/Office Module (438)",
+   "role": "lom",
+   "polygon": [
+    [
+     -142.28,
+     153.42
+    ],
+    [
+     -144.1,
+     151.9
+    ],
+    [
+     -149.8,
+     156.93
+    ],
+    [
+     -153.58,
+     152.91
+    ],
+    [
+     -139.73,
+     139.27
+    ],
+    [
+     -127.39,
+     150.64
+    ],
+    [
+     -117.72,
+     158.3
+    ],
+    [
+     -110.21,
+     163.63
+    ],
+    [
+     -96.16,
+     172.26
+    ],
+    [
+     -79.28,
+     180.64
+    ],
+    [
+     -71.83,
+     183.75
+    ],
+    [
+     -59.82,
+     187.99
+    ],
+    [
+     -44.06,
+     192.3
+    ],
+    [
+     -25.17,
+     195.68
+    ],
+    [
+     -11.0,
+     196.98
+    ],
+    [
+     -11.95,
+     208.68
+    ],
+    [
+     -27.4,
+     207.95
+    ],
+    [
+     -38.82,
+     215.87
+    ],
+    [
+     -46.4,
+     204.97
+    ],
+    [
+     -46.33,
+     204.09
+    ],
+    [
+     -48.61,
+     203.91
+    ],
+    [
+     -61.2,
+     210.59
+    ],
+    [
+     -68.15,
+     198.13
+    ],
+    [
+     -69.65,
+     197.62
+    ],
+    [
+     -82.67,
+     203.06
+    ],
+    [
+     -88.1,
+     190.2
+    ],
+    [
+     -89.86,
+     189.36
+    ],
+    [
+     -103.32,
+     193.29
+    ],
+    [
+     -107.6,
+     179.8
+    ],
+    [
+     -109.02,
+     178.89
+    ],
+    [
+     -122.99,
+     181.41
+    ],
+    [
+     -125.77,
+     167.39
+    ],
+    [
+     -127.18,
+     166.38
+    ],
+    [
+     -141.11,
+     166.91
+    ]
+   ],
+   "nVertices": 34,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -84.19,
+    182.96
+   ],
+   "centroidAzDeg": 114.7,
+   "centroidRangeM": 201.4,
+   "areaM2": 2445.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess (2 storeys)"
+  },
+  {
+   "id": "441",
+   "name": "Building 441 - support space for sectors 25-27",
+   "osmId": "way/1370112052",
+   "osmName": "Building 441",
+   "role": "lom",
+   "polygon": [
+    [
+     -225.84,
+     -21.85
+    ],
+    [
+     -229.8,
+     -21.98
+    ],
+    [
+     -227.92,
+     -34.3
+    ],
+    [
+     -229.5,
+     -34.43
+    ],
+    [
+     -227.8,
+     -45.02
+    ],
+    [
+     -193.23,
+     -39.78
+    ],
+    [
+     -195.19,
+     -28.68
+    ],
+    [
+     -224.08,
+     -33.33
+    ]
+   ],
+   "nVertices": 8,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -213.01,
+    -35.93
+   ],
+   "centroidAzDeg": 189.6,
+   "centroidRangeM": 216.0,
+   "areaM2": 434.0,
+   "heightGuessM": 6.0,
+   "heightNote": "guess"
+  },
+  {
+   "id": "440",
+   "name": "Building 440 - Center for Nanoscale Materials (CNM)",
+   "osmId": "way/232798781",
+   "osmName": "Center for Nanoscale Materials (440)",
+   "role": "neighbour",
+   "polygon": [
+    [
+     -197.28,
+     -1.22
+    ],
+    [
+     -196.67,
+     15.47
+    ],
+    [
+     -195.27,
+     28.11
+    ],
+    [
+     -215.23,
+     28.98
+    ],
+    [
+     -213.95,
+     33.94
+    ],
+    [
+     -234.71,
+     33.77
+    ],
+    [
+     -234.35,
+     40.38
+    ],
+    [
+     -249.77,
+     40.75
+    ],
+    [
+     -252.71,
+     42.95
+    ],
+    [
+     -256.39,
+     44.79
+    ],
+    [
+     -261.53,
+     44.24
+    ],
+    [
+     -266.31,
+     41.48
+    ],
+    [
+     -270.35,
+     35.6
+    ],
+    [
+     -270.9,
+     27.88
+    ],
+    [
+     -266.49,
+     22.19
+    ],
+    [
+     -264.84,
+     24.03
+    ],
+    [
+     -259.14,
+     22.37
+    ],
+    [
+     -259.69,
+     14.47
+    ],
+    [
+     -277.76,
+     13.96
+    ],
+    [
+     -277.61,
+     16.15
+    ],
+    [
+     -280.47,
+     16.36
+    ],
+    [
+     -280.61,
+     14.15
+    ],
+    [
+     -296.81,
+     13.84
+    ],
+    [
+     -296.56,
+     -14.27
+    ],
+    [
+     -274.24,
+     -13.56
+    ],
+    [
+     -272.55,
+     -29.8
+    ],
+    [
+     -239.67,
+     -26.12
+    ],
+    [
+     -239.48,
+     -22.26
+    ],
+    [
+     -196.17,
+     -21.0
+    ]
+   ],
+   "nVertices": 29,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -242.88,
+    4.91
+   ],
+   "centroidAzDeg": 178.8,
+   "centroidRangeM": 242.9,
+   "areaM2": 5156.0,
+   "heightGuessM": 15.0,
+   "heightNote": "guess (3 storeys)"
+  },
+  {
+   "id": "444",
+   "name": "Building 444 - Long Beamline Building (ISN 19-ID-E, HEXM 20-ID-E end stations)",
+   "osmId": "way/1370112035",
+   "osmName": "APS Long Beamline Building (444)",
+   "role": "lbb",
+   "polygon": [
+    [
+     -215.18,
+     -119.08
+    ],
+    [
+     -217.19,
+     -126.17
+    ],
+    [
+     -233.05,
+     -123.8
+    ],
+    [
+     -237.01,
+     -141.81
+    ],
+    [
+     -232.31,
+     -143.43
+    ],
+    [
+     -233.05,
+     -147.07
+    ],
+    [
+     -227.41,
+     -148.73
+    ],
+    [
+     -228.2,
+     -154.5
+    ],
+    [
+     -236.93,
+     -154.2
+    ],
+    [
+     -237.36,
+     -170.39
+    ],
+    [
+     -218.94,
+     -171.84
+    ],
+    [
+     -217.94,
+     -166.75
+    ],
+    [
+     -207.65,
+     -167.01
+    ],
+    [
+     -206.71,
+     -148.78
+    ],
+    [
+     -201.89,
+     -148.55
+    ],
+    [
+     -198.03,
+     -122.93
+    ]
+   ],
+   "nVertices": 16,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -218.71,
+    -145.02
+   ],
+   "centroidAzDeg": 213.5,
+   "centroidRangeM": 262.4,
+   "areaM2": 1458.0,
+   "heightGuessM": 9.0,
+   "heightNote": "guess",
+   "notes": "OSM footprint is 1,458 m2 (~15,700 sq ft), smaller than the official 20,000 sq ft (APS news 2022) or 22,000 sf (builder). The corridors are mapped inside the LOM 436 polygon, and the OSM outline may be simplified; treat the LBB outline as +/-3 m."
+  },
+  {
+   "id": "446",
+   "name": "Building 446 - Advanced Protein Characterization Facility (APCF)",
+   "osmId": "way/557403260",
+   "osmName": "Advanced Protein Crystallization Facility (446)",
+   "role": "neighbour",
+   "polygon": [
+    [
+     -207.39,
+     -228.5
+    ],
+    [
+     -206.68,
+     -233.92
+    ],
+    [
+     -203.24,
+     -233.47
+    ],
+    [
+     -201.0,
+     -250.46
+    ],
+    [
+     -216.29,
+     -252.47
+    ],
+    [
+     -215.26,
+     -260.29
+    ],
+    [
+     -212.73,
+     -259.94
+    ],
+    [
+     -211.75,
+     -267.29
+    ],
+    [
+     -98.49,
+     -252.09
+    ],
+    [
+     -99.76,
+     -242.62
+    ],
+    [
+     -88.72,
+     -241.35
+    ],
+    [
+     -88.59,
+     -244.0
+    ],
+    [
+     -90.22,
+     -245.77
+    ],
+    [
+     -87.9,
+     -247.46
+    ],
+    [
+     -84.91,
+     -249.08
+    ],
+    [
+     -80.58,
+     -249.34
+    ],
+    [
+     -77.2,
+     -248.72
+    ],
+    [
+     -73.46,
+     -246.75
+    ],
+    [
+     -69.74,
+     -241.41
+    ],
+    [
+     -67.79,
+     -236.93
+    ],
+    [
+     -67.51,
+     -232.48
+    ],
+    [
+     -69.06,
+     -222.5
+    ],
+    [
+     -70.55,
+     -222.85
+    ],
+    [
+     -69.84,
+     -225.38
+    ],
+    [
+     -70.98,
+     -225.75
+    ],
+    [
+     -77.28,
+     -223.68
+    ],
+    [
+     -69.83,
+     -200.11
+    ],
+    [
+     -70.9,
+     -200.02
+    ],
+    [
+     -70.3,
+     -197.53
+    ],
+    [
+     -72.14,
+     -197.5
+    ],
+    [
+     -72.58,
+     -199.4
+    ],
+    [
+     -73.67,
+     -199.58
+    ],
+    [
+     -79.97,
+     -218.77
+    ],
+    [
+     -81.87,
+     -218.87
+    ],
+    [
+     -81.86,
+     -218.08
+    ],
+    [
+     -100.04,
+     -220.3
+    ],
+    [
+     -100.98,
+     -213.03
+    ],
+    [
+     -156.23,
+     -220.18
+    ],
+    [
+     -157.64,
+     -209.27
+    ],
+    [
+     -166.05,
+     -210.36
+    ],
+    [
+     -164.42,
+     -222.92
+    ]
+   ],
+   "nVertices": 41,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    -141.74,
+    -238.29
+   ],
+   "centroidAzDeg": 239.3,
+   "centroidRangeM": 277.3,
+   "areaM2": 5167.0,
+   "heightGuessM": 14.0,
+   "heightNote": "guess",
+   "notes": "Official name \"Advanced Protein Characterization Facility\" (APS Fast Facts PDF); OSM wrongly says \"Crystallization\"."
+  },
+  {
+   "id": "314",
+   "name": "Building 314 - APS accelerator equipment / (superconducting) undulator fabrication & test",
+   "osmId": "way/757487863",
+   "osmName": "Building 314",
+   "role": "support",
+   "polygon": [
+    [
+     302.7,
+     36.59
+    ],
+    [
+     302.56,
+     41.72
+    ],
+    [
+     282.72,
+     41.21
+    ],
+    [
+     283.06,
+     28.46
+    ],
+    [
+     270.51,
+     28.13
+    ],
+    [
+     270.93,
+     12.58
+    ],
+    [
+     282.18,
+     12.87
+    ],
+    [
+     282.78,
+     -10.43
+    ],
+    [
+     303.92,
+     -9.88
+    ]
+   ],
+   "nVertices": 9,
+   "simplifyTolM": 0.25,
+   "centroidXY": [
+    290.52,
+    16.07
+   ],
+   "centroidAzDeg": 3.2,
+   "centroidRangeM": 291.0,
+   "areaM2": 1250.0,
+   "heightGuessM": 10.0,
+   "heightNote": "guess",
+   "notes": "OSM description (from map.anl.gov): used for fabrication, assembly and testing of APS accelerator equipment, including undulators and superconducting undulators."
+  }
+ ],
+ "longBeamlineBuilding": {
+  "buildingId": "444",
+  "osmId": "way/1370112035",
+  "polygon": [
+   [
+    -215.18,
+    -119.08
+   ],
+   [
+    -217.19,
+    -126.17
+   ],
+   [
+    -233.05,
+    -123.8
+   ],
+   [
+    -237.01,
+    -141.81
+   ],
+   [
+    -232.31,
+    -143.43
+   ],
+   [
+    -233.05,
+    -147.07
+   ],
+   [
+    -227.41,
+    -148.73
+   ],
+   [
+    -228.2,
+    -154.5
+   ],
+   [
+    -236.93,
+    -154.2
+   ],
+   [
+    -237.36,
+    -170.39
+   ],
+   [
+    -218.94,
+    -171.84
+   ],
+   [
+    -217.94,
+    -166.75
+   ],
+   [
+    -207.65,
+    -167.01
+   ],
+   [
+    -206.71,
+    -148.78
+   ],
+   [
+    -201.89,
+    -148.55
+   ],
+   [
+    -198.03,
+    -122.93
+   ]
+  ],
+  "centroidXY": [
+   -218.71,
+   -145.02
+  ],
+  "centroidRangeFromRingCentreM": 262.4,
+  "centroidAzDeg": 213.5,
+  "nearestPointRangeM": 233.1,
+  "gapBeyondHallOuterWallM": 35.8,
+  "floorAreaSqFt": {
+   "APS news 2022": 20000,
+   "builder (Power Construction)": 22000
+  },
+  "timeline": "construction began June 2020 (Argonne release, 25 Jul 2022); groundbreaking ceremony 22 Jul 2020 (APS news 2021-09-10); full occupancy late June 2022 (APS news 2022-08-18); ribbon cutting 25 Jul 2022 with Energy Secretary Jennifer Granholm (Argonne release via Newswise, 25 Jul 2022)",
+  "corridors": {
+   "ISN_19ID": {
+    "centerlineDirDeg_OSM": 177.6,
+    "centerlineDirDeg_imagery": 177.5,
+    "widthM": 5.4,
+    "note": "long single-storey corridor carrying the 19-ID transport from LOM 435/436 to the LBB south end-station block"
+   },
+   "HEXM_20ID": {
+    "centerlineDirDeg_OSM": 169.5,
+    "centerlineDirDeg_imagery": 168.1,
+    "widthM": 5.6,
+    "note": "corridor + office row (replacing LOM offices displaced by the long beamlines, FDR 4-1.2) carrying the 20-ID transport to the LBB north end-station block"
+   }
+  },
+  "beamlines": {
+   "ISN_19ID": {
+    "sourceXY": [
+     -6.74,
+     -175.37
+    ],
+    "dirDeg": 177.8,
+    "horizontalDeflection": "M3 (35.0 m) is an inboard-deflecting horizontal focusing mirror at a 2.5 mrad reflection angle (FDR 4-7.6), i.e. a 5.0 mrad = 0.29 deg inboard (clockwise) turn; the DCM (31.7 m) and DMM (32.7 m) also deflect horizontally inboard but as parallel pairs they only offset the beam. The geometry here uses 0.29 deg; the as-built mirror angle was not found.",
+    "instrumentDistM": 220.0,
+    "instrumentXY": [
+     -226.54,
+     -165.96
+    ],
+    "stationsInHall": "on the hall floor: 19-ID-A optics (~25-35 m: HHL mirrors, DCM/DMM, M3), 19-ID-B (~49-55 m, vertical BDA at 55 m), 19-ID-D (~64-65 m, horizontal BDA at 64 m, shutter 65 m); then 65.5-213 m shielded mono transport with pump mini-enclosures at 95, 124, 153, 183 m; LBB: window 213 m, instrument 220 m, beamstop 227 m (FDR Table 4.49)",
+    "asBuiltInstrumentDistM": 220.0,
+    "asBuiltNote": "MEDSI'25 TUOA02: \"the ISN instrument is located in a satellite building at a distance of 220 m from the undulator source\"; ISN energy range 4.8-30 keV, KB focus down to 20 nm at 25 keV."
+   },
+   "HEXM_20ID": {
+    "sourceXY": [
+     -34.09,
+     -172.16
+    ],
+    "dirDeg": 168.8,
+    "horizontalDeflection": "none net (Laue-Laue mono gives a 25-35 mm outboard offset, parallel beam)",
+    "stationD_distM": 70.2,
+    "stationD_XY": [
+     -102.95,
+     -158.52
+    ],
+    "stationE_sampleDistM": 180.7,
+    "stationE_sampleXY": [
+     -211.35,
+     -137.06
+    ],
+    "stationE_beamstopDistM": 197.0,
+    "stationE_beamstopXY": [
+     -227.34,
+     -133.9
+    ],
+    "transportNote": "FDR Table 4.28: shielded white-beam transport 77.0-177.5 m, window 177.7 m, E-station instrumentation 180.7 m, detector robot 183.3-192.5 m, fixed white-beam stop 197.0 m. The transport crosses LOM 436 and runs along the new office corridor (FDR 4-1.2)."
+   }
+  },
+  "osmFootprintAreaM2": 1458,
+  "osmFootprintNote": "OSM footprint ~15,700 sq ft vs official 20,000-22,000 sq ft; see buildings[444].notes"
+ },
+ "injector": {
+  "linac": {
+   "buildingId": "411",
+   "axisWestEndXY": [
+    33.25,
+    71.28
+   ],
+   "axisEastEndXY": [
+    100.85,
+    92.1
+   ],
+   "lengthM": 70.7,
+   "beamTravelDirDeg": 197.1,
+   "note": "OSM tunnel 411 is ~70.7 m long, matching the \"70m-long linear accelerator\" (40-m electron linac + 30-m section) of Friedsam et al. (PAC95 TAA03). Guns at the east end (APS graphic \"Linac\" label); beam travels WSW into the injection wing 412. Original design: 200-MeV electron linac on a positron target + 450-MeV positron linac (APS tech. bulletin APS_1421579; Galayda PAC95 lists the electron linac as 250 MeV). Positrons are no longer used: today a thermionic RF gun feeds the ring and a photocathode RF gun feeds the LEA, with energies up to ~450 MeV (IBIC2023 WEP017); linac/PAR energy 425 -> 450+ MeV for APS-U (Calvey, I.FAST 2024); FDR 2-3.14.1 targets 450-500 MeV."
+  },
+  "par": {
+   "centerXY": [
+    17.8,
+    65.4
+   ],
+   "circumferenceM": 30.667,
+   "radiusM": 4.88,
+   "note": "Particle (originally Positron) Accumulator Ring inside 412; position from the APS graphic (+/-3 m); circumference 30.667 m = 1/12 of booster (APS tech. bulletin APS_1421579; PAC95 \"30.7-m\")"
+  },
+  "booster": {
+   "circumferenceM": 368.02,
+   "circumferenceSource": "harmonic number 432 and RF 351.9149761 MHz (FDR Table 2.48) -> 368.0 m; also \"synchrotron ring (SY) with a circumference of 368 m\" (Friedsam et al. 1995)",
+   "centerXY": [
+    -30.64,
+    109.5
+   ],
+   "radiusM": 58.57,
+   "outlinePolygon": [
+    [
+     31.43,
+     109.5
+    ],
+    [
+     31.55,
+     117.69
+    ],
+    [
+     30.4,
+     125.86
+    ],
+    [
+     27.98,
+     133.78
+    ],
+    [
+     24.32,
+     141.23
+    ],
+    [
+     19.46,
+     147.95
+    ],
+    [
+     13.53,
+     153.67
+    ],
+    [
+     6.72,
+     158.19
+    ],
+    [
+     -0.7,
+     161.37
+    ],
+    [
+     -8.41,
+     163.18
+    ],
+    [
+     -16.1,
+     163.76
+    ],
+    [
+     -23.55,
+     163.34
+    ],
+    [
+     -30.64,
+     162.23
+    ],
+    [
+     -37.38,
+     160.72
+    ],
+    [
+     -43.9,
+     158.99
+    ],
+    [
+     -50.35,
+     157.09
+    ],
+    [
+     -56.87,
+     154.94
+    ],
+    [
+     -63.49,
+     152.31
+    ],
+    [
+     -70.09,
+     148.95
+    ],
+    [
+     -76.46,
+     144.66
+    ],
+    [
+     -82.26,
+     139.31
+    ],
+    [
+     -87.19,
+     132.92
+    ],
+    [
+     -90.94,
+     125.66
+    ],
+    [
+     -93.35,
+     117.76
+    ],
+    [
+     -94.32,
+     109.5
+    ],
+    [
+     -93.86,
+     101.18
+    ],
+    [
+     -92.06,
+     93.04
+    ],
+    [
+     -89.02,
+     85.32
+    ],
+    [
+     -84.83,
+     78.21
+    ],
+    [
+     -79.63,
+     71.91
+    ],
+    [
+     -73.56,
+     66.59
+    ],
+    [
+     -66.79,
+     62.38
+    ],
+    [
+     -59.57,
+     59.39
+    ],
+    [
+     -52.14,
+     57.6
+    ],
+    [
+     -44.73,
+     56.92
+    ],
+    [
+     -37.53,
+     57.14
+    ],
+    [
+     -30.64,
+     58.03
+    ],
+    [
+     -24.04,
+     59.38
+    ],
+    [
+     -17.65,
+     61.02
+    ],
+    [
+     -11.35,
+     62.93
+    ],
+    [
+     -5.05,
+     65.17
+    ],
+    [
+     1.27,
+     67.91
+    ],
+    [
+     7.52,
+     71.34
+    ],
+    [
+     13.51,
+     75.62
+    ],
+    [
+     18.99,
+     80.85
+    ],
+    [
+     23.71,
+     86.99
+    ],
+    [
+     27.45,
+     93.94
+    ],
+    [
+     30.05,
+     101.51
+    ]
+   ],
+   "outlineMethod": "dotted booster outline traced from the official APS \"Beamline Disciplines and Locations\" graphic (2026 web version), registered to OSM by 6 control points (rms ~2 m); r(theta) about the area centroid fitted with a robust 4th-order Fourier series (41 pts, 3 rejected, rms 0.4 m), then scaled from 362.2 m to the true circumference 368.02 m",
+   "maxRangeFromRingCentreM": 165.1,
+   "lattice": "40-cell FODO, zero-gradient dipoles; 12 dipoles deleted to make 4 zero-dispersion straights (Galayda, PAC95), so 68 dipoles (APS_1421579), giving a slightly squarish ring. Circumference 368 m = 1/3 of the storage ring (APS_1421579).",
+   "energy": "booster injection 325-500 MeV design range (FDR Table 2.48), in practice ~425-450 MeV; ramps to 6 GeV for APS-U (7 GeV before); repetition rate cut from 2 Hz to 1 Hz so the PAR can accumulate up to 20 nC for swap-out (FDR 2-3.14; Calvey, I.FAST 2024). The booster RF stays at 351.9149761 MHz, h = 432, while the ring runs at 352.056 MHz (FDR Table 2.48).",
+   "uncertaintyM": 5.0,
+   "outlineVerifierNote": "The 1995 site plan (PAC95 Galayda Fig. 1) shows the booster as a near-circular oval in the north infield enclosing the RF/Extraction building, consistent with this outline; absolute position not independently checked (+/-5 m stands)."
+  },
+  "bts": {
+   "polylineXYSchematic": [
+    [
+     -62.52,
+     147.28
+    ],
+    [
+     -40.04,
+     160.58
+    ],
+    [
+     -17.82,
+     169.57
+    ],
+    [
+     -4.55,
+     173.94
+    ],
+    [
+     2.45,
+     175.38
+    ]
+   ],
+   "note": "SCHEMATIC ONLY (+/-5 m). Booster extraction is on the booster side nearest the ring (az ~100-118 deg, inside RF/Extraction wing 420); the BTS enters the ring tunnel, passes through three ring quadrupoles and clears the 38B:BM1 dipole (FDR 2-3.14.1.5) to reach the DC Lambertson septum in the sector-39 straight (FDR 2-2.8). (Not \"short\": the BTS runs from booster extraction near Bldg 420 through the ring tunnel to the S39 straight.)"
+  },
+  "lea": {
+   "buildingId": "413",
+   "note": "Linac Extension Area at the west end of the linac axis, beyond the booster: the former LEUTL enclosure, re-commissioned in 2023 as an accelerator R&D beamline (first beam at 425 MeV), reached via PAR-bypass, PAR-to-booster and booster-bypass lines (IBIC2023 WEP017)."
+  },
+  "injectionStraight": {
+   "sector": 39,
+   "azDeg": 87.8,
+   "xy": [
+    6.74,
+    175.37
+   ]
+  }
+ },
+ "roads": [
+  {
+   "osmId": "way/22083015",
+   "highway": "unclassified",
+   "name": "Bluff Road",
+   "polyline": [
+    [
+     -306.75,
+     -293.95
+    ],
+    [
+     -305.31,
+     -303.3
+    ],
+    [
+     -300.48,
+     -309.0
+    ],
+    [
+     -296.87,
+     -310.47
+    ],
+    [
+     -80.58,
+     -307.5
+    ],
+    [
+     -50.83,
+     -303.9
+    ],
+    [
+     -18.08,
+     -296.71
+    ],
+    [
+     15.03,
+     -285.3
+    ],
+    [
+     37.04,
+     -275.39
+    ]
+   ]
+  },
+  {
+   "osmId": "way/22083016",
+   "highway": "unclassified",
+   "name": "Bluff Road",
+   "polyline": [
+    [
+     863.06,
+     97.96
+    ],
+    [
+     670.86,
+     94.27
+    ],
+    [
+     647.03,
+     100.28
+    ],
+    [
+     636.57,
+     107.41
+    ],
+    [
+     608.29,
+     111.86
+    ],
+    [
+     560.63,
+     105.63
+    ],
+    [
+     508.53,
+     92.27
+    ],
+    [
+     235.03,
+     81.48
+    ]
+   ]
+  },
+  {
+   "osmId": "way/22113574",
+   "highway": "unclassified",
+   "name": "Rock Road",
+   "polyline": [
+    [
+     1263.71,
+     477.15
+    ],
+    [
+     1236.03,
+     456.92
+    ],
+    [
+     1112.75,
+     390.52
+    ],
+    [
+     1082.0,
+     371.08
+    ],
+    [
+     1067.74,
+     359.91
+    ],
+    [
+     1056.04,
+     353.87
+    ],
+    [
+     1034.21,
+     350.54
+    ],
+    [
+     991.06,
+     351.83
+    ],
+    [
+     875.65,
+     350.16
+    ],
+    [
+     862.23,
+     348.15
+    ],
+    [
+     717.6,
+     344.23
+    ],
+    [
+     314.98,
+     335.69
+    ],
+    [
+     277.04,
+     330.91
+    ],
+    [
+     259.85,
+     327.24
+    ],
+    [
+     213.36,
+     328.69
+    ],
+    [
+     196.26,
+     331.25
+    ],
+    [
+     121.71,
+     358.6
+    ],
+    [
+     86.26,
+     368.5
+    ],
+    [
+     67.91,
+     368.61
+    ],
+    [
+     41.02,
+     362.49
+    ],
+    [
+     10.3,
+     345.48
+    ],
+    [
+     -26.56,
+     308.79
+    ],
+    [
+     -83.09,
+     236.51
+    ],
+    [
+     -197.33,
+     128.98
+    ],
+    [
+     -219.41,
+     115.53
+    ],
+    [
+     -236.6,
+     109.41
+    ],
+    [
+     -312.83,
+     107.18
+    ]
+   ]
+  },
+  {
+   "osmId": "way/72573698",
+   "highway": "service",
+   "name": "Saint Patrick Road",
+   "polyline": [
+    [
+     292.23,
+     -220.61
+    ],
+    [
+     285.92,
+     -219.39
+    ],
+    [
+     273.14,
+     -220.28
+    ],
+    [
+     261.68,
+     -225.51
+    ],
+    [
+     252.71,
+     -234.29
+    ],
+    [
+     247.23,
+     -245.63
+    ],
+    [
+     236.52,
+     -299.67
+    ],
+    [
+     228.64,
+     -310.46
+    ],
+    [
+     218.23,
+     -316.99
+    ],
+    [
+     208.02,
+     -318.51
+    ],
+    [
+     -77.77,
+     -326.58
+    ],
+    [
+     -108.09,
+     -328.64
+    ],
+    [
+     -297.98,
+     -333.51
+    ],
+    [
+     -357.52,
+     -341.18
+    ],
+    [
+     -462.57,
+     -344.37
+    ],
+    [
+     -476.99,
+     -347.88
+    ],
+    [
+     -493.2,
+     -357.4
+    ],
+    [
+     -500.43,
+     -364.66
+    ],
+    [
+     -506.44,
+     -371.68
+    ],
+    [
+     -514.74,
+     -388.11
+    ],
+    [
+     -519.2,
+     -400.53
+    ],
+    [
+     -574.25,
+     -612.61
+    ]
+   ]
+  },
+  {
+   "osmId": "way/283592717",
+   "highway": "service",
+   "name": null,
+   "polyline": [
+    [
+     -12.55,
+     -3.51
+    ],
+    [
+     -10.99,
+     -7.64
+    ],
+    [
+     -6.45,
+     -12.13
+    ],
+    [
+     2.02,
+     -13.71
+    ],
+    [
+     6.19,
+     -12.25
+    ],
+    [
+     10.7,
+     -7.99
+    ],
+    [
+     12.6,
+     0.51
+    ],
+    [
+     9.43,
+     7.4
+    ],
+    [
+     5.93,
+     10.12
+    ],
+    [
+     -2.0,
+     11.45
+    ],
+    [
+     -9.89,
+     6.93
+    ],
+    [
+     -12.06,
+     3.08
+    ],
+    [
+     -12.55,
+     -3.51
+    ]
+   ]
+  },
+  {
+   "osmId": "way/283592720",
+   "highway": "service",
+   "name": "Infield Rd W",
+   "polyline": [
+    [
+     -141.44,
+     32.15
+    ],
+    [
+     -12.23,
+     2.01
+    ]
+   ]
+  },
+  {
+   "osmId": "way/283592722",
+   "highway": "service",
+   "name": null,
+   "polyline": [
+    [
+     2.02,
+     -13.71
+    ],
+    [
+     8.01,
+     -162.44
+    ]
+   ]
+  },
+  {
+   "osmId": "way/283592725",
+   "highway": "service",
+   "name": "Infield Rd E",
+   "polyline": [
+    [
+     29.52,
+     -138.73
+    ],
+    [
+     43.25,
+     -141.17
+    ],
+    [
+     72.84,
+     -131.31
+    ],
+    [
+     92.26,
+     -116.42
+    ],
+    [
+     115.14,
+     -93.7
+    ],
+    [
+     135.64,
+     -57.81
+    ],
+    [
+     142.02,
+     -39.18
+    ],
+    [
+     148.48,
+     0.11
+    ],
+    [
+     142.98,
+     37.68
+    ],
+    [
+     132.43,
+     66.62
+    ],
+    [
+     115.12,
+     94.21
+    ],
+    [
+     93.41,
+     116.12
+    ],
+    [
+     79.52,
+     124.38
+    ],
+    [
+     64.95,
+     127.9
+    ]
+   ]
+  },
+  {
+   "osmId": "way/283592726",
+   "highway": "service",
+   "name": "Infield Rd W",
+   "polyline": [
+    [
+     -26.94,
+     121.78
+    ],
+    [
+     -87.04,
+     98.64
+    ],
+    [
+     -106.25,
+     85.17
+    ],
+    [
+     -121.4,
+     68.99
+    ],
+    [
+     -141.44,
+     32.15
+    ],
+    [
+     -149.43,
+     -1.94
+    ],
+    [
+     -148.88,
+     -16.19
+    ],
+    [
+     -141.25,
+     -44.47
+    ],
+    [
+     -132.26,
+     -67.9
+    ],
+    [
+     -120.07,
+     -87.79
+    ],
+    [
+     -105.82,
+     -105.68
+    ],
+    [
+     -82.5,
+     -126.41
+    ],
+    [
+     -40.8,
+     -144.2
+    ],
+    [
+     -25.46,
+     -144.78
+    ],
+    [
+     -15.75,
+     -140.74
+    ]
+   ]
+  },
+  {
+   "osmId": "way/283592733",
+   "highway": "service",
+   "name": null,
+   "polyline": [
+    [
+     2.41,
+     11.36
+    ],
+    [
+     3.81,
+     31.22
+    ],
+    [
+     54.27,
+     42.84
+    ],
+    [
+     64.2,
+     17.24
+    ]
+   ]
+  },
+  {
+   "osmId": "way/283592735",
+   "highway": "service",
+   "name": "Infield Rd E",
+   "polyline": [
+    [
+     11.77,
+     3.64
+    ],
+    [
+     142.98,
+     37.68
+    ]
+   ]
+  },
+  {
+   "osmId": "way/557437518",
+   "highway": "unclassified",
+   "name": "Hotel Road",
+   "polyline": [
+    [
+     157.69,
+     487.69
+    ],
+    [
+     152.58,
+     470.81
+    ],
+    [
+     144.91,
+     453.93
+    ],
+    [
+     134.16,
+     439.61
+    ],
+    [
+     101.94,
+     413.51
+    ],
+    [
+     86.07,
+     398.16
+    ],
+    [
+     74.82,
+     381.8
+    ],
+    [
+     72.26,
+     368.59
+    ]
+   ]
+  },
+  {
+   "osmId": "way/557437519",
+   "highway": "unclassified",
+   "name": "Hotel Road",
+   "polyline": [
+    [
+     171.92,
+     340.18
+    ],
+    [
+     183.27,
+     366.45
+    ],
+    [
+     187.36,
+     386.91
+    ],
+    [
+     187.36,
+     407.88
+    ],
+    [
+     184.3,
+     429.89
+    ],
+    [
+     180.71,
+     443.19
+    ],
+    [
+     163.32,
+     484.11
+    ],
+    [
+     157.69,
+     487.69
+    ]
+   ]
+  },
+  {
+   "osmId": "way/576965318",
+   "highway": "service",
+   "name": null,
+   "polyline": [
+    [
+     201.11,
+     252.84
+    ],
+    [
+     172.52,
+     298.01
+    ],
+    [
+     150.36,
+     319.13
+    ]
+   ]
+  },
+  {
+   "osmId": "way/576965320",
+   "highway": "service",
+   "name": null,
+   "polyline": [
+    [
+     163.5,
+     277.97
+    ],
+    [
+     133.38,
+     306.22
+    ]
+   ]
+  },
+  {
+   "osmId": "way/576965321",
+   "highway": "service",
+   "name": null,
+   "polyline": [
+    [
+     172.11,
+     233.44
+    ],
+    [
+     149.36,
+     268.18
+    ],
+    [
+     163.5,
+     277.97
+    ],
+    [
+     185.61,
+     242.47
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1335131645",
+   "highway": "service",
+   "name": "Saint Patrick Road",
+   "polyline": [
+    [
+     327.99,
+     -265.72
+    ],
+    [
+     312.32,
+     -235.51
+    ],
+    [
+     303.52,
+     -226.29
+    ],
+    [
+     292.23,
+     -220.61
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1416581767",
+   "highway": "unclassified",
+   "name": "Kearney Road",
+   "polyline": [
+    [
+     -312.83,
+     107.18
+    ],
+    [
+     -306.75,
+     -293.95
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1428767886",
+   "highway": "unclassified",
+   "name": "Bluff Road",
+   "polyline": [
+    [
+     37.04,
+     -275.39
+    ],
+    [
+     65.42,
+     -260.2
+    ],
+    [
+     118.15,
+     -218.61
+    ],
+    [
+     168.53,
+     -169.8
+    ],
+    [
+     193.52,
+     -137.59
+    ],
+    [
+     214.03,
+     -103.98
+    ],
+    [
+     226.5,
+     -72.85
+    ],
+    [
+     236.57,
+     -26.53
+    ],
+    [
+     237.5,
+     7.56
+    ],
+    [
+     235.03,
+     81.48
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1428767890",
+   "highway": "unclassified",
+   "name": "Kearney Road",
+   "polyline": [
+    [
+     -331.9,
+     1041.33
+    ],
+    [
+     -326.82,
+     871.05
+    ],
+    [
+     -314.34,
+     177.22
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1428767891",
+   "highway": "service",
+   "name": "Tunnel Rd",
+   "polyline": [
+    [
+     12.04,
+     -224.53
+    ],
+    [
+     15.03,
+     -285.3
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1428767893",
+   "highway": "unclassified",
+   "name": "Kearney Road",
+   "polyline": [
+    [
+     -314.34,
+     177.22
+    ],
+    [
+     -312.83,
+     107.18
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1441512930",
+   "highway": "unclassified",
+   "name": "Bluff Road",
+   "polyline": [
+    [
+     235.03,
+     81.48
+    ],
+    [
+     145.16,
+     215.39
+    ],
+    [
+     223.08,
+     267.55
+    ],
+    [
+     222.07,
+     328.63
+    ]
+   ]
+  },
+  {
+   "osmId": "way/1457884186",
+   "highway": "service",
+   "name": null,
+   "polyline": [
+    [
+     -309.38,
+     -90.83
+    ],
+    [
+     -223.46,
+     -107.82
+    ]
+   ]
+  }
+ ],
+ "plainLanguage": {
+  "whatYouSee": "The Advanced Photon Source is a doughnut-shaped building roughly 0.4 km across, about four American football fields end to end. (Map outlines give ~395 m; an APS fact sheet quotes 1,225 ft, or 373 m.) Inside it, in a shielded concrete tunnel, electrons race around a 1.1-km loop at almost the speed of light. Wherever magnets make them turn or wiggle, they give off X-rays that fly out along the tangent, like sparks off a grinding wheel, into 35 \"sectors\" of experiment stations on the outer floor.",
+  "direction": "Seen from above, the electrons go round clockwise, and sector numbers also count clockwise. Sector 1 is on the north-north-east side of the ring, next to the big office building 401. Sectors 19 and 20 are at the south: from there two extra-long beamlines run out to the separate Long Beamline Building in the south-west, where their experiments sit about 180 m and 220 m from the source.",
+  "slices": "The ring is divided like a pizza into 40 slices of 9 degrees. Slices 1-35 each have one straight section for undulators, the magnet arrays that make the brightest X-rays. In about 16 of them, two undulators are set at a tiny angle (1 milliradian) so that they feed two independent beamlines. About 16 sectors also run a beamline from a bending magnet. Slices 36-40 have no beamlines. Sectors 36, 37 and 40 hold the radio-frequency cavities that give the electrons back the energy they lose as X-rays. Sector 38 holds the bunch-lengthening cavity and the kickers that pull out a depleted bunch, and sector 39 holds the injection magnets that put a fresh, full bunch in its place (\"swap-out\").",
+  "injector": "In the infield, the hole of the doughnut, sits the injector. A ~70-m linear accelerator (building 411) speeds electrons to about 0.45 GeV and fires them into a small 31-m \"particle accumulator ring\" (in building 412), which gathers them into one dense bunch. A 368-m booster synchrotron then ramps the bunch to 6 GeV, about once per second, and a transfer line carries it to the big ring at sector 39.",
+  "lom": "The saw-toothed buildings around the outside are Lab/Office Modules (LOMs 431-438), plus Building 441 for sectors 25-27. Each serves 3-5 neighbouring sectors with labs and offices for the scientists (APS sector-location page)."
+ },
+ "sources": [
+  {
+   "id": "OSM",
+   "what": "Building footprints (Bldg 400 relation 3126234, LOMs 431-438, 401, 402, 411-413, 420, 440, 441, 444, 446, 314) and roads",
+   "url": "https://overpass-api.de/api/interpreter (OpenStreetMap, base timestamp 2026-10-09T01:12:59Z)",
+   "license": "ODbL - attribution \"(c) OpenStreetMap contributors\" required",
+   "raw": "dl/site/osm_buildings_900m.json, dl/site/osm_all_420m.json, dl/site/osm_highways_700m.json"
+  },
+  {
+   "id": "APS-sector-locations",
+   "what": "Sector -> LOM pentagon mapping; 19/20 also in 444 (LBB); 25-27 in 441; per-sector ID/BM station names copied into sectors.table idStations2026 / bmBeamline2026",
+   "url": "https://www.aps.anl.gov/Users-Information/Help-Reference/Contacts/Sector-Beamline-Locations-Phones",
+   "date": "page stamp 08.10.2026"
+  },
+  {
+   "id": "APS-graphic",
+   "what": "Official \"Beamline Disciplines and Locations\" ring map (sector numbering, LBB with ISN/HEXM end stations, linac, PAR, booster, RF/extraction wing, Experiment Assembly Area); registered to OSM with 6 control points (rms ~2 m, rotation 179.49 deg)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/APS/About/PSC_APS%20Beamline_Directory_Graphic%20Update_1920x1080.png",
+   "via": "https://www.aps.anl.gov/Beamlines"
+  },
+  {
+   "id": "FDR-2",
+   "what": "APS-U Final Design Report (2019) ch.2: circumference 1103.6083 m (Table 2.3); ID straights fixed, BM sources at 9*pi/320 from upstream ID source (2-2.1.1); swap-out injection in sector-39 straight, extraction kickers + HHC in sector 38 (2-2.8, Fig. 2.17); RF cavities in sectors 36, 37, 40 (2-3.10); Zone F thick continuous shield wall sectors 37-1 (2-2.9); booster h=432, f=351.9149761 MHz (Table 2.48); BTS through three ring quads, clears 38B:BM1 (2-3.14.1.5); five super doors on the inner circumference (2-3.4)",
+   "url": "local docs/FDR_Chapter_2.pdf (APS-U FDR, APS document)"
+  },
+  {
+   "id": "FDR-3",
+   "what": "FDR ch.3, 3-4: ID-BM separation 5.0625 deg; APS-U BM source 5.36 mrad into B:M3, 42.3 mm inboard and 1.826 m upstream of the old BM source; Table 3.1 ID front-end types per sector (16 canted-undulator front ends, 1.0 mrad); Table 3.2 BM front-end status per sector",
+   "url": "local docs/FDR_Chapter_3.pdf"
+  },
+  {
+   "id": "FDR-4",
+   "what": "FDR ch.4: Table 4.1 feature-beamline sectors; 4-1.2 Long Beamline Building (two corridors, office row); Fig. 4.1 LBB plan; HEXM Table 4.28 (D station 70.2 m, E station 180.7 m, beamstop 197 m, Laue-Laue mono with 25-35 mm outboard offset); ISN Table 4.49 (M3 inboard-deflecting mirror at 35 m, 65.5-213 m transport, instrument 220 m, beamstop 227 m); 4-7.6 ISN M3 at 2.5 mrad reflection angle; 4-10 ASL at 25-ID (25-ID-C AS branch, 25-ID-D,E LERIX branch)",
+   "url": "local docs/FDR_Chapter_4.pdf"
+  },
+  {
+   "id": "FDR-5",
+   "what": "FDR ch.5 Storage Ring Removal and Installation: Zones A-E = sectors 1-35, Zone F = 36-40 (RF & injection); super doors; Fig. 5.7 aerial photo with sector numbers and super doors A-E",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%205%20-%20Storage%20Ring%20Removal%20and%20Installation.pdf"
+  },
+  {
+   "id": "PAC95-Galayda",
+   "what": "J.N. Galayda, \"The Advanced Photon Source\", PAC 1995 (MAD02): 1995 site plan (north-up; booster in NW infield, linac E of injection wing, control center in 401); booster 40-cell FODO with 4 dispersion-free straights; PAR 30.7 m; electron linac listed as 250 MeV; Fig. 1 labels \"Control Center\" at the 401-ring junction and \"Early Assembly Areas\" on the Zone F floor",
+   "url": "https://proceedings.jacow.org/p95/ARTICLES/MAD/MAD02.PDF"
+  },
+  {
+   "id": "PAC95-Friedsam",
+   "what": "H. Friedsam, M. Penicka, S. Zhao, \"Beamline Smoothing of the APS\", PAC 1995 (TAA03): 70-m linac (40-m electron linac + 30-m section), synchrotron ring 368 m, SR 1104 m",
+   "url": "https://epaper.kek.jp/p95/ARTICLES/TAA/TAA03.PDF"
+  },
+  {
+   "id": "APS-TB-1421579",
+   "what": "APS technical bulletin: PAR circumference 30.667 m (1/12 of injector synchrotron); booster 368 m = 1/3 of the storage ring, 68 dipoles, 2 Hz (pre-upgrade); 200-MeV electron linac + 450-MeV positron linac",
+   "url": "https://www.aps.anl.gov/files/APS-sync/technical_bulletins/files/APS_1421579.pdf"
+  },
+  {
+   "id": "IPAC24-Kelly",
+   "what": "M. Kelly et al., IPAC 2024 WEPS10: bunch-lengthening SC 1408-MHz cavity installed in one half of a 5-m APS straight; other half holds longitudinal bunch-by-bunch feedback kickers (sector not named)",
+   "url": "https://proceedings.jacow.org/ipac2024/pdf/WEPS10.pdf"
+  },
+  {
+   "id": "APS-FastFacts",
+   "what": "Fast Facts PDF (PSC_16_6): \"The outer diameter of the APS experiment hall is 1,225 feet\" (conflicts with OSM/imagery); 80-acre site; APCF name; 35 user sectors",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Media-Center/Fast%20Facts%20about%20the%20APS_16_6.pdf"
+  },
+  {
+   "id": "APS-U-news-2022",
+   "what": "LBB 20,000 sq ft, full occupancy late June 2022, ribbon cutting July 2022; ASL moving 20-ID -> 25-ID",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/News/Making-Connections"
+  },
+  {
+   "id": "Newswise-2022",
+   "what": "LBB ribbon cutting (Secretary Granholm), LBB described as an experiment hall attached to the APS",
+   "url": "https://www.newswise.com/doescience/ribbon-cutting-ceremony-spotlights-the-advanced-photon-source-s-game-changing-long-beamlines"
+  },
+  {
+   "id": "PowerConstruction",
+   "what": "LBB builder page: 22,000 sf; ISN 250 m (820 ft) long, HEXM 180 m (590 ft); architect HDR",
+   "url": "https://www.powerconstruction.net/projects/science/argonne-long-beam-facility?market=36"
+  },
+  {
+   "id": "PDR-6",
+   "what": "APS-U PDR (2017) ch.6: ratchet wall at z~24 m from the source",
+   "url": "local docs/PDR_Ch6_ExpFac.pdf"
+  },
+  {
+   "id": "Esri-imagery",
+   "what": "Esri World Imagery z18/z19 tiles used ONLY to measure corridor directions, roof edges and to check OSM alignment (not redistributed)",
+   "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+   "license": "Esri terms; do not ship tiles in the product"
+  },
+  {
+   "id": "MEDSI25-TUOA01",
+   "what": "O. Schmidt et al., APS-U beamline scope overview: nine feature beamlines, 15 enhancement beamlines; ISN and HEXM extend into the LBB; all BM beamlines moved 42 mm inboard with an extra 0.5 mrad inboard angular shift",
+   "url": "https://proceedings.jacow.org/medsi2025/pdf/medsi2025_proceedings_brief.pdf (paper TUOA01)"
+  },
+  {
+   "id": "MEDSI25-TUOA02",
+   "what": "Design and technical commissioning of the ISN endstation: instrument in a satellite building 220 m from the undulator source; 4.8-30 keV; 20 nm KB focus at 25 keV",
+   "url": "https://doi.org/10.18429/JACoW-MEDSI2025-TUOA02"
+  },
+  {
+   "id": "IPAC24-TUZN2",
+   "what": "E. Peoples-Evans, \"Status and first results of the APS-U\", IPAC'24 invited talk slides: removal began May 2023, first module 12 Jul 2023, \"S38 longitudinal feedback kicker pair\", \"S38 Stripline Kickers Bakeout\"",
+   "url": "IPAC'24 (Nashville) talk TUZN2, Indico event 63; local copy dl/facility/ipac24_TUZN2_talk.pdf"
+  },
+  {
+   "id": "APS-news-2021-LBB",
+   "what": "LBB groundbreaking ceremony 22 Jul 2020; completion expected June 2022",
+   "url": "https://www.aps.anl.gov/APS-News/2021-09-10/pictures-of-progress-the-aps-upgrades-long-beamline-building-takes-shape/2021"
+  },
+  {
+   "id": "ANL-2022-ribbon",
+   "what": "Argonne release 25 Jul 2022: ribbon cut that day with Energy Secretary Jennifer Granholm; building broke ground for construction June 2020; beamlines ~3x longer than existing APS beamlines",
+   "url": "https://www.newswise.com/doescience/ribbon-cutting-ceremony-spotlights-the-advanced-photon-source-s-game-changing-long-beamlines"
+  },
+  {
+   "id": "APS-beamline-directory-2026",
+   "what": "APS beamline directory: station names, energy ranges (e.g. 19-ID-E 4.8-30 keV, 20-ID-D,E 35-120 keV, 33-ID-C, 34-ID-E, 34-ID-F)",
+   "url": "https://www.aps.anl.gov/Beamlines/Directory"
+  },
+  {
+   "id": "APS-news-2026-06-10",
+   "what": "APS begins transition to solid-state RF amplifiers: first sector (4 cavities), full storage-ring deployment expected by 2028, then the booster",
+   "url": "https://www.aps.anl.gov/APS-News/2026-06-10/aps-begins-transition-to-solid-state-radio-frequency-amplifier-technology-to"
+  },
+  {
+   "id": "APS-StrategicPlan-2025-29",
+   "what": "Solid-state amplifier installation order: sector 36 (FY25), sector 40 (FY26), then sector 37; twelve 160-kW SSAs",
+   "url": "APS Strategic Plan 2025-29 p.39 (local copy dl/facility/strategic_plan_2025_29.pdf)"
+  },
+  {
+   "id": "APS-news-2024-04-20",
+   "what": "first stored beam in the new storage ring, 20 Apr 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-04-20/first-stored-electron-beam-in-new-aps-storage-ring/2024-04-20/first-stored"
+  },
+  {
+   "id": "APS-news-2024-06-18",
+   "what": "first x-rays delivered to a scientific beamline, 17 Jun 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-06-18/shine-on-upgraded-advanced-photon-source-sees-first-x-ray-light-for-science"
+  },
+  {
+   "id": "APS-news-2024-08-23",
+   "what": "record emittance 45 pm (measured at 50 mA); 28 pm in round-beam mode",
+   "url": "https://www.aps.anl.gov/APS-News/2024-08-23/advanced-photon-source-achieves-world-record-electron-beam-emittance"
+  },
+  {
+   "id": "APS-news-2025-02-27",
+   "what": "200 mA design current first reached 4 Feb 2025, now used for user operations",
+   "url": "https://www.aps.anl.gov/APS-News/2025-02-27/a-current-event-advanced-photon-source-hits-target-of-200-ma-of-electron-beam"
+  },
+  {
+   "id": "Calvey-IFAST24",
+   "what": "J. Calvey, \"Upgrade of the APS-U booster\", I.FAST injector workshop, 7 Mar 2024: booster 7->6 GeV, 2->1 Hz; linac/PAR 425->450+ MeV; 48/324-bunch modes",
+   "url": "slides, local copy dl/facility/calvey_booster_ifast24.pdf"
+  },
+  {
+   "id": "IBIC23-WEP017",
+   "what": "K. Wootton et al., Electron beam at the APS Linac Extension Area beamline: LEA = former LEUTL enclosure, first beam 2023 at 425 MeV; thermionic RF gun (ring) vs photocathode RF gun (LEA)",
+   "url": "https://accelconf.web.cern.ch/ibic2023/papers/wep017.pdf"
+  },
+  {
+   "id": "APS-building-monitors",
+   "what": "lists \"CONTROL CENTER, 1st floor: all operators in the MCR\" with the Building 401 wings; Bldg 444 for sectors 19/20",
+   "url": "https://www.aps.anl.gov/Safety-and-Training/Safety/Emergencies-and-Emergency-Preparedness/APS-Building-Monitors"
+  }
+ ],
+ "openQuestions": [
+  "sector1AngleDeg = 69.8 +/- 1.0 deg (hard bound 68.6-70.25 from LBB end-station containment, reproduced by the verifier; the verifier's corridor-position check gives 69.4). No public survey coordinate list or CAD plan with sector lines was found; an APS survey/alignment drawing would pin it to <0.1 deg.",
+  "Super-door <-> sector mapping (A=2, B=10, C=17, D=24, E=30) is inferred from OSM notch azimuths + FDR Fig. 5.7 labels; it assumes the doors sit opposite ID straights.",
+  "Experiment-hall outer wall: OSM/imagery give r = 197.3 m (diameter 394.6 m) but APS Fast Facts says 1,225 ft (373 m) diameter. The OSM circle may include an outer corridor; the hall floor must reach at least r ~ 192 m (HEXM station D at ~77 m from source).",
+  "Storage-ring tunnel width and ratchet-wall tooth geometry are not in the public documents found; 178 m is an estimate from front-end exit distances.",
+  "All building heights are guesses (no OSM height/levels tags). Photos or LIDAR (e.g. USGS 3DEP for DuPage County) would fix them.",
+  "Booster outline (+/-5 m) comes from a schematic graphic; the BTS path is schematic. A published injector layout drawing would improve this.",
+  "Zone-F as-built: RF in 36/37/40 and injection in 39 are confirmed; for sector 38, IPAC24 TUZN2 slides name the S38 longitudinal-feedback kicker pair and S38 stripline kickers, and IPAC24 WEPS10 puts the BLS in the same straight as the feedback kickers. So the BLS is almost certainly in S38, but no document found names \"S38\" and \"BLS\" in the same sentence.",
+  "Nomenclature: FDR Fig. 2.17 places \"the ID straight of sector N\" at the downstream end of accelerator sector N; this dossier assumes beamline N-ID uses that straight (standard usage) - confirm with an APS lattice/floor file.",
+  "Unidentified annex on the inner (infield) side of the ring at az 14-37 deg, r ~159-170 m (OSM inner-wall bulge; visible in imagery).",
+  "Fast-facts style numbers for the Experiment Assembly Area (Zone F floor) and the 401 main control room location are from 1995/2026 graphics labels, not from a floor plan.",
+  "ISN length quoted as 250 m by the builder vs instrument at 220 m (FDR / APS news); the 250 m likely includes the end-station hutch/beamstop or rounding.",
+  "ISN M3: the FDR design reflection angle is 2.5 mrad (5.0 mrad = 0.29 deg turn, used here); the as-built angle was not found.",
+  "LBB footprint: the OSM outline (1,458 m2) is ~22-29% smaller than the official 20,000-22,000 sq ft. Either the official figure includes corridors or a mezzanine, or the OSM outline is incomplete.",
+  "Which sectors have operating BM beamlines and canted branches in 2026 comes from the APS phone/location list and FDR 2019 tables. Check against the APS beamline directory before drawing BM fans."
+ ],
+ "figures": [
+  {
+   "file": "research/figs/site/site_overview.png",
+   "what": "plan view of site.json (regenerated by verifier): buildings (OSM), ID source points, ID beam lines to the outer wall (double line = canted-undulator sector, FDR 2019), BM lines only for sectors with a 2026 BM beamline, sector numbers, super doors (inferred), injector, LBB beamlines"
+  },
+  {
+   "file": "research/figs/site/site_injector_zoom.png",
+   "what": "zoom on infield injector (regenerated by verifier with title, scale bar, north arrow and labels): linac (411), PAR (in 412), booster outline (schematic +/-5 m), RF/extraction wing (420), schematic BTS to the sector-39 straight, sector 38 (BLS + kickers) and 39 (injection)"
+  }
+ ],
+ "qaArtifactsNotForRedistribution": [
+  "dl/site/overlay18.png (OSM outlines on Esri imagery)",
+  "dl/site/beamline_directory_graphic.png (APS graphic)",
+  "dl/site/fdr5_fig57_raw.png (FDR Fig. 5.7 aerial)",
+  "dl/site/p57_u_*.png (unwrapped Fig. 5.7 sector band)",
+  "dl/site/graphic_registration.json, dl/site/photo57_registration.json (control-point registrations)"
+ ],
+ "threejsHints": {
+  "axes": "three.js X = x (east), Z = -y (south positive), Y = up. Ring centre at origin.",
+  "ring": "Extrude buildings[id=400] polygon with its hole (or build the annulus procedurally from hallInnerRadiusM/hallOuterRadiusM). Electron orbit: circle r=175.64 m (or 40-gon through idSourceXY).",
+  "beams": "Draw each sector ID beam from idSourceXY along idBeamDirDeg; x-rays travel clockwise. Typical in-hall beamlines end 55-80 m from the source; ISN/HEXM continue into Bldg 444. Draw BM beams only where bmBeamline2026 is non-null. For canted sectors (idFrontEndFDR2019) the two ID branches diverge by only 1 mrad; they are separated further by mirrors in the first optics enclosure.",
+  "scale": "Whole site fits in ~700 m x 650 m; a camera at ~600 m height shows everything."
+ },
+ "verification": {
+  "checkedBy": "adversarial-verifier",
+  "date": "2026-10-09",
+  "method": "Primary sources re-fetched (OSM API, APS pages, FDR ch.2-5, JACoW PAC95/IPAC24/MEDSI25/IBIC23, APS news); geometry re-derived independently with research/verify_site_tools/*.py; figures regenerated with research/verify_site_tools/draw_site_v.py",
+  "claims": [
+   {
+    "claim": "Ring centre lat/lon 41.703517, -87.988128 (centre of a circle fitted to the OSM outer wall)",
+    "verdict": "confirmed",
+    "source": "verifier refit of OSM relation 3126234 outer way (258 nodes) via api.openstreetmap.org: centre 41.703517, -87.988128"
+   },
+   {
+    "claim": "Hall outer radius 197.3 m (OSM)",
+    "verdict": "confirmed",
+    "source": "verifier refit: 197.29 m at R = 6371.0 km; 197.4 +/- 0.4 m with WGS84 local radii (scale note added to frame)"
+   },
+   {
+    "claim": "Frame error \"< 1 cm over the site\"",
+    "verdict": "corrected",
+    "source": "Only the projection non-linearity is < 1 cm. The spherical R = 6371 km scale is off by -0.26% in x and +0.12% in y relative to WGS84 local radii (up to ~0.5 m at 200 m)"
+   },
+   {
+    "claim": "APS Fast Facts gives the experiment-hall outer diameter as 1,225 ft (conflicts with OSM)",
+    "verdict": "confirmed",
+    "source": "Fast Facts about the APS PDF (PSC_16_6): \"The outer diameter of the APS experiment hall is 1,225 feet\". The conflict is real; 197.3 m kept because 1,225 ft cannot fit the 20-ID-D hutch (FDR Table 4.28)"
+   },
+   {
+    "claim": "APS-U circumference 1103.6083 m; original design 1104 m; pre-upgrade measured 1103.986 m",
+    "verdict": "confirmed",
+    "source": "FDR ch.2 Table 2.3 and 2-2.1.1 text (\"present-day circumference of 1103.986 m (derived from the median rf frequency over one year)\")"
+   },
+   {
+    "claim": "Electron orbit mean radius 175.64 m = C/2pi; ID straight apothem 175.5 m",
+    "verdict": "confirmed",
+    "source": "arithmetic; verifier equiangular-80-gon estimate 175.52-175.57 m; FDR 3-4: ID tangent lines kept unchanged by APS-U"
+   },
+   {
+    "claim": "40 sectors; 1-35 beamline sectors; 36-40 = Zone F (RF + injection)",
+    "verdict": "confirmed",
+    "source": "FDR ch.5 5-1; FDR 2-3.x: \"35 standard MBA insertion-device straight sections, three straight sections ... for 12 existing rf cavities\", one for extraction kickers + harmonic cavity, one for injection"
+   },
+   {
+    "claim": "Sector numbers and electron travel run clockwise seen from above",
+    "verdict": "confirmed",
+    "source": "APS sector-location page (LOM 431 = sectors 1-4 ... 438 = 31-35) mapped to OSM LOM centroids at decreasing azimuth; LBB end stations of 19/20 lie clockwise of their straights; FDR Fig. 5.7 numbering"
+   },
+   {
+    "claim": "Sector-1 ID straight azimuth 69.8 deg (bearing 20.2 deg, NNE)",
+    "verdict": "unverifiable",
+    "source": "No public survey or CAD data exist. Verifier reproduced the LBB containment bound 68.6-70.25 deg and the corridor directions; the corridor-position method gives 69.4 deg (ISN) and 68.3-68.9 deg (HEXM, weak). The value is kept with +/-1.0 deg"
+   },
+   {
+    "claim": "ISN M3 turns the beam ~0.3 deg inboard (was flagged NOT verified)",
+    "verdict": "corrected",
+    "source": "FDR 4-7.6: M3 is a horizontally deflecting mirror operated at a 2.5 mrad reflection angle, giving a 5.0 mrad = 0.29 deg turn (design value); DCM/DMM deflect inboard but only offset the beam"
+   },
+   {
+    "claim": "RF: 4 single-cell 352-MHz cavities in each of sectors 36, 37, 40 (12 total); sector-38 cavities removed",
+    "verdict": "confirmed",
+    "source": "FDR 2-3.10 and Table 2.42 (12 cavities, 6.43 MV); FDR ch.5 5-2 (\"12 RF cavities in Sectors 36, 37, and 40 (four per sector)\")"
+   },
+   {
+    "claim": "RF power sources for sectors 36/37/40 (not in dossier)",
+    "verdict": "corrected",
+    "source": "Added the 2026 change: klystrons are being replaced by solid-state amplifiers one sector at a time, full ring by 2028 (APS news 2026-06-10); order 36, 40, 37 (APS Strategic Plan 2025-29)"
+   },
+   {
+    "claim": "Sector 38 straight: bunch-lengthening 4th-harmonic 1408-MHz SC cavity + swap-out extraction kickers; IPAC24 adds longitudinal feedback kickers; sector not named",
+    "verdict": "confirmed",
+    "source": "FDR 2-2.8.2; IPAC24 WEPS10 (passive cavity, 2.1 K, up to 1.3 MV, half of a 5-m straight, other half longitudinal feedback kickers); IPAC24 TUZN2 slides name the \"S38 longitudinal feedback kicker pair\" and \"S38 Stripline Kickers\""
+   },
+   {
+    "claim": "Sector 39: DC Lambertson septum + 3 stripline injection kickers; swap-out dump in S39A:M1",
+    "verdict": "confirmed",
+    "source": "FDR 2-2.8, Table 2.29 and 2-3.x (\"DC Lambertson injection septum and three fast injection kickers\"); multi-bunch swap-out first demonstrated 29 Apr 2024 (APS news 2024-04-30)"
+   },
+   {
+    "claim": "\"ID straight of sector N\" sits at the downstream end of accelerator sector N",
+    "verdict": "confirmed",
+    "source": "FDR Fig. 2.17 (S38 straight before the S38/S39 boundary; S39 injection straight before S40; dump in S39A:M1)"
+   },
+   {
+    "claim": "BM source 5.0625 deg (9pi/320) downstream of the ID source; 5.36 mrad into B:M3; 42.3 mm inboard / 1.826 m upstream (ch.3) vs 39 mm / 2.908 m (ch.2)",
+    "verdict": "confirmed",
+    "source": "FDR 2-2.1.1 and 3-4. As built, MEDSI'25 TUOA01 gives 42 mm, confirming the ch.3 value"
+   },
+   {
+    "claim": "BM beam direction = phi_N - 90 - 5.0625 deg",
+    "verdict": "corrected",
+    "source": "MEDSI'25 TUOA01: as built, all BM beamlines also moved by an extra 0.5 mrad inboard angular shift. Formula, bmBeamDirDeg and wall hits updated (-0.0286 deg)"
+   },
+   {
+    "claim": "BM beam lines exist for every sector 1-35 (implied by the table and figure)",
+    "verdict": "corrected",
+    "source": "FDR Table 3.2 (20 standard BM front ends + 2 special); the 2026 APS location list shows user BM beamlines only in sectors 1, 2, 5-13, 16, 17, 19, 20, 33. Added bmBeamline2026 and bmFrontEndFDR2019; the figure now draws only active BM lines"
+   },
+   {
+    "claim": "Plain language: each of slices 1-35 feeds one insertion-device beamline",
+    "verdict": "corrected",
+    "source": "FDR Table 3.1: 16 sectors have canted-undulator front ends (two IDs 1.0 mrad apart feeding independent branches); idFrontEndFDR2019 added per sector"
+   },
+   {
+    "claim": "Five super doors on the inner circumference; door-to-sector map A=2, B=10, C=17, D=24, E=30",
+    "verdict": "unverifiable",
+    "source": "Five doors confirmed (FDR 2-3.4; FDR ch.5 \"all five super doors\"). The sector map agrees with FDR Fig. 5.7 to about 1 sector but is inferred"
+   },
+   {
+    "claim": "Zone letters A-E, 7 sectors each",
+    "verdict": "unverifiable",
+    "source": "FDR ch.5 defines only A-E = 1-35 and F = 36-40; the Fig. 5.7 colour blocks are removal groups. Flagged as an unsourced placeholder"
+   },
+   {
+    "claim": "Booster circumference 368.0 m from h = 432 and 351.9149761 MHz",
+    "verdict": "confirmed",
+    "source": "FDR Table 2.48; APS tech. bulletin APS_1421579 (368 m = 1/3 of the storage ring); Friedsam PAC95 (368 m)"
+   },
+   {
+    "claim": "Booster lattice: 40-cell FODO, zero-gradient dipoles, 12 dipoles deleted -> 4 dispersion-free straights",
+    "verdict": "confirmed",
+    "source": "Galayda PAC95 MAD02 sec. VI; APS_1421579 (68 dipoles)"
+   },
+   {
+    "claim": "Booster ramps ~0.4-0.5 GeV -> 6 GeV at 1 Hz for APS-U",
+    "verdict": "confirmed",
+    "source": "FDR Table 2.48 (injection 325-500 MeV, ring 6000 MeV) and 2-3.14 (1 Hz implemented); Calvey I.FAST 2024 (7->6 GeV, 2->1 Hz, linac/PAR 425->450+ MeV)"
+   },
+   {
+    "claim": "PAR circumference 30.667 m = 1/12 of the booster",
+    "verdict": "confirmed",
+    "source": "APS_1421579 sec. 2.4 (\"circumference of 30.667 m (1/12 of the injector synchrotron)\"); Galayda PAC95 (30.7 m)"
+   },
+   {
+    "claim": "Linac ~70 m (40-m electron linac + 30-m section); original 200-MeV e- on target + 450-MeV positron linac",
+    "verdict": "confirmed",
+    "source": "Friedsam PAC95 TAA03; APS_1421579 sec. 2.1. Note: Galayda PAC95 lists the electron linac as 250 MeV; today ~425-450 MeV electrons only (IBIC2023 WEP017)"
+   },
+   {
+    "claim": "LEA (Bldg 413) historically hosted LEUTL; 2026 use not verified",
+    "verdict": "corrected",
+    "source": "IBIC2023 WEP017: the LEA enclosure (formerly LEUTL) was re-commissioned in 2023 as an accelerator R&D beamline, first beam at 425 MeV"
+   },
+   {
+    "claim": "Feature-beamline sectors: POLAR 4, XPCS 8, CSSI 9, ISN 19, HEXM 20, CHEX 28, PtychoProbe 33, ATOMIC + 3DMN 34",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.1; MEDSI'25 TUOA01 (nine feature beamlines)"
+   },
+   {
+    "claim": "Station names: 4-ID-B,G,H; 8-ID-E,I; 9-ID-D; 19-ID-E; 20-ID-D,E; 28-ID-B..G; 34-ID-E (3DMN), 34-ID-F (ATOMIC)",
+    "verdict": "confirmed",
+    "source": "APS Sector/Beamline Locations page (stamp 08.10.2026) and APS beamline directory"
+   },
+   {
+    "claim": "PtychoProbe at 33-ID-A,B,C",
+    "verdict": "corrected",
+    "source": "APS directory/location list 2026: user station 33-ID-C (FDR 2019 planned 33-ID-D at ~70 m); A/B hutch letters not confirmed"
+   },
+   {
+    "claim": "ASL at 25-ID-D,E, relocated from 20-ID, tagged as a feature beamline",
+    "verdict": "corrected",
+    "source": "FDR 4-10: ASL is an APS-U relocation, not one of the nine feature beamlines; canted; 25-ID-C = Advanced Spectroscopy, 25-ID-D,E = LERIX/time-resolved; moved from 20-ID and 11-ID-D (APS news 2022-08-18)"
+   },
+   {
+    "claim": "HEXM: 20-ID-D instrument 70.2 m; 20-ID-E sample 180.7 m; fixed beamstop 197 m; Laue-Laue mono offset 25-35 mm outboard, no net deflection",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.28; builder page \"180-meter\" HEXM"
+   },
+   {
+    "claim": "ISN: window 213 m, instrument 220 m, beamstop 227 m; transport 65.5-213 m with pump mini-enclosures at 95/124/153/183 m",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.49; as-built 220 m in MEDSI'25 TUOA02"
+   },
+   {
+    "claim": "LBB = Bldg 444; 20,000 sq ft (APS news 2022) vs 22,000 sf (builder); ISN 250 m, HEXM 180 m (builder)",
+    "verdict": "confirmed",
+    "source": "APS news \"Making Connections\" 2022-08-18; Power Construction project page; OSM name \"APS Long Beamline Building (444)\". Added that the OSM footprint is only 1,458 m2 (~15,700 sq ft)"
+   },
+   {
+    "claim": "LBB groundbreaking June 2020; full occupancy late June 2022; ribbon cutting July 2022",
+    "verdict": "corrected",
+    "source": "Ceremony 22 Jul 2020 (APS news 2021-09-10); construction began June 2020 (Argonne release 25 Jul 2022); ribbon cutting 25 Jul 2022 with Energy Secretary Jennifer Granholm; occupancy late June 2022 confirmed (APS news 2022-08-18)"
+   },
+   {
+    "claim": "LOM-to-sector map (431: 1-4, 432: 5-8, 433: 9-12, 434: 13-16, 435: 17-20, 436: 21-24, 441: 25-27, 437: 28-30, 438: 31-35)",
+    "verdict": "confirmed",
+    "source": "APS Sector/Beamline Locations & Phone Numbers page"
+   },
+   {
+    "claim": "Building 401 houses XSD/AES/ASD and the main control room",
+    "verdict": "confirmed",
+    "source": "OSM/map.anl.gov description (divisions); PAC95 Fig. 1 \"Control Center\" at the 401-ring junction; APS building-monitor page \"CONTROL CENTER ... all operators in the MCR\" (exact wing unconfirmed)"
+   },
+   {
+    "claim": "Building 402 conference centre with a 400+ seat auditorium; 314 = undulator/SCU fabrication and test; 440 = CNM; 446 = Advanced Protein Characterization Facility",
+    "verdict": "confirmed",
+    "source": "OSM descriptions taken from map.anl.gov; APS Fast Facts PDF for the APCF name"
+   },
+   {
+    "claim": "Ratchet wall at z ~24 m; front-end exit mask at 25.4 m",
+    "verdict": "confirmed",
+    "source": "PDR ch.6 (\"near the location of the ratchet wall (z ~24 m)\"); FDR Tables 4.28/4.49"
+   },
+   {
+    "claim": "Plain language: \"about 395 m across (four football fields)\"",
+    "verdict": "corrected",
+    "source": "Reworded to \"roughly 0.4 km ... about four American football fields\", with the 1,225 ft vs ~395 m conflict stated"
+   },
+   {
+    "claim": "Plain language: booster hands bunches to the ring \"through a short transfer line\"",
+    "verdict": "corrected",
+    "source": "The BTS runs from booster extraction near Bldg 420 through the ring tunnel to the S39 straight (FDR 2-3.14.1.5). Wording fixed"
+   },
+   {
+    "claim": "Ring machine parameters (added gap fill): 6 GeV, 41.68 pm design / 45 pm measured, 200 mA reached 4 Feb 2025, h = 1296, 352.056 MHz, first stored beam 20 Apr 2024, first light 17 Jun 2024",
+    "verdict": "confirmed",
+    "source": "FDR Tables 2.3/2.42/2.48; APS news 2024-04-20, 2024-06-18, 2024-08-23, 2025-02-27"
+   }
+  ]
+ }
+}

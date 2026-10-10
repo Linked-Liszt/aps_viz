@@ -1,0 +1,2767 @@
+{
+ "sectors": {
+  "1": {
+   "sector": 1,
+   "lom": "431-A",
+   "canted": false,
+   "operators": "XSD: Optics (1-BM), Materials Physics & Engineering (1-ID)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "1-BM-B,C",
+     "title": "1-BM-B,C: Optics & Detector Testing",
+     "summary": "A test bench for the APS's own X-ray mirrors, lenses and detectors, also open to outside users.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/1",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "BM",
+     "stations": [
+      "1-BM-B",
+      "1-BM-C"
+     ],
+     "operator": "XSD Optics group (with Detectors group)",
+     "techniques": [
+      "optics & detector testing",
+      "white-beam topography",
+      "grating (Talbot) interferometry",
+      "coherence measurements"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5 (not yet back in the general-user program) while directory says 'Operational'."
+    },
+    {
+     "name": "1-ID-B,C,E",
+     "title": "1-ID-B,C,E: High-energy X-ray Scattering",
+     "summary": "High-energy X-rays look deep inside metal parts and batteries to map stress and crystal grains in 3D.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/2",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "1-ID-B",
+      "1-ID-C",
+      "1-ID-E"
+     ],
+     "operator": "XSD Materials Physics & Engineering (MPE)",
+     "techniques": [
+      "high-energy diffraction (42\u2013136 keV)",
+      "HEDM (3D grain mapping)",
+      "SAXS/WAXS",
+      "PDF",
+      "tomography"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "1-ID (FDR Table 4.3)",
+      "plain": "1-ID shoots very high-energy X-rays (about 40\u2013140 thousand electron-volts) that can pass through centimetres of metal, to see stresses and crystal grains inside engine parts or batteries. The upgrade gave it a new, steadier sample-handling and detector system, and planned a new crystal 'colour filter' that bends the beam sideways so it does not smear out the much smaller, sharper beam of the new APS. A stronger superconducting magnet source is still to come.",
+      "expert": "FDR scope: (i) replace the vertically diffracting, cryo-cooled bent double-Laue Si(111) monochromator (fixed exit, 40\u2013140 keV, ~10\u207b\u00b3 bandwidth) by the same Rowland-condition concept in the HORIZONTAL plane, because the phase-space compensation that preserved the old 40 pm\u00b7rad vertical emittance to within 20% would not hold for the APS-U ~4.2 pm\u00b7rad vertical emittance (FDR 1-ID section), and engineer it for the heat load of a long SCU; (ii) 1-ID-C sample-manipulation system with hexapod + tilt stage; (iii) 1-ID-E high-resolution SMS with continuous rotation + tilt (dark-field-capable diffractometer) and a +4 m end-station extension for pinhole SAXS to ~1 \u00b5m features and a refractive-lens TXM below 200 nm at high energy (vs ~500 nm demonstrated at 45 keV in 6 m).",
+      "fdrDeliverables": [
+       "1-ID-A: high-energy horizontally deflecting Laue monochromator",
+       "1-ID-C: sample manipulation system with hexapod and tilt stage",
+       "1-ID-E: enhanced SAXS-resolution detector-distance extension"
+      ],
+      "asBuilt": "MPE group (Jan 2024): the initial undulator is a permanent-magnet device, to be replaced by an SCU (nominally identical to 20-ID) ~1 year after APS-U startup; the initial monochromator is the ~20-year-old vertical-offset system, with a new Cinel monochromator (nominally identical to 20-ID, whose Cinel unit the same page describes as 'horizontal offset', installed at 20-ID-A in Jan 2024) to follow ~1 year after startup; 1-ID-C now has a ~4.5 m optical table, new sample-manipulation and detector-motion systems optimized for diffracted-beam-aperture (conical/spiral slit) work. As of the 2026-09-22 ID table only one 2.1 cm PMU (APS21#16) is installed in S01; the 2026 directory still lists a 'Si(111) Bent Double-Laue' mono (42-136 keV) without saying whether it is the new horizontal unit. The same MPE page states that 'the 1-ID-E instrument will remain similar to its status prior to APS-U', i.e. the FDR +4 m 1-ID-E extension for SAXS/TXM is not evidenced as built.",
+      "deliveryStatus": "partial / unconfirmed: 1-ID-C instrumentation delivered; 1-ID-E kept its pre-APS-U configuration (MPE page, Jan 2024); horizontal Laue mono and SCU not confirmed as installed by 2026-10",
+      "source": [
+       "r1",
+       "r22",
+       "r6",
+       "r3"
+      ]
+     },
+     "notes": "FDR planned a dual in-line SCU (1.65 cm); as of 2026-09-22 only one 2.1 cm PMU is installed. Directory still quotes a 2.3 cm undulator - superseded by the ID table."
+    }
+   ],
+   "plainLabel": "High-energy X-rays inside metals & batteries"
+  },
+  "2": {
+   "sector": 2,
+   "lom": "431-B",
+   "canted": true,
+   "operators": "XSD: Imaging (2-BM), Microscopy (2-ID)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "2-BM-A,B",
+     "title": "2-BM-A,B: Micro tomography Imaging",
+     "summary": "Fast 3D X-ray CT scans of rocks, batteries, insects and materials while they change.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/3",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "2-BM-A",
+      "2-BM-B"
+     ],
+     "operator": "XSD Imaging group",
+     "techniques": [
+      "micro-tomography",
+      "phase-contrast imaging",
+      "radiography",
+      "laminography"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "2-ID-D",
+     "title": "2-ID-D: Microfluorescence and Bionanoprobe",
+     "summary": "Maps where trace metals sit inside frozen cells and materials with a 50\u2013200 nm X-ray spot.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/5",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "2-ID-D"
+     ],
+     "operator": "XSD Microscopy group",
+     "techniques": [
+      "XRF microprobe / nanoprobe",
+      "cryogenic XRF (Bionanoprobe)",
+      "XRF tomography",
+      "ptychography",
+      "micro-XANES"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "2-ID (FDR Table 4.3)",
+      "plain": "2-ID makes X-ray \u2018element maps\u2019 of cells, soils and microchips by scanning a tiny spot and recording the glow (fluorescence) each element gives off. The upgrade plan adds mirrors that keep the tiny new beam steady, a mirror-focused microprobe at 2-ID-E, and a new frozen-sample nanoprobe (Bionanoprobe-II) aiming for 10-nanometre detail. Status (2026): Bionanoprobe-II is under construction, and 2-ID-E still runs with its zone-plate lenses.",
+      "expert": "FDR scope (the design report had the whole 2-ID line canted in 2019, ahead of APS-U; S02 now holds two short canted 2.8 cm devices): a vertically focusing mirror on each branch so that, with the existing horizontal bendable mirrors, the source is re-imaged stigmatically onto beam-defining apertures at ~35 m (stable secondary source, tolerant of the 2.5\u00d7 vertical source-size change between timing and brightness modes; spec to 30 keV under full heat load); 2-ID-E: replace zone plates by figured in-vacuum KB mirrors (60\u201380% vs 10\u201320% efficiency; achromatic, allows pink-beam/multi-harmonic XRF) with BDA, compact interferometers and <10 nm, >10 mm-travel fast stages \u2013 predicted focus gains of ~10\u00b2 (micro-XAS) and ~10\u2074 (micro-XRF); 2-ID-D: BNP-II cryogenic nanoprobe, <10 nm resolution, few-atom sensitivity, ptychography-enhanced XRF.",
+      "fdrDeliverables": [
+       "2-ID-A: two vertical focusing mirrors",
+       "2-ID-D: 10 nm Bionanoprobe-II (scanning stages, rotation, interferometers, vacuum chamber, Delta Tau controls, zone plates, polycapillary collimator)",
+       "2-ID-E: enhanced microprobe (BDA, figured in-vacuum KB mirrors, interferometers, fast stages)"
+      ],
+      "asBuilt": "MEDSI'25 (Sept 2025): BNP-II 'has been designed and will be constructed at 2-ID-D' and is 'currently under construction'; goals 10 nm cryo-XRF, 10-100x throughput, robotic transfer to a cryo-PFIB below 110 K. The 2026 directory lists 2-ID-D with the XRF microprobe and the (original) Bionanoprobe (focused 50 nm and 200 nm; HDCM Si(111) 5-30 keV) and still describes 2-ID-E with Fresnel zone plates (0.5 x 0.4 um; Kohzu Si(111) 5-20 keV) - so the KB microprobe upgrade is not reflected there. Both stations are at stage 6 on the 2026-10-05 chart.",
+      "deliveryStatus": "partial: BNP-II under construction (Sept 2025); 2-ID-E KB upgrade not evidenced in the 2026 directory",
+      "source": [
+       "r1",
+       "r34",
+       "r3",
+       "r5"
+      ]
+     },
+     "notes": null
+    },
+    {
+     "name": "2-ID-E",
+     "title": "2-ID-E: X-ray Fluorescence Microprobe",
+     "summary": "Element maps of biological and environmental samples at sub-micrometre resolution.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/61",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "2-ID-E"
+     ],
+     "operator": "XSD Microscopy group",
+     "techniques": [
+      "XRF microprobe",
+      "XRF tomography & laminography",
+      "ptychography"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "2-ID (FDR Table 4.3)",
+      "plain": "2-ID makes X-ray \u2018element maps\u2019 of cells, soils and microchips by scanning a tiny spot and recording the glow (fluorescence) each element gives off. The upgrade plan adds mirrors that keep the tiny new beam steady, a mirror-focused microprobe at 2-ID-E, and a new frozen-sample nanoprobe (Bionanoprobe-II) aiming for 10-nanometre detail. Status (2026): Bionanoprobe-II is under construction, and 2-ID-E still runs with its zone-plate lenses.",
+      "expert": "FDR scope (the design report had the whole 2-ID line canted in 2019, ahead of APS-U; S02 now holds two short canted 2.8 cm devices): a vertically focusing mirror on each branch so that, with the existing horizontal bendable mirrors, the source is re-imaged stigmatically onto beam-defining apertures at ~35 m (stable secondary source, tolerant of the 2.5\u00d7 vertical source-size change between timing and brightness modes; spec to 30 keV under full heat load); 2-ID-E: replace zone plates by figured in-vacuum KB mirrors (60\u201380% vs 10\u201320% efficiency; achromatic, allows pink-beam/multi-harmonic XRF) with BDA, compact interferometers and <10 nm, >10 mm-travel fast stages \u2013 predicted focus gains of ~10\u00b2 (micro-XAS) and ~10\u2074 (micro-XRF); 2-ID-D: BNP-II cryogenic nanoprobe, <10 nm resolution, few-atom sensitivity, ptychography-enhanced XRF.",
+      "fdrDeliverables": [
+       "2-ID-A: two vertical focusing mirrors",
+       "2-ID-D: 10 nm Bionanoprobe-II (scanning stages, rotation, interferometers, vacuum chamber, Delta Tau controls, zone plates, polycapillary collimator)",
+       "2-ID-E: enhanced microprobe (BDA, figured in-vacuum KB mirrors, interferometers, fast stages)"
+      ],
+      "asBuilt": "MEDSI'25 (Sept 2025): BNP-II 'has been designed and will be constructed at 2-ID-D' and is 'currently under construction'; goals 10 nm cryo-XRF, 10-100x throughput, robotic transfer to a cryo-PFIB below 110 K. The 2026 directory lists 2-ID-D with the XRF microprobe and the (original) Bionanoprobe (focused 50 nm and 200 nm; HDCM Si(111) 5-30 keV) and still describes 2-ID-E with Fresnel zone plates (0.5 x 0.4 um; Kohzu Si(111) 5-20 keV) - so the KB microprobe upgrade is not reflected there. Both stations are at stage 6 on the 2026-10-05 chart.",
+      "deliveryStatus": "partial: BNP-II under construction (Sept 2025); 2-ID-E KB upgrade not evidenced in the 2026 directory",
+      "source": [
+       "r1",
+       "r34",
+       "r3",
+       "r5"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "Element maps of cells, soils & chips"
+  },
+  "3": {
+   "sector": 3,
+   "lom": "431-D",
+   "canted": false,
+   "operators": "XSD: Inelastic X-ray & Nuclear Resonant Scattering (IXN)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "3-ID-B,C,D",
+     "title": "3-ID-B,C,D: Nuclear Resonant Scattering (NRS)",
+     "summary": "Tunes X-rays to make atomic nuclei (\u2075\u2077Fe, \u2078\u00b3Kr, \u00b9\u2075\u00b9Eu, \u00b9\u2076\u00b9Dy) resonate, revealing atomic vibrations and magnetism, even at deep-Earth pressures.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/6",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "3-ID-B",
+      "3-ID-C",
+      "3-ID-D"
+     ],
+     "operator": "XSD Inelastic X-ray & Nuclear Resonant Scattering (IXN)",
+     "techniques": [
+      "nuclear resonant scattering (NRIXS/NRVS, NFS, synchrotron Mossbauer)",
+      "high-pressure DAC",
+      "powder diffraction"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "3-ID (FDR Table 4.3)",
+      "plain": "3-ID uses X-rays tuned extremely precisely (to about a thousandth of an electron-volt out of 14,400 \u2013 better than one part in ten million) so that they make the nuclei of special atoms like iron-57 resonate ('ring'), revealing how atoms vibrate inside rocks squeezed to the pressure at Earth's core or inside enzymes. The upgrade added mirrors that squeeze the beam to about a micrometre, so tiny samples in diamond pressure cells can be measured.",
+      "expert": "FDR scope: new KB system in 3-ID-C for 1 \u00d7 1 \u00b5m focus (from ~20 \u00b5m) at multiple resonant energies with an option to focus 43.2 keV for XRD, and ~5 \u00b5m at the dual-fast-shutter position 4 m downstream (vs 13 \u00b5m) for \u2075\u2077Fe SMS (48-bunch \u2192 artificial 6-bunch); DAC work to ~300 GPa and 3000 K. Contingent on funding: new inline cryogenic, dispersion-compensated \u2075\u2077Fe HRM (0.6 meV FWHM, reduced tails, ~100\u00d7 energy-alignment stability, switchable to eV bandpass at 14.4/43.2 keV for XRD). Not APS-U funded but enabled by the lower horizontal divergence: move the HERIX-3 IXS spectrometer to 3-ID-D (+80% Q range).",
+      "fdrDeliverables": [
+       "3-ID-C: KB-mirror system (Table 4.3)",
+       "(funding-contingent) new cryogenic high-resolution monochromator",
+       "(operating funds) relocation of IXS spectrometer to 3-ID-D"
+      ],
+      "asBuilt": "2026 directory: micro-focusing in 3-ID-B and 3-ID-C to ~1 x 1 um^2 or 1 x 12 um^2; HRMs for 57Fe (1 meV at 14.4 keV), 83Kr, 151Eu, 161Dy; cryo-cooled Si(111) HHLM 7-27 keV; 3-ID-D now 'nuclear resonant scattering with dual fast shutter system' and 'instrument development' (no IXS spectrometer listed). SEES (May 2025): 57Fe NRIXS/NFS available with a 1.5 x 12 um (H x V) focus; ~10 x 10 um planned for Kr/Eu/Dy. An energy-domain Mossbauer spectrometer was under development for late 2025. Undulators installed are 2.7 cm (not the FDR 2.5 cm).",
+      "deliveryStatus": "KB focusing delivered (1-1.5 um H); ~12 um vertical with the 57Fe HRM suggests the dispersion-compensated HRM is not in place (inference); IXS relocation not evidenced",
+      "source": [
+       "r1",
+       "r3",
+       "r24",
+       "r6"
+      ]
+     },
+     "notes": "Directory techniques still include 'Inelastic x-ray scattering (1 meV resolution)', but no IXS endstation is listed; 3-ID-D is now an NRS/instrument-development station."
+    }
+   ],
+   "plainLabel": "Nuclear resonance: atom vibrations under pressure"
+  },
+  "4": {
+   "sector": 4,
+   "lom": "431-E",
+   "canted": false,
+   "operators": "XSD: Magnetic Materials",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "4-ID-B,G,H",
+     "title": "4-ID-B,G,H: POLAR: Polarization Modulation Spectroscopy",
+     "summary": "Twists X-ray light into left- and right-handed 'corkscrews' to see which atoms are magnetic, even inside diamond-anvil pressure cells.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/225",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "4-ID-B",
+      "4-ID-G",
+      "4-ID-H"
+     ],
+     "operator": "XSD Magnetic Materials group",
+     "techniques": [
+      "XMCD / XMLD",
+      "resonant magnetic scattering",
+      "high-pressure magnetism",
+      "dichroic ptychography"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    }
+   ]
+  },
+  "5": {
+   "sector": 5,
+   "lom": "432-A",
+   "canted": false,
+   "operators": "DND-CAT",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "5-BM-B",
+     "title": "5-BM-B: X-ray Absorption Spectroscopy & Diffraction",
+     "summary": "General-purpose station for X-ray absorption spectroscopy and in situ diffraction of catalysts and materials.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/226",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "5-BM-B"
+     ],
+     "operator": "DND-CAT",
+     "techniques": [
+      "EXAFS/XANES",
+      "high-energy diffraction (to 80 keV)",
+      "in situ diffraction"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "5-ID-B,C,D",
+     "title": "5-ID-B,C,D: Powder Diffraction, Surface Science & Small-Angle Scattering",
+     "summary": "Three stations for powder diffraction, surface chemistry and small-angle scattering of polymers and nanomaterials.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/9",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "5-ID-B",
+      "5-ID-C",
+      "5-ID-D"
+     ],
+     "operator": "DND-CAT",
+     "techniques": [
+      "high-resolution powder diffraction (11 analyzers)",
+      "X-ray standing waves / surface science (collaborative)",
+      "SAXS/MAXS/WAXS (7.5 m)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "5-ID (FDR Table 4.3)",
+      "plain": "DND-CAT's 5-ID beamline does powder diffraction, surface studies and small-angle scattering. Its 1995 mirrors were worn and its monochromator topped out at 18 keV, so the upgrade refurbished the mirrors and upgraded the monochromator to keep the new, brighter beam steady and reach higher energies.",
+      "expert": "FDR scope: re-polish/refigure or replace the 1995 Boeing ULE mirror pair (M1 flat, M2 bendable; Rh / bare / Pt stripes; ~32.5 m and ~33.7 m; 3 mrad, outboard), whose slope errors and reflectivity had degraded; upgrade the Daresbury-type LN\u2082 side-cooled Si mono (pseudo channel-cut second crystal; upper limit 18 keV) for stability, flexibility and higher energy; mono sits upstream of the mirrors at ~29 m and takes the full white-beam heat load.",
+      "fdrDeliverables": [
+       "5-ID-A: refurbished horizontal mirror system",
+       "5-ID-A: upgraded high-heat-load monochromator"
+      ],
+      "asBuilt": "2026 directory: 5-ID-B,C,D Si(111), 6-35 keV, 1e13 ph/s at 12 keV, focused 50 x 1000 um - an upper energy above the FDR's 18 keV limit, consistent with an upgraded mono (inference). The installed source is a 3.0 cm undulator (FDR planned 3.3 cm). No published description of the as-built mirror work was found.",
+      "deliveryStatus": "likely delivered (energy range extended per directory); details unverified",
+      "source": [
+       "r1",
+       "r3",
+       "r6"
+      ]
+     },
+     "notes": "Directory gives Si(111) 6-35 keV; FDR said the pre-upgrade mono topped out at 18 keV. DND-CAT acronym (DuPont-Northwestern-Dow) not re-verified in a fetched source."
+    }
+   ],
+   "plainLabel": "DND-CAT powder, surface & small-angle scattering"
+  },
+  "6": {
+   "sector": 6,
+   "lom": "432-B",
+   "canted": true,
+   "operators": "XSD: Magnetic Materials (6-ID); NSF SEES and XSD Materials Physics & Engineering (6-BM)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "6-BM-A,B",
+     "title": "6-BM-A,B: Energy Dispersive Diffraction / Large Volume High-Pressure (NSF SEES)",
+     "summary": "White-beam X-rays measure strain inside big engineering parts (A) and minerals squeezed in a giant press (B).",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/213",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "6-BM-A",
+      "6-BM-B"
+     ],
+     "operator": "XSD MPE (6-BM-A) and NSF SEES consortium (6-BM-B)",
+     "techniques": [
+      "energy-dispersive diffraction (white beam, 20\u2013200 keV)",
+      "large-volume multi-anvil press",
+      "radiography/tomography"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "6-ID-B,C",
+     "title": "6-ID-B,C: Resonant and Magnetic Scattering",
+     "summary": "Studies magnetic and electronic order in crystals, including in strong magnetic fields.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/10",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "6-ID-B",
+      "6-ID-C"
+     ],
+     "operator": "XSD Magnetic Materials group",
+     "techniques": [
+      "resonant & magnetic X-ray scattering",
+      "general / grazing-incidence diffraction",
+      "diffraction in high magnetic fields (4 T static, ~30 T pulsed)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "6-ID (FDR Table 4.3)",
+      "plain": "Sector 6 studies magnetism and atomic order in crystals. The upgrade split the sector into two independent X-ray beams pointing at slightly different angles (canting), so two experiments can run at once. The plan also included stacks of tiny X-ray lenses: beryllium lenses to focus the 6-ID-B/C beam to about a micrometre, and aluminium lenses for the high-energy 6-ID-D beam (a test at 60 keV gave about 50 \u00d7 4 micrometres). Status (2026): the two canted beams are in user operation; installation of the lens systems has not been announced.",
+      "expert": "FDR scope: cant the straight with 1 mrad separation \u2013 upstream planar undulator \u2192 outboard \u2192 6-ID-D; downstream SCU (1.8 cm) \u2192 inboard \u2192 6-ID-B/C; twin Be paraboloid CRL transfocators (entrance of 6-ID-B and 3 m downstream, before the Psi diffractometer) for a stable <1 \u00b5m coherent beam over 5\u201325 keV with ~400 eV energy scans; Al paraboloid CRLs for 6-ID-D (a test with the Sector-1 CRLs gave 50 (h) \u00d7 3.7 (v) \u00b5m at 60 keV and a \u00d7108 flux-density gain over slits). As built, both canted devices are permanent-magnet undulators (2.3 and 2.7 cm); the downstream SCU was not installed.",
+      "fdrDeliverables": [
+       "6-ID-B/C: beryllium paraboloid CRL lenses with transfocator",
+       "6-ID-D: aluminium paraboloid CRL lenses with transfocator",
+       "canting (Sec. 4-15.3)"
+      ],
+      "asBuilt": "Canting delivered: S06 has two short canted devices, APS23#3S (2.3 cm, upstream) and APS27#5S (2.7 cm, downstream) - the downstream SCU was not installed. 6-ID-D's directory page says its source is a 2.3 cm undulator. The high-throughput HEDM instrument formerly at 6-ID-D moved to 20-ID-D in Dec 2023. CRL installation status not found. Status conflict: directory says 6-ID-B,C and 6-ID-D are 'Not Currently Operational', but the 2026-10-05 chart puts both at stage 6 and both are on the 2026 General User beamline list.",
+      "deliveryStatus": "canting delivered with PMUs; CRL transfocators unverified",
+      "source": [
+       "r1",
+       "r6",
+       "r3",
+       "r22",
+       "r5",
+       "r7"
+      ]
+     },
+     "notes": "Directory says 'Not Currently Operational'; 2026-10-05 chart stage 6 and 2026 GU list include it - directory page likely stale."
+    },
+    {
+     "name": "6-ID-D",
+     "title": "6-ID-D: High-energy Scattering",
+     "summary": "High-energy X-rays map disorder and diffuse scattering in single crystals and liquids.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/104",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "6-ID-D"
+     ],
+     "operator": "XSD Magnetic Materials group",
+     "techniques": [
+      "high-energy diffraction (50\u2013130 keV)",
+      "PDF / 3D-PDF",
+      "single-crystal diffuse scattering"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "6-ID (FDR Table 4.3)",
+      "plain": "Sector 6 studies magnetism and atomic order in crystals. The upgrade split the sector into two independent X-ray beams pointing at slightly different angles (canting), so two experiments can run at once. The plan also included stacks of tiny X-ray lenses: beryllium lenses to focus the 6-ID-B/C beam to about a micrometre, and aluminium lenses for the high-energy 6-ID-D beam (a test at 60 keV gave about 50 \u00d7 4 micrometres). Status (2026): the two canted beams are in user operation; installation of the lens systems has not been announced.",
+      "expert": "FDR scope: cant the straight with 1 mrad separation \u2013 upstream planar undulator \u2192 outboard \u2192 6-ID-D; downstream SCU (1.8 cm) \u2192 inboard \u2192 6-ID-B/C; twin Be paraboloid CRL transfocators (entrance of 6-ID-B and 3 m downstream, before the Psi diffractometer) for a stable <1 \u00b5m coherent beam over 5\u201325 keV with ~400 eV energy scans; Al paraboloid CRLs for 6-ID-D (a test with the Sector-1 CRLs gave 50 (h) \u00d7 3.7 (v) \u00b5m at 60 keV and a \u00d7108 flux-density gain over slits). As built, both canted devices are permanent-magnet undulators (2.3 and 2.7 cm); the downstream SCU was not installed.",
+      "fdrDeliverables": [
+       "6-ID-B/C: beryllium paraboloid CRL lenses with transfocator",
+       "6-ID-D: aluminium paraboloid CRL lenses with transfocator",
+       "canting (Sec. 4-15.3)"
+      ],
+      "asBuilt": "Canting delivered: S06 has two short canted devices, APS23#3S (2.3 cm, upstream) and APS27#5S (2.7 cm, downstream) - the downstream SCU was not installed. 6-ID-D's directory page says its source is a 2.3 cm undulator. The high-throughput HEDM instrument formerly at 6-ID-D moved to 20-ID-D in Dec 2023. CRL installation status not found. Status conflict: directory says 6-ID-B,C and 6-ID-D are 'Not Currently Operational', but the 2026-10-05 chart puts both at stage 6 and both are on the 2026 General User beamline list.",
+      "deliveryStatus": "canting delivered with PMUs; CRL transfocators unverified",
+      "source": [
+       "r1",
+       "r6",
+       "r3",
+       "r22",
+       "r5",
+       "r7"
+      ]
+     },
+     "notes": "Directory says 'Not Currently Operational'; chart stage 6. The HT-HEDM instrument formerly here moved to 20-ID-D in Dec 2023."
+    }
+   ],
+   "plainLabel": "Magnetism & atomic order in crystals"
+  },
+  "7": {
+   "sector": 7,
+   "lom": "432-D",
+   "canted": false,
+   "operators": "XSD: Imaging (7-BM), Time-Resolved Research (7-ID)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "7-BM-B",
+     "title": "7-BM-B: Fluid Dynamics",
+     "summary": "High-speed X-ray movies of fuel sprays and fluid flows; now also robot-loaded CT scans (e.g. soil cores).",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/108",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "7-BM-B"
+     ],
+     "operator": "XSD Imaging group",
+     "techniques": [
+      "time-resolved radiography & tomography",
+      "microbeam fluorescence",
+      "robotic high-throughput micro-CT"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "7-ID-B,C,D",
+     "title": "7-ID-B,C,D: Time Resolved Diffraction and Scattering",
+     "summary": "Uses laser flashes plus X-ray flashes to film atoms moving on timescales down to about a tenth of a billionth of a second.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/11",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "7-ID-B",
+      "7-ID-C",
+      "7-ID-D"
+     ],
+     "operator": "XSD Time-Resolved Research group",
+     "techniques": [
+      "laser-pump / X-ray-probe diffraction",
+      "time-resolved PDF/WAXS",
+      "time-resolved nanodiffraction & multimodal imaging (7-ID-D)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "7-ID (FDR Table 4.3)",
+      "plain": "7-ID makes 'stop-motion movies' of materials: a laser flash starts a change and an X-ray flash a tiny moment later photographs it. The upgrade added a first mirror that protects the monochromator from heat, new mirror optics that focus the beam to about 100 nanometres, and a dedicated hutch (7-ID-D) for time-resolved nano-diffraction.",
+      "expert": "FDR scope: horizontally deflecting white-beam Si mirror (Rh/Pt stripes, 3.25 mrad; critical energies 9.8/20.5/26.1 keV) upstream of the indirectly cooled DCM; fixed-figure KB nanofocusing to ~90 (v) \u00d7 150 (h) nm FWHM at 100 mm working distance (vs ~400 \u00d7 1200 nm with the zone plate; ~10\u00d7 flux) for the multimodal imaging/SNOM platform; mechanically decoupled detector arm to 2.5 m for CDI oversampling; relocate the platform from 7-ID-C to 7-ID-D; exploit ~25\u00d7 higher single-bunch brightness for 100 nm / 100 ps dynamics.",
+      "fdrDeliverables": [
+       "7-ID-A: HHL mirror for diffraction branch",
+       "7-ID-C/D: nanofocusing KB mirror system",
+       "7-ID-C/D: decoupled detector arm"
+      ],
+      "asBuilt": "7-ID home page (Mar 2026): '7-ID has received enhancements as part of the APS-Upgrade, including new x-ray optics and a dedicated hutch for time-resolved nanodiffraction. Its General User Program has fully resumed.' 7ID-D page (Aug 2026): hutch reconfigured as a time-resolved hard-X-ray nanoprobe with fixed-figure KB mirrors focusing to ~100 nm; detectors at 0.5-1 m or 3 m; time-resolved XAS formerly at 7-ID-D now runs at 25-ID-E.",
+      "deliveryStatus": "delivered",
+      "source": [
+       "r1",
+       "r41",
+       "r3"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "Stop-motion X-ray movies of fast changes"
+  },
+  "8": {
+   "sector": 8,
+   "lom": "432-E",
+   "canted": false,
+   "operators": "XSD: Microscopy (8-BM), Dynamics & Structure (8-ID)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "8-BM-B",
+     "title": "8-BM-B: X-ray Microscopy",
+     "summary": "Maps metals across whole tissue sections and large samples (up to ~10 cm) at micrometre resolution.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/33",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "8-BM-B"
+     ],
+     "operator": "XSD Microscopy group",
+     "techniques": [
+      "large-area XRF microscopy (KB station ~10 \u00b5m; prototype capillary station ~6.5 \u00b5m)",
+      "optics testing"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "8-ID-E,I",
+     "title": "8-ID-E,I: Wide-Angle/Small-Angle XPCS",
+     "summary": "Watches the 'twinkling' speckle of coherent X-rays to measure how atoms, polymers and nanoparticles move.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/243",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "8-ID-E",
+      "8-ID-I"
+     ],
+     "operator": "XSD Dynamics & Structure group",
+     "techniques": [
+      "wide-angle XPCS (8-ID-E)",
+      "small-angle XPCS and Rheo-XPCS (8-ID-I)"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "First feature beamline to host users (Nov 2024; see xpcs.json)."
+    }
+   ]
+  },
+  "9": {
+   "sector": 9,
+   "lom": "433-A",
+   "canted": false,
+   "operators": "XSD: Spectroscopy (9-BM), Dynamics & Structure (9-ID)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "9-BM-B,C",
+     "title": "9-BM-B,C: X-ray Absorption Spectroscopy",
+     "summary": "X-ray absorption spectroscopy that tells the chemical state of atoms, including fast scans during reactions.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/82",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "BM",
+     "stations": [
+      "9-BM-B",
+      "9-BM-C"
+     ],
+     "operator": "XSD Spectroscopy group (APS-CLS partnership)",
+     "techniques": [
+      "XAFS/XANES 2.1\u201340 keV",
+      "quick-scanning XAFS",
+      "low-energy (P, S K-edge) in situ catalysis"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "First light 19 Feb 2025; in scientific commissioning in Feb 2026 (SPC r18); chart stage 5."
+    },
+    {
+     "name": "9-ID-D",
+     "title": "9-ID-D: Coherent Surface Scattering Imaging & Grazing-Incidence Scattering",
+     "summary": "Skims a laser-like X-ray beam across thin films and reads the speckle in a 20 m vacuum tube to image buried nanostructures.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/221",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "9-ID-D",
+      "9-ID-GT (Grand Tube)"
+     ],
+     "operator": "XSD Dynamics & Structure group",
+     "techniques": [
+      "coherent surface scattering imaging (CSSI)",
+      "GISAXS/GIWAXS",
+      "grazing-incidence XPCS"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    }
+   ]
+  },
+  "10": {
+   "sector": 10,
+   "lom": "433-B",
+   "canted": false,
+   "operators": "MR-CAT (Materials Research CAT; website mrcat.iit.edu)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "10-BM-B",
+     "title": "10-BM-B: In Situ X-ray Absorption Spectroscopy",
+     "summary": "Measures the chemistry of catalysts and environmental samples while reactions happen.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/227",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "10-BM-B"
+     ],
+     "operator": "MR-CAT",
+     "techniques": [
+      "in situ / operando XAFS (4-min EXAFS)",
+      "micro-fluorescence mapping",
+      "radioactive samples"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Directory says 'Construction'; chart stage 6 and on the GU list."
+    },
+    {
+     "name": "10-ID-B",
+     "title": "10-ID-B: Time-Resolved X-ray Absorption & Emission Spectroscopy",
+     "summary": "Fast X-ray absorption and emission spectroscopy for catalysis, materials and environmental research.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/14",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "10-ID-B"
+     ],
+     "operator": "MR-CAT",
+     "techniques": [
+      "time-resolved XAFS (1-min EXAFS)",
+      "XES",
+      "micro-fluorescence",
+      "scattering / reflectivity"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Directory status 'Operational'; chart stage 6."
+    }
+   ]
+  },
+  "11": {
+   "sector": 11,
+   "lom": "433-D",
+   "canted": true,
+   "operators": "XSD: Structural Science",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "11-BM-B",
+     "title": "11-BM-B: High-resolution Powder Diffractometer",
+     "summary": "The APS's high-resolution powder diffractometer; samples can be mailed in.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/90",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "11-BM-B"
+     ],
+     "operator": "XSD Structural Science group",
+     "techniques": [
+      "high-resolution powder diffraction (12 analyzers; mail-in)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "11-ID-B",
+     "title": "11-ID-B: Total scattering and powder diffraction",
+     "summary": "Measures atom-to-atom distances in glasses, liquids and nanomaterials, often during reactions.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/16",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "11-ID-B"
+     ],
+     "operator": "XSD Structural Science group",
+     "techniques": [
+      "total scattering / PDF at 59 and 87 keV",
+      "high-energy powder diffraction",
+      "grazing-incidence"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "11-ID (FDR Table 4.3)",
+      "plain": "Sector 11 uses very high-energy X-rays to measure how atoms are arranged in glasses, catalysts and battery materials, even while they react. The upgrade split the sector's light into two independent beams and built a brand-new, longer station, 11-ID-D, that can see everything from atom-to-atom distances up to nanoparticle sizes in one go.",
+      "expert": "FDR scope: exchange IDs for a canted SCU pair (1.65 cm, long cryostat) so 11-ID-B/C (fixed angles 7.4 and 3.9\u00b0 off the inboard beam, monos fixed at ~31 m) and 11-ID-D (outboard beam) run independently, with new photon stop, two W collimators with masks, HHL canted slits and shielding; DMM as first optic for 11-ID-D giving vertical offset and 27\u2013120 keV tunability; 1D/2D CRLs (1:1 at ~36 m and near-sample at ~60 m, submicron); 11-ID-D extended by 11 m for 12\u201315 m detector distance (SAXS to PDF, possibly XPCS) plus a mini-enclosure at ~55 m for a secondary mono.",
+      "fdrDeliverables": [
+       "canting: photon stop, two W collimators with masks, HHL canted slits, shielding",
+       "11-ID-A: double multilayer monochromator",
+       "11-ID-A/D: multiple sets of CRLs",
+       "11-ID-D extension and mini-enclosure"
+      ],
+      "asBuilt": "Canting delivered with interim PMUs (S11: U33#38S 3.3 cm + APS30#8S 3.0 cm; no SCU as of 2026-09-22). IPAC'25 abstract (June 2025): 'two SCUs expected to be installed by late 2025 and six more to follow' - none was installed in any sector by 2026-09-22. Which sector gets the first pair is not stated in a source read here; the FDR's only 1.5 m canted 16.5 mm SCU pair is the one planned for 11-ID (inference). 11-ID-D directory: multilayer + secondary mono, 30-130 keV, 1e13 ph/s at 65 keV, 0.5 x 0.5 um focus, q 0.01-40 1/A; status 'Construction'; SRS page: 11-ID-D 'has entered its Scientific Commissioning phase'; chart stage 5. 11-ID-B (59/87 keV) and 11-ID-C (105.7 keV) are back in GU operation.",
+      "deliveryStatus": "canting and 11-ID-D delivered (in scientific commissioning); SCU source pending",
+      "source": [
+       "r1",
+       "r6",
+       "r35",
+       "r3",
+       "r42",
+       "r5",
+       "r31"
+      ]
+     },
+     "notes": null
+    },
+    {
+     "name": "11-ID-C",
+     "title": "11-ID-C: High-energy x-ray scattering (HEXS)",
+     "summary": "Very high-energy X-ray diffraction of crystalline and amorphous materials in many sample environments.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/15",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "11-ID-C"
+     ],
+     "operator": "XSD Structural Science group",
+     "techniques": [
+      "high-energy diffraction at 105.7 keV",
+      "diffuse scattering",
+      "PDF"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "11-ID (FDR Table 4.3)",
+      "plain": "Sector 11 uses very high-energy X-rays to measure how atoms are arranged in glasses, catalysts and battery materials, even while they react. The upgrade split the sector's light into two independent beams and built a brand-new, longer station, 11-ID-D, that can see everything from atom-to-atom distances up to nanoparticle sizes in one go.",
+      "expert": "FDR scope: exchange IDs for a canted SCU pair (1.65 cm, long cryostat) so 11-ID-B/C (fixed angles 7.4 and 3.9\u00b0 off the inboard beam, monos fixed at ~31 m) and 11-ID-D (outboard beam) run independently, with new photon stop, two W collimators with masks, HHL canted slits and shielding; DMM as first optic for 11-ID-D giving vertical offset and 27\u2013120 keV tunability; 1D/2D CRLs (1:1 at ~36 m and near-sample at ~60 m, submicron); 11-ID-D extended by 11 m for 12\u201315 m detector distance (SAXS to PDF, possibly XPCS) plus a mini-enclosure at ~55 m for a secondary mono.",
+      "fdrDeliverables": [
+       "canting: photon stop, two W collimators with masks, HHL canted slits, shielding",
+       "11-ID-A: double multilayer monochromator",
+       "11-ID-A/D: multiple sets of CRLs",
+       "11-ID-D extension and mini-enclosure"
+      ],
+      "asBuilt": "Canting delivered with interim PMUs (S11: U33#38S 3.3 cm + APS30#8S 3.0 cm; no SCU as of 2026-09-22). IPAC'25 abstract (June 2025): 'two SCUs expected to be installed by late 2025 and six more to follow' - none was installed in any sector by 2026-09-22. Which sector gets the first pair is not stated in a source read here; the FDR's only 1.5 m canted 16.5 mm SCU pair is the one planned for 11-ID (inference). 11-ID-D directory: multilayer + secondary mono, 30-130 keV, 1e13 ph/s at 65 keV, 0.5 x 0.5 um focus, q 0.01-40 1/A; status 'Construction'; SRS page: 11-ID-D 'has entered its Scientific Commissioning phase'; chart stage 5. 11-ID-B (59/87 keV) and 11-ID-C (105.7 keV) are back in GU operation.",
+      "deliveryStatus": "canting and 11-ID-D delivered (in scientific commissioning); SCU source pending",
+      "source": [
+       "r1",
+       "r6",
+       "r35",
+       "r3",
+       "r42",
+       "r5",
+       "r31"
+      ]
+     },
+     "notes": null
+    },
+    {
+     "name": "11-ID-D",
+     "title": "11-ID-D: High-energy X-ray Diffraction & Small Angle Scattering",
+     "summary": "New, extended station that sees structure from single bonds up to nanoparticle sizes in one measurement.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/17",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "11-ID-D"
+     ],
+     "operator": "XSD Structural Science group",
+     "techniques": [
+      "high-energy total scattering + SAXS (q 0.01\u201340 \u00c5\u207b\u00b9)",
+      "26/30\u2013130 keV",
+      "grazing-incidence at high energy"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "11-ID (FDR Table 4.3)",
+      "plain": "Sector 11 uses very high-energy X-rays to measure how atoms are arranged in glasses, catalysts and battery materials, even while they react. The upgrade split the sector's light into two independent beams and built a brand-new, longer station, 11-ID-D, that can see everything from atom-to-atom distances up to nanoparticle sizes in one go.",
+      "expert": "FDR scope: exchange IDs for a canted SCU pair (1.65 cm, long cryostat) so 11-ID-B/C (fixed angles 7.4 and 3.9\u00b0 off the inboard beam, monos fixed at ~31 m) and 11-ID-D (outboard beam) run independently, with new photon stop, two W collimators with masks, HHL canted slits and shielding; DMM as first optic for 11-ID-D giving vertical offset and 27\u2013120 keV tunability; 1D/2D CRLs (1:1 at ~36 m and near-sample at ~60 m, submicron); 11-ID-D extended by 11 m for 12\u201315 m detector distance (SAXS to PDF, possibly XPCS) plus a mini-enclosure at ~55 m for a secondary mono.",
+      "fdrDeliverables": [
+       "canting: photon stop, two W collimators with masks, HHL canted slits, shielding",
+       "11-ID-A: double multilayer monochromator",
+       "11-ID-A/D: multiple sets of CRLs",
+       "11-ID-D extension and mini-enclosure"
+      ],
+      "asBuilt": "Canting delivered with interim PMUs (S11: U33#38S 3.3 cm + APS30#8S 3.0 cm; no SCU as of 2026-09-22). IPAC'25 abstract (June 2025): 'two SCUs expected to be installed by late 2025 and six more to follow' - none was installed in any sector by 2026-09-22. Which sector gets the first pair is not stated in a source read here; the FDR's only 1.5 m canted 16.5 mm SCU pair is the one planned for 11-ID (inference). 11-ID-D directory: multilayer + secondary mono, 30-130 keV, 1e13 ph/s at 65 keV, 0.5 x 0.5 um focus, q 0.01-40 1/A; status 'Construction'; SRS page: 11-ID-D 'has entered its Scientific Commissioning phase'; chart stage 5. 11-ID-B (59/87 keV) and 11-ID-C (105.7 keV) are back in GU operation.",
+      "deliveryStatus": "canting and 11-ID-D delivered (in scientific commissioning); SCU source pending",
+      "source": [
+       "r1",
+       "r6",
+       "r35",
+       "r3",
+       "r42",
+       "r5",
+       "r31"
+      ]
+     },
+     "notes": "Directory says 'Construction'; SRS says scientific commissioning; chart stage 5."
+    }
+   ],
+   "plainLabel": "Atom arrangements in glasses, catalysts & batteries"
+  },
+  "12": {
+   "sector": 12,
+   "lom": "433-E",
+   "canted": true,
+   "operators": "XSD: Chemical & Materials Science",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "12-BM-B",
+     "title": "12-BM-B: Multipurpose X-ray Absorption and Scattering",
+     "summary": "Combines X-ray absorption spectroscopy with small/wide-angle scattering on the same sample.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/18",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "12-BM-B"
+     ],
+     "operator": "XSD Chemical & Materials Science group",
+     "techniques": [
+      "XAFS (4.5\u201340 keV)",
+      "simultaneous SAXS/WAXS"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "12-ID-B",
+     "title": "12-ID-B: Small- & Wide-Angle X-ray Scattering (SAXS/WAXS)",
+     "summary": "Measures nanoparticle sizes and shapes in solids and solutions, often while they form.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/110",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "12-ID-B"
+     ],
+     "operator": "XSD Chemical & Materials Science group",
+     "techniques": [
+      "SAXS/WAXS",
+      "GISAXS/GIWAXS",
+      "time-resolved SAXS"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "12-ID (FDR Table 4.3)",
+      "plain": "Sector 12 measures shapes and sizes of tiny particles (from a nanometre to tens of micrometres) by how they scatter X-rays at very small angles. The upgrade built a long vacuum 'telescope' tube so the detector can sit far away, added lenses to focus the beam onto it, and moved the ultra-small-angle (USAXS) instrument here and rebuilt it.",
+      "expert": "FDR scope: CRL transfocator in mini-hutch MH1 at ~43 m (replacing the single vertical mirror in MH3) focusing on the SAXS detector to improve q_min and \u0394q by up to ~10\u00d7 with a longer camera; SAXS flight tube extended from 6 m to 12 m spanning 12-ID-C and 12-ID-D (dividing wall partly removed; ~1.5 m diameter, in-vacuum translating 2D detector); USAXS moved from 9-ID and redesigned with a horizontal scattering plane so Si(440) and Si(660) analyzers become practical (sizes to >20 \u00b5m; 2D USAXS, USAXS imaging, USAXS-XPCS); 6\u201335 keV.",
+      "fdrDeliverables": [
+       "12-ID-MH1: CRL transfocator system",
+       "12-ID-C: 12 m SAXS tube / enclosure upgrade",
+       "USAXS facility upgrade"
+      ],
+      "asBuilt": "2026 directory: station now named 12-ID-E (proposal system: '12-ID-C,D,E') housing a USAXS-SAXS-WAXS (Bonse-Hart) instrument and a 10 m long pinhole SAXS vacuum flight tube with two area detectors (Pilatus 2M, Pilatus 900K); 7-38 keV (12-ID-E home page: 8-35 keV); focused 5 x 5 um; coherent SAXS imaging (ptychography). The as-built flight tube is 10 m, not the FDR's 12 m. 12-ID-B (side-bounce mono, 7.9-14 keV) continues SAXS/WAXS/GISAXS.",
+      "deliveryStatus": "delivered (with 10 m rather than 12 m SAXS tube)",
+      "source": [
+       "r1",
+       "r3",
+       "r37",
+       "r7"
+      ]
+     },
+     "notes": "FDR Sec. 4-18 intro mentions adding microfocusing to 12-ID-B, but all Table 4.3 deliverables (MH1 CRLs, long SAXS tube, USAXS) serve the 12-ID-C/D/E side."
+    },
+    {
+     "name": "12-ID-E",
+     "title": "12-ID-E: High Resolution Small Angle X-ray Scattering",
+     "summary": "Sees structures from about a nanometre up to tens of micrometres using ultra-small-angle scattering.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/228",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "12-ID-E (proposal system: 12-ID-C,D,E)"
+     ],
+     "operator": "XSD Chemical & Materials Science group",
+     "techniques": [
+      "USAXS/SAXS/WAXS (Bonse-Hart)",
+      "10 m pinhole SAXS",
+      "anomalous SAXS",
+      "coherent SAXS imaging (ptychography)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "12-ID (FDR Table 4.3)",
+      "plain": "Sector 12 measures shapes and sizes of tiny particles (from a nanometre to tens of micrometres) by how they scatter X-rays at very small angles. The upgrade built a long vacuum 'telescope' tube so the detector can sit far away, added lenses to focus the beam onto it, and moved the ultra-small-angle (USAXS) instrument here and rebuilt it.",
+      "expert": "FDR scope: CRL transfocator in mini-hutch MH1 at ~43 m (replacing the single vertical mirror in MH3) focusing on the SAXS detector to improve q_min and \u0394q by up to ~10\u00d7 with a longer camera; SAXS flight tube extended from 6 m to 12 m spanning 12-ID-C and 12-ID-D (dividing wall partly removed; ~1.5 m diameter, in-vacuum translating 2D detector); USAXS moved from 9-ID and redesigned with a horizontal scattering plane so Si(440) and Si(660) analyzers become practical (sizes to >20 \u00b5m; 2D USAXS, USAXS imaging, USAXS-XPCS); 6\u201335 keV.",
+      "fdrDeliverables": [
+       "12-ID-MH1: CRL transfocator system",
+       "12-ID-C: 12 m SAXS tube / enclosure upgrade",
+       "USAXS facility upgrade"
+      ],
+      "asBuilt": "2026 directory: station now named 12-ID-E (proposal system: '12-ID-C,D,E') housing a USAXS-SAXS-WAXS (Bonse-Hart) instrument and a 10 m long pinhole SAXS vacuum flight tube with two area detectors (Pilatus 2M, Pilatus 900K); 7-38 keV (12-ID-E home page: 8-35 keV); focused 5 x 5 um; coherent SAXS imaging (ptychography). The as-built flight tube is 10 m, not the FDR's 12 m. 12-ID-B (side-bounce mono, 7.9-14 keV) continues SAXS/WAXS/GISAXS.",
+      "deliveryStatus": "delivered (with 10 m rather than 12 m SAXS tube)",
+      "source": [
+       "r1",
+       "r3",
+       "r37",
+       "r7"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "Small-angle scattering: nanoparticle sizes & shapes"
+  },
+  "13": {
+   "sector": 13,
+   "lom": "434-A",
+   "canted": true,
+   "operators": "GSECARS (University of Chicago; NSF SEES consortium)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "13-BM-C",
+     "title": "13-BM-C: Surface & High-Pressure Diffraction",
+     "summary": "Earth-science diffraction of minerals at high pressure and of mineral-water interfaces.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/96",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "13-BM-C"
+     ],
+     "operator": "GSECARS",
+     "techniques": [
+      "surface/interface diffraction",
+      "single-crystal diffraction in DAC",
+      "in situ powder diffraction (fixed 15 / 28.6 keV)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "13-BM-D",
+     "title": "13-BM-D: Microtomography & High-Pressure Diffraction",
+     "summary": "3D X-ray imaging and high-pressure studies of rocks and Earth materials.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/20",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "13-BM-D"
+     ],
+     "operator": "GSECARS",
+     "techniques": [
+      "micro-CT",
+      "DAC and large-volume press diffraction (with Brillouin)",
+      "white/pink/mono beam"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "13-ID-C,D",
+     "title": "13-ID-C,D: Mineral Surfaces (C) & Laser-Heated High Pressure (D)",
+     "summary": "Squeezes and heats minerals to deep-Earth conditions (D) and studies mineral surfaces in fluids (C).",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/21",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "13-ID-C",
+      "13-ID-D"
+     ],
+     "operator": "GSECARS",
+     "techniques": [
+      "surface scattering & X-ray standing waves (C)",
+      "laser-heated DAC and multi-anvil press (D)",
+      "XES"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "13-ID (FDR Table 4.3)",
+      "plain": "GSECARS at Sector 13 studies rocks, minerals and soils, including samples squeezed in diamond anvils to deep-Earth pressures. The upgrade re-polished and replaced the beamline's mirrors so they can focus the new, sharper beam without blurring it; the microprobe station now delivers about five times more X-rays into a spot smaller than a micrometre.",
+      "expert": "FDR scope: re-polish the 1000 mm KB mirrors (13-ID-C/D) and the 350 mm KB (13-ID-D); new dual horizontal 500 mm mirrors and re-polished 250 mm KB pairs for 13-ID-E, plus a DCM enhancement and a table-stability upgrade (FDR Table 4.3).",
+      "fdrDeliverables": [
+       "13-ID-C/D: repolish KB mirrors (1000 mm)",
+       "13-ID-D: repolish KB mirrors (350 mm)",
+       "13-ID-E: new dual horizontal mirrors (500 mm), repolish two KB sets (250 mm), DCM enhancement, table stability upgrade"
+      ],
+      "asBuilt": "Lanzirotti (2025): GSECARS 'completed beamline upgrades related to the APS Upgrade' in 2025; 13-ID-E demonstrated a 5x increase in monochromatic flux (to the 1e13 ph/s range) into a sub-micrometre beam over the beamline's full energy range, benefiting HERFD-XAFS. SEES status (May 2025): 13-ID-C/D monochromator 'major upgrade'; new high-precision DAC focusing optics commissioning in 2025-2; Eiger 9M on hand; 13-ID-C diffractometer getting fast-phi + hexapod; 13-BM-D vertical focusing mirror re-polished for coherence.",
+      "deliveryStatus": "delivered (per GSECARS 2025)",
+      "source": [
+       "r1",
+       "r36",
+       "r24"
+      ]
+     },
+     "notes": null
+    },
+    {
+     "name": "13-ID-E",
+     "title": "13-ID-E: X-ray Microprobe (micro-XRF, XAFS & XRD)",
+     "summary": "Sub-micrometre element and chemical-state maps of soils, rocks, plants and pollutants.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/62",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "13-ID-E"
+     ],
+     "operator": "GSECARS",
+     "techniques": [
+      "X-ray microprobe: micro-XRF, micro-XAFS, micro-XRD",
+      "HERFD-XAFS"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "13-ID (FDR Table 4.3)",
+      "plain": "GSECARS at Sector 13 studies rocks, minerals and soils, including samples squeezed in diamond anvils to deep-Earth pressures. The upgrade re-polished and replaced the beamline's mirrors so they can focus the new, sharper beam without blurring it; the microprobe station now delivers about five times more X-rays into a spot smaller than a micrometre.",
+      "expert": "FDR scope: re-polish the 1000 mm KB mirrors (13-ID-C/D) and the 350 mm KB (13-ID-D); new dual horizontal 500 mm mirrors and re-polished 250 mm KB pairs for 13-ID-E, plus a DCM enhancement and a table-stability upgrade (FDR Table 4.3).",
+      "fdrDeliverables": [
+       "13-ID-C/D: repolish KB mirrors (1000 mm)",
+       "13-ID-D: repolish KB mirrors (350 mm)",
+       "13-ID-E: new dual horizontal mirrors (500 mm), repolish two KB sets (250 mm), DCM enhancement, table stability upgrade"
+      ],
+      "asBuilt": "Lanzirotti (2025): GSECARS 'completed beamline upgrades related to the APS Upgrade' in 2025; 13-ID-E demonstrated a 5x increase in monochromatic flux (to the 1e13 ph/s range) into a sub-micrometre beam over the beamline's full energy range, benefiting HERFD-XAFS. SEES status (May 2025): 13-ID-C/D monochromator 'major upgrade'; new high-precision DAC focusing optics commissioning in 2025-2; Eiger 9M on hand; 13-ID-C diffractometer getting fast-phi + hexapod; 13-BM-D vertical focusing mirror re-polished for coherence.",
+      "deliveryStatus": "delivered (per GSECARS 2025)",
+      "source": [
+       "r1",
+       "r36",
+       "r24"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "GSECARS Earth science at high pressure"
+  },
+  "14": {
+   "sector": 14,
+   "lom": "434-B",
+   "canted": false,
+   "operators": "BioCARS (University of Chicago)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "14-ID-B",
+     "title": "14-ID-B: Time-Resolved Laue Crystallography (BioCARS)",
+     "summary": "Makes molecular movies of proteins at work by snapping single X-ray pulses after a laser or electric-field trigger.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/30",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "14-ID-B"
+     ],
+     "operator": "BioCARS (University of Chicago)",
+     "techniques": [
+      "time-resolved Laue crystallography (single X-ray pulses)",
+      "serial Laue",
+      "E-field-jump crystallography",
+      "time-resolved SAXS/WAXS"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Directory: two in-line U21 undulators; choppers isolate single ~250 ps pulses; KB focus 25 x 15 um. 14-BM-C (BioCARS BM station) does not appear in the 2026 directory or chart."
+    }
+   ]
+  },
+  "15": {
+   "sector": 15,
+   "lom": "434-D",
+   "canted": true,
+   "operators": "NSF's ChemMatCARS (University of Chicago)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "15-ID-B,E",
+     "title": "15-ID-B,E: Small-Molecule Crystallography (B) & Liquid\u2013Solid Interfaces (E)",
+     "summary": "A brand-new second ChemMatCARS beamline: tiny-crystal chemistry (B) and biomembranes at liquid-solid interfaces (E).",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/229",
+     "status": "Technical Commissioning",
+     "type": "ID",
+     "stations": [
+      "15-ID-B",
+      "15-ID-E"
+     ],
+     "operator": "NSF's ChemMatCARS (University of Chicago)",
+     "techniques": [
+      "small-molecule serial / photo-crystallography and resonant diffraction (DAFS) incl. <5 keV (B)",
+      "liquid-solid interface scattering (E)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "15-ID (FDR Table 4.3)",
+      "plain": "NSF's ChemMatCARS studies liquid surfaces (like oil on water) and tiny crystals. The APS-U enhancement replaces a troublesome flexible mirror with a precision bent mirror and adds 95 tiny aluminium lenses so high-energy X-rays can be squeezed into micrometre-sized spots; separately, NSF funded a whole second beamline (stations 15-ID-B and 15-ID-E).",
+      "expert": "FDR scope: replace the ACCEL bimorph + flat mirror pair (600 mm, 32.5 m; combined slope error degraded to 1.0\u20131.8 \u00b5rad, 120\u2013200 \u00b5m vertical focus) with mechanically bent flat Si mirrors (0.2 \u00b5rad each, 0.28 \u00b5rad combined \u2192 35 \u00b5m FWHM vertical at 15-ID-C); add 95 Al 2D paraboloid lenses (7 actuators) to the existing transfocator in hutch B1 for 30\u201370 keV: 2\u20133 \u00b5m (v) \u00d7 11\u201316 \u00b5m (h), >10\u00b3 flux-density gain at 15-ID-C/D; two-mirror harmonic-rejection assemblies (100 mm) in each hutch (~6 orders suppression).",
+      "fdrDeliverables": [
+       "15-ID-A: new dual-mirror vertical focusing system",
+       "15-ID-A: 2D CRL focusing system (95 Al lenses)",
+       "15-ID-D: new single harmonic-rejection mirror system"
+      ],
+      "asBuilt": "Sector now canted with two short devices (APS28#12S 2.8 cm upstream, APS27#6S 2.7 cm downstream; FDR listed only one). ChemMatCARS: NSF-funded second ID beamline with new 15-ID-B (small-molecule serial crystallography, resonant diffraction/DAFS incl. below 5 keV, mail-in) and 15-ID-E (liquid-solid interfaces, hybrid liquid-interface scattering) built from April 2023; existing line modernized. ACA 2025: Roadrunner diffractometer, first Pilatus 4 at APS, FPGA RF divider. Chart: 15-ID-C,D stage 6; 15-ID-B,E stage 4. As-built status of the bent mirrors and added CRLs not found.",
+      "deliveryStatus": "sector rebuild in progress; APS-U optics items unverified",
+      "source": [
+       "r1",
+       "r6",
+       "r26",
+       "r27",
+       "r5"
+      ]
+     },
+     "notes": "Chart stage 4 (technical commissioning) on 2026-10-05; already on the GU list. The APS-U 15-ID enhancement items (bent mirrors, extra CRLs, harmonic-rejection mirrors) mainly serve the existing C/D line; the FDR Fig. 4.86 layout already showed a canted second branch (B1/B2) - how APS-U and NSF scopes were split is not documented."
+    },
+    {
+     "name": "15-ID-C,D",
+     "title": "15-ID-C,D: Liquid Surfaces (C) & Single-Crystal Diffraction (D)",
+     "summary": "Studies molecules at liquid surfaces (C) and crystal structures, including under pressure or light (D).",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/230",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "15-ID-C",
+      "15-ID-D"
+     ],
+     "operator": "NSF's ChemMatCARS (University of Chicago)",
+     "techniques": [
+      "liquid-interface scattering (C)",
+      "high-energy / in situ single-crystal diffraction, ASAXS (D)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "15-ID (FDR Table 4.3)",
+      "plain": "NSF's ChemMatCARS studies liquid surfaces (like oil on water) and tiny crystals. The APS-U enhancement replaces a troublesome flexible mirror with a precision bent mirror and adds 95 tiny aluminium lenses so high-energy X-rays can be squeezed into micrometre-sized spots; separately, NSF funded a whole second beamline (stations 15-ID-B and 15-ID-E).",
+      "expert": "FDR scope: replace the ACCEL bimorph + flat mirror pair (600 mm, 32.5 m; combined slope error degraded to 1.0\u20131.8 \u00b5rad, 120\u2013200 \u00b5m vertical focus) with mechanically bent flat Si mirrors (0.2 \u00b5rad each, 0.28 \u00b5rad combined \u2192 35 \u00b5m FWHM vertical at 15-ID-C); add 95 Al 2D paraboloid lenses (7 actuators) to the existing transfocator in hutch B1 for 30\u201370 keV: 2\u20133 \u00b5m (v) \u00d7 11\u201316 \u00b5m (h), >10\u00b3 flux-density gain at 15-ID-C/D; two-mirror harmonic-rejection assemblies (100 mm) in each hutch (~6 orders suppression).",
+      "fdrDeliverables": [
+       "15-ID-A: new dual-mirror vertical focusing system",
+       "15-ID-A: 2D CRL focusing system (95 Al lenses)",
+       "15-ID-D: new single harmonic-rejection mirror system"
+      ],
+      "asBuilt": "Sector now canted with two short devices (APS28#12S 2.8 cm upstream, APS27#6S 2.7 cm downstream; FDR listed only one). ChemMatCARS: NSF-funded second ID beamline with new 15-ID-B (small-molecule serial crystallography, resonant diffraction/DAFS incl. below 5 keV, mail-in) and 15-ID-E (liquid-solid interfaces, hybrid liquid-interface scattering) built from April 2023; existing line modernized. ACA 2025: Roadrunner diffractometer, first Pilatus 4 at APS, FPGA RF divider. Chart: 15-ID-C,D stage 6; 15-ID-B,E stage 4. As-built status of the bent mirrors and added CRLs not found.",
+      "deliveryStatus": "sector rebuild in progress; APS-U optics items unverified",
+      "source": [
+       "r1",
+       "r6",
+       "r26",
+       "r27",
+       "r5"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "ChemMatCARS: liquid surfaces & tiny crystals"
+  },
+  "16": {
+   "sector": 16,
+   "lom": "434-E",
+   "canted": true,
+   "operators": "HPCAT (operated with XSD)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "16-BM-B,D",
+     "title": "16-BM-B,D: High-Pressure Press (B) & Microdiffraction (D)",
+     "summary": "High-pressure studies of melts, glasses and crystals.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/246",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "BM",
+     "stations": [
+      "16-BM-B",
+      "16-BM-D"
+     ],
+     "operator": "HPCAT (with XSD)",
+     "techniques": [
+      "Paris-Edinburgh press: white-beam EDD, PDF, radiography, sound velocity (B)",
+      "high-pressure micro-diffraction, white Laue (D)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5."
+    },
+    {
+     "name": "16-ID-B",
+     "title": "16-ID-B: High-Pressure Microdiffraction",
+     "summary": "X-ray diffraction of samples squeezed between diamonds to millions of atmospheres.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/43",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "16-ID-B"
+     ],
+     "operator": "HPCAT (with XSD)",
+     "techniques": [
+      "micro-focused DAC diffraction",
+      "laser heating",
+      "dynamic DAC"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "16-ID-D,E",
+     "title": "16-ID-D,E: High-Pressure Spectroscopy (D) & Imaging (E)",
+     "summary": "Spectroscopy (D) and new coherent imaging (E) of materials at extreme pressure.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/231",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "16-ID-D",
+      "16-ID-E"
+     ],
+     "operator": "HPCAT (with XSD)",
+     "techniques": [
+      "high-pressure XES, X-ray Raman, NRIXS, XAS (D)",
+      "BCDI, phase-contrast and diffraction imaging at multimegabar pressure (E, new)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5."
+    }
+   ]
+  },
+  "17": {
+   "sector": 17,
+   "lom": "435-A",
+   "canted": false,
+   "operators": "IMCA-CAT (17-ID); XSD Structural Science (17-BM)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "17-BM-B",
+     "title": "17-BM-B: Rapid Acquisition Powder Diffraction",
+     "summary": "Fast powder diffraction with an area detector for in situ chemistry.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/88",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "17-BM-B"
+     ],
+     "operator": "XSD Structural Science group",
+     "techniques": [
+      "rapid-acquisition powder diffraction / PDF (27\u201349 keV)",
+      "operando batteries, catalysis, gas loading"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "17-ID-B",
+     "title": "17-ID-B: Industrial Protein Crystallography (IMCA-CAT)",
+     "summary": "Fully automated protein crystallography for drug discovery.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/24",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "17-ID-B"
+     ],
+     "operator": "IMCA-CAT (Industrial Macromolecular Crystallography Association CAT)",
+     "techniques": [
+      "high-throughput macromolecular crystallography (mail-in, pharma)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5."
+    }
+   ]
+  },
+  "18": {
+   "sector": 18,
+   "lom": "435-B",
+   "canted": false,
+   "operators": "BioCAT (Biophysics CAT; an NIH-supported national resource)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "18-ID-D",
+     "title": "18-ID-D: BioCAT",
+     "summary": "Measures the shapes of proteins in solution and the molecular machinery of muscle.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/25",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "18-ID-D"
+     ],
+     "operator": "BioCAT",
+     "techniques": [
+      "BioSAXS (incl. SEC-SAXS)",
+      "fiber diffraction (muscle)",
+      "time-resolved scattering",
+      "microdiffraction"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    }
+   ]
+  },
+  "19": {
+   "sector": 19,
+   "lom": "435-D and 444 (Long Beamline Building)",
+   "canted": false,
+   "operators": "XSD: Imaging (19-BM), Microscopy (19-ID)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "19-BM-D",
+     "title": "19-BM-D: Automated High-Energy Tomography",
+     "summary": "A new automated CT-scanning station being developed on the former SBC bending-magnet port.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/26",
+     "status": "Technical Commissioning",
+     "type": "BM",
+     "stations": [
+      "19-BM-D"
+     ],
+     "operator": "XSD Imaging group",
+     "techniques": [
+      "high-throughput, autonomous hard-X-ray tomography (filtered white beam 30\u2013120 keV)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 4; directory 'Not Currently Operational'. Oddly listed on the 2026 MX proposal list - possibly a legacy entry."
+    },
+    {
+     "name": "19-ID-E",
+     "title": "19-ID-E: In-situ Nanoprobe (ISN)",
+     "summary": "A 4.8\u201330 keV nanoprobe ~220 m from the source that maps chemistry and structure in working devices.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/232",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "19-ID-E"
+     ],
+     "operator": "XSD Microscopy group",
+     "techniques": [
+      "hard-X-ray nanoprobe: XRF, ptychography, nanodiffraction",
+      "in situ / operando, long working distance"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5; not yet on the GU list (2026-10-07)."
+    }
+   ]
+  },
+  "20": {
+   "sector": 20,
+   "lom": "435-E and 444 (Long Beamline Building)",
+   "canted": false,
+   "operators": "XSD: Spectroscopy (20-BM), Materials Physics & Engineering (20-ID)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "20-BM-B",
+     "title": "20-BM-B: X-ray Absorption Spectroscopy",
+     "summary": "General-purpose X-ray absorption spectroscopy.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/32",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "20-BM-B"
+     ],
+     "operator": "XSD Spectroscopy group (APS-CLS partnership)",
+     "techniques": [
+      "XAFS 3.9\u201335 keV",
+      "in situ batteries / catalysis",
+      "low temperature"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Shielding verified Dec 2024; full GU operation by Feb 2026."
+    },
+    {
+     "name": "20-ID-D,E",
+     "title": "20-ID-D,E: HEXM, High-Energy X-ray Microscope",
+     "summary": "A 180 m high-energy X-ray microscope that zooms from whole metal parts down to single crystal grains, reading the spacing of the atoms inside each grain.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/233",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "20-ID-D",
+      "20-ID-E"
+     ],
+     "operator": "XSD Materials Physics & Engineering",
+     "techniques": [
+      "high-energy diffraction microscopy (HEDM)",
+      "high-energy SAXS",
+      "TXM / tomography (35\u2013120 keV)"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    }
+   ]
+  },
+  "21": {
+   "sector": 21,
+   "lom": "436-A",
+   "canted": true,
+   "operators": "LS-CAT (Life Sciences CAT)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "21-ID-D",
+     "title": "21-ID-D: Tunable Protein Crystallography",
+     "summary": "Tunable-energy protein crystallography fed by the upstream canted undulator.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/101",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "21-ID-D"
+     ],
+     "operator": "LS-CAT (Life Sciences CAT)",
+     "techniques": [
+      "tunable MX 6.5\u201320 keV",
+      "serial crystallography",
+      "MD3-UP microdiffractometer"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5."
+    },
+    {
+     "name": "21-ID-F",
+     "title": "21-ID-F: Fixed-Energy Protein Crystallography",
+     "summary": "Fixed-energy protein crystallography; first of two stations sharing the downstream undulator.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/94",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "21-ID-F"
+     ],
+     "operator": "LS-CAT (Life Sciences CAT)",
+     "techniques": [
+      "fixed-energy MX at ~12.7 keV (Se SAD) via diamond Laue mono"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "21-ID-G",
+     "title": "21-ID-G: Fixed-Energy Protein Crystallography",
+     "summary": "Fixed-energy protein crystallography (10\u201315% less flux than 21-ID-F because it is second in series).",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/95",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "21-ID-G"
+     ],
+     "operator": "LS-CAT (Life Sciences CAT)",
+     "techniques": [
+      "fixed-energy MX at ~12.7 keV via second diamond Laue mono"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Directory says 'Commissioning'; chart stage 6."
+    }
+   ]
+  },
+  "22": {
+   "sector": 22,
+   "lom": "436-B",
+   "canted": true,
+   "operators": "SER-CAT (South East Regional CAT; University of Georgia)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "22-ID-D",
+     "title": "22-ID-D: Tunable Protein Crystallography",
+     "summary": "Variable-wavelength protein crystallography for a south-eastern US university consortium.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/44",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "22-ID-D"
+     ],
+     "operator": "SER-CAT (University of Georgia)",
+     "techniques": [
+      "tunable MX (6\u201316 keV)",
+      "SAD/MAD",
+      "microbeam",
+      "MD3, 225-sample robot"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "SER-CAT's own beamline page gives 22-ID-D as variable wavelength 6.0-24.0 keV (MAD/SAD), wider than the directory's 6-16 keV."
+    },
+    {
+     "name": "22-ID-E",
+     "title": "22-ID-E: Fixed-Wavelength Protein Crystallography",
+     "summary": "A new fixed-wavelength protein crystallography beamline on SER-CAT's second canted undulator.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/234",
+     "status": "Installation Ongoing",
+     "type": "ID",
+     "stations": [
+      "22-ID-E"
+     ],
+     "operator": "SER-CAT (University of Georgia)",
+     "techniques": [
+      "fixed-wavelength MX at 12.700 keV (new)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 1 (installation ongoing) on 2026-10-05; directory 'Under Development'. SER-CAT: 22-ID-E is a high-throughput fixed-wavelength beamline at 12.700 keV (0.97 A)."
+    }
+   ]
+  },
+  "23": {
+   "sector": 23,
+   "lom": "436-D",
+   "canted": true,
+   "operators": "GM/CA@APS (NIGMS & NCI Structural Biology Facility; operated within XSD)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "23-ID-B",
+     "title": "23-ID-B: Protein Micro-Crystallography",
+     "summary": "Protein crystallography with a rapidly adjustable micro-beam, fed by the upstream 3.3 cm undulator.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/91",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "23-ID-B"
+     ],
+     "operator": "GM/CA@APS (NIGMS & NCI Structural Biology Facility, operated within XSD)",
+     "techniques": [
+      "MX 5\u201320 keV",
+      "micro-crystallography (beam 1\u201350 \u00b5m)",
+      "serial crystallography",
+      "large unit cells, SAD/MAD"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "23-ID-D",
+     "title": "23-ID-D: High-Energy Protein Crystallography",
+     "summary": "High-energy protein crystallography that reduces radiation damage, fed by the downstream 3.0 cm undulator.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/34",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "23-ID-D"
+     ],
+     "operator": "GM/CA@APS (NIGMS & NCI Structural Biology Facility, operated within XSD)",
+     "techniques": [
+      "high-energy MX (up to 35\u201345 keV)",
+      "Eiger2 XE 16M CdTe",
+      "serial crystallography"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Directory lists 5-45 keV while GM/CA's abstract says maximum energy increased to 35 keV - conflict flagged."
+    }
+   ]
+  },
+  "24": {
+   "sector": 24,
+   "lom": "436-E",
+   "canted": true,
+   "operators": "NE-CAT (Northeastern CAT; Cornell University)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "24-ID-C",
+     "title": "24-ID-C: Tunable Protein Crystallography",
+     "summary": "Tunable protein crystallography being rebuilt with a new monochromator and MD3 diffractometer.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/86",
+     "status": "Technical Commissioning",
+     "type": "ID",
+     "stations": [
+      "24-ID-C"
+     ],
+     "operator": "NE-CAT (Cornell University; NIGMS P30)",
+     "techniques": [
+      "tunable MX 6\u201320 keV",
+      "microcrystals, large complexes, SAD/MAD"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 4."
+    },
+    {
+     "name": "24-ID-E",
+     "title": "24-ID-E: Fixed-Energy Protein Crystallography",
+     "summary": "Fixed-energy, highly automated remote protein crystallography.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/93",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "24-ID-E"
+     ],
+     "operator": "NE-CAT (Cornell University; NIGMS P30)",
+     "techniques": [
+      "fixed-energy MX at 12.662 keV (Se peak)",
+      "remote / automated"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    }
+   ]
+  },
+  "25": {
+   "sector": 25,
+   "lom": "441",
+   "canted": true,
+   "operators": "XSD: Spectroscopy (25-ID-C, 25-ID-D) and Time-Resolved Research (25-ID-E)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "25-ID-C",
+     "title": "25-ID-C: Microprobe and Advanced Spectroscopy",
+     "summary": "Spectroscopy microprobe that maps elements and their chemical states with a micrometre beam.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/217",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "25-ID-C"
+     ],
+     "operator": "XSD Spectroscopy group (APS-CLS partnership)",
+     "techniques": [
+      "micro-XRF / micro-XAFS (1\u201310 \u00b5m)",
+      "XES (miniXS, multi-element von Hamos)",
+      "HERFD-XANES",
+      "dispersive XANES",
+      "grazing-incidence XAFS"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "25-ID (FDR Table 4.3)",
+      "plain": "Sector 25 is the new home of the APS spectroscopy and time-resolved programs. Two undulators one behind the other, angled slightly apart (canted), feed two independent beamlines: one for micro-spectroscopy and one for X-ray Raman and laser \u2018flash\u2019 experiments. The enhancement funded new monochromators that can switch from silicon crystals to multilayer reflectors for 10\u2013100 times more X-rays (with less colour purity), and an upgraded X-ray Raman spectrometer.",
+      "expert": "FDR Table 4.3 enhancement items: LN\u2082-cooled silicon/multilayer monochromators (Si(111) 4\u201340 keV; multilayer stripes with d \u2248 24 \u00c5 and \u2248 48 \u00c5; small 9\u201311 mm offset) and a LERIX spectrometer upgrade (better analyzer placement). The canted photon-delivery system of the new Advanced Spectroscopy and LERIX (ASL) beamline is described in FDR Sec. 4-10.",
+      "fdrDeliverables": [
+       "25-ID-B: LN2 silicon/multilayer monochromator",
+       "25-ID-C (as listed in Table 4.3): LERIX spectrometer"
+      ],
+      "asBuilt": "Beamline built and first measurements on the pre-upgrade ring in late 2022 (Undulator A); APS-U 2.8 cm canted undulators installed; 25-ID-C,D scientific commissioning from Jan 2025, early users in 2025-1, GU mode (~50%) by early 2026; 25-ID-E GU; XRS 'asymmetric with imaging' still commissioning at 25-ID-D in 2026.",
+      "deliveryStatus": "delivered; XRS (LERIX-II) instrument still commissioning in 2026",
+      "source": [
+       "r1",
+       "r20",
+       "r16",
+       "r18",
+       "r3",
+       "r6"
+      ]
+     },
+     "notes": null
+    },
+    {
+     "name": "25-ID-D,E",
+     "title": "25-ID-D,E: LERIX and Time-Resolved Spectroscopy",
+     "summary": "X-ray Raman lets hard X-rays measure soft-X-ray edges of light elements (D); laser-pump/X-ray-probe movies of chemistry (E).",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/218",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "25-ID-D",
+      "25-ID-E"
+     ],
+     "operator": "XSD Spectroscopy group (D) and Time-Resolved Research group (E)",
+     "techniques": [
+      "X-ray Raman scattering / LERIX (D)",
+      "time-resolved XAS, XES and scattering, 200\u2013300 ps resolution to 1 ms (E)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "25-ID (FDR Table 4.3)",
+      "plain": "Sector 25 is the new home of the APS spectroscopy and time-resolved programs. Two undulators one behind the other, angled slightly apart (canted), feed two independent beamlines: one for micro-spectroscopy and one for X-ray Raman and laser \u2018flash\u2019 experiments. The enhancement funded new monochromators that can switch from silicon crystals to multilayer reflectors for 10\u2013100 times more X-rays (with less colour purity), and an upgraded X-ray Raman spectrometer.",
+      "expert": "FDR Table 4.3 enhancement items: LN\u2082-cooled silicon/multilayer monochromators (Si(111) 4\u201340 keV; multilayer stripes with d \u2248 24 \u00c5 and \u2248 48 \u00c5; small 9\u201311 mm offset) and a LERIX spectrometer upgrade (better analyzer placement). The canted photon-delivery system of the new Advanced Spectroscopy and LERIX (ASL) beamline is described in FDR Sec. 4-10.",
+      "fdrDeliverables": [
+       "25-ID-B: LN2 silicon/multilayer monochromator",
+       "25-ID-C (as listed in Table 4.3): LERIX spectrometer"
+      ],
+      "asBuilt": "Beamline built and first measurements on the pre-upgrade ring in late 2022 (Undulator A); APS-U 2.8 cm canted undulators installed; 25-ID-C,D scientific commissioning from Jan 2025, early users in 2025-1, GU mode (~50%) by early 2026; 25-ID-E GU; XRS 'asymmetric with imaging' still commissioning at 25-ID-D in 2026.",
+      "deliveryStatus": "delivered; XRS (LERIX-II) instrument still commissioning in 2026",
+      "source": [
+       "r1",
+       "r20",
+       "r16",
+       "r18",
+       "r3",
+       "r6"
+      ]
+     },
+     "notes": "25-ID-E specifications (Axilon DCMM; lasers; 200-300 ps to 1 ms) from r19; 25-ID-D X-ray Raman still being commissioned in 2026; SPC technique pages r17."
+    }
+   ],
+   "plainLabel": "Spectroscopy: chemistry maps & X-ray Raman"
+  },
+  "26": {
+   "sector": 26,
+   "lom": "441",
+   "canted": false,
+   "operators": "Center for Nanoscale Materials (CNM) with XSD Microscopy",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "26-ID-C",
+     "title": "26-ID-C: Hard X-ray Nanoprobe",
+     "summary": "A 20 nm X-ray nanoprobe that maps strain, structure and chemistry in nanostructures and devices.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/92",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "26-ID-C"
+     ],
+     "operator": "Center for Nanoscale Materials (CNM) with XSD Microscopy",
+     "techniques": [
+      "scanning nanodiffraction / Bragg ptychography",
+      "nano-XRF",
+      "XEOL",
+      "in situ (temperature, gas/liquid, bias, laser)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "26-ID (FDR Table 4.3)",
+      "plain": "The CNM/APS Hard X-ray Nanoprobe at 26-ID-C maps strain and chemistry inside nanostructures with a 20-nanometre X-ray spot. The upgrade plan rebuilt its microscope for much faster scanning and laser 'pump-probe' experiments, refurbished its first mirror and monochromator to handle about 100 times more heat once an aperture is opened, and added lenses for higher energies.",
+      "expert": "FDR 'N4D' scope: redesigned Nanoprobe Instrument (rapid Bragg nanodiffraction: ~1 \u00b5m\u00b2 field at ~10 nm resolution in ~10\u2013100 ms; slower 3D coherent strain imaging; optical pump / x-ray probe; laser delivery); rebuild M1 interior and re-polish (the horizontal BDA at 40 m that hid mirror errors is removed for APS-U); rebuild DCM interior for ~100\u00d7 higher heat load and angular stability; Fresnel zone plates with ~20 nm outer zones for 15\u201325 keV (complementing 6\u201315 keV optics; 2.7 cm undulator 6\u201325 keV). Geometry: M1 at 30 m, DCM 63 m, NPI 75 m.",
+      "fdrDeliverables": [
+       "26-ID-A: new M1 mirror system",
+       "26-ID-B: rebuild of double-crystal monochromator",
+       "26-ID-C: stacked zone-plate optics",
+       "26-ID-C: high-speed, high-range nanoprobe scanning upgrade"
+      ],
+      "asBuilt": "2026 directory still lists 26-ID-C as 7-12 keV, DCM Si(111), zone-plate focus 0.02 x 0.02 um, 1e9 ph/s at 10 keV, status 'Operational'; chart stage 6. Two 2.8 cm undulators installed in line. No public confirmation found of the rebuilt NPI or 20 keV zone plates.",
+      "deliveryStatus": "unverified",
+      "source": [
+       "r1",
+       "r3",
+       "r5",
+       "r6"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "Hard X-ray Nanoprobe: strain & chemistry at 20 nm"
+  },
+  "27": {
+   "sector": 27,
+   "lom": "441",
+   "canted": false,
+   "operators": "XSD: Inelastic X-ray & Nuclear Resonant Scattering (IXN)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "27-ID-B",
+     "title": "27-ID-B: Resonant Inelastic X-ray Scattering",
+     "summary": "Measures electronic and magnetic excitations in quantum materials by tiny X-ray energy losses.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/212",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "27-ID-B"
+     ],
+     "operator": "XSD IXN group",
+     "techniques": [
+      "momentum-resolved RIXS (10\u2013200 meV resolution, 5\u201314 keV)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "27-ID (FDR Table 4.3)",
+      "plain": "27-ID does resonant inelastic X-ray scattering (RIXS): it measures the tiny energy X-rays lose when they kick electrons and magnetic waves in quantum materials. Some of its spectrometer motion stages were more than 30 years old, and the point where all its rotation axes should meet wandered by about 0.2 mm (two or three hair widths), so the upgrade rebuilt it to be far more precise and to fit bigger sample environments. It was the first APS-U enhancement to be finished, in March 2022.",
+      "expert": "FDR scope: extend the in-vacuum high-resolution monochromator from 2 to 4 precision motion stacks (only 1 funded by APS-U) for 5\u201380 meV options (6\u201320 keV; 9\u201312 keV for the highest resolutions); rebuild the 7-circle RIXS spectrometer to a 5 \u00b5m sphere of confusion (from ~200 \u00b5m) with an independent 3-circle Eulerian sample stage decoupled from the detector arm; target focal spots of 500 nm or smaller.",
+      "fdrDeliverables": [
+       "27-ID-B: extension of the high-energy-resolution monochromator",
+       "27-ID-B: RIXS spectrometer upgrade"
+      ],
+      "asBuilt": "APS News (Aug 2022): enhanced spectrometer and high-resolution monochromator online in March 2022 - 'the first available beamline enhancement funded by the APS Upgrade Project'; sample and analyzer motions decoupled; more room for in situ/operando environments; designed to accept quartz curved and flat-crystal ultra-high-resolution optics. 2026 directory: 5-14 keV, 10-200 meV, focus 10 x 10 um. Installed undulators are 2.5 cm (FDR: 2.7 cm).",
+      "deliveryStatus": "delivered (March 2022, before the dark period)",
+      "source": [
+       "r1",
+       "r40",
+       "r14",
+       "r3",
+       "r6"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "RIXS: electronic & magnetic waves in quantum materials"
+  },
+  "28": {
+   "sector": 28,
+   "lom": "437-B",
+   "canted": true,
+   "operators": "XSD: Surface Scattering & Microdiffraction",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "28-ID-B,C",
+     "title": "28-ID-B,C: CHEX, Coherent High Energy X-ray",
+     "summary": "Watches crystal films grow atom layer by atom layer inside growth chambers.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/215",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "28-ID-B",
+      "28-ID-C"
+     ],
+     "operator": "XSD Surface Scattering & Microdiffraction",
+     "techniques": [
+      "tunable branch: surface diffraction, resonant scattering, coherent scattering",
+      "oxide MBE growth chamber (C)"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5. Energy-range conflict: FDR gives the tunable branch as 5-60 keV; MEDSI'25 says the tunable branch (28-ID-A/B/C) runs 15-60 keV with a horizontally deflecting DCM and the three fixed-energy branches run at fixed energies between 15 and 60 keV; the 2026 directory lists 6-30 keV (Si(111) DCM, source 'SCU0') for B,C, 15 keV for D,E, 25/35 keV for F and 75/105 keV (Si 022/004) for G. The sector runs on interim 2.8/3.0 cm permanent-magnet undulators (first harmonic ~3 keV at minimum gap), not the planned 1.85 cm SCUs, so high-energy flux is below design."
+    },
+    {
+     "name": "28-ID-D,E",
+     "title": "28-ID-D,E: CHEX, Coherent High Energy X-ray",
+     "summary": "In situ studies of thin-film growth by pulsed-laser deposition.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/237",
+     "status": "Technical Commissioning",
+     "type": "ID",
+     "stations": [
+      "28-ID-D",
+      "28-ID-E"
+     ],
+     "operator": "XSD Surface Scattering & Microdiffraction",
+     "techniques": [
+      "fixed-energy branch (diamond monochromator, 15 keV)",
+      "hexapod diffractometer (D)",
+      "PLD diffractometer with HAXPES (E)"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 4. Energy-range conflict: FDR gives the tunable branch as 5-60 keV; MEDSI'25 says the tunable branch (28-ID-A/B/C) runs 15-60 keV with a horizontally deflecting DCM and the three fixed-energy branches run at fixed energies between 15 and 60 keV; the 2026 directory lists 6-30 keV (Si(111) DCM, source 'SCU0') for B,C, 15 keV for D,E, 25/35 keV for F and 75/105 keV (Si 022/004) for G. The sector runs on interim 2.8/3.0 cm permanent-magnet undulators (first harmonic ~3 keV at minimum gap), not the planned 1.85 cm SCUs, so high-energy flux is below design."
+    },
+    {
+     "name": "28-ID-F",
+     "title": "28-ID-F: CHEX, Coherent High Energy X-ray",
+     "summary": "Watches semiconductor crystals grow in a hot-gas reactor.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/238",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "28-ID-F"
+     ],
+     "operator": "XSD Surface Scattering & Microdiffraction",
+     "techniques": [
+      "fixed-energy branch (diamond 022/004: 25 / 35 keV)",
+      "MOCVD growth chamber"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5. Energy-range conflict: FDR gives the tunable branch as 5-60 keV; MEDSI'25 says the tunable branch (28-ID-A/B/C) runs 15-60 keV with a horizontally deflecting DCM and the three fixed-energy branches run at fixed energies between 15 and 60 keV; the 2026 directory lists 6-30 keV (Si(111) DCM, source 'SCU0') for B,C, 15 keV for D,E, 25/35 keV for F and 75/105 keV (Si 022/004) for G. The sector runs on interim 2.8/3.0 cm permanent-magnet undulators (first harmonic ~3 keV at minimum gap), not the planned 1.85 cm SCUs, so high-energy flux is below design."
+    },
+    {
+     "name": "28-ID-G",
+     "title": "28-ID-G: CHEX, Coherent High Energy X-ray",
+     "summary": "High-energy branch for in situ studies through thick sample environments.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/239",
+     "status": "Technical Commissioning",
+     "type": "ID",
+     "stations": [
+      "28-ID-G"
+     ],
+     "operator": "XSD Surface Scattering & Microdiffraction",
+     "techniques": [
+      "fixed high-energy branch (Si 022/004: 75 / 105 keV)",
+      "general / high-energy diffraction"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 4. Energy-range conflict: FDR gives the tunable branch as 5-60 keV; MEDSI'25 says the tunable branch (28-ID-A/B/C) runs 15-60 keV with a horizontally deflecting DCM and the three fixed-energy branches run at fixed energies between 15 and 60 keV; the 2026 directory lists 6-30 keV (Si(111) DCM, source 'SCU0') for B,C, 15 keV for D,E, 25/35 keV for F and 75/105 keV (Si 022/004) for G. The sector runs on interim 2.8/3.0 cm permanent-magnet undulators (first harmonic ~3 keV at minimum gap), not the planned 1.85 cm SCUs, so high-energy flux is below design."
+    }
+   ]
+  },
+  "29": {
+   "sector": 29,
+   "lom": "437-D",
+   "canted": false,
+   "operators": "XSD: Magnetic Materials",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "29-ID-C,D",
+     "title": "29-ID-C,D: IEX \u2013 Intermediate Energy X-ray",
+     "summary": "Soft X-rays with fully controllable polarization map electron energy bands and magnetic order in quantum materials.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/112",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "29-ID-C",
+      "29-ID-D",
+      "29-ID-E (octupole vector magnet)"
+     ],
+     "operator": "XSD Magnetic Materials group",
+     "techniques": [
+      "ARPES (C)",
+      "resonant soft X-ray scattering (D)",
+      "XMCD/XMLD",
+      "184\u20133000 eV"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Source is the electromagnetic IEX undulator (12.5 cm). Directory lists a 29ID-E octupole vector magnet endstation; link to the closed 4-ID-C soft-X-ray program is suggested but not officially documented."
+    }
+   ]
+  },
+  "30": {
+   "sector": 30,
+   "lom": "437-E",
+   "canted": false,
+   "operators": "XSD: Inelastic X-ray & Nuclear Resonant Scattering (IXN)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "30-ID-B,C",
+     "title": "30-ID-B,C: High-Resolution Inelastic Scattering (HERIX) & NRS",
+     "summary": "Measures how vibrations travel through crystals with about 1.5 meV resolution.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/89",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "30-ID-B",
+      "30-ID-C"
+     ],
+     "operator": "XSD IXN group",
+     "techniques": [
+      "HERIX meV inelastic X-ray scattering (phonons) at 23.7 keV (C)",
+      "\u00b9\u00b9\u2079Sn nuclear resonant scattering (B)"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "30-ID (FDR Table 4.3)",
+      "plain": "30-ID measures how sound-like vibrations (phonons) travel through crystals using X-rays sorted to about 1\u20131.5 thousandths of an electron-volt out of 23,700 (roughly one part in 16\u201324 million). The upgrade cools its key crystals to cryogenic temperatures so the energy does not drift, making the very small energy shifts scientists look for measurable.",
+      "expert": "FDR scope: new cryogenic HERIX high-resolution monochromator (exchange-gas Cu box in vacuum, active temperature and Bragg-angle feedback; ~0.05 meV over 3\u20134 days demonstrated at 3-ID, >100\u00d7 better than before; limited tunability, so the old HRM stays for \u00b9\u00b9\u2079Sn NRS at 23.88 keV); convert the Kohzu HHL mono from water-cooled diamond to cryo-cooled Si. HERIX: 1.5 meV at 23.724 keV, Q_max 72 nm\u207b\u00b9, 9 m arm with 9 analyzers expandable to 21.",
+      "fdrDeliverables": [
+       "30-ID-A: cryogenic conversion of Kohzu monochromator",
+       "30-ID-B: new cryogenic high-energy-resolution monochromator"
+      ],
+      "asBuilt": "2026 directory: HHLM listed as 'Cryo-cooled Si(111)' (2e13 ph/s at 23.7 keV) and HRM as 'Six-bounce Si HRM' (6e9 ph/s), 1 meV incident bandpass, focus 35 x 15 um; two 1.35 cm undulators (E1 ~23.4 keV) installed as planned. Whether the new cryogenic HRM is in service is not stated.",
+      "deliveryStatus": "HHLM cryo conversion appears delivered; new cryo-HRM unverified",
+      "source": [
+       "r1",
+       "r3",
+       "r6"
+      ]
+     },
+     "notes": null
+    }
+   ],
+   "plainLabel": "Atomic vibrations (phonons) in crystals"
+  },
+  "31": {
+   "sector": 31,
+   "lom": "438-A",
+   "canted": true,
+   "operators": "LRL-CAT (Eli Lilly) at 31-ID-D; XSD Microscopy at 31-ID-E",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "31-ID-D",
+     "title": "31-ID-D: Automated Protein Crystallography (LRL-CAT)",
+     "summary": "Eli Lilly's automated protein crystallography beamline, also open to external users.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/45",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "31-ID-D"
+     ],
+     "operator": "LRL-CAT (Lilly Research Laboratories CAT, Eli Lilly)",
+     "techniques": [
+      "fully automated mail-in MX for drug discovery"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "31-ID-E",
+     "title": "31-ID-E: Ptychography-Laminography",
+     "summary": "Nanoscale 3D imaging of flat samples such as computer chips by tilted-axis ptychography.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/240",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "31-ID-E"
+     ],
+     "operator": "XSD Microscopy group",
+     "techniques": [
+      "ptychographic X-ray laminography (LamNI instrument)",
+      "fixed 8.5 / 13.7 keV via HDMM",
+      "in-vacuum Eiger 1.5M"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "When 31-ID-E was created is not documented in sources read; a search-index title shows the directory page as '31-ID-E: LYNX' (page read 2026-10-08 said 'Ptychography-Laminography'). Not on the GU proposal list."
+    }
+   ]
+  },
+  "32": {
+   "sector": 32,
+   "lom": "438-B",
+   "canted": true,
+   "operators": "XSD: Imaging",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "32-ID-B,C",
+     "title": "32-ID-B,C: Full Field Imaging & Transmission X-ray Microscopy",
+     "summary": "Films ultrafast events like laser melting in 3D printing and takes 3D X-ray-microscope images with 50 nm detail.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/84",
+     "status": "Restart of General User Program",
+     "type": "ID",
+     "stations": [
+      "32-ID-B",
+      "32-ID-C"
+     ],
+     "operator": "XSD Imaging group",
+     "techniques": [
+      "TXM nano-CT / nano-laminography (B, 8\u201317 keV, <50 nm)",
+      "ultrafast white-beam imaging & diffraction (C)",
+      "phase-contrast imaging"
+     ],
+     "feature": false,
+     "enhanced": true,
+     "enhancement": {
+      "program": "32-ID (FDR Table 4.3)",
+      "plain": "32-ID takes ultra-fast X-ray movies (single flashes of about 100 trillionths of a second) of things like 3D-printing laser melts and fuel sprays, and 3D nanoscale images with an X-ray microscope. The upgrade split its two undulators into two angled (canted) beams and moved its X-ray microscope into its own hutch; the plan is for one beam to film an event while a second, focused beam measures the crystal structure at the same spot. Status (2026): the canted beams and the relocated microscope are in use and 32-ID-C offers high-speed diffraction with the second beam; the simultaneous dual-beam setup and a new projection nano-CT microscope are planned.",
+      "expert": "FDR scope: cant the straight (U28 + U13.5 replacing U33 + U18) with new white-beam shutter/mask, slits, filters, windows and transport; dual-beam mode: the U13.5 single-line beam CRL-focused and steered back onto the sample by small multilayer mirrors for simultaneous diffraction/WAXS/SAXS while the U28 beam does full-field imaging; relocate the TXM to 32-ID-B; new KB-based cone-beam projection nano-CT in 32-ID-C (high-speed imaging from 1 \u00b5m to <100 nm; nano-CT temporal resolution from 500 ms to tens of \u00b5s); multilayer KBs optimized for 25 and 12 keV, double vertical mirrors, CRL transfocator.",
+      "fdrDeliverables": [
+       "canting components (WB shutter/mask, slits, filters, Be windows, Al pipes, shutter mods)",
+       "32-ID-C: pair of small deflecting multilayer mirrors; double vertical mirrors; CRLs + transfocator; two KB sets (25 and 12 keV)",
+       "32-ID-C: dual-beam instrument",
+       "32-ID-C: nano-CT instrument"
+      ],
+      "asBuilt": "Canted short devices installed (APS28#10S 2.8 cm and APS135#3S 1.35 cm). 2026 directory: 32-ID-B at ~37 m houses the TXM (8-17 keV, sub-50 nm); 32-ID-C at ~70 m does white-beam high-speed imaging (sub-us to 100 ps single-pulse) and uses the U13.5 quasi-single-line ~24 keV beam for high-speed diffraction. JSR 2025: full-field nano-laminography with the TXM at 32-ID of the upgraded APS (50 nm, 20 deg tilt). A 2024 SPIE paper (via search, not read) still described the projection microscope as planned; its 2026 status is unconfirmed.",
+      "deliveryStatus": "canting + TXM relocation delivered; dual-beam and projection nano-CT unconfirmed",
+      "source": [
+       "r1",
+       "r6",
+       "r3",
+       "r43"
+      ]
+     },
+     "notes": "Historically 32-ID was built by another CAT (often cited as COM-CAT) before XSD operation - not verified here."
+    }
+   ],
+   "plainLabel": "Ultrafast X-ray movies & 3D nano-imaging"
+  },
+  "33": {
+   "sector": 33,
+   "lom": "438-D",
+   "canted": false,
+   "operators": "XSD Surface Scattering & Microdiffraction; XSD Microscopy (PtychoProbe)",
+   "id": true,
+   "bm": true,
+   "beamlines": [
+    {
+     "name": "33-BM-C",
+     "title": "33-BM-C: Multi-Purpose General Scattering",
+     "summary": "Multi-purpose diffraction for thin films and materials physics.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/83",
+     "status": "Restart of General User Program",
+     "type": "BM",
+     "stations": [
+      "33-BM-C"
+     ],
+     "operator": "XSD Surface Scattering & Microdiffraction",
+     "techniques": [
+      "general diffraction, diffuse scattering",
+      "thin-film / GI diffraction, reflectivity",
+      "anomalous scattering"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": null
+    },
+    {
+     "name": "33-ID-C",
+     "title": "33-ID-C: PtychoProbe",
+     "summary": "Aims to focus hard X-rays to ~5 nm to see individual nanostructures inside chips, batteries and cells.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/241",
+     "status": "Technical Commissioning",
+     "type": "ID",
+     "stations": [
+      "33-ID-C"
+     ],
+     "operator": "XSD Microscopy group",
+     "techniques": [
+      "ptychography",
+      "XRF nanoprobe",
+      "tomography (5\u201330 keV)"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Last feature beamline installed; chart stage 4 on 2026-10-05."
+    }
+   ]
+  },
+  "34": {
+   "sector": 34,
+   "lom": "438-E",
+   "canted": true,
+   "operators": "XSD: Microscopy; Surface Scattering & Microdiffraction",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "34-ID-E",
+     "title": "34-ID-E: Microdiffraction",
+     "summary": "Maps how each crystal grain inside metals and chips is tilted and strained, in 3D, with a ~100 nm beam.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/204",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "34-ID-E"
+     ],
+     "operator": "XSD (Sector 34 groups: Microscopy; Surface Scattering & Microdiffraction)",
+     "techniques": [
+      "polychromatic (Laue) + monochromatic micro/nano-diffraction with depth resolution (DAXM)",
+      "micro-XRF"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Chart stage 5."
+    },
+    {
+     "name": "34-ID-F",
+     "title": "34-ID-F: Atomic",
+     "summary": "Lensless coherent imaging that reconstructs strain fields inside single nanocrystals in 3D.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/242",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "34-ID-F"
+     ],
+     "operator": "XSD (Sector 34 groups: Microscopy; Surface Scattering & Microdiffraction)",
+     "techniques": [
+      "Bragg coherent diffraction imaging (BCDI)",
+      "5.3\u201330 keV"
+     ],
+     "feature": true,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "First light expected Oct 2025; chart stage 5. Directory still describes the old ~300 nm KB setup 'may be improved with new optics'."
+    }
+   ]
+  },
+  "35": {
+   "sector": 35,
+   "lom": "438-F",
+   "canted": false,
+   "operators": "Dynamic Compression Sector (Washington State University, NNSA-supported)",
+   "id": true,
+   "bm": false,
+   "beamlines": [
+    {
+     "name": "35-ID-B,C,D,E",
+     "title": "35-ID-B,C,D,E: Dynamic Compression Sector",
+     "summary": "Fires projectiles or lasers at samples and takes X-ray snapshots during the billionths of a second when they are shocked.",
+     "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/211",
+     "status": "Scientific Commissioning and Early Experiments",
+     "type": "ID",
+     "stations": [
+      "35-ID-B",
+      "35-ID-C",
+      "35-ID-D",
+      "35-ID-E"
+     ],
+     "operator": "Dynamic Compression Sector (Washington State University; NNSA-supported)",
+     "techniques": [
+      "single-pulse diffraction, imaging, SAXS during shock compression",
+      "gas-gun impact (D, E; up to ~7 km/s)",
+      "100 J laser shock (C)",
+      "Kolsky bar / special platforms (B)"
+     ],
+     "feature": false,
+     "enhanced": false,
+     "enhancement": null,
+     "notes": "Directory says 'Not Currently Operational'; 2026-10-05 chart stage 5; on the GU list. DCS is operated by Washington State University and states it is available to national/international users."
+    }
+   ]
+  },
+  "36": {
+   "sector": 36,
+   "id": false,
+   "bm": false,
+   "beamlines": []
+  },
+  "37": {
+   "sector": 37,
+   "id": false,
+   "bm": false,
+   "beamlines": []
+  },
+  "38": {
+   "sector": 38,
+   "id": false,
+   "bm": false,
+   "beamlines": []
+  },
+  "39": {
+   "sector": 39,
+   "id": false,
+   "bm": false,
+   "beamlines": []
+  },
+  "40": {
+   "sector": 40,
+   "id": false,
+   "bm": false,
+   "beamlines": []
+  }
+ },
+ "summary": {
+  "headline": "35 beamline sectors (the APS-U ring has 40 sectors; 35 carry ID/BM beamline ports, r50, r1); 71 beamline entries (54 ID, 17 BM) as listed on the APS Beamline Directory and the 2026-10-05 commissioning chart. APS-U delivered 9 new feature beamlines (POLAR 4-ID, XPCS 8-ID, CSSI 9-ID, ISN 19-ID, HEXM 20-ID, CHEX 28-ID, PtychoProbe 33-ID, 3DMN 34-ID-E, ATOMIC 34-ID-F), 15 enhancement beamlines (1, 2, 3, 5, 6, 7, 11, 12, 13, 15, 25, 26, 27, 30, 32-ID) and a do-no-harm program covering 12 other ID beamlines and all BM beamlines; ASL at 25-ID is a relocated/new canted beamline built in APS-U scope and counted among the enhancements."
+ },
+ "references": [
+  {
+   "id": "r1",
+   "title": "APS Upgrade Final Design Report, Chapter 4: Experimental Facilities (Sec. 4-1 overview, Table 4.1 feature beamlines, Table 4.3 beamline-enhancement scope; Sec. 4-10 ASL 25-ID; Secs. 4-11..4-23 enhancements)",
+   "authors": "APS Upgrade Project, Argonne National Laboratory",
+   "year": 2019,
+   "venue": "APSU-2.01-RPT-003 (FDR), May 2019",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%204%20-%20Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r2",
+   "title": "APS Upgrade Final Design Report, Chapter 3: Front Ends and Insertion Devices (Table 3.1 ID front-end configurations, Table 3.2 BM front ends, Table 3.13 ID selections sector by sector, Table 3.24 SCU scope, Table 3.29 BM sources)",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "APSU FDR, May 2019",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%203%20-%20Front%20Ends%20and%20Insertion%20Devices.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r3",
+   "title": "APS Beamline Directory (index and per-beamline pages: status, specifications, techniques, endstations; read 2026-10-08)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory",
+   "type": "web"
+  },
+  {
+   "id": "r4",
+   "title": "Sector/Beamline Locations & Phone Numbers (LOM pentagon, operator type and XSD group per sector; page dated 08.10.2026)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Users-Information/Help-Reference/Contacts/Sector-Beamline-Locations-Phones",
+   "type": "web"
+  },
+  {
+   "id": "r5",
+   "title": "Beamline Commissioning Progress chart, October 5, 2026 (6-stage restart status for 71 beamline entries; linked from APS home page)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "anl.app.box.com (weekly chart)",
+   "url": "https://anl.app.box.com/s/rjtjm9d9b5v2gk35l0s39zgnagfye757",
+   "type": "web"
+  },
+  {
+   "id": "r6",
+   "title": "Insertion Devices by Sector (as-installed undulators: period, N, gaps, K_eff, E1, power at 200 mA; 'Updated: Sep. 22, 2026')",
+   "authors": "APS Magnetic Devices group (W. Li)",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Magnetic-Devices/Insertion-Devices/Insertion-Devices-by-Sector",
+   "type": "web"
+  },
+  {
+   "id": "r7",
+   "title": "Proposal Types and Templates (beamline lists for General User, MX, Rapid Access, CAT-member proposals; page dated 10.07.2026)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Users-Information/About-Proposals/Proposal-Types",
+   "type": "web"
+  },
+  {
+   "id": "r8",
+   "title": "APS Upgrade - Beamline Engineering Overview (9 feature beamlines; 15 enhancement beamlines; do-no-harm scope 12 ID + 18 BM beamlines; BM beamlines moved 42 mm inboard + 0.5 mrad; ~60 instruments and ~30 optical subsystems; 70 ports qualified)",
+   "authors": "O. Schmidt, D. Capatina, J. Knopp, R. Winarski, S. Bean, A. Khan, M. Ramanathan",
+   "year": 2025,
+   "venue": "MEDSI'25, Lund, paper TUOA01, doi:10.18429/JACoW-MEDSI2025-TUOA01",
+   "url": "https://proceedings.jacow.org/medsi2025/pdf/TUOA01.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r9",
+   "title": "Argonne celebrates successful completion of the Advanced Photon Source Upgrade ($815M; nine new beamlines; enhancements of a further 15; alignment of all 72 research stations; CD-4 review Sept 2025)",
+   "authors": "A. Salles",
+   "year": 2026,
+   "venue": "APS News, 2026-02-05",
+   "url": "https://www.aps.anl.gov/APS-News/2026-02-05/argonne-celebrates-successful-completion-of-the-advanced-photon-source-upgrade",
+   "type": "news"
+  },
+  {
+   "id": "r10",
+   "title": "APS Upgrade: Feature Beamlines page (seven under construction + infrastructure for two more; sector list)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "aps.anl.gov (page dated 01.25.2024)",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/Feature-Beamlines",
+   "type": "web"
+  },
+  {
+   "id": "r11",
+   "title": "Upgraded APS Update: January 2025 (43 beamlines commissioning, 27 accepting users; seven feature beamlines by summer 2025; 3DMN/Atomic infrastructure)",
+   "authors": "J. Lang",
+   "year": 2025,
+   "venue": "APS-U news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-January-2025",
+   "type": "news"
+  },
+  {
+   "id": "r12",
+   "title": "Upgraded APS Update: August 2025 (48 of 72 beamlines accepting users, 13 in technical commissioning; schedules for ISN, CHEX, PtychoProbe, 3DMN, Atomic)",
+   "authors": "J. Lang",
+   "year": 2025,
+   "venue": "APS-U news, 2025-08-29",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-August-2025",
+   "type": "news"
+  },
+  {
+   "id": "r13",
+   "title": "Upgraded APS Update: January 2026 (upgrade work essentially complete, all scope delivered; progress chart of Jan 26, 2026)",
+   "authors": "J. Lang",
+   "year": 2026,
+   "venue": "APS-U news, 2026-01-29",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-January-2026",
+   "type": "news"
+  },
+  {
+   "id": "r14",
+   "title": "Building the Beamlines (spectroscopy and time-resolved programs from sectors 7, 11, 20 relocating to 25-ID; RIXS spectrometer at 27-ID the first APS-U beamline instrument; 28-ID hosts IDEA program before CHEX)",
+   "authors": "J. Kerby",
+   "year": 2022,
+   "venue": "APS-U news, 2022-11-03",
+   "url": "https://www.aps.anl.gov/node/16756",
+   "type": "news"
+  },
+  {
+   "id": "r15",
+   "title": "Progress on the Beamlines (seven feature beamlines + infrastructure for two; new GM/CA mirror optics; removal at 33-ID and 34-ID)",
+   "authors": "J. Kerby",
+   "year": 2023,
+   "venue": "APS-U news, 2023-07-11",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/Progress-on-the-Beamlines",
+   "type": "news"
+  },
+  {
+   "id": "r16",
+   "title": "Toasting the Spectroscopy Program at APS Beamline 20-ID (20-ID ~600 publications over >25 years; LERIX; first 25-ID measurements weeks away; time-resolved research moving from 11-ID and 7-ID to 25-ID)",
+   "authors": "A. Salles",
+   "year": 2022,
+   "venue": "APS News, 2022-09-28",
+   "url": "https://www.aps.anl.gov/APS-News/2022-09-28/toasting-the-spectroscopy-program-at-aps-beamline-20-id",
+   "type": "news"
+  },
+  {
+   "id": "r17",
+   "title": "APS Spectroscopy Group (SPC) web pages: 25-ID-C microprobe branch (node 23), Beamline information (node 4), Micro-spectroscopy (node 17), X-ray Raman (node 34), XES (node 28), XANES/HERFD (node 32), Dispersive XANES (node 33)",
+   "authors": "XSD Spectroscopy Group (APS/CLS partnership)",
+   "year": 2026,
+   "venue": "spc.xray.aps.anl.gov (read 2026-10-09)",
+   "url": "https://spc.xray.aps.anl.gov/node/23",
+   "type": "web"
+  },
+  {
+   "id": "r18",
+   "title": "SPC Beamlines Updates: Jan 13 2025 (25-ID-C,D entered scientific commissioning after shielding verification and technical commissioning in fall 2024), May 2 2025 (early users: EXAFS of dilute samples, X-ray Raman, XES, HERFD), Feb 9 2026 (25-ID-C second cycle in GU mode ~50%; asymmetric HERFD and asymmetric XRS-with-imaging commissioning)",
+   "authors": "XSD Spectroscopy Group",
+   "year": 2026,
+   "venue": "spc.xray.aps.anl.gov nodes 46, 42, 48",
+   "url": "https://spc.xray.aps.anl.gov/node/48",
+   "type": "web"
+  },
+  {
+   "id": "r19",
+   "title": "25-ID-E Homepage (time-resolved X-ray spectroscopy station; 200-300 ps to 1 ms; Axilon DCMM Si(111) 4-40 keV / multilayer 5-22 keV; lasers)",
+   "authors": "XSD Time-Resolved Research Group",
+   "year": 2026,
+   "venue": "aps.anl.gov (page dated 03.09.2026)",
+   "url": "https://www.aps.anl.gov/Sector-25/25-ID-E",
+   "type": "web"
+  },
+  {
+   "id": "r20",
+   "title": "Kelly S. and SPC team, 'X-ray spectroscopy at the APS' (25-ID optical layout: LERIX branch bendable mirror at 2 mrad; microprobe branch two mirrors at 2.5 mrad; small-offset DCMMs 4-40 (32) keV Si(111), 5-20 keV multilayers; 28-mm undulators, initial operation with Undulator A; LERIX-II prototype)",
+   "authors": "S. D. Kelly et al.",
+   "year": 2023,
+   "venue": "EXAFS-50 symposium, BNL, Oct 30-31 2023 (slides)",
+   "url": "https://www.bnl.gov/exafs-50/files/presentations/kelly.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "r21",
+   "title": "APS/CNM Users Meeting 2022 Workshop WK11: Advanced Spectroscopy and LERIX (ASL) Workshop (abstract/agenda)",
+   "authors": "S. Kelly, X. Zhang (organizers)",
+   "year": 2022,
+   "venue": "APS/CNM Users Meeting 2022",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/UO/2022%20APS%20WK11.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "r22",
+   "title": "APS-U and MPE Beamlines (1-ID: initial PM undulator, SCU later; initial mono = old vertical-offset system, new Cinel mono later; 1-ID-C 4.5 m table; HT-HEDM moved 6-ID-D -> 20-ID-D Dec 2023; SEES to run 6-BM-B)",
+   "authors": "XSD Materials Physics & Engineering group",
+   "year": 2024,
+   "venue": "aps.anl.gov (page dated 01.23.2024)",
+   "url": "https://www.aps.anl.gov/Materials-Physics-and-Engineering/APS-U",
+   "type": "web"
+  },
+  {
+   "id": "r23",
+   "title": "About SBC (Structural Biology Center 'was' a dedicated MX facility with 19-ID and 19-BM at Sector 19)",
+   "authors": "APS Structural Biology Center",
+   "year": 2026,
+   "venue": "sbc.aps.anl.gov",
+   "url": "https://sbc.aps.anl.gov/about",
+   "type": "web"
+  },
+  {
+   "id": "r24",
+   "title": "APS Upgrade and SEES APS beamlines (status of 3-ID, 6-BM-B, 13-BM-C, 13-BM-D, 13-ID-C/D as of May 16 2025)",
+   "authors": "SEES (Synchrotron Earth and Environmental Science, NSF EAR-2223273)",
+   "year": 2025,
+   "venue": "seescience.org",
+   "url": "https://seescience.org/beamline-science/our-synchrotron-facilities/aps/upgrade-status/",
+   "type": "web"
+  },
+  {
+   "id": "r25",
+   "title": "HPCAT Newsletter August 2024 (16-ID-B first beam July 3 2024; new branching DCM; 16-BM layout replaced; new DCM + DMM for 16-ID-D; 16-ID-E under construction, opening early 2026)",
+   "authors": "HPCAT",
+   "year": 2024,
+   "venue": "hpcat.aps.anl.gov",
+   "url": "https://hpcat.aps.anl.gov/sites/hpc-aps-d8.aps.anl.gov/files/HPC/HPCAT%20Newsletter%20Aug2024.pdf",
+   "type": "web"
+  },
+  {
+   "id": "r26",
+   "title": "The APS Upgrade Opens New Opportunities for NSF's ChemMatCARS (construction of a second ID beamline with new B and E stations from April 2023)",
+   "authors": "NSF's ChemMatCARS, University of Chicago",
+   "year": 2023,
+   "venue": "chemmatcars.uchicago.edu",
+   "url": "https://chemmatcars.uchicago.edu/facilities/construction-of-a-second-beamline-at-nsfs-chemmatcars",
+   "type": "web"
+  },
+  {
+   "id": "r27",
+   "title": "Recent advances and upgrades in the advanced crystallographic program at NSF's ChemMatCARS (new 15-ID-B hutch for DAFS below 5 keV + mail-in; Roadrunner diffractometer; first Pilatus 4 at APS)",
+   "authors": "J. Jiang, T. Chang, K. Lynch, Y.-S. Chen",
+   "year": 2025,
+   "venue": "Struct. Dyn. 12(5), A380 (ACA 2025 abstract), doi:10.1063/4.0001169",
+   "url": "https://doi.org/10.1063/4.0001169",
+   "type": "abstract"
+  },
+  {
+   "id": "r28",
+   "title": "Advancing Structure-Based Drug Development: A Rebuild of the IMCA-CAT Beamline at the Advanced Photon Source (KB mirrors, CRLs, Axilon monochromator; 672-sample dewars; ~1,000 datasets/day)",
+   "authors": "M. Carrillo et al.",
+   "year": 2025,
+   "venue": "Struct. Dyn. 12(5), A377 (ACA 2025 abstract), doi:10.1063/4.0001166",
+   "url": "https://doi.org/10.1063/4.0001166",
+   "type": "abstract"
+  },
+  {
+   "id": "r29",
+   "title": "Returning to scientific operations at GM/CA@APS after the APS-Upgrade (beamlines almost completely rebuilt; >1e13 ph/s; 1-50 um beams; 23-ID-D to 35 keV; Eiger2 XE 16M CdTe; first X-rays 2024-11-22; users from 2025-03-11)",
+   "authors": "D. J. Kissick et al.",
+   "year": 2025,
+   "venue": "Struct. Dyn. 12(5), A220 (ACA 2025 abstract), doi:10.1063/4.0001010",
+   "url": "https://doi.org/10.1063/4.0001010",
+   "type": "abstract"
+  },
+  {
+   "id": "r30",
+   "title": "Advancing Crystallography Research: The Latest Progress and Future Directions of NE-CAT Beamlines at the APS (24-ID-E fixed 12.662 keV; new monochromator for 24-ID-C; 24-ID-C under development)",
+   "authors": "A. Kaya et al. (Cornell University)",
+   "year": 2025,
+   "venue": "Struct. Dyn. 12(5), A334 (ACA 2025 abstract), doi:10.1063/4.0001123",
+   "url": "https://doi.org/10.1063/4.0001123",
+   "type": "abstract"
+  },
+  {
+   "id": "r31",
+   "title": "Grazing-Incidence X-ray Scattering at High Energies: Advanced Capabilities at the 11-ID Beamlines of the APS-U (60-130 keV GI total scattering)",
+   "authors": "J. M. Hoffman, O. J. Borkiewicz, W. Xu, A. A. Yakovenko",
+   "year": 2025,
+   "venue": "Struct. Dyn. 12(5), A264 (ACA 2025 abstract), doi:10.1063/4.0001053",
+   "url": "https://doi.org/10.1063/4.0001053",
+   "type": "abstract"
+  },
+  {
+   "id": "r32",
+   "title": "SER-CAT home page (operates two insertion-device beamlines, 22-ID-D and 22-ID-E, after the APS Upgrade)",
+   "authors": "SER-CAT, University of Georgia",
+   "year": 2026,
+   "venue": "sercat.franklinresearch.uga.edu",
+   "url": "https://sercat.franklinresearch.uga.edu",
+   "type": "web"
+  },
+  {
+   "id": "r33",
+   "title": "GM/CA@APS timeline (2023-06 new HDM, focusing mirrors, end-station tables, CRL transfocators; 2024-09 modified DCM up to 35 keV; 2024-10 first light with APS-U; 23-BM BAM2 entry)",
+   "authors": "GM/CA@APS",
+   "year": 2025,
+   "venue": "gmca.aps.anl.gov",
+   "url": "https://www.gmca.aps.anl.gov/introduction/timeline.html",
+   "type": "web"
+  },
+  {
+   "id": "r34",
+   "title": "Scanning and transfer of cryogenic samples in the Bionanoprobe-II instrument at the Advanced Photon Source (BNP-II designed and 'currently under construction' at 2-ID-D; 10 nm cryo XRF; cryo-PFIB robotic transfer <110 K)",
+   "authors": "B. Davis et al.",
+   "year": 2025,
+   "venue": "MEDSI'25, paper TUP20, doi:10.18429/JACoW-MEDSI2025-TUP20",
+   "url": "https://proceedings.jacow.org/medsi2025/pdf/TUP20.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r35",
+   "title": "Recent advances in superconducting undulators at the Advanced Photon Source (eight NbTi SCUs planned for APS-U; magnet failures and fabrication delays; two expected by late 2025, six to follow)",
+   "authors": "I. Kesgin et al.",
+   "year": 2025,
+   "venue": "IPAC'25, paper TUPS086",
+   "url": "https://indico.jacow.org/event/81/contributions/7476/",
+   "type": "paper"
+  },
+  {
+   "id": "r36",
+   "title": "New Research Opportunities for Environmental Scientists at GSECARS post APS Upgrade (GSECARS completed APS-U-related upgrades in 2025; 13-ID-E 5x monochromatic flux to ~1e13 ph/s into a sub-micrometre focus)",
+   "authors": "A. Lanzirotti",
+   "year": 2025,
+   "venue": "BNL SES symposium abstract",
+   "url": "https://www.bnl.gov/ses-symposium/bios/files/pdf/antonio_lanzirotti.pdf",
+   "type": "abstract"
+  },
+  {
+   "id": "r37",
+   "title": "12-ID-E Home Page (USAXS + 10 m SAXS; ptychography; 8-35 keV)",
+   "authors": "XSD Chemical & Materials Science group",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Sector-12/12-ID-E",
+   "type": "web"
+  },
+  {
+   "id": "r38",
+   "title": "The Dynamic Compression Sector (operated by Washington State University for NNSA mission; available to users)",
+   "authors": "DCS / WSU",
+   "year": 2026,
+   "venue": "dcs-aps.wsu.edu",
+   "url": "https://dcs-aps.wsu.edu/",
+   "type": "web"
+  },
+  {
+   "id": "r39",
+   "title": "6-BM Home Page (6-BM-A operated by XSD-MPE; 6-BM-B by NSF SEES; EDD and tomography)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Sector-6/6-BM",
+   "type": "web"
+  },
+  {
+   "id": "r40",
+   "title": "First New APS Upgrade Beamline Instrument Makes RIXS Leaner, Faster, More User-Friendly (27-ID enhanced spectrometer + HRM online March 2022; first APS-U-funded enhancement delivered)",
+   "authors": "K. Mally Dean",
+   "year": 2022,
+   "venue": "APS News, 2022-08-08",
+   "url": "https://www.aps.anl.gov/APS-News/2022-08-08/first-new-aps-upgrade-beamline-instrument-makes-rixs-leaner-faster-more-user",
+   "type": "news"
+  },
+  {
+   "id": "r41",
+   "title": "7-ID Home Page (7-ID received APS-U enhancements incl. new x-ray optics and a dedicated hutch for time-resolved nanodiffraction; GU program fully resumed; page dated 03.09.2026) and 7ID-D Hutch page (time-resolved hard X-ray nanoprobe, fixed-figure KB to 100 nm; TR-XAS moved to 25-ID-E; page dated 08.14.2026)",
+   "authors": "XSD Time-Resolved Research group",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Sector-7/7-ID",
+   "type": "web"
+  },
+  {
+   "id": "r42",
+   "title": "Structural Science (XSD-SRS) page: Sector 11 back in operations after APS-U enhancements; 11-ID-D in scientific commissioning",
+   "authors": "XSD Structural Science group",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Structural-Science",
+   "type": "web"
+  },
+  {
+   "id": "r43",
+   "title": "Nano-laminography with a transmission X-ray microscope (TXM at 32-ID of the upgraded APS; 20 deg tilt; 50 nm resolution)",
+   "authors": "V. Nikitin, A. Mittone, S. J. Clark, K. Fezzaa, M. Wojcik, A. Deriy, S. Bean, F. De Carlo",
+   "year": 2025,
+   "venue": "J. Synchrotron Rad. 32(6), 1452-1462, doi:10.1107/S1600577525007234",
+   "url": "https://doi.org/10.1107/S1600577525007234",
+   "type": "paper"
+  },
+  {
+   "id": "r44",
+   "title": "A robotic and high-throughput X-ray micro-computed tomography workflow (7-BM, upgraded APS; robotic sample exchange)",
+   "authors": "X. Liu et al.",
+   "year": 2026,
+   "venue": "J. Synchrotron Rad. 33(4), 1190-1197, doi:10.1107/S1600577526005539",
+   "url": "https://doi.org/10.1107/S1600577526005539",
+   "type": "paper"
+  },
+  {
+   "id": "r45",
+   "title": "Multifunctional bending magnet beamline with a capillary optic for X-ray fluorescence studies of metals in tissue sections (8-BM-B; KB station 10.5 um; capillary station 6.5 um)",
+   "authors": "B. Roter et al.",
+   "year": 2026,
+   "venue": "J. Synchrotron Rad. 33(2), 319-330, doi:10.1107/S1600577526000925",
+   "url": "https://doi.org/10.1107/S1600577526000925",
+   "type": "paper"
+  },
+  {
+   "id": "r47",
+   "title": "As-built front ends for the Advanced Photon Source MBA upgrade (burn-through mask; diamond exit windows replace Be in HHLFE; HHLFE limits 21 kW / 590 kW/mrad^2)",
+   "authors": "Y. Jaski et al.",
+   "year": 2025,
+   "venue": "MEDSI'25, paper WEP02, doi:10.18429/JACoW-MEDSI2025-WEP02",
+   "url": "https://proceedings.jacow.org/medsi2025/pdf/WEP02.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r48",
+   "title": "Sibling dossiers in this project (polar.json, xpcs.json, cssi.json, hexm.json, chex.json, ptychoprobe.json, 3dmn.json) - full per-feature-beamline research with their own primary references",
+   "authors": "this project",
+   "year": 2026,
+   "venue": "research/*.json",
+   "url": "research/",
+   "type": "internal"
+  },
+  {
+   "id": "r49",
+   "title": "Structural Biology Center at Sector 19 of Advanced Photon Source (SBC operated 19-ID and 19-BM as a user facility since 1997; funded by DOE BER)",
+   "authors": "DOE Genomic Science Program",
+   "year": 2023,
+   "venue": "genomicscience.energy.gov abstract",
+   "url": "https://www.genomicscience.energy.gov/abstract/structural-biology-center-at-sector-19-of-advanced-photon-source/",
+   "type": "abstract"
+  },
+  {
+   "id": "r50",
+   "title": "APS Upgrade Final Design Report, Chapter 2: Accelerator (40 sectors; hybrid 7BA lattice with reverse bends; circumference 1103.6 m)",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "APSU FDR, May 2019",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%202%20-%20Accelerator.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r51",
+   "title": "SER-CAT Beamline Service page (22-ID-D variable wavelength 6.0-24.0 keV; 22-ID-E high-throughput fixed 12.700 keV)",
+   "authors": "SER-CAT, University of Georgia",
+   "year": 2026,
+   "venue": "sercat.franklinresearch.uga.edu (read 2026-10-09)",
+   "url": "https://sercat.franklinresearch.uga.edu/beamline-service",
+   "type": "web"
+  }
+ ]
+}

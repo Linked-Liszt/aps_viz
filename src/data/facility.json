@@ -1,0 +1,1950 @@
+{
+ "ring": {
+  "before": {
+   "_label": "Original APS (double-bend achromat, 1995-2023), as last operated before the April 2023 shutdown",
+   "beamEnergy": {
+    "value": 7.0,
+    "unit": "GeV",
+    "source": "fdr2 Table 2.1; fdr1 Table 1.1"
+   },
+   "beamCurrent": {
+    "value": 100,
+    "unit": "mA",
+    "source": "fdr2 Table 2.1 (nominal); srp2010 'Standard Operating Mode' lists 102 mA in 24 singlets"
+   },
+   "particle": {
+    "value": "electrons (originally positrons)",
+    "unit": "-",
+    "source": "pac95 (designed as a positron ring); napac25 (APS 'designed to operate with positrons, but operated most of its lifetime with electrons')"
+   },
+   "circumference": {
+    "value": 1103.986,
+    "unit": "m",
+    "source": "fdr2 2-2.1.1 (present-day value from median rf frequency); design value 1104 m"
+   },
+   "revolutionFrequency": {
+    "value": 271.55,
+    "unit": "kHz",
+    "source": "derived: c / 1103.986 m (fdr2 Table 2.34 rounds to 271 kHz)"
+   },
+   "latticeType": {
+    "value": "double-bend achromat (Chasman-Green), 40 sectors, 2 dipoles per sector",
+    "unit": "-",
+    "source": "pac95"
+   },
+   "naturalEmittanceOriginalDesign": {
+    "value": 8.2,
+    "unit": "nm rad",
+    "source": "pac95 (1995 commissioning lattice)",
+    "note": "later replaced by the low-emittance lattice below"
+   },
+   "horizontalEmittance": {
+    "value": 3100,
+    "unit": "pm rad",
+    "source": "fdr2 Table 2.1 ('3100'); fdr1 Table 1.1 effective emittance 3113 pm; srp2010 'effective emittance of 3.1 nm-rad and coupling of 1%'"
+   },
+   "verticalEmittance": {
+    "value": 40,
+    "unit": "pm rad",
+    "source": "fdr2 Table 2.1"
+   },
+   "emittanceRatio": {
+    "value": 0.013,
+    "unit": "-",
+    "source": "fdr2 Table 2.1; srp2010 says coupling 1%"
+   },
+   "horizontalBeamSizeAtID": {
+    "value": 275,
+    "unit": "um rms",
+    "source": "fdr2 Table 2.1 (fdr1 Table 1.1 gives 280 um)"
+   },
+   "horizontalDivergenceAtID": {
+    "value": 11,
+    "unit": "urad rms",
+    "source": "fdr2 Table 2.1 (fdr1 Table 1.1: 11.6 urad)"
+   },
+   "verticalBeamSizeAtID": {
+    "value": 10,
+    "unit": "um rms",
+    "source": "fdr2 Table 2.1"
+   },
+   "verticalDivergenceAtID": {
+    "value": 3.5,
+    "unit": "urad rms",
+    "source": "fdr2 Table 2.1 (fdr1 Table 1.1: 3.4 urad)"
+   },
+   "bunchLength": {
+    "value": 34,
+    "unit": "ps rms",
+    "source": "fdr2 Table 2.1; srp2010: 33.5 ps in 24-bunch mode, 22 ps in 324-bunch mode, 50 ps for the 16-mA hybrid singlet"
+   },
+   "energySpread": {
+    "value": 0.095,
+    "unit": "% rms",
+    "source": "fdr2 Table 2.1"
+   },
+   "standardFill": {
+    "value": "24 singlets, 4.25 mA each, 153 ns apart (top-up)",
+    "unit": "-",
+    "source": "srp2010; fdr2 Table 2.1"
+   },
+   "specialFills": {
+    "value": [
+     "324 singlets (0.31 mA each, 11.37 ns apart, fill-on-fill twice daily, ~60 h lifetime)",
+     "hybrid: one 16-mA singlet + 8 groups of 7 bunches (top-up >= 1 min)",
+     "1296 singlets (0.079 mA each, 2.84 ns apart, ~100 h lifetime)"
+    ],
+    "unit": "-",
+    "source": "srp2010 'Storage Ring Operation Modes'"
+   },
+   "bunchCharge24": {
+    "value": 15.3,
+    "unit": "nC",
+    "source": "fdr2 Table 2.45"
+   },
+   "injectionMode": {
+    "value": "top-up (pioneered at APS in the late 1990s)",
+    "unit": "-",
+    "source": "fdr2 2-1.7; srp2010: standard mode top-up pulses at >= 2-minute intervals (fdr2 2-3.12.1 says 'once per minute')"
+   },
+   "beamLifetime": {
+    "value": 8,
+    "unit": "h",
+    "source": "fdr2 Table 2.45 (10th-percentile); fdr2 2-3.12.1 quotes 'the present 6-8 hours'"
+   },
+   "rfFrequency": {
+    "value": 351.935,
+    "unit": "MHz",
+    "source": "fdr2 Table 2.42"
+   },
+   "harmonicNumber": {
+    "value": 1296,
+    "unit": "-",
+    "source": "fdr2 Table 2.42"
+   },
+   "rfCavities": {
+    "value": 16,
+    "unit": "single-cell 352-MHz cavities in 4 straights",
+    "source": "fdr2 Table 2.42; pac95"
+   },
+   "rfVoltage": {
+    "value": 9,
+    "unit": "MV",
+    "source": "fdr2 Table 2.42 (pac95: 9 MV target)"
+   },
+   "energyLossPerTurn": {
+    "value": 5.4,
+    "unit": "MeV",
+    "source": "fdr2 Table 2.42 (bends only; pac95: 5.45 MeV)"
+   },
+   "storedBeamEnergy": {
+    "value": 2576,
+    "unit": "J",
+    "source": "fdr2 Table 2.45"
+   },
+   "magnets": {
+    "value": 1097,
+    "unit": "magnets",
+    "source": "derived from pac95: 80 dipoles + 400 quadrupoles + 280 sextupoles + 317 correctors + 20 skew quadrupoles"
+   },
+   "dipoleField": {
+    "value": 0.599,
+    "unit": "T",
+    "source": "pac95; fdr3 Table 3.29 (critical energy 19.5 keV at 7 GeV)"
+   },
+   "quadrupoleGradientPeak": {
+    "value": 20,
+    "unit": "T/m (approx.)",
+    "source": "pac95 ('peak gradient near 20 Tesla/meter')"
+   },
+   "vacuumChamberAperture": {
+    "value": "41.7 x 84.7 mm roughly elliptical, with antechamber",
+    "unit": "-",
+    "source": "pac95"
+   },
+   "girders": {
+    "value": 200,
+    "unit": "girders (5 per sector)",
+    "source": "pac95; fdr5 ('nearly 200 magnet girder assemblies ranging in weight from 6.8 tons to 11.3 tons')"
+   }
+  },
+  "after": {
+   "_label": "Upgraded APS (APS-U hybrid 7BA + reverse bends), design and as-operated 2024-2026",
+   "beamEnergy": {
+    "value": 6.0,
+    "unit": "GeV",
+    "source": "srp2024 Table 1; fdr2 Table 2.1; operating at 6 GeV since April 2024"
+   },
+   "beamCurrent": {
+    "value": 200,
+    "unit": "mA",
+    "source": "srp2024 Table 1; design target reached Feb. 4, 2025; live status 200.1 mA on 2026-10-09 (srstatus)",
+    "note": "Timing mode (48 bunches) is limited by injector charge: 130 mA / 140 mA."
+   },
+   "storedElectrons": {
+    "value": 4600000000000.0,
+    "unit": "electrons (736 nC)",
+    "source": "srp2024 Table 1"
+   },
+   "circumference": {
+    "value": 1103.609,
+    "unit": "m",
+    "source": "srp2024 Table 3 (fdr2 Table 2.3: 1103.6083 m)"
+   },
+   "revolutionFrequency": {
+    "value": 271.647,
+    "unit": "kHz",
+    "source": "srp2024 Table 3"
+   },
+   "revolutionTime": {
+    "value": 3.681,
+    "unit": "us",
+    "source": "srp2024 Table 3"
+   },
+   "harmonicNumber": {
+    "value": 1296,
+    "unit": "-",
+    "source": "srp2024 Table 3; fdr2 Table 2.42"
+   },
+   "rfFrequency": {
+    "value": 352.05598518,
+    "unit": "MHz",
+    "source": "fdr2 Table 2.48 (342 ppm above the old ring, fdr2 Table 2.3)",
+    "note": "FDR design value. The as-built model revolution frequency 271.647 kHz x 1296 gives 352.054 MHz; the operating rf frequency is set to match the real circumference, so treat the last digits as design-only."
+   },
+   "rfBucketSpacing": {
+    "value": 2.84,
+    "unit": "ns",
+    "source": "derived: 1/352.056 MHz"
+   },
+   "naturalEmittance": {
+    "value": 41.5,
+    "unit": "pm rad",
+    "source": "srp2024 Table 4 (41.522 pm); fdr2 Table 2.3: 41.68 pm; universally quoted as '42 pm'"
+   },
+   "horizontalEmittanceFlatModel": {
+    "value": 39.7,
+    "unit": "pm rad",
+    "source": "srp2024 Table 5, flat-beam mode kappa=0.1, zero current"
+   },
+   "verticalEmittanceFlatModel": {
+    "value": 3.98,
+    "unit": "pm rad",
+    "source": "srp2024 Table 5"
+   },
+   "emittanceRoundModel": {
+    "value": 28.7,
+    "unit": "pm rad (each plane)",
+    "source": "srp2024 Table 5, round-beam mode kappa=1, zero current"
+   },
+   "emittanceMeasuredFlat": {
+    "value": "44 +/- 3 (h), 3.3 +/- 2 (v)",
+    "unit": "pm rad",
+    "source": "ipac25 Table 1 / napac25 Table 1 (undulator-radiation measurements at 3-ID-B and 29-ID, Aug. 2024, ~50 mA, all other ID gaps open)",
+    "note": "News release n20240823 rounds the flat-beam value to 45 pm at 50 mA; sp2025 quotes 43(3) pm."
+   },
+   "emittanceMeasuredRound": {
+    "value": "28 +/- 3 (h), 31 +/- 2 (v)",
+    "unit": "pm rad",
+    "source": "ipac25 Table 1 / napac25 Table 1; sp2025 quotes 29(3) pm"
+   },
+   "emittanceAt200mA": {
+    "value": 33,
+    "unit": "pm rad",
+    "source": "upd202504 ('emittance is even smaller than our previous world record: 33 picometers radians')",
+    "note": "Coupling mode and ID-gap state not stated - treat as approximate."
+   },
+   "emittanceTypicalUserConditions": {
+    "value": 25,
+    "unit": "pm rad (model, typical ID gaps closed, full coupling)",
+    "source": "ler25 slide 20 ('Beam emittance, typical ID gaps: 25 pm.rad (model)')"
+   },
+   "couplingInUserOperation": {
+    "value": "full coupling (round beam)",
+    "unit": "-",
+    "source": "ler25 slide 20; srstatus fill pattern '200mA 216 bunches - High Coupling'"
+   },
+   "horizontalBeamSizeAtID_flat": {
+    "value": 14.5,
+    "unit": "um rms",
+    "source": "srp2024 Table 5 (14.466 um, kappa=0.1); fdr2 Table 2.1: 14.7 um; apsNSR: 'about 15 microns horizontally'"
+   },
+   "horizontalDivergenceAtID_flat": {
+    "value": 2.75,
+    "unit": "urad rms",
+    "source": "srp2024 Table 5"
+   },
+   "verticalBeamSizeAtID_flat": {
+    "value": 3.1,
+    "unit": "um rms",
+    "source": "srp2024 Table 5 (3.075 um); fdr2 Table 2.1: 3.2 um; apsNSR: 'about 4 microns vertically'"
+   },
+   "verticalDivergenceAtID_flat": {
+    "value": 1.29,
+    "unit": "urad rms",
+    "source": "srp2024 Table 5"
+   },
+   "horizontalBeamSizeAtID_round": {
+    "value": 12.3,
+    "unit": "um rms",
+    "source": "srp2024 Table 5 (kappa=1)"
+   },
+   "verticalBeamSizeAtID_round": {
+    "value": 8.3,
+    "unit": "um rms",
+    "source": "srp2024 Table 5 (kappa=1)"
+   },
+   "divergenceAtID_round": {
+    "value": "2.34 (h), 3.47 (v)",
+    "unit": "urad rms",
+    "source": "srp2024 Table 5"
+   },
+   "measuredPhotonSourceSizes": {
+    "value": {
+     "fullCoupling": {
+      "sizeH_um": 13.0,
+      "sizeV_um": 9.8,
+      "divH_urad": 4.9,
+      "divV_urad": 5.6
+     },
+     "lowCoupling": {
+      "sizeH_um": 16.1,
+      "sizeV_um": 4.9,
+      "divH_urad": 5.2,
+      "divV_urad": 4.5
+     }
+    },
+    "unit": "um / urad",
+    "source": "ipac25 Table 1 ('total source size/divergence', i.e. electron beam convolved with single-electron undulator radiation)"
+   },
+   "betaAtIDSource": {
+    "value": "beta_x 5.26 m, beta_y 2.38 m, eta_x 0.39 mm",
+    "unit": "m",
+    "source": "srp2024 Table 5 (fdr2 Table 2.3: 5.19 / 2.40 m)"
+   },
+   "energySpread": {
+    "value": 0.136,
+    "unit": "% rms (zero current)",
+    "source": "srp2024 Table 4; fdr2 Table 2.1: 0.135% (324-bunch), 0.156% (48-bunch)"
+   },
+   "bunchLengthZeroCurrent": {
+    "value": 14.4,
+    "unit": "ps rms (4.3 mm), without harmonic cavity",
+    "source": "srp2024 Table 4"
+   },
+   "bunchLengthDesignWithHHC": {
+    "value": "104 (48 bunches) / 88 (324 bunches)",
+    "unit": "ps rms",
+    "source": "fdr2 Table 2.1; ipac21 Table 1 (104 ps, 'with IBS')"
+   },
+   "bunchLengtheningMeasured": {
+    "value": "factor 2-4 longer with the bunch-lengthening cavity",
+    "unit": "-",
+    "source": "ipac25; napac25",
+    "note": "No measured ps value found in public sources."
+   },
+   "momentumCompaction": {
+    "value": 3.85e-05,
+    "unit": "-",
+    "source": "srp2024 Table 3 (fdr2 Table 2.3: 4.04e-5)"
+   },
+   "tunes": {
+    "value": "95.12 (x), 36.13 (y)",
+    "unit": "-",
+    "source": "srp2024 Table 2 (fdr2 Table 2.3: 95.100 / 36.100)"
+   },
+   "energyLossPerTurnBends": {
+    "value": 2.935,
+    "unit": "MeV",
+    "source": "srp2024 Table 4 (fdr2 Table 2.3: 2.87 MeV)"
+   },
+   "energyLossPerTurnMaxWithIDs": {
+    "value": 4.47,
+    "unit": "MeV",
+    "source": "fdr2 Table 2.42 (<4.47 MeV; text 2-3.10 gives up to 4.45 MeV incl. 1.6 MeV from IDs and 50 keV to the vacuum system)"
+   },
+   "beamPowerMax": {
+    "value": 894,
+    "unit": "kW",
+    "source": "fdr2 Table 2.42 (power loss to synchrotron radiation <894 kW)"
+   },
+   "dampingTimes": {
+    "value": "6.72 (x), 15.05 (y), 19.78 (E)",
+    "unit": "ms",
+    "source": "srp2024 Table 4"
+   },
+   "synchrotronTune": {
+    "value": "0.002 (about 540 Hz) at 4.5 MV without BLS; 300-600 Hz depending on BLS",
+    "unit": "-",
+    "source": "srp2024 Table 3; ler25 slide 17"
+   },
+   "rfVoltage": {
+    "value": "4.5 typical; up to 6.5 with all ID gaps closed",
+    "unit": "MV",
+    "source": "srp2024 ('nominal voltage of 4.5 MV total, going up to 6.5 MV when all gaps are closed'); fdr2 Table 2.42: 6.43 MV max"
+   },
+   "rfCavities": {
+    "value": 12,
+    "unit": "single-cell copper 352-MHz cavities, 4 per straight in 3 straights (sectors 36, 37, 40)",
+    "source": "srp2024; fdr2 2-3.10; fdr5 (the 12 cavities in sectors 36, 37, 40 were kept in place; sector-38 cavities removed)"
+   },
+   "rfPowerSources": {
+    "value": "two 1-MW klystrons in operation (four 1-MW stations RF1-RF4 for the ring + RF5 for the booster); transition to solid-state amplifiers began 2026 (first sector = 4 cavities), full ring expected by 2028",
+    "unit": "-",
+    "source": "ler25 slide 17; fdr2 2-3.10; n20260610"
+   },
+   "beamLifetime": {
+    "value": "2-4",
+    "unit": "h (user operation, Oct. 2025)",
+    "source": "ler25 slide 20 ('Lifetime 2 - 4 hours'); design 10th-percentile: 2.91 h (48 b) / 5.96 h (324 b) fdr2 Table 2.45; 3.7-15 h fdr2 Table 2.13",
+    "note": "Lifetime is shorter than design; momentum acceptance lower than expected (ler25 slide 14)."
+   },
+   "storedBeamEnergy": {
+    "value": 4420,
+    "unit": "J",
+    "source": "fdr2 Table 2.45 (derived check: 6 GV x 736 nC = 4.42 kJ)"
+   },
+   "injectionMode": {
+    "value": "on-axis swap-out (see swapOut)",
+    "unit": "-",
+    "source": "ipac25; napac25"
+   },
+   "bunchModesDesign": {
+    "value": {
+     "timing": {
+      "bunches": 48,
+      "current_mA": 200,
+      "charge_nC": 15.3,
+      "spacing_ns": 76.7
+     },
+     "brightness": {
+      "bunches": 324,
+      "current_mA": 200,
+      "charge_nC": 2.3,
+      "spacing_ns": 11.4
+     }
+    },
+    "unit": "-",
+    "source": "fdr2 Table 2.1, Table 2.45; fdr1 Table 1.1"
+   },
+   "bunchModesAsOperated": {
+    "value": [
+     {
+      "period": "Sept. 2024 start of 24/7 user operation",
+      "mode": "multi-bunch",
+      "bunches": 162,
+      "current_mA": "100 rising to 200",
+      "source": "ipac25; napac25"
+     },
+     {
+      "period": "2024-2025",
+      "mode": "timing",
+      "bunches": 48,
+      "current_mA": "130-140 (injector-charge limited)",
+      "source": "ipac25 (130 mA), napac25 and ler25 (140 mA)"
+     },
+     {
+      "period": "Oct. 2025",
+      "mode": "multi-bunch",
+      "bunches": 216,
+      "current_mA": 200,
+      "source": "ler25 slide 20"
+     },
+     {
+      "period": "2026-3 run",
+      "mode": "standard lattice 'typically 162 singlets or greater' + timing-mode blocks",
+      "bunches": ">=162 / 48",
+      "current_mA": "-",
+      "source": "sched2026"
+     },
+     {
+      "period": "2026-10-09 (live snapshot)",
+      "mode": "200mA 216 bunches - High Coupling",
+      "bunches": 216,
+      "current_mA": 200.1,
+      "source": "srstatus"
+     }
+    ],
+    "unit": "-",
+    "source": "see per-row sources",
+    "note": "The 324-bunch design brightness mode has not been reported in user operation; 216-bunch spacing = 6 rf buckets = 17.0 ns (derived)."
+   },
+   "vacuumChamber": {
+    "value": "mostly NEG-coated round chambers, 22 mm diameter (11 mm inner radius, 1 mm wall); NEG-coated water-cooled copper in the high-power FODO bends; extruded aluminium with antechamber in the M1/M2 L-bends; Inconel at the fast correctors",
+    "unit": "-",
+    "source": "fdr2 2-3.1, 2-3.3; fdr3 3-3.5 (22-mm diameter SR aperture)"
+   },
+   "vacuumConditioning": {
+    "value": "design 0.01 nTorr/mA after 1000 A-h was reached after only ~300 A-h",
+    "unit": "-",
+    "source": "ipac25; napac25"
+   },
+   "orbitStabilityRequirement": {
+    "value": "AC (0.01-1000 Hz): 1.3 um / 0.25 urad (H), 0.4 um / 0.17 urad (V); 7-day drift 1.0 um / 0.6 urad (H), 1.0 um / 0.5 urad (V)",
+    "unit": "-",
+    "source": "fdr2 Table 2.33 (rule: 10% of beam size/divergence)"
+   },
+   "orbitStabilityAsBuilt": {
+    "value": "Fast orbit feedback (22 kHz update, 1 kHz bandwidth) was descoped from the project; uncorrected motion is close to spec; 1-Hz then 50-Hz workstation correction with 240 correctors; residual 30-Hz line from a FODO-module rocking mode (simulated at 40 Hz); FOFB being completed in operations (single-sector test first)",
+    "unit": "-",
+    "source": "ipac25; napac25; ler25 slides 15-16; sp2025"
+   },
+   "availabilityFirstYear": {
+    "value": 96.5,
+    "unit": "% (5000 user hours)",
+    "source": "ler25 slide 21"
+   },
+   "userHoursPerYear": {
+    "value": "5000 typical; 4896 planned for FY2026 to allow extra machine studies",
+    "unit": "h",
+    "source": "sp2025; upd202510"
+   },
+   "bmSourceSizes": {
+    "value": {
+     "flat_kappa0.1": {
+      "sizeH_um": 8.128,
+      "divH_urad": 7.17,
+      "sizeV_um": 4.326,
+      "divV_urad": 0.919
+     },
+     "round_kappa1": {
+      "sizeH_um": 7.585,
+      "divH_urad": 6.093,
+      "sizeV_um": 11.626,
+      "divV_urad": 2.469
+     },
+     "beta_x_m": 0.773,
+     "beta_y_m": 4.709,
+     "eta_x_mm": 4.385
+    },
+    "unit": "um rms / urad rms (electron beam at the nominal BM source point, zero current)",
+    "source": "srp2024 Table 6 (Nominal BM Source Parameters)",
+    "note": "Added by verifier: electron-beam size at the bending-magnet (B:M3) source point, for the BM-beamline hotspots."
+   }
+  }
+ },
+ "lattice": {
+  "type": {
+   "value": "hybrid seven-bend achromat (H7BA, ESRF-EBS concept) with six additional reverse bends per sector",
+   "unit": "-",
+   "source": "srp2024; ipac25; fdr2 2-2.1"
+  },
+  "dipolesPerSector": {
+   "value": "13 = 7 main bends (4 longitudinal-gradient M1/M2 + 3 transverse-gradient M3/M4) + 6 reverse bends (Q4, Q5, Q8; offset quadrupoles)",
+   "unit": "-",
+   "source": "srp2024; ler25 slide 2; fdr2 Table 2.4"
+  },
+  "magnetsPerSector": {
+   "value": 33,
+   "unit": "lattice magnets per sector (29 main magnets + 4 fast eight-pole correctors)",
+   "source": "fdr2 2-3.1 ('each sector contains 7 dipoles, 10 standard quadrupoles, 6 reverse bends, six sextupoles, and four fast steering correctors totalling 33 lattice magnets / sector'); fdr2 2-3.2 (29 main magnets)",
+   "note": "srp2024 (Borland, Aug. 2024) says 'eight ordinary quadrupoles' per sector; the FDR (2-3.1, 2-3.2, Table 2.5: Q1, Q2, Q3, Q6, Q7, two of each) and FDR Fig. 2.32 count 10, and the as-built total of 1,321 magnets matches the FDR tally of 33/sector. The srp2024 wording remains unexplained. Re-checked by verifier against fdr2 Table 2.5 and Fig. 2.32."
+  },
+  "magnetsTotal": {
+   "value": 1321,
+   "unit": "magnets",
+   "source": "fdr2 2-3.1 ('33 lattice magnets / sector, or 1,321 magnets for the entire 40 sectors (one extra corrector is employed near the injection point)'); n20240420; n20260205; apsNSR",
+   "note": "Resolved by verifier: 33 x 40 = 1,320 plus one extra corrector near the injection point = 1,321. The Aug. 2026 profile quoting '1,320' counts only the 40 identical sectors."
+  },
+  "modules": {
+   "value": 200,
+   "unit": "pre-assembled magnet modules (5 per sector: DLM-A, QMQ-A, FODO, QMQ-B, DLM-B)",
+   "source": "apsNSR; n20240410; fdr2 2-3.4; fdr5"
+  },
+  "magnetStrength": {
+   "value": "quadrupoles up to ~80-100 T/m (Q7 86 T/m, Q1 79 T/m), sextupoles up to ~5,000-6,800 T/m^2; vanadium-permendur pole tips; 13 mm minimum pole-tip radius",
+   "unit": "-",
+   "source": "fdr2 Tables 2.5-2.6 and 2-3.1; ipac21 ('order 100 T/m and 6800 T/m^2', 13-14 mm bores); apsNSR: magnets 'up to five times stronger' than the originals"
+  },
+  "reverseBends": {
+   "value": "Q4, Q5, Q8 are quadrupoles mounted off-axis so the beam also sees a weak dipole field bending the 'wrong' way (-0.07 to -0.31 deg each). The extra dipole 'knob' lets the designers shape the dispersion independently of the beta functions, lowering the natural emittance from 67 pm (same lattice without reverse bends) to 42 pm",
+   "unit": "-",
+   "source": "fdr2 2-2.1 ('allowing reduction of the natural emittance to 42 pm compared to 67 pm in the design without reverse bends'; 'help manipulate the dispersion independently of the beta functions'), Table 2.4",
+   "note": "fdr2 2-2.1.3: the weak dipole fields of Q4 and Q5 sit where the dispersion is large, so they are very effective at adjusting the damping partition and let the dispersion be raised in the sextupoles and brought back down in M2; without reverse bending there the minimum emittance would be 58 pm. Angles from fdr2 Table 2.4: Q4 -0.098 deg, Q5 -0.066 deg, Q8 -0.307 deg (verified)."
+  },
+  "totalBendingAngle": {
+   "value": 435.5,
+   "unit": "degrees (sum of absolute bend angles; net 360)",
+   "source": "derived from fdr2 Table 2.4: +9.945 deg - 0.942 deg per sector x 40; ipac21 quotes 'from 360 to 435 degrees'"
+  }
+ },
+ "brightness": {
+  "definition": "Brightness (also 'brilliance') = photons per second per mm^2 of source area per mrad^2 of beam divergence in a 0.1% energy bandwidth. It measures how many photons come from how small a spot into how narrow a cone - what you need to focus x-rays to tiny spots or to do coherent experiments.",
+  "statements": [
+   {
+    "text": "The upgraded APS produces X-ray beams 'up to 500 times brighter' than the original APS.",
+    "source": "n20260205; n20240618; sp2025; apsNSR",
+    "note": "Facility headline number; the gain depends on photon energy and on which undulator is compared."
+   },
+   {
+    "text": "At 20 keV, with an undulator optimized for 20 keV, brightness and coherent flux rise by a factor of about 540 (brightness mode 3.25e22 vs 6e19 ph/s/mm^2/mrad^2/0.1%BW).",
+    "source": "fdr1 1-2 and Table 1.1",
+    "note": "2019 design calculation."
+   },
+   {
+    "text": "Over a broad range of hard X-ray energies up to and beyond 100 keV the design gain is a factor of 100 to 1000; the project goal was at least two orders of magnitude for >20 keV, 10-100x more single-bunch brightness for timing experiments, and twice the average flux.",
+    "source": "fdr2 2-1.2; fdr1 1-2; ipac21 ('two to three orders of magnitude in the 10-100 keV range'; 'twice the spectral flux')"
+   },
+   {
+    "text": "The gain depends on photon energy: in the IPAC'21 design envelope it is roughly x200 at 10 keV, x700 at 20 keV and x600-800 at 50-100 keV for brightness, and roughly x160 at 10 keV and x600 at 20 keV for coherent flux.",
+    "source": "derived from digitized ipac21 Fig. 1 (see dataPoints, +/- ~20%)",
+    "note": "Reason: the old horizontal emittance (3.1 nm) was far above the photon 'diffraction limit' lambda/4pi at all hard-X-ray energies, so shrinking it helps most where lambda/4pi is smallest (high energy)."
+   },
+   {
+    "text": "Horizontal electron emittance fell from ~3,100 pm to ~42 pm (natural; 28-44 pm measured depending on coupling) - a factor of ~75, which APS rounds to 'almost a factor of 100'.",
+    "source": "sp2025 ('lowered by almost a factor of 100 to 40 pm.rad'); fdr2 Table 2.1; ipac25 Table 1"
+   },
+   {
+    "text": "World-record low emittance for a synchrotron light source at the time: 45 pm (flat beam, 50 mA) and 28 pm (round beam), vs 134 pm previous record at ESRF-EBS.",
+    "source": "n20240823",
+    "note": "33 pm measured at 200 mA in April 2025. 'World record' refers to Aug. 2024. Check by verifier: China's HEPS (also 6 GeV, design ~35 pm) reported a measured 93 pm in January 2025, so no lower measured emittance than APS-U's was found as of Oct. 2026."
+   },
+   {
+    "text": "More than 100-fold increase in coherent flux; 'over two orders of magnitude' increase in brightness and coherence.",
+    "source": "sp2025"
+   },
+   {
+    "text": "Superconducting undulators, once installed, are expected to add about another factor 3 in brightness above 50 keV; the objective KPP brightness is expected to be exceeded 3-4x with in-line SCUs.",
+    "source": "sp2025"
+   },
+   {
+    "text": "Approximate transverse coherent fraction (zero current, no energy spread, 2.4-m undulator): at 10 keV ~0.05% for the old APS vs ~3% (round) to ~6% (flat) for APS-U; at 20 keV ~0.015% vs ~1-3%.",
+    "source": "derived (formula in dataPoints 'coherentFractionEstimate'); consistent with beamline design values 4.2-5.6% at 10 keV and 0.5-0.9% at 25 keV (fdr4 Tables 4.41, 4.51)"
+   },
+   {
+    "text": "APS-U horizontal emittance is comparable to the photon emittance lambda/4pi at ~2-3.5 keV (42-29 pm); the flat-beam vertical emittance (~4 pm) matches lambda/4pi at ~25 keV. The old ring's 3.1 nm matched lambda/4pi only at ~30 eV.",
+    "source": "derived: lambda/4pi = 12.398/(4 pi E[keV]) Angstrom"
+   },
+   {
+    "text": "No measured APS-U brightness curve has been published that we could find; all curves below are design calculations.",
+    "source": "search of APS news, JACoW 2024-2026, sp2025 (brightness KPP measurement was planned after SCU installation)"
+   }
+  ]
+ },
+ "swapOut": {
+  "concept": {
+   "value": "On-axis 'swap-out' injection: instead of topping up stored bunches (accumulation), the weakest stored bunch is kicked out to a dump and replaced in the same rf bucket by a fresh, full-charge bunch from the injector - no accumulation needed, so the ring can work with a tiny dynamic aperture (~+/-1.5 mm).",
+   "unit": "-",
+   "source": "fdr2 2-1.7; ipac25; ler25 slides 3, 13"
+  },
+  "worldFirst": {
+   "value": "APS-U is the first storage-ring light source to use (multi-bunch) swap-out injection; first multi-bunch swap-out on 2024-04-29 (12 bunches, 1.1 mA target, 30-s interval, 0.6 nC from the BTS)",
+   "unit": "-",
+   "source": "n20240430; ipac25; napac25 Fig. 5"
+  },
+  "plane": {
+   "value": "horizontal (as built)",
+   "unit": "-",
+   "source": "desy24; ler25; ipac21 ('injected horizontally on-axis using a pulsed 1.4-T septum magnet, 3 horizontal fast kickers')",
+   "note": "The 2019 FDR described vertical injection with a DC Lambertson septum and separate extraction kickers in the sector-38 straight (fdr2 2-2.8, 2-3.6). By 2021 the design had changed to horizontal injection with a pulsed septum; as built, the same three kickers inject the new bunch and kick the old one out."
+  },
+  "septum": {
+   "value": "pulsed, single-turn, direct-drive septum magnet: 1.42 T peak over 1.493 m, blade tapering to 3 mm; 18 kA in a 1-mm copper bus",
+   "unit": "-",
+   "source": "napac25 ('a septum blade that tapers to 3 mm thickness at the downstream end'; 23 days, ~1 million pulses); ipac25; ler25 slides 26-27",
+   "note": "First septum failed after ~1 million pulses (23 days); the spare then leaked; the repaired original went back in. Its stored-beam tube was bowed so that it touched the design orbit ~0.7 m from the exit, so the magnet was pivoted about its exit (0.7 mrad per napac25/ipac25; 1.5 mrad per ler25 slide 27). The septum chamber was replaced by Oct. 2025 (ler25 slide 21) and a new septum design is being built (ler25 slide 27)."
+  },
+  "injectionKickers": {
+   "value": "3 stripline kickers in one straight, horizontal, 3 mrad total, ~11 ns pulses (+/-~25 kV, 'about 27 kV' pulsers); allow filling every third rf bucket",
+   "unit": "-",
+   "source": "ler25 slide 5; desy24 slide 12; ipac21; harkay23; srp2024",
+   "note": "A 2024 APS all-hands slide reportedly lists 27-kV stripline pulsers with a 20-ns pulse (search-engine summary only, not opened); ler25 slide 5 and ipac21 give ~11-ns pulses. Treat 11 ns as the as-built kicker pulse length per the 2025 commissioning slides."
+  },
+  "gapSeptumToKicker": {
+   "value": 2.8,
+   "unit": "mm (horizontal gap between septum wall and first kicker blade)",
+   "source": "napac25; desy24"
+  },
+  "emittanceExchange": {
+   "value": "6 skew quadrupoles in the BTS swap the booster beam's large horizontal and small vertical emittances so it fits the 2.8-mm gap",
+   "unit": "-",
+   "source": "napac25; srp2024"
+  },
+  "decoherenceKicker": {
+   "value": "vertical, 0.2 mrad, 11 ns, fired 200-250 turns before injection to blow up the outgoing bunch and protect the swap-out dump (~100x lower particle density in design)",
+   "unit": "-",
+   "source": "ler25 slide 5 (200 turns); desy24 and napac25 (250 turns); fdr2 2-2.8.2",
+   "note": "The FDR (2-2.9) describes the same pre-kick idea for the superseded vertical scheme: a weak stripline 'pre-kicker' ~250 turns ahead reduces the energy density on the dump by two orders of magnitude."
+  },
+  "fanOutKicker": {
+   "value": "vertical, 0.1 mrad, 5 us half-sine over a full turn; fires on a whole-beam abort to spread all bunches over the beam-dump surface",
+   "unit": "-",
+   "source": "ler25 slide 5; napac25"
+  },
+  "program": {
+   "value": "fills the requested pattern at 1 Hz, then swaps out the weakest bunch at the requested interval",
+   "unit": "-",
+   "source": "napac25; ipac25"
+  },
+  "replacementCriterion": {
+   "value": "design: a bunch is replaced when its charge has fallen to about 90% of nominal; in 2025 operation the weakest bunch is replaced on a fixed ~20-s clock, allowing larger drops (see sampleParameters216)",
+   "unit": "-",
+   "source": "fdr2 2-3.13.4.1; ler25 slide 23"
+  },
+  "intervalDesign": {
+   "value": "about 25-30 s (48 bunches, 3.5-4 h lifetime) and 7.5-18 s (324 bunches)",
+   "unit": "s",
+   "source": "ipac21; fdr2 Table 2.13 (16-30 s round beam, 8-10 s flat 324-bunch)"
+  },
+  "intervalPlanned": {
+   "value": "9-30 s",
+   "unit": "s",
+   "source": "calvey24 slide 13"
+  },
+  "intervalOperational": {
+   "value": "kept close to 20 s (200 mA, 216 bunches, Oct. 2025)",
+   "unit": "s",
+   "source": "ler25 slide 23 ('Keeping swap-out interval close to 20 seconds')",
+   "note": "With a ~2-h lifetime this means each bunch drops by roughly 40-50% before it is replaced, far more than the 10% assumed in the FDR; the resulting bunch-to-bunch charge non-uniformity is accepted."
+  },
+  "sampleParameters216": {
+   "value": [
+    {
+     "dropBeforeReplacement_pct": 60,
+     "btsCharge_nC": 7.1,
+     "interval_s": 30
+    },
+    {
+     "dropBeforeReplacement_pct": 50,
+     "btsCharge_nC": 6.1,
+     "interval_s": 23
+    },
+    {
+     "dropBeforeReplacement_pct": 40,
+     "btsCharge_nC": 5.4,
+     "interval_s": 17
+    },
+    {
+     "dropBeforeReplacement_pct": 30,
+     "btsCharge_nC": 4.8,
+     "interval_s": 11
+    },
+    {
+     "dropBeforeReplacement_pct": 20,
+     "btsCharge_nC": 4.3,
+     "interval_s": 7
+    },
+    {
+     "dropBeforeReplacement_pct": 10,
+     "btsCharge_nC": 4.1,
+     "interval_s": 3
+    },
+    {
+     "dropBeforeReplacement_pct": 5,
+     "btsCharge_nC": 4.1,
+     "interval_s": 1
+    }
+   ],
+   "unit": "-",
+   "source": "ler25 slide 23 ('Sample swap-out parameters for 200 mA and 216 bunches'); column order (Drop % | BTS charge nC | Interval s) confirmed by verifier from the rendered slide image."
+  },
+  "initialFill": {
+   "value": "each bunch first filled with slightly more than I_total/N_bunches = 3.4 nC (216 bunches)",
+   "unit": "nC",
+   "source": "ler25 slide 23"
+  },
+  "injectorChargeStability": {
+   "value": "~3% rms",
+   "unit": "-",
+   "source": "ler25 slide 23"
+  },
+  "injectionEfficiency": {
+   "value": "very good despite septum aperture limit; shot-to-shot variation < 1% rms over 2 months of user operation",
+   "unit": "-",
+   "source": "ler25 slide 13"
+  },
+  "electronsInjected": {
+   "value": "~40x more electrons injected than with top-up at the old APS; ~90% of them end in the shielded swap-out dump",
+   "unit": "-",
+   "source": "fdr2 2-3.13.4.1, 2-3.13.4.5",
+   "note": "Both numbers are FDR design values that assume bunches are replaced at ~90% of their charge. In 2025 operation bunches drop by ~40-50% before replacement (ler25 slide 23), so roughly half of the injected charge, not 90%, ends in the swap-out dump (derived by verifier)."
+  },
+  "injectorChargeNeeded": {
+   "value": "17 nC (48 bunches) ... 2.5 nC (324 bunches) per shot at 200 mA",
+   "unit": "nC",
+   "source": "calvey24 slide 9"
+  },
+  "figures": [
+   "research/figs/facility/fdr_fig2-17.png",
+   "research/figs/facility/fdr_fig2-18.png"
+  ],
+  "figureNote": "FDR Figs. 2.17-2.18 show the superseded 2019 vertical-injection layout; use them only as background.",
+  "dumpsAndCollimators": {
+   "value": "Design (FDR 2019): five horizontal whole-beam dumps/collimators (aluminium, nominal +/-4.8-mm aperture, just upstream of A:Q4 where horizontal beta and dispersion are largest) in sectors 37, 38, 39, 40 and 1, inside the thicker 'Zone F' tunnel shielding; their surfaces can be moved vertically to present a fresh surface after a dump, because a full 200-mA beam dumped in one spot 'will carve a groove in any kind of material'. A whole-beam dump is triggered by tripping the rf. The swap-out dump was a +/-4.58-mm vertical collimator inside the A:M1 magnet of sector 39 (vertical-injection design). As built (2025): collimators sit ~3 mm from the orbit rather than the expected ~4.5 mm, prioritising ID protection over lifetime; the fan-out kicker spreads the bunches over the dump surface during a full-beam abort.",
+   "unit": "-",
+   "source": "fdr2 2-2.9 (items 1-2), 2-2.9.3, 2-2.9.4; ler25 slides 5, 14; ipac25",
+   "note": "Added by verifier. The as-built location of the swap-out dump after the change to horizontal injection is not given in any source opened."
+  }
+ },
+ "harmonicCavity": {
+  "purpose": {
+   "value": "Passive 'bunch-lengthening system' (BLS): stretches each electron bunch so electrons collide less often inside the bunch (Touschek scattering), raising lifetime; also eases intrabeam scattering and rf heating of chamber parts",
+   "unit": "-",
+   "source": "fdr2 2-2.7.1, 2-3.12.1; ipac25"
+  },
+  "type": {
+   "value": "single-cell superconducting niobium cavity, TESLA cell shape, beam-driven (no external rf drive)",
+   "unit": "-",
+   "source": "ipac24bls; fdr2 2-3.12.2"
+  },
+  "frequency": {
+   "value": 1408,
+   "unit": "MHz (4th harmonic of the 352-MHz main rf)",
+   "source": "ipac24bls; ipac25",
+   "note": "ipac24bls quotes the tuning reference as '1296 x beam revolution frequency or 1.408321 GHz'; 4 x 352.056 MHz (fdr2 Table 2.48) = 1408.22 MHz, so the last digits of that quote are inconsistent (likely a typo)."
+  },
+  "temperature": {
+   "value": 2.1,
+   "unit": "K (superfluid helium via J-T valve inside the cryomodule)",
+   "source": "ipac24bls"
+  },
+  "cryomodule": {
+   "value": "2-m cryomodule; with HOM absorbers and tapers occupies 2.4 m (just under half a ~5-m straight); the other half holds longitudinal-feedback kickers",
+   "unit": "-",
+   "source": "ipac24bls"
+  },
+  "designVoltage": {
+   "value": 1.3,
+   "unit": "MV max at 200 mA (48 bunches)",
+   "source": "ipac24bls Table 1 (FDR Table 2.44: 1.25 MV)"
+  },
+  "operatingVoltage": {
+   "value": "1.1 MV at 200 mA (0.9-1.1 MV in Oct. 2025)",
+   "unit": "MV",
+   "source": "ipac25; napac25; ler25 slide 18-20"
+  },
+  "parameters": {
+   "value": {
+    "R_over_Q_ohm": 104,
+    "Q0_min_at_2.1K": 20000000000.0,
+    "QL_present": 7000000.0,
+    "QL_range": "2e5-2e7",
+    "offsetFrequency_kHz": 10,
+    "parkedOffset_kHz": 136,
+    "detuningAngle_deg": 89.4,
+    "loadedBandwidth_Hz": 201,
+    "beamLossPower_kW": 2.8,
+    "wallLoss_W": 0.8,
+    "peakE_MV_per_m": 24,
+    "peakB_mT": 49,
+    "couplers": "2 x 20-kW adjustable-Qext",
+    "tuner": "pneumatic helium-bellows tuner (ATLAS heritage), ~600 kHz range"
+   },
+   "unit": "-",
+   "source": "ipac24bls Table 1 and text (nominal values, 'final values TBD')"
+  },
+  "cryoPlant": {
+   "value": "dedicated Linde LR140 helium refrigerator, up to 2.5 g/s of 4.3-K liquid helium",
+   "unit": "-",
+   "source": "ipac24bls"
+  },
+  "bunchLengthening": {
+   "value": "factor 2-4",
+   "unit": "-",
+   "source": "ipac25; napac25"
+  },
+  "lifetimeGain": {
+   "value": "about 2x measured (4x expected); lifetime 1.5 h at zero BLS voltage (100 mA, 162 bunches)",
+   "unit": "-",
+   "source": "ler25 slide 18; ipac25 Fig. 5"
+  },
+  "measuredProfile": {
+   "value": "double-peaked (over-stretched) bunch profile, peak ratio ~1.6:1, as predicted",
+   "unit": "-",
+   "source": "ler25 slide 19"
+  },
+  "history": {
+   "value": "installed before commissioning; tested at 0.5 MV with 50 mA (June 2024); first use with user beam Oct. 8 (2024, year inferred) at 0.5 MV after quench-interlock issues; 1.1 MV at 200 mA by 2025",
+   "unit": "-",
+   "source": "desy24 slide 18; ler25 slide 18; sp2025 ('already operating')"
+  },
+  "designLifetimeTarget": {
+   "value": "~3.5 h (48 bunches, 200 mA) vs ~1 h without the BLS",
+   "unit": "h",
+   "source": "ipac24bls; ipac21 (~7.5 h for 324 bunches)"
+  },
+  "figure": "research/figs/facility/fdr_fig2-65.png"
+ },
+ "timeline": [
+  {
+   "date": "1995-03-18",
+   "event": "First turn of beam around the original APS storage ring (RF capture on 1995-03-25).",
+   "source": "pac95"
+  },
+  {
+   "date": "2010-04-27",
+   "event": "CD-0: DOE approves mission need for the APS Upgrade.",
+   "source": "fdr1 Table 1.5",
+   "plain": "The US Department of Energy (DOE) agrees that an upgrade of the APS is needed \u2013 the first formal step of a major DOE project."
+  },
+  {
+   "date": "c. 2014",
+   "event": "After a July 2013 BESAC report recommends multi-bend-achromat (MBA) technology, M. Borland's \u2018straw-man\u2019 MBA lattice note (LS-337) sketches an MBA ring for the APS (date approximate).",
+   "source": "ls337 (CVS revision dated March 5, 2014, per search-engine summary of the PDF; the PDF itself returned 403)",
+   "plain": "APS physicists sketch a first design for a multi-bend-achromat ring at the APS (date approximate)."
+  },
+  {
+   "date": "2016-02-04",
+   "event": "CD-1 (revised): alternative selection and cost range approved for the MBA-based project.",
+   "source": "fdr1 1-1, Table 1.5",
+   "plain": "DOE approves the choice of a multi-bend-achromat ring and the project's cost range."
+  },
+  {
+   "date": "2016-06-09",
+   "event": "BESAC calls APS-U 'absolutely central' and 'ready to initiate construction'.",
+   "source": "fdr1 1-1",
+   "plain": "DOE's science advisory committee (BESAC) calls the upgrade \u2018absolutely central\u2019 and ready to start construction."
+  },
+  {
+   "date": "2016-10-06",
+   "event": "CD-3B: long-lead procurement approved.",
+   "source": "fdr1 Table 1.5",
+   "plain": "DOE lets the project start buying components that take a long time to make."
+  },
+  {
+   "date": "2018-12-13",
+   "event": "CD-2: performance baseline approved; Total Project Cost $815M.",
+   "source": "fdr1 1-1, 1-5, Table 1.5",
+   "plain": "DOE fixes the project's scope, schedule and budget: $815 million."
+  },
+  {
+   "date": "2019-05",
+   "event": "Final Design Report published (APSU-2.01-RPT-003).",
+   "source": "fdr1 cover",
+   "plain": "The project publishes its Final Design Report, the engineering blueprint for the new ring and beamlines."
+  },
+  {
+   "date": "2019-07-25",
+   "event": "CD-3: DOE approves start of construction of the $815M upgrade.",
+   "source": "n20190809 ('granted approval on 25 July'); cd3_2019 (announced 2019-07-30)",
+   "note": "Date filled in by verifier.",
+   "plain": "DOE approves the start of construction of the $815 million upgrade."
+  },
+  {
+   "date": "2021-05",
+   "event": "Project >50% complete by cost; first beam expected mid-2024 after a 10-month COVID-19 slip.",
+   "source": "ipac21"
+  },
+  {
+   "date": "2023-04-24",
+   "event": "Original APS ring stops operating; the ~1-year \u2018dark period\u2019 begins.",
+   "source": "ipac25; napac25; ler25 slide 4",
+   "note": "APS news says 'beginning in April 2023'."
+  },
+  {
+   "date": "2023-06-23",
+   "event": "Removal of the old storage ring complete.",
+   "source": "ler25 slide 4"
+  },
+  {
+   "date": "2023-07-12",
+   "event": "First new magnet module installed in the tunnel.",
+   "source": "ler25 slide 4"
+  },
+  {
+   "date": "2023-09",
+   "event": "Linac restarted (particle accumulator ring in October 2023, booster in February 2024).",
+   "source": "ipac25; napac25"
+  },
+  {
+   "date": "2023-10-27",
+   "event": "First vacuum bake-out of the new ring.",
+   "source": "ler25 slide 4"
+  },
+  {
+   "date": "2023-12-20",
+   "event": "Last of the 200 magnet modules installed.",
+   "source": "ler25 slide 4"
+  },
+  {
+   "date": "2024-02-15",
+   "event": "Assembly of the new storage ring completed (last component).",
+   "source": "ipac25; ler25 slide 4"
+  },
+  {
+   "date": "2024-03-24",
+   "event": "Testing and bake-out complete.",
+   "source": "ler25 slide 4"
+  },
+  {
+   "date": "2024-03-25/28",
+   "event": "Accelerator Readiness Review.",
+   "source": "n20240410",
+   "plain": "Safety reviewers check that the new accelerator is ready to run."
+  },
+  {
+   "date": "2024-04-10",
+   "event": "DOE authorizes start of commissioning.",
+   "source": "n20240410; ipac25"
+  },
+  {
+   "date": "2024-04-13",
+   "event": "First turns of electrons around the new ring.",
+   "source": "ler25 slide 6",
+   "note": "upd202504 says electrons first circulated on April 14."
+  },
+  {
+   "date": "2024-04-20",
+   "event": "First stored beam (0.15 mA).",
+   "source": "n20240420; ler25 slide 6"
+  },
+  {
+   "date": "2024-04-29",
+   "event": "World's first multi-bunch swap-out injection (12 bunches, 30-s interval).",
+   "source": "n20240430; ler25 slide 6"
+  },
+  {
+   "date": "2024-05-02",
+   "event": "First septum failure (bus rupture after ~1M pulses); operation resumed 2024-05-12.",
+   "source": "desy24 slide 13; ler25 slide 6",
+   "plain": "A key injection magnet (the septum) fails after about a million pulses; beam operation resumes ten days later."
+  },
+  {
+   "date": "2024-05-12",
+   "event": "10 mA multi-bunch; vacuum conditioning starts 2024-05-17.",
+   "source": "ler25 slide 6; desy24 slide 14"
+  },
+  {
+   "date": "2024-05-17",
+   "event": "25 mA reached (announced 2024-05-18): beamline commissioning can begin.",
+   "source": "ler25 slide 6; n20240518"
+  },
+  {
+   "date": "2024-05-27",
+   "event": "50 mA reached.",
+   "source": "ler25 slide 6"
+  },
+  {
+   "date": "2024-06-02",
+   "event": "Second septum develops a vacuum leak; repaired original septum reinstalled.",
+   "source": "desy24 slide 19; napac25"
+  },
+  {
+   "date": "2024-06-17",
+   "event": "First X-rays to a scientific beamline (27-ID, resonant inelastic X-ray scattering) at 50 mA; end of dedicated machine commissioning.",
+   "source": "n20240618; ler25 slide 6; ipac25"
+  },
+  {
+   "date": "2024-07-17",
+   "event": "Dedication ceremony of the upgraded APS.",
+   "source": "n20240719"
+  },
+  {
+   "date": "2024-08",
+   "event": "Emittance measured at 3-ID-B and 29-ID: 45 pm\u00b7rad (flat beam) and 28 pm\u00b7rad (round beam), a world record for a storage ring at the time (announced 2024-08-23).",
+   "source": "n20240823; ipac25",
+   "plain": "Measurements confirm the beam is the most tightly squeezed of any storage-ring light source in the world at the time."
+  },
+  {
+   "date": "2024-09",
+   "event": "Round-the-clock user operation begins at 100 mA (162-bunch and 48-bunch timing modes).",
+   "source": "ipac25; napac25"
+  },
+  {
+   "date": "2024-10",
+   "event": "Superconducting bunch-lengthening cavity first used in user operation (0.5 MV; 1.1 MV at 200 mA by 2025).",
+   "source": "ler25 slide 18",
+   "plain": "The superconducting cavity that stretches the electron bunches starts working during user runs, helping the beam last longer."
+  },
+  {
+   "date": "2025-01-27",
+   "event": "Beam back after the winter shutdown: the first 2025 user run starts at 180 mA (first half in standard multi-bunch mode, second half in timing mode), with 27 beamlines accepting users and 43 in commissioning.",
+   "source": "upd202503"
+  },
+  {
+   "date": "2025-02-04",
+   "event": "Full design current of 200 mA reached; used for user operation.",
+   "source": "n20250227; upd202503",
+   "note": "ipac25/napac25 say 'March 2025'."
+  },
+  {
+   "date": "2025-04",
+   "event": "Horizontal emittance measured at 200 mA: 33 pm.",
+   "source": "upd202504"
+  },
+  {
+   "date": "2025-07",
+   "event": "HEXM (20-ID) receives first sample; CHEX (28-ID) first light in all four branches; sector 34 first light.",
+   "source": "upd202507; upd202508"
+  },
+  {
+   "date": "2025-08",
+   "event": "APS-U CD-4 director's review.",
+   "source": "upd202508",
+   "plain": "Argonne's own review of whether the project has delivered everything it promised."
+  },
+  {
+   "date": "2025-09 (late)",
+   "event": "DOE CD-4 (project completion) review: unanimous recommendation to proceed to close-out.",
+   "source": "upd202509; n20260205",
+   "plain": "DOE reviewers unanimously recommend declaring the project complete."
+  },
+  {
+   "date": "2025-10",
+   "event": "PtychoProbe (33-ID) and Atomic (34-ID) enter commissioning: all feature beamlines online; 51 beamlines accepting users.",
+   "source": "upd202510"
+  },
+  {
+   "date": "2025-10-08",
+   "event": "Machine status after the first year of user operation: 200 mA in 216 bunches (timing mode 140 mA in 48 bunches), full coupling, 2\u20134 h lifetime, 96.5% availability.",
+   "source": "ler25",
+   "plain": "After its first year of user operation the new ring delivers beam 96.5% of the scheduled time."
+  },
+  {
+   "date": "2025-11",
+   "event": "PtychoProbe instrument installed at 33-ID \u2013 the last feature beamline built under the project.",
+   "source": "upd202511"
+  },
+  {
+   "date": "2026-01-29",
+   "event": "All APS-U scope delivered; formal completion under DOE review; first 2026 user run to start Feb. 2.",
+   "source": "upd202601"
+  },
+  {
+   "date": "2026-02-05",
+   "event": "DOE final approval announced: APS Upgrade officially complete ($815M; 9 new beamlines; 15 enhanced).",
+   "source": "n20260205",
+   "note": "Exact CD-4 signature date not published. n20260205 says CD-4 'was granted following a two-day DOE review in late September 2025' and that DOE has since given final approval; a secondary source (HPCAT beamline page, via search summary only) dates final approval to January 2026. fdr1 Table 1.5 had planned CD-4 for 2nd quarter FY2026."
+  },
+  {
+   "date": "2026-06-10",
+   "event": "The APS announces installation of its first high-power solid-state RF amplifier system (four amplifiers), which will power one ring sector's four accelerating cavities; full storage-ring conversion is expected by 2028, then the booster.",
+   "source": "n20260610",
+   "note": "Wording corrected by verifier: the news item describes an installation in progress ('will power one sector'), not a completed changeover.",
+   "plain": "The APS begins replacing its old radio-frequency power tubes with solid-state amplifiers, starting with one sector's four accelerating cavities."
+  },
+  {
+   "date": "2026-09",
+   "event": "Superconducting undulators: delayed, not yet installed (Sept 2026). Interim permanent-magnet undulators run at sectors 1, 11, 20 and 28, where the eight project devices are to go, and at sector 6, where the 2019 design also showed one.",
+   "source": "idsector2026",
+   "plain": "The planned superconducting undulators are delayed and not yet installed; ordinary permanent-magnet undulators stand in."
+  }
+ ],
+ "exhibitNumbers": [
+  {
+   "label": "Speed of the electrons",
+   "value": "99.9999996% of the speed of light \u2013 only about 1.1 m/s slower than light",
+   "explanation": "At 6 GeV the Lorentz factor is \u03b3 = 6,000 MeV \u00f7 0.511 MeV \u2248 11,742, so 1 \u2212 v/c \u2248 1/(2\u03b3\u00b2) = 3.6 \u00d7 10\u207b\u2079: the electrons trail light by about 1.1 m/s, a slow walk.",
+   "source": "derived from beam energy",
+   "plain": "If light and an electron raced for one second, light would win by only about a metre \u2013 the difference is a slow walking pace."
+  },
+  {
+   "label": "Laps per second",
+   "value": "271,647 times around the 1.1-km ring every second",
+   "explanation": "Revolution frequency f\u2080 = c \u00f7 C = 299,792,458 m/s \u00f7 1,103.61 m.",
+   "source": "srp2024 Table 3"
+  },
+  {
+   "label": "One lap",
+   "value": "3.68 microseconds",
+   "explanation": "1 \u00f7 271,647 laps per second.",
+   "source": "srp2024 Table 3"
+  },
+  {
+   "label": "Distance per day",
+   "value": "about 26 billion km a day (about 173 times the Earth\u2013Sun distance)",
+   "explanation": "271,647 laps/s \u00d7 1.1036 km \u00d7 86,400 s \u2248 2.59 \u00d7 10\u00b9\u2070 km; \u00f7 1.496 \u00d7 10\u2078 km per astronomical unit \u2248 173 AU.",
+   "source": "derived",
+   "plain": "Moving at almost the speed of light, each electron covers about 26 billion kilometres a day \u2013 far enough to reach the Sun and back more than 80 times."
+  },
+  {
+   "label": "Electrons in the ring",
+   "value": "4.6 trillion (736 nanocoulombs)",
+   "explanation": "At 200 mA the stored charge is I \u00f7 f\u2080 = 0.2 A \u00f7 271,647 Hz = 736 nC, or 4.6 \u00d7 10\u00b9\u00b2 electrons.",
+   "source": "srp2024 Table 1",
+   "plain": "A 200-milliamp current going round 271,647 times a second means about 4.6 trillion electrons are in the ring at any moment."
+  },
+  {
+   "label": "Electrons in one bunch",
+   "value": "about 21 billion (216-bunch mode) up to about 65 billion (today's 48-bunch timing mode; 96 billion at the 200-mA design)",
+   "explanation": "736 nC \u00f7 216 = 3.4 nC per bunch (2.1 \u00d7 10\u00b9\u2070 electrons). Timing mode is limited by the injector to 130\u2013140 mA: about 10\u201311 nC per bunch, 6.2\u20136.7 \u00d7 10\u00b9\u2070 electrons. The 200-mA, 48-bunch design value is 15.3 nC (9.6 \u00d7 10\u00b9\u2070).",
+   "source": "derived; srp2024 Table 1 (9.6 \u00d7 10\u00b9\u2070 electrons, 15.3 nC single bunch)",
+   "plain": "The electrons travel in separate bunches: about 21 billion in each of the 216 bunches used most of the time, and up to about 65 billion in each of the 48 bunches used for timing experiments."
+  },
+  {
+   "label": "Bunch spacing",
+   "value": "17 ns apart in today's 216-bunch mode (a light pulse every 17 billionths of a second); 77 ns in timing mode",
+   "explanation": "1,296 RF buckets \u00f7 216 = every 6th bucket \u00d7 2.84 ns = 17 ns for evenly spaced bunches; 1,296 \u00f7 48 = every 27th bucket = 76.7 ns.",
+   "source": "derived from srp2024/fdr2 Table 2.42; srstatus"
+  },
+  {
+   "label": "Ring size",
+   "value": "1,103.6 m around (~350 m across), 40 identical 27.6-m sectors",
+   "explanation": "C = 1,103.61 m; C \u00f7 40 = 27.59 m; diameter C \u00f7 \u03c0 \u2248 351 m.",
+   "source": "srp2024; derived"
+  },
+  {
+   "label": "A slightly smaller ring",
+   "value": "38 cm shorter than the old ring",
+   "explanation": "New circumference 1,103.61 m vs 1,103.99 m before. The insertion-device (ID) source points were kept in place, so ID beamlines needed only re-survey and alignment; fitting the new arcs between them shortened the ring and moved every bending-magnet (BM) source point about 1.8 m upstream and 42 mm inboard, so BM front ends and beamlines were realigned to the shifted line. The RF frequency rose by about 342 ppm.",
+   "source": "fdr2 2\u20132.1.1, Table 2.3; fdr3 3\u20134",
+   "plain": "The undulator beamlines' source points stayed where they were, so those beamlines only needed re-surveying and fine alignment. Fitting the new magnets between them made the ring 38 cm shorter and moved the bending-magnet sources about 1.8 m upstream and 4 cm sideways, so the bending-magnet beamlines were realigned."
+  },
+  {
+   "label": "Magnets",
+   "value": "1,321 electromagnets (33 in each of the 40 sectors, plus one extra corrector near the injection point), of 15 main types, vs 1,097 in the old ring",
+   "explanation": "Per sector: 7 bending magnets, 6 reverse bends, 10 quadrupoles, 6 sextupoles and 4 fast correctors = 33; 33 \u00d7 40 + 1 = 1,321. Old ring: 80 dipoles, 400 quadrupoles, 280 sextupoles, 317 correctors and 20 skew quadrupoles.",
+   "source": "fdr2 2\u20133.1; n20240420; apsNSR; pac95"
+  },
+  {
+   "label": "Bending magnets per sector",
+   "value": "7 forward + 6 backward ('reverse') bends instead of 2",
+   "explanation": "Splitting each 9\u00b0 arc over many gentle bends (plus a few small backward bends) keeps the electrons from spreading out.",
+   "source": "fdr2 Table 2.4; ler25 slide 2"
+  },
+  {
+   "label": "Total bending",
+   "value": "the beam is bent through 435\u00b0 per lap, not 360\u00b0",
+   "explanation": "Forward bends total +397.8\u00b0, reverse bends \u221237.7\u00b0; net 360\u00b0.",
+   "source": "derived from fdr2 Table 2.4; ipac21",
+   "plain": "Some magnets bend the beam slightly the wrong way, so the others must bend it more than a full circle: about 398\u00b0 forwards and 38\u00b0 backwards, some 435\u00b0 of bending for every 360\u00b0 lap."
+  },
+  {
+   "label": "Magnet strength",
+   "value": "quadrupole gradients of about 80\u2013100 tesla per metre \u2013 about 4\u20135\u00d7 the old ring's ~20 T/m",
+   "explanation": "Stronger focusing squeezes the beam; it needs small 26-mm magnet bores and vanadium-permendur poles.",
+   "source": "fdr2 Table 2.5; ipac21; pac95; apsNSR"
+  },
+  {
+   "label": "Pre-built modules",
+   "value": "200 modules, each up to about 6.5 m long and 27 tonnes",
+   "explanation": "5 modules per sector (DLM-A, QMQ-A, FODO, QMQ-B, DLM-B). Magnets were mounted and aligned on their plinths or girders in an off-site workspace before the shutdown, stored, then carried into the tunnel on \u2018Traksporters\u2019, placed within 25 mm, aligned to 1 mm and grouted to the floor.",
+   "source": "fdr2 2\u20133.4.2; fdr5 5\u20133; ipac21 ('pre-assembled (in an off-site workspace) and eventually moved into the ring tunnel using Traksporters'); desy24 slide 8; apsNSR"
+  },
+  {
+   "label": "Installation pace",
+   "value": "~1.2 modules per day",
+   "explanation": "200 modules between 12 July and 20 December 2023 (162 days).",
+   "source": "derived from ler25 slide 4"
+  },
+  {
+   "label": "Alignment",
+   "value": "magnets on a module lined up to 15 micrometres rms (30 \u00b5m specified) \u2013 thinner than a human hair",
+   "explanation": "Measured after installation; module to module 50 \u00b5m (horizontal) and 35 \u00b5m (vertical) rms against a \u00b1100 \u00b5m specification, all the way around a 1.1-km ring.",
+   "source": "desy24 slide 8; fdr2 Table 2.12"
+  },
+  {
+   "label": "Vibration budget",
+   "value": "quadrupoles may shake no more than 10 nanometres rms (1\u2013100 Hz)",
+   "explanation": "Derived from the rule that the beam must stay steady to within 10% of its own size.",
+   "source": "fdr2 Table 2.9"
+  },
+  {
+   "label": "Beam size at an undulator",
+   "value": "about 12 \u00d7 8 micrometres (rms) in the round-beam user mode, or 14 \u00d7 3 \u00b5m in the flat mode, vs 275 \u00d7 10 \u00b5m before",
+   "explanation": "Round mode 12.3 \u00d7 8.3 \u00b5m rms (about 29 \u00d7 19 \u00b5m full width at half maximum), flat mode 14.5 \u00d7 3.1 \u00b5m, both zero-current model values; the cross-section is about 27\u201362 times smaller in area than the old beam's.",
+   "source": "srp2024 Table 5; fdr2 Table 2.1; derived",
+   "plain": "Where the X-rays are made, the electron beam is now about 10\u201330 micrometres across \u2013 thinner than a human hair \u2013 down from about half a millimetre wide."
+  },
+  {
+   "label": "Emittance",
+   "value": "~42 pm\u00b7rad natural vs 3,100 pm\u00b7rad before \u2013 about 75 times smaller (APS rounds this to \u2018almost a factor of 100\u2019); 28\u201344 pm\u00b7rad measured depending on coupling",
+   "explanation": "Emittance = beam size \u00d7 angular spread. 3,100 \u00f7 41.5 \u2248 75. Measured: 44 pm\u00b7rad horizontal (flat beam), or 28 pm\u00b7rad horizontal and 31 pm\u00b7rad vertical (round beam). The round beam's vertical emittance (31 pm\u00b7rad) is only a little below the old ring's 40 pm\u00b7rad, so in round mode almost all of the gain is horizontal.",
+   "source": "srp2024; ipac25 Table 1; fdr2 Table 2.1; sp2025",
+   "note": "Corrected by verifier: earlier text said the round-mode vertical emittance was 'not smaller than before'; 31 pm < 40 pm.",
+   "plain": "Emittance is the beam's width times how much it spreads out in angle. The new ring cut it about 75-fold, which is what makes the X-rays so much brighter."
+  },
+  {
+   "label": "Brightness",
+   "value": "about 500 times brighter (100\u20131,000\u00d7 depending on X-ray energy)",
+   "explanation": "\u00d7540 at 20 keV for an undulator optimised for 20 keV; across the design envelope roughly \u00d7200 at 10 keV and \u00d7600\u2013800 at 50\u2013100 keV. Coherent flux rises by similar factors (about \u00d7160 at 10 keV, \u00d7600 at 20 keV). All are design calculations.",
+   "source": "n20260205; fdr1",
+   "plain": "Brightness counts how many X-rays come from how small a spot into how narrow a cone. A smaller, more parallel beam and twice the current make the new APS about 500 times brighter."
+  },
+  {
+   "label": "Vacuum chamber",
+   "value": "a 22-mm-wide tube (about the width of a coin) instead of a 42 \u00d7 85 mm chamber; ID chambers just 6.3 mm tall with 0.6-mm walls",
+   "explanation": "A tiny chamber lets magnet poles sit close to the beam for strong focusing.",
+   "source": "fdr2 2\u20133.1; fdr3 Table 3.27; pac95; apsNSR ('an inch or less wide')"
+  },
+  {
+   "label": "Power radiated by the beam",
+   "value": "about 0.59 MW from the bending magnets, up to about 0.9 MW with all undulators closed",
+   "explanation": "Energy loss per turn U\u2080 \u2248 2.94 MeV (as-built model) \u00d7 0.2 A = 587 kW (the 2019 design gave 2.87 MeV, 574 kW); with every insertion device closed, 4.47 MeV and 894 kW. Twelve RF cavities put the energy back on every lap.",
+   "source": "srp2024 Table 4; fdr2 Tables 2.3, 2.42",
+   "plain": "The electrons give off more than half a megawatt of light, all of it replaced by radio-frequency cavities on every lap."
+  },
+  {
+   "label": "Energy stored in the beam",
+   "value": "4.4 kilojoules \u2013 like a one-tonne car rolling at 3 m/s",
+   "explanation": "6 GV \u00d7 736 nC = 4.42 kJ; \u00bdmv\u00b2 with m = 1,000 kg gives v = 2.97 m/s.",
+   "source": "fdr2 Table 2.45; derived"
+  },
+  {
+   "label": "Swap-out",
+   "value": "about every 20 seconds the weakest bunch (by then down to roughly half its starting charge) is kicked out to a dump and replaced in the same bucket by a fresh bunch of ~5\u20136 nC (~35 billion electrons) from the booster, using kicker pulses only ~11 ns long",
+   "explanation": "The kickers must hit one bunch and miss its neighbours 17 ns away in the 216-bunch fill (11.4 ns in the 324-bunch design mode). With 216 bunches each bunch is renewed about every 216 \u00d7 20 s = 72 minutes; with a ~2-hour lifetime it loses about 45% of its charge in that time. Measured injected charge: 5.4\u20136.1 nC at 17\u201323 s intervals.",
+   "source": "ler25 slides 5, 23; derived",
+   "note": "Corrected by verifier: the earlier text said a whole ~5-nC bunch is 'thrown out'; ~5 nC is the injected (BTS) charge, while the outgoing bunch carries much less.",
+   "plain": "Instead of topping up, the APS swaps: every 20 seconds or so the most depleted bunch is thrown away and a fresh one takes its place, while the experiments keep running."
+  },
+  {
+   "label": "Superconducting harmonic cavity",
+   "value": "a niobium cavity at 2.1 K (\u2212271 \u00b0C) that stretches each bunch 2\u20134\u00d7",
+   "explanation": "A passive 1.4-GHz cavity driven by the beam itself; it about doubles the beam lifetime.",
+   "source": "ipac24bls; ipac25; ler25"
+  },
+  {
+   "label": "Beam position monitors",
+   "value": "560 pickups watch the beam all round the ring",
+   "explanation": "14 per sector \u00d7 40 sectors.",
+   "source": "n20240420; fdr2 Table 2.35"
+  },
+  {
+   "label": "Power supplies",
+   "value": "2,247 power supplies",
+   "explanation": "1,002 unipolar + 921 slow bipolar + 322 fast + 2 dipole-string supplies.",
+   "source": "n20240420; fdr2 2\u20133.5"
+  },
+  {
+   "label": "Dark time",
+   "value": "352 days from switch-off (24 April 2023) to the start of commissioning (10 April 2024); first X-rays to a beamline after 420 days",
+   "explanation": "Removing the old ring took 60 days; the first stored beam came 10 days into commissioning.",
+   "source": "ipac25; ler25; n20240618; derived"
+  },
+  {
+   "label": "Old ring removed",
+   "value": "about 1,900 tons of material planned for disposal or recycling, including ~200 girders of 6.8\u201311.3 tons each",
+   "explanation": "Some old magnets went to Jefferson Lab and Brookhaven for reuse in the Electron-Ion Collider project.",
+   "source": "fdr5 5\u20132, Table 5.1; upd202412"
+  },
+  {
+   "label": "Cost",
+   "value": "$815 million",
+   "explanation": "Total Project Cost fixed at the 2018 cost baseline (DOE Critical Decision 2); delivered on budget, according to Argonne.",
+   "source": "fdr1 1\u20135; n20260205",
+   "plain": "The budget was fixed in 2018, and Argonne reports that the project was delivered on budget."
+  },
+  {
+   "label": "Users",
+   "value": "more than 5,500 scientists a year; 72 beamlines; 5,000 user hours a year",
+   "explanation": "Beamlines are run by APS and partner institutions; in a typical year the facility hosts experiments in materials, chemistry, biology, geoscience and engineering.",
+   "source": "n20260205; sp2025; upd202508"
+  },
+  {
+   "label": "Undulator precision",
+   "value": "gap set with 0.5-micrometre resolution and repeatable to better than 3 \u00b5m; photon energy controlled to ~1 eV while scanning 1 keV per second",
+   "explanation": "The undulator gap must be reproducible to micrometres because the x-ray energy depends on it.",
+   "source": "fdr3 Table 3.22; ipac24und"
+  },
+  {
+   "label": "Beam height",
+   "value": "the electron beam runs 1.40 m above the tunnel floor",
+   "explanation": "Dimension on the design-report drawings of the straight sections.",
+   "source": "fdr3 Figs. 3.10, 3.11"
+  }
+ ],
+ "plainExplainers": {
+  "whatIsSynchrotron": "A synchrotron light source is a giant racetrack for electrons. The electrons are first accelerated in a straight 'linac', collected in a small ring, then sped up in a 'booster' ring until each one carries 6 billion electron-volts of energy \u2013 moving at 99.9999996% of the speed of light. They are then stored for hours in the main storage ring, a 1.1-km loop of magnets inside a vacuum pipe. Whenever a magnet bends their path, the electrons give off a flash of light in a narrow forward cone, like sparks flung off a spinning grinding wheel. For such fast electrons the light spans everything from infrared to hard X-rays, and the X-rays are what the APS is built for. Around the ring, 35 straight sections hold special magnet arrays (undulators) that make extra-bright X-ray beams, which travel down beamlines to experiment stations where scientists study everything from batteries to proteins. Radio-frequency cavities give back the energy the electrons lose as light on every lap.",
+  "whatIsMBA": "To go round a circle, the electrons must be bent through 360 degrees. In the old APS each of the 40 sectors bent the beam with just 2 big magnets, so every bend was fairly sharp \u2013 and each sharp bend shakes the electron cloud and makes it spread out. The upgrade uses a 'multi-bend achromat' (MBA): each sector now uses 7 gentler bends, with powerful focusing magnets in between that keep squeezing the beam. Theory says the beam's spread shrinks roughly with the cube of the number of bends, so going from 2 to 7 bends alone makes it about 40 times smaller. APS-U adds two clever tricks: bending magnets whose strength changes along their length, and six small 'reverse bends' per sector that bend the beam slightly the wrong way. The reverse bends give the designers an extra handle on how electrons of different energies are spread out inside the arc, which cut the design emittance from about 67 to 42 picometre-radians. Together with lowering the energy from 7 to 6 GeV, the beam's emittance dropped from about 3,100 to about 42 picometre-radians. 'Achromat' means electrons with slightly different energies all come out of the sector on the same path.",
+  "whyEmittanceMatters": "Emittance measures how big and how spread-out the electron beam is: its width multiplied by how much its electrons fan out in angle. X-rays inherit both. A beam that is wide and spreading is like a big floodlight; a tiny, parallel beam is like a laser pointer. Scientists want the laser pointer, because a tiny, parallel source can be focused to spots only nanometres across and stays bright far down a beamline. APS-U cut the horizontal emittance about 75-fold (3,100 to 42 picometre-radians), so the beam at an undulator went from about 275 \u00d7 10 micrometres to about 12 \u00d7 8 micrometres in the round-beam mode used for most user runs (about 14 \u00d7 3 micrometres in the flat-beam mode). Because the X-rays now come from a much smaller, better-aimed source, and the current is twice as high, the beam is about 500 times brighter (100 to 1,000 times, depending on the X-ray energy).",
+  "whatIsCoherence": "Light is a wave. \u2018Coherent\u2019 light has wave crests that march in step, like soldiers in a parade, so it can make clean interference patterns \u2013 the way two pebbles dropped in a pond make a ripple pattern. A laser is highly coherent; a light bulb is not. An X-ray source is fully coherent only if its size times its angular spread is smaller than about the wavelength divided by 4\u03c0 \u2013 about 10 picometre-radians for 10-keV X-rays. A larger source is only partly coherent, and only a small fraction of its photons can be used for coherent experiments: well under 0.1% of a 10-keV beam at the old APS, a few percent at APS-U. Together with better undulators and twice the current, that gives more than 100 times more coherent photons (about 160 times at 10 keV and 600 times at 20 keV). Coherent X-rays let scientists reconstruct images from interference (\u2018speckle\u2019) patterns (ptychography, coherent diffraction imaging), with a resolution set by how far out the scattered signal can be recorded rather than by the quality of X-ray lenses, and watch how the speckle pattern flickers to measure how nanoparticles, polymer chains or magnetic domains move over time (X-ray photon correlation spectroscopy, XPCS).",
+  "whatIsUndulator": "An undulator is a row of magnets with alternating north and south poles \u2013 about 2.1\u20132.4 m long with a pattern repeating every 1.35 to 3.3 cm (one special electromagnetic undulator at sector 29 uses 12.5 cm). Electrons flying through it are wiggled gently left and right many times (about 60 to 175 periods). Because the electrons move at almost the speed of light, the light from each wiggle catches up and adds in step with the light from the others, so the X-rays come out as a very narrow, intense beam concentrated at particular colours (energies) and their harmonics. Opening or closing the gap between the top and bottom magnet rows (8.5 mm at closest for most devices, set with half-micrometre resolution) changes the field and tunes the X-ray energy. Superconducting undulators use coils of superconducting wire cooled to \u2212269 \u00b0C instead of permanent magnets, reaching stronger fields for very hard X-rays. Eight are planned for APS-U: in-line pairs with 16.5-mm periods at sectors 1 and 20 (1.9 m long), a canted 16.5-mm pair at sector 11 (1.5 m) and a canted 18.5-mm pair at sector 28 (1.2\u20131.3 m). Building them proved harder than expected, and as of September 2026 none is installed; permanent-magnet undulators stand in.",
+  "whatIsSwapOut": "In the old APS, electrons were 'topped up' by adding a small puff of new electrons to an existing bunch every minute or two \u2013 which needs a wide, gentle magnetic 'catch zone'. APS-U's strong focusing leaves almost no room for that (the stable region is only about \u00b11.5 mm wide). So instead the APS swaps: a few hundred turns ahead of time a small 'decoherence' kick puffs up the weakest bunch so it cannot damage the dump; then three fast kickers, pulsing for only about 11 billionths of a second, knock that bunch out into a shielded dump and at the same instant place a brand-new, full bunch exactly into its place. APS-U was the first light source in the world to run this way.",
+  "whatIsBunchLengthening": "Electrons in a tightly packed bunch occasionally bump into each other and get knocked out of the beam (the Touschek effect), so small, dense bunches die quickly. APS-U uses a superconducting 'harmonic cavity' cooled to 2.1 K that the beam itself rings like a bell; its field stretches each bunch to 2\u20134 times its natural length, thinning the crowd and roughly doubling the beam lifetime without making the beam any wider.",
+  "whyLowerEnergy": "The upgrade lowered the electron energy from 7 to 6 GeV. Emittance grows with the square of energy, so 6 GeV gives a ~36% brightness gain; the magnets can be weaker for the same focusing; and the beam loses much less energy to radiation per lap (which scales with energy to the fourth power), which makes 200 mA \u2013 twice the old current \u2013 affordable in RF power. The costs: every undulator harmonic comes out about 27% lower in photon energy, which is made up with shorter-period undulators and higher harmonics, and the beam is more sensitive to collective instabilities and scattering.",
+  "whyRoundBeams": "APS-U usually runs with 'full coupling', sharing emittance about equally between horizontal and vertical (about 28\u201331 pm each) to make a nearly round beam. Spreading the electrons out vertically makes the bunches less dense, so fewer electrons are lost by bumping into each other (Touschek scattering) and the beam lasts longer; the design treated round beams as the default. A 'flat', low-coupling mode (about 40 \u00d7 4 pm) gives a much smaller vertical source and the highest brightness, at the cost of a shorter lifetime; it is workable for fills with many bunches.",
+  "whyLowerEnergy_source": "fdr2 2-1.3 (Choice of Beam Energy): emittance scales quadratically with energy (36% brightness gain), lower energy is more susceptible to wakefield instabilities, IBS and Touschek loss, magnet gradients scale with energy, and radiated power scales as E^4.",
+  "whyRoundBeams_source": "ler25 slide 20; ipac25 Table 1; srp2024 (text and Table 5); fdr2 2-2.3 / Table 2.13 ('default round-beam modes'; flat-beam lifetime shorter)",
+  "whatIsSwapOut_note": "+/-1.5 mm is the measured horizontal aperture at the injection point including the septum limit (ler25 slide 13)."
+ },
+ "project": {
+  "totalProjectCost": {
+   "value": 815,
+   "unit": "million USD",
+   "source": "fdr1 1-5; n20260205"
+  },
+  "costBreakdownAtCD2": {
+   "value": {
+    "previous scope U1": 35.4,
+    "project management": 57.9,
+    "conceptual design & development": 49.4,
+    "accelerator systems": 250.0,
+    "experimental facilities": 186.2,
+    "front ends & insertion devices": 67.2,
+    "TEC contingency": 150.4,
+    "other project cost incl. contingency": 18.5
+   },
+   "unit": "million USD",
+   "source": "fdr1 Table 1.3"
+  },
+  "scope": {
+   "value": "new storage ring; new/rebuilt insertion devices and front ends; 9 new 'feature' beamlines (2 in the new Long Beamline Building); 15 enhanced beamlines; realignment of all beamlines; injector modifications for swap-out",
+   "unit": "-",
+   "source": "ipac21; n20260205",
+   "note": "FDR Table 4.1 lists nine 'feature beamlines': CHEX 28-ID, POLAR 4-ID, HEXM 20-ID, XPCS 8-ID, PtychoProbe 33-ID, ISN 19-ID, CSSI 9-ID, ATOMIC 34-ID and 3DMN 34-ID (feature beamlines are 'either entirely new, or existing APS beamlines that are being significantly modified'; 3DMN is an upgrade of 34-ID-E). APS updates in 2025 speak of 'seven new feature beamlines' plus 'two more advanced beamlines (Atomic and 3DMN at 34-ID)', and n20260205 of 'nine new beamlines'; ipac25 says 'seven entirely new beamlines'. ISN and HEXM are the two in the Long Beamline Building."
+  },
+  "keyPerformanceParameters": {
+   "value": {
+    "energy": "threshold >5.7 GeV, objective 6 GeV",
+    "current": "threshold >=25 mA top-up, objective 200 mA",
+    "horizontalEmittance": "threshold <130 pm at 25 mA, objective <=42 pm at 200 mA",
+    "brightness20keV": "threshold >1e20, objective >1e22",
+    "brightness60keV": "threshold >1e19, objective >1e21",
+    "newBeamlines": "threshold 7, objective >=9"
+   },
+   "unit": "-",
+   "source": "fdr1 Table 1.2; sp2025 Table 1",
+   "note": "fdr1 Table 1.5 planned CD-4 for '2nd Qtr, FY 2026' (Jan.-Mar. 2026), consistent with the Feb. 5, 2026 completion announcement."
+  },
+  "people": [
+   {
+    "name": "Michael Borland",
+    "role": "Associate director, Accelerator Systems Division; lead lattice designer ('one of the visionaries behind the upgraded design')",
+    "source": "n20240823; n20240430"
+   },
+   {
+    "name": "Vadim Sajaev",
+    "role": "Led storage-ring commissioning; interim ASD director from April 2024",
+    "source": "n20240502; n20240410"
+   },
+   {
+    "name": "Jim Kerby",
+    "role": "APS Upgrade Project director (2024)",
+    "source": "n20240618; n20240719"
+   },
+   {
+    "name": "Laurent Chapon",
+    "role": "Argonne associate laboratory director for Photon Sciences and APS director; described in 2026 as director of the APS Upgrade Project",
+    "source": "n20240618; n20260205"
+   },
+   {
+    "name": "Glenn Decker",
+    "role": "Argonne Distinguished Fellow; associate project manager leading realization of the new storage ring (also worked on the original APS ring)",
+    "source": "n20240518; pac95"
+   },
+   {
+    "name": "Robert Hettel",
+    "role": "Presented APS-U project status at IPAC'21",
+    "source": "ipac21"
+   },
+   {
+    "name": "Michael Kelly",
+    "role": "Bunch-lengthening (harmonic cavity) system",
+    "source": "ipac24bls"
+   },
+   {
+    "name": "Roger Dejus",
+    "role": "Undulators for the APS Upgrade",
+    "source": "ipac24und"
+   },
+   {
+    "name": "Joseph Calvey, Katherine Harkay",
+    "role": "Injector high-charge program",
+    "source": "calvey24; harkay23"
+   },
+   {
+    "name": "Alireza Nassiri",
+    "role": "Head of the APS RF group (solid-state amplifier transition)",
+    "source": "n20260610"
+   },
+   {
+    "name": "Paul Kearns",
+    "role": "Argonne Laboratory Director",
+    "source": "n20240618; n20260205"
+   }
+  ],
+  "beamlines": {
+   "value": "72 beamlines in total (n20260205; 71 quoted in June 2024, n20240618); Oct. 2025: 51 accepting users, 32 of them in the general user program, or '50 producing science, 21 in commissioning' (ler25 slide 21); live 'Beamlines Operating' read 51 (~01:44), 50 (07:25) and 53 (11:33) on 2026-10-09 (srstatus, fluctuates)",
+   "unit": "-",
+   "source": "n20260205; n20240618; upd202510; ler25; srstatus"
+  }
+ },
+ "references": [
+  {
+   "id": "fdr1",
+   "title": "APS-U Final Design Report, Chapter 1: Executive Summary and Project Overview (APSU-2.01-RPT-003)",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory (May 2019)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%201%20-%20Executive%20Summary%20and%20Project%20Overview.pdf",
+   "type": "report",
+   "local": "docs/FDR_Chapter_1.pdf"
+  },
+  {
+   "id": "fdr2",
+   "title": "APS-U Final Design Report, Chapter 2: Accelerator Upgrade",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory (May 2019)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%202%20-%20Accelerator%20Upgrade.pdf",
+   "type": "report",
+   "local": "docs/FDR_Chapter_2.pdf"
+  },
+  {
+   "id": "fdr3",
+   "title": "APS-U Final Design Report, Chapter 3: Front Ends and Insertion Devices",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory (May 2019)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%203%20-%20Front%20Ends%20and%20Insertion%20Devices.pdf",
+   "type": "report",
+   "local": "docs/FDR_Chapter_3.pdf"
+  },
+  {
+   "id": "fdr4",
+   "title": "APS-U Final Design Report, Chapter 4: Experimental Facilities",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory (May 2019)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%204%20-%20Experimental%20Facilities.pdf",
+   "type": "report",
+   "local": "docs/FDR_Chapter_4.pdf"
+  },
+  {
+   "id": "fdr5",
+   "title": "APS-U Final Design Report, Chapter 5: Storage Ring Removal and Installation",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory (May 2019)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%205%20-%20Storage%20Ring%20Removal%20and%20Installation.pdf",
+   "type": "report",
+   "local": "dl/facility/fdr_ch5.pdf"
+  },
+  {
+   "id": "srp2024",
+   "title": "APS Storage Ring Parameters (model values for the upgraded ring)",
+   "authors": "M. Borland",
+   "year": 2024,
+   "venue": "ops.aps.anl.gov web page dated August 27, 2024",
+   "url": "https://ops.aps.anl.gov/SRparameters/SRparameters.html",
+   "type": "web",
+   "note": "Authoritative as-built model numbers (lattice, radiation, ID and BM source parameters). The www.aps.anl.gov/About/Storage-Ring-Parameters URL returned 'Page Not Found' on 2026-10-08; it links here."
+  },
+  {
+   "id": "srp2010",
+   "title": "APS Storage Ring Parameters (pre-upgrade ring), incl. 'Storage Ring Operation Modes'",
+   "authors": "M. Borland, G. Decker, L. Emery, W. Guo, K. Harkay, V. Sajaev, C.-Y. Yao",
+   "year": 2010,
+   "venue": "ops.aps.anl.gov (Sept. 8, 2010), Wayback Machine snapshot 2020-10-16",
+   "url": "http://web.archive.org/web/20201016195356/https://ops.aps.anl.gov/SRparameters/SRparameters.html",
+   "type": "web"
+  },
+  {
+   "id": "pac95",
+   "title": "APS Storage Ring Commissioning and Early Operational Experience",
+   "authors": "G. Decker",
+   "year": 1995,
+   "venue": "Proc. PAC'95, paper FAR13",
+   "url": "https://epaper.kek.jp/p95/ARTICLES/FAR/FAR13.PDF",
+   "type": "paper"
+  },
+  {
+   "id": "ls337",
+   "title": "Preliminary Expected Performance Characteristics of an APS Multi-Bend Achromat Lattice (ANL/APS/LS-337)",
+   "authors": "M. Borland for the APS Upgrade Team",
+   "year": 2014,
+   "venue": "APS Light Source Note",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/multi-bend-achromat-lattice.pdf",
+   "type": "report"
+  },
+  {
+   "id": "ipac21",
+   "title": "Status of the APS-U Project",
+   "authors": "R. Hettel",
+   "year": 2021,
+   "venue": "Proc. IPAC'21, paper MOXA02, doi:10.18429/JACoW-IPAC2021-MOXA02",
+   "url": "https://proceedings.jacow.org/ipac2021/papers/moxa02.pdf",
+   "type": "paper",
+   "license": "CC BY 3.0",
+   "licenseNote": "Corrected by verifier: the IPAC'21 PDFs carry the CC BY 3.0 licence line (IPAC'24/'25 papers are CC BY 4.0)."
+  },
+  {
+   "id": "ipac21scape",
+   "title": "Measurement Results of the First SCAPE Prototype",
+   "authors": "M. Kasa et al.",
+   "year": 2021,
+   "venue": "Proc. IPAC'21, paper THPAB054, doi:10.18429/JACoW-IPAC2021-THPAB054",
+   "url": "https://proceedings.jacow.org/ipac2021/papers/thpab054.pdf",
+   "type": "paper",
+   "license": "CC BY 3.0",
+   "licenseNote": "Corrected by verifier: the IPAC'21 PDFs carry the CC BY 3.0 licence line (IPAC'24/'25 papers are CC BY 4.0)."
+  },
+  {
+   "id": "harkay23",
+   "title": "Road to High Charge in the APS-U Injector (seminar slides)",
+   "authors": "K. Harkay, J. Calvey",
+   "year": 2023,
+   "venue": "MSU/FRIB Accelerator Physics and Engineering Seminar, Feb. 24, 2023",
+   "url": "https://frib.msu.edu/sites/default/files/_files/pdfs/science_ase_seminars_harkay.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "calvey24",
+   "title": "Upgrade of the APS-U Booster for High-charge Bunches and Frequency Sweep (slides)",
+   "authors": "J. Calvey",
+   "year": 2024,
+   "venue": "I.FAST Workshop on Injectors for Storage Ring Light Sources, March 7, 2024",
+   "url": "https://indico.kit.edu/event/3948/contributions/15167/attachments/7318/11642/Calvey_APSU_Booster_IFAST2024.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "desy24",
+   "title": "APS-U Commissioning (slides)",
+   "authors": "V. Sajaev for the APS-U commissioning team",
+   "year": 2024,
+   "venue": "Accelerator Middle Layer workshop, DESY, June 19, 2024",
+   "url": "https://indico.desy.de/event/43233/contributions/169046/attachments/90950/122739/apsu-Commissioning.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "ipac24bls",
+   "title": "Installation and Commissioning of the APS-U Bunch Lengthening System",
+   "authors": "M. P. Kelly et al.",
+   "year": 2024,
+   "venue": "Proc. IPAC'24, paper WEPS10, pp. 2713-2716, doi:10.18429/JACoW-IPAC2024-WEPS10",
+   "url": "https://proceedings.jacow.org/ipac2024/pdf/WEPS10.pdf",
+   "type": "paper",
+   "license": "CC BY 4.0"
+  },
+  {
+   "id": "ipac24und",
+   "title": "Status of Undulators for the APS Upgrade",
+   "authors": "R. Dejus et al.",
+   "year": 2024,
+   "venue": "Proc. IPAC'24, paper TUPG56, pp. 1376-1378, doi:10.18429/JACoW-IPAC2024-TUPG56",
+   "url": "https://proceedings.jacow.org/ipac2024/pdf/TUPG56.pdf",
+   "type": "paper",
+   "license": "CC BY 4.0"
+  },
+  {
+   "id": "ipac25",
+   "title": "Commissioning of the Advanced Photon Source Upgrade - the First Swap-Out Injection-Based Synchrotron Light Source",
+   "authors": "V. Sajaev, M. Borland, J. Calvey, et al.",
+   "year": 2025,
+   "venue": "Proc. IPAC'25, paper TUCD2, pp. 915-918, doi:10.18429/JACoW-IPAC2025-TUCD2",
+   "url": "https://proceedings.jacow.org/ipac2025/pdf/TUCD2.pdf",
+   "type": "paper",
+   "license": "CC BY 4.0"
+  },
+  {
+   "id": "napac25",
+   "title": "APS Upgrade: Commissioning the World's First Light Source Based on Swap-Out Injection",
+   "authors": "V. Sajaev, M. Borland, J. Calvey, et al.",
+   "year": 2025,
+   "venue": "Proc. NAPAC'25, paper MOXP02, doi:10.18429/JACoW-NAPAC2025-MOXP02",
+   "url": "https://prebys.physics.ucdavis.edu/NAPAC-25/proceedings/pdf/MOXP02.pdf",
+   "type": "paper",
+   "license": "CC BY 4.0"
+  },
+  {
+   "id": "ler25",
+   "title": "APS-U Commissioning and Lessons Learned (slides)",
+   "authors": "V. Sajaev",
+   "year": 2025,
+   "venue": "LER 2025 workshop, Oct. 8, 2025",
+   "url": "https://indico.desy.de/event/49686/contributions/191402/attachments/99825/138277/lessonsVadim.pdf",
+   "type": "talk",
+   "note": "Most recent operational snapshot found (fill patterns, lifetime, BLS voltage, availability)."
+  },
+  {
+   "id": "ipac26calvey",
+   "title": "High Charge Operation and Future Upgrades of the APS-U Injector Chain (abstract)",
+   "authors": "J. Calvey et al.",
+   "year": 2026,
+   "venue": "IPAC'26 (17-22 May 2026), paper TUO2M04; indico contribution 12379",
+   "url": "https://indico.jacow.org/event/95/contributions/12379/",
+   "type": "abstract"
+  },
+  {
+   "id": "sp2025",
+   "title": "Advanced Photon Source Strategic Plan 2025-29",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "Argonne National Laboratory (Feb. 2025)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/APS/APS_Strategic_Plan_2025-29.pdf",
+   "type": "report"
+  },
+  {
+   "id": "idsector2026",
+   "title": "Insertion Devices by Sector (table 'Updated: Sep. 22, 2026', maintained by W. Li)",
+   "authors": "APS Accelerator Systems Division, Magnetic Devices group",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Magnetic-Devices/Insertion-Devices/Insertion-Devices-by-Sector",
+   "type": "web"
+  },
+  {
+   "id": "idring2016",
+   "title": "Insertion Devices Installed in Storage Ring (legacy pre-upgrade fleet, page dated 02.01.2016)",
+   "authors": "APS Magnetic Devices group",
+   "year": 2016,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Magnetic-Devices/Insertion-Devices/Insertion-Devices-in-Storage-Ring",
+   "type": "web"
+  },
+  {
+   "id": "apsNSR",
+   "title": "APS Upgrade: New Storage Ring (page dated 03.30.2022)",
+   "authors": "Advanced Photon Source",
+   "year": 2022,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/New-Storage-Ring",
+   "type": "web"
+  },
+  {
+   "id": "n20240410",
+   "title": "Commissioning of new APS storage ring begins",
+   "authors": "APS",
+   "year": 2024,
+   "venue": "APS News, Apr. 10, 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-04-10/commissioning-of-new-aps-storage-ring-begins/2024-04-10/commissioning-of-new",
+   "type": "news"
+  },
+  {
+   "id": "n20240420",
+   "title": "First stored electron beam in new APS storage ring",
+   "authors": "APS",
+   "year": 2024,
+   "venue": "APS News, Apr. 20, 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-04-20/first-stored-electron-beam-in-new-aps-storage-ring/2024-04-20/first-stored",
+   "type": "news"
+  },
+  {
+   "id": "n20240430",
+   "title": "World's first successful multi-bunch swap-out injection demonstrated at the Advanced Photon Source",
+   "authors": "APS",
+   "year": 2024,
+   "venue": "APS News, Apr. 30, 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-04-30/worlds-first-successful-multi-bunch-swap-out-injection-demonstrated-at-the",
+   "type": "news"
+  },
+  {
+   "id": "n20240518",
+   "title": "Advanced Photon Source achieves 25mA current in new electron storage ring",
+   "authors": "APS",
+   "year": 2024,
+   "venue": "APS News, May 18, 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-05-18/advanced-photon-source-achieves-25ma-current-in-new-electron-storage-ring/2024",
+   "type": "news"
+  },
+  {
+   "id": "n20240618",
+   "title": "Shine on: Upgraded Advanced Photon Source sees first X-ray light for science",
+   "authors": "A. Salles",
+   "year": 2024,
+   "venue": "APS News, June 18, 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-06-18/shine-on-upgraded-advanced-photon-source-sees-first-x-ray-light-for-science",
+   "type": "news"
+  },
+  {
+   "id": "n20240719",
+   "title": "Ushering in a brilliant future at the Advanced Photon Source (dedication)",
+   "authors": "A. Salles",
+   "year": 2024,
+   "venue": "APS News, byline July 17, 2024 (posted 07.19.2024)",
+   "url": "https://www.aps.anl.gov/APS-News/2024-07-19/ushering-in-a-brilliant-future-at-the-advanced-photon-source/2024-07-19",
+   "type": "news"
+  },
+  {
+   "id": "n20240823",
+   "title": "Advanced Photon Source achieves world-record electron beam emittance measurement",
+   "authors": "A. Salles",
+   "year": 2024,
+   "venue": "APS News, Aug. 23, 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-08-23/advanced-photon-source-achieves-world-record-electron-beam-emittance",
+   "type": "news"
+  },
+  {
+   "id": "n20250227",
+   "title": "A current event: Advanced Photon Source hits target of 200 mA of electron beam current",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "APS News, Feb. 27, 2025",
+   "url": "https://www.aps.anl.gov/APS-News/2025-02-27/a-current-event-advanced-photon-source-hits-target-of-200-ma-of-electron-beam",
+   "type": "news"
+  },
+  {
+   "id": "upd202412",
+   "title": "Upgraded APS Update: December 2024",
+   "authors": "APS",
+   "year": 2024,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-December-2024",
+   "type": "news"
+  },
+  {
+   "id": "upd202501",
+   "title": "Upgraded APS Update: January 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-January-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202503",
+   "title": "Upgraded APS Update: March 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-March-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202504",
+   "title": "Upgraded APS Update: April 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-April-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202507",
+   "title": "Upgraded APS Update: July 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-July-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202508",
+   "title": "Upgraded APS Update: August 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-August-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202509",
+   "title": "Upgraded APS Update: September 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-September-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202510",
+   "title": "Upgraded APS Update: October 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-October-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202511",
+   "title": "Upgraded APS Update: November 2025",
+   "authors": "APS",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-November-2025",
+   "type": "news"
+  },
+  {
+   "id": "upd202601",
+   "title": "Upgraded APS Update: January 2026",
+   "authors": "APS",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-January-2026",
+   "type": "news"
+  },
+  {
+   "id": "n20260205",
+   "title": "Argonne celebrates successful completion of the Advanced Photon Source Upgrade",
+   "authors": "A. Salles",
+   "year": 2026,
+   "venue": "APS News, Feb. 5, 2026",
+   "url": "https://www.aps.anl.gov/APS-News/2026-02-05/argonne-celebrates-successful-completion-of-the-advanced-photon-source-upgrade",
+   "type": "news"
+  },
+  {
+   "id": "n20260610",
+   "title": "APS begins transition to solid-state radio frequency amplifier technology to boost reliability and performance",
+   "authors": "APS",
+   "year": 2026,
+   "venue": "APS News, June 10, 2026",
+   "url": "https://www.aps.anl.gov/APS-News/2026-06-10/aps-begins-transition-to-solid-state-radio-frequency-amplifier-technology-to",
+   "type": "news"
+  },
+  {
+   "id": "n20260817",
+   "title": "Heath Wayman's field: Designing magnets that brighten the Advanced Photon Source",
+   "authors": "J. V. Wray",
+   "year": 2026,
+   "venue": "APS News, Aug. 14/17, 2026",
+   "url": "https://www.aps.anl.gov/APS-News/2026-08-17/heath-waymans-field-designing-magnets-that-brighten-the-advanced-photon-source",
+   "type": "news"
+  },
+  {
+   "id": "n20240502",
+   "title": "Beginning to see the light: Vadim Sajaev leads the effort to get the upgraded APS up and running",
+   "authors": "A. Salles",
+   "year": 2024,
+   "venue": "APS News, May 2, 2024",
+   "url": "https://www.aps.anl.gov/APS-News/2024-05-02/beginning-to-see-the-light-vadim-sajaev-leads-the-effort-to-get-the-upgraded",
+   "type": "news"
+  },
+  {
+   "id": "sched2026",
+   "title": "2026-3 APS Operations Schedule (PDF)",
+   "authors": "APS",
+   "year": 2026,
+   "venue": "aps.anl.gov Machine Status / Long-Range Operations Schedule",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Machine-Status/current/2026-3_APS_Schedule.pdf",
+   "type": "web"
+  },
+  {
+   "id": "srstatus",
+   "title": "APS Storage Ring Status (live page)",
+   "authors": "APS Main Control Room",
+   "year": 2026,
+   "venue": "www3.aps.anl.gov, snapshot fetched 2026-10-09 ~01:44 local",
+   "url": "https://www3.aps.anl.gov/aod/blops/status/srStatus.html",
+   "type": "web"
+  },
+  {
+   "id": "cd3_2019",
+   "title": "Advanced Photon Source upgrade (CD-3 approval announcement)",
+   "authors": "lightsources.org (Argonne)",
+   "year": 2019,
+   "venue": "lightsources.org, July 30, 2019",
+   "url": "https://lightsources.org/2019/07/30/advanced-photon-source-upgrade/",
+   "type": "news"
+  },
+  {
+   "id": "derived",
+   "title": "Derived by this dossier from cited inputs (formula given in each entry)",
+   "authors": "facility dossier",
+   "year": 2026,
+   "venue": "-",
+   "url": "",
+   "type": "derivation"
+  },
+  {
+   "id": "n20190809",
+   "title": "DOE Endorses Advanced Photon Source Upgrade (excerpt of a Physics Today news story by A. Lopatka)",
+   "authors": "APS / Physics Today",
+   "year": 2019,
+   "venue": "APS News, Aug. 9, 2019",
+   "url": "https://www.aps.anl.gov/APS-News/2019-08-09/doe-endorses-advanced-photon-source-upgrade/2019-08-09/doe-endorses-advanced",
+   "type": "news",
+   "note": "States: 'The US Department of Energy granted approval on 25 July for Argonne ... to begin construction on an $815 million upgrade' (CD-3)."
+  },
+  {
+   "id": "ipac25scu",
+   "title": "Recent advances in superconducting undulators at the Advanced Photon Source (abstract)",
+   "authors": "I. Kesgin (speaker), with E. Gluskin, M. Kasa, Y. Ivanyushenkov, V. Sajaev et al.",
+   "year": 2025,
+   "venue": "IPAC'25 (1-6 June 2025), JACoW Indico event 81, contribution 7476",
+   "url": "https://indico.jacow.org/event/81/contributions/7476/",
+   "type": "abstract",
+   "note": "'challenges in scaling magnet lengths and reducing periods led to magnet failures and fabrication delays ... two SCUs expected to be installed by late 2025 and six more to follow.' Author line corrected by verifier (Indico lists Ibrahim Kesgin as speaker; M. Kasa is a co-author)."
+  },
+  {
+   "id": "ihep2025",
+   "title": "Construction of China's High Energy Photon Source enters final stage",
+   "authors": "IHEP (Xinhua report)",
+   "year": 2025,
+   "venue": "IHEP news, Mar. 27, 2025",
+   "url": "https://english.ihep.cas.cn/nw/iitm/202503/t20250327_908826.html",
+   "type": "news",
+   "note": "'In January, HEPS achieved a world-class electron beam emittance of 93 picometer radians in the storage ring, following the achievement of a beam current of more than 40 mA.'"
+  }
+ ]
+}

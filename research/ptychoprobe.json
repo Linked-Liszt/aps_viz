@@ -1,0 +1,1768 @@
+{
+ "id": "ptychoprobe",
+ "sector": "33-ID",
+ "acronym": "PtychoProbe",
+ "fullName": "PtychoProbe - Ptychography + X-ray Fluorescence Nanoprobe beamline (33-ID-C)",
+ "status2026": {
+  "state": "commissioning",
+  "detail": "PtychoProbe was the last APS-U feature beamline to be installed (r12). First light was projected for October 2025 (r10) and in October 2025 the APS announced that PtychoProbe had moved into commissioning (r11); in November 2025 the endstation instrument was still being installed (r12). On the APS Beamline Commissioning Progress chart the station is listed as '33-ID-C: PTYCHO' at stage 3 ('Ops Commissioning' - the chart gives no further definition; in the APS-U commissioning sequence this covers shielding verification/first light, r26) on 26 Jan 2026 (r13) and at stage 4 (Technical commissioning) on 5 Oct 2026 (r9); it has not yet reached stage 5 (scientific commissioning/early experiments) or 6 (general users). The Beamline Directory lists status 'Commissioning' (r6). A 2026 APS March Meeting abstract (read only via a search-engine summary) described a 5-30 keV beam 'focused to sub-10 nm' and anticipated user availability in mid-2026 (r32) and the Aug 2025 schedule expected general users mid-2026 (r10) - so the beamline is running a few months behind those projections. 33-ID-C already appears in the APS General User proposal beamline list (page dated 7 Oct 2026, r34). The late-January 2026 update said the APS-U work was 'essentially completed, with all scope delivered' with the final DOE review still pending (r13); DOE's final approval (formal project completion, after CD-4 review in late Sept 2025) was announced on 5 Feb 2026 (r37), and all feature beamlines met their Key Performance Parameters (source brightness at a defined energy, usable energy range) (r26). The 2026 Directory lists a focused beam of 0.02 x 0.02 µm (20 nm), i.e. the 5 nm design goal is not yet claimed as delivered (r6).",
+  "sources": [
+   "r9",
+   "r10",
+   "r11",
+   "r12",
+   "r13",
+   "r6",
+   "r32",
+   "r34",
+   "r26",
+   "r37"
+  ]
+ },
+ "tagline": "An X-ray microscope aiming for 5-nanometre beams: seeing which elements sit where inside chips, batteries and cells.",
+ "plainSummary": "PtychoProbe is a brand-new X-ray microscope at the end of a beamline nearly 80 metres long in Sector 33 of Argonne's Advanced Photon Source. Its goal is to squeeze hard X-rays into a spot only about 5 nanometres wide - about two DNA strands side by side - and sweep it across a sample. Wherever the beam lands, atoms answer with X-rays of their own 'colour' (fluorescence), revealing which chemical elements are there, even when only a handful of atoms are present. At the same moment a fast camera behind the sample records how the X-rays scatter. Because neighbouring spots overlap, a computer can work out the one picture that explains all of these thousands of scatter patterns at once - a trick called ptychography - giving an image even sharper than the beam itself, aiming toward 1 nanometre. Because X-rays pass through solid matter, scientists can look inside intact computer chips, battery particles, catalysts, cement grains or frozen cells, and rotate them to build 3D images. All of this needs extreme stillness: the microscope rides on granite blocks that float on air while moving and then settle onto each other, and lasers track the lens and sample to about a nanometre. In October 2026 it is being commissioned.",
+ "expertSummary": "33-ID (PtychoProbe) is the APS-U feature beamline for the highest-resolution hard X-ray scanning microscopy (5-30 keV): diffraction-limited nanofocusing with Fresnel zone plates or multilayer Laue lenses for XRF trace-element and XANES mapping, recorded simultaneously with fly-scan far-field ptychography (2D/3D), whose resolution is set by detector NA, coherence and dose, not probe size (r1, r6). Targets: 5 nm focus and ~1 nm ptychographic resolution on radiation-hard samples (r1, r5). The as-built source is a single ~2.35 m planar HPM revolver undulator (2.1/2.5 cm) in the downstream half of the straight; the FDR baseline was two in-line revolvers (4.6 m) (r7, r1). A windowless HHL front end (2x2 mm exit mask, 25.4 m) feeds a short, stability-driven optics train: horizontally deflecting bendable HHL mirror M1 (28.3 m, 2.5 mrad, Si/Rh/Pt), horizontal LN2-cooled Si(111) DCM (30.6 m, 1 mm offset; FDR also Si(311) and a Mo/B4C DMM) and vertically focusing M2 (33.1 m) (r1, r6). M1/M2 image the source onto water-cooled secondary-source apertures - SSA/BDA1 at 47.9 m (33-ID-B) or SSA/BDA2 at 57.8 m (33-ID-C) - that act as coherence filters (opening ~λz/πD ≈ 4.8 µm) and convert upstream vibration into intensity rather than position noise (r1, r3). The endstation (~69.7 m) is a Velociprobe-derived vacuum instrument on vented air-bearing granite stages with ~1 nm interferometric metrology, fly scanning to 7 mm/s, tomographic rotation, a ~90° SDD and a 5.6 m in-vacuum detector mover carrying a SELUN (from 75 mm) and an EIGER2 XE 1.5M (to 5 m) (r6, r16, r19).",
+ "whatAPSUEnables": {
+  "plain": "Before the upgrade the APS beam was like a wide, slightly fuzzy floodlight: to make a nanometre-sized spot, microscopes had to pass the light through a tiny pinhole and throw most of it away. The new storage ring makes the electron beam about 20 times narrower side-to-side, so far more of the X-rays are 'coherent' - marching in step like a laser. Coherent light can be focused to the smallest possible spot and is exactly what ptychography needs. The result: a focused beam roughly a thousand times more concentrated (photons per second per square nanometre), bright enough to spot a few atoms, and scans up to a thousand times faster, so scientists can image big areas at nanometre detail instead of postage stamps.",
+  "expert": "A scanning nanoprobe is purely brightness-limited: the spot is s = (s_demag² + s_diff²)^1/2, so diffraction-limited focusing requires a quasi-point (coherent) source; in practice one spatially filters with an SSA at the expense of flux (r3). The ~42 pm·rad hybrid-MBA lattice (natural emittance 41.5 pm·rad, r8) cuts the horizontal source from σx ≈ 275 µm to ≈ 14.5 µm (r21, r8), raising the coherent fraction at 8 keV (4.8 m undulator) from ~0.08% to ~11.6% (r21) and coherent flux by >100x (r19, r3). Pre-upgrade high-resolution work at 2-ID-D closed horizontal slits to ~80 µm, discarding ~90% of the flux (r3). With the MBA source the SSA can be opened to the full transverse coherence length (2.9 x 3.0 µm at 10 keV at SSA1) while still passing ~5e12 coherent ph/s at 10 keV (FDR, Si(111), 4.6 m source, r1), so 5 nm-class ZP/MLL optics can be coherently filled with useful flux. Focused flux density was projected to rise from ~1e5-1e6 ph/s/0.01%BW/nm² (50 nm spot) to ~1e8-1e9 (5 nm spot) (r3) - the regime where ptychography approaches atomic resolution on radiation-hard samples (single-Au-atom fluence ~3-5e8 ph/nm², r3) and where per-point dwell times fall to ~0.03-1 ms (30 kHz to 1 kHz detectors; the PDR even anticipated dwell times approaching 1 µs), which is why the beamline is built around kHz-to-tens-of-kHz photon-counting detectors, continuous (fly) scanning with interferometric position logging, and HPC/AI reconstruction pipelines (r3, r15, r19).",
+  "quantitative": [
+   "Horizontal electron source size: σx ≈ 275 µm (old APS) → 14.5 µm (APS-U, 10% coupling), ~19x smaller (r21); APS-U flat-beam ID source σx = 14.5 µm, σx' = 2.75 µrad, σy = 3.1 µm, σy' = 1.29 µrad, εx = 39.7 pm·rad (r8)",
+   "Coherent fraction at 8 keV for a 4.8 m undulator: ~0.08% (old lattice) → ~11.6% (MBA) (r21)",
+   "Coherent flux increase of more than two orders of magnitude vs the pre-upgrade APS (r19, r3)",
+   "Focused flux density: ~1e5-1e6 ph/s/0.01%BW/nm² for a 50 nm spot before the upgrade → ~1e8-1e9 ph/s/0.01%BW/nm² for a 5 nm spot after (projection) (r3)",
+   "Pre-upgrade 2-ID-D high-resolution mode used ~80 µm horizontal slits, sacrificing ~90% of the flux (r3)",
+   "FDR prediction at SSA1 with slits opened to the coherence length: 5.1e12 ph/s coherent (Si(111), 10 keV), 7.5e11 ph/s (Si(311), 10 keV), 2.5e11 ph/s (Si(111), 25 keV) (r1)",
+   "FDR prediction at focus: 3.1e10 ph/s in a 4x4 nm² FWHM spot (4 nm-zone ZP, Si(311), 10 keV); 1.8e11 ph/s in 10x10 nm² (16 nm ZP, Si(111), 10 keV) (r1)",
+   "Scans 'a thousand times faster' than pre-upgrade APS beamlines (r5); sample scan rates up to 1,000x faster (r4)",
+   "Projected raw data: ~48.8 PB/year (4.8 PB compressed) vs ~0.73 PB/year today across 2-ID-D ptychography, 2-ID-E and BNP XRF (the document calls this ~100x; straight division gives ~67x) (r15)"
+  ]
+ },
+ "techniques": [
+  {
+   "name": "Scanning X-ray fluorescence nanoprobe microscopy",
+   "abbrev": "XRF / XFM",
+   "plain": "The X-ray beam knocks electrons out of atoms; when the atoms 'heal', each element gives off X-rays of its own characteristic energy - a fingerprint. Counting these fingerprints at every point of the scan builds a map of where each element sits, sensitive enough to notice a few atoms.",
+   "expert": "Energy-dispersive SDD placed at 90° to the incident beam and as close as possible for solid angle (FDR, r1); placing it in the horizontal plane (the polarization plane) is what minimises elastic/Compton background for the horizontally polarised undulator beam (standard physics; the FDR does not state the plane). A 7-element Vortex ME7 (1 kHz spectra) was planned in 2024 (r15). 5-30 keV excitation reaches K edges up to Sn (29.2 keV) and L/M lines of heavier elements; projected sensitivity of a few Zn atoms in few-µm-thick samples with a 5 nm probe (r3). Depth of field for 5 nm optics at 10 keV is only ±0.3 µm, so XRF maps of thick samples are projections; 3D requires XRF tomography (r3). Fitting with XRF-Maps/uProbeX, with self-absorption correction under development (r15)."
+  },
+  {
+   "name": "Ptychography (scanning coherent diffraction imaging)",
+   "abbrev": "Ptycho",
+   "plain": "Instead of relying only on the lens, a camera records the speckle pattern the sample makes at each overlapping beam position. Because neighbouring spots overlap, a computer can solve the puzzle and recover a sharp image of the sample - and even of the beam itself - finer than the beam size.",
+   "expert": "Far-field diffraction patterns from overlapping illuminations (typically ~60-70% overlap) are inverted iteratively (ePIE, rPIE, DM, LSQ-ML; APS codes Tike, Ptychodus, PtychoNN) to retrieve the complex object transmission and the probe (r35, r15, r6). Reconstruction pixel = λz/(N·p) (e.g. 512 x 75 µm pixels at 155 mm, 10 keV → 0.5 nm, r3). Achievable resolution is limited by high-q SNR: with Porod I ∝ q⁻⁴, a 10x finer resolution needs ~10⁴x more fluence, so ultimate resolution is dose-limited (r3). Fly-scan ptychography with mixed-state probe reconstruction removes step-scan overhead (Velociprobe: 8.8 nm on Au, 10 nm on an IC at 3 kHz, r19). A 'ptychography-poly' mode uses a 100 nm-µm beam to image large areas fast (r1)."
+  },
+  {
+   "name": "Ptychographic and fluorescence tomography (3D nano-imaging)",
+   "abbrev": "PXCT / XRF-CT",
+   "plain": "Spin the sample and repeat the scan from hundreds of angles, and the computer assembles a 3D model - like a hospital CT scan, but for a speck far smaller than a grain of sand.",
+   "expert": "Sample rotation ±180° with ~40 µrad (0.0023°) angular resolution required for 5 nm tomography; metrology on a rotating sample is solved by anti-rotation references, tracking interferometers or rotating references with capacitive sensors (FDR options, r1). Sample sizes: 10 x 10 mm (2D) and 3 mm diameter (3D) (r6). State of the art for ICs: 14.6 nm (2017) and 4 nm isotropic (2024) PXCT at PSI (r28, r27); correlative cryo XRF + ptycho-tomography of whole cells demonstrated at the APS Bionanoprobe (r29)."
+  },
+  {
+   "name": "Spectro-microscopy / chemical-state mapping",
+   "abbrev": "XANES imaging",
+   "plain": "By nudging the X-ray colour across an element's 'absorption edge', the microscope can tell, for example, rusted iron from metallic iron - not just where an element is, but what chemical form it takes.",
+   "expert": "Scanning at well-defined incident energies across an edge with the DCM yields chemical-state maps (FDR); the Si(111) DCM gives ΔE/E ≈ 1.4e-4 (r6, r1). Moving the energy changes ZP/MLL focal length (f ∝ E), so the gantry Z axis must track focus. The FDR/PDR also foresee superconducting (TES-type) emission spectrometers (~1 eV resolution) to obtain speciation from emission lines in a single scan - the 'holy grail' of combined elemental and speciation mapping at 5 nm, contingent on detector maturity (r1, r3)."
+  },
+  {
+   "name": "Simultaneous multimodal XRF + ptychography",
+   "abbrev": "XRF-Ptycho",
+   "plain": "Both signals are collected at the same time: ptychography shows the shape and density of the structures, fluorescence shows what they are made of - two perfectly aligned maps from one scan.",
+   "expert": "Listed as the beamline's special capability (r6). The ptychographically reconstructed probe can be used to deconvolve XRF maps beyond the native probe size (r1); phase contrast provides mass/density context for quantitative XRF and for selecting regions of interest. Combined with fast scanning, large fields are surveyed at coarse resolution and regions of interest re-scanned at the highest resolution (r1, r3)."
+  }
+ ],
+ "scienceCases": [
+  {
+   "title": "Looking inside computer chips without cutting them open",
+   "plain": "Chips now have features only a few nanometres across. PtychoProbe aims to image their 3D wiring and map dopant atoms and impurities inside intact devices - like an X-ray 'MRI' for microelectronics.",
+   "expert": "PDR science case: map dopant/impurity distributions and chemical states at contact interfaces, HfO2 gate-oxide thickness variations, diffusion barriers and electromigration in intact devices, with trace sensitivity simulated for Cu/W interconnects with As-doped regions (r4, r3). APS feature page cites 7 nm nodes heading to 5 and 3 nm (r5). Benchmarks elsewhere: 14.6 nm (2017) and 4 nm isotropic (2024, 7 nm-node IC) ptychographic X-ray tomography at PSI (r28, r27); Real-time AI (edge-computing) ptychographic inversion of data streamed at up to 2 kHz was demonstrated at the APS Hard X-ray Nanoprobe (26-ID) on an etched test pattern, not an IC (r30). The APS strategic plan also assigns dedicated 3D IC imaging toward and below the 5 nm node to the LYNX instrument at 31-ID-E, complementary to PtychoProbe (r14).",
+   "refs": [
+    "r4",
+    "r3",
+    "r5",
+    "r27",
+    "r28",
+    "r30",
+    "r14"
+   ]
+  },
+  {
+   "title": "Batteries, fuel cells and electrolyzers at the nanoscale",
+   "plain": "Energy devices work or fail at interfaces a few nanometres thick. The microscope can watch where ions such as calcium or metal atoms move inside electrodes and catalysts.",
+   "expert": "Science case: image ion concentrations (e.g. Ca) and metal redox states in integrated devices, interfacial thin films and nanostructured electrodes, including conversion-type electrodes (r4). Talks at the joint ISN/PtychoProbe first-experiments workshop (Aug 2023; not all aimed specifically at 33-ID): spatial distribution of functional phases in PEM fuel cells/water electrolyzers (Myers), composition dynamics of Au/Pt films on Ir(hkl) and TMD vacancies with an in situ electrochemical cell (Lopes), electrode-electrolyte interfaces (Lin), cathode crystallization (Liu) (r24). Working distance (few mm for 5 nm ZPs) limits in situ cells; long-working-distance in situ work is the role of ISN at 19-ID, whose KB mirrors give a 61 mm working distance (r3, r39).",
+   "refs": [
+    "r4",
+    "r24",
+    "r3",
+    "r39"
+   ]
+  },
+  {
+   "title": "Single catalyst particles in 3D",
+   "plain": "About 90% of chemical products are made with catalysts. Seeing the size, shape and chemistry of individual catalyst nanoparticles inside a real pellet helps chemists design better ones.",
+   "expert": "3D chemical nano-imaging down to 5 nm (XRF) and below (ptychography) in mm-scale samples; noble-metal catalysts (Ru, Rh, Pd, Ag, Pt, Au) need hard X-rays for K/L-edge chemistry; metal-support interactions of individual particles (r4).",
+   "refs": [
+    "r4"
+   ]
+  },
+  {
+   "title": "Stronger, greener concrete for roads and bridges",
+   "plain": "Concrete fails because tiny defects grow into big cracks, and making cement emits about 5% of the world's CO2. Seeing how cement grains react and age at 5 nm could lead to longer-lasting, lower-carbon infrastructure.",
+   "expert": "Feature-page science story: tracing defects at the nanoscale in infrastructure materials (r5). PDR civil-engineering case: quantitative 5 nm imaging of binder formation, evolution and deterioration (Portland cement ~5% of global CO2) (r4). Precursor APS work combined nano-tomography and nano-XRF to measure 3D structure, chemistry and mass density of hydrating C3S grains during the induction period (r31).",
+   "refs": [
+    "r5",
+    "r4",
+    "r31"
+   ]
+  },
+  {
+   "title": "Mapping the brain's wiring and the chemistry of cells",
+   "plain": "Hard X-rays can see through a whole block of brain tissue, so neurons can be traced in 3D without slicing - and the same tools can map metals inside single cells.",
+   "expert": "Connectomics: sub-10 nm imaging of ~100 µm³-and-larger brain volumes without serial sectioning (r4); APS strategic plan cites PtychoProbe for developing ptychography at resolutions well below 10 nm over mm fields (r14). A (1 mm)³ volume at (10 nm)³ voxels is ~1 PB (r3). Radiation damage limits frozen-hydrated biology to ~10 nm, so PtychoProbe focuses on comparatively radiation-hard samples (r3, r4). Precursor: correlative 3D XRF + ptychographic tomography of frozen-hydrated Chlamydomonas at the APS Bionanoprobe (r29).",
+   "refs": [
+    "r4",
+    "r14",
+    "r3",
+    "r29"
+   ]
+  },
+  {
+   "title": "Dust from space and the chemistry of our environment",
+   "plain": "Micrometeorites and comet dust are made of nanoscale grains that record the birth of the Solar System; soils and ashes hide toxic or valuable metals in nanoparticles.",
+   "expert": "Elemental abundance and speciation in ~10 µm micrometeorites with nanoscale components, microbe-mineral interactions controlling contaminant speciation, phytoplankton metal cycling (r4); workshop proposals on resource potential and risks of coal-ash wastes (Hsu-Kim) and on thin-film photovoltaics/perovskites (Fenning, Bertoni, Nienhaus) (r24).",
+   "refs": [
+    "r4",
+    "r24"
+   ]
+  }
+ ],
+ "keyParameters": [
+  {
+   "label": "Location",
+   "value": "Sector 33 insertion-device straight; endstation in 33-ID-C at ~70 m from the source",
+   "source": "r1",
+   "note": "Directory designation 33-ID-C (r6). FDR text (Sec. 4-6.7.3) says '33-ID-D' and the Fig. 4.38 caption puts the instrument in the 'C hutch' and the flight path in a 'D hutch', but the FDR drawings label the whole end station 33-ID-C (r1)."
+  },
+  {
+   "label": "Energy range",
+   "value": "5-30 keV",
+   "source": "r6",
+   "note": "Same in FDR (r1) and feature page (r5)."
+  },
+  {
+   "label": "Techniques",
+   "value": "Ptychography, X-ray fluorescence microscopy, tomography; simultaneous ptychography + XRF; 3D nano-imaging",
+   "source": "r6",
+   "note": ""
+  },
+  {
+   "label": "Focus (design goal)",
+   "value": "5 nm (FDR ideal simulations 3-4 nm RMS / 4-5 nm FWHM with 4 nm-zone optics)",
+   "source": "r1",
+   "note": "Feature page: 'top resolution will be five nanometers' (r5)."
+  },
+  {
+   "label": "Focus (listed 2026)",
+   "value": "0.02 x 0.02 µm",
+   "source": "r6",
+   "note": "Directory value during commissioning; presumably 16-20 nm-class optics."
+  },
+  {
+   "label": "Ptychographic resolution (goal)",
+   "value": "~1 nm on radiation-hard samples",
+   "source": "r5",
+   "note": "Feature page: 'with ptychography, the beamline can get down to one nanometer resolution' (r5); the 'radiation-hard' qualifier is from the PDR science chapter: '~1 nm (limited by radiation hardness)' (r4)."
+  },
+  {
+   "label": "Monochromator",
+   "value": "Horizontally deflecting LN2-cooled double-crystal Si(111), ΔE/E ≈ 1.4e-4, fixed exit, 1 mm offset",
+   "source": "r6",
+   "note": "Offset and cooling from FDR (r1). The FDR optics text itself specifies 'a standard Si(111)' HDCM; Si(311) appears only in the FDR flux/coherence/heat-load calculations (Tables 4.41-4.42, Figs 4.33, 4.36), and Si(311) ΔE/E is ~3e-5 (often rounded to '1e-5' in the PDR). The FDR component table also lists a Mo/B4C double-multilayer mono at 31.9 m; neither Si(311) nor the DMM is listed in 2026 (see openQuestions). 1.4e-4 is also the value the Directory gives for 2-ID-D's Si(111) HDCM."
+  },
+  {
+   "label": "Flux",
+   "value": "1e11 ph/s at 10 keV",
+   "source": "r6",
+   "note": "Directory value; FDR predicts 3.1e10 (4 nm ZP, Si(311)) to 1.8e11 ph/s (16 nm ZP, Si(111)) in the focus at 10 keV for a 4.6 m source (r1). Scaling the FDR Si(111)/16 nm value to the single 2.35 m device (~0.35-0.5x, calculated) gives ~0.6-0.9e11 ph/s, consistent with the Directory's 1e11."
+  },
+  {
+   "label": "Source (as built)",
+   "value": "One planar HPM revolver undulator APS21R25#3 in the downstream (DS) position (upstream position empty): 2.1 cm structure APS21#8 (E1 8.34 keV, K 1.38) / 2.5 cm structure APS25#6 (E1 4.59 keV, K 1.99) at the 8.5 mm device minimum gap; ~2.35 m",
+   "source": "r7",
+   "note": "In the ID table 'DS-1'/'DS-2' are the two magnet structures of the one downstream device, not two positions. Current user minimum gap 8.9 mm. FDR baseline: two in-line revolvers, 4.6 m total (r1, r2)."
+  },
+  {
+   "label": "Front end",
+   "value": "HHL front end, windowless (differential pump); exit mask 2 x 2 mm (H x V) at 25.4 m; W exit collimator 5 x 5 mm at 26.1 m",
+   "source": "r1",
+   "note": "HHLFE limits 21 kW, 590 kW/mrad² (r2)."
+  },
+  {
+   "label": "Secondary sources",
+   "value": "SSA/BDA1 at 47.9 m (33-ID-B, 'best focus'); SSA/BDA2 at 57.8 m (33-ID-C, 'flux vs resolution')",
+   "source": "r1",
+   "note": "±50 µm range, 100 nm resolution and repeatability, water-cooled. PDR (2017) had SSAs at 40 m and 60 m (r3)."
+  },
+  {
+   "label": "Transverse coherence length at SSA1",
+   "value": "2.9 x 3.0 µm (10 keV); 0.8 x 1.0 µm (25 keV) (H x V)",
+   "source": "r1",
+   "note": "SRW wave-optics, 2018 source parameters, 4.6 m source."
+  },
+  {
+   "label": "Nanofocusing optics",
+   "value": "Fresnel zone plates (4-ZP carrier: 5-8, 8-12, 12-18, 18-30 keV) and multilayer Laue lenses on a separate carrier; ZPs for low energy, MLLs preferred >13 keV",
+   "source": "r1",
+   "note": "Directory: 'Can utilize Fresnel zone plates and multilayer Laue lenses' (r6)."
+  },
+  {
+   "label": "Ideal 5 nm ZP (10 keV)",
+   "value": "Δr_N 4 nm, D 180 µm, f 5.8 mm, 1900 nm thick, 33% efficiency, 11,250 zones",
+   "source": "r1",
+   "note": "At 25 keV: D 72 µm, f 5.81 mm, 4400 nm, 4500 zones."
+  },
+  {
+   "label": "Scanning",
+   "value": "Fly scanning with better than 2.5 nm precision, up to 7 mm/s",
+   "source": "r6",
+   "note": "FDR upper bound: 1 MHz frames, 66% overlap, 20 nm spot → ~7 mm/s (r1)."
+  },
+  {
+   "label": "Metrology",
+   "value": "Optics-to-sample metrology with 1 nm accuracy",
+   "source": "r6",
+   "note": "FDR requirement 0.5-1 nm relative position measurement (r1)."
+  },
+  {
+   "label": "Sample size",
+   "value": "10 x 10 mm (2D); 3 mm diameter (3D)",
+   "source": "r6",
+   "note": ""
+  },
+  {
+   "label": "Sample environment",
+   "value": "Vacuum (pumped to 100 mPa ≈ 1e-3 mbar or better), He/N2/Ar or air; small set of environments (cooling, flow cell, electrical) planned",
+   "source": "r1",
+   "note": "Working distance of 5 nm ZPs is only a few mm (PDR minimum ~2 mm) (r3)."
+  },
+  {
+   "label": "Detectors",
+   "value": "EIGER2 XE 1.5M; DECTRIS SELUN; energy-dispersive XRF detector",
+   "source": "r6",
+   "note": "2024 plan: Vortex ME7 XRF (1 kHz), EIGER2 XE 1.5M at 2 kHz, small fast 200x200 detector at 30 kHz (r15)."
+  },
+  {
+   "label": "Sample-detector distance",
+   "value": "75 mm (fast detector) to 5,000 mm (large detector), in a single 5.6 m vacuum chamber",
+   "source": "r16",
+   "note": "FDR: 50 mm to 5 m (r1)."
+  },
+  {
+   "label": "Projected data volume",
+   "value": "~48.8 PB raw per year (~4.8 PB compressed)",
+   "source": "r15",
+   "note": ""
+  },
+  {
+   "label": "Software",
+   "value": "Ptychodus, PtychoNN, Tike, XRF-Maps, XRFTomo",
+   "source": "r6",
+   "note": ""
+  },
+  {
+   "label": "Staff contacts (2026)",
+   "value": "Volker Rose, Junjing Deng, Barry Lai, Eric Chen",
+   "source": "r6",
+   "note": "XSD Microscopy group."
+  },
+  {
+   "label": "Support equipment",
+   "value": "SEM in an adjacent lab",
+   "source": "r6",
+   "note": "Directory 'Equipment' entry (2026)."
+  }
+ ],
+ "source": {
+  "insertionDevices": [
+   {
+    "name": "APS21R25#3 revolver - 2.1 cm magnet structure (APS21#8, table row 'DS-1')",
+    "type": "planar hybrid permanent-magnet revolver undulator (one of two structures on a rotating strongback)",
+    "periodMm": 21,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "Device sits in the downstream (DS) position of the Sector 33 straight; the upstream (US) position is empty (Sep 2026). In the table 'DS-1' and 'DS-2' denote this device's two magnet structures (APS21#8 and APS25#6), not two positions. Device design minimum gap 8.5 mm (table note 7), current admin/user minimum gap 8.9 mm (row partly garbled); K_eff 1.38 and E1 = 8.34 keV at 8.5 mm; 216 kW/mrad², 5.4 kW at 200 mA. Period count is garbled in the S33 table row; identical APS21R25 devices at S08/S09 have 112 periods → ~2.35 m (inferred). FDR Table 4.47 uses K = 1.305 (E1 = 8.8 keV) for U21.",
+    "source": "r7"
+   },
+   {
+    "name": "APS21R25#3 revolver - 2.5 cm magnet structure (APS25#6, table row 'DS-2')",
+    "type": "planar hybrid permanent-magnet revolver undulator (second structure, selected by rotating the strongback 90°)",
+    "periodMm": 25,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "K_eff 1.99, E1 = 4.59 keV at 8.5 mm gap; 225 kW/mrad², 8.0 kW. 94 periods inferred from S08/S09 twins. Provides the low-energy end (5 keV first harmonic). Max power through the 2x2 mm mask quoted by FDR as 2.28 kW for the 4.6 m baseline at Ky = 1.939 (r1); roughly half for the single as-built device (estimate).",
+    "source": "r7"
+   },
+   {
+    "name": "FDR baseline (not as built): two in-line revolvers Rev 2.5/2.1 with phase shifter, 4.6 m total",
+    "type": "planar HPM revolver undulators, dual in-line",
+    "periodMm": 25,
+    "lengthM": 4.6,
+    "count": 2,
+    "polarization": "linear horizontal",
+    "notes": "FDR Ch.3 Table 3.13 lists 33-ID as 'Dual Inline, Rev 2.5/2.1 + Rev 2.5/2.1, phase shifter/corrector'; Ch.4 Table 4.38 '4.6 m revolver, 21/25 mm, centre of straight'. The 2017 PDR instead asked for a horizontal-gap, vertically polarized undulator (29 mm HGVPU) so that the horizontal monochromator would work in σ geometry (r3).",
+    "source": "r2"
+   }
+  ],
+  "canting": "None - single in-line source on the straight-section axis (no canting magnets). FDR planned two in-line revolvers with a phase shifter; as of Sep 2026 only the downstream position is filled (r7).",
+  "frontEnd": "Standard APS-U High-Heat-Load Front End (HHLFE; designed for two in-line undulators, 21 kW total and 590 kW/mrad² peak) in windowless configuration with a built-in differential pump (r2, r1). Sequence (FDR Fig. 3.2): lead-lined photon shutter LPPS, storage-ring valve, BTFM1 burn-through mask, fixed masks FM2/FM3, collimator, GRID-XBPM (XBPM1), photon shutter PS2 with intensity monitor IM1, safety shutters SS1&SS2, wall collimator in the ratchet wall, FE valve, exit mask with XBPM2 (2 x 2 mm, 25.4 m) and tungsten exit collimator (5 x 5 mm, 26.1 m, narrowed to manage bremsstrahlung for small-offset monochromators), beamline isolation valve. The FE exit table sits inside 33-ID-A (r2, r1). A residual gas analyser is required in the FOE for windowless operation (r3).",
+  "sourceSizeAndDivergence": "Electron beam at an ID straight (r8, Aug 2024): flat-beam mode (κ = 0.1) σx = 14.5 µm, σx' = 2.75 µrad, σy = 3.08 µm, σy' = 1.29 µrad (εx = 39.7 pm·rad, εy = 4.0 pm·rad); round-beam mode (κ = 1) σx = 12.3 µm, σx' = 2.34 µrad, σy = 8.26 µm, σy' = 3.47 µrad (ε = 28.7 pm·rad each); natural emittance 41.5 pm·rad. Single-electron photon contribution for L ≈ 2.35 m at 10 keV (calculated, σr = √(2λL)/4π ≈ 1.9 µm, σr' = √(λ/2L) ≈ 5.1 µrad) gives total photon source ≈ 14.6 x 3.6 µm and 5.8 x 5.3 µrad (flat beam, estimate). Horizontal source ~4.7x larger than vertical in flat mode - one reason the beamline uses horizontally deflecting optics for stability (r21). FDR calculations used Borland's Oct 2018 CD-2 source parameters (r1). Gaussian-beam estimate of what the single 2.35 m device means relative to the FDR's 4.6 m source (flat beam, 5-25 keV): central-cone flux x~0.5, brightness/coherent flux x~0.34 (shorter device = larger photon divergence and worse beta matching) (calculated)."
+ },
+ "branches": [
+  {
+   "id": "main",
+   "name": "33-ID PtychoProbe (single in-line beamline)",
+   "description": "One beam path: HHL front end → first optics enclosure 33-ID-A (slits, M1, DCM, [DMM], M2, masks) → shielded transport → 33-ID-B (SSA/BDA1, pink/mono shutters) → shielded transport through mini-hutches → 33-ID-C (SSA/BDA2, PtychoProbe vacuum instrument, 5.6 m in-vacuum detector mover, beam stop). Two optical modes are selected by refocusing the bendable mirrors: image the source on SSA1 at 47.9 m ('best focus', ~22 m to the lens) or on SSA2 at 57.8 m ('flux vs resolution', ~12 m to the lens) (r1). Pink-beam rated masks/shutters/beam stop allow mirror-only or multilayer (pink) operation per FDR (r1)."
+  }
+ ],
+ "components": [
+  {
+   "id": "revolver-undulator",
+   "name": "Revolver undulator APS21R25#3 (2.1 cm / 2.5 cm periods)",
+   "category": "undulator",
+   "branch": null,
+   "distanceM": 1.3,
+   "distanceNote": "approx: device occupies the downstream (DS) half of the straight (ID vacuum chamber 5.363 m flange-to-flange, nominally 4.8 m of undulators, FDR Fig. 3.10 / Sec. 3-3.2, r2; position from r7); centre estimated ~+1.3 m from the straight-section centre (FDR distances are measured from the straight centre). FDR baseline (4.6 m) was centred on the straight (r1).",
+   "enclosure": "Storage-ring tunnel, Sector 33 ID straight",
+   "deflection": "none",
+   "plain": "A 2.35-metre row of powerful magnets that makes the 6 GeV electrons wiggle and shine an intense, narrow X-ray beam. It carries two sets of magnets with different spacings and rotates like a revolver to swap between them, and, using its first and higher harmonics, covers X-ray energies from 5 to 30 keV.",
+   "expert": "Planar hybrid PM revolver: two magnet structures mounted 90° apart on a common strongback, rotated (with gap opened and interlocked) to select the active period; 4-motor gap separation mechanism, min gap 8.5 mm, gap resolution 0.5 µm (r2). 2.1 cm: K_eff 1.38, E1 8.34 keV; 2.5 cm: K_eff 1.99, E1 4.59 keV (at 8.5 mm; user min gap 8.9 mm) (r7). Horizontal linear polarization → the horizontally deflecting DCM works in π geometry (r21).",
+   "specs": {
+    "periodsMm": "21 / 25",
+    "approxPeriods": "112 / 94 (inferred from twin devices)",
+    "magneticLengthM": "≈2.35",
+    "minGapMm": 8.5,
+    "userMinGapMm": 8.9,
+    "Keff_atMinGap": "1.38 / 1.99",
+    "E1_keV_atMinGap": "8.34 / 4.59",
+    "Pdens_kW_per_mrad2": "216 / 225",
+    "Ptot_kW": "5.4 / 8.0",
+    "position": "downstream (DS); upstream empty",
+    "fdrBaseline": "2 x Rev 2.5/2.1 in line, 4.6 m",
+    "deviceMinGapMm_design": 8.5
+   },
+   "source": "r7"
+  },
+  {
+   "id": "fe-grid-xbpm",
+   "name": "Front-end GRID X-ray beam position monitor (XBPM1)",
+   "category": "diagnostics",
+   "branch": null,
+   "distanceM": 19.5,
+   "distanceNote": "approx/generic: HHLFE component order from FDR Fig. 3.2; no 33-ID-specific position is published - value is a placeholder for modelling",
+   "enclosure": "Storage-ring tunnel (front end)",
+   "deflection": "none",
+   "plain": "An early-warning sensor that watches exactly where the X-ray beam points, so the accelerator can keep it steady.",
+   "expert": "Grazing-incidence (GRID) XBPM of the APS-U HHLFE; requirements ±200 µm (H) / ±100 µm (V) range, AC stability 3.7 µm (H) / 2.4 µm (V) over 0.01-1000 Hz; works with IM1 in PS2 and XBPM2 in the exit mask (r2).",
+   "specs": {
+    "rangeH_um": 200,
+    "rangeV_um": 100,
+    "AC_H_um": 3.7,
+    "AC_V_um": 2.4
+   },
+   "source": "r2"
+  },
+  {
+   "id": "fe-shutters",
+   "name": "Front-end photon shutter PS2 and safety shutters SS1/SS2",
+   "category": "shutter",
+   "branch": null,
+   "distanceM": 21.5,
+   "distanceNote": "approx/generic: order from FDR Fig. 3.2 (just upstream of the ratchet wall); 33-ID-specific value not published",
+   "enclosure": "Storage-ring tunnel (front end)",
+   "deflection": "none",
+   "plain": "Heavy doors for the light: a water-cooled shutter absorbs the beam's heat, and two tungsten safety shutters block stray radiation so people can safely enter the hutches.",
+   "expert": "Water-cooled PS2 (with intensity monitor IM1) protects the redundant, independently actuated safety shutters that stop bremsstrahlung; part of the PSS-interlocked HHLFE (r2).",
+   "specs": {},
+   "source": "r2"
+  },
+  {
+   "id": "ratchet-wall",
+   "name": "Storage-ring shield (ratchet) wall with wall collimator",
+   "category": "collimator",
+   "branch": null,
+   "distanceM": 22.9,
+   "distanceNote": "approx: FOE upstream wall at ~23.6 m on FDR Fig. 4.31 plan; wall thickness taken similar to other sectors (~1.5 m)",
+   "enclosure": "Shield wall",
+   "deflection": "none",
+   "plain": "The thick concrete wall between the accelerator tunnel and the experiment hall; the beam passes through a small hole lined with a metal collimator.",
+   "expert": "Wall collimator in the ratchet-wall penetration (FDR Fig. 3.2); FE exit table hardware is downstream, inside 33-ID-A (r2).",
+   "specs": {},
+   "source": "r2"
+  },
+  {
+   "id": "fe-exit-mask",
+   "name": "Front-end exit mask with XBPM2 (2 x 2 mm)",
+   "category": "frontEnd",
+   "branch": null,
+   "distanceM": 25.4,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "A water-cooled metal block with a 2 x 2 mm hole that lets only the bright central part of the beam into the beamline.",
+   "expert": "Standard HHL FE exit mask, 2 x 2 mm² (H x V); integrated XBPM2 monitors position out of loop (r1, r2). Windowless exit with differential pumping. Max transmitted power 2.28 kW (FDR 4.6 m source, Ky = 1.939) (r1).",
+   "specs": {
+    "aperture_mm": "2 x 2",
+    "maxPower_kW_FDR": 2.28
+   },
+   "source": "r1"
+  },
+  {
+   "id": "fe-exit-collimator",
+   "name": "Front-end tungsten exit collimator (5 x 5 mm)",
+   "category": "collimator",
+   "branch": null,
+   "distanceM": 26.1,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "A thick tungsten block that stops high-energy stray radiation (bremsstrahlung) travelling with the beam.",
+   "expert": "Exit collimator narrowed to 5 x 5 mm in the APS-U HHLFE so beamlines with small-offset monochromators can manage bremsstrahlung (r2, r1).",
+   "specs": {
+    "aperture_mm": "5 x 5"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "wb-slits",
+   "name": "HHL white-beam slits 33ID-SL-1",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 27.0,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "Adjustable jaws that trim the raw beam to protect the first mirror from heat.",
+   "expert": "HHL variable-aperture photon absorber with tungsten edge inserts; FDR SSA power study used openings of 2 x 2 mm and 0.5 x 0.5 mm (r1).",
+   "specs": {
+    "designation": "33ID-SL-1"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "m1",
+   "name": "M1 high-heat-load horizontal focusing mirror",
+   "category": "mirror",
+   "branch": "main",
+   "distanceM": 28.3,
+   "distanceNote": "exact, FDR Table 4.39 (2024 elevation drawing labels M1 at ~28.2 m, r5)",
+   "enclosure": "33-ID-A",
+   "deflection": "horizontal",
+   "plain": "The first optic: a super-smooth bendable mirror hit at a grazing angle that takes most of the heat and focuses the beam sideways onto a tiny pinhole 20-30 m downstream.",
+   "expert": "Horizontally deflecting, 2.5 mrad (beam deflected 5 mrad), dynamically bendable to focus horizontally at SSA1 or SSA2 and to compensate thermal bumps on M1/DCM; three stripes (bare Si, Rh, Pt) selected by vertical translation; meridional slope error < 0.1 µrad under full load after correcting the thermal bump; R as small as ~10 km. Side-notch cooling cuts thermal deformation ~10x; residual corrected by ΔR1 ≈ 14%, ΔR2 ≈ 7% (FDR: '~15% flux change' within a 4.82 µm SSA, focal size +9% x 5%). Absorbs 332 W (U21, 8.8 keV) to 454 W (U25, 4.7 keV) for a 1 x 1 mm² acceptance (r1). PDR concept used LN2 cooling (r3).",
+   "specs": {
+    "designation": "33ID-MR-1",
+    "incidenceAngle_mrad": 2.5,
+    "stripes": "Si / Rh / Pt",
+    "slopeError_urad": "<0.1 (after thermal correction)",
+    "minRadius_km": "~10",
+    "absorbedPower_W": "332-454",
+    "demagToSSA1_H": "≈0.69 (q/p from FDR distances, calculated)"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "sc-1",
+   "name": "Secondary scattering collimator 33ID-SC-1 (lead)",
+   "category": "collimator",
+   "branch": "main",
+   "distanceM": 29.2,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "Lead shielding that catches X-rays scattered off the first mirror.",
+   "expert": "Lead secondary scattering collimator (r1).",
+   "specs": {
+    "designation": "33ID-SC-1"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "pm-1",
+   "name": "Photon mask 33ID-PM-1 (pink-beam mis-steering mask)",
+   "category": "other",
+   "branch": "main",
+   "distanceM": 29.6,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "A safety mask that catches the beam if it is ever steered the wrong way.",
+   "expert": "Pink-beam mis-steering mask downstream of M1 (r1).",
+   "specs": {
+    "designation": "33ID-PM-1"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "bd-1",
+   "name": "Beam diagnostic 33ID-BD-1 (BPM / fluorescent flag)",
+   "category": "diagnostics",
+   "branch": "main",
+   "distanceM": 30.0,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "A retractable glowing screen and position monitor used to see and align the beam.",
+   "expert": "BPM / fluorescent flag between M1 and the DCM (r1).",
+   "specs": {
+    "designation": "33ID-BD-1"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "hdcm",
+   "name": "Horizontal double-crystal monochromator 33ID-MN-1",
+   "category": "monochromator",
+   "branch": "main",
+   "distanceM": 30.6,
+   "distanceNote": "exact, FDR Table 4.39 (2024 drawing: 'DCM' at ~30.5 m, r5)",
+   "enclosure": "33-ID-A",
+   "deflection": "horizontal",
+   "plain": "Two perfect silicon crystals pick out a single X-ray colour. They bounce the beam sideways rather than up and down, because the floor shakes less sideways and the beam is wider horizontally, so tiny wobbles matter less.",
+   "expert": "Horizontally deflecting, fixed-exit, LN2-cooled Si(111) DCM with ~1 mm offset (r1); ΔE/E ≈ 1.4e-4 (r6). Absorbs 89 W (41 W/mm²) at 5 keV behind M1 (U25, K = 1.862) (r1). With horizontally polarized undulator light the crystals reflect in π geometry: Si(111) DCM throughput ≈ 70% of σ at 6 keV, >90% above 10 keV (Graber, r21). The FDR optics text calls it 'a standard Si(111)' DCM; Si(311) (ΔE/E ~3e-5, needed for the narrow bandwidth of 4 nm-zone ZPs up to ~10 keV per the PDR) appears only in the FDR calculations, but Si(311) π reflectivity collapses near its 2θ = 90° point at 5.35 keV (r21) - as-built crystal set unconfirmed.",
+   "specs": {
+    "designation": "33ID-MN-1",
+    "crystals": "Si(111) (FDR spec text: 'standard Si(111)'; Si(311) only in FDR calculations; unconfirmed)",
+    "cooling": "LN2",
+    "offset_mm": "~1 (horizontal)",
+    "dE_over_E": "1.4e-4 (Si 111)",
+    "absorbedPower_W_5keV": 89.2
+   },
+   "source": "r1"
+  },
+  {
+   "id": "dmm",
+   "name": "Double-multilayer monochromator 33ID-MN-2 (FDR baseline; as-built unconfirmed)",
+   "category": "multilayerMono",
+   "branch": "main",
+   "distanceM": 31.9,
+   "distanceNote": "exact per FDR Table 4.39; not labelled on the 2024 elevation drawing (r5) nor listed in the 2026 Directory (r6)",
+   "enclosure": "33-ID-A",
+   "deflection": "horizontal",
+   "plain": "An optional 'high-flux' filter made of hundreds of alternating nanometre-thin layers that lets through a much wider band of colours - tens of times more light (about 50x more X-ray power on the first pinhole in the FDR calculation) - for fast ptychography where perfect colour purity is not needed.",
+   "expert": "Horizontal DMM, ~1 mm offset; Mo/B4C, d = 25 Å (9/16 Å) x 300 bilayers (study case) or conservative 20 Å (9/11 Å) x 600 bilayers (40% smaller bandwidth, ~15% lower reflectance); Si substrates, roughness < 1 Å, flatness < 1 µrad RMS (< 2 µrad clamped), sagittal twist < 0.2 µrad/cm; flexure motions to maximise angular stability. With the DMM, SSA1 sees 10-12 W in the focused beam (r1). Velociprobe used a DMM at 2-ID-D for 3 kHz fly-scan ptychography (r19).",
+   "specs": {
+    "designation": "33ID-MN-2",
+    "material": "Mo/B4C",
+    "dSpacing_A": "20-25",
+    "bilayers": "300-600",
+    "status": "FDR baseline; installation not confirmed"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "m2",
+   "name": "M2 vertical focusing mirror",
+   "category": "mirror",
+   "branch": "main",
+   "distanceM": 33.1,
+   "distanceNote": "exact, FDR Table 4.39 (2024 drawing: 'M2' at ~33.0 m, r5)",
+   "enclosure": "33-ID-A",
+   "deflection": "vertical",
+   "plain": "A second bendable mirror that focuses the beam up-down onto the same pinhole and helps strip away unwanted higher X-ray colours.",
+   "expert": "Vertically deflecting, 2.5 mrad, bent to focus at SSA1 or SSA2; stripes Si/Rh/Pt; meridional slope error < 0.05 µrad; R as small as ~11 km (r1). Its 5 mrad vertical deflection, together with M1's 5 mrad horizontal deflection, separates the optical beam from the straight-through bremsstrahlung axis so the downstream white-beam stop and bremsstrahlung collimator can intercept it (geometry inferred from FDR Table 4.39). Deflection sense (up/down) not documented.",
+   "specs": {
+    "designation": "33ID-MR-2",
+    "incidenceAngle_mrad": 2.5,
+    "stripes": "Si / Rh / Pt",
+    "slopeError_urad": "<0.05",
+    "minRadius_km": "~11",
+    "demagToSSA1_V": "≈0.45 (calculated)"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "bd-2",
+   "name": "Beam diagnostic 33ID-BD-2 (BPM / fluorescent flag)",
+   "category": "diagnostics",
+   "branch": "main",
+   "distanceM": 34.6,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "Another beam viewer to check the beam after all the optics.",
+   "expert": "BPM / fluorescent flag downstream of M2 (r1).",
+   "specs": {
+    "designation": "33ID-BD-2"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "pm-2",
+   "name": "Photon mask / white-beam stop 33ID-PM-2",
+   "category": "beamStop",
+   "branch": "main",
+   "distanceM": 35.1,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "Blocks any raw, unreflected X-rays that went straight through, so only the cleaned-up beam continues.",
+   "expert": "Photon white-beam stop for the undeflected axis (r1).",
+   "specs": {
+    "designation": "33ID-PM-2"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "bc-1",
+   "name": "Bremsstrahlung collimator / stop 33ID-BC-1 (tungsten)",
+   "category": "collimator",
+   "branch": "main",
+   "distanceM": 35.5,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-A",
+   "deflection": "none",
+   "plain": "A tungsten block that stops gamma-ray-like radiation coming straight from the accelerator.",
+   "expert": "Tungsten bremsstrahlung beam stop at the end of the FOE (FOE wall at ~36.0 m) (r1).",
+   "specs": {
+    "designation": "33ID-BC-1"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "st-1",
+   "name": "Shielded transport 33ID-ST-1 (pink/mono)",
+   "category": "beamPipe",
+   "branch": "main",
+   "distanceM": 35.7,
+   "distanceNote": "exact start, FDR Table 4.39 (spans 35.7-41.5 m); 2024 drawing shows mini-hutch 33-ID-A-MH-1 at ~39.3-40.6 m on this run (r5)",
+   "enclosure": "Experiment hall (between 33-ID-A and 33-ID-B)",
+   "deflection": "none",
+   "plain": "A lead-shielded vacuum pipe that carries the beam safely across the experiment hall to the next hutch.",
+   "expert": "Pink/mono shielded transport, 35.7-41.5 m (r1).",
+   "specs": {
+    "designation": "33ID-ST-1",
+    "startM": 35.7,
+    "endM": 41.5
+   },
+   "source": "r1"
+  },
+  {
+   "id": "ssa1",
+   "name": "Secondary-source aperture SSA1 / beam-defining aperture BDA1 (33ID-SL-2) with BPM",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 47.9,
+   "distanceNote": "exact, FDR Table 4.39 (labelled 'BDA1' at ~47.5-48 m on the 2024 drawing, r5)",
+   "enclosure": "33-ID-B",
+   "deflection": "none",
+   "plain": "A pair of slits only a few micrometres apart - narrower than a hair - that becomes the new 'star' the microscope lens images. It keeps only the orderly, coherent part of the light and turns mirror wobbles into harmless brightness flicker instead of a moving spot.",
+   "expert": "Water-cooled slit pair with integrated beam-position monitor; range ±50 µm, resolution and repeatability 100 nm (Table 4.44). For coherent ZP illumination open to Δ = λz/(πD) ≈ 4.82 µm (z ≈ 22 m SSA1→lens, D = 180 µm at 10 keV / 72 µm at 25 keV). Worst-case power: 44 mW (Si 311), 225 mW (Si 111), 10-12 W (DMM); Glidcop incident faces ≤ 5° with tungsten defining blades (r1). PDR: slit vibration must stay < 10% of opening (r3). 'Best focus' mode.",
+   "specs": {
+    "designation": "33ID-SL-2",
+    "range_um": "±50",
+    "resolution_nm": 100,
+    "repeatability_nm": 100,
+    "coherentOpening_um": 4.82,
+    "cooling": "water"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "pm-3",
+   "name": "Photon mask 33ID-PM-3 (pink-beam mask)",
+   "category": "other",
+   "branch": "main",
+   "distanceM": 49.7,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-B",
+   "deflection": "none",
+   "plain": "A safety mask that protects the shutters behind it.",
+   "expert": "Pink-beam mask upstream of the shutters (r1).",
+   "specs": {
+    "designation": "33ID-PM-3"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "sh-1",
+   "name": "Pink-beam shutter 33ID-SH-1",
+   "category": "shutter",
+   "branch": "main",
+   "distanceM": 50.2,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-B",
+   "deflection": "none",
+   "plain": "A shutter that can stop the full (pink) beam so people can work in the experiment hutch.",
+   "expert": "Pink-beam shutter (r1).",
+   "specs": {
+    "designation": "33ID-SH-1"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "sh-2",
+   "name": "Tungsten mono shutter 33ID-SH-2",
+   "category": "shutter",
+   "branch": "main",
+   "distanceM": 51.2,
+   "distanceNote": "exact, FDR Table 4.39",
+   "enclosure": "33-ID-B",
+   "deflection": "none",
+   "plain": "A tungsten shutter for the single-colour beam.",
+   "expert": "Tungsten monochromatic-beam shutter (r1).",
+   "specs": {
+    "designation": "33ID-SH-2"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "st-2",
+   "name": "Shielded transport 33ID-ST-2 (pink/mono)",
+   "category": "beamPipe",
+   "branch": "main",
+   "distanceM": 51.8,
+   "distanceNote": "exact start, FDR Table 4.39 (spans 51.8-57.5 m); passes mini-hutches 33-ID-B-MH-1 (~53.0-54.3 m) and 33-ID-C-MH-1 (~56.0-57.4 m) on the 2024 drawing (r5)",
+   "enclosure": "Experiment hall (between 33-ID-B and 33-ID-C)",
+   "deflection": "none",
+   "plain": "More shielded pipe carrying the beam into the experiment hutch.",
+   "expert": "Pink/mono shielded transport, 51.8-57.5 m (r1).",
+   "specs": {
+    "designation": "33ID-ST-2",
+    "startM": 51.8,
+    "endM": 57.5
+   },
+   "source": "r1"
+  },
+  {
+   "id": "ssa2",
+   "name": "Secondary-source aperture SSA2 / BDA2 (33ID-SL-3)",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 57.8,
+   "distanceNote": "exact per FDR Table 4.39; the 2024 drawing places the BDA2 assembly at ~57.5-59 m (r5)",
+   "enclosure": "33-ID-C",
+   "deflection": "none",
+   "plain": "An alternative 'new star' closer to the microscope; using it trades a little sharpness for more light, or vice versa.",
+   "expert": "Beam-defining aperture for flux-vs-resolution trade-off; same specs as SSA1 (±50 µm, 100 nm), water-cooled; ~12 m to the lens (r1). In the PDR concept SSA2 (60 m) and the NFO shared one granite base and SSA-to-optic distance was interferometrically monitored (r3).",
+   "specs": {
+    "designation": "33ID-SL-3",
+    "range_um": "±50",
+    "resolution_nm": 100
+   },
+   "source": "r1"
+  },
+  {
+   "id": "nfo",
+   "name": "Nanofocusing optics: Fresnel zone plates and multilayer Laue lenses",
+   "category": "zonePlate",
+   "branch": "main",
+   "distanceM": 69.69,
+   "distanceNote": "approx: focal length f = 5.8-23 mm upstream of the sample (FDR Table 4.45); sample at 69.7 m",
+   "enclosure": "33-ID-C (inside PtychoProbe vacuum chamber)",
+   "deflection": "none",
+   "plain": "The 'objective lens': either a tiny disc of thousands of nanometre-thin metal (typically gold) rings - a zone plate - or a pair of thin slices cut from a stack of thousands of nanometre-thin alternating layers - multilayer Laue lenses. Both bend X-rays by diffraction to a spot a few nanometres wide.",
+   "expert": "ZP carrier with four plates covering 5-8, 8-12, 12-18 and 18-30 keV; separate MLL carrier (two crossed 1D MLLs or monolithic, TBD), both on a gantry giving Z travel for f ∝ E; ZPs preferred at low energy, MLLs > 13 keV (r1). Ideal 5 nm ZP at 10 keV: Δr_N 4 nm, D 180 µm, f 5.8 mm, 11,250 zones, 1900 nm thick (aspect ratio ~475), 33% efficiency; 20 nm class: Δr_N 16 nm, f 23.25 mm, 2812 zones (r1). Chromatic condition λ/Δλ ≥ N: at 10 keV the 4 nm/180 µm ZP (N = 11,250) exceeds what Si(111) supports (1/1.4e-4 ≈ 7,100) and needs Si(311)-class bandwidth, while the 16 nm ZP (N = 2,812) works with Si(111); at 25 keV the 4 nm/72 µm ZP (N = 4,500) is within Si(111) bandwidth - consistent with the PDR statement that Si(311) is needed only up to ~10 keV (r38, r1, r3). APS Optics is pursuing conic zone plates (CZP, volume 2D diffractive optics) for future 5 nm-to-1 nm focusing (r14); benchmark MLL focus: 8.4 x 6.8 nm² at 16.3 keV (DESY, 2018, r36).",
+   "specs": {
+    "zpCarrier": "4 ZPs: 5-8, 8-12, 12-18, 18-30 keV",
+    "ideal5nmZP_10keV": "Δr 4 nm, D 180 µm, f 5.8 mm, N 11250",
+    "ideal20nmZP_10keV": "Δr 16 nm, f 23.25 mm, N 2812",
+    "DOF_5nm_10keV_um": "±0.3",
+    "dof": "5 (3 translations + 2 tilts) per ZP module"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "osa-cs",
+   "name": "Order-sorting aperture and central stop",
+   "category": "other",
+   "branch": "main",
+   "distanceM": 69.695,
+   "distanceNote": "approx: between the zone plate and the sample (a few mm upstream of the sample)",
+   "enclosure": "33-ID-C (inside PtychoProbe vacuum chamber)",
+   "deflection": "none",
+   "plain": "A tiny pinhole and a small blocker that let through only the properly focused light from the zone plate.",
+   "expert": "Zone plates focus into many diffraction orders: a central stop on the optic plus an OSA (FDR Fig. 4.37: 'OSA XYZ', 'BS XY') pass only the +1 order. Velociprobe example: 60 µm W central stop and 30 µm OSA ~62 mm downstream of a 50 nm-zone ZP (r19, r1).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "metrology",
+   "name": "Optics-to-sample laser-interferometer metrology",
+   "category": "diagnostics",
+   "branch": "main",
+   "distanceM": 69.7,
+   "distanceNote": "at the instrument",
+   "enclosure": "33-ID-C",
+   "deflection": "none",
+   "plain": "Laser beams measure the distance between lens and sample a thousand times faster than a blink, to about a nanometre, so every image pixel is placed correctly.",
+   "expert": "Interferometers and capacitive sensors measuring optic and sample positions close to the point of interest; 0.5-1 nm relative measurement required (FDR), 1 nm accuracy listed (r1, r6). Heritage: Velociprobe uses six Attocube interferometer axes logged at 25 kHz with an FPGA H-infinity loop (2 nm 3σ position resolution) (r19).",
+   "specs": {
+    "accuracy_nm": 1,
+    "heritageLogging_kHz": 25
+   },
+   "source": "r6"
+  },
+  {
+   "id": "ptychoprobe-instrument",
+   "name": "PtychoProbe endstation instrument 33ID-BI-1 (granite air-bearing nanopositioning stack in vacuum chamber)",
+   "category": "sample",
+   "branch": "main",
+   "distanceM": 69.7,
+   "distanceNote": "exact, FDR Table 4.39 (2024 drawing: 'Ptycho Endstation' at ~69.3-70.6 m, r5)",
+   "enclosure": "33-ID-C",
+   "deflection": "none",
+   "plain": "The heart of the beamline: a vacuum chamber holding the lens and sample, sitting on huge granite blocks that float on thin air cushions while moving, then settle down solid as rock to stay still to a nanometre.",
+   "expert": "Floor coupling → granite base → granite coarse Y (wedge, 5.5° design angle) → granite coarse X → vacuum chamber; optics on a gantry (CRSZ); sample stack SAMCX → SAMθ (tomography) → fast SAMXYZ; ~26 motorized axes (17 in the simplified schematic); vented air bearings give granite-to-granite contact when parked (r1, r20, r19). Fly scanning with precision better than 2.5 nm at up to 7 mm/s; samples 10 x 10 mm (2D), 3 mm Ø (3D) (r6). Vacuum of 100 mPa (~1e-3 mbar) or better, or He/N2/Ar/air (r1).",
+   "specs": {
+    "designation": "33ID-BI-1",
+    "motorizedAxes": "~26",
+    "wedgeAngle_deg": 5.5,
+    "flyScanSpeed_mm_s": "≤7",
+    "flyScanPrecision_nm": "<2.5",
+    "sample2D_mm": "10 x 10",
+    "sample3D_mmDiameter": 3,
+    "rotation": "±180°, 40 µrad resolution needed"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "xrf-detector",
+   "name": "Energy-dispersive X-ray fluorescence detector (SDD)",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 69.7,
+   "distanceNote": "at the sample, 90° to the beam (FDR); horizontal plane inferred from the horizontal polarization, not documented",
+   "enclosure": "33-ID-C",
+   "deflection": "none",
+   "plain": "A sensor beside the sample that sorts incoming X-rays by energy to tell which elements are glowing.",
+   "expert": "Silicon-drift detector at 90° to the incident beam, as close as possible for solid angle (FDR, r1); in the horizontal (polarization) plane scatter is minimal (physics inference, plane not stated in the FDR); Vortex ME7 (7-element) planned, 1 kHz spectra (r15). PDR also proposed a backscatter large-solid-angle detector and a capillary-collimated 90° detector for ~1 µm optical sectioning (r3). Directory: 'Energy Dispersive Detector' (r6).",
+   "specs": {
+    "geometry": "~90° horizontal",
+    "planned": "Vortex ME7"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "detector-mover",
+   "name": "In-vacuum detector mover / flight tube (IRELEC, 5.6 m)",
+   "category": "flightTube",
+   "branch": "main",
+   "distanceM": 69.75,
+   "distanceNote": "approx start: the fast detector can sit 75 mm from the sample (r16), so the chamber couples directly to the instrument chamber; FDR flight tube 70.0-76.5 m (r1); 2024 drawing shows the main 'Detector Mover' tank at ~70.6-76.7 m (r5)",
+   "enclosure": "33-ID-C",
+   "deflection": "none",
+   "plain": "A 5.6-metre vacuum tank, big enough to walk beside, inside which two cameras ride on rails: a fast one that can sit 7.5 cm behind the sample and a big one that can back off to 5 metres.",
+   "expert": "Single 5.6 m vacuum chamber integrating two easily switchable in-vacuum detectors on precise in-vacuum stages: fast detector as close as 75 mm, large detector as far as 5,000 mm from the sample (r16). Variable distance sets reconstruction pixel λz/(Np) and oversampling for 5-20 nm probes (r3). FDR concept: same detector in 'close' (50-300 mm) and 'far' (0.3-5 m) ranges (r1).",
+   "specs": {
+    "vendor": "IRELEC (ALCEN)",
+    "chamberLength_m": 5.6,
+    "minDistance_mm": 75,
+    "maxDistance_mm": 5000
+   },
+   "source": "r16"
+  },
+  {
+   "id": "selun",
+   "name": "Fast photon-counting detector (DECTRIS SELUN)",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 69.78,
+   "distanceNote": "approx: as close as 75 mm from the sample (r16); travels inside the detector mover",
+   "enclosure": "33-ID-C (in vacuum)",
+   "deflection": "none",
+   "plain": "A small, ultra-fast X-ray camera taking tens of thousands of pictures per second, used when the beam is tiny and scattering is wide.",
+   "expert": "190 x 190 pixels of 100 µm (19 x 19 mm²), 30 kHz full frame / 120 kHz 2x2 binned, 4.5e7 ph/s/pixel (full), >98.8% duty cycle, 450 µm Si, vacuum compatible (r18). DECTRIS specifies the Si version for 8-30 keV with thresholds 4.6-25 keV (r18), so the 5-8 keV end of PtychoProbe's range lies below the vendor-specified energy range. Matches the APS 'small fast detector (200x200, 30 kHz)' solicited in May 2024 for in-vacuum ptychography (r17, r15).",
+   "specs": {
+    "pixels": "190 x 190",
+    "pixel_um": 100,
+    "frameRate_kHz": "30 (120 binned)",
+    "countRate_ph_s_px": "4.5e7",
+    "energyRange_keV_Si": "8-30 (thresholds 4.6-25)"
+   },
+   "source": "r6"
+  },
+  {
+   "id": "eiger2-xe",
+   "name": "Large photon-counting detector (DECTRIS EIGER2 XE 1.5M)",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 74.7,
+   "distanceNote": "approx: up to 5 m from the sample (r16); FDR lists detector 33ID-DT-1 at 75.3 m",
+   "enclosure": "33-ID-C (in vacuum)",
+   "deflection": "none",
+   "plain": "A bigger X-ray camera that can move far back to catch fine detail in the scatter pattern from larger beams.",
+   "expert": "EIGER2 XE 1.5M (75 µm pixels; ~3 MB frames at up to 2 kHz ≈ 6 GB/s raw, r15) listed for 33-ID-C (r6). FDR originally listed 'Jungfrau / Hitachi ME-4' for DT-1 (r1).",
+   "specs": {
+    "frameSize_MB": 3,
+    "frameRate_kHz": 2,
+    "dataRate_GB_s": 6
+   },
+   "source": "r6"
+  },
+  {
+   "id": "pink-beam-stop",
+   "name": "Pink-beam stop 33ID-BS-1",
+   "category": "beamStop",
+   "branch": "main",
+   "distanceM": 77.1,
+   "distanceNote": "exact, FDR Table 4.39 (2024 drawing ~77.3 m, at the downstream wall)",
+   "enclosure": "33-ID-C",
+   "deflection": "none",
+   "plain": "The end of the line: a block that safely absorbs whatever beam is left.",
+   "expert": "Pink-beam rated stop at the end of 33-ID-C (r1).",
+   "specs": {
+    "designation": "33ID-BS-1"
+   },
+   "source": "r1"
+  }
+ ],
+ "enclosures": [
+  {
+   "name": "Storage-ring tunnel / Sector 33 ID straight and HHL front end",
+   "role": "source (revolver undulator) and windowless high-heat-load front end",
+   "startM": -2.7,
+   "endM": 22.1,
+   "widthM": null,
+   "branch": null,
+   "notes": "Approx; straight-section length ~5.4 m (APS-U standard). FE exit table hardware is in 33-ID-A."
+  },
+  {
+   "name": "Shield (ratchet) wall",
+   "role": "storage-ring shielding with wall collimator",
+   "startM": 22.1,
+   "endM": 23.6,
+   "widthM": null,
+   "branch": null,
+   "notes": "Approx: downstream face taken from the FOE upstream wall at ~23.6 m on FDR Fig. 4.31."
+  },
+  {
+   "name": "33-ID-A",
+   "role": "first optics enclosure (FOE): FE exit table, white-beam slits, M1, DCM, (DMM), M2, masks and bremsstrahlung stop",
+   "startM": 23.6,
+   "endM": 36.0,
+   "widthM": 2.2,
+   "branch": "main",
+   "notes": "Approx from FDR Fig. 4.31 plan and 2024 elevation (r1, r5): the existing FOE (to ~33 m) was extended to ~36.0 m for APS-U ('Extend FOE'); plan width ~1.4 m upstream to ~2.4 m in the extension (scaled from the drawing)."
+  },
+  {
+   "name": "33-ID-A-MH-1",
+   "role": "mini-hutch on the shielded transport",
+   "startM": 39.3,
+   "endM": 40.6,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Approx from the 2024 elevation drawing (r5); function not documented."
+  },
+  {
+   "name": "33-ID-B",
+   "role": "SSA/BDA1 enclosure with pink-beam mask, pink and mono shutters",
+   "startM": 41.2,
+   "endM": 52.1,
+   "widthM": 1.7,
+   "branch": "main",
+   "notes": "Approx from FDR Fig. 4.31 and 2024 elevation (r1, r5); narrow, slightly tapered at the upstream end."
+  },
+  {
+   "name": "33-ID-B-MH-1",
+   "role": "mini-hutch on the shielded transport",
+   "startM": 53.0,
+   "endM": 54.3,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Approx from the 2024 elevation drawing (r5)."
+  },
+  {
+   "name": "33-ID-C-MH-1",
+   "role": "mini-hutch on the shielded transport just upstream of 33-ID-C",
+   "startM": 56.0,
+   "endM": 57.4,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Approx from the 2024 elevation drawing (r5)."
+  },
+  {
+   "name": "33-ID-C",
+   "role": "experimental station: SSA/BDA2, PtychoProbe instrument, 5.6 m detector mover, pink-beam stop",
+   "startM": 57.4,
+   "endM": 77.6,
+   "widthM": 4.1,
+   "branch": "main",
+   "notes": "Approx from FDR Fig. 4.31/4.38 and 2024 elevation (r1, r5): existing hutch (black walls to ~65 m) extended downstream with new walls to ~77.5 m and an internal wall removed; downstream end chamfered on the inboard side (~73-77.5 m). Control room and vestibule (with double door) run along the inboard side (~57-71 m)."
+  }
+ ],
+ "instruments": [
+  {
+   "name": "PtychoProbe endstation (scanning X-ray nanoprobe + ptychography microscope)",
+   "enclosure": "33-ID-C",
+   "plain": "A vacuum-chamber microscope on floating granite blocks. A nanometre lens focuses the beam; the sample is swept through it at up to 7 mm per second while lasers track every position, a fluorescence detector reads the elements and a camera records the scattering. The sample can be rotated for 3D.",
+   "expert": "12 subsystems per FDR: stiff support, vacuum chamber, optics stages, nanofocusing optics, sample stages, sample environments, optics/sample metrology, dynamic control (feedback + feed-forward, FPGA-class), instrument control (virtual axes, detector triggering, real-time low-res reconstruction), EDS, PAD and flight path (r1). Support as on the Velociprobe: floor coupling, granite base, granite coarse Y (5.5° air-bearing wedge) and X, chamber bolted on top (r1, r20). Optics gantry with ZP carrier (4 plates, 5-30 keV) and MLL carrier, both mounted simultaneously; ≥5 DOF per ZP module; OSA and beam stop; sample coarse X, rotation (±180°, 40 µrad) and fast XYZ; ~26 motorized axes; metrology 0.5-1 nm via interferometers/capacitive sensors with options for rotating-sample metrology (anti-rotation stage, tracking interferometers, or rotating reference + capacitive sensors) (r1). Directory (2026): fly scanning < 2.5 nm precision at ≤ 7 mm/s, 1 nm metrology, ZPs and MLLs, samples 10x10 mm (2D) / 3 mm Ø (3D) (r6). Contract history reported as a 'PtychoProbe MechatronicsCore' RFI (2019) and RFQ (2020) - not re-verified (no source found); vendor not identified.",
+   "detectors": [
+    "Energy-dispersive SDD at ~90° (Vortex ME7 planned)",
+    "DECTRIS SELUN (fast, in vacuum)",
+    "DECTRIS EIGER2 XE 1.5M (large, in vacuum)"
+   ],
+   "sampleEnvironments": [
+    "Vacuum (100 mPa ≈ 1e-3 mbar or better)",
+    "He / N2 / Ar or air atmosphere",
+    "Planned small set: sample cooling, flow cell, electrical connections (FDR) - not confirmed as built"
+   ],
+   "source": "r1"
+  },
+  {
+   "name": "In-vacuum detector mover (5.6 m flight tube with two detectors)",
+   "enclosure": "33-ID-C",
+   "plain": "A long vacuum tank behind the microscope where two cameras glide on rails, close up for small beams and far back for larger ones, with no air to blur the faint scattered X-rays.",
+   "expert": "Built by IRELEC: single 5.6 m vacuum chamber, two switchable in-vacuum detectors on precise in-vacuum stages; fast detector down to 75 mm, large detector up to 5,000 mm from the sample; goal 1 nm ptychographic resolution (r16). APS solicited a small fast silicon-sensor pixel detector able to operate inside the 'detector flight tube' in May 2024 (r17); Directory lists SELUN and EIGER2 XE 1.5M (r6).",
+   "detectors": [
+    "DECTRIS SELUN",
+    "DECTRIS EIGER2 XE 1.5M"
+   ],
+   "sampleEnvironments": [],
+   "source": "r16"
+  },
+  {
+   "name": "VelociProbe (listed by the APS Directory at 33-ID-C; status unclear)",
+   "enclosure": "33-ID-C (per Directory)",
+   "plain": "The 2017 prototype fast ptychography microscope whose granite, air-bearing and laser-tracking ideas the PtychoProbe inherits.",
+   "expert": "Designed and built at the APS (installed 2-ID-D) to prove APS-U-era fly-scan ptychography: vented air-bearing granite coarse axes, gantry-hung piezo ZP scanner (30/10/30 µm travel, <10 g payload), 6 interferometer axes at 25 kHz, FPGA H-infinity control (2 nm 3σ), 8.8 nm resolution on Au at 200 Hz and ~10 nm on an IC at 3 kHz (Eiger 500K) with a DMM beam (r19). The 2026 Directory lists 'VelociProbe' endstation entries for 33-ID-C ('Fresnel zone plate focusing for micron-size beams'; 'spatial resolution for ptychography of typically 5-20nm'; 'air bearing rotation stage with sub-50nm runout') (r6), while the 2-ID-D Directory page now lists only the Microprobe and Bionanoprobe - relocation not otherwise documented. Velociprobe relative vibration between the granite optics gantry and granite sample X axis: 1.4 nm rms (X), 0.75 nm rms (Y), 5-100 Hz (r19).",
+   "detectors": [
+    "Dectris Eiger X 500K (at 2-ID-D, 2019)"
+   ],
+   "sampleEnvironments": [],
+   "source": "r19"
+  }
+ ],
+ "totalLengthM": 77.6,
+ "geometryNotes": "Single straight-through beamline with no canting: one revolver undulator in the downstream half of the Sector 33 straight feeds a windowless HHL front end; the FE exit table is inside 33-ID-A (r2). Optics are all in 33-ID-A (23.6-36.0 m): M1 deflects horizontally by 5 mrad (2 x 2.5 mrad) at 28.3 m, the DCM (and FDR DMM) add only a ~1 mm horizontal offset, and M2 deflects vertically by 5 mrad at 33.1 m. Consequently the optical axis walks off the source axis by ≈ 34 mm horizontally and ≈ 10 mm vertically at the FOE exit (35 m) and by ≈ 0.21 m horizontally and ≈ 0.18 m vertically at the sample (69.7 m) - calculated from FDR distances; the inboard/outboard and up/down senses are not documented, so a 3D model should either keep the axis straight (as all published drawings do) or note the assumption. Downstream hutches are in-line: 33-ID-B (41.2-52.1 m, ~1.7 m wide) holds SSA1; 33-ID-C (57.4-77.6 m, ~4 m wide) holds SSA2 at its entrance, then ~12 m of empty transport, the PtychoProbe instrument at ~69.7 m and the 5.6 m detector-mover tank to ~76.7 m, with the beam stop at the end wall. Shielded transport pipes connect hutches, passing three small mini-hutches (A-MH-1, B-MH-1, C-MH-1) on the 2024 drawing (r5). On the FDR plan (r1) 33-BM-B/C hutches sit on the inboard side of the ID line, and the 33-ID-C control room and vestibule run along the inboard wall; the hutches of the neighbouring sector appear at an angle on the outboard side. Beam height: 1.400 m above floor at the ID straight (FDR Fig. 3.10, r2); hall beam height at 33-ID is not published, and M2's 5 mrad vertical deflection shifts it by ~0.18 m (up or down, unknown) at the sample. Distances: FDR (2019) values are measured from the straight-section centre; the 2024 elevation drawing (r5; a late-design drawing published before the instrument was installed in Nov 2025, not an as-built record) agrees with the FDR to within ~0.5 m except that the BDA2 assembly appears at ~57.5-59 m and the detector mover spans ~70.6-76.7 m.",
+ "interactiveIdeas": [
+  {
+   "title": "Make the light march in step: the secondary-source aperture",
+   "concept": "Visitors see the source image projected by M1/M2 onto SSA1 and a slit they can close with a slider. Beside it: the zone plate's focal spot (live convolution of the demagnified slit with the lens's Airy pattern) and a flux meter. A toggle swaps the old APS source (275 µm wide) for the APS-U source (14.5 µm). With the old source the visitor must close the slit until almost all the light is lost to get a sharp spot; with APS-U a sharp spot keeps most of the light.",
+   "whatUserLearns": "Why nanoprobes are brightness-limited, what 'coherent' means in practice, and why the upgrade was transformative for this beamline.",
+   "physicsToGetRight": "Spot s = √(s_demag² + s_diff²) (PDR, r3); s_demag = Δ·(f/z) with z ≈ 21.8 m (SSA1→lens) or ~12 m (SSA2), f = 5.8 mm (5 nm ZP at 10 keV) - demagnification ~3,800x; diffraction spot ≈ 1.22·Δr_N (Rayleigh) or ~Δr_N FWHM; coherent filling of a lens of diameter D needs Δ ≲ λz/(πD) = 4.82 µm (FDR, r1). Source image at SSA1 from FDR distances: horizontal magnification ≈ 0.69, vertical ≈ 0.45 (calculated), so at 10 keV flat beam the image is ~24 µm x ~4 µm FWHM - the slit cuts mostly horizontally. Transmitted flux ∝ ∫Gaussian over the slit; coherent flux saturates once Δ exceeds the coherence length (2.9 x 3.0 µm at 10 keV, r1). Slit vibration of 10% of the opening moves the focus by 10% of the spot (PDR). Old lattice: σx = 275 µm, σx' = 11 µrad; APS-U σx = 14.5 µm (r21)."
+  },
+  {
+   "title": "Design your own zone plate",
+   "concept": "Sliders for X-ray energy (5-30 keV), outermost zone width (4-60 nm) and diameter (50-250 µm) redraw a zone plate (with true ring count shown as a number and a zoomable sector), its focal length, focal spot, depth of focus and how 'pure' the X-ray colour must be. A monochromator switch (Si(111) vs Si(311)) turns the focus red when the bandwidth is too wide. Preset buttons load the FDR 5 nm and 20 nm designs.",
+   "whatUserLearns": "How a lens made of rings works, why 5 nm lenses are so hard to make, and why the monochromator crystal choice matters for the smallest spots.",
+   "physicsToGetRight": "λ[nm] = 1.23984/E[keV]; f = D·Δr_N/λ; number of zones N = D/(4Δr_N); NA = λ/(2Δr_N); resolution ≈ 1.22·Δr_N; depth of focus ±2Δr_N²/λ; chromatic requirement λ/Δλ ≥ N (r38). Check against FDR Table 4.45: 10 keV, 4 nm, 180 µm → f = 5.8 mm, N = 11,250; 25 keV, 72 µm → f = 5.81 mm, N = 4,500 (r1). Si(111) ΔE/E ≈ 1.4e-4 (N ≲ 7,000), Si(311) ≈ 3e-5 class - so the 5 nm preset should turn red with Si(111) at 10 keV (N = 11,250) but not at 25 keV (N = 4,500). Efficiency of an ideal binary phase ZP ≤ ~40%; FDR assumes 33% at 1900 nm (10 keV) / 4400 nm (25 keV) thickness - aspect ratios of ~475-1100 are why MLLs (two crossed 1D lenses) and conic/volume zone plates are pursued (r14, r36). Higher diffraction orders need a central stop + order-sorting aperture. Depth of focus for 5 nm at 10 keV is only ±0.3 µm (r3)."
+  },
+  {
+   "title": "Seeing finer than the beam: build a ptychography image",
+   "concept": "A hidden test object (e.g. a chip layout or a cell) is scanned by a glowing probe circle; each position produces a speckle pattern on a virtual detector. The visitor drags the overlap slider and the photon-count slider, then presses 'reconstruct' to watch an in-browser ePIE iterate from noise to an image - and simultaneously recover the probe. With overlap < ~50% or too few photons, the image fails or blurs.",
+   "whatUserLearns": "That the image comes from computation on diffraction data, why overlap and coherence matter, and that resolution is ultimately limited by how many photons you can afford to put on the sample.",
+   "physicsToGetRight": "Far-field intensity I(q) = |F{P(r − r_j)·O(r)}|²; ePIE updates object and probe alternately (r35, r15); reconstruction pixel Δx = λz/(N·p) (e.g. 10 keV, 155 mm, 512 x 75 µm → 0.5 nm; r3); oversampling in ptychography is relaxed by overlap but each pattern must be sampled finer than the speckle (probe-size) scale; overlap typically 60-70% (step ≲ 0.3-0.4 of probe diameter; FDR uses 66%, r1). Resolution is set by the highest q with adequate SNR, and with Porod-like I ∝ q⁻⁴ a 10x finer resolution needs ~10⁴x more photons (r3) - show Poisson noise explicitly. Pitfalls: phase wrapping, global phase/position ambiguities, partial coherence (needs mixed-state probes), position errors (interferometer data), fly-scan blur (r19)."
+  },
+  {
+   "title": "Count the atoms: X-ray fluorescence detective",
+   "concept": "A simulated integrated circuit with copper and tungsten lines and arsenic-doped regions (after PDR Fig. 6.61) is scanned with a 50 nm beam ('old APS nanoprobe') or a 5 nm beam ('PtychoProbe'). An energy spectrum builds up photon by photon; visitors place energy windows on peaks to make element maps, and tune incident energy above/below the As K edge to make arsenic appear or vanish.",
+   "whatUserLearns": "How fluorescence fingerprints identify elements, why the incident energy must exceed an absorption edge, and how a smaller, brighter beam reveals features that were averaged away.",
+   "physicsToGetRight": "Line energies: Cu Kα 8.05 keV (K edge 8.98), Zn Kα 8.64, As Kα 10.54 (K edge 11.87 keV - excitation must exceed it), W Lα 8.40 and Lβ 9.67 keV (L3 edge 10.21), Fe Kα 6.40 keV; overlaps (W Lα near Cu/Zn region; As Kα vs Pb Lα 10.55) must be shown. Counts follow Poisson statistics; detection limit ~3σ above background; signal ∝ flux x dwell x concentration x cross-section x solid angle; 90° geometry in the horizontal plane minimises elastic scatter for horizontally polarized light (r1). 5 nm optics have only ±0.3 µm depth of focus at 10 keV, so thick samples give projections (r3). Projected sensitivity: a few Zn atoms in few-µm samples (r3)."
+  },
+  {
+   "title": "The stillness challenge",
+   "concept": "A 5 nm beam spot sits over a 5 nm feature. Visitors can stomp (floor vibration), open a hutch door (air flow), or nudge a thermostat by 0.1 °C and watch the spot smear and the image blur. Then they 'install' granite stages, air-bearing venting, interferometer feedback and hutch temperature control one by one and see the error budget shrink.",
+   "whatUserLearns": "Why a nanoprobe is as much a precision-engineering feat as an optics one, and why the beamline uses granite, vacuum, horizontal bounces and lasers.",
+   "physicsToGetRight": "Thermal expansion ΔL = α·L·ΔT: 10 cm of aluminium grows ~230 nm and granite ~60 nm for a 0.1 °C change (PDR, r3); target hutch stability 0.1 °C/24 h and floor background < 20 nm rms (2-100 Hz) (r3). Velociprobe relative vibration between the granite optics gantry and the granite sample X axis 1.4 nm rms (X) and 0.75 nm rms (Y) over 5-100 Hz (r19); PtychoProbe fly-scan precision < 2.5 nm, metrology 1 nm (r6). Horizontal deflection is preferred because the horizontal source is larger than the vertical (~4.7x in flat-beam mode, ~1.5x in round-beam mode, r8) (angular errors matter less) and floor vibration is smaller horizontally (r21, r3). The SSA converts upstream optic vibrations into intensity fluctuations rather than spot motion (r3)."
+  },
+  {
+   "title": "Fly-scan race and the data flood",
+   "concept": "A game where the visitor sets scan speed and detector frame rate to cover a whole 1 mm² chip region at 5 nm detail before the 'beamtime clock' runs out. Speeding up blurs each frame unless overlap and frame rate keep up; a data-rate gauge fills a counter of hard drives in real time.",
+   "whatUserLearns": "How continuous scanning, fast detectors and computing turn nanometre microscopy from postage stamps into whole devices.",
+   "physicsToGetRight": "Scan speed v = step x frame rate, step = d_probe·(1 − overlap): 20 nm probe, 66% overlap, 1 MHz → ~6.8 mm/s (FDR's 7 mm/s limit; Directory lists ≤7 mm/s) (r1, r6). Frame sizes: EIGER2 XE 1.5M ~3 MB at 2 kHz ≈ 6 GB/s; 200x200-pixel fast detector at 30 kHz ≈ 2.4 GB/s; annual raw ≈ 48.8 PB (r15). Velociprobe benchmark: 3 kHz frames, 10 nm resolution, ~9e4 resolution elements/s (r19); PSI 2024: 14,000 resolution elements/s at 4 nm (r27). Motion during an exposure is handled with mixed-state (multi-mode) probe reconstruction (r19); detector duty cycle matters (SELUN >98.8%, r18)."
+  },
+  {
+   "title": "Why does the monochromator bounce sideways?",
+   "concept": "Two views of the same crystal pair: bouncing up (σ geometry) vs sideways (π geometry) with the undulator's horizontally polarised light. A dial sweeps photon energy; a meter shows relative throughput, and a vibration view shows how much the focus moves for a 0.1 µrad wobble in each orientation.",
+   "whatUserLearns": "That X-ray polarization and source shape drive real engineering choices - here trading a little flux at low energy for stability.",
+   "physicsToGetRight": "Bragg: λ = 2d·sinθ_B, d(Si 111) = 3.1356 Å, d(Si 311) = 1.6375 Å. π-polarization factor |cos 2θ_B| (dynamical) vanishes at θ_B = 45°: Si(111) at 2.80 keV, Si(311) at 5.35 keV (r21). Two-crystal throughput relative to σ: Si(111) ≈ 0.70 at 6 keV, 0.91 at 10 keV; Si(311) 0.66 at 10 keV (r21). That is why the 2017 PDR asked for a vertically polarized undulator (r3) and why the as-built Si(111)-only listing is plausible (r6). Angular jitter δ of a mirror moves the image by 2δ·q; for a two-crystal DCM a common rotation of both crystals leaves the exit direction unchanged, so only the crystal-to-crystal (relative) angle error δrel matters (image shift 2δrel·q); it matters relative to the source size in that plane (flat beam σx ≈ 14.5 µm vs σy ≈ 3.1 µm, r8)."
+  }
+ ],
+ "funFacts": [
+  "The 5 nm zone-plate design for 10 keV has 11,250 concentric rings packed into a disc just 180 µm across - about the width of two human hairs (FDR Table 4.45, r1).",
+  "At 5 nm resolution and 10 keV the beam stays in focus over only about ±0.3 µm - about 1/100 of the width of a human hair - so most real samples are thicker than the focus is 'deep' (r3).",
+  "A temperature change of just 0.1 °C makes a 10 cm aluminium part grow 230 nm and a granite part 60 nm - 12 to 46 times the 5 nm goal, which is why the microscope is built from granite and the hutch is temperature-controlled (r3).",
+  "The microscope's granite blocks float on air cushions while moving and then 'land' for granite-to-granite contact; the vertical stage is a pair of granite wedges with a 5.5° design angle (r20, r19).",
+  "Before the upgrade, high-resolution work at the 2-ID-D microprobe (Sector 2, on the far side of the ring) threw away about 90% of the X-rays through narrow slits just to get a clean focus (r3).",
+  "The undulator is a 'revolver': it carries two magnet arrays with different spacings (2.1 and 2.5 cm) and rotates to swap them, after safely opening its gap (r2, r7).",
+  "The cameras live inside a 5.6-metre-long vacuum tank on rails; one can sit just 75 mm behind the sample, the other can retreat 5 metres (r16).",
+  "PtychoProbe is expected to generate about 48.8 petabytes of raw data a year - which the APS describes as roughly 100 times (by straight division ~67 times) the ~0.73 PB a year of the three APS microscopy instruments it builds on (r15).",
+  "Imaging one cubic millimetre of brain at 10 nm voxels would produce about a petabyte of data (r3).",
+  "PtychoProbe was the last of the APS-U feature beamlines to be installed; the team was still placing the instrument in November 2025 (r12).",
+  "The APS feature page compares the goal to biology: a DNA strand is 2.5 nm thick, a sheet of paper about 100,000 nm - and the beamline's top resolution target is 5 nm, with ptychography reaching toward 1 nm (r5).",
+  "Its prototype, the Velociprobe, kept the granite blocks carrying lens and sample moving relative to each other by only 1.4 nm and 0.75 nm rms (5-100 Hz vibrations), and imaged a gold test pattern at 8.8 nm resolution (r19)."
+ ],
+ "figures": [
+  {
+   "file": "figs/ptychoprobe/fdr2019-fig4-31-layout-plan.png",
+   "caption": "Layout of the PtychoProbe beamline at 33-ID (plan view; metre scale 24-78 m from the source). FDR 2019, Fig. 4.31 (printed p. 4-57). Red outlines mark new construction ('Extend FOE', 'Extend 33-ID-C').",
+   "source": "r1",
+   "page": 80,
+   "whatItShows": "Engineering plan of 33-ID-A (FOE, extended to ~36 m), the narrow 33-ID-B SSA hutch (~41-52 m), the long 33-ID-C station (~57-77.5 m) with the instrument and flight tube near 69-77 m, the inboard control room and vestibule, adjacent 33-BM-B/C hutches and removed mini-hutches."
+  },
+  {
+   "file": "figs/ptychoprobe/fdr2019-fig4-32-optical-layout.png",
+   "caption": "Basic optical layout of the PtychoProbe beamline: M1 (horizontal) and M2 (vertical) focus the source onto SSA1 (48 m) or SSA2 (58 m); DCM/DMM select the bandwidth; nanofocusing optics (NFO) at ~70 m; energy-dispersive detector (EDD) and pixel array detector (PAD, ~75 m). FDR 2019, Fig. 4.32 (printed p. 4-60).",
+   "source": "r1",
+   "page": 83,
+   "whatItShows": "Horizontal and vertical ray diagrams of the two-stage imaging (source → SSA → nanofocus), the alternative SSA positions with BPMs, and detector placement."
+  },
+  {
+   "file": "figs/ptychoprobe/fdr2019-fig4-37-instrument-schematic.png",
+   "caption": "Schematic of the PtychoProbe instrument: granite base, granite coarse Y and X axes, vacuum chamber, optics gantry (CRSZ) carrying ZP or MLL modules with beam stop and order-sorting aperture, and the sample stack (coarse X, rotation, fast XYZ). FDR 2019, Fig. 4.37 (printed p. 4-67).",
+   "source": "r1",
+   "page": 90,
+   "whatItShows": "The stack of motions from floor to sample and the names of the axes - the basis for a 3D model of the endstation (metrology and detectors not shown)."
+  },
+  {
+   "file": "figs/ptychoprobe/aps2024-33id-elevation-layout.png",
+   "caption": "Elevation drawing of 33-ID from the APS PtychoProbe feature page (2024), labelling M1, DCM and M2 in 33-ID-A, BDA1 in 33-ID-B, mini-hutches A-MH-1, B-MH-1, C-MH-1, and BDA2, 'Ptycho Endstation' and 'Detector Mover' in 33-ID-C (scale 24-80 m). Image re-rendered from the published PNG (knocked-out labels made legible) and upscaled 1.47x.",
+   "source": "r5",
+   "page": 0,
+   "whatItShows": "Late-design (2024, pre-installation) hutch boundaries and component positions; notably no separate multilayer monochromator is labelled and the detector mover spans ~70.6-76.7 m."
+  },
+  {
+   "file": "figs/ptychoprobe/aps2024-detector-mover-rendering.png",
+   "caption": "CAD rendering of the 33-ID in-vacuum detector mover (5.6 m vacuum chamber with person for scale), from the APS PtychoProbe feature page (2024); built by IRELEC. Upscaled 1.57x.",
+   "source": "r5",
+   "page": 0,
+   "whatItShows": "Shape and scale of the detector vacuum tank: a ~1 m-diameter cylinder on a steel frame with ports, connected to the instrument at the upstream end - useful for the 3D model."
+  }
+ ],
+ "references": [
+  {
+   "id": "r1",
+   "title": "Advanced Photon Source Upgrade Project Final Design Report, Chapter 4: Experimental Facilities, Section 4-6 'PtychoProbe 33-ID' (Tables 4.38-4.47, Figs. 4.31-4.38, printed pp. 4-55 to 4-70)",
+   "authors": "APS Upgrade Project (Argonne National Laboratory)",
+   "year": 2019,
+   "venue": "APS-U Final Design Report (May 2019)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%204%20-%20Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r2",
+   "title": "APS-U Final Design Report, Chapter 3: Front Ends and Insertion Devices (Table 3.1 front-end configurations; Sec. 3-2.1 HHL front end, Fig. 3.2; Table 3.13 ID selections by sector; Sec. 3-3.3.2 revolver undulators; Table 3.22 HPMU drive specs)",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "APS-U Final Design Report (May 2019)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%203%20-%20Front%20Ends%20and%20Insertion%20Devices.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r3",
+   "title": "APS Upgrade Preliminary Design Report, Chapter 6: Experimental Facilities, Section 6-8 'PtychoProbe' (science case, optical concept, detectors, conventional-facility and R&D requirements)",
+   "authors": "APS Upgrade Project",
+   "year": 2017,
+   "venue": "APS-U Preliminary Design Report",
+   "url": "https://www.aps.anl.gov/sites/default/files/APS-Uploads/Aps-Upgrade/Chapter%206-Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r4",
+   "title": "APS Upgrade Preliminary Design Report, Chapter 3: Science, Section 3-8 'Ptychoprobe' (multiscale visualization, energy storage, catalysis, nano-electronics, earth/planetary, life sciences, civil engineering)",
+   "authors": "APS Upgrade Project",
+   "year": 2017,
+   "venue": "APS-U Preliminary Design Report",
+   "url": "https://www.aps.anl.gov/sites/default/files/APS-Uploads/Aps-Upgrade/Chapter%203-Science.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r5",
+   "title": "PtychoProbe at 33-ID (APS feature-beamline page, incl. beamline elevation drawing and detector-mover rendering; page date 01.26.2024)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Feature-Beamlines/PtychoProbe",
+   "type": "web"
+  },
+  {
+   "id": "r6",
+   "title": "APS Beamline Directory: 33-ID-C PtychoProbe (status, specifications, endstations, detectors, software; accessed 2026-10-08)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/241",
+   "type": "web"
+  },
+  {
+   "id": "r7",
+   "title": "Insertion Devices by Sector (APS Magnetic Devices group table; 'Updated: Sep. 22, 2026')",
+   "authors": "APS Magnetic Devices group (maintained by W. Li)",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Magnetic-Devices/Insertion-Devices/Insertion-Devices-by-Sector",
+   "type": "web"
+  },
+  {
+   "id": "r8",
+   "title": "APS Storage Ring Parameters (nominal ID source parameters, flat- and round-beam modes)",
+   "authors": "M. Borland",
+   "year": 2024,
+   "venue": "ops.aps.anl.gov (Aug. 27, 2024)",
+   "url": "https://ops.aps.anl.gov/SRparameters/SRparameters.html",
+   "type": "web"
+  },
+  {
+   "id": "r9",
+   "title": "APS Beamline Commissioning Progress - weekly update (chart dated October 5, 2026; linked from the APS home page)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "anl.app.box.com",
+   "url": "https://anl.app.box.com/s/rjtjm9d9b5v2gk35l0s39zgnagfye757",
+   "type": "web"
+  },
+  {
+   "id": "r10",
+   "title": "Upgraded APS Update: August 2025 (projected schedule for the last five feature beamlines)",
+   "authors": "J. Lang",
+   "year": 2025,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-August-2025",
+   "type": "news"
+  },
+  {
+   "id": "r11",
+   "title": "Upgraded APS Update: October 2025 ('This month we moved both the PtychoProbe at 33-ID and Atomic at 34-ID into commissioning')",
+   "authors": "J. Lang",
+   "year": 2025,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-October-2025",
+   "type": "news"
+  },
+  {
+   "id": "r12",
+   "title": "Upgraded APS Update: November 2025 (photo of the team installing the PtychoProbe instrument at 33-ID, 'the final feature beamline to be installed')",
+   "authors": "J. Lang",
+   "year": 2025,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-November-2025",
+   "type": "news"
+  },
+  {
+   "id": "r13",
+   "title": "Upgraded APS Update: January 2026 (with Beamline Commissioning Progress chart of Jan. 26, 2026)",
+   "authors": "J. Lang",
+   "year": 2026,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-January-2026",
+   "type": "news"
+  },
+  {
+   "id": "r14",
+   "title": "Advanced Photon Source Strategic Plan 2025-2029 (feature-beamline commissioning timeline; optics strategy: 5 nm goal for PtychoProbe, conic zone plates; connectomics)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "APS (Feb. 2025)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/APS/APS_Strategic_Plan_2025-29.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r15",
+   "title": "APS Scientific Computing Strategy (Sec. 2.7 'PtychoProbe APS-U Feature Beamline', Table 2-14 detector data rates)",
+   "authors": "Advanced Photon Source, X-ray Science Division",
+   "year": 2024,
+   "venue": "APS (Sept. 11, 2024)",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/XSD/XSD-Strategic-Plans/APSScientificComputingStrategy-2024-09-11-FINAL.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r16",
+   "title": "Ptychoprobe Detector Mover for 33-ID beamline (case study)",
+   "authors": "IRELEC (ALCEN group)",
+   "year": 2024,
+   "venue": "irelec-alcen.com",
+   "url": "https://www.irelec-alcen.com/case-study/ptychoprobe-detector-mover-for-33-id-beamline/",
+   "type": "web"
+  },
+  {
+   "id": "r17",
+   "title": "33ID PtychoProbe Small Fast Detector (DOE/Argonne solicitation 4-B138-Q-00210-00, posted May 22, 2024)",
+   "authors": "UChicago Argonne LLC / DOE",
+   "year": 2024,
+   "venue": "SAM.gov (mirrored by HigherGov)",
+   "url": "https://www.highergov.com/contract-opportunity/33id-ptychoprobe-small-fast-detector-4-b138-q-00210-00-o-b5200/",
+   "type": "web"
+  },
+  {
+   "id": "r18",
+   "title": "SELUN high-speed photon-counting detector (product specifications)",
+   "authors": "DECTRIS Ltd.",
+   "year": 2025,
+   "venue": "dectris.com",
+   "url": "https://dectris.com/en/detectors/x-ray-detectors/selun/",
+   "type": "web"
+  },
+  {
+   "id": "r19",
+   "title": "The Velociprobe: An ultrafast hard X-ray nanoprobe for high-resolution ptychographic imaging",
+   "authors": "J. Deng, C. Preissner, J. A. Klug, S. Mashrafi, C. Roehrig, Y. Jiang, Y. Yao, M. Wojcik, M. D. Wyman, D. Vine, K. Yue, S. Chen, T. Mooney, M. Wang, Z. Feng, D. Jin, Z. Cai, B. Lai, S. Vogt",
+   "year": 2019,
+   "venue": "Rev. Sci. Instrum. 90, 083701 (doi:10.1063/1.5103173)",
+   "url": "https://doi.org/10.1063/1.5103173",
+   "type": "paper"
+  },
+  {
+   "id": "r20",
+   "title": "A Family of High-Stability Granite Stages for Synchrotron Applications (MEDSI2020 THOA01; PtychoProbe wedge-stage design point 5.5 deg)",
+   "authors": "C. A. Preissner, S. J. Bean, M. Erdmann, M. Bergeret, J. R. Nasiatka",
+   "year": 2021,
+   "venue": "Proc. MEDSI2020 (JACoW), p. 341, doi:10.18429/JACoW-MEDSI2020-THOA01",
+   "url": "https://accelconf.web.cern.ch/medsi2020/papers/thoa01.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r21",
+   "title": "Efficiency of Horizontal Monochromators for APS-U Beamlines (ANL/APS/LS-347)",
+   "authors": "T. Graber",
+   "year": 2017,
+   "venue": "APS Light Source Note",
+   "url": "https://www.aps.anl.gov/files/APS-sync/lsnotes/files/APS_1708398.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r22",
+   "title": "X-ray Optics Considerations for the APS Upgrade (APS-U Forum talk; optics needs table: HHL mirrors, horizontal HHL DCMs and zone plates for PtychoProbe)",
+   "authors": "T. Graber",
+   "year": 2017,
+   "venue": "APS Upgrade Forum, Nov. 8, 2017",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/APSU/Forum_Talk_11_9.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "r23",
+   "title": "Virtual Town Hall on ISN and PtychoProbe Construction at 19-ID and 33-ID (Dec. 2, 2021; V. Rose: 'PtychoProbe and scientific program')",
+   "authors": "Advanced Photon Source",
+   "year": 2021,
+   "venue": "APS News",
+   "url": "https://www.aps.anl.gov/APS-News/2021-11-11/virtual-town-hall-on-isn-and-ptychoprobe-construction-at-19-id-and-33-id/2021",
+   "type": "news"
+  },
+  {
+   "id": "r24",
+   "title": "Hybrid First Experiments Workshop for the In Situ Nanoprobe (19-ID) and PtychoProbe (33-ID), Aug. 3-4, 2023 (agenda and abstracts)",
+   "authors": "Advanced Photon Source",
+   "year": 2023,
+   "venue": "APS News",
+   "url": "https://www.aps.anl.gov/APS-News/2023-06-29/hybrid-first-experiments-workshop-for-in-situ-nanoprobe-isn-beamline-at-19-id",
+   "type": "news"
+  },
+  {
+   "id": "r25",
+   "title": "PtychoProbe (APS-U beamline white paper WP30)",
+   "authors": "S. Vogt, D. Vine, B. Lai, J. Maser, R. Harder, A. Lanzirotti, S. Sutton, D. Tiede, K. Mulfort, C. Murray, R. Jaramillo, N. Kasthuri, C. Jacobsen, V. Rose, S. Sullivan, C. Preissner, E. Lavely, D. Fenning, G. Woloschak, T. Buonassisi",
+   "year": 2015,
+   "venue": "APS-U white paper (PDF dated Feb. 2016)",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/Beamlines/Abstracts/WP30.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r26",
+   "title": "APS Upgrade - Beamline Engineering Overview (MEDSI'25 TUOA01; 'All feature beamlines met or exceeded their KPPs')",
+   "authors": "O. Schmidt, D. Capatina, J. Knopp, R. Winarski, S. Bean, A. Khan, M. Ramanathan",
+   "year": 2025,
+   "venue": "Proc. MEDSI2025 (JACoW), doi:10.18429/JACoW-MEDSI2025-TUOA01",
+   "url": "https://proceedings.jacow.org/medsi2025/pdf/TUOA01.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r27",
+   "title": "High-performance 4-nm-resolution X-ray tomography using burst ptychography",
+   "authors": "T. Aidukas, N. W. Phillips, A. Diaz, E. Poghosyan, et al. (PSI/ETH/EPFL/USC)",
+   "year": 2024,
+   "venue": "Nature 632, 81-88 (doi:10.1038/s41586-024-07615-6)",
+   "url": "https://doi.org/10.1038/s41586-024-07615-6",
+   "type": "paper"
+  },
+  {
+   "id": "r28",
+   "title": "High-resolution non-destructive three-dimensional imaging of integrated circuits",
+   "authors": "M. Holler, M. Guizar-Sicairos, E. H. R. Tsai, R. Dinapoli, et al.",
+   "year": 2017,
+   "venue": "Nature 543, 402-406 (doi:10.1038/nature21698)",
+   "url": "https://doi.org/10.1038/nature21698",
+   "type": "paper"
+  },
+  {
+   "id": "r29",
+   "title": "Correlative 3D x-ray fluorescence and ptychographic tomography of frozen-hydrated green algae",
+   "authors": "J. Deng, Y. H. Lo, M. Gallagher-Jones, S. Chen, et al. (incl. C. Jacobsen, J. Miao)",
+   "year": 2018,
+   "venue": "Science Advances 4, eaau4548 (doi:10.1126/sciadv.aau4548)",
+   "url": "https://doi.org/10.1126/sciadv.aau4548",
+   "type": "paper"
+  },
+  {
+   "id": "r30",
+   "title": "Deep learning at the edge enables real-time streaming ptychographic imaging",
+   "authors": "A. V. Babu, T. Zhou, S. Kandel, et al. (incl. M. J. Cherukara)",
+   "year": 2023,
+   "venue": "Nature Communications 14, 7059 (doi:10.1038/s41467-023-41496-z)",
+   "url": "https://doi.org/10.1038/s41467-023-41496-z",
+   "type": "paper"
+  },
+  {
+   "id": "r31",
+   "title": "Direct measurements of 3d structure, chemistry and mass density during the induction period of C3s hydration",
+   "authors": "Q. Hu, M. Aboustait, T. Kim, M. T. Ley, et al.",
+   "year": 2016,
+   "venue": "Cement and Concrete Research 89, 14-26 (doi:10.1016/j.cemconres.2016.07.008)",
+   "url": "https://doi.org/10.1016/j.cemconres.2016.07.008",
+   "type": "paper"
+  },
+  {
+   "id": "r32",
+   "title": "The PtychoProbe Beamline: Bridging Nanoscale Structure and Chemistry for Materials Discovery (APS March Meeting 2026, session MAR-M20, talk 6; abstract read via search-engine summary only - page is bot-protected)",
+   "authors": "V. Rose, J. Deng, E. Chen, C. Preissner, B. Lai",
+   "year": 2026,
+   "venue": "APS Global Physics Summit / March Meeting 2026 (abstract)",
+   "url": "https://meetings-archive.aps.org/smt/2026/mar-m20/6/",
+   "type": "talk"
+  },
+  {
+   "id": "r33",
+   "title": "Assistant Beamline Scientist - PtychoProbe (Argonne job posting, 2026-04-15 to 2026-07-13) [dates not re-verified; other mirrors give a posting date of 17 Apr 2026; not cited in this dossier]",
+   "authors": "Argonne National Laboratory",
+   "year": 2026,
+   "venue": "lightsources.org job board",
+   "url": "https://lightsources.org/job/assistant-beamline-scientist-ptychoprobe/",
+   "type": "web"
+  },
+  {
+   "id": "r34",
+   "title": "Proposal Types and Templates (33-ID-C listed among beamlines accepting General User proposals; page dated 10.07.2026)",
+   "authors": "Advanced Photon Source User Office",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Users-Information/About-Proposals/Proposal-Types",
+   "type": "web"
+  },
+  {
+   "id": "r35",
+   "title": "High-Resolution Scanning X-ray Diffraction Microscopy",
+   "authors": "P. Thibault, M. Dierolf, A. Menzel, O. Bunk, C. David, F. Pfeiffer",
+   "year": 2008,
+   "venue": "Science 321, 379-382 (doi:10.1126/science.1158573)",
+   "url": "https://doi.org/10.1126/science.1158573",
+   "type": "paper"
+  },
+  {
+   "id": "r36",
+   "title": "X-ray focusing with efficient high-NA multilayer Laue lenses",
+   "authors": "S. Bajt, M. Prasciolu, H. Fleckenstein, et al. (incl. H. N. Chapman)",
+   "year": 2018,
+   "venue": "Light: Science & Applications 7, 17162 (doi:10.1038/lsa.2017.162)",
+   "url": "https://doi.org/10.1038/lsa.2017.162",
+   "type": "paper"
+  },
+  {
+   "id": "r37",
+   "title": "Argonne celebrates successful completion of the Advanced Photon Source Upgrade (DOE final approval announced 5 Feb 2026; CD-4 review late Sept 2025; nine new beamlines)",
+   "authors": "Argonne National Laboratory",
+   "year": 2026,
+   "venue": "APS News, 2026-02-05",
+   "url": "https://www.aps.anl.gov/APS-News/2026-02-05/argonne-celebrates-successful-completion-of-the-advanced-photon-source-upgrade",
+   "type": "news"
+  },
+  {
+   "id": "r38",
+   "title": "X-Rays and Extreme Ultraviolet Radiation: Principles and Applications, 2nd ed. (zone-plate optics: f = DΔr/λ, resolution ~1.22Δr, depth of focus ±2Δr²/λ, monochromaticity λ/Δλ ≥ N)",
+   "authors": "D. Attwood, A. Sakdinawat",
+   "year": 2017,
+   "venue": "Cambridge University Press",
+   "url": "https://doi.org/10.1017/CBO9781107477629",
+   "type": "paper"
+  },
+  {
+   "id": "r39",
+   "title": "Design and Technical Commissioning of the In Situ Nanoprobe Endstation and Instrument at the Advanced Photon Source (MEDSI'25 TUOA02; ISN KB working distance 61 mm, 20 nm focus at 25 keV)",
+   "authors": "B. Davis, Z. Cai, S. Kearney, B. Lai, J. Maser, P. Mercado-Lozano, T. Mooney, L. Rebuffi, X. Shi, D. Shu, S. Wieghold",
+   "year": 2025,
+   "venue": "Proc. MEDSI2025 (JACoW), doi:10.18429/JACoW-MEDSI2025-TUOA02",
+   "url": "https://proceedings.jacow.org/medsi2025/pdf/TUOA02.pdf",
+   "type": "paper"
+  }
+ ],
+ "openQuestions": [
+  "Source: the Sep 2026 ID table shows only ONE revolver (APS21R25#3, downstream position; 'DS-1'/'DS-2' are its two magnet structures) at Sector 33, whereas the FDR baseline was two in-line revolvers (4.6 m). Whether a second device is planned is not documented; the S33 row's period count is garbled (112/94 periods inferred from identical devices at S08/S09/S19/S20). For the as-built source the FDR values are optimistic: central-cone flux by ~2x and brightness/coherent flux (hence focused coherent flux) by ~3x (Gaussian-beam estimate, calculated) - the Directory's 1e11 ph/s at 10 keV is consistent with this.",
+  "Monochromators: the 2026 Directory lists only a DCM with ΔE/E = 1.4e-4 (Si(111)); the FDR optics text itself specifies 'a standard Si(111)' HDCM, with Si(311) appearing only in its calculations, and the FDR component table includes a Mo/B4C double-multilayer monochromator at 31.9 m. The 2024 elevation drawing labels only M1/DCM/M2. Installation of Si(311) crystals and of the DMM is unconfirmed.",
+  "Polarization trade-off: the PDR required a vertically polarized undulator for the horizontal DCM; the FDR switched to a standard (horizontally polarized) revolver. How the beamline obtains Si(311)-class bandwidth for 4 nm-zone optics at 5-8 keV (where π-geometry Si(311) reflectivity collapses) is not documented.",
+  "Station naming: FDR text says the PtychoProbe 'will be located at 33-ID-D', but its figures and the 2026 Directory use 33-ID-C; we use 33-ID-C.",
+  "The Directory also lists a 'VelociProbe' endstation at 33-ID-C (ZP focusing, 5-20 nm ptychography, air-bearing rotation with <50 nm runout), while recent papers place the Velociprobe at 2-ID-D (data mostly pre-upgrade) and the current 2-ID-D listing no longer mentions it. Whether the Velociprobe was relocated to 33-ID-C (e.g. as a commissioning or second instrument) is unconfirmed.",
+  "Nanofocusing optics actually in use: the Directory lists a 20 x 20 nm focus in 2026; whether 5 nm-class ZPs or MLLs have been installed/commissioned, and whether conic zone plates (APS Optics LDRD) will be used, is not published.",
+  "Mirror details as built (cooling: PDR LN2 vs FDR notched side-cooling; exact radii; deflection senses inboard/outboard and up/down) are not public; the 3D model must assume.",
+  "XRF detector as built: 2024 plan names a Vortex ME7; the Directory says only 'Energy Dispersive Detector'. FDR/PDR ideas of a backscatter detector, capillary-collimated detector and a superconducting emission spectrometer have no status information.",
+  "Sample environments: the FDR lists only possibilities (cooling, flow cell, electrical feedthroughs; vacuum/He/N2/Ar/air). No cryogenic sample capability for PtychoProbe is confirmed in 2026 sources (cryo is offered at the 2-ID-D Bionanoprobe).",
+  "Positions differing between FDR (2019) and the 2024 drawing: BDA2 (57.8 m vs ~57.5-59 m), detector mover (70.0-76.5 vs ~70.6-76.7 m). Unidentified items on the 2024 drawing: a red-outlined box at ~60-61.3 m and a pair of stands 1000 mm apart at ~67-68 m in 33-ID-C; functions of the three mini-hutches.",
+  "Front-end component positions (XBPM1, shutters, ratchet wall) are not published for 33-ID; values in the component list are generic placeholders.",
+  "Timeline: the APS March Meeting 2026 abstract (read only via search summary) and the Aug 2025 update anticipated users in mid-2026, but the 5 Oct 2026 chart still shows technical commissioning (stage 4). The date of first early-science experiments is unknown.",
+  "Performance demonstrated with beam (focus size, coherent flux, ptychographic resolution at 33-ID) has not yet been published as of Oct 2026.",
+  "SELUN (Si sensor) is specified by DECTRIS for 8-30 keV (thresholds from 4.6 keV); how ptychography at 5-8 keV is handled (EIGER2 XE, or SELUN below its nominal range) is not documented.",
+  "The Directory's VelociProbe entry at 33-ID-C speaks of 'Fresnel zone plate focusing for micron-size beams' - possibly a defocused/large-beam ('ptychography-poly') mode; its meaning is not explained."
+ ],
+ "verification": {
+  "checkedBy": "adversarial-verifier",
+  "date": "2026-10-09",
+  "claims": [
+   {
+    "claim": "Station designation 33-ID-C; status 'Commissioning'; DCM, 5-30 keV, resolution 1.4e-4, flux 1e11 @10 keV, focused 0.02 x 0.02 µm; contacts Rose/Deng/Lai/Chen; detectors EIGER2 XE 1.5M, SELUN, energy-dispersive; software Ptychodus/PtychoNN/Tike/XRFMaps/XRFTomo",
+    "verdict": "confirmed",
+    "source": "APS Beamline Directory 33-ID-C (r6), fetched 2026-10-09"
+   },
+   {
+    "claim": "Directory endstation specs: samples 10x10 mm (2D) / 3 mm dia (3D); fly scanning better than 2.5 nm precision, up to 7 mm/s; 1 nm optics-to-sample metrology; ZPs and MLLs",
+    "verdict": "confirmed",
+    "source": "r6"
+   },
+   {
+    "claim": "Directory VelociProbe entry at 33-ID-C described as 'ZP focusing; 5-20 nm ptychography; sub-50 nm runout rotation'",
+    "verdict": "corrected",
+    "source": "r6 actually reads 'Fresnel zone plate focusing for micron-size beams'; 2-ID-D Directory page now lists only Microprobe and Bionanoprobe (Directory/5)"
+   },
+   {
+    "claim": "Single revolver APS21R25#3 at S33 (upstream empty); 2.1 cm: K 1.38, E1 8.34 keV, 216 kW/mrad2, 5.4 kW; 2.5 cm: K 1.99, E1 4.59 keV, 225 kW/mrad2, 8.0 kW; user min gap 8.9 mm; ID table updated Sep 22, 2026",
+    "verdict": "confirmed",
+    "source": "APS Insertion Devices by Sector table (r7)"
+   },
+   {
+    "claim": "Device is in the 'downstream (DS-1) position'",
+    "verdict": "corrected",
+    "source": "r7: US/DS are positions; '-1/-2' suffixes label the two magnet structures of the single DS device (same convention at S08/S16/S19/S34)"
+   },
+   {
+    "claim": "112/94 periods inferred from identical devices (~2.35 m)",
+    "verdict": "confirmed",
+    "source": "r7 rows for APS21R25#4/#5/#1/#2/#9/#10 at S08, S09, S19, S20 list N = 112 (2.1 cm) and 94 (2.5 cm)"
+   },
+   {
+    "claim": "FDR baseline: 4.6 m revolver 21/25 mm, centre of straight, 2.28 kW through 2x2 mm mask at Ky 1.939; Table 3.13 'Dual Inline Rev 2.5/2.1 + Rev 2.5/2.1, phase shifter/corrector'",
+    "verdict": "confirmed",
+    "source": "FDR Ch.4 Table 4.38 (r1); FDR Ch.3 Table 3.13 (r2)"
+   },
+   {
+    "claim": "FDR flux/coherence numbers ~2x optimistic for the as-built single device",
+    "verdict": "corrected",
+    "source": "Calculated (Gaussian beam, r8 flat-beam parameters): flux ~x0.5 but brightness/coherent flux ~x0.34 at 5-25 keV, i.e. ~3x optimistic for coherent quantities; consistent with Directory 1e11 vs FDR 1.8e11 ph/s"
+   },
+   {
+    "claim": "Revolver: two structures 90 degrees apart on a common strongback, gap opened before rotation; 4-motor gap mechanism; min gap 8.5 mm; gap resolution 0.5 µm",
+    "verdict": "confirmed",
+    "source": "FDR Ch.3 Sec. 3-3.3.2 and Table 3.22 (r2)"
+   },
+   {
+    "claim": "HHL front end: 21 kW / 590 kW/mrad2; windowless with built-in differential pump; 2x2 mm exit mask; 5x5 mm W exit collimator narrowed for small-offset monos; XBPM1 range +/-200/100 µm, AC 3.7/2.4 µm; exit table inside FOE",
+    "verdict": "confirmed",
+    "source": "FDR Ch.3 Sec. 3-2.1, Tables 3.3-3.4 (r2); FDR Ch.4 Sec. 4-6.4 (r1)"
+   },
+   {
+    "claim": "Component table positions (exit mask 25.4, collimator 26.1, slits 27.0, M1 28.3, DCM 30.6, DMM 31.9, M2 33.1, SSA1 47.9, SSA2 57.8, instrument 69.7, flight tube 70.0-76.5, detector 75.3 'Jungfrau / Hitachi ME-4', beam stop 77.1 m)",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.39 (r1)"
+   },
+   {
+    "claim": "M1: horizontal, 2.5 mrad, bendable, Si/Rh/Pt stripes, <0.1 µrad slope error after thermal correction, R ~10 km; absorbs 332 W (U21, K 1.305, 8.8 keV) / 454 W (U25) for 1x1 mm2; notch cooling ~10x; dR1 14%, dR2 7%",
+    "verdict": "confirmed",
+    "source": "FDR Sec. 4-6.6.4-4-6.6.5, Table 4.47 (r1); '~15% flux loss' reworded to FDR's '~15% flux change'"
+   },
+   {
+    "claim": "M2: vertical, 2.5 mrad, <0.05 µrad, R ~11 km, Si/Rh/Pt",
+    "verdict": "confirmed",
+    "source": "FDR Sec. 4-6.6.4 (r1)"
+   },
+   {
+    "claim": "HDCM LN2-cooled, fixed exit, 1 mm offset; FDR 'also assumes Si(311) crystals'",
+    "verdict": "corrected",
+    "source": "FDR optics text specifies 'a standard Si(111)' HDCM; Si(311) appears only in FDR calculations (Tables 4.41-4.42, Figs 4.33/4.36) (r1)"
+   },
+   {
+    "claim": "DMM Mo/B4C d = 25 A (9/16) x 300 or 20 A (9/11) x 600, 40% smaller bandwidth, 15% lower reflectance; substrate specs; 10-12 W on SSA1",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.43 and SSA power study (r1)"
+   },
+   {
+    "claim": "DMM gives 'about 100 times more light'",
+    "verdict": "corrected",
+    "source": "Unsourced; FDR SSA1 power is 12.14 W (DMM) vs 0.225 W (Si(111)), ~50x - reworded to 'tens of times'"
+   },
+   {
+    "claim": "SSA1/SSA2: water-cooled, +/-50 µm range, 100 nm resolution/repeatability; coherent opening lambda z/(pi D) = 4.82 µm; SSA1 power 44 mW (311) / 225 mW (111) / 12.14-10.14 W (DMM); Glidcop <= 5 deg faces with W blades",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.44 and Sec. 4-6.6.5 (r1); 4.82 µm reproduced with z = 22 m, D = 180 µm, 10 keV (calculated)"
+   },
+   {
+    "claim": "Coherence length at SSA1 2.9 x 3.0 µm (10 keV), 0.8 x 1.0 µm (25 keV); coherent flux 5.1e12 (Si111, 10 keV), 7.5e11 (Si311, 10 keV), 2.5e11 (Si111, 25 keV)",
+    "verdict": "confirmed",
+    "source": "FDR Tables 4.40-4.41 (r1)"
+   },
+   {
+    "claim": "Focus predictions 3.1e10 ph/s in 4x4 nm2 FWHM (4 nm ZP, Si311, 10 keV) and 1.8e11 ph/s in 10x10 nm2 (16 nm ZP, Si111, 10 keV)",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.42 (r1)"
+   },
+   {
+    "claim": "Ideal ZP: 4 nm zones, 180 µm, f 5.8 mm, 1900 nm / 33%, 11,250 zones at 10 keV; 72 µm, 5.81 mm, 4400 nm, 4500 zones at 25 keV; 16 nm: 23.25 mm, 2812 zones; ZP carrier 5-8/8-12/12-18/18-30 keV; MLLs preferred >13 keV",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.45 and Sec. 4-6.7.2 (r1); f = D dr/lambda and N = D/(4 dr) recomputed"
+   },
+   {
+    "claim": "Chromatic condition: 4 nm zones need Si(311)-class bandwidth",
+    "verdict": "corrected",
+    "source": "Only at low energy: N = 11,250 at 10 keV exceeds Si(111) ~7,100, but N = 4,500 at 25 keV does not (calculated from r1 Table 4.45; PDR says Si(311) needed up to ~10 keV, r3)"
+   },
+   {
+    "claim": "Instrument: 12 subsystems; ~26 motorized axes (17 in schematic); granite base, coarse Y wedge, coarse X, chamber; optics gantry; rotation +/-180 deg with 40 µrad; 0.5-1 nm metrology; 1 MHz/66%/20 nm -> ~7 mm/s; PAD 50 mm-5 m; EDS at 90 deg",
+    "verdict": "confirmed",
+    "source": "FDR Sec. 4-6.7.2, Fig. 4.37 (r1)"
+   },
+   {
+    "claim": "Vacuum '>=100 mPa class'",
+    "verdict": "corrected",
+    "source": "FDR: pumping to 'maintain a minimum of 100 mPa' = pressure of 100 mPa (~1e-3 mbar) or better (r1)"
+   },
+   {
+    "claim": "Wedge stage design point 5.5 deg for the APS-U PtychoProbe",
+    "verdict": "confirmed",
+    "source": "Preissner et al., MEDSI2020 THOA01, Fig. 5 caption (r20)"
+   },
+   {
+    "claim": "Velociprobe: 8.8 nm on Au at 200 Hz; 10 nm on an IC at 3 kHz with DMM; 9e4 resolution elements/s; 2 nm (3 sigma) position resolution; six interferometer axes at 25 kHz; H-infinity on FPGA; ZP scanner 30/10/30 µm, <10 g; 60 µm W central stop + 30 µm OSA ~62 mm downstream of a 50 nm/180 µm ZP; Eiger X 500K",
+    "verdict": "confirmed",
+    "source": "Deng et al., RSI 90, 083701 (2019), OSTI 1565795 full text (r19)"
+   },
+   {
+    "claim": "Velociprobe 'relative optic-sample motion' / 'held lens and sample steady to' 1.4 nm (X) and 0.75 nm (Y) rms",
+    "verdict": "corrected",
+    "source": "r19: accelerometer-derived relative vibration between granite gantry and granite X axis, 5-100 Hz (not a direct lens-sample measurement)"
+   },
+   {
+    "claim": "IRELEC detector mover: single 5.6 m vacuum chamber, fast detector from 75 mm, large detector to 5,000 mm, two switchable in-vacuum detectors, 1 nm goal",
+    "verdict": "confirmed",
+    "source": "IRELEC case study (r16)"
+   },
+   {
+    "claim": "SELUN: 190x190 x 100 µm, 30 kHz full / 120 kHz 2x2 binned, 4.5e7 ph/s/pixel, >98.8% duty cycle, 450 µm Si, vacuum compatible",
+    "verdict": "confirmed",
+    "source": "DECTRIS SELUN page (r18); added: Si version specified 8-30 keV, thresholds 4.6-25 keV"
+   },
+   {
+    "claim": "Small fast in-vacuum detector solicitation 4-B138-Q-00210-00 posted 22 May 2024",
+    "verdict": "confirmed",
+    "source": "HigherGov mirror of SAM.gov notice (r17)"
+   },
+   {
+    "claim": "Data: 48.8 PB raw / 4.8 PB compressed per year vs ~730 TB today; ME7 1 kHz; EIGER2 XE 1.5M 3 MB at 2 kHz = 6 GB/s; 200x200 fast detector 30 kHz = 2.4 GB/s; '~100x'",
+    "verdict": "confirmed",
+    "source": "APS Scientific Computing Strategy 2024, Sec. 2.7, Table 2-14 (r15); note 48.8/0.73 is ~67x by division"
+   },
+   {
+    "claim": "Source sizes: old APS sigma_x 275 µm, sigma_x' 11 µrad; MBA 14.5 µm; coherent fraction 0.08% -> 11.6% at 8 keV for 4.8 m undulator; Si(111) pi-geometry throughput ~70% at 6 keV, 0.91 at 10 keV; Si(311) 0.66; minima 2.80 / 5.35 keV",
+    "verdict": "confirmed",
+    "source": "Graber, ANL/APS/LS-347 (r21)"
+   },
+   {
+    "claim": "APS-U ID source (flat beam) sigma_x 14.466 µm, sigma_x' 2.749 µrad, sigma_y 3.075 µm, sigma_y' 1.293 µrad, eps_x 39.7 pm; round beam 12.3/2.34/8.26/3.47, 28.7 pm; '42 pm' lattice",
+    "verdict": "confirmed",
+    "source": "Borland, APS SR parameters, Aug 27 2024 (r8); natural emittance 41.5 pm·rad - units written as pm·rad"
+   },
+   {
+    "claim": "PDR: 2-ID-D used 80 µm horizontal slits sacrificing 90% of flux; coherent flux up >2 orders; few Zn atoms; single-Au-atom 3-5e8 ph/nm2; 1e5-1e6 -> 1e8-1e9 ph/s/0.01%BW/nm2; DOF +/-0.3 µm at 10 keV; 512 x 75 µm at 155 mm -> 0.5 nm; 1 PB per mm3 at 10 nm; 0.1 deg/24 h, <20 nm rms 2-100 Hz; Al 230 nm / granite 60 nm; SSAs at 40/60 m; HGVPU 29 mm; RGA in FOE",
+    "verdict": "confirmed",
+    "source": "PDR Ch.6 Sec. 6-8 (r3)"
+   },
+   {
+    "claim": "2-ID-D described as 'neighbouring' microprobe",
+    "verdict": "corrected",
+    "source": "Sector 2 is not adjacent to Sector 33 (APS sector numbering)"
+   },
+   {
+    "claim": "Feature page: 5 nm top resolution, DNA 2.5 nm, paper 100,000 nm, ptychography to 1 nm, scans 1000x faster, 7 nm nodes -> 5/3 nm, 5-30 keV, 'down to 5 nm'; page dated 01.26.2024; layout and detector-mover images",
+    "verdict": "confirmed",
+    "source": "APS PtychoProbe feature page (r5)"
+   },
+   {
+    "claim": "Aug 2025: first light expected Oct 2025, technical commissioning through most of run 2026-1, general users mid-2026; Oct 2025: moved into commissioning; Nov 2025: instrument being installed, final feature beamline",
+    "verdict": "confirmed",
+    "source": "Upgraded APS Updates Aug/Oct/Nov 2025 (r10, r11, r12)"
+   },
+   {
+    "claim": "Commissioning chart: 33-ID-C: PTYCHO at stage 3 on 26 Jan 2026 and stage 4 (Technical Commissioning) on 5 Oct 2026",
+    "verdict": "confirmed",
+    "source": "Jan 2026 chart image (r13); Oct 5 2026 chart PDF from Box (r9); 'Ops Commissioning' gloss marked as interpretation"
+   },
+   {
+    "claim": "APS-U formally completed in Jan 2026",
+    "verdict": "corrected",
+    "source": "Jan 2026 update: 'essentially completed... final review making its way through DOE' (r13); DOE final approval announced 5 Feb 2026 (r37)"
+   },
+   {
+    "claim": "All feature beamlines met or exceeded KPPs (brightness at a defined energy, usable energy range)",
+    "verdict": "confirmed",
+    "source": "Schmidt et al., MEDSI2025 TUOA01 (r26)"
+   },
+   {
+    "claim": "33-ID-C listed for General User proposals (page dated 10.07.2026)",
+    "verdict": "confirmed",
+    "source": "APS Proposal Types page (r34)"
+   },
+   {
+    "claim": "March Meeting 2026 abstract: users mid-2026",
+    "verdict": "unverifiable",
+    "source": "Page bot-protected (r32); search summaries agree and add 'focused to sub-10 nm'"
+   },
+   {
+    "claim": "AI real-time ptychography 'of ICs' demonstrated at 26-ID",
+    "verdict": "corrected",
+    "source": "Babu et al., Nat. Commun. 14, 7059 (2023) (r30): APS Hard X-ray Nanoprobe, streaming at up to 2 kHz, etched test-pattern sample (not an IC)"
+   },
+   {
+    "claim": "PSI PXCT of ICs: 14.6 nm (Nature 543, 402, 2017); 4 nm isotropic, 7 nm-node IC, 14,000 resolution elements/s (Nature 632, 81, 2024)",
+    "verdict": "confirmed",
+    "source": "Crossref metadata and published abstracts/press (r28, r27)"
+   },
+   {
+    "claim": "MLL focus 8.4 x 6.8 nm2 is the 'best published'",
+    "verdict": "corrected",
+    "source": "Bajt et al. LSA 7, 17162 (r36) confirms 8.4 x 6.8 nm2 at 16.3 keV; 'best published' as of 2026 not verifiable - reworded to 'benchmark (2018)'"
+   },
+   {
+    "claim": "Strategic plan: 5 nm goal for routine user operation; conic zone plates; connectomics 'well below 10 nm' over many-mm fields with PtychoProbe",
+    "verdict": "confirmed",
+    "source": "APS Strategic Plan 2025-29 (r14); added LYNX at 31-ID-E for IC imaging"
+   },
+   {
+    "claim": "PDR science: ~5 nm XRF, ~1 nm ptychography limited by radiation hardness; scan rates up to 1,000x; 90% of chemical products use catalysts; cement ~5% of CO2; ~10 µm micrometeorites; sub-10 nm over ~100 µm3 brain",
+    "verdict": "confirmed",
+    "source": "PDR Ch.3 Sec. 3-8 (r4)"
+   },
+   {
+    "claim": "2023 workshop talks (Myers, Lin, Lopes, Liu, Hsu-Kim, Fenning, Bertoni, Nienhaus), Aug 3-4 2023",
+    "verdict": "confirmed",
+    "source": "APS News workshop agenda (r24); noted it was a joint ISN/PtychoProbe workshop"
+   },
+   {
+    "claim": "'PtychoProbe MechatronicsCore' RFI (2019) / RFQ (2020)",
+    "verdict": "unverifiable",
+    "source": "No source found by web search; text marked unverified"
+   },
+   {
+    "claim": "Straight section ~5.4 m; beam height not published",
+    "verdict": "corrected",
+    "source": "FDR Ch.3 Fig. 3.10 (r2): ID chamber 5.363 m flange-to-flange, 4.8 m nominal undulator space, 1400 mm beam height to floor at the straight"
+   },
+   {
+    "claim": "Mirror deflection senses (inboard/outboard, up/down), mini-hutch functions, BDA2/detector-mover as-built positions, FE component positions",
+    "verdict": "unverifiable",
+    "source": "Not published; offsets 0.21 m H / 0.18 m V at 69.7 m recomputed from FDR distances (calculated)"
+   },
+   {
+    "claim": "FDR figure page numbers (Fig. 4.31 p. 4-57/PDF p. 80; 4.32 p. 4-60/p. 83; 4.37 p. 4-67/p. 90) and figure files",
+    "verdict": "confirmed",
+    "source": "pymupdf page search of FDR Ch.4 PDF; all 5 PNGs exist and show the claimed content"
+   },
+   {
+    "claim": "Instrument fly-scan precision written as \"≥2.5 nm\"",
+    "verdict": "corrected",
+    "source": "Directory (r6): \"better than 2.5nm precision and up to 7mm/s\""
+   }
+  ]
+ }
+}

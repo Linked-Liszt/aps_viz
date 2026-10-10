@@ -1,0 +1,2137 @@
+{
+ "id": "xpcs",
+ "sector": "8-ID",
+ "acronym": "XPCS",
+ "fullName": "X-ray Photon Correlation Spectroscopy beamline (8-ID-E wide-angle XPCS and 8-ID-I small-angle XPCS)",
+ "status2026": {
+  "state": "user-operations",
+  "detail": "First APS-U feature beamline to host users: first users (University of Akron) in early November 2024 while in final commissioning; the 8-ID home page states General User Program operation since October 2024 (small date discrepancy between sources). Directory status 'Operational/Accepting General Users' (2026). Operated by the XSD Dynamics & Structure group; 8-ID-E and 8-ID-I run one at a time. Storage ring reached its 200 mA design current on 4 February 2025 (APS-U update). The pre-upgrade GISAXS/GIWAXS program that used to run in the old 8-ID-E has moved to 9-ID-D (CSSI/GIXS), so 8-ID-E is now dedicated to WA-XPCS (8-ID home page). Construction milestones: old 8-ID-E/I enclosures emptied in under 14 days (reported 3 Oct 2022), with enclosure removal and rebuild planned for October 2022 to May 2023; the XPCS SAXS detector positioner and WAXS goniometer appear on the experiment floor in the Dec 2023 installation-status slides; announced in Sept 2024 as the first feature beamline to welcome users.",
+  "sources": [
+   "r7",
+   "r13",
+   "r14",
+   "r6",
+   "r19",
+   "r15",
+   "r35",
+   "r36",
+   "r44",
+   "r45"
+  ]
+ },
+ "tagline": "Watch matter jiggle: coherent X-rays turn twinkling speckle into movies of motion from atoms to micrometres.",
+ "plainSummary": "Shine a laser pointer through a glass of water with a few drops of milk in it and the spot on the wall becomes grainy and twinkles. That grainy pattern, called speckle, is an interference fingerprint of exactly where the tiny fat droplets are at that instant; as they jiggle, the fingerprint changes. 8-ID does the same thing with X-rays, whose wavelength is about the size of an atom, so it can follow motion that is far too small, and often too fast, for any microscope: nanoparticles drifting through a gel, polymers relaxing after being stretched, atoms shuffling inside a metallic glass. A very fast camera records thousands of speckle snapshots per second, and a computer measures how quickly each pattern 'forgets' itself. The trick needs coherent X-rays, light whose waves march in step, and the upgraded APS delivers hundreds of times more of them than before. The beamline has two rooms that take turns: 8-ID-E looks at wide angles to see atomic-scale motion, while 8-ID-I looks at small angles with a detector up to 12 m away to follow nanometre-to-micrometre structures, even inside fluids being sheared in a rheometer.",
+ "expertSummary": "8-ID is the APS-U feature beamline dedicated to XPCS. Source: two in-line revolver HPMUs (APS21R25 #10 upstream, #4 downstream), each switchable between 2.1 cm (N = 112) and 2.5 cm (N = 94) arrays, filling the straight (4.6 m total in the FDR; 2 x N x lambda_u = 2 x 2.35 m; phase shifter/corrector between) and feeding a windowless HHL front end (2 x 2 mm2 exit mask, 25.4 m). All upstream beam-conditioning optics (M1, M2, HDCM) deflect horizontally for vibration tolerance (only the VKB of the 8-ID-E KB pair deflects vertically): flat Si HHL mirror pair at 3.0 mrad (Si/Cr/Rh/Pt stripes, ~16 mm offset, 28.0/30.6 m) for pink beam (~0.5% bandwidth) and harmonic rejection, then an LN2-cooled HDCM (33.7 m) with Si(111) and Si(311) (dl/l ~1.3e-4 / 2.7e-5). Zoom focusing: Be-CRL transfocator CRL-1 (52.0 m, 8-ID-D) plus a bendable Pt KB (2.5 mrad) gives 0.3-3 um at the 8-ID-E Huber six-circle (56.3 m; detector arm 1.5-2 m vertical, LDDP 2.5-4 m over 3-55 deg horizontal); CRL-1 + CRL-2 (62.3 m) give 3-10 um at the 8-ID-I sample (67.5 m) with a telescoping 4-12 m vacuum flight path rotatable by 5 deg. Pinhole USAXS uses the 8-ID-E sample with the 8-ID-I detector (~22 m). Design coherent flux ~1.6-1.7e13 ph/s in one transverse mode through Si(111) at 8.8-10 keV (FDR Table 4.34, PDR Table 6.39); the 2026 directory lists 1e13 ph/s at 9 keV with Si(111), not labelled as coherent. The raw ratio to the ~2e10 ph/s of pre-upgrade 8-ID-I (7.4 keV, Ge(111) with ~3e-4 bandpass, partially coherent 20 x 150 um slit) is ~500-850x, but energy, bandwidth and mode definition all differ, so treat it as indicative. Detectors: Rigaku Si 3-Mpix (56 kHz continuous, ~1 MHz burst) and EIGER2 X CdTe 4M. Correlations (multi-tau, two-time) computed on GPUs (boost-corr) in a near-real-time pipeline. Rheo-XPCS with an Anton Paar MCR 702e is offered with CNM. GU operations since late 2024.",
+ "whatAPSUEnables": {
+  "plain": "XPCS lives or dies by coherent photons. Each speckle snapshot must collect enough X-rays to see the pattern, so the faster the motion, the fewer photons each snapshot gets. With 100 to 500 times more coherent X-rays, 8-ID can follow motion roughly ten thousand times faster at the same quality, see much more weakly scattering samples (proteins, dilute particles, single-atom hops), and use higher-energy X-rays (up to 25 keV) that pass through thick sample cells such as rheometers, furnaces and pressure cells.",
+  "expert": "For multispeckle XPCS the SNR of g2 at delay tau scales as beta * I_pix * sqrt(T * dt * N_pix) (I_pix photons/pixel/s, dt frame time, T total time); I_pix scales with the coherent flux Fc = B lambda^2/4, so at fixed frame time SNR is linear in brilliance and, at fixed SNR, the shortest accessible correlation time scales as B^-2. A 1e2-1e3 brilliance/coherent-flux gain therefore buys 1e4-1e6 in time resolution or sensitivity (FDR/PDR/Early Science; the APS Strategic Plan 2025-29 states that a '>100-fold increase in X-ray beam brightness and coherence ... translates to a more than 10,000-fold enhancement in signal-to-noise for XPCS', and elsewhere '4-to-6-order-of-magnitude increase in the time resolution'. Careful: at FIXED frame time and measurement time the g2 SNR grows only LINEARLY with B (~100x for 100x). The 1e4 figure is the B^2 scaling of the shortest usable frame time, or of the total measurement time needed, at FIXED SNR. The 2024 APS computing strategy also loosely says that SNR 'scales as the square of the brilliance'.) Practical consequences at 8-ID: (i) multispeckle XPCS at 10-20 us frame times becomes routine for weak scatterers and ~1 us burst/bunch-synchronized acquisition is realistic; the design goal is ~100 ns (48-bunch mode spacing 76.7 ns); (ii) coherent beams at 15-25 keV with useful flux for in situ cells and DACs; (iii) small coherent spots (0.3 um) let WA-XPCS resolve atomic-scale speckle at practical distances (s = lambda R / a); (iv) heterodyne/velocimetry and two-time analyses of non-equilibrium, driven (shear, field, thermal) systems. The price is radiation dose per area and data volume (up to ~20 PB/yr vs ~0.1 PB/yr pre-upgrade).",
+  "quantitative": [
+   "Coherent flux at 20 keV (ID optimized for 20 keV): 0.6e11 ph/s (APS 2019) -> 312e11 (APS-U brightness mode) / 148e11 (timing mode), i.e. ~250-500x (r3)",
+   "Brightness at 20 keV: 0.6e20 -> 325e20 (brightness mode) ph/s/0.1%BW/mm2/mrad2 (r3)",
+   "Electron beam at the ID: 280 x 10 um rms (H x V) before vs ~14.5 x 3.1 um (flat, kappa=0.1) or 12.3 x 8.3 um (round) at zero current; APS describes it as ~15 x 4 um vs 275 x 10 um, up to 500x brighter (r3, r9, r40)",
+   "Measured APS-U horizontal emittance 33 pm rad at the full 200 mA (April 2025); <30 pm rad at reduced current with full coupling (r19, r18)",
+   "Design coherent flux, 1 transverse mode, Si(111), SA-XPCS: 1.7e13 ph/s at 10 keV, 7.2e12 at 15 keV, 2.0e12 at 25 keV (kappa = 0.1) (r4)",
+   "PDR world comparison, 1x1 mode at 0.01% BW: APS-U 6e12 ph/s at 12 keV and 9e11 at 20 keV vs 8e10 / 2e10 (PETRA III P10) and 8e10 / 5e9 (NSLS-II CHX) (r4)",
+   "Pre-upgrade 8-ID-I benchmark: ~2e10 ph/s at 7.4 keV through a 20 x 150 um (H x V) coherence-defining slit, Ge(111) DCM with ~0.03% bandpass, two 3.3 cm Undulator A; measured contrast ~10% (r20). This beam was only partially coherent (several horizontal modes), so it is not a strict 1-mode value",
+   "Directory flux: 1e13 ph/s at 9 keV with Si(111); 3e12 ph/s at 9 keV with Si(311); beam 6 x 3 um focused, 20 x 20 um unfocused. The directory does not say whether these are coherent or total flux (r6)",
+   "Time resolution: 19.2 us continuous and ~1 us burst mode (Rigaku 3 Mpix); design goal 100 ns (r6, r1)",
+   "Detector lineage at 8-ID-I before the upgrade: UFXC32k prototype reached 826 ns burst frames and 19.36 us continuous frames (2018); Rigaku XSPA-500k ran 52 kHz (20 us) with up to ~1e9 frames/day reduced in near real time (2021) (r21, r22, r42, r43)",
+   "Original 2015 APS-U proposal goal: dynamics over 10 ns - 1000 s and length scales 1 nm - 5 um, expanding XPCS dynamic range by up to 6 orders of magnitude (r34)",
+   "Accessible time scales quoted for APS-U-era XPCS at APS: 100 ns - 1000 s (r17); WA-XPCS 'gapless coverage from us to hours' (r6)",
+   "Data: up to ~20 PB/yr raw vs ~0.1 PB/yr at pre-upgrade 8-ID; Rigaku 3M at 56 kHz ~164 GB/s raw (r16)",
+   "Derived here (Gaussian, Kim convention, zero current, 10 keV, 4.7 m undulator): coherent fraction ~9% for APS-U flat beam vs ~0.06% for the 2019 APS - about 160x (uses r9, r3; estimate, ignores energy spread)",
+   "2021 WA-XPCS instrument table: coherent flux (1 mode) 2e12-1e12 ph/s with Si(111) over 8-25 keV, about 10x below the FDR/PDR 1-mode values at 8.8-10 keV. The cause (KB/CRL losses, different assumptions or a typo) is not documented (r10)",
+   "Cross-check of the coherent fraction: the 2015 Early Science report describes the pre-upgrade APS beam near 11 keV as ~10,000 coherent modes, rising to a coherent fraction of order 10% with APS-U, consistent with the ~0.06% -> ~9% estimate above (r33)",
+   "APS Strategic Plan 2025-29: '4-to-6-order-of-magnitude increase in the time resolution of XPCS'; accessible time scales 100 ns - 1000 s (r17)"
+  ]
+ },
+ "techniques": [
+  {
+   "name": "Small-angle X-ray photon correlation spectroscopy",
+   "abbrev": "SA-XPCS",
+   "plain": "Watches how a speckle pattern at small scattering angles changes over time to reveal how nanoparticles, polymers or proteins move over distances from about a nanometre to a micrometre.",
+   "expert": "Transmission SAXS geometry at 8-ID-I, 3-10 um coherent spot, detector 4-12 m; multi-tau g2(q,tau) = <I(t)I(t+tau)>/<I>^2 = 1 + beta |f(q,tau)|^2 (Siegert), f = ISF. Brownian: f = exp(-D q^2 tau); hyper-diffusive/ballistic (tau ~ q^-1) and compressed exponents (KWW beta > 1) signal stress-driven dynamics in jammed/glassy matter (review: Sandy, Zhang & Lurio 2018, r32). Measured example: 0.04-0.51 nm^-1 at 12.4 keV with the detector at 11.6 m (r24). Geometric estimate (not a published spec) for the full range: ~2e-3 nm^-1 (pinhole USAXS, 22 m, 8 keV) up to a few nm^-1 (4 m, flight tube rotated 5 deg, high energy), hence 'small- and medium-angle' XPCS."
+  },
+  {
+   "name": "Wide-angle X-ray photon correlation spectroscopy (incl. Bragg/diffuse XPCS)",
+   "abbrev": "WA-XPCS",
+   "plain": "The same twinkle-watching trick at large angles, where the speckle comes from atoms and crystal domains, so it can see individual atomic rearrangements and fluctuating patterns of electrons or magnetism.",
+   "expert": "8-ID-E: 0.3-3 um KB/CRL zoom spot, six-circle diffractometer, detector at 1.5-2 m (vertical arm) or up to 4 m (LDDP, horizontal 3-55 deg); LDDP: q up to ~4.7 A^-1 at 10 keV (2theta = 55 deg) and ~11.7 A^-1 at 25 keV; the vertical arm (PDR spec 2theta up to 120 deg) extends this to ~8.8 A^-1 at 10 keV; Si(311) often needed to satisfy longitudinal coherence (lambda^2/dlambda ~0.9 um for Si(111) vs ~4.6 um for Si(311) at 10 keV) against the maximum path-length difference in transmission, PLD ~ 2 t sin^2(theta) + w sin(2theta) (t = sample thickness along the beam, w = beam width in the scattering plane). Targets: alpha-relaxation in metallic/oxide glasses at the first sharp diffraction peak, CDW/domain fluctuations in quantum materials, in situ/operando oxide dynamics."
+  },
+  {
+   "name": "Rheo-XPCS (Rheo-SAXS-XPCS)",
+   "abbrev": "Rheo-XPCS",
+   "plain": "A rheometer shears or stirs a fluid while X-rays watch its nanoscale structure, connecting what you feel when you stir (thickness, springiness) to what the particles are doing.",
+   "expert": "Anton Paar MCR 702e twin-drive, Couette geometry, beam along the velocity-gradient direction so q spans flow and vorticity directions; simultaneous stress/strain/recovery rheology with multispeckle XPCS and two-time correlations; heterodyne beats reveal coexisting mobile and arrested populations (shear banding, jammed networks); echo-XPCS for oscillatory shear. Offered with CNM."
+  },
+  {
+   "name": "Pinhole ultra-small-angle scattering / US-XPCS",
+   "abbrev": "USAXS / US-XPCS",
+   "plain": "Puts the sample in the first room and the camera in the far room, 22 m away, to see very large structures (up to micrometres) and their slow motion.",
+   "expert": "Sample on the 8-ID-E diffractometer (~56.3 m), detector at the end of the 8-ID-I flight tube (~22 m); 15-45 um beam (2021 functional requirements), analogous to ESRF ID02; extends q_min well below SAXS."
+  },
+  {
+   "name": "Two-time correlation and higher-order analysis",
+   "abbrev": "TTC",
+   "plain": "Instead of one average answer, compares every snapshot with every other one, producing a map that shows when a material speeds up, slows down or has sudden 'avalanches'.",
+   "expert": "C(q,t1,t2) = <I(t1)I(t2)>_pix / (<I(t1)><I(t2)>); diagonal width vs age gives aging exponents; off-diagonal structure reveals intermittency. Computed with boost-corr (multi-core CPU + GPU) and inspected with pyXPCSviewer (Chu et al. 2022, r23); higher-order and spatio-temporal cross-correlations under development; unsupervised ML used to classify TTC maps."
+  },
+  {
+   "name": "Heterodyne XPCS / X-ray velocimetry",
+   "abbrev": "heterodyne XPCS",
+   "plain": "When some particles flow and others stay put, their speckles 'beat' against each other like two slightly out-of-tune guitar strings, revealing the flow speed.",
+   "expert": "Mixing of a static (or slow) reference field with moving scatterers gives oscillatory g2 ~ cos(q . v tau) terms; used for nanoscale flow, convection and shear-thickening networks; transport-coefficient analysis extracts flow from non-equilibrium data."
+  }
+ ],
+ "scienceCases": [
+  {
+   "title": "Why cornstarch suddenly turns solid: shear thickening seen from inside",
+   "plain": "Push slowly into a dense suspension and it flows; punch it and it locks up. Rheo-XPCS showed that, near this transition, part of the particles jam into a stagnant network while others keep moving and rub against it - the speckle 'beats' gave it away.",
+   "expert": "Silica in PEG (200 nm, phi = 0.605; 360 nm, phi = 0.56 and 0.605) driven toward CST/DST in a Couette rheometer at 8-ID-I, then monitored >= 1 h after shear cessation: intrinsic heterodyne signals reveal mobile particles moving against an aggregated/jammed frictional network; stress decays quickly while structure and dynamics relax much more slowly. Data appear to pre-date the dark period (inferred from publication timing).",
+   "refs": [
+    "r25",
+    "r26"
+   ]
+  },
+  {
+   "title": "Memory and relaxation in soft glasses after flow",
+   "plain": "Squish a soft 'glassy' material and let go: it partly springs back. Experiments at the upgraded 8-ID watched the nanoscale motion during this slow recovery and found the material splits into bands that move differently.",
+   "expert": "Rheo-XPCS at Sector 8-ID (post-upgrade inferred: the preprint gives no run date, but an EIGER2 X CdTe 4M at 11.6 m is beyond the ~10 m maximum the PDR quoted for the old station) (12.4 keV, 8 x 8 um2 focus, EIGER2 X CdTe 4M at 11.6 m, 0.04-0.51 nm^-1, 10-16.7 fps): after 300% strain, quasi-logarithmic stress decay proportional to loss of recoverable strain, with convection-like backflow divided into dynamically distinct (banded) regions. Complements 2025 work linking nanoscale re-correlation to recoverable strain (structural memory).",
+   "refs": [
+    "r24",
+    "r39"
+   ]
+  },
+  {
+   "title": "Atoms that move in bursts: aging of a metallic glass",
+   "plain": "Metallic glasses are metals with atoms frozen in a jumble. Watching one for 83 hours straight with wide-angle XPCS showed that its atoms rearrange in bursts separated by quiet periods - not smoothly as long assumed.",
+   "expert": "Zr-Ti-Cu-Ni-Al BMG at 668 K (just below Tg), 7.32 keV, q = 2.60-2.66 A^-1 at the amorphous halo, 1.2e5 frames of 2.5 s each over 300,000 s (83.3 h), reflection geometry, X-Spectrum Lambda 250K detector (55 um pixels) at 1.1 m, 10 x 10 um focused beam, at (pre-upgrade) 8-ID-E: alternating monotonic aging and stationary/intermittent regimes, converging to temporal fractional (non-Fickian) diffusion. APS-U coherent flux and Si(311) at higher energy target faster beta/alpha processes and smaller q-volumes.",
+   "refs": [
+    "r27",
+    "r28",
+    "r1"
+   ]
+  },
+  {
+   "title": "Nanoparticles at liquid interfaces, water clean-up and batteries",
+   "plain": "Many technologies depend on tiny particles or molecules collecting at the boundary between two liquids. Bright, high-energy coherent beams can see how they arrange and move there.",
+   "expert": "FDR flagship SA-XPCS case: assembly/ordering and dynamics of nanoparticles and surfactants at buried fluid-fluid and fluid-solid interfaces (solvent extraction of toxic metals, drug delivery, flow-cell batteries), where adsorption energies are only a few kT and confocal microscopy cannot reach; requires small, bright, coherent, higher-energy beams.",
+   "refs": [
+    "r1",
+    "r5"
+   ]
+  },
+  {
+   "title": "Fluctuations in quantum materials",
+   "plain": "In some materials electrons spontaneously form ripples (charge-density waves) or magnetic patterns that flicker on their own. Wide-angle XPCS can watch these patterns flicker, which matters for future electronics.",
+   "expert": "WA-/Bragg-XPCS of CDW and domain fluctuations (talks at the 18-19 July 2023 XPCS First Experiments Workshop included 'Charge-density-wave fluctuations in TaS2: exploring transport phenomena using XPCS', 'Coherent x-ray scattering studies of fluctuating orders in quantum materials' and 'Revealing the lattice dynamics in microelectronics using coherent X-rays'); feature page highlights quantum materials for microelectronics/quantum computing.",
+   "refs": [
+    "r5",
+    "r41"
+   ]
+  },
+  {
+   "title": "Biomolecules and viruses in motion",
+   "plain": "XPCS can time how fast a virus or protein drifts in liquid, telling us its true size in solution and whether it is clumping - an early sign of diseases linked to protein aggregation.",
+   "expert": "19.2 us-resolved SA-XPCS measured Stokes-Einstein diffusion of Cowpea mosaic virus (hydrodynamic radius 43-104% above geometric depending on buffer) at pre-upgrade 8-ID-I; the APS 2025-29 plan targets early-stage protein aggregation including dimerization using the expanded 8-ID capabilities, where dose management (sample translation, higher energy) is essential.",
+   "refs": [
+    "r38",
+    "r17"
+   ]
+  },
+  {
+   "title": "Measuring nanoscale flow in driven soft matter",
+   "plain": "A new way to analyse speckle movies turns them into a 'flow meter' for nanoparticles, revealing fast, slow and stuck bands in a sheared fluid.",
+   "expert": "Transport-coefficient (Green-Kubo / Markov-chain) analysis of non-equilibrium two-time correlations, validated on MD simulations and then applied to previously published Rheo-XPCS creep/recovery data on a 42 vol% suspension of charged silica nanoparticles (pre-upgrade 8-ID-I, APS + CNM). It resolves time-dependent fractions moving with different velocities, such as multiple shear bands, without the information loss of time-averaging g2.",
+   "refs": [
+    "r29"
+   ]
+  }
+ ],
+ "keyParameters": [
+  {
+   "label": "Energy range",
+   "value": "8-25 keV (design); directory: 6-25 keV, 'continuously tunable 7-25 keV'",
+   "source": "r1",
+   "note": "2019 FDR and the 2021 functional requirements both give 8-25 keV. The 2021 talk's WA-XPCS table gives 4.8-25 keV. Directory (r6): 6-25 keV in the specification block, but 'continuously-tunable beam energy from 7 keV to 25 keV' under special capabilities."
+  },
+  {
+   "label": "Monochromator bandwidth",
+   "value": "Si(111) dl/l ~1.3e-4 (~1e-4); Si(311) ~2.7e-5 (~3e-5); pink ~0.5%",
+   "source": "r4",
+   "note": "Directory gives 1e-4 / 3e-5 (r6). The 2021 talk (r10) quotes the monochromatic range as 0.005-0.014 % (5e-5 to 1.4e-4) and pink as 0.5 %. The PDR (r4) estimates pink beam at roughly 100x the Si(111) flux."
+  },
+  {
+   "label": "Flux (directory)",
+   "value": "1e13 ph/s at 9 keV with Si(111); 3e12 ph/s at 9 keV with Si(311)",
+   "source": "r6",
+   "note": "Beam size focused 6 x 3 um, unfocused 20 x 20 um (directory). It is not stated whether these are coherent or total-beam values."
+  },
+  {
+   "label": "Design coherent flux (1 mode, Si(111))",
+   "value": "1.7e13 ph/s @10 keV; 7.2e12 @15 keV; 2.0e12 @25 keV",
+   "source": "r4",
+   "note": "SA-XPCS, kappa = 0.1, two 3 mrad mirrors + Si(111). FDR Table 4.34 lists 1.6e13 (WA, 8.8 keV) and 1.7e13 (SA, 8.8 keV) for 1 mode, labelled ph/s/0.1%BW. The 2021 WA-XPCS table (r10) instead quotes 2e12-1e12 ph/s (1 mode, Si(111), 8-25 keV), ~10x lower; unresolved."
+  },
+  {
+   "label": "Focal spot 8-ID-E (WA)",
+   "value": "0.3-3 um",
+   "source": "r1",
+   "note": "CRL-1 + KB zoom; FDR sim 0.22 x 0.21 to 4.1 x 5.1 um2 (FWHM) at 14.2 keV."
+  },
+  {
+   "label": "Focal spot 8-ID-I (SA)",
+   "value": "3-10 um",
+   "source": "r1",
+   "note": "CRL-1 + CRL-2; FDR sim 3.0 x 2.0 to 11 x 8.5 um2 at 14.2 keV; USAXS mode 15-45 um (r10)."
+  },
+  {
+   "label": "Sample-detector distance, 8-ID-I",
+   "value": "4-12 m (telescoping, rotatable 5 deg)",
+   "source": "r12",
+   "note": "2021 spec: 2-12 m (r10); FDR flight path 68-79 m."
+  },
+  {
+   "label": "Sample-detector distance, 8-ID-E",
+   "value": "1.5-2 m (diffractometer arm); 2.5-4 m (LDDP)",
+   "source": "r11",
+   "note": "LDDP 2theta 3-55 deg horizontal; PDR vertical arm -1 to 120 deg."
+  },
+  {
+   "label": "Pinhole USAXS distance",
+   "value": "~22 m (sample in 8-ID-E, detector in 8-ID-I)",
+   "source": "r11",
+   "note": ""
+  },
+  {
+   "label": "Fastest time resolution",
+   "value": "19.2 us continuous; ~1 us burst",
+   "source": "r6",
+   "note": "Design goal ~100 ns (r1); APS-U 48-bunch spacing 76.7 ns."
+  },
+  {
+   "label": "Detectors",
+   "value": "Rigaku Si 3 MPix (56 kHz, burst ~1 MHz); Eiger CdTe 4 MPix (4 kHz)",
+   "source": "r6",
+   "note": "Rigaku model name is not given publicly; the 2024 computing strategy (r16) calls it 'UHSS 3M' and plans 56 kHz with 3.0 MB frames (164 GB/s raw) or 8.5 kHz with 6.0 MB frames. XSPA family (r42, r43): UFXC32k ASIC, 76 um pixels, 56 kfps continuous in 2-bit readout, burst of 13 frames at 970 kfps, 48 ns minimum exposure. arXiv 2026 (r24) names an EIGER2 X CdTe 4M. The directory's 4 kHz for the Eiger matches the computing-strategy planning table (4.0 MB frames at 4 kHz, i.e. 1 byte/pixel; 16 MB frames at 1 kHz). This suggests a reduced-bit-depth mode, but that is inferred, not stated."
+  },
+  {
+   "label": "Undulators",
+   "value": "2 x revolver (2.1 cm N=112 / 2.5 cm N=94), in-line",
+   "source": "r8",
+   "note": "E1 at the 8.5 mm device minimum gap (zero emittance): 8.34 keV (U21), 4.54 keV (U25); user min gap 9.0 mm. Per the table footnote, the effective number of periods is N - 2 (end poles)."
+  },
+  {
+   "label": "Front end",
+   "value": "HHLFE, windowless, 2 x 2 mm2 exit mask at 25.4 m; limits 21 kW, 590 kW/mrad2",
+   "source": "r2",
+   "note": ""
+  },
+  {
+   "label": "HHL mirrors",
+   "value": "2 x flat Si, 3.0 mrad, Si/Cr/Rh/Pt stripes, ~16 mm horizontal offset",
+   "source": "r1",
+   "note": ""
+  },
+  {
+   "label": "Storage ring",
+   "value": "6 GeV, 200 mA, 324 bunches (11.4 ns) or 48 bunches (76.7 ns); 42 pm design, 33 pm measured at 200 mA",
+   "source": "r3",
+   "note": "200 mA first reached 4 Feb 2025 (r45). Measured emittance from r19; bunch spacing from T0 = 3.681 us (r9)."
+  },
+  {
+   "label": "8-ID-E sample environments",
+   "value": "3.5-475 K cryostage; furnace to 1100 C; tensile stage LN2-350 C",
+   "source": "r6",
+   "note": ""
+  },
+  {
+   "label": "8-ID-I sample environments",
+   "value": "Anton Paar MCR 702e rheometer (Couette); 9-sample 3-zone holder 0-160 C",
+   "source": "r6",
+   "note": ""
+  },
+  {
+   "label": "Data volume",
+   "value": "up to ~20 PB/yr raw (vs ~0.1 PB/yr pre-upgrade)",
+   "source": "r16",
+   "note": ""
+  },
+  {
+   "label": "Beamline length",
+   "value": "~81.6 m (end of 8-ID-I); beam stop at 80.6 m",
+   "source": "r10",
+   "note": "Hutch end read from 2021 drawing; beam stop from FDR (r1)."
+  },
+  {
+   "label": "Controls and data analysis",
+   "value": "Bluesky + caQtDM experiment control, NX client remote access; Python analysis with GPU near-real-time multi-tau and two-time correlation (boost-corr), pyXPCSviewer",
+   "source": "r6",
+   "note": "Algorithm status in the 2024 computing strategy (r16): multi-tau and two-time done (CPU and single-GPU); higher-order and spatio-temporal correlations in progress."
+  }
+ ],
+ "source": {
+  "insertionDevices": [
+   {
+    "name": "Upstream revolver APS21R25 #10",
+    "type": "planar hybrid permanent-magnet revolver undulator (two magnet arrays on a rotating strongback)",
+    "periodMm": 21,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "Arrays: APS21#15 (21 mm, N=112, Keff 1.38 at 8.5 mm, E1 8.34 keV) and APS25#12 (25 mm, N=94, Keff 2.01, E1 4.54 keV). Length = N x lambda_u (~2.35 m). User min gap 9.0 mm. NdFeB with grain-boundary-diffused heavy rare earth, vanadium-permendur poles (APS-U HPMU spec, FDR Ch. 3 / r2). Arrays at 90 deg on a common strongback; rotation interlocked to open gap.",
+    "source": "r8"
+   },
+   {
+    "name": "Downstream revolver APS21R25 #4",
+    "type": "planar hybrid permanent-magnet revolver undulator",
+    "periodMm": 21,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "Arrays: APS21#9 (21 mm, N=112, Keff 1.38, E1 8.36 keV) and APS25#7 (25 mm, N=94, Keff 1.99, E1 4.58 keV). FDR design: two in-line revolvers U21/U25, 4.6 m total, max 2.0/2.2 kW through the 2 x 2 mm2 mask.",
+    "source": "r8"
+   }
+  ],
+  "canting": "None - in-line tandem (dual in-line revolvers on one straight feeding a single beam), with phase shifter/corrector between the devices (FDR Table 3.13).",
+  "frontEnd": "Standard APS-U High Heat Load Front End (based on 28-ID HHLFE): clearing magnet, LPPS, storage-ring valve, burn-through fixed mask BTFM1, FM2, collimator, GRID XBPM1, FM3, photon shutter PS2 with intensity monitor IM1, safety shutters SS1/SS2, wall collimator, front-end valve, exit mask (2 x 2 mm2, XBPM2) at 25.4 m and exit collimator (5 x 5 mm2) at 26.1 m. Limits 21 kW and 590 kW/mrad2. Windowless (differential pump) exit to preserve coherence.",
+  "sourceSizeAndDivergence": "Electron beam at the ID (nominal, zero current; ops SR parameters): flat mode (kappa = 0.1, 39.7/4.0 pm): sigma_x = 14.5 um, sigma_x' = 2.75 urad, sigma_y = 3.1 um, sigma_y' = 1.29 urad; round mode (kappa = 1, 28.7 pm each): 12.3 um, 2.34 urad, 8.3 um, 3.47 urad. FDR Table 1.1 (with IBS at 200 mA): brightness mode 324 bunches, 42 pm: 14.7 / 2.8 / 3.2 / 1.3; timing mode 48 bunches, 32 pm: 12.9 / 2.5 / 8.8 / 3.7 (um, urad). Pre-upgrade APS: 280 / 11.6 / 10 / 3.4. Measured (Shi et al. 2025, grating interferometry at 3-ID-B, 11.3 keV, 50 mA): low coupling eps_x = 44 +/- 3 pm, eps_y = 3.3 +/- 2 pm (total photon source 16.1 x 4.9 um rms); full coupling 28 +/- 3 pm (H) / 31 +/- 2 pm (V); 33 pm rad horizontal measured at 200 mA (April 2025). Single-electron photon terms for the 4.7 m effective undulator at 10 keV (Kim convention, derived here): sigma_r ~2.7 um, sigma_r' ~3.6 urad -> total photon source ~14.7 x 4.1 um rms and ~4.6 x 3.9 urad rms (flat mode); transverse coherence length lambda L/(2 pi Sigma) at the CRL-1 position (52 m) ~70 um (H) x ~250 um (V) at 10 keV."
+ },
+ "branches": [
+  {
+   "id": "common",
+   "name": "Common optics (8-ID-A FOE, transport, 8-ID-D SOE)",
+   "description": "Undulators, front end, HHL mirrors, HDCM, (optional DMM), CRL-1 and diagnostics shared by both stations; all in-line on one beam axis."
+  },
+  {
+   "id": "wa",
+   "name": "WA-XPCS mode (8-ID-E)",
+   "description": "Monochromatic beam focused by CRL-1 + KB to 0.3-3 um on the six-circle diffractometer; detectors on the diffractometer arm (1.5-2 m) or LDDP (2.5-4 m)."
+  },
+  {
+   "id": "sa",
+   "name": "SA-XPCS mode (8-ID-I), beam-pass through 8-ID-E",
+   "description": "Pink or monochromatic beam passes 8-ID-E in a removable pipe; CRL-1 + CRL-2 focus to 3-10 um at the 8-ID-I sample; 4-12 m telescoping flight tube. Pinhole USAXS combines the 8-ID-E sample position with the 8-ID-I detector (~22 m)."
+  }
+ ],
+ "components": [
+  {
+   "id": "revolver-upstream",
+   "name": "Upstream revolver undulator (APS21R25 #10: U21 / U25)",
+   "category": "undulator",
+   "branch": null,
+   "distanceM": -1.25,
+   "distanceNote": "Approximate. Two ~2.35 m devices share the ~5 m straight with a phase shifter between; centre placed ~1.25 m upstream of the straight centre (the FDR distance origin). Not given explicitly in any source.",
+   "enclosure": "Storage-ring tunnel, sector 8 ID straight",
+   "deflection": "none",
+   "plain": "A 2.35-metre row of alternating magnets that makes the 6 GeV electrons wiggle and glow with X-rays. It is a 'revolver': it carries two different magnet rows and rotates to pick the one that gives the brightest beam for the chosen X-ray colour.",
+   "expert": "Planar hybrid PM revolver HPMU; magnet structures APS21#15 (lambda_u = 2.1 cm, N = 112) and APS25#12 (2.5 cm, N = 94). At the 8.5 mm device minimum gap: Keff = 1.38 (U21, E1 = 8.34 keV) and 2.01 (U25, E1 = 4.54 keV); calculated 216/227 kW/mrad2 peak density and 5.4/8.2 kW total at 200 mA. Admin min gap 8.49 mm, user min gap 9.0 mm. Rotation of the strongback to switch arrays is interlocked to happen only at open gap.",
+   "specs": {
+    "periods": "21 mm (N=112) and 25 mm (N=94)",
+    "magnetic length": "~2.35 m (N x lambda_u)",
+    "Keff at 8.5 mm": "1.38 (U21) / 2.01 (U25)",
+    "E1 at min gap": "8.34 keV (U21) / 4.54 keV (U25)",
+    "user min gap": "9.0 mm",
+    "Ptot at min gap, 200 mA": "5.4 kW (U21) / 8.2 kW (U25)",
+    "polarization": "linear horizontal"
+   },
+   "source": "r8"
+  },
+  {
+   "id": "phase-shifter",
+   "name": "Phase shifter / corrector between the two revolvers",
+   "category": "other",
+   "branch": null,
+   "distanceM": 0.0,
+   "distanceNote": "Approximate: between the two devices at the straight centre (FDR Table 3.13 lists 'phase shifter/corrector' for the 08-ID dual in-line configuration).",
+   "enclosure": "Storage-ring tunnel, sector 8 ID straight",
+   "deflection": "none",
+   "plain": "A small magnet that delays the electrons slightly between the two undulators so the light from both adds up in step, like two choirs singing the same note together.",
+   "expert": "Phase shifter (type not documented in the sources found) plus steering correctors between the in-line devices so the two revolvers radiate in phase at the selected harmonic (effectively one ~4.7 m undulator). Device details not published in the sources found.",
+   "specs": {
+    "function": "inter-device phase matching, orbit correction"
+   },
+   "source": "r2"
+  },
+  {
+   "id": "revolver-downstream",
+   "name": "Downstream revolver undulator (APS21R25 #4: U21 / U25)",
+   "category": "undulator",
+   "branch": null,
+   "distanceM": 1.25,
+   "distanceNote": "Approximate (see upstream device).",
+   "enclosure": "Storage-ring tunnel, sector 8 ID straight",
+   "deflection": "none",
+   "plain": "The second, identical revolver undulator. With both set to the same magnet row and gap, the beam is twice as long a 'light-maker' and much brighter.",
+   "expert": "Magnet structures APS21#9 (2.1 cm, N = 112; Keff 1.38, E1 8.36 keV) and APS25#7 (2.5 cm, N = 94; Keff 1.99, E1 4.58 keV) at 8.5 mm. FDR design: two in-line revolvers totalling 4.6 m, 2.0/2.2 kW through the 2 x 2 mm2 exit mask at 25.4 m (U21 Ky = 1.287, U25 Ky = 1.902). Above roughly 12-14 keV the 3rd harmonic is used. PDR Table 6.45 load cases put 8-12 keV on the fundamental (U25 or U21) and 16-24 keV on the U25 3rd harmonic; the FDR heat-load case already uses U25 3rd harmonic at 14.2 keV (K = 1.939). The U21 fundamental can only reach ~16 keV in the K -> 0 limit, where it gives little flux.",
+   "specs": {
+    "periods": "21 mm (N=112) and 25 mm (N=94)",
+    "magnetic length": "~2.35 m",
+    "Keff at 8.5 mm": "1.38 / 1.99",
+    "E1 at min gap": "8.36 / 4.58 keV",
+    "FDR power through 2x2 mm2 mask": "2.0 kW (U21) / 2.2 kW (U25)"
+   },
+   "source": "r8"
+  },
+  {
+   "id": "hhl-front-end",
+   "name": "High-heat-load front end (HHLFE, windowless)",
+   "category": "frontEnd",
+   "branch": null,
+   "distanceM": 20.0,
+   "distanceNote": "Approximate: the front end occupies roughly 14-25 m inside the tunnel and through the ratchet wall; 20 m is a representative position for the GRID-XBPM/photon-shutter group. Component positions are not tabulated in the FDR.",
+   "enclosure": "Storage-ring tunnel / ratchet wall",
+   "deflection": "none",
+   "plain": "The gatekeeper between the accelerator and the beamline: thick water-cooled metal masks trim the beam, monitors check that it points exactly right, and safety shutters can block it completely in a split second.",
+   "expert": "Standard APS-U HHLFE (based on the 28-ID design): clearing magnet, low-power photon shutter (LPPS), storage-ring valve, burn-through fixed mask BTFM1, fixed masks FM2/FM3, GRID XBPM1 (next-generation, +/-200 um H / +/-100 um V range), photon shutter PS2 with intensity monitor IM1, safety shutters SS1/SS2, wall collimator, front-end valve. Limits 21 kW total, 590 kW/mrad2. Windowless exit with differential pumping for coherence preservation.",
+   "specs": {
+    "type": "HHLFE (in-line)",
+    "power limit": "21 kW",
+    "peak power density limit": "590 kW/mrad2",
+    "exit": "windowless, differential pump",
+    "XBPMs": "GRID XBPM1 + XBPM2 in exit mask"
+   },
+   "source": "r2"
+  },
+  {
+   "id": "fe-exit-mask",
+   "name": "Front-end exit mask (2 x 2 mm2)",
+   "category": "frontEnd",
+   "branch": null,
+   "distanceM": 25.4,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "A square hole 2 mm wide that lets only the bright central core of the undulator beam into the beamline.",
+   "expert": "Standard HHLFE exit mask, 2 mm x 2 mm aperture (~79 x 79 urad at 25.4 m) with integrated XBPM2. The PDR had requested only 40 x 40 urad acceptance for XPCS.",
+   "specs": {
+    "aperture": "2 mm x 2 mm",
+    "angular acceptance": "~79 urad x 79 urad"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "fe-exit-collimator",
+   "name": "Front-end exit collimator (5 x 5 mm2)",
+   "category": "collimator",
+   "branch": null,
+   "distanceM": 26.1,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "A heavy tungsten block with a small hole that stops stray high-energy radiation (bremsstrahlung) from following the X-ray beam.",
+   "expert": "HHLFE exit collimator narrowed to 5 x 5 mm2 for APS-U so beamlines with small-offset optics can manage bremsstrahlung.",
+   "specs": {
+    "aperture": "5 mm x 5 mm"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "wb-slits",
+   "name": "White-beam HHL slits (8ID-SL-1)",
+   "category": "slits",
+   "branch": null,
+   "distanceM": 27.1,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Four sharp tungsten-edged jaws that trim the raw 'white' beam to the size the mirrors need, cutting heat load and stray radiation. The finer selection of the coherent part happens later, at the slits in front of the lenses.",
+   "expert": "High-heat-load white-beam slits with tungsten edge inserts. PDR: up to 5 x 5 mm2 aperture, sharp over 8-25 keV, whole assembly on a motorized table (+/-6 mm X/Y) so a set aperture can be scanned through the beam without moving blades.",
+   "specs": {
+    "aperture": "<= 5 x 5 mm2 (PDR)",
+    "edges": "tungsten"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "m1",
+   "name": "Mirror M1, flat horizontal-deflecting HHL mirror (8ID-MR-1)",
+   "category": "mirror",
+   "branch": null,
+   "distanceM": 28.0,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "horizontal",
+   "plain": "A super-smooth silicon mirror, hit at a grazing 0.17 degrees, that bounces the X-rays sideways. It soaks up most of the heat and filters out unwanted high-energy 'overtones'.",
+   "expert": "Flat Si, 3.0 mrad grazing incidence, horizontal deflection, side-notch ('smart notch') design reducing thermal deformation ~10x; four stripes (bare Si, Cr, Rh, Pt) selected by vertical translation for harmonic rejection (free-electron critical-angle estimate at 3 mrad: Si ~10.3, Cr ~17.5, Rh ~22.4, Pt ~28 keV; the PDR Table 6.45 load cases select Si at 8-10 keV, Cr at 12-16 keV, Rh at 20 keV and Pt at 24 keV). FDR heat load (1.08 x 1.08 mm2 acceptance): U21 K=1.305 at 8.8 keV 552 W incident/370 W absorbed (1.0 W/mm2); U25 K=1.939 at 14.2 keV 591/425 W (1.1 W/mm2). PDR specs: slope error <= 0.1 urad rms, roughness <= 0.1 nm rms, ~500 x 100 x 100 mm3, pitch stability <= 30 nrad rms.",
+   "specs": {
+    "angle": "3.0 mrad",
+    "stripes": "Si, Cr, Rh, Pt",
+    "absorbed power": "370-425 W (FDR cases)",
+    "slope error (PDR spec)": "<= 0.1 urad rms",
+    "size (PDR estimate)": "~500 x 100 x 100 mm3"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "bd-1",
+   "name": "White/pink-beam diagnostics (8ID-BD-1)",
+   "category": "diagnostics",
+   "branch": null,
+   "distanceM": 28.6,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "A beam 'camera' and position monitor used to line up the undulator beam with the mirrors.",
+   "expert": "PDR concept: white-beam BPM, YAG screen usable at nearly open gap, photocurrent monitor and bypass aperture.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "wb-stop",
+   "name": "White-beam stop / mask (8ID-PM-1)",
+   "category": "beamStop",
+   "branch": null,
+   "distanceM": 30.0,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Blocks the straight-through 'white' beam and the radiation that did not hit the mirror, letting only the mirror-deflected pink beam continue.",
+   "expert": "Placed between M1 and M2: stops white beam and bremsstrahlung while passing the pink beam deflected by M1 (PDR Table 6.44).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "m2",
+   "name": "Mirror M2, horizontal-deflecting HHL mirror (8ID-MR-2)",
+   "category": "mirror",
+   "branch": null,
+   "distanceM": 30.6,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight). Listed in the FDR table as 'Horizontal, Focusing', whereas the FDR text describes both mirrors as flat with an optional bender on M2.",
+   "enclosure": "8-ID-A",
+   "deflection": "horizontal",
+   "plain": "A second mirror that bounces the beam back so it travels parallel again, now shifted sideways by about 16 mm, away from the dangerous straight-through radiation.",
+   "expert": "Flat Si, 3.0 mrad, Si/Cr/Rh/Pt stripes; sees only pink beam (absorbs 10-18 W, ~0.02-0.06 W/mm2). A mechanical or thermal bender may correct wavefront distortion from M1 and the DCM. M1-M2 spacing 2.6 m gives a lateral offset of 2 x 3 mrad x 2.6 m ~ 16 mm (FDR Fig. 4.23: 16.0 mm; PDR: inboard, >= 17.5 mm).",
+   "specs": {
+    "angle": "3.0 mrad",
+    "offset of pink beam": "~16 mm (inboard per PDR)",
+    "bender": "possible (FDR)"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "sc-1",
+   "name": "Secondary collimator (8ID-SC-1)",
+   "category": "collimator",
+   "branch": null,
+   "distanceM": 31.4,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Another lead/tungsten block that keeps stray radiation confined to the first hutch.",
+   "expert": "Secondary bremsstrahlung/scatter collimator; FOE collimators work with the front-end collimators to achieve the required offsets.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "pm-2",
+   "name": "Pink-beam mask / stop (8ID-PM-2)",
+   "category": "beamStop",
+   "branch": null,
+   "distanceM": 31.8,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Defines the clean pink beam and catches anything outside it.",
+   "expert": "Pink-beam mask with integral stop.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "bc-1",
+   "name": "Bremsstrahlung collimator (8ID-BC-1)",
+   "category": "collimator",
+   "branch": null,
+   "distanceM": 32.1,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Stops the gamma-ray-like bremsstrahlung that comes straight from the accelerator.",
+   "expert": "Primary bremsstrahlung is stopped in the FOE (PDR: no collimators needed in the SOE).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "bd-2",
+   "name": "Diagnostics (8ID-BD-2)",
+   "category": "diagnostics",
+   "branch": null,
+   "distanceM": 32.4,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Checks the pink beam position before the monochromator.",
+   "expert": "White/pink-beam diagnostic.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "pb-slits-2",
+   "name": "Pink-beam slits H+V (8ID-SL-2)",
+   "category": "slits",
+   "branch": null,
+   "distanceM": 32.9,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Trims the pink beam just before the crystal monochromator.",
+   "expert": "Pink-beam slits upstream of the HDCM.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "hdcm",
+   "name": "Horizontal double-crystal monochromator, LN2-cooled (8ID-MN-1, -MN-2)",
+   "category": "monochromator",
+   "branch": null,
+   "distanceM": 33.7,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "horizontal",
+   "plain": "Two perfect silicon crystals pick out a single X-ray 'colour'. They bounce the beam sideways rather than up. The X-ray source is about five times wider than it is tall, so the same tiny wobble blurs it far less sideways, and XPCS needs an extremely steady beam.",
+   "expert": "Fixed-exit horizontally deflecting DCM, Si(111) (dl/l ~1.3e-4) and Si(311) (2.7e-5), LN2-cooled crystals with capacitive sensors/interferometers for gap and vibration monitoring. FDR heat load: U21 at 8.8 keV, theta = 13.0 deg, 155 W, 25 W/mm2; U25 at 14.2 keV, theta = 8.0 deg, 132 W, 13 W/mm2. PDR: pitch stability <= 40 nrad rms; Bragg range 0 (pink pass-through) and ~4-29 deg. Horizontal deflection chosen because (2021 talk, slide 7: at 30 keV and 30 m, 10% source broadening needs <~28 nrad rms relative pitch vibration for a vertical DCM but tolerates ~100 nrad for a horizontal DCM) a vibrating optic broadens the effective source as sqrt(Sigma^2 + (2 p sigma_v)^2) and Sigma_x >> Sigma_y. Lateral offset 15 mm (FDR Fig. 4.23) vs ~10 mm (PDR, 2021 talk).",
+   "specs": {
+    "crystals": "Si(111), Si(311)",
+    "bandwidth": "1.3e-4 / 2.7e-5 (PDR); 1e-4 / 3e-5 (directory)",
+    "cooling": "LN2",
+    "vibration spec": "<= 40 nrad rms pitch (PDR)",
+    "offset": "15 mm (FDR) / 10 mm (2021 talk)",
+    "pink mode": "crystals translated out"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "pm-3",
+   "name": "Mode-switch mask (8ID-PM-3)",
+   "category": "other",
+   "branch": null,
+   "distanceM": 34.4,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "A movable mask that is set differently for pink-beam and single-colour operation, because the beam sits in a slightly different place in each mode.",
+   "expert": "Mode-switch mask accommodating the lateral beam position difference between pink (DCM out) and monochromatic operation.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "sh-1",
+   "name": "Pink-beam shutter (8ID-SH-1)",
+   "category": "shutter",
+   "branch": null,
+   "distanceM": 35.0,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "A heavy shutter that closes the beam off from the downstream rooms so people can safely work in them.",
+   "expert": "Pink/mono-compatible photon shutter (safety) for the downstream enclosures.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "sc-2",
+   "name": "Secondary collimator (8ID-SC-2)",
+   "category": "collimator",
+   "branch": null,
+   "distanceM": 35.6,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-A",
+   "deflection": "none",
+   "plain": "Last shielding block at the exit of the first hutch.",
+   "expert": "Secondary collimator at the FOE downstream wall.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "transport-1",
+   "name": "Shielded transport (8ID-ST-1, -ST-2)",
+   "category": "beamPipe",
+   "branch": null,
+   "distanceM": 36.0,
+   "distanceNote": "FDR Table 4.33: 36.0-47.0 m (start value given).",
+   "enclosure": "Experiment floor (between 8-ID-A and 8-ID-D)",
+   "deflection": "none",
+   "plain": "An 11-metre lead-shielded vacuum pipe that carries the beam across the experiment floor to the next room.",
+   "expert": "UHV shielded transport (no windows upstream of the experiment stations) from 36.0 to 47.0 m.",
+   "specs": {
+    "length": "~11 m"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "bd-3",
+   "name": "Pink-beam diagnostics (8ID-BD-3)",
+   "category": "diagnostics",
+   "branch": null,
+   "distanceM": 47.5,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-D",
+   "deflection": "none",
+   "plain": "Watches the beam as it enters the second optics room.",
+   "expert": "PDR: diamond BPM, YAG screen, bypass aperture; monitors stability of the beam from the FOE.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "pb-slits-3",
+   "name": "Pink-beam slits (8ID-SL-3)",
+   "category": "slits",
+   "branch": null,
+   "distanceM": 48.1,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-D",
+   "deflection": "none",
+   "plain": "Trims the beam before the (optional) multilayer monochromator.",
+   "expert": "Pink-beam slits, max ~10 x 10 mm2 (PDR).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "dmm",
+   "name": "Double multilayer monochromator (8ID-MN-3/4/5) - status uncertain",
+   "category": "multilayerMono",
+   "branch": null,
+   "distanceM": 49.0,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight). Not mentioned in the 2021 status talk nor in the 2026 directory (which lists only Si(111)/Si(311)); may not be installed.",
+   "enclosure": "8-ID-D",
+   "deflection": "horizontal",
+   "plain": "A planned middle option between one-colour and pink beam: man-made layered mirrors that pass a ~1% wide band of colours, giving much more light when the experiment can tolerate it.",
+   "expert": "FDR/PDR design: horizontal-offset DMM (candidate bilayers MoSi2/Si or MoSi2/B4C) with ~0.3-1% bandwidth for SA-XPCS that does not need Si(111) monochromaticity; must translate out of the beam. As-built status unconfirmed.",
+   "specs": {
+    "bandwidth (design)": "~0.32% (PDR example)",
+    "status": "unconfirmed"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "pm-4",
+   "name": "Mode-switch mask (8ID-PM-4)",
+   "category": "other",
+   "branch": null,
+   "distanceM": 51.0,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-D",
+   "deflection": "none",
+   "plain": "Second mode-switch mask, matched to whichever beam mode is in use.",
+   "expert": "Mode-switch mask downstream of the DMM position.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "pb-slits-4",
+   "name": "Pink-beam slits before CRL-1 (8ID-SL-4)",
+   "category": "slits",
+   "branch": null,
+   "distanceM": 51.3,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-D",
+   "deflection": "none",
+   "plain": "These slits choose how much of the beam enters the lenses, and therefore how many 'coherence patches' are used: smaller opening = purer coherence but fewer photons.",
+   "expert": "Beam-defining aperture for Optic 1; sets the number of accepted transverse coherence modes (FDR/PDR cases: 1 or ~3.2 x 3.2 = 10 modes). E.g. PDR: 79 x 199 um (1 mode, 10 keV, kappa = 0.1).",
+   "specs": {
+    "example aperture, 1 mode @10 keV": "79 x 199 um (H x V)"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "crl-1",
+   "name": "Transfocator CRL-1 (8ID-TR-1), Be compound refractive lenses",
+   "category": "transfocator",
+   "branch": null,
+   "distanceM": 52.0,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-D",
+   "deflection": "none",
+   "plain": "A stack of tiny curved beryllium lenses that can be slid in and out of the beam to focus the X-rays more or less strongly - the 'zoom' of the X-ray camera.",
+   "expert": "Water-cooled, UHV transfocator with 12 stacks (FDR Table 4.35): 2D lenses R = 1000, 500, 300, 200, 100 um (1 each), then 2, 4, 8, 8 x R = 100 um; 1D lenses R = 1000 um (1, 2, 4). Common first optic for both stations; combined with the KB (8-ID-E) or CRL-2 (8-ID-I) for zoom focusing. X travel +/-15 mm to follow pink/mono beam shift (PDR). Focal length f = R/(2 N delta); delta(Be) ~3.4e-6 at 10 keV, ~5e-7 at 25 keV (so many more lenses at high energy).",
+   "specs": {
+    "lens stacks": "12 (9 x 2D, 3 x 1D)",
+    "radii": "100-1000 um",
+    "material": "Be",
+    "cooling": "water (pink-beam compatible)"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "bd-4",
+   "name": "Diagnostics (8ID-BD-4)",
+   "category": "diagnostics",
+   "branch": null,
+   "distanceM": 52.5,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-D",
+   "deflection": "none",
+   "plain": "Beam monitor that feeds back to keep the beam rock-steady on the sample.",
+   "expert": "Pink/mono diagnostic; position feedback for 8-ID-E experiments (PDR).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "sh-2",
+   "name": "Pink-beam shutter for 8-ID-E (8ID-SH-2)",
+   "category": "shutter",
+   "branch": null,
+   "distanceM": 53.2,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-D",
+   "deflection": "none",
+   "plain": "Safety shutter that lets beam into the wide-angle room 8-ID-E.",
+   "expert": "Pink/mono shutter at the downstream end of 8-ID-D; doubles as pink-beam stop for 8-ID-E work.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "8ide-table-optics",
+   "name": "8-ID-E upstream optical table: attenuators, experiment shutter, mono-beam slits (8ID-SL-5)",
+   "category": "slits",
+   "branch": "wa",
+   "distanceM": 54.8,
+   "distanceNote": "Slits SL-5 at 54.8 m per FDR Table 4.33; attenuators and experiment shutter share a motorized 6-DOF table (PDR TC1, 52.5-54.5 m in the 2017 layout) - positions approximate.",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "A sturdy motorized table that carries filters to dim the beam, a fast shutter, and slits that clean up the beam before the final focusing mirrors.",
+   "expert": "Mono-beam slits, attenuators, experiment shutter and KB on a heavy-duty 6-DOF table (PDR); all monochromatic-beam only.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "kb",
+   "name": "Kirkpatrick-Baez bendable mirror pair (8ID-MR-3)",
+   "category": "kbMirror",
+   "branch": "wa",
+   "distanceM": 55.3,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight). FDR text instead says VKB/HKB are 500/350 mm upstream of the sample (sample at 56.3-56.5 m) - inconsistent with the table; PDR: optic-to-sample 0.4 m. Pair: VKB (deflects vertically) then HKB (horizontally), 2.5 mrad each.",
+   "enclosure": "8-ID-E",
+   "deflection": "vertical",
+   "plain": "Two curved mirrors, one focusing up-down and one side-to-side, squeeze the beam to as little as 0.3 micrometres (several hundred times thinner than a human hair) for wide-angle measurements.",
+   "expert": "Bendable flat Pt-coated mirrors at 2.5 mrad; VKB upstream, HKB downstream (PDR: 200 mm and 100 mm long, bimorph benders, slope error <= 0.1 urad). Figure-error tolerance for <10% broadening/peak loss: 1.5 nm (H) and 1.0 nm (V) rms. With CRL-1: 0.3-3 um spots; FDR sim at 14.2 keV, 3.2 x 3.2 modes: 0.22 x 0.21 um2 smallest, 4.1 x 5.1 um2 largest. Achromatic, so focus does not move with energy.",
+   "specs": {
+    "coating": "Pt",
+    "angle": "2.5 mrad",
+    "benders": "yes (bimorph per PDR)",
+    "spot range": "0.3-3 um (with CRL-1)",
+    "figure tolerance": "1.5 nm (H), 1.0 nm (V) rms",
+    "deflections": "VKB vertical (upstream), HKB horizontal (downstream); 'deflection' field shows the first mirror only. Up/down direction of the VKB is not documented."
+   },
+   "source": "r1"
+  },
+  {
+   "id": "wn-1",
+   "name": "Be window (8ID-WN-1)",
+   "category": "window",
+   "branch": "wa",
+   "distanceM": 55.7,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "A thin, X-ray-transparent beryllium window that separates the ultra-high vacuum of the optics from the sample area.",
+   "expert": "Coherence-preserving Be window; UHV upstream, HV/air downstream (PDR: pink-compatible windows with N2 purge where vacuum/gas interface).",
+   "specs": {
+    "material": "Be"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "sl-6",
+   "name": "Guard slits (8ID-SL-6)",
+   "category": "slits",
+   "branch": "wa",
+   "distanceM": 55.9,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "Last slits before the sample; they block faint 'halo' scattering from upstream optics so it does not swamp the weak sample signal.",
+   "expert": "Mono-beam guard slits suppressing parasitic scattering from optics and slit-edge Fraunhofer fringes.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "diffractometer",
+   "name": "8-ID-E six-circle diffractometer (Huber) with sample stack (8ID-BI-1, -BI-3)",
+   "category": "diffractometer",
+   "branch": "wa",
+   "distanceM": 56.3,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight). (FDR also quotes 56.4/56.5 m for the WA sample position elsewhere).",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "A large, very stiff robotic sample holder that can tilt and turn a crystal to any angle, so scientists can point the beam at exactly the atomic 'reflection' they want to watch fluctuate.",
+   "expert": "High-stability 6-circle diffractometer (design/3D model Huber Diffraktionstechnik) with split detector arm carrying two rails (near-sample detector, and flight-path support for the LDDP), X/Y base translations to clear the beam path for 8-ID-I operation, downstream table extension for large add-ons; sample stack theta/chi/phi plus XYZ (FDR Fig. 4.27). Supports vertical-plane scattering, which avoids the horizontal-polarization cos^2(2theta) intensity penalty at large angles.",
+   "specs": {
+    "circles": "6",
+    "maker": "Huber (design)",
+    "sample position": "56.3 m"
+   },
+   "source": "r11"
+  },
+  {
+   "id": "8ide-sample-env",
+   "name": "8-ID-E sample environments",
+   "category": "sampleEnvironment",
+   "branch": "wa",
+   "distanceM": 56.3,
+   "distanceNote": "At the diffractometer centre.",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "Interchangeable ovens, fridges and stretching stages so materials can be watched while hot, cold or under strain.",
+   "expert": "Directory (2026): Lake Shore ST-500 liquid-He-cooled cryostage 3.5-475 K; Anton Paar DHS 1100 vacuum heating dome (to 1100 C, ~0.1 Torr, gas flow); Linkam MFS tensile stage (LN2 to 350 C). 2021 plan also listed Anton Paar DCS-500 (93-773 K).",
+   "specs": {
+    "cryostat": "3.5-475 K",
+    "furnace": "<= 1100 C",
+    "tensile": "LN2 to 350 C"
+   },
+   "source": "r6"
+  },
+  {
+   "id": "vp-2",
+   "name": "Removable vacuum pipe for beam-pass / USAXS mode (8ID-VP-2)",
+   "category": "beamPipe",
+   "branch": "sa",
+   "distanceM": 57.3,
+   "distanceNote": "FDR Table 4.33: 57.3-61.0 m (start given).",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "When the small-angle room is in use, this pipe is installed straight through the wide-angle room so the beam passes through untouched.",
+   "expert": "Removable vacuum transport through 8-ID-E in beam-pass mode; all windows must survive pink beam (water cooling, N2 purge).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "8ide-near-detector",
+   "name": "Near-sample WA detector on the diffractometer arm (vertical geometry)",
+   "category": "detector",
+   "branch": "wa",
+   "distanceM": 58.0,
+   "distanceNote": "Approximate: 1.5-2 m from the sample (MEDSI 2020); FDR lists the exit flight path 8ID-BI-2 at 58.0 m.",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "A camera on the diffractometer's arm, 1.5-2 m from the sample, that can swing up to wide angles to catch atomic-scale speckle.",
+   "expert": "Pixel-array detector on the diffractometer detector arm at 1.5-2 m with a short flight pipe, anti-scatter slits and remote filter box; PDR: vertical arm 2theta -1 to 120 deg. Coarser speckle sampling than the 4 m arm but polarization-free at large 2theta.",
+   "specs": {
+    "distance": "1.5-2 m",
+    "2theta (PDR)": "-1 to 120 deg (vertical)"
+   },
+   "source": "r11"
+  },
+  {
+   "id": "lddp",
+   "name": "Long Distance Detector Positioner (LDDP) with removable flight path",
+   "category": "detector",
+   "branch": "wa",
+   "distanceM": 60.0,
+   "distanceNote": "FDR lists detectors 8ID-DT-1 at 60.0 m (= ~3.7 m from sample); LDDP range 2.5-4 m from the sample.",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "A detector mounted on a granite block that floats on air cushions so staff can push it around the room, then lock it 2.5 to 4 m from the sample at any angle up to 55 degrees. A laser tracker measures exactly where it ended up.",
+   "expert": "LDDP (design JJ X-ray): granite base on air casters (lift >= 6 mm), motorized stages +/-100 mm H and V, detectors up to 20 kg, 3-55 deg horizontal 2theta at up to 4 m (FDR Fig. 4.28 drawing shows the arc on the control-room side). Removable rigid vacuum flight-path sections between diffractometer arm rail and a mobile support. Sample-detector geometry registered with a laser tracker and fiducial reflectors.",
+   "specs": {
+    "distance": "2.5-4 m",
+    "2theta": "3-55 deg (horizontal)",
+    "load": "<= 20 kg",
+    "positioning": "air casters + laser tracker"
+   },
+   "source": "r11"
+  },
+  {
+   "id": "bd-5",
+   "name": "Diagnostics for 8-ID-I (8ID-BD-5)",
+   "category": "diagnostics",
+   "branch": "sa",
+   "distanceM": 61.0,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "Beam monitor that steers the beam for the small-angle room.",
+   "expert": "Diamond BPM/YAG/bypass aperture (PDR); position feedback for slow DCM/mirror drifts during 8-ID-I operation.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "sl-7",
+   "name": "Pink-beam slits before CRL-2 (8ID-SL-7)",
+   "category": "slits",
+   "branch": "sa",
+   "distanceM": 61.3,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-E",
+   "deflection": "none",
+   "plain": "Selects the coherent part of the beam for the second lens set.",
+   "expert": "Beam-defining aperture for Optic 3 (CRL-2), pink-beam compatible, up to 10 x 10 mm2 (PDR).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "crl-2",
+   "name": "Transfocator CRL-2 (8ID-TR-2)",
+   "category": "transfocator",
+   "branch": "sa",
+   "distanceM": 62.3,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-E (downstream end)",
+   "deflection": "none",
+   "plain": "A second movable lens stack, a few metres before the small-angle sample, that sets the final spot size between 3 and 10 micrometres.",
+   "expert": "Same lens arrangement as CRL-1 (FDR Table 4.35); PDR: +/-300 mm longitudinal travel to keep focus on the sample (67.5 m) across 8-25 keV. FDR sim at 14.2 keV, 3.2 x 3.2 modes: 3.0 x 2.0 um2 smallest, 11 x 8.5 um2 largest at the 8-ID-I sample.",
+   "specs": {
+    "spot range (with CRL-1)": "3-10 um",
+    "Z travel (PDR)": "+/-300 mm"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "sh-3",
+   "name": "Pink-beam shutter for 8-ID-I (8ID-SH-3)",
+   "category": "shutter",
+   "branch": "sa",
+   "distanceM": 63.3,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-E / wall to 8-ID-I",
+   "deflection": "none",
+   "plain": "Safety shutter guarding the small-angle room.",
+   "expert": "Pink/mono shutter for 8-ID-I.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "st-3",
+   "name": "Shielded transport through the 8-ID-E/8-ID-I wall (8ID-ST-3)",
+   "category": "beamPipe",
+   "branch": "sa",
+   "distanceM": 63.7,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "Wall 8-ID-E / 8-ID-I",
+   "deflection": "none",
+   "plain": "A short shielded pipe through the wall between the two experiment rooms.",
+   "expert": "Shielded transport through the 8-ID-E/8-ID-I shield wall; pink-beam compatible.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "guard-slits-1",
+   "name": "8-ID-I guard slits #1 (8ID-SL-8)",
+   "category": "slits",
+   "branch": "sa",
+   "distanceM": 64.5,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "The first of three precision slits that progressively clean the beam edges.",
+   "expert": "Pink-beam-compatible precision slits on the upstream optical table (PDR: 4-5 slits progressively conditioning beam tails; differential pumping between slits and sample).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "8idi-fast-shutter-attenuators",
+   "name": "8-ID-I fast shutter and attenuators",
+   "category": "attenuator",
+   "branch": "sa",
+   "distanceM": 65.0,
+   "distanceNote": "Approximate: on the upstream optical table (~64-66.5 m); not in the FDR table.",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "A shutter that opens and closes in under a thousandth of a second and polished filters to dim the beam, so delicate samples get only the X-rays needed.",
+   "expert": "PDR: fast experiment shutter (< 1 ms) and polished attenuators for 8-25 keV; 2021 talk: slits, shutter, attenuators, Be windows and valves on the upstream optical table.",
+   "specs": {},
+   "source": "r4"
+  },
+  {
+   "id": "guard-slits-2",
+   "name": "8-ID-I guard slits #2 (8ID-SL-9)",
+   "category": "slits",
+   "branch": "sa",
+   "distanceM": 65.5,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "Second beam-cleaning slit.",
+   "expert": "Precision guard slits.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "guard-slits-3",
+   "name": "8-ID-I guard slits #3 (8ID-SL-10)",
+   "category": "slits",
+   "branch": "sa",
+   "distanceM": 66.4,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "Final beam-cleaning slit just before the sample.",
+   "expert": "Precision guard slits.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "wn-2",
+   "name": "Be window (8ID-WN-2)",
+   "category": "window",
+   "branch": "sa",
+   "distanceM": 66.6,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "Thin beryllium window where the vacuum beam path ends before the sample.",
+   "expert": "Be exit window to the sample area.",
+   "specs": {
+    "material": "Be"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "8idi-sample",
+   "name": "8-ID-I sample stage and environments (8ID-BI-4, -BI-6), incl. Rheo-XPCS rheometer",
+   "category": "sampleEnvironment",
+   "branch": "sa",
+   "distanceM": 67.5,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight). The 2021 drawing places the sample table at ~66.1 m; treat +/-1 m.",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "Where the sample sits: gels, liquids, polymer melts or a spinning rheometer cup that shears a fluid while X-rays watch its nanoscale structure move.",
+   "expert": "Sample-environment table allowing quick change from thermally controlled transmission cells to the rheometer (Strzalka et al. 2025). Anton Paar MCR 702e twin-drive rheometer with cylindrical Couette geometry (e.g. polycarbonate cell 11.0/11.4 mm ID/OD, beam through the cell centre along the gradient direction so q lies in the flow-vorticity plane); multi-temperature-zone holder (0-160 C, up to 9 samples at 3 temperatures).",
+   "specs": {
+    "rheometer": "Anton Paar MCR 702e (twin drive, Couette)",
+    "temperature holder": "0-160 C, 9 samples, 3 zones",
+    "sample position": "67.5 m (FDR)"
+   },
+   "source": "r6"
+  },
+  {
+   "id": "8idi-flight-tube",
+   "name": "Telescoping vacuum flight tube, 4-12 m, rotatable 5 deg (8ID-BI-5)",
+   "category": "flightTube",
+   "branch": "sa",
+   "distanceM": 68.0,
+   "distanceNote": "FDR: starts at 68.0 m, detector at 79.0 m. As-built (2025 abstract): sample-detector distance 4-12 m, horizontal rotation over 5 deg about the sample.",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "A 12-metre vacuum tube that lets the scattered X-rays travel far before hitting the detector, so each speckle grows big enough to be seen by single pixels. It telescopes shorter and can swing 5 degrees to reach larger angles.",
+   "expert": "Telescoping vacuum flight path, sample-detector distance 4-12 m (as-built abstract; 2021 spec 2-12 m), horizontal rotation 0-5 deg about a virtual pivot at the sample; motion spec (2021): distance resolution/repeatability <= 0.5 mm, detector-plane stability <= 200 nm when stationary, rotation resolution <= 0.05 deg. Last section carries a motorized beam stop and Kapton window; detector stage at the end. Example (2026 preprint): EIGER2 X CdTe 4M at 11.6 m, 12.4 keV -> 0.04 < q < 0.51 nm^-1.",
+   "specs": {
+    "length": "4-12 m (sample-detector)",
+    "rotation": "0-5 deg horizontal",
+    "stability": "<= 200 nm (spec)"
+   },
+   "source": "r12"
+  },
+  {
+   "id": "8idi-detectors",
+   "name": "8-ID-I detectors: Rigaku Si 3-Mpixel fast PAD and Dectris EIGER2 X CdTe 4M (8ID-DT-2)",
+   "category": "detector",
+   "branch": "sa",
+   "distanceM": 79.0,
+   "distanceNote": "FDR detector position at 79.0 m (12 m flight path end); moves with the telescoping tube.",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "Photon-counting cameras that record up to 56,000 pictures every second (in short bursts nearly a million), counting individual X-ray photons in each pixel.",
+   "expert": "Directory: Rigaku Si 3 MPix, max 56 kHz continuous (2-bit; 19.2 us time resolution quoted), burst mode up to ~1 MHz (~1 us); Eiger CdTe 4 MPix, max 4 kHz (CdTe for high-energy efficiency). XSPA technology: UFXC32k ASIC, 76 um pixels, 48 ns minimum exposure, 970 kfps burst. Raw data rate of a 3 Mpix frame at 56 kHz ~164 GB/s (computing strategy). The same detector suite serves 8-ID-E.",
+   "specs": {
+    "fast PAD": "Rigaku Si 3 MPix ('UHSS 3M'), 56 kHz continuous (2-bit readout per XSPA-500k characterization), burst up to ~1 MHz (13-frame bursts in the XSPA family)",
+    "high-energy PAD": "EIGER2 X CdTe 4M, up to 4 kHz (directory)",
+    "pixel": "75-76 um"
+   },
+   "source": "r6"
+  },
+  {
+   "id": "beamstop",
+   "name": "Beam stop (8ID-BS-1)",
+   "category": "beamStop",
+   "branch": "sa",
+   "distanceM": 80.6,
+   "distanceNote": "FDR Table 4.33 (distance from source = centre of the ID straight).",
+   "enclosure": "8-ID-I",
+   "deflection": "none",
+   "plain": "The end of the line: a block that safely absorbs whatever beam is left.",
+   "expert": "Pink-beam-capable beam stop at the downstream end of 8-ID-I.",
+   "specs": {},
+   "source": "r1"
+  }
+ ],
+ "enclosures": [
+  {
+   "name": "Storage-ring tunnel / front end",
+   "role": "accelerator tunnel and ratchet wall",
+   "startM": -2.5,
+   "endM": 24.6,
+   "widthM": null,
+   "branch": null,
+   "notes": "Undulators at the straight centre (origin); HHLFE ~14-25 m; ratchet-wall exit at ~24.5 m (read from the 2021 elevation drawing)."
+  },
+  {
+   "name": "8-ID-A",
+   "role": "First optics enclosure (FOE), existing enclosure reused ('not changed')",
+   "startM": 24.6,
+   "endM": 36.0,
+   "widthM": 2.3,
+   "branch": null,
+   "notes": "PDR: spans 24-36 m. Contains FE exit table, WB slits, M1/M2, stops, collimators, HDCM, mode-switch mask, SH-1. Width approximate (~1.3 m outboard of beam to the ratchet-wall side ~0.6-1 m) from 2021 plan; abuts the storage-ring ratchet wall on its inboard side."
+  },
+  {
+   "name": "Shielded transport",
+   "role": "lead-shielded vacuum transport on the experiment floor",
+   "startM": 36.0,
+   "endM": 46.8,
+   "widthM": 0.3,
+   "branch": null,
+   "notes": "FDR 8ID-ST-1/2, 36.0-47.0 m; passes beside the 8-BM-B hutch (outboard side)."
+  },
+  {
+   "name": "8-ID-D",
+   "role": "Second optics enclosure (SOE), new; pink/mono compatible",
+   "startM": 46.8,
+   "endM": 53.9,
+   "widthM": 1.8,
+   "branch": null,
+   "notes": "Boundaries from 2021 plan (+/-0.2 m). PDR SOE envelope 7 m (L) x 2 m (W) x 3 m (H). Houses BD-3, SL-3, (DMM), PM-4, SL-4, CRL-1, BD-4, SH-2. Roof ~3.4 m (elevation drawing)."
+  },
+  {
+   "name": "8-ID-E",
+   "role": "Experiment station: wide-angle XPCS (new); also beam-pass and USAXS-sample station",
+   "startM": 53.9,
+   "endM": 63.7,
+   "widthM": 5.6,
+   "branch": "wa",
+   "notes": "From 2021 plan: inner wall ~4.05 m from beam on the control-room (outboard) side for 53.9-61.8 m, stepping in to ~1.8 m for 61.8-63.7 m; opposite wall slanted from ~1.3 m to ~2.2 m from the beam. Tallest hutch (~4.2 m roof vs ~3.4 m elsewhere) to clear the vertical detector arm. Stairs at upstream outboard corner. Diffractometer at ~56.3 m; LDDP arc (55 deg) swings toward the outboard side; CRL-2 and SH-3 at its downstream end serve 8-ID-I."
+  },
+  {
+   "name": "8-ID-I",
+   "role": "Experiment station: small-angle XPCS, Rheo-XPCS, USAXS detector (new; extends beyond the standard experimental aisle)",
+   "startM": 63.7,
+   "endM": 81.6,
+   "widthM": 4.7,
+   "branch": "sa",
+   "notes": "From 2021 plan: ~1.9 m (outboard) and ~2.2-2.8 m (inboard) from the beam, i.e. up to ~4.7 m wide; downstream end tapers to a point at ~81.6 m. The 12 m flight tube occupies ~67-79 m; its 5 deg rotation swings toward the inboard (9-BM) side in the drawing. Extension beyond the experimental aisle approved by record of decision APSU_2040668 (2021 talk)."
+  },
+  {
+   "name": "8-ID control room",
+   "role": "New control room for both stations",
+   "startM": 53.0,
+   "endM": 75.0,
+   "widthM": null,
+   "branch": null,
+   "notes": "Wedge-shaped room on the outboard side alongside 8-ID-E and 8-ID-I (2021 plan); PDR wanted a temperature-controlled control room encompassing the hutch entrances."
+  }
+ ],
+ "instruments": [
+  {
+   "name": "WA-XPCS instrument (six-circle diffractometer + LDDP)",
+   "enclosure": "8-ID-E",
+   "plain": "A heavy, ultra-steady robotic goniometer holds the sample in a 0.3-3 micrometre beam, while cameras sit either on its arm 1.5-2 m away or on a movable air-cushion base up to 4 m away to resolve atomic-scale speckle.",
+   "expert": "Huber six-circle with split detector arm (near detector rail + flight-path rail), X/Y base translations to clear the beam for 8-ID-I; LDDP (JJ X-ray) granite base on air casters, +/-100 mm stages, <= 20 kg detectors, 2.5-4 m, 3-55 deg horizontal; laser-tracker registration of sample-detector geometry; removable vacuum flight paths with anti-scatter slits and filter box; upstream 6-DOF table with attenuators, shutter, slits and the bendable Pt KB. Three configurations: short-distance (vertical) WA-XPCS, long-distance (horizontal) WA-XPCS, pinhole US-XPCS with the detector in 8-ID-I.",
+   "detectors": [
+    "Rigaku Si 3 MPix fast PAD (56 kHz, burst ~1 MHz)",
+    "Dectris EIGER2 X CdTe 4M (up to 4 kHz per directory)"
+   ],
+   "sampleEnvironments": [
+    "Lake Shore ST-500 LHe cryostage 3.5-475 K",
+    "Anton Paar DHS 1100 vacuum heating dome (<= 1100 C)",
+    "Linkam MFS tensile stage (LN2 to 350 C)",
+    "Anton Paar DCS-500 (93-773 K; 2021 plan)"
+   ],
+   "source": "r11"
+  },
+  {
+   "name": "SA-XPCS instrument (sample table + 4-12 m telescoping flight tube)",
+   "enclosure": "8-ID-I",
+   "plain": "A long vacuum tube carries scattered X-rays up to 12 m to a fast camera, so the speckles become large enough to see; the sample table can swap quickly between heated cells and a rheometer.",
+   "expert": "Upstream optical table (guard slits SL-8/9/10, fast shutter, attenuators, Be windows/valves), sample-environment table, telescoping vacuum flight path 4-12 m rotatable 0-5 deg about the sample, motorized beam stop and Kapton window at the downstream end, detector stage. Spot 3-10 um from CRL-1 + CRL-2; pink or mono beam.",
+   "detectors": [
+    "Rigaku Si 3 MPix fast PAD",
+    "Dectris EIGER2 X CdTe 4M"
+   ],
+   "sampleEnvironments": [
+    "Multi-temperature-zone holder: 9 samples at 3 temperatures, 0-160 C",
+    "Anton Paar MCR 702e rheometer (Rheo-XPCS)",
+    "In-vacuum polymer-melt stage (-20 to 225 C; 2021 plan)"
+   ],
+   "source": "r12"
+  },
+  {
+   "name": "Rheo-SAXS-XPCS (with Center for Nanoscale Materials)",
+   "enclosure": "8-ID-I",
+   "plain": "A precision rheometer that stirs or oscillates a fluid between two cylinders while the X-rays look straight through it.",
+   "expert": "Anton Paar MCR 702e twin-drive, cylindrical Couette (e.g. polycarbonate cell, 11.0/11.4 mm), beam through the cell centre parallel to the gradient direction (q in flow-vorticity plane); simultaneous steady/oscillatory shear, creep/recovery and XPCS at 10-1e5 frames/s.",
+   "detectors": [
+    "EIGER2 X CdTe 4M (e.g. at 11.6 m)",
+    "Rigaku Si 3 MPix"
+   ],
+   "sampleEnvironments": [
+    "Couette shear cell"
+   ],
+   "source": "r6"
+  },
+  {
+   "name": "Pinhole USAXS / US-XPCS configuration",
+   "enclosure": "8-ID-E (sample) + 8-ID-I (detector)",
+   "plain": "Uses the whole length of both rooms as a 22 m 'camera' to see the largest structures.",
+   "expert": "Sample on the 8-ID-E diffractometer, detector at the far end of the 8-ID-I flight tube (~22 m), beam 15-45 um; WA detector can record simultaneously.",
+   "detectors": [
+    "8-ID-I detector suite"
+   ],
+   "sampleEnvironments": [
+    "8-ID-E environments"
+   ],
+   "source": "r10"
+  }
+ ],
+ "totalLengthM": 81.6,
+ "geometryNotes": "Single in-line beam (no canting) entirely on the main experiment floor within sector 8 (no long-beamline building). Order: 8-ID-A FOE (existing, ~24.6-36.0 m) -> ~11 m shielded transport (36-47 m) running past the 8-BM-B hutch -> 8-ID-D SOE (~46.8-53.9 m, narrow ~2 m wide) -> 8-ID-E (53.9-63.7 m, wide and tallest, ~4.2 m roof) -> 8-ID-I (63.7-81.6 m, tapering wedge that extends beyond the normal hutch line into the aisle) with a new wedge-shaped control room alongside 8-ID-E/I on the outboard side; 9-BM beamline runs on the inboard side. All beam-transport optics upstream of the end stations are HORIZONTALLY deflecting (M1/M2 pair, HDCM, and the FDR DMM); the only vertically deflecting optic is the VKB of the 8-ID-E KB pair (2.5 mrad, ~5 mrad beam deflection, direction undocumented): the M1/M2 pair (28.0 and 30.6 m, 3 mrad) displaces the pink beam laterally by ~16 mm (PDR: toward inboard) and the HDCM adds a further fixed lateral offset (15 mm FDR / ~10 mm PDR & 2021; direction not documented) - so downstream of 33.7 m the mono beam axis is ~25-31 mm sideways from the undulator axis, and pink vs mono beams differ by ~10-15 mm laterally (hence mode-switch masks and +/-15 mm X travel on transfocators/windows). No vertical offset upstream of the 8-ID-E KB (beam height constant through the FOE, transport, SOE and the 8-ID-I beam-pass). The two stations operate one at a time: for 8-ID-I the WA instrument is moved aside (diffractometer has X/Y base translations) and a removable vacuum pipe (57.3-61.0 m) is installed. 8-ID-E: horizontal-scattering LDDP arc (3-55 deg, up to 4 m) drawn toward the control-room side; vertical scattering on the diffractometer arm (polarization-friendly because the undulator light is horizontally polarized). 8-ID-I: 12 m telescoping flight tube on a truss on two pedestals, rotatable 5 deg about the sample toward the inboard side in the 2021 drawing. Distances in the FDR (2019) and the 2021 drawing differ by up to ~1 m in 8-ID-I (e.g. sample 67.5 m vs ~66.1 m); hutch boundaries and widths here are read from the 2021 'Beamline Scope' drawing (scale bar 24-82 m) and are +/-0.3 m. Each hutch has an overhead crane rail (elevation drawing). Beam height not documented (elevation suggests ~1.4 m; unverified).",
+ "interactiveIdeas": [
+  {
+   "title": "Speckle TV: the twinkling fingerprint",
+   "concept": "A box of nanoparticles jiggles in water (adjust particle size, temperature, viscosity: water vs glycerol). A coherent beam illuminates them and a live 'detector' shows the far-field speckle |sum_j exp(i q.r_j)|^2 over a Gaussian beam footprint; it twinkles. Click a ring of pixels and watch g2(tau) build up and decay; the fit returns the diffusion coefficient and then the particle size via Stokes-Einstein.",
+   "whatUserLearns": "Speckle is an interference fingerprint of particle positions; its fluctuation rate measures motion; bigger q (larger angle) decorrelates faster; viscosity and size set the time scale.",
+   "physicsToGetRight": "Siegert: g2 = 1 + beta exp(-2 D q^2 tau) for Brownian motion (intensity decays at twice the field rate). D = kT/(6 pi eta R): R = 57 nm silica in water at 25 C gives D ~4.3e-12 m2/s; at q = 0.05 nm^-1, 1/(Dq^2) ~93 us, g2 decay time ~46 us (so us detectors are needed); glycerol is ~1000x slower. q = 4 pi sin(theta)/lambda, lambda[A] = 12.398/E[keV]. Contrast beta < 1 from partial coherence and pixel averaging. Use Poisson photon noise per pixel."
+  },
+  {
+   "title": "Old APS vs APS-U: can you catch the motion?",
+   "concept": "Pick a sample relaxation time (1 ms down to 1 us) and a source (APS 2019 vs APS-U). The simulated detector shows the real photon budget per frame (mostly 0s and a few 1s), the resulting noisy g2 curve and its signal-to-noise. Slide the frame rate up and watch the old source drown in shot noise while APS-U still resolves the decay.",
+   "whatUserLearns": "Why coherent flux, not total flux, matters; why XPCS time resolution improves with the square of brightness; why detectors need only 2-bit depth but huge frame rates.",
+   "physicsToGetRight": "SNR(g2) ~ beta * I_pix * sqrt(T * dt * N_pix) (valid for I_pix dt << 1); I_pix ~ Fc * (scattering cross-section) * solid angle per pixel; Fc = B lambda^2/4. Pre-upgrade benchmark ~2e10 ph/s coherent (7.4 keV, 8-ID-I, 2016) vs design ~1e13 ph/s (Si(111), ~10 keV, 1 mode). At fixed SNR, dt_min scales as Fc^-2. Do not imply single-pixel counts > a few per frame at us frames."
+  },
+  {
+   "title": "Zoom optics and speckle matching",
+   "concept": "Drag lens cartridges (Be CRLs, R = 100-1000 um) into CRL-1 and CRL-2 or flatten/bend the KB, choose an energy 8-25 keV, and see the spot at the sample (0.3-3 um in 8-ID-E, 3-10 um in 8-ID-I). A second panel shows the speckle size on the detector versus the 75 um pixel at a chosen distance (1.5-12 m); contrast drops when speckles become smaller than pixels.",
+   "whatUserLearns": "Small beams make big speckles; long flight tubes make speckles bigger; high energies need more lenses and longer distances; trade-off between spot size, coherent modes accepted and flux.",
+   "physicsToGetRight": "Thin-lens CRL: f = R/(2 N delta), delta_Be ~3.4e-6 at 10 keV scaling ~1/E^2 (~5.4e-7 at 25 keV) -> f ~1.5 m (10 keV) vs ~9 m (25 keV) for N = 10, R = 100 um. Speckle size s = lambda R / a: 10 keV, a = 3 um, R = 12 m -> ~0.5 mm; a = 10 um -> ~150 um; 25 keV, a = 10 um, 12 m -> ~60 um (< pixel, contrast loss). WA: 10 keV, a = 0.3 um, 1.5 m -> ~0.6 mm. KB achromatic, CRL chromatic. Keep the far-field condition R > a^2/lambda."
+  },
+  {
+   "title": "Two-time map: watch a gel or glass age",
+   "concept": "An animated speckle movie of an aging colloidal gel (or a metallic glass at 668 K) feeds a growing two-time correlation map C(t1,t2). Sliders control aging exponent and add intermittent 'avalanches'. Visitors see the diagonal ribbon widen as the sample slows and squares appear at avalanche events.",
+   "whatUserLearns": "Non-equilibrium materials change their own dynamics with time; a single averaged g2 hides this; two-time maps reveal aging and intermittency (as in the 83-hour metallic-glass run).",
+   "physicsToGetRight": "C(t1,t2) = <I(t1)I(t2)>/(<I(t1)><I(t2)>) over pixels at fixed q; width of the diagonal ~ tau(t_age) ~ t_age^mu; KWW f = exp[-(t/tau)^beta_KWW] with compressed beta_KWW ~1.2-2 typical of stress-driven glass dynamics; 'stationary' regimes show constant ribbon width."
+  },
+  {
+   "title": "Shear it! Rheo-XPCS and speckle beats",
+   "concept": "A Couette cell (two cylinders) with a stress/shear-rate dial. The visitor shears a dense suspension: rheology plots viscosity and stress, while g2 along the flow direction decays faster and shows beats when a jammed network coexists with mobile particles; along the vorticity direction it does not.",
+   "whatUserLearns": "How macroscopic 'feel' (thickening, yielding, memory) maps onto nanoscale motion; why direction matters in sheared samples; what heterodyne beats mean.",
+   "physicsToGetRight": "Beam along the velocity-gradient direction, q in the flow-vorticity plane. Uniform shear in the illuminated gap gives an extra flow-direction decorrelation ~sinc^2(q_par * gamma_dot * w * tau / 2) (w = path length through sheared region); two populations with relative velocity v give cos(q.v tau) oscillations in g2; vorticity-direction g2 reflects non-affine (diffusive) motion only."
+  },
+  {
+   "title": "Why 8-ID-E has a camera that looks up",
+   "concept": "Show horizontally polarized undulator light (field vectors drawn) scattering from a sample; rotate a detector around the sample in the horizontal plane and in the vertical plane and plot intensity vs 2theta.",
+   "whatUserLearns": "Undulator X-rays are polarized; scattering in the polarization plane vanishes near 90 deg; that is why 8-ID-E has both a horizontal long arm (finer speckle, smaller angles) and a vertical arm (large angles).",
+   "physicsToGetRight": "Thomson factor for horizontal polarization: horizontal-plane scattering ~cos^2(2theta), vertical-plane ~1. 2theta = 55 deg (LDDP max) -> cos^2(55 deg) = 0.33 relative intensity; zero at 90 deg; vertical arm reaches 120 deg (PDR). q at 2theta = 55 deg: 4.7 A^-1 (10 keV), 11.7 A^-1 (25 keV)."
+  },
+  {
+   "title": "Coherence detective: transverse and longitudinal",
+   "concept": "Two sliders: slit opening (number of coherent modes accepted) and monochromator choice (pink ~0.5%, Si(111), Si(311)). A sample-thickness slider and a scattering angle slider; the speckle contrast meter falls when the path-length difference exceeds the longitudinal coherence length or the slit exceeds the transverse coherence length.",
+   "whatUserLearns": "Coherence has two parts; small angles tolerate broad bandwidth (pink beam gives ~100x more photons), wide angles need narrow bandwidth.",
+   "physicsToGetRight": "Longitudinal coherence xi_L ~ lambda^2/dlambda: at 10 keV ~0.95 um (Si(111)), ~4.6 um (Si(311)), ~25 nm (0.5% pink). Path-length difference in transmission PLD ~ 2 t sin^2(theta) + w sin(2theta) (t = thickness, w = beam width in the scattering plane); contrast survives while PLD is <~ xi_L. Note the convention: xi_L = lambda^2/dlambda here (PDR); some texts use lambda^2/(2 dlambda), which is half as large. Transverse coherence ~lambda L/(2 pi Sigma): at 52 m, 10 keV ~70 um (H) x ~250 um (V) for APS-U."
+  }
+ ],
+ "funFacts": [
+  "X-ray speckle was first observed in 1991 (Sutton, Mochrie and co-workers, Nature); the technique's pioneers Grubel, Mochrie and Sutton received the APS Compton Award in 2009. (r30, r31)",
+  "The old 8-ID-E and 8-ID-I stations, then two of the longest and tallest enclosures at the APS, hosted more than 3,000 experiments over 25 years. In 2022 a team of six emptied both of them in under 14 days to make way for the upgrade (reported 3 October 2022). (r15)",
+  "8-ID was the first APS Upgrade feature beamline to welcome users, in November 2024 (a group from the University of Akron). (r13, r14)",
+  "Each undulator is a 'revolver': two magnet rows with different periods (21 and 25 mm) sit at 90 degrees on one rotating strongback, and the device spins to load the one that gives the brightest beam. (r2, r8)",
+  "Because XPCS time resolution scales with the square of brightness, a ~100x brighter source means ~10,000x faster dynamics at the same quality. (r1, r33)",
+  "The monochromator was specified to vibrate less than 40 nanoradians - the angle a human hair (~80 um) subtends from 2 km away. (r4; analogy derived)",
+  "One Rigaku 3-Mpixel detector at 56,000 frames per second produces ~164 GB/s of raw data; the beamline expects up to ~20 PB per year, ~200x more than before the upgrade. (r16)",
+  "A wide-angle XPCS run on a metallic glass at 8-ID-E lasted 83 hours (300,000 s) - one speckle snapshot every 2.5 s - revealing atoms that rearrange in bursts. (r27, r28)",
+  "The small-angle hutch 8-ID-I is so long (with a 12 m flight tube and a 22 m USAXS mode) that it needed formal approval to extend beyond the standard experiment-floor aisle. (r10)",
+  "Before the upgrade, 8-ID-I already timed a virus (Cowpea mosaic virus) diffusing in water with 19 us resolution, and XPCS on a free-hanging robotic pendant drop with 3.7 us resolution. (r38, r37)",
+  "Sector 8 was built and run by the IBM-McGill-MIT-Yale Collaborative Access Team (IMMY-CAT) before passing to APS management in 2003. XPCS pioneers Mochrie and Sutton helped develop beamline 8-ID, which in 2009 was described as the only XPCS facility in the United States. (r31)",
+  "Before the upgrade the APS beam near 11 keV was described as about 10,000 coherent modes, and to get a coherent beam you had to throw away all but ~1/10,000 of it through a 10 um pinhole. APS-U raises the coherent fraction to roughly 10%. (r33)"
+ ],
+ "figures": [
+  {
+   "file": "figs/xpcs/8id-beamline-layout-plan-elevation-2021.png",
+   "caption": "8-ID XPCS beamline scope: plan view (top) and elevation (bottom) from ~24 to ~82 m from the source, showing 8-ID-A (FOE, existing), 8-ID-D (SOE, new), 8-ID-E (WA-XPCS, new), the new control room and 8-ID-I (SA-XPCS, new). Image: E. Dufresne & S. Narayanan, 'XPCS Beamline overview', APS/CNM Users Meeting 2021 (Argonne National Laboratory).",
+   "source": "r10",
+   "page": 5,
+   "whatItShows": "Hutch boundaries and component positions with a metre scale (24-82 m): FOE optics, ~11 m shielded transport, CRL-1 in 8-ID-D, the six-circle diffractometer and 4 m LDDP arc (55 deg) in 8-ID-E, and the 12 m flight tube (with its 5-deg rotated position) in the tapered 8-ID-I. Slide 5 of the talk (PDF page index 4); pre-construction (2021) design drawing."
+  },
+  {
+   "file": "figs/xpcs/fdr-fig4-23-xpcs-optical-layout.png",
+   "caption": "Basic optical layout of the XPCS beamline for WA-XPCS in 8-ID-E (top) and SA-XPCS in 8-ID-I (bottom): U21/U25 revolver undulators, HHL slits, M1 & M2 (3 mrad, 16.0 mm offset), horizontal DCM (15 mm offset), CRL-1, and KB (8-ID-E) or CRL-2 (8-ID-I). Source: APS-U Final Design Report (2019), Fig. 4.23, Argonne National Laboratory.",
+   "source": "r1",
+   "page": 71,
+   "whatItShows": "Order and function of every optic in the two operating modes, the horizontal beam offsets introduced by the mirrors and monochromator, and the zoom-focusing concept (two focusing elements per station). PDF page 71 = printed p. 4-48. Rendered at 300 dpi from low-resolution embedded images."
+  },
+  {
+   "file": "figs/xpcs/medsi2020-fig2-8ide-wa-xpcs-instrument.png",
+   "caption": "8-ID-E wide-angle XPCS instrument: six-circle diffractometer, Long Distance Detector Positioner (LDDP) with the detector 4 m from the sample, flight-path assembly and laser tracker. From K. Wakefield et al., MEDSI2020 (JACoW), Fig. 2, CC BY 3.0.",
+   "source": "r11",
+   "page": 2,
+   "whatItShows": "3D engineering model of the WA-XPCS instrument in its long-distance horizontal-scattering configuration (flight-path support and window not shown). Native-resolution embedded image."
+  },
+  {
+   "file": "figs/xpcs/fdr-fig4-24-zoom-focal-spots.png",
+   "caption": "Zoom focusing at 14.2 keV (3.2 x 3.2 coherent modes, FWHM): largest and smallest simulated focal spots at the WA-XPCS sample, 56.3 m (top: 4.1 x 5.1 and 0.22 x 0.21 um2), and at the SA-XPCS sample, 67.5 m (bottom: 11 x 8.5 and 3.0 x 2.0 um2). Source: APS-U Final Design Report (2019), Fig. 4.24, Argonne National Laboratory.",
+   "source": "r1",
+   "page": 72,
+   "whatItShows": "How the CRL-1 + KB (8-ID-E) and CRL-1 + CRL-2 (8-ID-I) combinations tune the spot size over about a factor of 4-20. Useful for the zoom-optics explainer. Native embedded image (920 x 804 px) extracted from PDF page 72 (printed p. 4-49)."
+  },
+  {
+   "file": "figs/xpcs/2021-talk-slide7-hdcm-vibration-tolerance.png",
+   "caption": "Why the XPCS mirrors and monochromator bounce sideways: relative source-size broadening versus rms relative pitch vibration for a vertical DCM (red, small vertical source, Sigma_y = 3.6 um) and a horizontal DCM (black, Sigma_x = 12.9 um), APS-U, 30 keV, 30 m. Image: E. Dufresne & S. Narayanan, 'XPCS Beamline overview', APS/CNM Users Meeting 2021, slide 7 (Argonne National Laboratory).",
+   "source": "r10",
+   "page": 7,
+   "whatItShows": "A 10% broadening is reached at ~28 nrad for a vertical DCM but only at ~100 nrad for a horizontal DCM, so horizontal deflection is ~3.5x more vibration-tolerant. Cropped at 250 dpi from the slide inset (Argonne logo removed)."
+  }
+ ],
+ "references": [
+  {
+   "id": "r1",
+   "title": "Advanced Photon Source Upgrade Project Final Design Report, Chapter 4: Experimental Facilities (Section 4-5: XPCS 8-ID; Table 4.32-4.37, Figs 4.22-4.30)",
+   "authors": "APS Upgrade Project, Argonne National Laboratory",
+   "year": 2019,
+   "venue": "APSU-2.01-RPT-003 (FDR), May 2019",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%204%20-%20Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r2",
+   "title": "APS Upgrade Final Design Report, Chapter 3: Front Ends and Insertion Devices (HHL front end Sec. 3-2.1, Table 3.3; revolver undulators Sec. 3-3.3.2; Table 3.13 ID selections; Table 3.22 drive specs)",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "APS-U FDR",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%203%20-%20Front%20Ends%20and%20Insertion%20Devices.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r3",
+   "title": "APS Upgrade Final Design Report, Chapter 1: Executive Summary and Project Overview (Table 1.1 performance parameters)",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "APS-U FDR",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%201%20-%20Executive%20Summary%20and%20Project%20Overview.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r4",
+   "title": "APS Upgrade Preliminary Design Report, Chapter 6: Experimental Facilities, Section 6-10 'APS-U XPCS Beamline' (Tables 6.32-6.51, Figs 6.103-6.120)",
+   "authors": "APS Upgrade Project",
+   "year": 2017,
+   "venue": "APS-U PDR",
+   "url": "https://www.aps.anl.gov/sites/default/files/APS-Uploads/Aps-Upgrade/Chapter%206-Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r5",
+   "title": "X-ray Photon Correlation Spectroscopy (XPCS) at 8-ID (APS feature beamline page)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "aps.anl.gov (page dated 10.08.2025; accessed 2026-10-08)",
+   "url": "https://www.aps.anl.gov/Feature-Beamlines/X-ray-Photon-Correlation-Spectroscopy",
+   "type": "web"
+  },
+  {
+   "id": "r6",
+   "title": "APS Beamline Directory: 8-ID-E,I Wide-Angle/Small-Angle XPCS (specifications, detectors, equipment)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov beamline directory entry 243 (accessed 2026-10-08)",
+   "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/243",
+   "type": "web"
+  },
+  {
+   "id": "r7",
+   "title": "Sector 8-ID home page (operated by XSD Dynamics & Structure group; GU operations since October 2024)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov (page dated 07.29.2026)",
+   "url": "https://www.aps.anl.gov/Sector-8/8-ID",
+   "type": "web"
+  },
+  {
+   "id": "r8",
+   "title": "Insertion Devices by Sector (as-installed APS-U undulator table: periods, N, gaps, Keff, E1, power)",
+   "authors": "APS Accelerator Systems Division, Magnetic Devices Group (maintained by W. Li)",
+   "year": 2026,
+   "venue": "aps.anl.gov, updated Sep. 22, 2026",
+   "url": "https://www.aps.anl.gov/Magnetic-Devices/Insertion-Devices/Insertion-Devices-by-Sector",
+   "type": "web"
+  },
+  {
+   "id": "r9",
+   "title": "APS Storage Ring Parameters (nominal ID source parameters, flat and round beam modes)",
+   "authors": "APS Accelerator Operations & Physics",
+   "year": 2025,
+   "venue": "ops.aps.anl.gov",
+   "url": "https://ops.aps.anl.gov/SRparameters/SRparameters.html",
+   "type": "web"
+  },
+  {
+   "id": "r10",
+   "title": "X-Ray Photon Correlation Spectroscopy (XPCS) Beamline overview (APS User Meeting Workshop 7, with slides from A. Sandy, D. Capatina, K. Wakefield, M. Highland)",
+   "authors": "E. Dufresne, S. Narayanan",
+   "year": 2021,
+   "venue": "APS/CNM Users Meeting, May 7, 2021 (slides, cleared for public release)",
+   "url": "https://7id.xray.aps.anl.gov/~dufresne/Talks/169281-ClearedPDF-Nick.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "r11",
+   "title": "Sample and Detector Positioning Instruments for the Wide Angle XPCS End Station at 8-ID-E, a Feature Beamline for the APS Upgrade",
+   "authors": "K. Wakefield, S. Bean, D. Capatina, E. M. Dufresne, M. Fisher, M. J. Highland, S. Narayanan, A. Sandy, R. Ziegler",
+   "year": 2021,
+   "venue": "Proc. MEDSI2020, Chicago, paper WEPC13, pp. 333-335, doi:10.18429/JACoW-MEDSI2020-WEPC13 (CC BY 3.0)",
+   "url": "https://accelconf.web.cern.ch/medsi2020/papers/wepc13.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r12",
+   "title": "State of the Art Instruments for Dynamics and Structure: APS-U Feature Beamlines 9-ID and 8-ID (meeting abstract)",
+   "authors": "J. W. Strzalka, Z. Jiang, J. Wang, Q. Zhang, E. M. Dufresne, S. N. Narayanan",
+   "year": 2025,
+   "venue": "Structural Dynamics 12(2_Suppl), A302 (2025), doi:10.1063/4.0000608",
+   "url": "https://doi.org/10.1063/4.0000608",
+   "type": "paper"
+  },
+  {
+   "id": "r13",
+   "title": "First APS Upgrade feature beamline ready for science",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "APS News, 2024-11-06",
+   "url": "https://www.aps.anl.gov/APS-News/2024-11-06/first-aps-upgrade-feature-beamline-ready-for-science/2024-11-06/first-aps",
+   "type": "news"
+  },
+  {
+   "id": "r14",
+   "title": "APS Upgrade Update: November 2024 (160 mA operation; first users at 8-ID from the University of Akron)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-November-2024",
+   "type": "news"
+  },
+  {
+   "id": "r15",
+   "title": "Deconstruction Site: 8-ID Beamlines Ready for Their Upgrades",
+   "authors": "M. Huber",
+   "year": 2022,
+   "venue": "APS/User News, 2022-10-03",
+   "url": "https://www.aps.anl.gov/APS-News/2022-10-03/deconstruction-site-8-id-beamlines-ready-for-their-upgrades/2022-10-03",
+   "type": "news"
+  },
+  {
+   "id": "r16",
+   "title": "APS Scientific Computing Strategy (Sec. 2.8: XPCS APS-U Feature Beamline; Table 2-17 data rates)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "APS strategy document, 2024-09-11",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/XSD/XSD-Strategic-Plans/APSScientificComputingStrategy-2024-09-11-FINAL.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r17",
+   "title": "Advanced Photon Source Strategic Plan 2025-2029",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "APS, February 2025",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/APS/APS_Strategic_Plan_2025-29.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r18",
+   "title": "Measurements of source emittance and beam coherence properties of the upgraded Advanced Photon Source",
+   "authors": "X. Shi, Y.-C. Lin, J. Zhao, T. Toellner, M. Y. Hu, S. Seifert, B. Lee, W. Grizolli, M. J. Wojcik, L. Rebuffi, L. Assoufid, V. Sajaev",
+   "year": 2025,
+   "venue": "J. Synchrotron Rad. 32, 1152-1161 (2025), doi:10.1107/S160057752500579X",
+   "url": "https://doi.org/10.1107/S160057752500579X",
+   "type": "paper"
+  },
+  {
+   "id": "r19",
+   "title": "Upgraded APS Update: April 2025 (200 mA reached; horizontal emittance 33 pm rad measured at full current)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-April-2025",
+   "type": "news"
+  },
+  {
+   "id": "r20",
+   "title": "Submillisecond X-ray photon correlation spectroscopy from a pixel array detector with fast dual gating and no readout dead-time",
+   "authors": "Q. Zhang, E. M. Dufresne, P. Grybos, P. Kmon, P. Maj, S. Narayanan, G. W. Deptuch, R. Szczygiel, A. Sandy",
+   "year": 2016,
+   "venue": "J. Synchrotron Rad. 23, 679-684 (2016), doi:10.1107/S1600577516005166",
+   "url": "https://doi.org/10.1107/S1600577516005166",
+   "type": "paper"
+  },
+  {
+   "id": "r21",
+   "title": "Sub-microsecond-resolved multi-speckle X-ray photon correlation spectroscopy with a pixel array detector",
+   "authors": "Q. Zhang, E. M. Dufresne, S. Narayanan, P. Maj, A. Koziol, R. Szczygiel, P. Grybos, M. Sutton, A. R. Sandy",
+   "year": 2018,
+   "venue": "J. Synchrotron Rad. 25, 1408-1416 (2018), doi:10.1107/S1600577518009074",
+   "url": "https://doi.org/10.1107/S1600577518009074",
+   "type": "paper"
+  },
+  {
+   "id": "r22",
+   "title": "20 us-resolved high-throughput X-ray photon correlation spectroscopy on a 500k pixel detector enabled by data-management workflow",
+   "authors": "Q. Zhang, E. M. Dufresne, Y. Nakaye, P. R. Jemian, et al., S. Narayanan",
+   "year": 2021,
+   "venue": "J. Synchrotron Rad. 28, 259-265 (2021), doi:10.1107/S1600577520014319",
+   "url": "https://doi.org/10.1107/S1600577520014319",
+   "type": "paper"
+  },
+  {
+   "id": "r23",
+   "title": "pyXPCSviewer: an open-source interactive tool for X-ray photon correlation spectroscopy visualization and analysis",
+   "authors": "M. Chu, J. Li, Q. Zhang, Z. Jiang, E. M. Dufresne, A. Sandy, S. Narayanan, N. Schwarz",
+   "year": 2022,
+   "venue": "J. Synchrotron Rad. 29, 1122-1129 (2022), doi:10.1107/S1600577522004830",
+   "url": "https://doi.org/10.1107/S1600577522004830",
+   "type": "paper"
+  },
+  {
+   "id": "r24",
+   "title": "Spatially heterogeneous relaxational dynamics and the evolution of recoverable strain following flow cessation of a ductile nanocolloidal glass (preprint; rheo-XPCS at Sector 8-ID)",
+   "authors": "C. W. Lindeman, J. J. Griebler, P. G. Kovakas, M. Chu, Q. Zhang, S. Narayanan, J. L. Harden, S. A. Rogers, R. L. Leheny",
+   "year": 2026,
+   "venue": "arXiv:2608.11470 (Aug 2026)",
+   "url": "https://arxiv.org/abs/2608.11470",
+   "type": "paper"
+  },
+  {
+   "id": "r25",
+   "title": "Heterogeneous Dynamics in Shear Thickening Colloids Revealed by Intrinsic Heterodyne Correlation Spectroscopy",
+   "authors": "J. P. Horwath, H. He, J. Lee, Z. Jiang, S. Chakraborty, Q. Zhang, E. M. Dufresne, M. Sutton, A. Sandy, S. Narayanan, X.-M. Lin",
+   "year": 2025,
+   "venue": "Phys. Rev. Lett. 134, 178202 (2025), doi:10.1103/PhysRevLett.134.178202",
+   "url": "https://doi.org/10.1103/PhysRevLett.134.178202",
+   "type": "paper"
+  },
+  {
+   "id": "r26",
+   "title": "Aggregated/jammed networks of silica nanoparticles in colloids lead to dramatic thickening",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "APS Science Highlight, 2025-05-16",
+   "url": "https://www.aps.anl.gov/APS-Science-Highlight/2025-05-16/aggregatedjammed-networks-of-silica-nanoparticles-in-colloids-lead",
+   "type": "news"
+  },
+  {
+   "id": "r27",
+   "title": "Intermittent cluster dynamics and temporal fractional diffusion in a bulk metallic glass",
+   "authors": "B. Riechers, A. Das, E. Dufresne, P. M. Derlet, R. Maass",
+   "year": 2024,
+   "venue": "Nature Communications 15, 6595 (2024), doi:10.1038/s41467-024-50758-3",
+   "url": "https://doi.org/10.1038/s41467-024-50758-3",
+   "type": "paper"
+  },
+  {
+   "id": "r28",
+   "title": "An Exceptionally Long Experiment Reveals Unexpected Structural Evolution in a Metallic Glass",
+   "authors": "P. Koth (APS)",
+   "year": 2025,
+   "venue": "APS Science Highlight, 2025-01-06",
+   "url": "https://www.aps.anl.gov/APS-Science-Highlight/2025-01-06/an-exceptionally-long-experiment-reveals-unexpected-structural",
+   "type": "news"
+  },
+  {
+   "id": "r29",
+   "title": "Transport coefficient approach for characterizing nonequilibrium dynamics in soft matter",
+   "authors": "H. He, H. Liang, M. Chu, Z. Jiang, J. de Pablo, M. Tirrell, S. Narayanan, W. Chen",
+   "year": 2024,
+   "venue": "PNAS 121, e2401162121 (2024), doi:10.1073/pnas.2401162121",
+   "url": "https://doi.org/10.1073/pnas.2401162121",
+   "type": "paper"
+  },
+  {
+   "id": "r30",
+   "title": "Observation of speckle by diffraction with coherent X-rays",
+   "authors": "M. Sutton, S. G. J. Mochrie, T. Greytak, S. E. Nagler, L. E. Berman, G. A. Held, G. B. Stephenson",
+   "year": 1991,
+   "venue": "Nature 352, 608-610 (1991), doi:10.1038/352608a0",
+   "url": "https://doi.org/10.1038/352608a0",
+   "type": "paper"
+  },
+  {
+   "id": "r31",
+   "title": "2009 APSUO Compton Award to Grubel, Mochrie, and Sutton (for XPCS)",
+   "authors": "Advanced Photon Source",
+   "year": 2009,
+   "venue": "APS News",
+   "url": "https://www.aps.anl.gov/APS-News/2017/2009-apsuo-compton-award-to-gr-bel-mochrie-and-sutton",
+   "type": "news"
+  },
+  {
+   "id": "r32",
+   "title": "Hard X-Ray Photon Correlation Spectroscopy Methods for Materials Studies",
+   "authors": "A. R. Sandy, Q. Zhang, L. B. Lurio",
+   "year": 2018,
+   "venue": "Annu. Rev. Mater. Res. 48, 167-190 (2018), doi:10.1146/annurev-matsci-070317-124334",
+   "url": "https://doi.org/10.1146/annurev-matsci-070317-124334",
+   "type": "paper"
+  },
+  {
+   "id": "r33",
+   "title": "Early Science at the Upgraded Advanced Photon Source",
+   "authors": "APS (eds.)",
+   "year": 2015,
+   "venue": "APS report, Oct 2015",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/Beamlines/APS-U%20Early-Science-103015-FINAL.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r34",
+   "title": "Development of a Small-Angle X-ray Photon Correlation Spectroscopy Beamline for Studying Dynamics in Soft Matter (APS-U beamline white paper WP20)",
+   "authors": "S. Narayanan (principal developer), E. Dufresne, A. Sandy, X.-M. Lin, L. Lurio, R. Leheny",
+   "year": 2015,
+   "venue": "APS-U feature beamline white paper",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/Beamlines/Abstracts/WP20.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r35",
+   "title": "APS Upgrade Q&A Session for Users, December 6, 2023 (installation status; photos of XPCS SAXS detector positioner and WAXS goniometer)",
+   "authors": "APS management (incl. J. Lang)",
+   "year": 2023,
+   "venue": "APS-U user town hall slides",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/APSU/Workshops/APS%20Upgrade%20QnA%20Session%20for%20Users%2012-6-23.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "r36",
+   "title": "APS Upgrade Update: September 2024 (first post-upgrade user run; XPCS at 8-ID to be first feature beamline to welcome users)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-September-2024",
+   "type": "news"
+  },
+  {
+   "id": "r37",
+   "title": "Robotic pendant drop: containerless liquid for us-resolved, AI-executable XPCS",
+   "authors": "D. Y. Ozgulbas, D. Jensen, R. Butler, R. Vescovi, et al., Q. Zhang",
+   "year": 2023,
+   "venue": "Light: Science & Applications 12, 196 (2023), doi:10.1038/s41377-023-01233-z",
+   "url": "https://doi.org/10.1038/s41377-023-01233-z",
+   "type": "paper"
+  },
+  {
+   "id": "r38",
+   "title": "Direct measurement of Stokes-Einstein diffusion of Cowpea mosaic virus with 19 us-resolved XPCS",
+   "authors": "K. Switalski, J. Fan, L. Li, M. Chu, et al.",
+   "year": 2022,
+   "venue": "J. Synchrotron Rad. 29, 1429-1435 (2022), doi:10.1107/S1600577522008402",
+   "url": "https://doi.org/10.1107/S1600577522008402",
+   "type": "paper"
+  },
+  {
+   "id": "r39",
+   "title": "Linking structural and rheological memory in disordered soft materials",
+   "authors": "K. M. Kamani, Y. H. Shim, J. J. Griebler, S. Narayanan, Q. Zhang, R. L. Leheny, J. L. Harden, A. Deptula, R. M. Espinosa-Marzal, S. A. Rogers",
+   "year": 2025,
+   "venue": "Soft Matter 21, 750-759 (2025), doi:10.1039/d4sm00953c",
+   "url": "https://doi.org/10.1039/d4sm00953c",
+   "type": "paper"
+  },
+  {
+   "id": "r40",
+   "title": "New Storage Ring overview (beam ~15 x 4 um in brightness mode vs 275 x 10 um before; up to 500x brighter)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/New-Storage-Ring/Overview",
+   "type": "web"
+  },
+  {
+   "id": "r41",
+   "title": "Hybrid First Experiments Workshop for the XPCS beamline at 8-ID (July 18-19, 2023; hard- and soft-matter sessions)",
+   "authors": "Advanced Photon Source",
+   "year": 2023,
+   "venue": "APS News, 2023-06-06",
+   "url": "https://www.aps.anl.gov/APS-News/2023-06-06/hybrid-first-experiments-workshop-for-x-ray-photon-correlation-spectroscopy",
+   "type": "news"
+  },
+  {
+   "id": "r42",
+   "title": "Characterization and performance evaluation of the XSPA-500k detector using synchrotron radiation",
+   "authors": "Y. Nakaye, T. Sakumura, Y. Sakuma, S. Mikusu, et al.",
+   "year": 2021,
+   "venue": "J. Synchrotron Rad. 28, 439-447 (2021), doi:10.1107/S1600577520016665",
+   "url": "https://doi.org/10.1107/S1600577520016665",
+   "type": "paper"
+  },
+  {
+   "id": "r43",
+   "title": "Performance Evaluation of the High Frame Rate Detector XSPA (56,000 fps continuous; 970,000 fps burst; 48 ns minimum exposure)",
+   "authors": "Rigaku Corporation",
+   "year": 2024,
+   "venue": "Rigaku Journal 40(1), Winter 2024",
+   "url": "https://rigaku.com/resources/rigaku-journal/xspa-detector-performance-evaluation",
+   "type": "web"
+  },
+  {
+   "id": "r44",
+   "title": "8-ID Home Page (GISAXS/GIWAXS program formerly at 8-ID-E moved to 9-ID-D)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov (accessed 2026-10-09)",
+   "url": "https://www.aps.anl.gov/Sector-8/8-ID",
+   "type": "web"
+  },
+  {
+   "id": "r45",
+   "title": "APS Upgrade Update: March 2025 (200 mA design current achieved on February 4, 2025)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "APS Upgrade news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-March-2025",
+   "type": "news"
+  }
+ ],
+ "openQuestions": [
+  "Double multilayer monochromator (FDR 8ID-MN-3/4/5 at 49 m): not mentioned in the 2021 status talk or the 2026 directory (only Si(111)/Si(311)); it may have been descoped or deferred.",
+  "Exact as-built component positions: FDR 2019 Table 4.33 and the 2021 drawing differ by up to ~1 m in 8-ID-I (e.g. sample at 67.5 m vs ~66.1 m). No as-built component table is public.",
+  "HDCM lateral offset: 15 mm (FDR Fig. 4.23) vs ~10 mm (PDR, 2021 talk). Its direction (inboard or outboard) is not documented.",
+  "KB position: FDR table puts the KB at 55.3 m while its text puts the VKB/HKB 500/350 mm upstream of a sample at 56.3-56.5 m, which would place them downstream of the Be window at 55.7 m. The table order is used here.",
+  "M2 is described as flat with an optional bender in the FDR text but labelled 'Focusing' in the FDR component table. The as-built bender status is unknown.",
+  "8-ID-I flight path: 4-12 m (2025 abstract) vs 2-12 m (2021 requirement).",
+  "Energy range: 8-25 keV (FDR), 4.8-25 keV (2021 WA table), 6-25 or 7-25 keV (2026 directory). The practical low-energy limit with the U25 fundamental (E1 >= 4.5 keV at the 8.5 mm minimum gap) and the HDCM is not documented.",
+  "Detector identities: the Rigaku 'Si 3 MPix' model name is not public (the computing strategy calls it 'UHSS 3M'). The '4 kHz' quoted for the Eiger CdTe 4M matches the APS planning table (4.0 MB frames at 4 kHz, i.e. 1 byte/pixel). This suggests a reduced-bit-depth mode, but that is not confirmed by DECTRIS specifications.",
+  "No peer-reviewed commissioning paper with measured APS-U coherent flux, speckle contrast or stability at 8-ID was found (as of 2026-10-08). The quoted coherent-flux numbers are design or directory values.",
+  "Start of operations: the 8-ID page says general-user operations began in October 2024, while the news reports first users in early November 2024.",
+  "Inboard/outboard orientation (control room, LDDP arc and flight-tube rotation side) is inferred from the 2021 plan drawing, not stated explicitly.",
+  "The upstream and downstream revolver centre positions in the straight, and the phase-shifter details, are approximate.",
+  "Coherent flux in the 2021 WA-XPCS table (1-2e12 ph/s, 1 mode, Si(111), 8-25 keV) is ~10x below the FDR/PDR design values (1.6-1.7e13 at 8.8-10 keV). The source of the difference is undocumented, and no measured as-built value is public.",
+  "Up/down direction of the 8-ID-E VKB deflection, and the resulting WA sample height relative to the beam axis, are not documented."
+ ],
+ "verification": {
+  "checkedBy": "adversarial-verifier",
+  "date": "2026-10-09",
+  "method": "Re-fetched every APS web source cited (directory 243, 8-ID home, feature page, ID-by-sector table, SR parameters, APS-U updates Sept 2024/Nov 2024/Mar 2025/Apr 2025, 2022 and 2023 news, highlights). Re-read FDR Ch.1/3/4 and PDR Ch.6 text, viewed the FDR figures and the 2021 talk slides, and downloaded MEDSI2020 WEPC13, the computing strategy, the strategic plan, WP20 and the Dec 2023 Q&A slides. Checked journal claims through Europe PMC full texts and Crossref, and recomputed every physics number.",
+  "claims": [
+   {
+    "claim": "8-ID has two experiment stations operating one at a time: 8-ID-E (WA-XPCS) and 8-ID-I (SA-XPCS); operated by the XSD Dynamics & Structure group; identified as '8-ID-E,I (XPCS)'",
+    "verdict": "confirmed",
+    "source": "APS 8-ID home page (fetched 2026-10-09); feature-beamline page"
+   },
+   {
+    "claim": "New stations 8-ID-D (SOE), 8-ID-E, 8-ID-I and control room; 8-ID-A FOE 'not changed'; 8-ID-I extension beyond the experimental aisle approved by record of decision APSU_2040668",
+    "verdict": "confirmed",
+    "source": "Dufresne & Narayanan 2021 talk slides 4-5; feature page ('three new stations: one for optics (8-ID-D) and two experiment stations')"
+   },
+   {
+    "claim": "General User Program operation since October 2024",
+    "verdict": "confirmed",
+    "source": "8-ID home page text"
+   },
+   {
+    "claim": "First users (University of Akron) in early November 2024",
+    "verdict": "confirmed",
+    "source": "APS Upgrade Update November 2024 ('first users (from the University of Akron) earlier this month')"
+   },
+   {
+    "claim": "September 2024: XPCS at 8-ID announced as first feature beamline to welcome users; first post-upgrade user run began 16 Sept 2024",
+    "verdict": "confirmed",
+    "source": "APS Upgrade Update September 2024"
+   },
+   {
+    "claim": "Directory status 'Operational/Accepting General Users'",
+    "verdict": "confirmed",
+    "source": "APS beamline directory entry 243 (fetched 2026-10-09)"
+   },
+   {
+    "claim": "Storage ring reached 200 mA design current in Feb 2025",
+    "verdict": "confirmed",
+    "source": "APS Upgrade Update March 2025: '200 mA ... On February 4'; date added"
+   },
+   {
+    "claim": "Horizontal emittance 33 pm rad measured at 200 mA (April 2025)",
+    "verdict": "confirmed",
+    "source": "APS Upgrade Update April 2025"
+   },
+   {
+    "claim": "Shi et al. 2025: 3-ID-B, 50 mA; low coupling 44+/-3 pm (H), 3.3 pm (V); full coupling 28-31 pm",
+    "verdict": "confirmed",
+    "source": "J. Synchrotron Rad. 32, 1152 (2025), Table 1 via Europe PMC PMC12416411 (11.3 keV; added total source size 16.1 x 4.9 um)"
+   },
+   {
+    "claim": "Undulators: upstream APS21R25#10 (APS21#15, APS25#12) and downstream APS21R25#4 (APS21#9, APS25#7); N = 112/94; Keff 1.38/2.01 and 1.38/1.99; E1 8.34/4.54 and 8.36/4.58 keV; user min gap 9.0 mm; 216-227 kW/mrad2 and 5.4/8.2 kW",
+    "verdict": "confirmed",
+    "source": "APS Insertion Devices by Sector table (updated Sep 22, 2026), row S08"
+   },
+   {
+    "claim": "FDR: two in-line revolvers U21/U25, 4.6 m total, 2.0/2.2 kW through 2 x 2 mm2 mask at 25.4 m (Ky 1.287/1.902); energy range 8-25 keV",
+    "verdict": "confirmed",
+    "source": "FDR Ch.4 Sec. 4-5.3, Table 4.32"
+   },
+   {
+    "claim": "Revolver: two magnet structures at 90 deg on a common strongback; rotation only at open gap; NdFeB with grain-boundary-diffused heavy rare earths and vanadium-permendur poles; phase shifter/corrector between in-line devices",
+    "verdict": "confirmed",
+    "source": "FDR Ch.3 Sec. 3-3.3.2, 3-3.3.4, 3-3.3.6, Table 3.13 (08-ID dual inline Rev 2.5/2.1, phase shifter/corrector)"
+   },
+   {
+    "claim": "'Energies above ~16 keV use the 3rd harmonic'",
+    "verdict": "corrected",
+    "source": "PDR Table 6.45 mirror loads (12 keV on U21 fundamental, 16-24 keV on U25 3rd) and FDR Table 4.36 (U25 3rd harmonic at 14.2 keV): crossover ~12-14 keV"
+   },
+   {
+    "claim": "HHLFE windowless (differential pump), based on 28-ID HHLFE; limits 21 kW and 590 kW/mrad2; 2 x 2 mm2 exit mask; exit collimator narrowed to 5 x 5 mm2; GRID XBPM range +/-200 um (H) / +/-100 um (V)",
+    "verdict": "confirmed",
+    "source": "FDR Ch.3 Sec. 3-2.1, Table 3.3, front-end type table (08-ID High Heat Load, Differential Pump)"
+   },
+   {
+    "claim": "Component distances from FDR Table 4.33 (exit mask 25.4, M1 28.0, M2 30.6, HDCM 33.7, transport 36-47, DMM 49.0, CRL-1 52.0, KB 55.3, diffractometer 56.3, CRL-2 62.3, SA sample 67.5, flight path 68.0, detector 79.0, beam stop 80.6 m)",
+    "verdict": "confirmed",
+    "source": "FDR Ch.4 Table 4.33 (re-read line by line)"
+   },
+   {
+    "claim": "M1/M2: flat, 3.0 mrad, horizontal, notch design, Si/Cr/Rh/Pt stripes, optional bender on M2; Table 4.33 labels M2 'Focusing'",
+    "verdict": "confirmed",
+    "source": "FDR Ch.4 Sec. 4-5.6.4 and Table 4.33"
+   },
+   {
+    "claim": "M1&M2 16.0 mm offset and HDCM 15 mm offset (FDR) vs HDCM 10 mm (2021, PDR); PDR mirror offset >= 17.5 mm inboard",
+    "verdict": "confirmed",
+    "source": "FDR Fig. 4.23 (viewed); 2021 talk slide 7 (viewed: '16 mm', '10 mm'); PDR Table 6.41 and Table 6.42 ('approx 10 mm anticipated')"
+   },
+   {
+    "claim": "HDCM Si(111)/Si(311), LN2-cooled, fixed exit; bandwidth 1.3e-4 / 2.7e-5 (PDR), 1e-4 / 3e-5 (directory); pitch stability <= 40 nrad; Bragg 0 and 4-29 deg",
+    "verdict": "confirmed",
+    "source": "FDR 4-5.6.4 ('Si(111) and Si(113)'); PDR Sec. 6-10.4.1, Table 6.42; directory 243"
+   },
+   {
+    "claim": "Heat loads: M1 552/370 W (U21, 8.8 keV) and 591/425 W (U25, 14.2 keV); M2 10/18 W; HDCM 155 W at 13.0 deg, 132 W at 8.0 deg",
+    "verdict": "confirmed",
+    "source": "FDR Tables 4.36 and 4.37"
+   },
+   {
+    "claim": "Spot sizes 0.3-3 um (8-ID-E, CRL-1 + KB) and 3-10 um (8-ID-I, CRL-1 + CRL-2); 15-45 um for pinhole USAXS",
+    "verdict": "confirmed",
+    "source": "FDR 4-5.6.1; 2021 talk slide 6; directory 'Special capabilities'"
+   },
+   {
+    "claim": "FDR simulated spots at 14.2 keV (3.2 x 3.2 modes, FWHM): 0.22 x 0.21 to 4.1 x 5.1 um2 (WA), 3.0 x 2.0 to 11 x 8.5 um2 (SA)",
+    "verdict": "confirmed",
+    "source": "FDR Fig. 4.24 (rendered and read; now added as a figure)"
+   },
+   {
+    "claim": "Transfocator lens arrangement: 12 stacks, 2D R = 1000/500/300/200/100 um and 2/4/8/8 x 100 um, 1D 1000 um x 1/2/4; CRL X travel +/-15 mm, CRL-2 Z +/-300 mm",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.35; PDR Table 6.49"
+   },
+   {
+    "claim": "KB: Pt-coated bendable flat mirrors at 2.5 mrad, VKB/HKB 500/350 mm upstream of sample; figure tolerance 1.5 nm (H) / 1.0 nm (V); PDR 200/100 mm long, bimorph, slope < 100 nrad",
+    "verdict": "confirmed",
+    "source": "FDR 4-5.6.3/4-5.6.4; PDR Sec. 6-10.4.1"
+   },
+   {
+    "claim": "'All optics deflect horizontally' / 'all beam-deflecting optics are HORIZONTAL' / 'no vertical offset'",
+    "verdict": "corrected",
+    "source": "FDR 4-5.6.4: the KB pair includes a vertically focusing (vertically deflecting) VKB; text now restricted to upstream optics"
+   },
+   {
+    "claim": "Design coherent flux, 1 mode, Si(111), SA-XPCS: 1.7e13 (10 keV), 7.2e12 (15 keV), 2.0e12 (25 keV); FDR Table 4.34: 1.6e13 (WA) / 1.7e13 (SA) at 8.8 keV",
+    "verdict": "confirmed",
+    "source": "PDR Table 6.39 (kappa = 0.1, two 3 mrad mirrors + Si(111)); FDR Table 4.34"
+   },
+   {
+    "claim": "2021 WA-XPCS table coherent flux 2e12-1e12 ph/s (1 mode, Si(111), 8-25 keV)",
+    "verdict": "confirmed",
+    "source": "2021 talk slide 10 (viewed); added as an unresolved ~10x discrepancy with FDR/PDR"
+   },
+   {
+    "claim": "PDR world comparison (1 x 1 modes, 0.01% BW): APS-U 6e12 / 9e11 ph/s at 12 / 20 keV vs P10 8e10 / 2e10 and CHX 8e10 / 5e9",
+    "verdict": "confirmed",
+    "source": "PDR Table 6.32 (2017; ESRF-EBS left as '?')"
+   },
+   {
+    "claim": "Directory: Si(111) 1e13 ph/s at 9 keV, Si(311) 3e12 at 9 keV; focused 6 x 3 um, unfocused 20 x 20 um; energy 6-25 keV, 'continuously tunable 7-25 keV'",
+    "verdict": "confirmed",
+    "source": "Directory 243; wording changed: the directory does not label the flux as coherent"
+   },
+   {
+    "claim": "Pre-upgrade benchmark: ~2e10 ph/s at 7.4 keV, Ge(111), 20 x 150 um slit, two Undulator A, contrast ~10%",
+    "verdict": "confirmed",
+    "source": "Zhang et al. 2016, JSR 23, 679 (PMC5315006 full text); added ~0.03% bandpass"
+   },
+   {
+    "claim": "Detectors: Rigaku Si 3 MPix 56 kHz / burst up to 1 MHz; Eiger CdTe 4 MPix 4 kHz; time resolution 19.2 us continuous and 1 us burst",
+    "verdict": "confirmed",
+    "source": "Directory 243 'Detectors' and 'Special capabilities'"
+   },
+   {
+    "claim": "'UHSS 3M' name, 164 GB/s raw at 56 kHz, ~20 PB/yr vs ~0.1 PB/yr",
+    "verdict": "confirmed",
+    "source": "APS Scientific Computing Strategy 2024-09-11, Sec. 2.8.1, Table 2-17"
+   },
+   {
+    "claim": "XSPA family: UFXC32k ASIC, 76 um pixels, 56 kfps continuous (2-bit), 970 kfps burst (13 frames), 48 ns minimum exposure",
+    "verdict": "confirmed",
+    "source": "Nakaye et al. 2021 JSR 28, 439 (PMC7941290); Rigaku Journal 40(1) 2024"
+   },
+   {
+    "claim": "Eiger CdTe 4M '4 kHz'",
+    "verdict": "unverifiable",
+    "source": "Only the directory and the APS planning table (4 MB frames at 4 kHz) state it; no DECTRIS spec found"
+   },
+   {
+    "claim": "Detector lineage: 826 ns burst / 19.36 us continuous (2018, 2-bit); XSPA-500k 52 kHz with ~1e9 frames/day (2021)",
+    "verdict": "confirmed",
+    "source": "Zhang et al. 2018 JSR 25, 1408 abstract; Zhang et al. 2021 JSR 28, 259 abstract"
+   },
+   {
+    "claim": "8-ID-E WA instrument: Huber-designed six-circle with split detector arm; LDDP (JJ X-ray) on air casters (>= 6 mm lift), <= 20 kg, +/-100 mm; 1.5-2 m (vertical), up to 4 m and 3-55 deg (horizontal), flight path 2.5-4 m; laser tracker; pinhole US-XPCS ~22 m",
+    "verdict": "confirmed",
+    "source": "Wakefield et al., MEDSI2020 WEPC13 (downloaded and read)"
+   },
+   {
+    "claim": "PDR vertical detector arm 2theta -1 to 120 deg at 1.5-2 m; horizontal arm -1 to 55 deg at 4 m",
+    "verdict": "confirmed",
+    "source": "PDR Sec. 6-10.4.2 (Instruments: Diffractometer)"
+   },
+   {
+    "claim": "8-ID-I flight path 4-12 m, rotatable horizontally over 5 deg; 2021 requirement 12-2 m, <= 200 nm stability, <= 0.05 deg rotation resolution",
+    "verdict": "confirmed",
+    "source": "Strzalka et al., Struct. Dyn. 12(2_Suppl) A302 (2025) abstract via Crossref; 2021 talk slide 16"
+   },
+   {
+    "claim": "Sample environments: Lake Shore ST-500 3.5-475 K; Anton Paar DHS 1100 (<1100 C, 0.1 Torr); Linkam MFS (LN2 to 350 C); MCR 702e; 9-sample 3-zone holder 0-160 C",
+    "verdict": "confirmed",
+    "source": "Directory 243 'Equipment'; 2021 talk slides 12 and 17 (earlier specs)"
+   },
+   {
+    "claim": "Rheo-SAXS-XPCS offered with CNM, Anton Paar MCR 702e twin-drive cylindrical Couette",
+    "verdict": "confirmed",
+    "source": "Directory 243 overview"
+   },
+   {
+    "claim": "Deconstruction: under 14 days, team of six, >3,000 experiments over 25 years",
+    "verdict": "confirmed",
+    "source": "APS News 2022-10-03 (Huber)"
+   },
+   {
+    "claim": "'in August 2022' (deconstruction date)",
+    "verdict": "corrected",
+    "source": "Not stated in APS News 2022-10-03; changed to '2022 (reported 3 Oct 2022)'"
+   },
+   {
+    "claim": "XPCS SAXS detector positioner and WAXS goniometer on the floor in the Dec 2023 status slides",
+    "verdict": "confirmed",
+    "source": "APS Upgrade Q&A Session for Users 12-6-23 (slide text)"
+   },
+   {
+    "claim": "Metallic glass: Zr52.5Ti5Cu17.9Ni14.6Al10, 668 K (0.98 Tg), 7.32 keV, q 2.60-2.66 A^-1, 2.5 s frames, 300,000 s (83.3 h), at 8ID-E; Lambda 250K detector at 1.1 m, reflection mode",
+    "verdict": "confirmed",
+    "source": "Riechers et al., Nat. Commun. 15, 6595 (2024), PMC11298002 methods; APS highlight 2025-01-06"
+   },
+   {
+    "claim": "Shear thickening: silica in PEG, 200 nm at 60.5%, 360 nm at 56% and 60.5%; >= 1 h after cessation; heterodyne from mobile vs jammed network; stress decays fast, dynamics slow",
+    "verdict": "confirmed",
+    "source": "Horwath et al., PRL 134, 178202 (2025) abstract; APS highlight 2025-05-16"
+   },
+   {
+    "claim": "Rheo-XPCS preprint: Sector 8-ID, 12.4 keV, 8 x 8 um2, EIGER2 X CdTe 4M at 11.6 m, 0.04-0.51 nm^-1, 10/16.67 fps, 300% strain, Couette 11.0/11.4 mm",
+    "verdict": "confirmed",
+    "source": "arXiv:2608.11470v1 (downloaded, Sec. II.B)"
+   },
+   {
+    "claim": "Rheo-XPCS preprint data are 'post-upgrade'",
+    "verdict": "unverifiable",
+    "source": "Run date not given in arXiv:2608.11470; inferred from the 11.6 m distance and EIGER2 CdTe 4M; wording changed to 'inferred'"
+   },
+   {
+    "claim": "Transport-coefficient PNAS case 'sheared dense charged colloids'",
+    "verdict": "corrected",
+    "source": "He et al., PNAS 121, e2401162121 (PMC11295068): re-analysis of previously published Rheo-XPCS creep/recovery data (42 vol% charged silica); text rewritten"
+   },
+   {
+    "claim": "CPMV diffusion at 19.2 us resolution at 8-ID-I; RH 43%/80%/104% above geometric radius depending on buffer",
+    "verdict": "confirmed",
+    "source": "Switalski et al., JSR 29, 1429 (2022), PMC9641563"
+   },
+   {
+    "claim": "Robotic pendant drop XPCS with 3.7 us resolution at 8-ID-I",
+    "verdict": "confirmed",
+    "source": "Ozgulbas et al., Light Sci. Appl. 12, 196 (2023), PMC10439219"
+   },
+   {
+    "claim": "First XPCS/X-ray speckle report: Sutton et al., Nature 352, 608 (1991); 2009 Compton Award to Grubel, Mochrie, Sutton",
+    "verdict": "confirmed",
+    "source": "Crossref metadata; APS news page on the 2009 Compton Award (work done at NSLS)"
+   },
+   {
+    "claim": "First Experiments Workshop 18-19 July 2023 with CDW/fluctuating-order/lattice-dynamics talks",
+    "verdict": "confirmed",
+    "source": "APS News 2023-06-06 agenda"
+   },
+   {
+    "claim": "'1T-TaS2' as a workshop topic",
+    "verdict": "corrected",
+    "source": "Agenda title says 'TaS2' without polytype; changed"
+   },
+   {
+    "claim": "APS Strategic Plan: >100x brightness -> '>10,000-fold enhancement in signal-to-noise for XPCS'; 100 ns-1000 s; protein dimerization at 8-ID",
+    "verdict": "confirmed",
+    "source": "APS Strategic Plan 2025-29, pp. 16-17"
+   },
+   {
+    "claim": "Dossier gloss that the 10,000x SNR is 'the same B^2 argument at fixed time-scale'",
+    "verdict": "corrected",
+    "source": "PDR Sec. 6-10.2.2: SNR ~ n sqrt(T t_a N_p), so SNR is linear in B at fixed frame time; the B^2 scaling applies to the minimum frame time (or the total time) at fixed SNR"
+   },
+   {
+    "claim": "Early Science: 100-1000x coherent flux gives a >10,000-fold increase in accessible fluctuation time scales; pre-upgrade beam ~10,000 coherent modes; APS-U coherent fraction ~10%",
+    "verdict": "confirmed",
+    "source": "Early Science report (2015), Condensed Matter chapter"
+   },
+   {
+    "claim": "WP20 (2015): 10 ns-1000 s, 1 nm-5 um, up to 6 orders of magnitude of dynamic range",
+    "verdict": "confirmed",
+    "source": "APS-U white paper WP20 (downloaded)"
+   },
+   {
+    "claim": "Storage-ring source parameters (flat 14.466/2.749/3.075/1.293; round 12.296/2.336/8.263/3.474 um/urad); T0 = 3.681 us -> 76.7 ns (48 bunches), 11.36 ns (324)",
+    "verdict": "confirmed",
+    "source": "ops.aps.anl.gov SR parameters Tables 3 and 5"
+   },
+   {
+    "claim": "FDR Table 1.1: 42/32 pm; 14.7/2.8/3.2/1.3 and 12.9/2.5/8.8/3.7; APS 2019 280/11.6/10/3.4; 20 keV coherent flux 0.6 -> 312/148 x 1e11; brightness 0.6 -> 325 x 1e20",
+    "verdict": "confirmed",
+    "source": "FDR Ch.1 Table 1.1"
+   },
+   {
+    "claim": "APS: beam ~15 x 4 um vs 275 x 10 um; up to 500x brighter",
+    "verdict": "confirmed",
+    "source": "APS New Storage Ring overview page"
+   },
+   {
+    "claim": "Physics: Siegert relation; Brownian g2 = 1 + beta exp(-2Dq^2 tau); Stokes-Einstein D = 4.3e-12 m2/s for R = 57 nm at 25 C; 1/(Dq^2) = 93 us at 0.05 nm^-1; Fc = B lambda^2/4; s = lambda R/a examples; q at 55 deg; Thomson cos^2(2theta); CRL f = R/(2N delta) examples; xi_L values",
+    "verdict": "confirmed",
+    "source": "Recomputed by verifier; PDR Sec. 6-10.2.2 and 6-10.4.1 for Fc and s formulas"
+   },
+   {
+    "claim": "Path-length-difference formula '2 W sin^2(theta) + t sin(2theta)' (undefined/ambiguous variables)",
+    "verdict": "corrected",
+    "source": "Standard geometry: PLD = 2 t sin^2(theta) + w sin(2theta), t = thickness, w = beam width; fixed in technique and interactive"
+   },
+   {
+    "claim": "SA-XPCS q range '1e-3-0.5 nm^-1'",
+    "verdict": "corrected",
+    "source": "Unsourced; upper end understated for 4 m / 5 deg rotation; replaced with the measured example (r24) plus a labelled geometric estimate"
+   },
+   {
+    "claim": "WA q 'up to 4.7 A^-1 at 10 keV'",
+    "verdict": "corrected",
+    "source": "True for the LDDP (55 deg) only; vertical arm (PDR 120 deg) reaches ~8.8 A^-1"
+   },
+   {
+    "claim": "KB plain text 'a hundred times thinner than a hair'",
+    "verdict": "corrected",
+    "source": "0.3 um vs a ~50-100 um hair is a ratio of ~170-330; changed to 'several hundred times'"
+   },
+   {
+    "claim": "Double multilayer monochromator installed as built",
+    "verdict": "unverifiable",
+    "source": "Listed in FDR Table 4.33 at 49.0 m; absent from directory and 2021 talk; no as-built source found"
+   },
+   {
+    "claim": "Measured as-built coherent flux / speckle contrast at the new 8-ID",
+    "verdict": "unverifiable",
+    "source": "No publication found (arXiv XPCS listings to Sept 2026, web search); the 2026 rheo-XPCS preprint gives no flux or contrast"
+   },
+   {
+    "claim": "Figures listed exist and match captions (2021 layout slide 5, FDR Fig. 4.23, MEDSI2020 Fig. 2)",
+    "verdict": "confirmed",
+    "source": "Files opened and inspected; added FDR Fig. 4.24 (native image) and the 2021 slide-7 vibration-tolerance inset"
+   }
+  ]
+ }
+}

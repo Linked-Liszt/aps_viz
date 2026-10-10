@@ -1,0 +1,1743 @@
+{
+ "id": "hexm",
+ "sector": "20-ID",
+ "acronym": "HEXM",
+ "fullName": "High-Energy X-ray Microscope",
+ "status2026": {
+  "state": "user-operations",
+  "detail": "On the APS 'Beamline Commissioning Progress' chart dated 5 Oct 2026, '20-ID-D,E: HEXM XSD' is at stage 6, 'Restart of General User Program'. The APS Proposal Types page (dated 10.07.2026) lists 20-ID-D,E among beamlines taking General User regular and rapid-access proposals. How it got there, from the monthly charts: stage 1 (installation ongoing) on 30 Sep 2024; stage 2 (installation complete) on 16 Dec 2024 and in Jan 2025; stage 3 (ops commissioning) on 10 Mar 2025; stage 5 (scientific commissioning and early experiments) from Jul 2025 through Jan 2026. In July 2025, Energy Secretary Chris Wright placed an 'inaugural sample', part of a jet-engine turbine blade, in the HEXM instrument. A July 2025 NSUF/APS report says the beamline 'achieved shielding verification in 2025' and expected general users in late 2025 or early 2026. The first-light date was not published: the charts bracket it between late January and July 2025, probably by March if stage 3 already involved beam-on shielding verification (not confirmed). The September 2024 update had expected first light in that run; the charts show this did not happen in 2024. Caveats: (1) the Beamline Directory entry (re-read 2026-10-09) still says 'Current Status: Commissioning', and its specs assume a superconducting undulator; it warns they 'will not be fully valid during the startup of the beamline, which could last ~year'. (2) The source is still an interim pair of permanent-magnet undulators: U21 upstream and a U21/U25 revolver downstream (APS insertion-device table, updated 22 Sep 2026, re-read 2026-10-09). The baseline in-line superconducting undulator pair (2 × 1.9 m, 16.5 mm period) was delayed by SCU core-reliability problems and is planned for 2026–2027. The Strategic Plan schedule shows 20-ID SCU core fabrication through 2026–2027 and commissioning around late 2027; its May 2026 target for the first in-line SCU (sector 1) had not been met by the 22 Sep 2026 ID table, which lists no SCU at sector 1 or 20. (3) The adjacent Activated Materials Laboratory is operational. A Partner User Proposal gives NSUF 690 h/yr shared between 1-ID and 20-ID, starting in the 2025-3 run. HEXM was already absent from the August 2025 list of the 'last five feature beamlines' still to come online.",
+  "sources": [
+   "r13",
+   "r16",
+   "r14",
+   "r18",
+   "r9",
+   "r12",
+   "r17",
+   "r19",
+   "r55"
+  ]
+ },
+ "tagline": "A 180-metre X-ray microscope that sees deep inside solid metal, from whole parts down to the spacing of atoms.",
+ "plainSummary": "The X-rays used at most beamlines are stopped by steel as thin as a sheet of paper. HEXM uses very high-energy X-rays, 35,000 to 120,000 electron-volts, that pass through millimetres of metal. So scientists can watch what happens inside a jet-engine alloy, a battery or a piece of reactor steel while it is pulled, heated or charged. The X-rays travel 180 metres to the sample, so the main experiment room, 20-ID-E, had to be built in its own building beside the ring; at nearly 20 metres long it is the largest enclosure the APS has ever built. The distance does two opposite jobs. The beam can spread to several millimetres to see a whole sample at once, or be squeezed to a spot about 200 nanometres tall to zoom in on a single crystal grain. Cameras from a centimetre or two to 16 metres behind the sample show how thousands of tiny crystals turn and stretch, and where cracks begin. Next door, a special laboratory lets researchers safely prepare radioactive samples from nuclear reactors.",
+ "expertSummary": "HEXM (20-ID) is a single-branch, white-beam-capable APS-U feature beamline for bulk, in situ materials science at 35–120 keV, first proposed in a 2015 white paper. Stations: optics enclosure 20-ID-A at about 26–36 m; white-beam station 20-ID-D at about 70 m on the experiment floor, home of the NSF-MRI high-throughput HEDM instrument; and the 19.8 m 20-ID-E in the Long Beamline Building, with the sample at about 180.7 m and detectors out to about 197 m. Optics: white-beam diamond CRLs (L1); an LN2-cooled bent double-Laue Si(111) monochromator in nested inverse-Cauchois geometry, diffracting horizontally to preserve the 4 pm vertical emittance (25–35 mm outboard offset, ΔE/E about 10⁻³; Cinel, installed 2024); an optional in-line (+−−+) four-bounce monochromator (10⁻⁴ with Si(111), 10⁻⁵ to 10⁻⁶ with high-order reflections) fed by collimating lenses; and refractive focusing and expanding optics at 28–33, 68–76 and 178.8 m. Beams range from 0.43 × 0.21 µm FWHM (f = 2 m, 70 keV) to several mm. One calibrated 20-ID-E sample position serves nf-, ff- and vff-HEDM, WAXS/PDF, scattering tomography, HE-SAXS (Qmin about 7 × 10⁻⁴ Å⁻¹ at 40 keV), µCT, high-energy TXM and BCDI (48 × 31 µm coherent focus, ΔE/E = 2 × 10⁻⁶ at 40 keV). High-resolution and high-load sample manipulators and detector movers cover 2θ up to 18° out to about 16 m. The source is still interim: in-line permanent-magnet U21 and U21/U25 revolver undulators, pending a 2 × 1.9 m, 16.5 mm-period SCU pair.",
+ "whatAPSUEnables": {
+  "plain": "The old APS made a broad, fuzzy X-ray source. The upgraded ring makes a source about 19 times narrower from side to side, and far more of its light is 'in step' (coherent), more like a laser pointer than a flashlight. HEXM uses this in two opposite ways. Because the source is tiny, lenses 180 metres away can still squeeze the beam into a spot only about 200 nanometres high, even though the last lens sits a metre or two before the sample. That gap leaves room for heavy furnaces, load frames and battery cyclers. Because the beam stays narrow and parallel, it can also be spread into a smooth beam several millimetres wide, big enough to image a whole realistic sample at once. And because more of the light is coherent, scientists can use 'lensless' coherent imaging to map the strain inside one crystal grain buried in a metal. Before the upgrade only about 1 in 100,000 X-ray photons at these energies was coherent, too few for this to work.",
+  "expert": "The MBA lattice cuts the horizontal emittance from 3113 pm to 42 pm. In brightness (flat-beam) mode the vertical emittance is about 4 pm, compared with about 40 pm before. At high photon energy the intrinsic radiation divergence is small (σr′ proportional to √(λ/L)), so the electron-beam size and divergence set the photon phase space in both planes. The vertical emittance reduction therefore pays off at 35–120 keV in a way it does not at low energy (PDR Table 6.21). A long beamline turns this into five things. (i) Strong demagnification at long working distances: 209 nm vertical FWHM at 180 m with an f = 2 m CRL at 70 keV, and 77 nm with an f = 1 m kinoform and 1.4 × 10⁻⁴ bandwidth (FDR Table 4.30). (ii) Low-demagnification or magnifying geometries: L2+L5 vertically and L5 horizontally give a 48 × 31 µm spot that can be apertured to near-full transverse coherence for BCDI on 10–20 µm grains. The design projected about 500× the coherent flux and 150× the coherent fraction of pre-upgrade 1-ID at 40 keV. (iii) Efficient refractive beam expansion: about 480 µm FWHM at 34 m becomes 3–4 mm at 180 m, for nf-HEDM line beams and µCT. (iv) Narrow-acceptance high-resolution crystal optics pass more flux. (v) A 20 m end station allows sample-detector distances up to about 15–16 m for vff-HEDM and oversampling of BCDI fringes, a SAXS Qmin 6× below 1-ID-E, and TXM toward about 100 nm.",
+  "quantitative": [
+   "Horizontal emittance 3113 pm (pre-upgrade APS) → 42 pm (APS-U brightness mode), about 74× smaller; horizontal rms source size 280 → 14.7 µm",
+   "Nominal ID-straight electron-beam parameters from the design-lattice model (flat-beam mode, zero current; computed values, not measurements): σx = 14.5 µm, σx′ = 2.75 µrad, σy = 3.08 µm, σy′ = 1.29 µrad",
+   "Coherent fraction at HEDM energies was about 10⁻⁵ before the upgrade, too low for high-energy CDI",
+   "Projected gains at 40 keV vs pre-upgrade 1-ID: about 500× coherent flux and 150× coherent fraction",
+   "Smallest design focus at 20-ID-E: 0.43 × 0.21 µm FWHM at 70 keV with 4 × 10¹¹ ph/s (f = 2 m, L6), with sub-100 nm vertical projected using an f = 1 m kinoform",
+   "Largest beams: unfocused 2.5 × 2.2 mm FWHM at 180 m (70 keV), or several mm via refractive expanders. Sample cross-sections 'were one millimeter before. Now they can be up to several millimeters' (Almer)",
+   "SAXS: Qmin = 0.0007 Å⁻¹ at 40 keV (dmax about 870 nm), a 6× larger observable range than 1-ID-E",
+   "Scattering-tomography resolution set by beam size: about 2 µm before, about 0.1 µm planned",
+   "Planned SCU vs the pre-upgrade SCU1 at 1-ID: 530× brilliance, 4.5× central-cone flux, and 1.5× flux density even after moving from 70 m to 180 m",
+   "Expected data rates about 100× those of 1-ID before the upgrade"
+  ]
+ },
+ "techniques": [
+  {
+   "name": "Far-field high-energy diffraction microscopy",
+   "abbrev": "ff-HEDM / 3DXRD",
+   "plain": "A metal is a jigsaw of thousands of tiny crystals (grains). Each grain throws back a few sharp X-ray spots. If you rotate the sample and track every spot, a computer can work out where each grain is, which way it points, and how much it is being stretched or squeezed.",
+   "expert": "Box or line beam of about 1–2 mm through a polycrystal, with an ω rotation series of area-detector frames at about 0.5–1.5 m. Peaks are indexed per grain (MIDAS/HEXRD), giving center of mass, orientation and the full elastic strain tensor for up to about 10⁴ grains. At 1-ID-E the measured repeatability was about 5 µm in position, 0.02° in orientation and 2 × 10⁻⁴ in strain. HEXM runs it at 20-ID-D (high-throughput instrument) and at 20-ID-E (detector D2/D3). Review: Bernier, Suter, Rollett & Almer, Annu. Rev. Mater. Res. 2020."
+  },
+  {
+   "name": "Near-field high-energy diffraction microscopy",
+   "abbrev": "nf-HEDM",
+   "plain": "A camera placed just a centimetre or two behind the sample records diffraction spots almost where they leave the grain. That is enough to draw a 3D map of the grains and their boundaries, like a CT scan coloured by crystal orientation.",
+   "expert": "Line-focus beam (sub-µm vertically, ideally 3–4 mm horizontally) sliced through the sample. A high-resolution scintillator+objective detector (D1) records at several distances of 1–2 cm while the sample rotates and steps vertically. Forward modeling reconstructs 3D orientation maps at about 1 µm and 0.01° resolution. HEXM's long beamline lets the L3 diamond expanders make the wide line beam efficiently."
+  },
+  {
+   "name": "Very-far-field HEDM",
+   "abbrev": "vff-HEDM",
+   "plain": "Move the detector many metres away and each diffraction spot spreads out, so tiny changes in the spacing of atoms (strain) become visible, even inside a single grain.",
+   "expert": "Detector at 10 m or more (D3/D4 in 20-ID-E, 2–16 m from the sample) for high reciprocal-space resolution; strain sensitivity scales as Δd/d = −cot θ Δθ, so longer L gives a smaller angular pixel. It needs about 10⁻⁴ bandwidth from the four-bounce monochromator."
+  },
+  {
+   "name": "Wide-angle X-ray scattering / high-energy diffraction / pair distribution function",
+   "abbrev": "WAXS / HE-XRD / PDF",
+   "plain": "Diffraction rings from many grains at once tell you which crystal phases are present and how hard each one is being loaded, much like weighing a crowd instead of each person.",
+   "expert": "Phase fractions, lattice strains per hkl, texture, peak broadening (defect density) and PDF to high Q. Measured in transmission at 2θ below about 10–18°. It works with monochromatic beam or with a focused full undulator harmonic (0.6% BW, 4.8 × 10¹⁴ ph/s at 70 keV) for the highest flux. Diffracted-beam apertures (conical or spiral slits) can add depth resolution."
+  },
+  {
+   "name": "Scattering tomography",
+   "abbrev": "ST / XRD-CT",
+   "plain": "Scan a pencil-thin beam across a sample and rotate it, collecting diffraction at each step. A computer builds a 3D map of which material, and how much strain, sits at each point inside.",
+   "expert": "Translate-rotate tomography with WAXS and/or SAXS contrast (absorption, diffraction phase, lattice parameter). Real-space resolution equals the beam size, so HEXM's focusing takes it from about 2 µm toward about 0.1 µm."
+  },
+  {
+   "name": "High-energy small-angle X-ray scattering",
+   "abbrev": "HE-SAXS",
+   "plain": "X-rays scattered by very small angles reveal nanometre-scale holes, precipitates and fibres, things too small to see directly but very important for strength.",
+   "expert": "SAXS detector (D6) about 14 m downstream with focusing and guard slits gives Qmin = 0.0007 Å⁻¹ at 40 keV (dmax about 870 nm). That range overlaps for the first time with direct-space TXM imaging of the same voids or particles."
+  },
+  {
+   "name": "Micro-computed tomography (absorption and phase contrast)",
+   "abbrev": "µCT",
+   "plain": "A 3D X-ray scan, like a hospital CT but with micrometre detail, showing pores, cracks and second phases inside dense parts.",
+   "expert": "Full-field radiography and tomography; resolution is roughly beam size/1000. Expanded white or pink beams allow about 1 µm-resolution datasets in fractions of a second. Phase contrast benefits from the higher coherence."
+  },
+  {
+   "name": "High-energy transmission X-ray microscopy",
+   "abbrev": "TXM",
+   "plain": "A real X-ray lens after the sample magnifies its image onto a camera far away, like a slide projector, to see details much finer than a normal CT.",
+   "expert": "Refractive objective (L7) after the sample imaging onto detector D5 about 15 m downstream. 1-ID demonstrated about 500 nm resolution at 45 keV within 6 m; the HEXM goal is about 100 nm with higher magnification and depth of field."
+  },
+  {
+   "name": "Bragg coherent diffraction imaging (high-energy)",
+   "abbrev": "HE-BCDI",
+   "plain": "Shine a coherent (laser-like) beam on one buried crystal grain. Its diffraction spot becomes a speckled 3D pattern. A computer turns this pattern back into a 3D image of the grain's shape and of how its atoms are displaced, with detail of tens of nanometres.",
+   "expert": "Coherent 48 × 31 µm focus at 40 keV (3.8 × 10⁹ ph/s, ΔE/E = 2 × 10⁻⁶, from the high-order four-bounce monochromator) for grains up to about 10–20 µm. Grains are targeted using the ff-HEDM orientation map; fringes are oversampled on detector D4 about 16 m away. Proof of principle at 1-ID-E at 52 keV used a collimating lens, the 1-ID high-resolution four-bounce monochromator (bandwidth not stated in the paper; the FDR describes the 1-ID unit as about 10⁻⁴), a vertically focusing saw-tooth lens giving a 1.5 × 50 µm beam, and an ASI Lynx 1800 (Medipix3, 55 µm pixels) photon-counting detector 6.12 m from the sample. It imaged structures of 477 ± 50 nm or smaller with about 2.5 × 10⁻⁴ strain resolution, with grains selected by ff-HEDM."
+  },
+  {
+   "name": "Dark-field X-ray microscopy",
+   "abbrev": "DFXM",
+   "plain": "Like TXM, but the lens is placed in a diffracted beam, so it images only one chosen grain and shows tiny tilts and strains inside it, like a microscope tuned to a single crystal.",
+   "expert": "An objective lens in a single Bragg reflection ('TXM in diffracted beams', PDR ref. to Simons et al.) maps orientation and strain at sub-µm resolution deep in bulk grains. HEXM has been described as 'the only beamline worldwide to offer dark-field X-ray microscopy at high energies' (A. Bucsek). This is a planned or emerging mode; no published HEXM DFXM result was found."
+  }
+ ],
+ "scienceCases": [
+  {
+   "title": "Why turbine alloys crack: dwell fatigue in Ti and Ni superalloys",
+   "plain": "Jet-engine parts fail after many cycles of stress with long holds at temperature. HEXM can watch thousands of grains inside a real alloy sample under load and heat, find the few 'hot spot' grains where strain piles up, then zoom in on them to see where a crack is about to start.",
+   "expert": "nf-HEDM maps about 1000 grains, and ff-HEDM gives grain-averaged elastic strain tensors under in situ thermo-mechanical load (RAMS-type load frames). Selected grains then go to BCDI/DFXM for intragranular strain near boundaries, with TXM/µCT for void and crack nucleation. This tests the hypothesis that some slip systems are effectively in creep mode while others respond in a low-temperature mode, central to cold dwell (Ti alloys, even at room temperature) and hot dwell (Ni superalloys above about 700 °C). The inaugural HEXM sample placed by Secretary Wright in July 2025 was part of a jet-engine turbine blade.",
+   "refs": [
+    "r6",
+    "r7",
+    "r14",
+    "r43"
+   ]
+  },
+  {
+   "title": "Inside irradiated nuclear materials",
+   "plain": "Steel and fuel from reactors become radioactive, so they are hard to study. The Activated Materials Laboratory next door to 20-ID-E prepares and seals such samples, and HEXM's penetrating X-rays then map cracks, voids and grain strains in 3D. The first user experiment looked at decades-old stainless-steel parts from a light-water reactor that had developed stress-corrosion microcracks.",
+   "expert": "AML (DOE-NE/NSUF funded) accepts samples up to 100 mrem/h beta/gamma at 30 cm. NSUF has a Partner User Proposal for 690 h/yr split between 1-ID and 20-ID, starting in the 2025-3 run, and higher-dose samples are meant to go mainly to 20-ID because it sits outside the main hall. Techniques are µCT, WAXS/SAXS and HEDM with in situ heating and loading (Psylotech µTS/xTS 5 kN, Linkam TS1500). The first AML user experiment (UIUC/ORNL/Alabama/ANL) examined grain-level correlates of IASCC in reactor-retired stainless steel. Which beamline it used was not stated.",
+   "refs": [
+    "r18",
+    "r19",
+    "r17",
+    "r6"
+   ]
+  },
+  {
+   "title": "Additive manufacturing: pores, residual stress and grains in 3D-printed metal",
+   "plain": "3D-printed metal parts can hide tiny pores and locked-in stresses. HEXM can image the pores in large, realistic samples and measure the stress in each grain, even while the material is being made or welded.",
+   "expert": "Large-field µCT with resolution down to about 100 nm finds small pores in statistically relevant volumes. HEDM and SAXS give grain orientations, residual strains and nano-precipitates. In operando processing is planned to narrow the processing parameter space, with real-time analysis feedback.",
+   "refs": [
+    "r6",
+    "r8"
+   ]
+  },
+  {
+   "title": "Batteries that crack as they charge",
+   "plain": "Battery cathode particles are clumps of nano-crystals that crack apart after many charges. HEXM can look inside full-size cells to see where strain and cracks build up as they charge and discharge.",
+   "expert": "Cathode secondary particles are made of 10–500 nm primary crystallites. Intergranular fracture is driven by anisotropic lattice changes during Li insertion. HEXM's nano-focused HEDM/BCDI aims at primary-particle-level stress fields in ensembles operating in bulk cells, and a Maccor 4300 cycler is listed in the station infrastructure.",
+   "refs": [
+    "r6",
+    "r10",
+    "r8"
+   ]
+  },
+  {
+   "title": "Bone and other natural composites",
+   "plain": "Bone is built from protein fibres about 100 nanometres wide and mineral crystals. High-energy X-rays give a lower radiation dose and can map how strain is shared between these parts when bone is loaded.",
+   "expert": "SAXS/WAXS scattering tomography with beam-size-limited resolution improved from about 2 µm to about 0.1 µm. Dose-optimal energies for biological tissue are about 60–100 keV, between the photoelectric- and Compton-dominated regimes.",
+   "refs": [
+    "r6"
+   ]
+  },
+  {
+   "title": "Grain mapping as a high-throughput service",
+   "plain": "Built by four universities, the high-throughput HEDM instrument in 20-ID-D turns grain mapping into something like an assembly line, so many more samples can be measured, possibly even mailed in.",
+   "expert": "NSF MRI consortium (CMU lead with Purdue, Utah and Colorado School of Mines; award 1726375). The instrument was first installed at 6-ID-D and moved to 20-ID-D in Dec 2023. It has a six-degree-of-freedom (Aerotech) sample manipulator. 'Many places with wading pools...this instrument...will be an Olympic swimming pool' (R. Suter).",
+   "refs": [
+    "r24",
+    "r25",
+    "r11",
+    "r18"
+   ]
+  }
+ ],
+ "keyParameters": [
+  {
+   "label": "Photon energy (monochromatic)",
+   "value": "35–120 keV",
+   "source": "r1",
+   "note": "Beamline Directory gives 35–120 keV. The 2021 D3 detector-mover spec quotes 35–140 keV for the photon delivery system. White beam (and focused 'broadband' undulator harmonics) also available."
+  },
+  {
+   "label": "White-beam capability",
+   "value": "Yes, in both 20-ID-D and 20-ID-E",
+   "source": "r9",
+   "note": "Monochromators and lenses can be moved out of the beam for white-beam operation."
+  },
+  {
+   "label": "Energy resolution ΔE/E",
+   "value": "10⁻³ (bent double-Laue); about 10⁻⁴ (four-bounce, Si(111)); 10⁻⁵ to 10⁻⁶ (four-bounce, high-order Si reflections)",
+   "source": "r1",
+   "note": "AML report lists the optional high-resolution monochromator as ΔE/E of about 10⁻⁵."
+  },
+  {
+   "label": "Flux, 70 keV unfocused at 20-ID-E (design)",
+   "value": "10¹⁴ ph/s (200 mA, brightness mode, planned SCU source)",
+   "source": "r1",
+   "note": "Design value assuming the 16.5 mm SCU. The current interim permanent-magnet source should give less: the Strategic Plan says SCUs boost brightness by about 3× over hybrid permanent-magnet undulators above 50 keV. No measured 20-ID value is published."
+  },
+  {
+   "label": "Beam size range at sample",
+   "value": "about 200 nm to several mm",
+   "source": "r8",
+   "note": "FDR: 0.43 × 0.21 µm (f = 2 m, L6) to 2.5 × 2.2 mm unfocused (FDR Table 4.29 header says µm, but the unfocused rows are mm; the Beamline Directory confirms mm)."
+  },
+  {
+   "label": "Working distance (focusing optic to sample)",
+   "value": "about 1 m",
+   "source": "r8",
+   "note": "FDR focal lengths 1–2 m for nano-focusing at 20-ID-E."
+  },
+  {
+   "label": "BCDI coherent beam (design)",
+   "value": "48 × 31 µm FWHM, 3.8 × 10⁹ ph/s at 40 keV, ΔE/E = 2 × 10⁻⁶",
+   "source": "r1",
+   "note": "Design configuration L2 (31 m) + L5 (76 m), FDR Fig. 4.20."
+  },
+  {
+   "label": "Broadband focused beam (one undulator harmonic, design)",
+   "value": "182 × 47 µm (E) or 50 × 13 µm (D), 4.8 × 10¹⁴ ph/s, ΔE/E = 6 × 10⁻³ at 70 keV",
+   "source": "r1",
+   "note": "A full undulator harmonic (0.6% bandwidth) focused by the white-beam diamond lenses L1; 4–5× the monochromatic flux. Beamline scientists call this 'pink' beam; it is not the mirror-filtered beam the exhibit's legend calls pink."
+  },
+  {
+   "label": "Source-to-sample distances",
+   "value": "20-ID-D about 70.2 m; 20-ID-E about 180.7 m",
+   "source": "r1",
+   "note": "The 20-ID-E sample origin is 3.5 m downstream of the upstream wall, which is about 177.5 m from the source."
+  },
+  {
+   "label": "Beamline length to final stop",
+   "value": "197 m (fixed white-beam stop)",
+   "source": "r1",
+   "note": "Often quoted as '180 m' (to the sample, in the 2020 groundbreaking release) or '600-foot'."
+  },
+  {
+   "label": "Max sample-to-detector distance",
+   "value": "up to about 15–16 m",
+   "source": "r10",
+   "note": "Detector D4 at about 197 m."
+  },
+  {
+   "label": "Diffraction-angle coverage",
+   "value": "2θ up to 18° (1 Å d-spacing at 40 keV) over 2–12 m (D3) and on the back wall (D4)",
+   "source": "r28",
+   "note": ""
+  },
+  {
+   "label": "SAXS minimum Q",
+   "value": "0.0007 Å⁻¹ at 40 keV (dmax about 870 nm)",
+   "source": "r5",
+   "note": "Design estimate with D6 at 14 m and 0.5 mm minimum radius."
+  },
+  {
+   "label": "Insertion devices (Sep 2026)",
+   "value": "U21 (21 mm, 112 periods) + revolver U21/U25 in-line; Kmax 1.38 (U21); E1 = 8.36 keV",
+   "source": "r12",
+   "note": "Interim. Baseline: 2 × 1.9 m, 16.5 mm-period NbTi SCU in one 4.8 m cryostat."
+  },
+  {
+   "label": "Monochromator M1",
+   "value": "LN2-cooled bent double-Laue Si(111), horizontal deflection, 25–35 mm outboard fixed offset",
+   "source": "r1",
+   "note": "Cinel, installed in 20-ID-A in Jan 2024; Si(111) per the Beamline Directory."
+  },
+  {
+   "label": "20-ID-E enclosure (interior)",
+   "value": "19.8 m long; 6.8 m wide × about 4.0 m high (upstream 11.3 m), 10.8 m wide × 6.9 m high (downstream)",
+   "source": "r28",
+   "note": "Beam height 1.4 m above floor. 'At roughly 20 meters, this will be the largest enclosure we've built at the APS'."
+  },
+  {
+   "label": "20-ID-E stability environment",
+   "value": "±0.05 °C over 24 h (expected); floor VC-E",
+   "source": "r28",
+   "note": "HEXM enclosure floor slab 12 in thick."
+  },
+  {
+   "label": "Front end",
+   "value": "High-heat-load front end (21 kW, 590 kW/mrad² limits); 2 (H) × 1 (V) mm exit mask at 25.4 m; 5 × 5 mm exit collimator at 26.1 m",
+   "source": "r1",
+   "note": "Limits from FDR Ch. 3."
+  },
+  {
+   "label": "General-user share",
+   "value": "about 80% of beamtime",
+   "source": "r18",
+   "note": ""
+  }
+ ],
+ "source": {
+  "insertionDevices": [
+   {
+    "name": "APS21#5 (U21), upstream",
+    "type": "planar hybrid permanent-magnet undulator (out-of-vacuum)",
+    "periodMm": 21,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "112 periods; device min gap 8.5 mm; Keff 1.38 at min gap; E1 = 8.36 keV (6.0 GeV, zero emittance); 216 kW/mrad² and 5.4 kW at 200 mA. Length = 112 × 21 mm (the Beamline Directory says '2.3 m length'). INTERIM source as of 22 Sep 2026.",
+    "source": "r12"
+   },
+   {
+    "name": "APS21R25#9 revolver (U21 / U25), downstream",
+    "type": "planar hybrid permanent-magnet revolver undulator (two magnetic structures, selectable)",
+    "periodMm": 21,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "Structure 1: APS21#14, 21 mm, 112 periods, K 1.38, E1 = 8.32 keV. Structure 2: APS25#11, 25 mm, 94 periods, K 1.98, E1 = 4.61 keV, 224 kW/mrad², 8.0 kW. The Beamline Directory lists the downstream source as U21. INTERIM source.",
+    "source": "r12"
+   },
+   {
+    "name": "SCU 16.5 mm in-line pair (baseline, not yet installed)",
+    "type": "planar superconducting undulator (NbTi), two magnets in one 4.8 m cryostat",
+    "periodMm": 16.5,
+    "lengthM": 1.9,
+    "count": 2,
+    "polarization": "linear horizontal",
+    "notes": "APS-U baseline for sectors 1 and 20: 'two pairs of 1.9-meter-long, 16.5-mm period SCUs in inline configuration', with correctors inside the long cryostat. Installation was delayed by core reliability issues and is now planned for 2026–2027. FDR 4-4 (2019) specified about 3.5 m (possibly 3.8 m) total magnetic length, Kmax 1.63 (1.06 T at 8.0 mm gap), 1.6 kW and 600 kW/mrad² through the 2 × 1 mm mask. PDR: 17.9 kW total and 616 kW/mrad² at max field. A 2020 overview: 'Current undulator lengths are 1.1 m with up to 3.5m planned for the APS-Upgrade'. The 2025–29 Strategic Plan schedule (Fig. 8) shows 20-ID SCU core fabrication through 2026–2027 and commissioning around late 2027. The plan's May 2026 target for the first in-line SCU (sector 1) had not been met by the 22 Sep 2026 ID table, which lists no SCU at sector 1 or 20.",
+    "source": "r17"
+   }
+  ],
+  "canting": "none (two in-line devices on one straight; phase shifter/corrector between permanent-magnet devices; for the SCUs, correctors inside the cryostat)",
+  "frontEnd": "Standard APS-U High-Heat-Load front end (HHLFE, based on the 28-ID design): total power limit 21 kW, peak power density 590 kW/mrad². Contents: clearing magnet, burn-through fixed mask (BTFM1), GRID XBPM1, photon shutter with intensity monitor, safety shutters, and exit mask with XBPM2. For 20-ID: window exit configuration with a 2 (H) × 1 (V) mm exit mask at 25.4 m and a 5 × 5 mm tungsten exit collimator at 26.1 m. The window material is inconsistent in the FDR: 0.5 mm Be in 4-4.3, diamond in Table 4.28.",
+  "sourceSizeAndDivergence": "Electron beam at the ID straight (APS-U design-lattice model values at zero current, not measurements). Flat-beam/brightness mode (κ = 0.1): σx = 14.47 µm, σx′ = 2.75 µrad, σy = 3.08 µm, σy′ = 1.29 µrad. Round-beam/timing mode: σx = 12.3 µm, σx′ = 2.34 µrad, σy = 8.26 µm, σy′ = 3.47 µrad. FDR Table 1.1 design (brightness): 14.7 / 2.8 / 3.2 / 1.3. Computed here, not from a source: at 70 keV for a 2.35 m undulator the single-electron photon size and divergence are about 0.7 µm and 1.9 µrad. That gives total photon source sizes of about 14.5 × 3.2 µm and divergences of about 3.4 × 2.3 µrad rms, before energy-spread broadening, which becomes significant at the high harmonics (7th–13th) HEXM uses. FDR Fig. 4.20 uses 35 µm (H) × 9 µm (V) FWHM source sizes for the BCDI optics design, and the PDR text quotes the same 9 µm vertical FWHM."
+ },
+ "branches": [
+  {
+   "id": "main",
+   "name": "20-ID (single branch)",
+   "description": "One straight beamline with no net horizontal deflection. The bent Laue monochromator displaces the monochromatic beam about 25–35 mm outboard, parallel to the white-beam axis. White or monochromatic beam goes to 20-ID-D (about 70 m) or, through a movable stop, on to 20-ID-E (about 180 m) in the Long Beamline Building."
+  }
+ ],
+ "components": [
+  {
+   "id": "u21-upstream",
+   "name": "Upstream undulator U21 (APS21#5)",
+   "category": "undulator",
+   "branch": "main",
+   "distanceM": -1.3,
+   "distanceNote": "approx: two 2.35 m devices in-line on the straight centered on the source point (0 m); device centers estimated at about ±1.3 m",
+   "enclosure": "storage ring tunnel",
+   "deflection": "none",
+   "plain": "The first of two undulators that make HEXM's X-rays: a 2.35-metre row of 224 alternating magnets. They make each passing electron wiggle, and every wiggle adds to one bright, narrow beam; HEXM tunes to its very high-energy 'overtones' (harmonics). It is a stand-in until superconducting undulators arrive.",
+   "expert": "Hybrid PM, 21 mm period, 112 periods, Keff 1.38 at 8.5 mm min gap, E1 = 8.36 keV. 35 keV is reached on the 3rd harmonic, 70 keV on about the 7th (K about 1.1), 120 keV on the 11th–13th. 5.4 kW and 216 kW/mrad² at 200 mA. Interim device until SCUs arrive.",
+   "specs": {
+    "period": "21 mm",
+    "periods": "112",
+    "Keff at min gap": "1.38",
+    "E1 at min gap": "8.36 keV",
+    "total power": "5.4 kW",
+    "peak power density": "216 kW/mrad²"
+   },
+   "source": "r12"
+  },
+  {
+   "id": "u21-revolver-downstream",
+   "name": "Downstream revolver undulator U21/U25 (APS21R25#9)",
+   "category": "undulator",
+   "branch": "main",
+   "distanceM": 1.3,
+   "distanceNote": "approx (see upstream device)",
+   "enclosure": "storage ring tunnel",
+   "deflection": "none",
+   "plain": "A second undulator right behind the first doubles the light. It is a 'revolver': it carries two magnet rows with different spacings (21 or 25 millimetres) and turns to put the chosen one around the electron beam.",
+   "expert": "Revolver with APS21#14 (21 mm, 112 periods, K 1.38) and APS25#11 (25 mm, 94 periods, K 1.98, E1 = 4.61 keV). The Directory lists U21 as the downstream source. Phase shifter/corrector between the in-line pair. Baseline replacement: 2 × 1.9 m, 16.5 mm NbTi SCU in a 4.8 m cryostat. IPAC'24: 'The SCUs are planned to be installed later'.",
+   "specs": {
+    "structures": "21 mm / 25 mm",
+    "status": "interim (Sep 2026)"
+   },
+   "source": "r12"
+  },
+  {
+   "id": "front-end-hhl",
+   "name": "High-heat-load front end (shutters, masks, XBPMs)",
+   "category": "frontEnd",
+   "branch": "main",
+   "distanceM": 18.0,
+   "distanceNote": "schematic placement inside the storage-ring tunnel; the front end ends at the ratchet wall at about 25.4–26.1 m (exact internal positions not published)",
+   "enclosure": "storage ring tunnel",
+   "deflection": "none",
+   "plain": "The safety gateway between the accelerator and the beamline, inside the concrete shield tunnel. It swallows unwanted X-ray power (it is rated for up to 21 kilowatts), checks where the beam points, and can shut the X-rays off in a fraction of a second.",
+   "expert": "APS-U HHLFE: 21 kW / 590 kW/mrad² limits. Clearing magnet, BTFM1, GRID XBPM1, photon shutter with IM1, safety shutters SS1/SS2, exit mask with XBPM2. Two in-line U21 at min gap deliver about 10.8 kW total (sum of ID-table values).",
+   "specs": {
+    "max power": "21 kW",
+    "max power density": "590 kW/mrad²"
+   },
+   "source": "r3"
+  },
+  {
+   "id": "fe-exit-mask-window",
+   "name": "Front-end exit mask and window",
+   "category": "window",
+   "branch": "main",
+   "distanceM": 25.4,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "ratchet wall / 20-ID-A",
+   "deflection": "none",
+   "plain": "Where the beam leaves the shield tunnel, a 2 × 1 millimetre opening lets only the bright centre of the X-ray cone through. A thin window then separates the accelerator's vacuum from the beamline's.",
+   "expert": "2 (H) × 1 (V) mm² exit aperture (narrower than the standard 2 × 2 mm) to limit heat load. Window: 0.5 mm Be per FDR 4-4.3/Table 4.27 note, but 'Diamond Window' in Table 4.28 (as-built unconfirmed).",
+   "specs": {
+    "aperture": "2 × 1 mm (H × V)"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "fe-exit-collimator",
+   "name": "Front-end exit collimator",
+   "category": "collimator",
+   "branch": "main",
+   "distanceM": 26.1,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "A heavy tungsten block with a 5-millimetre hole. It stops stray high-energy 'braking radiation' (bremsstrahlung), made when electrons hit gas or metal in the accelerator, from travelling down the beamline.",
+   "expert": "HHL front-end exit collimator, 5 × 5 mm² aperture (tungsten).",
+   "specs": {
+    "aperture": "5 × 5 mm"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-wb-filters",
+   "name": "White-beam filters F1 (20ID-FL-1)",
+   "category": "filter",
+   "branch": "main",
+   "distanceM": 26.5,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Thin sheets of diamond and silicon soak up the low-energy X-rays, which would only heat the delicate optics downstream, while the useful high-energy X-rays pass straight through.",
+   "expert": "Diamond and Si filter sequence sharing a tank and stand (SP-1) with L1. Under 1 × 1 mm beams, less than 100 W per element and more than 85% total transmission at 40 keV. With S1 at 0.6 × 0.6 mm they hold the load on a 2.5 mm Si M1 crystal to 55–60 W or less for LN2 cooling.",
+   "specs": {
+    "transmission": ">85% at 40 keV",
+    "M1 load limit": "≤55–60 W"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-hhl-slits",
+   "name": "High-heat-load white-beam slits S1 (20ID-SL-1)",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 27.5,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Cooled metal jaws with tungsten edges trim the beam to its bright central core, usually about 0.6 millimetres square. Everything outside that square ends up here as heat.",
+   "expert": "HHL variable-aperture photon absorber with tungsten edge inserts (design A300-SL0200). Max aperture 2 × 2 mm. Routine operation at 0.6 × 0.6 mm or smaller, enough to pass the full 70 keV central cone broadened by energy spread.",
+   "specs": {
+    "max aperture": "2 × 2 mm",
+    "routine": "≤0.6 × 0.6 mm"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-l1-wb-crl",
+   "name": "L1 white-beam diamond refractive lenses",
+   "category": "crl",
+   "branch": "main",
+   "distanceM": 28.5,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Stacks of tiny diamond lenses that work on the beam before any crystal has picked a single colour. A lens focuses each colour at a slightly different distance, so they bring one undulator 'harmonic', a band of colours about 0.6% wide, to a sharp focus. That gives four to five times more X-rays than one pure colour, for the fastest experiments.",
+   "expert": "Cooled single-crystal diamond CRLs for broadband focusing of a full harmonic (0.6% BW): 182 × 47 µm at E or 50 × 13 µm at D with 4.8 × 10¹⁴ ph/s at 70 keV. Alternatively, white-beam expansion to several mm for imaging. Manual element changes. R&D outside APS-U scope.",
+   "specs": {
+    "material": "single-crystal diamond",
+    "bandwidth": "6 × 10⁻³"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-m1-bent-laue-mono",
+   "name": "M1 high-energy bent double-Laue monochromator (20ID-MN-1)",
+   "category": "monochromator",
+   "branch": "main",
+   "distanceM": 29.5,
+   "distanceNote": "exact (FDR Table 4.28). In the 3D model the two crystals are 0.53 m apart, the spacing that gives a 30 mm offset at 70 keV (computed: 30 mm / tan 2θB); the white-beam stop sits between them on the white-beam axis.",
+   "enclosure": "20-ID-A",
+   "deflection": "horizontal",
+   "plain": "HEXM's main monochromator: two thin, bent silicon crystals that pick out a single X-ray colour (energy). The X-rays pass through the crystals instead of bouncing off them, and the bending gathers more than ten times more of them than flat crystals would. The chosen colour leaves about 3 centimetres to the side, parallel to the original beam.",
+   "expert": "Two cryogenically cooled (LN2) bent Si(111) Laue crystals in nested inverse-Cauchois (sequential Rowland) geometry. Rowland diameter about 30 m. The second crystal compensates the phase-space distortion of the first. Diffracting in the horizontal plane preserves the 4 pm vertical emittance. Fixed exit offset 25–35 mm outboard; tunable 35–120 keV; ΔE/E about 10⁻³. Built-in white-beam stop after crystal 1. Si(111) Bragg angle about 1.6° at 70 keV (computed). The 1-ID predecessor gave more than 10× the flux of flat crystals. The Cinel unit was installed in 20-ID-A in Jan 2024; a March 2024 photo shows staff working on it. The 1-ID predecessor design is described by Shastri et al. (J. Synchrotron Rad. 2002).",
+   "specs": {
+    "crystals": "Si(111) bent Laue ×2",
+    "cooling": "LN2",
+    "offset": "25–35 mm outboard",
+    "ΔE/E": "10⁻³",
+    "range": "35–120 keV",
+    "vendor": "Cinel"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-window-1",
+   "name": "Diamond window (20ID-WN-1)",
+   "category": "window",
+   "branch": "main",
+   "distanceM": 30.3,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "A thin diamond sheet seals off the monochromator's vacuum while letting the X-rays through almost untouched.",
+   "expert": "Ends vacuum section 1 (front end window through M1).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "a-l2-collimating-lens",
+   "name": "L2 collimating lenses",
+   "category": "crl",
+   "branch": "main",
+   "distanceM": 30.7,
+   "distanceNote": "exact (FDR Table 4.28; 'not in project scope')",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Weak lenses that make the beam almost perfectly parallel, so that the next, very picky crystals can accept more of it.",
+   "expert": "Vertical collimation (f about 31 m in the BCDI configuration) into the narrow Darwin width of M2. Shastri & Antipov (J. Synchrotron Rad. 2026) report diamond collimating lenses placed after a high-heat-load monochromator to raise throughput into a narrow-acceptance high-resolution monochromator, followed by focusing for coherent diffraction 'on a long beamline' (abstract; presumably 20-ID, full text not retrieved). Earlier diamond CRL tests: Antipov & Shastri, SPIE 2021.",
+   "specs": {
+    "f": "about 31 m (BCDI config)"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-m2-hr-mono",
+   "name": "M2 high-resolution four-bounce monochromator (20ID-MN-2)",
+   "category": "monochromator",
+   "branch": "main",
+   "distanceM": 31.8,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "vertical",
+   "plain": "An optional second monochromator: four flat crystals steer the beam up and back down again, so it leaves on its original line. It narrows the X-ray colour 10 to 1000 times further, which is needed to see tiny strains and for coherent imaging.",
+   "expert": "Optional in-line (+−−+) dispersive four-reflection Si system, vertical diffraction, no net offset, in air. Si(111): ΔE/E about 10⁻⁴ (vff-HEDM). High-order (444)-(660) reflections: 10⁻⁵ to 10⁻⁶ (BCDI on about 10 µm grains). Crystal pairs on weak-link flexures; apertures after the 2nd and 4th reflections. It follows the 1-ID flat-crystal/bent-crystal/CRL combination.",
+   "specs": {
+    "geometry": "(+−−+)",
+    "ΔE/E": "10⁻⁴ to 10⁻⁶"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-attenuators-foils",
+   "name": "Attenuators F2 and calibration foils F3",
+   "category": "attenuator",
+   "branch": "main",
+   "distanceM": 32.4,
+   "distanceNote": "approx from FDR Fig. 4.19 (between M2 and L3; not in Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Rotating wheels slide metal sheets into the beam, either to dim it or to check its exact energy against the known absorption 'fingerprints' of chemical elements.",
+   "expert": "Wheel-actuated monochromatic attenuators (flux control) and elemental foils (energy calibration and drift monitoring); designs proven at 1-ID.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "a-slits-s2",
+   "name": "Monochromatic slits S2",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 32.7,
+   "distanceNote": "approx: drawn between foils F3 and lenses L3 in FDR Fig. 4.19; not listed in FDR Table 4.28",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Adjustable metal jaws that trim the single-colour beam just after the monochromators, before the last lenses in the optics hutch.",
+   "expert": "One of the monochromatic slit sets (S2-S6, S8) on stage stacks with manual or motorized rotations for one-time alignment to the beam (FDR 4-4.6.4).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "a-l3-lens",
+   "name": "L3 long-focal-length focusing / beam-expanding lenses",
+   "category": "crl",
+   "branch": "main",
+   "distanceM": 33.0,
+   "distanceNote": "exact (FDR Table 4.28; 'not in project scope'); PDR quotes about 34 m",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Lenses that can either gently focus the beam into the far stations or spread it into a wide, even beam 3 to 4 millimetres across, big enough to image a whole sample at once.",
+   "expert": "Monochromatic focusing to 155 × 40 µm at E or 39 × 10 µm at D (70 keV, 8 × 10¹³ ph/s). Convex or concave diamond expanders turn about 480 µm FWHM (H) into 3–4 mm at 180 m for nf-HEDM and µCT. Can define a secondary source for L6. Shastri & Antipov (2026) propose convex diamond beam expanders for high-energy X-rays from a low-emittance source on a long beamline and report a proof-of-principle test (abstract); the lens position and parameters they used were not verified (full text not retrieved).",
+   "specs": {
+    "focus at 20-ID-E": "155 × 40 µm",
+    "expand": "to 3–4 mm at 180 m"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "a-mask-collimator",
+   "name": "Be window, photon mask and tungsten collimator (20ID-WN-2, PM-1, BC-1)",
+   "category": "collimator",
+   "branch": "main",
+   "distanceM": 34.0,
+   "distanceNote": "exact (FDR Table 4.28: window 33.9, mask 34.0, collimator 34.4)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "Radiation-safety hardware: a window, a mask and a tungsten collimator keep the beam inside its pipe and block stray high-energy radiation from the accelerator.",
+   "expert": "Collimator/mask pairs ratchet down the bremsstrahlung cone along the line of sight (white-beam operation gives a direct line of sight to the source).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "a-shutter",
+   "name": "White-beam / bremsstrahlung shutter (P4-80)",
+   "category": "shutter",
+   "branch": "main",
+   "distanceM": 35.0,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-A",
+   "deflection": "none",
+   "plain": "The main door for the beam: when it is closed, people can safely enter the experiment stations downstream.",
+   "expert": "Multi-mode WB/bremsstrahlung shutter (white or monochromatic mode) at the downstream end of the optics enclosure.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "transport-st1",
+   "name": "Shielded white-beam transport ST-1 (through legacy 20-ID-B/C)",
+   "category": "beamPipe",
+   "branch": "main",
+   "distanceM": 36.0,
+   "distanceNote": "exact span 36.0–65.3 m (FDR Table 4.28)",
+   "enclosure": "experiment hall (passes legacy 20-ID-B, -C)",
+   "deflection": "none",
+   "plain": "A lead-shielded vacuum pipe carries the beam about 30 metres across the experiment hall, straight through two older hutches, 20-ID-B and 20-ID-C, that are no longer used.",
+   "expert": "White-beam-capable evacuated shielded transport. The legacy 20-ID-B and 20-ID-C (mono) end stations 'will remain but not be used for operations'.",
+   "specs": {
+    "span": "36.0–65.3 m"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "d-entrance",
+   "name": "20-ID-D entrance: mask, collimator, Be window (PM-2, BC-2)",
+   "category": "collimator",
+   "branch": "main",
+   "distanceM": 66.2,
+   "distanceNote": "exact (FDR Table 4.28: 66.2, 66.5, 66.8)",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "More radiation-safety blocks, and a window, where the beam enters the first experiment hutch, 20-ID-D.",
+   "expert": "Photon mask 66.2 m, tungsten collimator 66.5 m, Be window 66.8 m.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "d-slits-s3",
+   "name": "Multi-beam slits S3 (20ID-SL-3)",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 67.3,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "Adjustable jaws that shape the beam. Closed down, they act as a tiny stand-in source, so the lenses downstream make a steadier, sharper focus.",
+   "expert": "Motorized for remote use as secondary-source apertures for focal-spot stability and transverse-coherence tuning.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "d-fast-shutter",
+   "name": "Fast shutter (20ID-FS-1)",
+   "category": "shutter",
+   "branch": "main",
+   "distanceM": 68.0,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "A fast shutter, like a camera's, that times each X-ray exposure exactly.",
+   "expert": "Compact fast shutter controlling detector exposure.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "d-l4",
+   "name": "L4 short-focal-length focusing optics",
+   "category": "crl",
+   "branch": "main",
+   "distanceM": 68.3,
+   "distanceNote": "exact (FDR Table 4.28; 'not in project scope')",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "Strong lenses that squeeze the beam to about a micrometre, a hundredth of the width of a hair, for experiments in 20-ID-D.",
+   "expert": "f below 2 m (saw-tooth, kinoform or CRL): 0.96 × 0.87 µm, 2.7 × 10¹² ph/s at 70 keV (brightness mode). Four stage stacks for 2D saw-tooth focusing. Candidates: Si saw-tooth lenses, which are continuously tunable, and kinoforms, which reached 230 nm FWHM at 51 keV and 660 nm at 102 keV at 1-ID.",
+   "specs": {
+    "spot": "0.96 × 0.87 µm",
+    "flux": "2.7 × 10¹² ph/s"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "d-slits-s4",
+   "name": "Multi-beam slits S4 (20ID-SL-4)",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 69.3,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "Clean-up slits just before the sample trim away stray X-rays.",
+   "expert": "Motorized guard or defining slits, also usable for coherence tuning.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "d-ht-hedm",
+   "name": "High-throughput HEDM instrument (20-ID-D)",
+   "category": "goniometer",
+   "branch": "main",
+   "distanceM": 70.2,
+   "distanceNote": "exact (FDR Table 4.28: 20ID-BI-1 instrumentation). The 3D model shows 20-ID-D idle, with no sample mounted, passing the beam on to 20-ID-E (schematic).",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "A grain-mapping machine built by four universities. Its six-axis motorised stage turns and steps each sample through the beam, so many samples can be measured quickly: an assembly line for 3D crystal maps. Here it stands idle, with no sample mounted, while the beam travels on to 20-ID-E.",
+   "expert": "Built by an NSF MRI consortium (CMU, Purdue, Utah, Colorado School of Mines; award 1726375). First installed at 6-ID-D, moved to 20-ID-D in Dec 2023. Six-DOF (Aerotech) sample manipulation; white-beam station also used for 'in-situ dynamics' and as optics delivery for 20-ID-E.",
+   "specs": {
+    "degrees of freedom": "6",
+    "funding": "NSF MRI 1726375"
+   },
+   "source": "r11"
+  },
+  {
+   "id": "d-detector",
+   "name": "20-ID-D area detector(s)",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 72.5,
+   "distanceNote": "exact span 72.5–75 m (FDR Table 4.28). The 3D model shows it moved 0.7 m inboard, out of the beam that continues to 20-ID-E (schematic).",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "A large flat X-ray camera, 2 to 5 metres behind the sample, that records the sharp diffraction spots thrown off by each crystal grain. Here it is moved aside, because the beam is passing through to the far station.",
+   "expert": "FDR: 'Dexela 2923 or equivalent' CMOS flat panel. The Beamline Directory lists Varex 4343 and SpectrumLogic 3131HS area detectors for 20-ID (station assignment not stated).",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "d-slits-s5",
+   "name": "Multi-beam slits S5 (20ID-SL-5)",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 75.7,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "An aperture that picks out the part of the beam sent on toward the far station.",
+   "expert": "Defines the transversely coherent part of the beam for the L5 BCDI focusing configuration.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "d-l5",
+   "name": "L5 long-focal-length lenses (focus into 20-ID-E)",
+   "category": "crl",
+   "branch": "main",
+   "distanceM": 76.0,
+   "distanceNote": "exact (FDR Table 4.28; 'not in project scope')",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "Gentle lenses that aim a focus about 100 metres away, in the far experiment room, making a broad, laser-like beam for coherent imaging.",
+   "expert": "About 1:1 imaging into E: V f = 104 m (with L2), H f = 44 m. Gives 48 × 31 µm at 40 keV for BCDI, or 48 × 13 µm and 6.5 × 10¹³ ph/s at 70 keV.",
+   "specs": {
+    "f (V)": "104 m",
+    "f (H)": "44 m"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "d-beamstop",
+   "name": "Movable white/bremsstrahlung beam stop (20ID-BS-1)",
+   "category": "beamStop",
+   "branch": "main",
+   "distanceM": 76.7,
+   "distanceNote": "exact (FDR Table 4.28). Drawn raised (open), so the beam continues to 20-ID-E.",
+   "enclosure": "20-ID-D",
+   "deflection": "none",
+   "plain": "A movable stop. Closed, it ends the beam here so people can work in 20-ID-E; open, it lets the beam fly on to the far station.",
+   "expert": "Cooled movable stop for white and monochromatic beam; permits experiments in D with personnel access to E.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "transport-st2",
+   "name": "Long shielded transport ST-2 (hall to Long Beamline Building)",
+   "category": "beamPipe",
+   "branch": "main",
+   "distanceM": 77.0,
+   "distanceNote": "exact span 77.0–177.5 m (FDR Table 4.28)",
+   "enclosure": "transport (LOM 436 and the HEXM corridor of the LBB)",
+   "deflection": "none",
+   "plain": "A 100-metre lead-shielded vacuum pipe leaves the experiment hall, passes through a lab-office building and along a new corridor of offices, and enters the Long Beamline Building. People now cross it on new stairs and an elevator.",
+   "expert": "White-beam evacuated shielded transport, about 100 m. With ST-1 this adds up to the poster's 'White Beam Shielded Transport ~140 meters'. Windows WN-3 at 77.0 m and WN-4 at 177.7 m in shielded boxes. MEDSI'18 vacuum analysis for the ISN long transport (146 m, 4 in ID) used 4 × 200 L/s pumps.",
+   "specs": {
+    "span": "77.0–177.5 m"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "e-wb-slits",
+   "name": "20-ID-E entrance window and white-beam slits (WN-4, SL-7)",
+   "category": "slits",
+   "branch": "main",
+   "distanceM": 178.2,
+   "distanceNote": "exact (FDR Table 4.28: window 177.7, slits 178.2 'TEMP')",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "The beam enters the giant end station through a window, and slits trim it once more.",
+   "expert": "Portable end-station white-beam slits (S7) handle the high power density near broadband foci.",
+   "specs": {},
+   "source": "r1"
+  },
+  {
+   "id": "e-bcs-l6",
+   "name": "Beam-conditioning optics table with L6 nano-focusing lenses",
+   "category": "crl",
+   "branch": "main",
+   "distanceM": 178.8,
+   "distanceNote": "exact for L6 (FDR Table 4.28); table spans about 178–180 m (approx)",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "A long, very stable table carrying the final lenses, slits and beam monitors. Its lenses can squeeze the X-rays to a spot about 200 nanometres high, a few hundred times thinner than a hair, two metres away at the sample.",
+   "expert": "BCS table: L6 (f below 2 m) gives 0.43 × 0.21 µm and 4 × 10¹¹ ph/s at 70 keV. Spot budget (f = 2 m, 150 µm aperture, ΔE/E 10⁻³): 99 nm demag (+) 152 nm chromatic (+) 104 nm diffraction = 209 nm V. With an f = 1 m, 400 µm kinoform and ΔE/E 1.4 × 10⁻⁴: 77 nm. Also slits S6/S8, ion chambers (some position-sensitive) and a fast shutter.",
+   "specs": {
+    "spot": "0.43 × 0.21 µm at 70 keV",
+    "f": "1–2 m"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "e-window-5",
+   "name": "Be window 20ID-WN-5 (temporary)",
+   "category": "window",
+   "branch": "main",
+   "distanceM": 180.0,
+   "distanceNote": "exact (FDR Table 4.28: 'Window Be (TEMP)'), at the downstream end of the beam-conditioning table",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "A thin beryllium window, 70 centimetres before the sample, where the vacuum pipe ends. The X-rays cross the last stretch in air, so bulky furnaces and load frames can sit right in the beam.",
+   "expert": "Listed as a temporary Be window 0.7 m upstream of the sample position. The PDR describes optional evacuated flight tubes with an extra cooled window to remove air gaps, especially for white beam.",
+   "specs": {
+    "material": "Be"
+   },
+   "source": "r1"
+  },
+  {
+   "id": "e-sample-sms",
+   "name": "Sample position: HR-SMS, HL-SMS and RAMS load frame",
+   "category": "sampleEnvironment",
+   "branch": "main",
+   "distanceM": 180.7,
+   "distanceNote": "exact (FDR Table 4.28: 20ID-BI-3); ESD-010 places the origin 3.5 m from the upstream wall, 1.4 m above floor. The 3D model shows the High-Load SMS with a load frame at the beam and the High-Resolution SMS (hexapod with the rotation stage on top, as in the poster rendering) parked inboard on the exchange rails; rail, truss and cart dimensions are schematic.",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "The one spot where every technique meets. Precision stages, or a heavy-duty cart carrying a load frame, hold the sample while rigs stretch, heat or cycle it and the X-rays look inside.",
+   "expert": "Single calibrated sample position shared by all detectors. High-Resolution SMS (hexapod with a rotation stage, per the poster rendering; bearing type not stated) and High-Load SMS (wheeled cart with guide columns for load frames) are swapped via floor rails, under an overhead support structure. RAMS (rotational and axial motion load frame), Psylotech µTS/xTS, Linkam TS1500, Ambrell RF furnace, Maccor 4300 cycler. PDR planned 2–4 SMSs for deformation, AM and electrochemistry.",
+   "specs": {
+    "beam height": "1.4 m"
+   },
+   "source": "r29"
+  },
+  {
+   "id": "e-d1-nf-imaging",
+   "name": "D1 near-field / imaging detector",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 180.72,
+   "distanceNote": "approx: 1–2 cm behind the sample for nf-HEDM (PDR); further downstream for µCT. The 3D model shows it retracted about 0.1 m outboard of the beam, as in a far-field measurement (schematic).",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "A high-resolution camera almost touching the sample, 1 to 2 centimetres behind it. A thin crystal screen turns X-rays into visible light that a microscope lens records, mapping the grains like a CT scan coloured by crystal direction.",
+   "expert": "LuAG:Ce thin-scintillator plus mirror plus microscope objective, about 1 µm resolution. High-energy efficiency is low (less than 10% stopping above 40 keV), hence R&D. Used for nf-HEDM and µCT.",
+   "specs": {},
+   "source": "r5"
+  },
+  {
+   "id": "e-d2",
+   "name": "D2 detector system (near far-field WAXS/HEDM)",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 181.7,
+   "distanceNote": "approx: about 1 m behind the sample (inferred from the PDR concept and poster rendering). The 3D model shows it moved about 0.8 m inboard, out of the direct beam, as when the far-field detectors are in use (schematic).",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "A large flat-panel camera on a six-legged robotic mount, about a metre behind the sample, that catches the diffraction rings from thousands of grains at once. Here it is moved aside so the far detectors can see.",
+   "expert": "Hexapod-mounted detector platform (poster). PDR concept: Dexela 2923 / GE-41RT-class flat panels for WAXS and ff-HEDM.",
+   "specs": {},
+   "source": "r29"
+  },
+  {
+   "id": "e-l7-txm",
+   "name": "L7 TXM objective (direct or diffracted beam)",
+   "category": "crl",
+   "branch": "main",
+   "distanceM": 182.0,
+   "distanceNote": "approx: PDR places L7 'after the sample'; the poster shows a TXM objective stand in the downstream hutch; exact distance unpublished. The 3D model shows it lowered out of the beam on its lift (schematic).",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "An X-ray lens after the sample acts as a microscope objective. It projects a magnified image of the sample, or of one glowing grain, onto a camera at the back of the room.",
+   "expert": "Refractive TXM objective in the direct beam (TXM, about 100 nm goal) or in a diffracted beam (DFXM-type). It can also relay far-field patterns for vff-HEDM and BCDI.",
+   "specs": {},
+   "source": "r5"
+  },
+  {
+   "id": "e-d3-dms",
+   "name": "D3 detector manipulation system (2–12 m WAXS / HEDM)",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 183.0,
+   "distanceNote": "exact rail range Z = 183–193 m (ESD-010); FDR Table 4.28: 183.3–192.5 m. Listed at the upstream end of its travel; the 3D model shows it 6 m from the sample on the outboard rail, catching a Debye ring at 2θ = 8° (schematic configuration).",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "A 100-kilogram detector on a tall moving tower. It rides floor rails 2 to 12 metres behind the sample and moves metres sideways and up, to catch diffraction anywhere in a cone 36 degrees wide.",
+   "expert": "Covers the 2θ ≤ 18° cone (1 Å at 40 keV) at 2–12 m. Travel of at least 5 m in X, 3.5 m in Y and 9.5 m in Z, plus tilts of −20°/+10° and ±20°. Repeatability 75 µm or better; 15 µm or better per 24 h; 100 kg detector (reference: Pilatus3 X CdTe 6M, 172 µm). Parks clear of SAXS/TXM/D4. A laser tracker monitors position. The FDR's robot-arm concept became a floor-rail tower (poster).",
+   "specs": {
+    "travel": "≥5 × 3.5 × 9.5 m",
+    "load": "100 kg",
+    "2θ max": "18°"
+   },
+   "source": "r28"
+  },
+  {
+   "id": "e-d6-saxs",
+   "name": "D6 SAXS detector",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 195.0,
+   "distanceNote": "approx: about 14 m from the sample (PDR); SAXS table near the back wall in ESD Fig. 2",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "A camera far behind the sample that catches X-rays bent by only tiny angles, revealing nanometre-sized pores and particles.",
+   "expert": "Qmin 0.0007 Å⁻¹ at 40 keV. PDR concept: Pixirad-class photon-counting detector.",
+   "specs": {
+    "Q min": "7 × 10⁻⁴ Å⁻¹ at 40 keV"
+   },
+   "source": "r5"
+  },
+  {
+   "id": "e-d5-txm-detector",
+   "name": "D5 TXM imaging detector",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 195.7,
+   "distanceNote": "approx: about 15 m from the sample (PDR). D5 and D6 share the axis near the back wall; the 3D model shows D5 moved 1.3 m inboard (schematic).",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "The 'projection screen' for the X-ray microscope: the camera, about 15 metres from the sample, where the lens's magnified image lands.",
+   "expert": "High-resolution, high-efficiency imaging detector. KA Imaging reports BrillianSe amorphous-selenium direct-conversion detectors (8 µm pixels) 'designed into' the new 20-ID (vendor statement). The vendor does not say which detector position it serves; assigning it to D5 here is an inference.",
+   "specs": {},
+   "source": "r5"
+  },
+  {
+   "id": "e-d4-backwall",
+   "name": "D4 back-wall detector system (BCDI / vff-HEDM)",
+   "category": "detector",
+   "branch": "main",
+   "distanceM": 197.0,
+   "distanceNote": "approx: 'approximately 197 m' (ESD-010). The 3D model shows it on the back wall catching a single Bragg spot at 2θ = 8°, 2.3 m off axis (schematic configuration).",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "A detector that travels across the far wall, about 16 metres from the sample. That far away, diffraction spots spread out, so the tiniest changes in angle, and the speckle pattern of a single grain, become visible.",
+   "expert": "Upper half-cone of 2θ up to 17.8° (1 Å at 40 keV) reaches the back wall. Friedel pairs accessible. Needs 5 µm or better resolution with high efficiency and dynamic range for oversampling BCDI fringes (R&D). Separate spec ESD-011.",
+   "specs": {
+    "2θ max": "17.8°"
+   },
+   "source": "r29"
+  },
+  {
+   "id": "e-fixed-stop",
+   "name": "Fixed white-beam stop (20ID-BS-2)",
+   "category": "beamStop",
+   "branch": "main",
+   "distanceM": 197.0,
+   "distanceNote": "exact (FDR Table 4.28)",
+   "enclosure": "20-ID-E",
+   "deflection": "none",
+   "plain": "The end of the line, 197 metres from the source: a cooled block that safely absorbs whatever is left of the beam.",
+   "expert": "Cooled fixed stop for white and monochromatic beam at the downstream wall.",
+   "specs": {},
+   "source": "r1"
+  }
+ ],
+ "enclosures": [
+  {
+   "name": "Storage-ring tunnel / front end",
+   "role": "accelerator tunnel: in-line undulators and HHL front end through the ratchet wall",
+   "startM": -2.6,
+   "endM": 25.5,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Start is approximate (straight-section length); front-end exit mask at 25.4 m."
+  },
+  {
+   "name": "20-ID-A",
+   "role": "first optics enclosure (white-beam filters/slits, L1-L3 lenses, M1, M2, shutter)",
+   "startM": 26.2,
+   "endM": 35.9,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Extent measured from FDR Fig. 4.18 (scale from the 19.8 m E-station), about ±0.5 m; components 26.5–35.0 m."
+  },
+  {
+   "name": "Shielded transport ST-1",
+   "role": "white-beam shielded transport in the experiment hall",
+   "startM": 36.0,
+   "endM": 65.3,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Passes through legacy 20-ID-B and -C."
+  },
+  {
+   "name": "20-ID-B (legacy, unused)",
+   "role": "former spectroscopy hutch; beam passes through in shielded pipe",
+   "startM": 50.2,
+   "endM": 58.2,
+   "widthM": 4.4,
+   "branch": "main",
+   "notes": "Measured from FDR Fig. 4.18 (approx); 'will remain but not be used for operations'."
+  },
+  {
+   "name": "20-ID-C (legacy, unused)",
+   "role": "former spectroscopy hutch; beam passes through in shielded pipe",
+   "startM": 58.2,
+   "endM": 65.3,
+   "widthM": 4.4,
+   "branch": "main",
+   "notes": "Measured from FDR Fig. 4.18 (approx)."
+  },
+  {
+   "name": "20-ID-D",
+   "role": "white-beam experimental station on the main floor (high-throughput HEDM, in situ dynamics, optics for E)",
+   "startM": 65.3,
+   "endM": 77.1,
+   "widthM": 5.0,
+   "branch": "main",
+   "notes": "New enclosure (red 'new work' in FDR Fig. 4.18). About 5 m wide upstream, with the outboard wall tapering toward the downstream end (2019 drawing; approx)."
+  },
+  {
+   "name": "Shielded transport ST-2 and HEXM corridor",
+   "role": "about 100 m transport out of the hall, through LOM Bldg 436, along a new corridor with 14 offices into the Long Beamline Building",
+   "startM": 77.0,
+   "endM": 177.5,
+   "widthM": 5.6,
+   "branch": "main",
+   "notes": "Corridor width about 5.6 m from site analysis (site.json); offices and building changes per the 2021 LBB progress feature and FDR 4-1.2."
+  },
+  {
+   "name": "Activated Materials Laboratory (AML)",
+   "role": "radiological sample-prep lab adjacent to 20-ID-E (not on beam axis)",
+   "startM": 171.0,
+   "endM": 188.0,
+   "widthM": null,
+   "branch": null,
+   "notes": "On the inboard side of 20-ID-E (FDR Fig. 4.1; the LBB photo shows AML, HEXM and ISN in that order); funded by DOE-NE NSUF. Its extent along the beam (about 171–188 m, beside the low upstream part of 20-ID-E) is read from the inboard wing of the Long Beamline Building footprint in site.json (approx)."
+  },
+  {
+   "name": "20-ID-E control room and sample-prep area",
+   "role": "user support rooms",
+   "startM": 175.0,
+   "endM": 188.4,
+   "widthM": null,
+   "branch": null,
+   "notes": "On the outboard side, between HEXM and ISN, in the 2019 plan (FDR Fig. 4.1; approx; the downstream end is drawn at the step of 20-ID-E). As-built layout not verified."
+  },
+  {
+   "name": "20-ID-E",
+   "role": "main experimental station in the Long Beamline Building (Bldg 444); lead-shielded, multi-modal",
+   "startM": 177.5,
+   "endM": 197.3,
+   "widthM": 10.8,
+   "branch": "main",
+   "notes": "Interior 19.8 m long. Upstream section 11.3 m long × 6.8 m wide × about 4.0 m to the crane runway/roof (roof walkway on top). Downstream section 8.5 m × 10.8 m wide × 6.9 m high. Beam 1.4 m above floor, 5.4 m from the outboard wall in the wide section. Doorways on both sides at about 185 m. Floor slab 12 in. A yellow bridge crane with chain hoist spans the tall downstream section (MPE panorama photo, Jan 2024); ESD Fig. 2 marks a crane-runway level at the top of the low upstream section. The LBB exists to give long-distance optics, low-background environments and better stability."
+  }
+ ],
+ "instruments": [
+  {
+   "name": "High-Throughput HEDM instrument (HT-HEDM)",
+   "enclosure": "20-ID-D",
+   "plain": "An 'assembly-line' grain-mapping station built by four universities, moved to HEXM in December 2023.",
+   "expert": "NSF MRI award 1726375 (CMU lead; Purdue, Utah, Colorado School of Mines; $1.09 M obligated). Six-DOF Aerotech sample manipulator; white beam or monochromatic; ff-HEDM, WAXS, imaging; high-throughput and potential mail-in operation.",
+   "detectors": [
+    "Dexela 2923 or equivalent (FDR)",
+    "Varex 4343 / SpectrumLogic 3131HS (Beamline Directory; station not specified)"
+   ],
+   "sampleEnvironments": [
+    "Linkam TS1500 furnace",
+    "Psylotech load frame",
+    "multi-sample wheels (ex situ)"
+   ],
+   "source": "r24"
+  },
+  {
+   "name": "20-ID-E multi-modal end-station instrument",
+   "enclosure": "20-ID-E",
+   "plain": "A room-sized X-ray microscope: one sample spot, two sample stages, and a set of cameras from a few centimetres to 16 metres away. Users can switch between 3D grain maps, CT scans, nano-scale scattering and coherent imaging without moving the sample.",
+   "expert": "Beam-conditioning optics table (L6, slits, ion chambers, fast shutter). HR-SMS (hexapod plus rotation stage) and HL-SMS (high-load cart with load-frame columns) on floor rails under an overhead support truss; RAMS load frame. Detector systems: D1 (nf/imaging), D2 (hexapod-mounted, near ff), D3 (2–12 m tower, 2θ up to 18°), D4 (back wall, about 197 m), D5 (TXM), D6 (SAXS, about 14 m). TXM objective L7. Laser-tracker metrology (Leica AT9xx class). Stability: ±0.05 °C per 24 h, VC-E floor. The 20-ID-D and 20-ID-E instruments were presented at the Oct 2021 HEXM town hall (A. Chuang, J.-S. Park).",
+   "detectors": [
+    "D1 scintillator-lens imaging detector (nf-HEDM, µCT)",
+    "D2 flat-panel WAXS/ff-HEDM detector",
+    "D3 large-area detector on DMS (Pilatus3 X CdTe 6M used as the spec reference)",
+    "D4 back-wall BCDI/vff-HEDM detector",
+    "D5 TXM detector",
+    "D6 SAXS detector",
+    "KA Imaging BrillianSe a-Se (8 µm pixel; vendor claim 'designed into' 20-ID; position not stated)"
+   ],
+   "sampleEnvironments": [
+    "RAMS rotational and axial motion load frame",
+    "Psylotech µTS / xTS 5 kN load frames (AML)",
+    "Linkam TS1500 furnace",
+    "Ambrell RF furnace",
+    "Maccor 4300 battery cycler",
+    "activated-sample containments (AML)"
+   ],
+   "source": "r29"
+  },
+  {
+   "name": "Activated Materials Laboratory (support facility)",
+   "enclosure": "Long Beamline Building, adjacent to 20-ID-E",
+   "plain": "A safe workshop for radioactive samples, with glove boxes and shielded containers, right next to the X-ray hutch.",
+   "expert": "DOE-NE NSUF-funded radiological facility. Fume hoods, shielded glove boxes, encapsulation, transport to 1-ID and 20-ID. Sample limit 100 mrem/h at 30 cm. NSUF Partner User Proposal of 690 h/yr.",
+   "detectors": [],
+   "sampleEnvironments": [
+    "Psylotech µTS / xTS 5 kN",
+    "Linkam TS1500V",
+    "iRadMat furnace (1-ID only)"
+   ],
+   "source": "r18"
+  }
+ ],
+ "totalLengthM": 197,
+ "geometryNotes": "Single straight line from the 20-ID straight section to the fixed stop at 197 m, with no net horizontal deflection. The bent double-Laue M1 (29.5 m) displaces the monochromatic beam 25–35 mm outboard and parallel; white-beam operation runs on axis. The four-bounce M2 has zero net offset. The beam is tangent to the ring at sector 20, so the line leaves the hall at a slight angle to its neighbors. The ISN (19-ID) line starts about 2 m inboard but is rotated 9° outboard, so in the Long Beamline Building ISN lies on HEXM's outboard side. Outboard means the left of the beam direction, APS +X (ESD-010; site.json gives a 20-ID direction of 168.8° vs 177.8° for 19-ID in site coordinates). Inside the hall: 20-ID-A against the ratchet wall (about 26–36 m), a shielded pipe through the unused legacy 20-ID-B and -C hutches (about 50–65 m), then the new 20-ID-D (about 65–77 m) as far downstream as the hall allows. The roughly 100 m ST-2 pipe crosses the experiment-floor walkway (stairs and an elevator lift people over it), passes through LOM Bldg 436, where offices were removed, and runs along a new office corridor into Bldg 444, the LBB. 20-ID-E is a two-level lead hutch. The upstream third is low: 6.8 m wide, about 4 m high, with a roof walkway. The downstream part, from about 188.8 m, is wide and tall (10.8 × 6.9 m), so the 2θ = 17.8° Debye cone (1 Å at 40 keV) can reach the back-wall D4 detector about 16 m from the sample. Check: tan(17.8°) × 16.4 m = 5.3 m, against 5.4 m to the side walls and 5.5 m from beam height to the ceiling. Beam height 1.4 m. On the as-built poster an overhead truss bridges the sample area; D3 and D4 are tall tan pillar-type movers labeled 'HEXM'. The AML is on the inboard side of 20-ID-E. The control room and sample prep were drawn on the outboard side in 2019. Outside, the LBB massing reads AML (low) – HEXM (tall) – ISN (Strategic Plan photo). Caution for modelers: the FDR Fig. 4.1 caption says the beam travels left to right, but in that drawing the APS ring is at the right and the LBB at the left, so the beam actually runs right to left. Read that way, HEXM is inboard of ISN and the AML is inboard of HEXM, consistent with FDR Fig. 4.18 (beam left to right: control room and sample prep drawn above, i.e. outboard; AML below, i.e. inboard).",
+ "interactiveIdeas": [
+  {
+   "title": "Zoom-in, zoom-out",
+   "concept": "Start with a jet-engine turbine blade, then scroll through powers of ten. At each step the exhibit switches technique and detector distance on the 3D hutch model: µCT (mm, beam size/1000), nf-HEDM grain map (µm), ff-HEDM strain per grain, BCDI or DFXM inside one grain (tens of nm), and WAXS/PDF d-spacings (sub-A).",
+   "whatUserLearns": "No single image covers 7 orders of magnitude. HEXM combines techniques at one sample position so each scale guides where to zoom next.",
+   "physicsToGetRight": "Direct imaging resolution is roughly beam size/1000. Grain-resolved HEDM works for up to about 10⁴ grains in the beam. nf-HEDM resolves about 1 µm and 0.01°. ff-HEDM gives about 2 × 10⁻⁴ strain per grain. BCDI resolves tens of nm with strain about 10⁻⁴. Keep 2θ under about 10–18° at 35–120 keV."
+  },
+  {
+   "title": "X-ray vision vs energy",
+   "concept": "Slider from 10 to 120 keV with slabs of Al, Ti, steel, Ni superalloy, W. Show the transmitted beam and a 'see-through depth' gauge, and overlay a turbine blade, a battery and a reactor fuel pellet.",
+   "whatUserLearns": "Why HEXM needs high energy: the X-rays have to pass through real-size metal parts and their containment.",
+   "physicsToGetRight": "Use NIST mass attenuation coefficients: I/I₀ = exp(−(µ/ρ)ρt). Fe 1/e length is about 7 µm at 10 keV, 0.35 mm at 40 keV, about 1.5 mm at 70 keV and 3.4 mm at 100 keV. W and U stay strongly absorbing: the AML report puts their penetration near 100 µm at 70 keV and above. Computed NIST values span roughly 0.03–0.25 mm over 40–120 keV, with jumps at the W (69.5 keV) and U (115.6 keV) K edges. Show the W K-edge (69.5 keV) jump. Attenuation is not linear in E."
+  },
+  {
+   "title": "Why 180 meters? Build your own focus",
+   "concept": "Drag a lens along the beam (D station at 70 m, E station at 180 m) and choose f. Live readout of the spot size as source demag (+) chromatic aberration (+) diffraction limit, and a toggle between brightness and timing source modes. A second mode turns the lens into a beam expander.",
+   "whatUserLearns": "Distance helps both ways: smaller spots at a convenient working distance, and wide, uniform beams for whole-sample imaging.",
+   "physicsToGetRight": "Thin lens 1/f = 1/p + 1/q; demagnified size = 2.355 σ(source) × q/p. FWHM terms add in quadrature: at 180 m, f = 2 m, 70 keV, 99 + 152 + 104 nm gives 209 nm (V, FDR Table 4.30). CRL focal length f = R/(2N δ); for diamond at 70 keV δ is about 1.5 × 10⁻⁷ (computed from electron density), so R = 50 µm needs N of about 84 for f = 2 m. Focal length scales as E² (δ proportional to λ²), so chromatic blur scales with ΔE/E. Kinoforms beat CRLs on aperture."
+  },
+  {
+   "title": "Move the detector: near, far, very far",
+   "concept": "One polycrystal and one rotating sample. Slide the detector from 1 cm (nf) to 1 m (ff) to 15 m (vff). Spots spread out, position information fades and strain resolution sharpens. Then apply load and watch individual spots shift.",
+   "whatUserLearns": "The same diffraction carries different information depending on distance, and HEXM's 20 m hutch makes the 'very far' mode possible.",
+   "physicsToGetRight": "Bragg's law: λ = 2 d sin(θ), λ[Å] = 12.398/E[keV]. Fe(110) at 70 keV has 2θ of about 5.0°. Strain Δd/d = −cot θ Δθ, and angular resolution is about pixel/L. Near field (1–2 cm) gives spatial maps; far field gives grain averages."
+  },
+  {
+   "title": "Coherence and the speckle pattern of one grain (BCDI)",
+   "concept": "Compare old APS and APS-U source sizes. Show the coherence patch at 180 m, then illuminate one grain and show its 3D speckle. A detector-pixel slider reveals when fringes become undersampled, and a bandwidth slider shows fringes washing out unless ΔE/E is 10⁻⁵ or below.",
+   "whatUserLearns": "Coherent imaging at high energy needed the upgrade, a very monochromatic beam and a very long hutch.",
+   "physicsToGetRight": "Gaussian Schell model: rms transverse coherence length ξ = λ z/(2 π σ). At 40 keV, 180 m, ξx is about 60 µm (APS-U, σx 14.5 µm) vs about 3 µm (old APS, 280 µm); this is computed, and conventions differ by factors of about 2. Longitudinal coherence is about λ/(2 ΔE/E); at 40 keV (λ = 0.31 Å) that is about 15 nm at 10⁻³, 1.5 µm at 10⁻⁵ and 7.8 µm at 2 × 10⁻⁶ (computed; some authors use λ²/Δλ, twice as long). Fringe period on the detector is λ L/D, about 50 µm for D = 10 µm, L = 16 m at 40 keV, so pixels need to be 25 µm or less. Design coherent focus is 48 × 31 µm (FDR Fig. 4.20)."
+  },
+  {
+   "title": "Undulator harmonic ladder",
+   "concept": "Pick the current U21 or the future 16.5 mm SCU and drag K (the gap or current). Odd harmonics slide across 35–120 keV, and a metre shows how many harmonics overlap a chosen energy and how bright each is.",
+   "whatUserLearns": "High-energy beamlines run on high undulator harmonics. Shorter periods and stronger fields (superconducting magnets) put more photons where HEXM works.",
+   "physicsToGetRight": "Eₙ[keV] = n × 0.9496 Eₑ[GeV]² / (λu[cm] (1 + K²/2)) with Eₑ = 6.0 GeV. U21: E1 = 8.36 keV at K = 1.38, so 70 keV is about the 7th harmonic at K of about 1.1 (computed). Only odd harmonics on axis. The 0.136% electron energy spread broadens high harmonics strongly (Tanaka-Kitamura factor at n × N × σE). Planned SCU vs pre-upgrade SCU1: 530× brilliance."
+  },
+  {
+   "title": "Why the hutch looks like a step pyramid",
+   "concept": "Cutaway of 20-ID-E. Light up the 1 Å, 40 keV Debye cone from the sample and watch it fill the tall, wide back half and hit the D4 wall. A slider changes the energy or d-spacing and the cone shrinks or grows.",
+   "whatUserLearns": "Building shapes follow physics: the back half is 10.8 m wide and 6.9 m tall so an 18° cone fits.",
+   "physicsToGetRight": "2θ = 2 asin(λ/2d) is 17.8° for d = 1 Å at 40 keV. Radius = L tan(2θ) is about 5.3 m at L of about 16.4 m. Beam height 1.4 m, so only the upper half-cone reaches the wall."
+  },
+  {
+   "title": "Ride along with a radioactive sample",
+   "concept": "Step-by-step journey: reactor component, then shipping cask, AML glove box, encapsulation, transfer cart to 20-ID-E, HEDM scan and return. Dose-rate counters update along the way.",
+   "whatUserLearns": "How a long beamline and a dedicated lab make it safe to study irradiated materials with X-rays.",
+   "physicsToGetRight": "Limit 100 mrem/h beta/gamma at 30 cm. At least one containment layer. Containment walls must be X-ray transparent at 60–100 keV; the 1/e length is about mm in steel and Zr. Higher-dose samples go preferentially to 20-ID, outside the main hall."
+  }
+ ],
+ "funFacts": [
+  "At about 20 m long, 20-ID-E is 'the largest enclosure we've built at the APS'.",
+  "HEXM's main hutch stands in its own building, the Long Beamline Building. Its groundbreaking on July 22, 2020 was described as 'the only externally visible part of the APS Upgrade'.",
+  "The X-rays travel about 180 m (590 ft) to the sample, roughly 2.3 times the 'more typical 80 meters', and arrive about 0.6 microseconds after leaving the electron beam (travel time computed).",
+  "Building HEXM meant removing offices in lab-office Building 436 and adding a new corridor of 14 offices along the beam pipe.",
+  "The long beamlines cut the walkway around the APS ring at sectors 19–20. Stairs and an elevator now carry people over the beam pipes, ending the tradition of a full lap on foot or tricycle.",
+  "The back half of 20-ID-E is 10.8 m wide and 6.9 m tall so that X-rays scattered at 18 degrees can still land on a detector 16 m away.",
+  "Energy Secretary Chris Wright placed HEXM's inaugural sample, a piece of a jet-engine turbine blade, in July 2025.",
+  "The high-throughput HEDM instrument in 20-ID-D was built by four universities with NSF funding: 'many places with wading pools... this instrument... will be an Olympic swimming pool'.",
+  "Before HEXM, sector 20 hosted X-ray spectroscopy for more than 25 years (about 600 papers). That program moved to 25-ID in 2022, and the sector's history goes back to the Pacific Northwest Consortium CAT formed in 1990.",
+  "HEXM's hutch sits on a 12-inch concrete slab; its long-beamline neighbor ISN needed 39 inches for vibration control.",
+  "Next door is a lab built to handle radioactive samples; its first users studied stainless-steel parts retired from a nuclear reactor after decades of service.",
+  "Before the upgrade, only about 1 in 100,000 photons at HEDM energies was spatially coherent, which made high-energy coherent imaging impractical.",
+  "'HEXM will be the only beamline worldwide to offer dark-field X-ray microscopy at high energies' (Ashley Bucsek, University of Michigan).",
+  "The design calls for a laser tracker (Leica Absolute Tracker class) to watch where the 100 kg detectors are inside the hutch."
+ ],
+ "figures": [
+  {
+   "file": "hexm/esd010-20-ID-E-plan-elevation.png",
+   "caption": "Plan and elevation of the 20-ID-E end station with the D3 detector coverage area (dimensions in m, distances from source 177–197 m). APS-U Engineering Specification Document APSU-2.04.03.20-ESD-010, Fig. 2 (2021).",
+   "source": "r28",
+   "page": 8,
+   "whatItShows": "Hutch dimensions: 19.8 m long, 6.8 m and 10.8 m wide sections, 3.98 m and 6.9 m heights. Sample origin 3.5 m from the upstream wall at 1.4 m beam height. The 1 Å at 40 keV (18°) diffraction cone, D3 rails and park positions, doorways at about 185 m, and the SAXS table near the back wall."
+  },
+  {
+   "file": "hexm/fdr-fig4-19-optical-layout.png",
+   "caption": "HEXM X-ray optical layout (plan view): optics enclosure A at about 30 m, white-beam station D at about 70 m, end station E at about 180 m. APS-U Final Design Report (2019), Fig. 4.19.",
+   "source": "r1",
+   "page": 60,
+   "whatItShows": "Every optical element in beam order: source (shown as SCU), slits S1-S8, white-beam filter F1, attenuator/foil wheels F2/F3, the bent-Laue M1 and high-resolution M2 monochromators, and refractive optics L1-L7. Colors mark long-focal-length (green), short-focal-length (red) and beam-expansion (oval) optics."
+  },
+  {
+   "file": "hexm/fdr-fig4-20-bcdi-optics.png",
+   "caption": "Optics configuration for high-energy Bragg coherent diffraction imaging: vertical (top) and horizontal (bottom). APS-U Final Design Report (2019), Fig. 4.20.",
+   "source": "r1",
+   "page": 60,
+   "whatItShows": "How a 9 µm (V) × 35 µm (H) source is relayed 180 m by L2 (31 m, f = 31 m) and L5 (76 m, V f = 104 m, H f = 44 m) into a large 31 × 48 µm coherent focus. M1 gives 10⁻³ bandwidth; M2 narrows it to 10⁻⁵ to 10⁻⁶."
+  },
+  {
+   "file": "hexm/fdr-fig4-18-beamline-layout.png",
+   "caption": "HEXM beamline layout in plan view (beam left to right; drawing dated 3-13-19). Upper strip: 20-ID-A at the ratchet wall, the unused legacy 20-ID-B and -C hutches, the new 20-ID-D and the start of the shielded transport. Lower strip: the long transport and 20-ID-E, with the control room and sample-prep area outboard (top) and the Activated Materials Lab inboard (bottom). APS-U Final Design Report (2019), Fig. 4.18.",
+   "source": "r1",
+   "page": 57,
+   "whatItShows": "Upstream strip: 20-ID-A against the ratchet wall, the legacy 20-ID-B and 20-ID-C hutches ('existing'), the new 20-ID-D (red outline) and the start of the shielded transport. Downstream strip: the long transport and the 20-ID-E hutch with its 18° detector cone, the control room and sample-prep area on the outboard side (top) and the Activated Materials Lab on the inboard side (bottom). Native image is only 1430 × 159 px, upscaled 2×; small labels are hard to read."
+  },
+  {
+   "file": "hexm/endstation-poster-2024.jpg",
+   "caption": "20-ID-E end-station instrumentation as designed: lead-shielded hutch with roof walkway, the shielded transport, beam-conditioning optics, the HR-SMS and HL-SMS sample stages, overhead support structure, D2, D3 and D4 detector systems and the TXM objective, with the D4 back-wall coverage of the 2θ = 17.8° cone. HEXM poster (J. Almer et al.), photographed on the 20-ID web page (2024).",
+   "source": "r29",
+   "whatItShows": "As-designed 3D rendering of 20-ID-E: lead-shielded hutch with roof walkway, the roughly 140 m white-beam shielded transport, beam-conditioning optics table, HR-SMS (hexapod plus rotation stage), HL-SMS (wheeled high-load cart), RAMS, overhead support truss, D2 hexapod detector, D3 tower and D4 back-wall detector movers, TXM objective, the D4 back-wall coverage of the 2θ = 17.8° (1 Å at 40 keV) half-cone with Friedel pairs, and a site plan strip. Photo of a printed poster (slight perspective)."
+  }
+ ],
+ "references": [
+  {
+   "id": "r1",
+   "title": "Advanced Photon Source Upgrade Project Final Design Report, Chapter 4: Experimental Facilities, Section 4-4 'HEXM 20-ID' (Tables 4.27–4.31, Figs. 4.18–4.21)",
+   "authors": "APS-U Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory, APSU-2.01-RPT-003",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%204%20-%20Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r2",
+   "title": "APS-U Final Design Report, Chapter 4, Section 4-1 Experimental Facilities Overview (Table 4.1 feature beamlines, Table 4.2 documents, 4-1.2 Long Beamline Building, Fig. 4.1)",
+   "authors": "APS-U Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%204%20-%20Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r3",
+   "title": "APS-U Final Design Report, Chapter 3: Front Ends and Insertion Devices (Table 3.1 FE configurations, 3-2.1 HHLFE, Table 3.13 ID selections, Tables 3.24–3.25 SCUs)",
+   "authors": "APS-U Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%203%20-%20Front%20Ends%20and%20Insertion%20Devices.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r4",
+   "title": "APS-U Final Design Report, Chapter 1: Executive Summary (Table 1.1 performance parameters)",
+   "authors": "APS-U Project",
+   "year": 2019,
+   "venue": "Argonne National Laboratory",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%201%20-%20Executive%20Summary%20and%20Project%20Overview.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r5",
+   "title": "APS Upgrade Preliminary Design Report, Chapter 6: Experimental Facilities, Section 6-6 'High-Energy X-Ray Microscope (HEXM) Beamline' (Tables 6.21–6.24, Figs. 6.44–6.55)",
+   "authors": "APS-U Project",
+   "year": 2017,
+   "venue": "Argonne National Laboratory",
+   "url": "https://www.aps.anl.gov/sites/default/files/APS-Uploads/Aps-Upgrade/Chapter%206-Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r6",
+   "title": "APS Upgrade Preliminary Design Report, Chapter 3: Science, Section 3-6 'HEXM: A High-Energy X-ray Microscope for the APS-U'",
+   "authors": "APS-U Project",
+   "year": 2017,
+   "venue": "Argonne National Laboratory",
+   "url": "https://www.aps.anl.gov/sites/default/files/APS-Uploads/Aps-Upgrade/Chapter%203-Science.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r7",
+   "title": "Early Science at the Upgraded Advanced Photon Source (Section 2.3.A 'Nanoscopic Origins of Turbine Disk Dwell Fatigue Behavior')",
+   "authors": "APS",
+   "year": 2015,
+   "venue": "Argonne National Laboratory",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/Beamlines/APS-U%20Early-Science-103015-FINAL.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r8",
+   "title": "The High-Energy X-ray Microscope (HEXM) at 20-ID (feature beamline page; page date 09.14.2026; links the 'High Energy X-ray Microscope Animation' video)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Feature-Beamlines/High-Energy-X-ray-Microscope",
+   "type": "web"
+  },
+  {
+   "id": "r9",
+   "title": "APS Beamline Directory: 20-ID-D,E: 20-ID (status, specifications, contacts, end stations, detectors; read 2026-10-08)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/233",
+   "type": "web"
+  },
+  {
+   "id": "r10",
+   "title": "20-ID HEXM main page (06.28.2024), 20-ID Infrastructure and 20-ID Techniques pages (01.24.2024)",
+   "authors": "XSD Materials Physics and Engineering group",
+   "year": 2024,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Sector-20/20-ID",
+   "type": "web"
+  },
+  {
+   "id": "r11",
+   "title": "MPE group APS-U status page: 'Beamline 20-ID (HEXM)' (one optics station 20-ID-A, end stations 20-ID-D and -E; HT-HEDM moved Dec 2023; Cinel monochromator installed Jan 2024; page date 01.23.2024)",
+   "authors": "XSD Materials Physics and Engineering group",
+   "year": 2024,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Materials-Physics-and-Engineering/APS-U",
+   "type": "web"
+  },
+  {
+   "id": "r12",
+   "title": "Insertion Devices by Sector (APS Magnetic Devices group; 'Updated: Sep. 22, 2026')",
+   "authors": "W. Li (maintainer)",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Magnetic-Devices/Insertion-Devices/Insertion-Devices-by-Sector",
+   "type": "web"
+  },
+  {
+   "id": "r13",
+   "title": "Beamline Commissioning Progress chart, October 5, 2026 (weekly, linked from the APS home page); earlier charts in the APS-U monthly updates Sep 2024-Jan 2026",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "anl.app.box.com / aps.anl.gov",
+   "url": "https://anl.app.box.com/s/rjtjm9d9b5v2gk35l0s39zgnagfye757",
+   "type": "web"
+  },
+  {
+   "id": "r14",
+   "title": "Upgraded APS Update: July 2025 (Secretary of Energy visit; HEXM 'currently being commissioned'; inaugural turbine-blade sample)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-July-2025",
+   "type": "news"
+  },
+  {
+   "id": "r15",
+   "title": "APS Upgrade Update: September 2024 (HEXM/ISN first light expected this run; walkway at sectors 19–20 blocked, stairs and elevator added)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-September-2024",
+   "type": "news"
+  },
+  {
+   "id": "r16",
+   "title": "Proposal Types and Templates (General User beamline list incl. 20-ID-D,E; page date 10.07.2026)",
+   "authors": "APS User Office",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Users-Information/About-Proposals/Proposal-Types",
+   "type": "web"
+  },
+  {
+   "id": "r17",
+   "title": "Advanced Photon Source Strategic Plan 2025–2029 (HEXM and AML in the LBB; SCU delivery plan: 2 × 1.9 m 16.5 mm in-line SCUs at sectors 1 and 20, install 2026–2027)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "Argonne National Laboratory",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/APS/APS_Strategic_Plan_2025-29.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r18",
+   "title": "A new capability facilitating nuclear materials research: the Activated Materials Laboratory at the Advanced Photon Source (ANL/NSE-25/32; Sec. 3.3 'Beamline 20-ID capabilities')",
+   "authors": "Argonne Nuclear Science and Engineering Division",
+   "year": 2025,
+   "venue": "OSTI 2572622",
+   "url": "https://www.osti.gov/servlets/purl/2572622",
+   "type": "report"
+  },
+  {
+   "id": "r19",
+   "title": "Argonne National Lab's New Facility Gives Researchers an Inside Look at Irradiated Nuclear Materials",
+   "authors": "DOE Office of Nuclear Energy",
+   "year": 2026,
+   "venue": "energy.gov (Feb 26, 2026)",
+   "url": "https://www.energy.gov/ne/articles/argonne-national-labs-new-facility-gives-researchers-inside-look-irradiated-nuclear",
+   "type": "news"
+  },
+  {
+   "id": "r20",
+   "title": "A new era of research comes into focus (HEXM 180 m vs typical 80 m; Almer and Bucsek quotes; AML)",
+   "authors": "C. Nunez",
+   "year": 2024,
+   "venue": "APS News, Oct 1, 2024 (also phys.org, Oct 2, 2024)",
+   "url": "https://www.aps.anl.gov/APS-News/2024-10-01/a-new-era-of-research-comes-into-focus/2024-10-01/a-new-era-of-research-comes",
+   "type": "news"
+  },
+  {
+   "id": "r21",
+   "title": "Building the Beamlines (APS-U update: LBB complete; HEXM enclosure 'roughly 20 meters... the largest enclosure we've built at the APS')",
+   "authors": "Advanced Photon Source",
+   "year": 2022,
+   "venue": "aps.anl.gov (Nov 3, 2022)",
+   "url": "https://www.aps.anl.gov/node/16756",
+   "type": "news"
+  },
+  {
+   "id": "r22",
+   "title": "Argonne breaks ground on new state-of-the-art beamlines for the Advanced Photon Source",
+   "authors": "Argonne National Laboratory",
+   "year": 2020,
+   "venue": "anl.gov press release (Jul 22, 2020)",
+   "url": "https://www.anl.gov/article/argonne-breaks-ground-on-new-stateoftheart-beamlines-for-the-advanced-photon-source",
+   "type": "news"
+  },
+  {
+   "id": "r23",
+   "title": "Pictures of progress: The APS Upgrade's Long Beamline Building takes shape",
+   "authors": "Argonne National Laboratory",
+   "year": 2021,
+   "venue": "anl.gov feature (Aug 30, 2021)",
+   "url": "https://www.anl.gov/article/pictures-of-progress-the-aps-upgrades-long-beamline-building-takes-shape",
+   "type": "news"
+  },
+  {
+   "id": "r24",
+   "title": "High-throughput X-ray diffraction instrument comes to Argonne's Advanced Photon Source",
+   "authors": "Argonne National Laboratory",
+   "year": 2020,
+   "venue": "anl.gov press release (Jul 1, 2020)",
+   "url": "https://www.anl.gov/article/highthroughput-xray-diffraction-instrument-comes-to-argonnes-advanced-photon-source",
+   "type": "news"
+  },
+  {
+   "id": "r25",
+   "title": "MRI Consortium: Development of High Throughput High Energy Diffraction Microscope (NSF award 1726375, PI R. Suter)",
+   "authors": "National Science Foundation",
+   "year": 2017,
+   "venue": "NSF Award Search",
+   "url": "https://www.nsf.gov/awardsearch/showAward?AWD_ID=1726375",
+   "type": "web"
+  },
+  {
+   "id": "r26",
+   "title": "Toasting the Spectroscopy Program at APS Beamline 20-ID",
+   "authors": "Advanced Photon Source",
+   "year": 2022,
+   "venue": "APS News (Sep 28, 2022)",
+   "url": "https://www.aps.anl.gov/APS-News/2022-09-28/toasting-the-spectroscopy-program-at-aps-beamline-20-id/2022-09-28/toasting-the",
+   "type": "news"
+  },
+  {
+   "id": "r27",
+   "title": "APS Spectroscopy Group: Sector 20 history (PNC-CAT, CLS@APS)",
+   "authors": "APS Sector 20",
+   "year": 2020,
+   "venue": "s20.xray.aps.anl.gov",
+   "url": "https://s20.xray.aps.anl.gov/history.html",
+   "type": "web"
+  },
+  {
+   "id": "r28",
+   "title": "Engineering Specification Document: Endstation Instrumentation D3 Detector Manipulation System (DMS), HEXM 20-ID-E (APSU-2.04.03.20-ESD-010 rev. 0, ICMS APSU_2171452) with Statement of Work",
+   "authors": "J. Okasinski, J. Almer, J. Abrams, E. Benda, O. Schmidt",
+   "year": 2021,
+   "venue": "APS-U procurement package (public)",
+   "url": "https://imlive.s3.amazonaws.com/Federal%20Government/ID262558677388510251001746078447172226003/Engineering%20Specification%20Doc.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r29",
+   "title": "HEXM - High Energy X-ray Microscope - 20-ID: Endstation Instrumentation (poster: HR-SMS, HL-SMS, RAMS, beam-conditioning optics, D2/D3/D4, TXM objective, overhead support, 'White Beam Shielded Transport ~140 meters', D4 back-wall coverage)",
+   "authors": "J. Almer, S. Shastri, A. Mashayekhi, O. Schmidt, E. Benda, S. Bean, J. Abrams, J. Matus, P. Kenesei, J.-S. Park, A. Chuang, J. Sullivan, K. Goetz",
+   "year": 2024,
+   "venue": "poster image on the 20-ID main page",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/MPE/IMG_9130_cropped.jpg",
+   "type": "talk"
+  },
+  {
+   "id": "r30",
+   "title": "Imaging microstructure with high-energy x-rays (techniques overview slide)",
+   "authors": "XSD-MPE",
+   "year": 2024,
+   "venue": "aps.anl.gov (linked from 20-ID Techniques)",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/MPE/HE_techniques_overview.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "r31",
+   "title": "A High-Energy X-ray Microscope for APS-U (white paper abstract)",
+   "authors": "S. Shastri, J. Almer, R. Suter, M. Pellin, M. Bourke et al.",
+   "year": 2015,
+   "venue": "APS-U beamline white papers (WP16)",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/Beamlines/Abstracts/WP16.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r32",
+   "title": "Advanced Photon Source Upgrade (APS-U) Beamline Engineering Overview (talk; long beamlines 19-ID ISN 220 m, 20-ID HEXM 180 m; long-transport vacuum analysis)",
+   "authors": "O. Schmidt et al.",
+   "year": 2018,
+   "venue": "MEDSI 2018, Paris (JACoW)",
+   "url": "https://proceedings.jacow.org/medsi2018/talks/thopma02_talk.pdf",
+   "type": "talk"
+  },
+  {
+   "id": "r33",
+   "title": "APS Upgrade - Beamline Engineering Overview",
+   "authors": "O. Schmidt, D. Capatina, J. Knopp, R. Winarski, S. Bean, A. Khan, M. Ramanathan",
+   "year": 2025,
+   "venue": "Proc. MEDSI'25, Lund, TUOA01, doi:10.18429/JACoW-MEDSI2025-TUOA01",
+   "url": "https://proceedings.jacow.org/medsi2025/pdf/TUOA01.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r34",
+   "title": "Status of undulators for the APS Upgrade",
+   "authors": "R. Dejus et al.",
+   "year": 2024,
+   "venue": "Proc. IPAC'24, TUPG56",
+   "url": "https://doi.org/10.18429/JACoW-IPAC2024-TUPG56",
+   "type": "paper"
+  },
+  {
+   "id": "r35",
+   "title": "APS Storage Ring Parameters (nominal ID source parameters, flat- and round-beam modes)",
+   "authors": "M. Borland",
+   "year": 2024,
+   "venue": "ops.aps.anl.gov (Aug 27, 2024)",
+   "url": "https://ops.aps.anl.gov/SRparameters/SRparameters.html",
+   "type": "web"
+  },
+  {
+   "id": "r36",
+   "title": "Cryogenically cooled bent double-Laue monochromator for high-energy undulator X-rays (50–200 keV)",
+   "authors": "S. D. Shastri, K. Fezzaa, A. Mashayekhi, W.-K. Lee, P. B. Fernandez, P. L. Lee",
+   "year": 2002,
+   "venue": "J. Synchrotron Rad. 9, 317–322",
+   "url": "https://doi.org/10.1107/S0909049502009986",
+   "type": "paper"
+  },
+  {
+   "id": "r37",
+   "title": "Combining flat crystals, bent crystals and compound refractive lenses for high-energy X-ray optics",
+   "authors": "S. D. Shastri",
+   "year": 2004,
+   "venue": "J. Synchrotron Rad. 11, 150–156",
+   "url": "https://doi.org/10.1107/S0909049503023586",
+   "type": "paper"
+  },
+  {
+   "id": "r38",
+   "title": "High-energy X-ray optics with silicon saw-tooth refractive lenses",
+   "authors": "S. D. Shastri, J. Almer, C. Ribbing, B. Cederstrom",
+   "year": 2007,
+   "venue": "J. Synchrotron Rad. 14, 204–211",
+   "url": "https://doi.org/10.1107/S0909049507003962",
+   "type": "paper"
+  },
+  {
+   "id": "r39",
+   "title": "Focusing, collimation, and beam expansion of high-energy X-rays with diamond refractive lenses",
+   "authors": "S. D. Shastri, S. Antipov",
+   "year": 2026,
+   "venue": "J. Synchrotron Rad. 33, 1326–1337 (published online 5 Aug 2026; PMID 42554474; abstract via Europe PMC)",
+   "url": "https://doi.org/10.1107/S1600577526006995",
+   "type": "paper"
+  },
+  {
+   "id": "r40",
+   "title": "High-Energy Coherent X-Ray Diffraction Microscopy of Polycrystal Grains: Steps Toward a Multiscale Approach",
+   "authors": "S. Maddali, J.-S. Park, H. Sharma, S. Shastri, P. Kenesei, J. Almer, R. Harder, M. J. Highland, Y. Nashed, S. O. Hruszkewycz",
+   "year": 2020,
+   "venue": "Phys. Rev. Applied 14, 024085",
+   "url": "https://doi.org/10.1103/PhysRevApplied.14.024085",
+   "type": "paper"
+  },
+  {
+   "id": "r41",
+   "title": "Repeatability and sensitivity characterization of the far-field high-energy diffraction microscopy instrument at the Advanced Photon Source",
+   "authors": "J.-S. Park, H. Sharma, P. Kenesei",
+   "year": 2021,
+   "venue": "J. Synchrotron Rad. 28, 1786–1800",
+   "url": "https://doi.org/10.1107/S1600577521008286",
+   "type": "paper"
+  },
+  {
+   "id": "r42",
+   "title": "High-Energy X-Ray Diffraction Microscopy in Materials Science",
+   "authors": "J. V. Bernier, R. M. Suter, A. D. Rollett, J. D. Almer",
+   "year": 2020,
+   "venue": "Annu. Rev. Mater. Res. 50, 395–436",
+   "url": "https://doi.org/10.1146/annurev-matsci-070616-124125",
+   "type": "paper"
+  },
+  {
+   "id": "r43",
+   "title": "A rotational and axial motion system load frame insert for in situ high energy x-ray studies",
+   "authors": "P. A. Shade, B. Blank, J. C. Schuren, T. J. Turner, P. Kenesei, K. Goetze, R. M. Suter, J. V. Bernier, S. F. Li, J. Lind, U. Lienert, J. Almer",
+   "year": 2015,
+   "venue": "Rev. Sci. Instrum. 86, 093902",
+   "url": "https://doi.org/10.1063/1.4927855",
+   "type": "paper"
+  },
+  {
+   "id": "r44",
+   "title": "Dark-field X-ray microscopy for multiscale structural characterization",
+   "authors": "H. Simons, A. King, W. Ludwig, C. Detlefs, W. Pantleon, S. Schmidt, F. Stohr, I. Snigireva, A. Snigirev, H. F. Poulsen",
+   "year": 2015,
+   "venue": "Nat. Commun. 6, 6098",
+   "url": "https://doi.org/10.1038/ncomms7098",
+   "type": "paper"
+  },
+  {
+   "id": "r45",
+   "title": "High-Resolution X-ray Imaging Enhanced by BrillianSe at APS-Upgrade (vendor article: BrillianSe designed into 20-ID HEXM; 8 µm pixels)",
+   "authors": "KA Imaging",
+   "year": 2025,
+   "venue": "kaimaging.com (undated)",
+   "url": "https://kaimaging.com/high-resolution-x-ray-imaging-aps-upgrade/",
+   "type": "web"
+  },
+  {
+   "id": "r46",
+   "title": "APS: High-Energy X-rays Expediting Applied and Fundamental Research",
+   "authors": "U. Ruett, J. Almer, P. Kenesei, J.-S. Park et al.",
+   "year": 2020,
+   "venue": "Synchrotron Radiation News 33, doi:10.1080/08940886.2020.1841498",
+   "url": "https://www.osti.gov/servlets/purl/1840758",
+   "type": "paper"
+  },
+  {
+   "id": "r47",
+   "title": "APS Upgrade: Progress In Pictures (March 2024: work on a monochromator for the HEXM feature beamline)",
+   "authors": "Advanced Photon Source",
+   "year": 2024,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/Progress-In-Pictures",
+   "type": "web"
+  },
+  {
+   "id": "r48",
+   "title": "Virtual Town Hall on APSU High-Energy X-ray Microscope (HEXM) Construction at 20-ID (Oct 25, 2021 agenda: 20-ID-D and 20-ID-E instruments)",
+   "authors": "Advanced Photon Source",
+   "year": 2021,
+   "venue": "APS News (Oct 5, 2021)",
+   "url": "https://www.aps.anl.gov/APS-News/2021-10-05/virtual-town-hall-on-apsu-high-energy-x-ray-microscope-hexm-construction-at-20",
+   "type": "news"
+  },
+  {
+   "id": "r49",
+   "title": "Design, Fabrication, and Testing of a 1.9-m-Long, 16.5-mm Period NbTi Superconducting Undulator for the Advanced Photon Source Upgrade",
+   "authors": "M. Kasa, E. Anliker, Q. Hasse, H. Hu, I. Kesgin, E. Moog, Y. Shiroyanagi, Y. Ivanyushenkov",
+   "year": 2022,
+   "venue": "IEEE Trans. Appl. Supercond. 32(6)",
+   "url": "https://doi.org/10.1109/TASC.2022.3164039",
+   "type": "paper"
+  },
+  {
+   "id": "r50",
+   "title": "Refractive lens based full-field x-ray imaging at 45–50 keV with sub-micron resolution",
+   "authors": "S. D. Shastri, P. Kenesei, R. M. Suter",
+   "year": 2015,
+   "venue": "Proc. SPIE 9592, 95920X",
+   "url": "https://doi.org/10.1117/12.2195531",
+   "type": "paper"
+  },
+  {
+   "id": "r51",
+   "title": "Kinoform lens focusing of high-energy x-rays (50–100 keV)",
+   "authors": "S. D. Shastri, K. Evans-Lutterodt, R. L. Sheffield, A. Stein, M. Metzler, P. Kenesei",
+   "year": 2014,
+   "venue": "Proc. SPIE 9207, 920704",
+   "url": "https://doi.org/10.1117/12.2062635",
+   "type": "paper"
+  },
+  {
+   "id": "r52",
+   "title": "X-Ray Mass Attenuation Coefficients (NIST Standard Reference Database 126) / XCOM",
+   "authors": "J. H. Hubbell, S. M. Seltzer",
+   "year": 2004,
+   "venue": "NIST",
+   "url": "https://www.nist.gov/pml/x-ray-mass-attenuation-coefficients",
+   "type": "web"
+  },
+  {
+   "id": "r53",
+   "title": "Phase retrieval for Bragg coherent diffraction imaging at high x-ray energies",
+   "authors": "S. Maddali, M. Allain, W. Cha, R. Harder, J.-S. Park, P. Kenesei, J. Almer, Y. Nashed et al.",
+   "year": 2019,
+   "venue": "Phys. Rev. A 99, 053838",
+   "url": "https://doi.org/10.1103/PhysRevA.99.053838",
+   "type": "paper"
+  },
+  {
+   "id": "r54",
+   "title": "Diamond compound refractive lens tests with high-energy x-rays",
+   "authors": "S. P. Antipov, S. D. Shastri",
+   "year": 2021,
+   "venue": "Proc. SPIE 11837 (Advances in X-Ray/EUV Optics and Components XVI)",
+   "url": "https://doi.org/10.1117/12.2595471",
+   "type": "paper"
+  },
+  {
+   "id": "r55",
+   "title": "Upgraded APS Update: August 2025 (projected schedules for the last five feature beamlines: ISN, CHEX, PtychoProbe, 3DMN, Atomic; HEXM not among them)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/APS-Upgrade-Update-August-2025",
+   "type": "news"
+  },
+  {
+   "id": "r56",
+   "title": "High-energy coherent X-ray diffraction microscopy of polycrystal grains: first steps towards a multi-scale approach (arXiv preprint of r40)",
+   "authors": "S. Maddali, J.-S. Park, H. Sharma, S. Shastri, P. Kenesei, J. Almer, R. Harder, M. J. Highland, Y. Nashed, S. O. Hruszkewycz",
+   "year": 2019,
+   "venue": "arXiv:1903.11815",
+   "url": "https://arxiv.org/abs/1903.11815",
+   "type": "paper"
+  }
+ ],
+ "openQuestions": [
+  "Exact first-light date not published. Monthly charts show stage 2 (installation complete) in Dec 2024 and Jan 2025, stage 3 (ops commissioning) on 10 Mar 2025 and stage 5 by July 2025. The July 2025 AML report says shielding verification happened 'in 2025'. First light is therefore bracketed between late Jan and Jul 2025, most likely by Mar 2025.",
+  "Status conflict: the 5 Oct 2026 chart shows stage 6 (general users) and the Proposal Types page lists 20-ID-D,E for GU proposals, but the Beamline Directory still says 'Commissioning' (likely stale).",
+  "Source: interim permanent-magnet U21 + U21/U25 revolver as of 22 Sep 2026. The SCU baseline changed from about 3.5–3.8 m total (FDR 4-4, Kmax 1.63) to 2 × 1.9 m in one cryostat (FDR Ch3, Strategic Plan). Installation is planned for 2026–2027 after core-reliability problems. The Beamline Directory specs (10¹⁴ ph/s at 70 keV) assume the SCU and have not been measured with the interim source.",
+  "Front-end window material: 0.5 mm Be (FDR 4-4.3 and the Table 4.27 note) vs 'Diamond Window' (FDR Table 4.28). As-built not confirmed.",
+  "Which refractive optics (L1-L7) are installed as of 2026 is unclear. The FDR lists most lens sets as 'Not in Project Scope' (R&D). The AML report (Jul 2025) confirms 'refractive-based focusing optics' in 20-ID-A without details. Shastri & Antipov (JSR 2026) describe diamond lenses for collimation into a high-resolution monochromator, focusing for coherent diffraction 'on a long beamline' and a convex beam-expander test at 40–70 keV (abstract via Europe PMC). The full text is Cloudflare-blocked, so lens positions, focal lengths and which beamline was used are unverified.",
+  "As-built detector suite: the Directory lists a Varex 4343 and a SpectrumLogic 3131HS (station not specified). The D3 specification used a Pilatus3 X CdTe 6M as reference, KA Imaging claims BrillianSe a-Se detectors, and D4 (ESD-011) details are unpublished. 'SpectrumLogic 3131HS' specs could not be verified.",
+  "BCDI and DFXM operational status for users is unknown: the AML report lists BCDI as available at 20-ID-E, but no published HEXM BCDI/DFXM result was found.",
+  "The 2017 PDR XMAT in situ ion-irradiation source ('20–30 m of space' next to the C/E station) is not mentioned in later documents; presumably not built.",
+  "Enclosure extents for 20-ID-A, -B, -C and -D were scaled from the 2019 FDR layout figure (about ±0.5 m) and may differ from as-built. 20-ID-E dimensions come from the 2021 ESD and match the 64'-11\" × 35'-5\" in FDR Fig. 4.1.",
+  "Sample position: 180.7 m (FDR Table 4.28) vs about 180.9 m implied by ESD-010 (3.5 m from the upstream wall at about 177.4 m).",
+  "Upper energy limit: 120 keV (FDR, Directory) vs 140 keV (D3 ESD photon-delivery statement).",
+  "Station naming changed: the PDR (2017) used A/B/C; the FDR and as-built use 20-ID-A, -D and -E. Legacy 20-ID-B/C remain in the hall but are unused.",
+  "The beamline used for the first AML user experiment (Feb 2026 DOE article) was not stated: 1-ID or 20-ID.",
+  "FDR Table 4.29 labels all beam sizes as µm, but the 'unfocused' rows (2.5 × 2.2 at E; 1 × 0.9 at D) must be mm (confirmed by the Beamline Directory).",
+  "The 3D model shows one consistent snapshot: 20-ID-E running far-field HEDM at 70 keV while 20-ID-D passes the beam through (no sample mounted, detector moved aside). Real stations alternate; 20-ID-D can run on its own with the movable stop closed."
+ ]
+}

@@ -1,0 +1,1937 @@
+{
+ "id": "cssi",
+ "sector": "9-ID",
+ "acronym": "CSSI",
+ "fullName": "Coherent Surface Scattering Imaging beamline (APS-U feature beamline at 9-ID; stations 9-ID-D and 9-ID-GT 'Grand Tube')",
+ "status2026": {
+  "state": "user-operations",
+  "detail": "Operations of the old 9-ID (USAXS, Bionanoprobe) were suspended on 2022-08-01 and the old enclosures were removed by 2022-12-22 (r6, r7). The Grand Tube was unloaded in four sections in August 2023 and installed in Sep-Oct 2023 (r23, r41, r7). The user manual says 'Since first light in 2024-2, 9-ID operates with a single revolver undulator' (r9). That date must refer to the source/front end, because X-rays could not enter 9-ID-A before its shielding verification on 2024-12-18. Shielding verification: 9-ID-A and 9-ID-MH on 2024-12-18, 9-ID-D and 9-ID-GT (Grand Tube) on 2025-01-28..30 (r7, r6). Technical commissioning began 2025-02-03; 9-ID 'transitioned to full operations' on 2026-03-14; run 2026-2 (from 2026-05-27) gave 50% of beamtime through the Beamtime Allocation Committee and run 2026-3 (from 2026-09-09) gives 80% of beamtime to General User Proposals for GI-SAXS/WAXS/XPCS and CSSI (r6). The Beamline Directory lists 9-ID-D as 'Operational/Accepting General Users', on-site access (r5). Still incomplete vs the 2019 design: only the downstream undulator slot is filled (upstream empty, r9, r14); no liquid-surface diffractometer or multilayer monochromator appears in the as-built component lists (r8).",
+  "sources": [
+   "r6",
+   "r7",
+   "r9",
+   "r5",
+   "r14",
+   "r8",
+   "r23",
+   "r41"
+  ]
+ },
+ "tagline": "A 20-metre walk-in vacuum tube that turns X-ray 'glints' off flat surfaces into 3D nanoscale images and movies.",
+ "plainSummary": "Many modern technologies live in layers thinner than a soap bubble: computer chips, solar-cell films, battery coatings, plastic electronics. Seeing what happens inside those layers is hard, because they sit on thick, opaque supports. CSSI solves this by skimming an extremely pure, laser-like X-ray beam across the surface at a fraction of a degree, like skipping a stone on a pond. The film scatters a tiny fraction of the X-rays into a grainy 'speckle' pattern, a fingerprint of every bump and buried edge. To read that fingerprint, the detector must be far away so each speckle spreads over many pixels: so the beamline ends in the Grand Tube, a 20-metre-long stainless-steel vacuum tube nearly 3 metres wide, inside which a camera with 18 million pixels rides on a carriage. Computers then work backwards from the speckles to a 3D picture. Watching how the speckles twinkle over time also reveals how films flow, wrinkle or self-organise, from thousandths of a second to many minutes. The upgraded APS makes this possible because it delivers roughly 100 times more coherent X-rays than before: the 'orderly' share of the beam rose from about 0.05% to several percent.",
+ "expertSummary": "9-ID is a single, non-canted ID beamline (revolver U21/U25, 2.35 m, downstream slot of a dual-inline straight; upstream slot empty) behind a windowless HHL front end. All beam-steering optics upstream of the KB deflect horizontally (the public sources do not state why; keeping vibrations out of the vertical plane is the usual reason): two horizontally deflecting mirrors (MR-1 flat, MR-2 bendable; Pt/Si/Cr stripes) and an LN2-cooled horizontally deflecting DCM in 9-ID-A, followed by a zoom focusing system: CRL-1 transfocator in the 9-ID-MH mini-hutch (~43 m), CRL-2 (~51 m) and a bendable KB pair (V then H; Pt-coated in the FDR; ~54 m, ~650 mm working distance, 0.5 um diffraction-limited target, 14-19 nrad angular stability; sample stability 55 nrad per SPIE 2025) in 9-ID-D. Tunable 6-25 keV; spots from ~0.5 to ~30 um. Station 9-ID-D hosts the CSSI solid-sample station (z = 54.992 m; vertical sample surface, horizontal scattering plane, 5-axis flexure nanopositioning with interferometric/capacitive metrology), a high-load hexapod for GI-XPCS, and the GIXS diffractometer migrated from 8-ID-E (z = 56.590 m; horizontal samples, in-air Pilatus 1M-F for GIWAXS). Downstream, the 9-ID-GT 'Grand Tube' (2.75 m x 20.5 m, 8 mm stainless steel, pink-beam-rated) carries an in-vacuum EIGER 16M and an MM-PAD on a 3-axis carriage at 2.9-21.8 m from the CSSI sample, giving speckle oversampling with 75-150 um pixels and q-space tiling. Techniques: CSSI (phase retrieval with DWBA/multislice/holographic forward models, rotation series), GI-XPCS (1 ms-1000 s), GISAXS/GIWAXS with operando environments.",
+ "whatAPSUEnables": {
+  "plain": "CSSI is a technique that only works with very 'orderly' (coherent) X-rays. The old APS beam was mostly disorderly: in a 2012 test at the APS it took a few hours to collect one usable pattern from a specially made, oversized gold test pattern. The new APS delivers about a hundred times more coherent X-rays, so useful patterns can be collected from realistic samples quickly enough to follow changes. For movies of speckle 'twinkling' the gain is even larger. For the same signal quality, the fastest measurable change scales with the square of the brightness, so in principle changes up to about 10,000 times faster become measurable. In practice the detector frame rate sets the limit, about a millisecond at 9-ID.",
+  "expert": "The MBA lattice (41.5 pm natural emittance; zero-current ID source ~12-15 um x 3-8 um rms, r15) raises the coherent fraction at 10 keV from ~0.05% (pre-upgrade, sigma_x ~275 um) to ~3% (round-beam mode) or ~6% (flat-beam mode), i.e. ~50-130x, and the horizontal coherence length at 30 m from ~2 um to ~40-50 um (derived here from r15, single-electron photon terms for a 2.35 m device). Peak brilliance of the U21/U25 revolver is ~1-2e22 ph/s/mm2/mrad2/0.1%BW near 9-11 keV. That is 'two orders of magnitude' above the pre-upgrade Undulator A (r3); the 9-ID source slide shows ~1e20 for the old U33, i.e. ~100-200x (r9). The same slide's coherent-fraction curve (~6% at 10 keV, ~2% at 25 keV vs ~0.05% / ~0.015% for the old APS) matches the flat-beam derivation here. For XPCS, SNR = beta * I * sqrt(T tau N) grows linearly with intensity (brilliance), so at fixed SNR and total time the shortest accessible correlation time falls as 1/brilliance^2, ~1e4x shorter for ~100x (r9). In practice the detector frame rate (~1-2.5 ms) is the limit. Coherence-preserving horizontal-deflection optics, nano-focusing (to ~0.5 um) and a 20 m in-vacuum flight path with 75-150 um-pixel detectors let the speckle be oversampled even at 25 keV, while 3D detector translation extends q-coverage to nm-scale resolution.",
+  "quantitative": [
+   "Coherent fraction at 10 keV: ~0.05% pre-upgrade (sigma_x 275 um, sigma_y 10 um) vs ~2.6% (round mode) / ~6% (flat mode) for the 2.35 m revolver on APS-U (derived here from r15 source parameters; formula lambda/4pi per plane)",
+   "Horizontal coherence length at 30 m, 10 keV: ~2 um pre-upgrade vs ~48 um (round) / ~41 um (flat) on APS-U; vertical ~58 um vs ~70-160 um (derived, xi = lambda z / (2 pi Sigma); r15)",
+   "Peak brilliance of the U21/U25 revolver >1e22 ph/s/mrad2/mm2/0.1%BW at 10 keV, 'two orders of magnitude higher than the current Undulator A' (r3; also source-characteristics slide r9); the 9-ID slide shows U21 1st harmonic ~2e22 near 10-11 keV vs ~1.1e20 peak for the old APS U33 (r9)",
+   "Pre-upgrade APS delivered 0.01%-0.1% coherent photons over the hard X-ray range (r3)",
+   "2012 CSSI demonstration at 8-ID-E: ~1e9 coherent ph/s, 7.35 keV, sample-detector 0.7 m, a few hours per pattern, max 3000 counts; resolutions 2.6 um x 22 nm x 2.7 nm (r3, r24)",
+   "Design flux at 9-ID with KB focusing at 8.8 keV: 9.2e13 ph/s/0.1%BW into 0.75 x 0.42 um (3x2 coherent modes); CRL-2: 9.4e13 into 3.5 x 1.7 um; CRL-1 full beam: 3.4e14 into 29 x 16 um (FDR Table 4.58, r1). Directory quotes ~1.2e13 ph/s for the KB mode (r5)",
+   "XPCS: at fixed SNR the shortest accessible time scales as 1/brilliance^2 (the r9 slide words it 'scales as (Brilliance)^2', meaning the improvement factor) -> ~1e4 shorter for a ~100x brilliance gain; GI-XPCS at 9-ID targets 1e-3 to 1e3 s (r5, r19)",
+   "Sample-to-detector distance 2.9-21.8 m in vacuum (r4) vs 0.7 m in the 2012 demonstration (r3)",
+   "9-ID source slide (r9): coherent fraction ~6% at 10 keV and ~2% at 25 keV (APS-U, U25/U21) vs ~5e-4 and ~1.4e-4 (APS, U33), i.e. ~100-150x (read from plot)",
+   "PDR (2017) promised 'two to three orders of magnitude increase in coherent flux'; it assumed a 4.8 m undulator length. As built there is one 2.35 m device, so ~100-200x is the realistic gain (r3, r9, r14)"
+  ]
+ },
+ "techniques": [
+  {
+   "name": "Coherent Surface Scattering Imaging",
+   "abbrev": "CSSI",
+   "plain": "A lens-free way of taking 3D pictures of tiny structures sitting on a surface. The X-ray beam grazes the surface; the scattered light forms a speckle pattern that a computer turns back into an image, like reconstructing an object from the sparkle it makes.",
+   "expert": "Coherent diffractive imaging in grazing-incidence reflection geometry near the critical angle (alpha_i ~0.1-1 deg). Ewald-sphere intersection gives sensitivity to qz; oversampled speckle (lambda D / (p d) >= 2) recorded without a beamstop on a high-dynamic-range detector. Reconstruction must handle dynamical (multibeam) scattering: DWBA with four reflection/transmission paths, finite-element DWBA, multislice forward models with autodiff, and nonuniform-FFT iterative phasing of rotation series (in-plane phi rotation of a few degrees fills the poorly resolved beam-direction axis). 2012 demo (8-ID-E, 7.35 keV, CCD at 0.7 m): 2.6 um x 22 nm x 2.7 nm resolution (along-beam x in-plane x surface-normal). Later work with more flux and better detectors (APS 8-ID, PETRA III P10) pushed in-plane resolution below 5 nm, and ptychographic CSSI has reconstructed extended patterns (r3, r24, r29, r25, r27, r28)."
+  },
+  {
+   "name": "Grazing-Incidence X-ray Photon Correlation Spectroscopy",
+   "abbrev": "GI-XPCS",
+   "plain": "Instead of a still picture, watch how the speckle pattern twinkles. Fast twinkling means the surface is moving fast. This measures how thin films flow, roughen or rearrange without touching them.",
+   "expert": "Intensity autocorrelation g2(q,tau) = <I(t)I(t+tau)>/<I>^2 of the speckle in GISAXS geometry, evanescent-wave depth selection below/above alpha_c; relaxation rates Gamma(q) distinguish diffusion (q^2), overdamped capillary waves (Gamma = gamma q/(2 eta) for thick films) and ballistic/jamming dynamics (q^1). At 9-ID: in-vacuum EIGER 16M at 3-20 m, 1 ms-1000 s, high-load hexapod sample stage; GPU correlation with boost-corr in automated DM workflows (r5, r19, r40)."
+  },
+  {
+   "name": "Grazing-Incidence Small-Angle X-ray Scattering",
+   "abbrev": "GISAXS",
+   "plain": "Measures the average size, spacing and shape of nanoscale features (pores, grains, stripes) across a whole film.",
+   "expert": "Ensemble-averaged nanostructure (1-100s nm) of supported films via DWBA analysis (GIXSGUI, GIXS-U), with in situ thermal/solvent-vapour annealing, spin-coating and deposition; EIGER 16M in the Grand Tube provides long camera lengths (r5, r38, r40)."
+  },
+  {
+   "name": "Grazing-Incidence Wide-Angle X-ray Scattering",
+   "abbrev": "GIWAXS",
+   "plain": "Shows how molecules or atoms are stacked and which way crystals point in a thin film, for example in solar cells or plastic electronics.",
+   "expert": "Molecular/crystal packing and texture of thin films via an in-air Pilatus 1M-F (135 fps) on the WAXS detector motion system 9ID-BI-7 next to the GIXS diffractometer; operando electrochemistry, Linkam HFSX350-GI stage (-180..300 C per directory), UR3e sample robot (r5, r8)."
+  },
+  {
+   "name": "Grazing-incidence multibeam X-ray holography (Lloyd's-mirror surface holography)",
+   "abbrev": "GI holography",
+   "plain": "The flat substrate acts as a mirror: light scattered by the sample interferes with its own reflection, creating a hologram that encodes the height of features, sometimes from a single snapshot.",
+   "expert": "Interference between the scattered wave from a 3D surface pattern and its substrate-reflected copy near the horizon (alpha_f < ~0.3 deg) gives dark-field, low-noise holographic fringes with period ~2 pi/(2d) in qz for a scatterer at height d; analysed with FE-DWBA (more than 5 million cells) and a first-principles holographic propagation model to recover 3D form factors at nm/sub-nm resolution from a single view (r25, r26)."
+  }
+ ],
+ "scienceCases": [
+  {
+   "title": "Seeing buried nanocircuits in 3D without cutting the chip",
+   "plain": "Chip makers need to check the exact shape and height of tiny wires and layers, but slicing a chip to look inside destroys it. CSSI reads the 3D shape from X-rays bouncing off the surface, so the wafer stays intact.",
+   "expert": "Substrate-supported, non-periodic patterns cannot be measured in transmission CDI or ptychography without thinning. CSSI and reflective holography give critical-dimension (CD) and height metrology of planar patterns on thick substrates; the 2012 proof of principle reconstructed a lithographic Au 'Argonne' pattern with 22 nm in-plane and ~2.7 nm normal resolution, and later APS/P10 data reached better than 5 nm in-plane (r29). The 2023 first-experiments workshop included a NIST talk, 'Metrology for Semiconductor Industry' (R. J. Kline) (r37).",
+   "refs": [
+    "r24",
+    "r3",
+    "r29",
+    "r35",
+    "r36",
+    "r37"
+   ]
+  },
+  {
+   "title": "3D shape from a single snapshot: an X-ray Lloyd's mirror",
+   "plain": "A famous 19th-century optics trick uses a mirror to make light interfere with its own reflection. At grazing angles the silicon substrate plays the mirror, and the resulting hologram reveals the height of a pattern from just one image.",
+   "expert": "Chu et al. (2023) showed that multibeam scattering near total external reflection makes a single grazing-incidence view sensitive to 3D structure; FE-DWBA (more than 5 million cells) reproduces the data and a first-principles holographic model recovers stacked Au-bar thicknesses with nm/sub-nm precision (single Au bar at PETRA III P10: 8.0 keV, 1.7 x 3.5 um CRL focus, EIGER X 4M at 5.0 m, incidence 0.2-0.8 deg, 0.5-1e11 coherent ph/s; stacked bars at APS 8-ID-I: 7.35 keV, 2.2 x 2.5 um, Lambda 2M at 3.95 m, ~5e9 coherent ph/s, incidence 0.6 deg). This single-view mode is aimed at irreversible, in situ/operando processes at 9-ID.",
+   "refs": [
+    "r25",
+    "r26",
+    "r30"
+   ]
+  },
+  {
+   "title": "Teaching computers to invert surface speckle (physics-informed reconstruction)",
+   "plain": "Ordinary 'undo the Fourier transform' tricks fail near a mirror-like surface. New algorithms simulate the X-rays slice by slice and adjust a 3D model until the simulated speckle matches the measurement.",
+   "expert": "Multislice forward model with PyTorch autodiff reconstructs elongated 3D patterns from single CSSI frames (8-ID prototype, 7.36 keV, ~2x2 um beam, flux 5e9 ph/s; simulations assume 100x more flux as at APS-U); a 2026 nonuniform-FFT iterative phasing framework derives sampling requirements and reconstructs isolated 3D objects from rotation series at as few as one or two incident angles.",
+   "refs": [
+    "r27",
+    "r28"
+   ]
+  },
+  {
+   "title": "Plastic electronics that breathe while they work",
+   "plain": "Soft 'mixed conductor' polymers used in bio-sensors swell and shrink as ions flow in and out. Watching how grazing X-ray speckles flicker while the device is switched on and off shows the material's inner structure straining and slowly rearranging.",
+   "expert": "Operando grazing-incidence XPCS of an acid-treated PEDOT:PSS film in an electrochemical 'cone cell' (RbBr or NaCl electrolyte) was measured at pre-upgrade APS 8-ID-I: 10.92 keV, 2 x 20 um beam, 10 Hz frames. Speckle dynamics tracked internal strain and mesoscale reorganisation during doping and de-doping, revealing structural hysteresis and a slow non-equilibrium process on re-doping (Wu et al., Nat. Mater. 2024, with 9-ID staff co-authors Strzalka, Narayanan and Zhang; complementary operando GIWAXS came from earlier work). At 9-ID the same studies combine GIWAXS on the former 8-ID-E instrument with GI-XPCS on the coherent APS-U beam over 1e-3 to 1e3 s.",
+   "refs": [
+    "r31",
+    "r19"
+   ]
+  },
+  {
+   "title": "Watching solar-cell films crystallise as they are spun",
+   "plain": "Perovskite solar films form in seconds as a liquid is spun on a disc. X-rays show which chemical route the crystals take, and how to steer them to a stable, efficient film.",
+   "expert": "In situ GIWAXS during spin coating of mixed 2D/3D halide perovskites revealed competing 'solvate' and 'orientation' formation mechanisms set by the precursor stoichiometry (Hoffman et al., Chem 2022; measured during 5-min spin-coating runs at APS 8-ID-E, the GIXS instrument that has since moved to 9-ID, per the APS highlight). '3D morphology of photovoltaic thin films' is one of the six prime CSSI research areas in the FDR; 9-ID supports spin coating, thermal and solvent-vapour annealing, and user solar simulators.",
+   "refs": [
+    "r32",
+    "r1",
+    "r5",
+    "r40"
+   ]
+  },
+  {
+   "title": "How thin films flow, roughen and self-organise",
+   "plain": "Even a solid-looking plastic film has a restless surface with tiny waves. Speckle 'twinkling' measures how fast those waves relax, and how patterns grow when films are made or etched.",
+   "expert": "GI-XPCS of ultrathin molten polystyrene films showed that the capillary-wave model must include a shear modulus (viscoelastic effects) (Jiang et al., PRL 2007), and coherent GISAXS follows self-organised ion-beam nanopatterning and thin-film growth (e.g. de Gennes narrowing, Myint et al., PRL 2021, measured at NSLS-II CHX). FDR science drivers include self-assembly at surfaces/interfaces, capillary instability in confined geometry and GI-XPCS of interfacial dynamics.",
+   "refs": [
+    "r33",
+    "r34",
+    "r1",
+    "r37",
+    "r39"
+   ]
+  },
+  {
+   "title": "At-wavelength metrology of coherence-preserving X-ray mirrors",
+   "plain": "Super-smooth X-ray mirrors must be flat to a fraction of a nanometre. CSSI can test them with the very X-rays they will reflect.",
+   "expert": "Listed as a CSSI prime research area (FDR 4-8.1/4-8.6.1); the KB mirrors themselves need <0.3 nm (H) and <0.2 nm (V) rms figure error to keep focal broadening below 3%. 9-ID-D also carries a compact wavefront sensor (9ID-BD-6, APS Optics design) downstream of the CSSI station.",
+   "refs": [
+    "r1",
+    "r3",
+    "r40"
+   ]
+  }
+ ],
+ "keyParameters": [
+  {
+   "label": "Energy range",
+   "value": "6-25 keV, fully tunable",
+   "source": "r5",
+   "note": "FDR design 6-30 keV (r1); source slide says continuous tunability 8-25 keV (r9); U25 first harmonic reaches down to ~4.6-5 keV, so 6 keV is set by optics/operations."
+  },
+  {
+   "label": "Source",
+   "value": "One revolver undulator (U21 / U25 arrays, 2.35 m) in the downstream slot; upstream slot empty",
+   "source": "r14",
+   "note": "FDR baseline: upstream planar U21 + downstream revolver (r2 Table 3.13)."
+  },
+  {
+   "label": "U21 array (APS21#10)",
+   "value": "112 periods, Keff 1.38 and E1 8.34 keV at 8.5 mm gap; 5.4 kW, 216 kW/mrad2 at 200 mA",
+   "source": "r14",
+   "note": "User minimum gap 9.0 mm (E1 ~8.9 keV, estimated)."
+  },
+  {
+   "label": "U25 array (APS25#8)",
+   "value": "94 periods, Keff 1.99 and E1 4.58 keV at 8.5 mm gap; 8.1 kW, 225 kW/mrad2",
+   "source": "r14",
+   "note": ""
+  },
+  {
+   "label": "Electron source (ID straight, round-beam mode)",
+   "value": "sigma_x 12.3 um, sigma_y 8.26 um, sigma_x' 2.34 urad, sigma_y' 3.47 urad (28.7 pm each plane)",
+   "source": "r15",
+   "note": "Flat-beam mode: 14.5 / 3.08 um, 2.75 / 1.29 urad."
+  },
+  {
+   "label": "Front end",
+   "value": "HHL front end, windowless (differential pump), 2 x 2 mm exit mask at 25.4 m",
+   "source": "r2",
+   "note": "HHLFE limits 21 kW, 590 kW/mrad2."
+  },
+  {
+   "label": "Mirrors",
+   "value": "2 horizontally deflecting mirrors in 9-ID-A: MR-1 flat, MR-2 bendable; stripes incl. Pt, Si, Cr",
+   "source": "r8",
+   "note": "FDR had one flat mirror at 2.4 mrad with Si/Pd/Pt stripes (r1); shielding study assumed two mirrors at >=3.0 mrad (r20)."
+  },
+  {
+   "label": "Monochromator",
+   "value": "Horizontally deflecting LN2-cooled double-crystal monochromator (HDCM), fixed exit",
+   "source": "r19",
+   "note": "'Horizontally deflecting double crystal monochromator' (r19). LN2 cooling, fixed exit and Si(111) pseudo-channel-cut come from the FDR (r1), whose 4.65 x 1.08 mm (HxV) footprint at 13.0 deg also implies horizontal deflection. Directory lists a 'High resolution' mode with dE/E = 2.8e-5 (r5), which matches Si(311); crystal set not confirmed. Mono beam is 10 mm outboard of the pink beam at 42.38 m (r10)."
+  },
+  {
+   "label": "Focusing",
+   "value": "Zoom optics: CRL-1 transfocator (~43 m), CRL-2 transfocator (~51 m), bendable KB (~54 m)",
+   "source": "r8",
+   "note": "Directory: tunable focal spots 0.5-30 um (r5)."
+  },
+  {
+   "label": "Focal spot sizes",
+   "value": "0.6 x 0.35 um to 3.5 x 1.7 um (H x V) for coherent modes",
+   "source": "r4",
+   "note": "FDR at 8.8 keV: KB 0.75 x 0.42 um, CRL-2 3.5 x 1.7 um, CRL-1 full beam 29 x 16 um (r1)."
+  },
+  {
+   "label": "KB mirror system",
+   "value": "500 nm diffraction-limited target at ~650 mm working distance; angular stability 19 nrad (H mirror), 14 nrad (V mirror)",
+   "source": "r17",
+   "note": "SPIE 2025 abstract (read via Semantic Scholar record of doi:10.1117/12.3066532): 'diffraction-limited size of 500 nanometers at a working distance of about 650 mm'. MEDSI 2020 gave 550 mm (r16); FDR had V/H KB 1000/800 mm upstream of sample, Pt-coated, 2.5 mrad (r1)."
+  },
+  {
+   "label": "Flux (design, 8.8 keV)",
+   "value": "KB: 9.2e13 ph/s/0.1%BW; CRL-2: 9.4e13; CRL-1 full beam: 3.4e14",
+   "source": "r1",
+   "note": "Directory converts to ph/s: 1.2e13 (KB), 9.4e12 (CRL-2), 3.4e13 (CRL-1) at 8.8 keV (r5); directory and FDR are not mutually consistent at 25-26.4 keV."
+  },
+  {
+   "label": "CSSI sample position",
+   "value": "z = 54.992 m (CSSI solid sample station 9ID-BI-2)",
+   "source": "r8",
+   "note": "FDR: 55.0 m (r1)."
+  },
+  {
+   "label": "GIXS sample position",
+   "value": "z = 56.590 m",
+   "source": "r8",
+   "note": "FDR had a liquid diffractometer at 57.0 m (not in as-built lists)."
+  },
+  {
+   "label": "Sample-to-detector distance (in vacuum)",
+   "value": "2.9-21.8 m",
+   "source": "r4",
+   "note": "Feature page labels it 'Working distance 2.9 to 21.8 m' without naming the reference sample (assumed CSSI) (r4); 3-20 m for GISAXS/GI-XPCS (r19); design 'up to 23 m' (r16); '>20 m' (r17)."
+  },
+  {
+   "label": "Grand Tube (9-ID-GT)",
+   "value": "~20.5 m long, 2.75 m diameter stainless-steel vacuum vessel, 8 mm wall, pink-beam rated",
+   "source": "r20",
+   "note": "20 m x 2.75 m (r18); '66-foot-long, ~nine feet in diameter' (r4); '70-foot-long enclosure', 100,000 lb (r21); '20 m long, 3 m diameter' (r22); '20 meters long and three meters wide' (r41). 20.5 m / 2.75 m / 8 mm is from the 2020 shielding design study (r20)."
+  },
+  {
+   "label": "Detectors",
+   "value": "In-vacuum EIGER 16M (400 fps, 550 fps burst); in-vacuum MM-PAD; in-air Pilatus 1M-F (135 fps)",
+   "source": "r5",
+   "note": "EIGER 16M: 75 um pixels, ~18 Mpixel; the PDR format 4150 x 4371 (311 x 328 mm, 133 Hz) is the first-generation EIGER X 16M, and the as-built variant is not published (400/550 fps exceeds the 133 Hz of the PDR model). MM-PAD: 150 um pixels, mixed-mode high dynamic range; PDR lists 256 x 384 px and a 47 x 49 mm area, which disagree with each other (256 x 384 x 150 um = 38.4 x 57.6 mm) (r3)."
+  },
+  {
+   "label": "GI-XPCS time window",
+   "value": "1e-3 to 1e3 s",
+   "source": "r5",
+   "note": "Also r19."
+  },
+  {
+   "label": "Sample stability (CSSI)",
+   "value": "50 nrad sample angular stability (MEDSI 2020); 55 nrad (SPIE 2025 abstract); surface location <50 nm and incidence angle <1 urad",
+   "source": "r16",
+   "note": "First value r16, second r17, third clause from PDR (r3). KB and sample station share one granite table (r17)."
+  },
+  {
+   "label": "Beam height",
+   "value": "1400 mm (instrument operating height)",
+   "source": "r1",
+   "note": ""
+  },
+  {
+   "label": "Coherent fraction (derived)",
+   "value": "~2.6% (round) / ~6% (flat) at 10 keV; ~0.8% / ~2% at 25 keV",
+   "source": "r15",
+   "note": "Derived here: (lambda/4pi)^2 / (Sigma_x Sigma_x' Sigma_y Sigma_y'), L = 2.35 m."
+  },
+  {
+   "label": "Beamtime",
+   "value": "80% General User Proposals from run 2026-3",
+   "source": "r6",
+   "note": "50% via BAC in 2026-2."
+  }
+ ],
+ "source": {
+  "insertionDevices": [
+   {
+    "name": "Revolver undulator APS21R25#5 - U21 array (APS21#10)",
+    "type": "planar hybrid permanent-magnet revolver undulator (two magnet arrays on a rotating carriage)",
+    "periodMm": 21,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "112 periods (length derived 112 x 21 mm = 2.35 m; slide says 2.3 m); device min gap 8.5 mm, admin min 8.72 mm, user min 9.0 mm; Keff 1.38 / E1 8.34 keV at 8.5 mm; Ptot 5.4 kW, Pdens 216 kW/mrad2 at 200 mA. Used for the high-flux 8.8 keV fundamental and its 3rd harmonic (26.4 keV) in the FDR design. Installed in the DOWNSTREAM slot (FDR: centre ~1.25 m downstream of the straight-section centre). The 9-ID source slide calls it a 'Tandem revolver undulator - 2.3 m long (21 and 25 mm periods)' with 'continuous tunability over 8-25 keV' (r9). ID table footnote: effective periods = N - 2 (r14). Estimated E1 at the 9.0 mm user minimum gap is ~8.9-9.0 keV, so the FDR's 8.8 keV U21 fundamental (K = 1.305) is just below reach on the U21 fundamental; the U25 array covers it.",
+    "source": "r14"
+   },
+   {
+    "name": "Revolver undulator APS21R25#5 - U25 array (APS25#8)",
+    "type": "planar hybrid permanent-magnet revolver undulator (second array of the same device)",
+    "periodMm": 25,
+    "lengthM": 2.35,
+    "count": 1,
+    "polarization": "linear horizontal",
+    "notes": "94 periods; Keff 1.99 / E1 4.58 keV at 8.5 mm; Ptot 8.1 kW, Pdens 225 kW/mrad2. Rotated into place instead of U21 to cover lower fundamentals; 1st and 3rd harmonics of the two arrays together cover 6-25(30) keV (r3, r9).",
+    "source": "r14"
+   },
+   {
+    "name": "Upstream slot (planned planar U21, not installed)",
+    "type": "planar hybrid permanent-magnet undulator (FDR baseline)",
+    "periodMm": 21,
+    "lengthM": 2.3,
+    "count": 0,
+    "polarization": "linear horizontal",
+    "notes": "FDR Table 3.13: '09-ID dual inline: upstream Planar 2.1, downstream Rev 2.5/2.1, phase shifter/corrector'; FDR Table 4.56 used both devices (4.6 m) for flux estimates. As of Sep 2026 the upstream position is empty and 'capable of hosting a second undulator in the future' (r9, r14).",
+    "source": "r2"
+   }
+  ],
+  "canting": "None. 9-ID is a dual-inline (non-canted) straight with a single device installed downstream; beam leaves along the straight axis.",
+  "frontEnd": "APS-U High Heat Load Front End (HHLFE; limits 21 kW total, 590 kW/mrad2): permanent-magnet clearing magnet, LPPS, storage-ring valve, burn-through fixed mask BTFM1, FM2, collimator, GRID XBPM1, FM3, photon shutter PS2 with intensity monitor IM1, safety shutters SS1/SS2, wall collimator through the ratchet wall, then on the exit table in 9-ID-A: exit mask (2 x 2 mm, with XBPM2) at 25.4 m and tungsten exit collimator (5 x 5 mm) at 26.1 m. 9-ID uses the windowless exit with a built-in differential pump (r2 Table 3.1, Sec. 3-2.1; r1 4-8.3). FDR design power through the 2 x 2 mm mask: 2.10 kW for U21 with two devices (K 1.305), 0.812 kW for U25 (K 1.939) (r1 Table 4.56).",
+  "sourceSizeAndDivergence": "Electron beam at an ID straight (r15, Aug 2024; values are for ZERO current; intrabeam scattering at 200 mA enlarges them somewhat): round-beam mode sigma_x = 12.3 um, sigma_y = 8.26 um, sigma_x' = 2.34 urad, sigma_y' = 3.47 urad (28.7 pm each plane); flat-beam mode (kappa = 0.1) 14.5 / 3.08 um and 2.75 / 1.29 urad. Single-electron photon terms for L = 2.35 m (derived, sigma_r = sqrt(2 lambda L)/4pi, sigma_r' = sqrt(lambda/2L)): 1.9 um / 5.1 urad at 10 keV, 1.2 um / 3.2 urad at 25 keV - the photon divergence dominates, so the photon source is ~12.5 x 8.5 um rms and ~5.6 x 6.2 urad rms at 10 keV (round mode). PDR quoted APS-U ranges sigma_x 5-30 um, sigma_y 2-14 um vs 275 / 10 um pre-upgrade (r3 Table 6.18)."
+ },
+ "branches": [
+  {
+   "id": "main",
+   "name": "9-ID single line (pink or monochromatic)",
+   "description": "One beam path; no canting or branching. In monochromatic mode the HDCM displaces the beam horizontally: at 42.38 m the mono beam runs ~10 mm outboard of the pink-beam path (XBPM drawing, r10), and masks in 9-ID-A/MH (dual-aperture PM-5, pink beamstop BS-2) handle both paths. Three sample positions share the line inside 9-ID-D: CSSI solid-sample station (54.992 m), hexapod for GI-XPCS (~55.9 m) and GIXS diffractometer (56.590 m); all share the Grand Tube detectors downstream."
+  }
+ ],
+ "components": [
+  {
+   "id": "us-id-slot",
+   "name": "Upstream undulator slot (empty)",
+   "category": "undulator",
+   "branch": null,
+   "distanceM": -1.25,
+   "distanceNote": "approx: mirror image of the downstream device position (+1.25 m, FDR Table 4.56); not given explicitly",
+   "enclosure": "Storage-ring tunnel, Sector 9 ID straight",
+   "plain": "This half of the straight section is empty for now: a second undulator could be added later to make the beam even brighter.",
+   "expert": "FDR baseline placed a planar U21 here (dual-inline straight with phase shifter/corrector between devices, FDR Table 3.13); the 2026 ID table lists no device in S09 US and the 9-ID manual says the slot can host a second undulator in the future.",
+   "specs": {
+    "plannedDevice": "planar U21 (2.1 cm), ~2.3 m",
+    "installed": "no (Sep 2026)"
+   },
+   "source": "r14",
+   "deflection": "none"
+  },
+  {
+   "id": "revolver-undulator",
+   "name": "Revolver undulator U21/U25 (APS21R25#5)",
+   "category": "undulator",
+   "branch": null,
+   "distanceM": 1.25,
+   "distanceNote": "FDR Table 4.56: revolver centre 1.25 m downstream of the centre of the straight section (distance convention: from straight-section centre)",
+   "enclosure": "Storage-ring tunnel, Sector 9 ID straight",
+   "plain": "Two rows of strong magnets above and below the electron beam make the electrons wiggle and emit an intense, narrow X-ray beam. The magnet rows can be swapped by rotating the device ('revolver') to pick a 21 mm or 25 mm magnetic period, which changes the colours (energies) it emits best.",
+   "expert": "Hybrid PM revolver: U21 array (112 periods, Keff 1.38, E1 8.34 keV at 8.5 mm; 5.4 kW, 216 kW/mrad2) and U25 array (94 periods, Keff 1.99, E1 4.58 keV; 8.1 kW, 225 kW/mrad2), user min gap 9.0 mm. 1st and 3rd harmonics cover 6-25 keV; brilliance ~1e22 near 10 keV. Only device in the straight since first light (run 2024-2).",
+   "specs": {
+    "periodsMm": "21 / 25",
+    "periods": "112 / 94",
+    "Keff_at8p5mm": "1.38 / 1.99",
+    "E1_keV_at8p5mm": "8.34 / 4.58",
+    "Ptot_kW": "5.4 / 8.1",
+    "userMinGapMm": 9.0,
+    "length_m": "~2.35"
+   },
+   "source": "r14",
+   "deflection": "none"
+  },
+  {
+   "id": "hhl-front-end",
+   "name": "High-heat-load front end (in tunnel)",
+   "category": "frontEnd",
+   "branch": null,
+   "distanceM": 19.4,
+   "distanceNote": "approx: front end occupies roughly 14-23 m inside the tunnel; 19.4 m is the documented XBPM1/upstream-mask position for APS-U front ends (FDR Table 3.9, CUFE) - HHLFE element positions for 9-ID are not published",
+   "enclosure": "Storage-ring tunnel / ratchet wall",
+   "plain": "A chain of water-cooled blocks, shutters and beam monitors inside the shielding that tames the multi-kilowatt X-ray beam and can stop it instantly for safety.",
+   "expert": "HHLFE (21 kW, 590 kW/mrad2 limits): clearing magnet, LPPS, SRV, BTFM1, FM2, collimator, GRID XBPM1, FM3, PS2/IM1, safety shutters SS1/SS2, wall collimator, FEV. Windowless configuration with built-in differential pumping for 9-ID.",
+   "specs": {
+    "maxPower_kW": 21,
+    "maxPowerDensity_kW_per_mrad2": 590,
+    "exit": "windowless, differential pump"
+   },
+   "source": "r2",
+   "deflection": "none"
+  },
+  {
+   "id": "ratchet-wall",
+   "name": "Shield (ratchet) wall with wall collimator",
+   "category": "other",
+   "branch": null,
+   "distanceM": 22.8,
+   "distanceNote": "approx: ~22.1-23.6 m by analogy with the 28-ID ray-trace plan used in the CHEX dossier; not documented for 9-ID",
+   "enclosure": "Storage-ring shielding",
+   "plain": "The thick concrete wall between the accelerator tunnel and the experiment hall; the X-rays pass through a small hole.",
+   "expert": "Front-end wall collimator sits in the ratchet-wall penetration; FDR Fig. 4.51 shows 9-ID-A starting at ~23.5-24 m.",
+   "source": "r2",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "fe-exit-mask",
+   "name": "Front-end exit mask (2 x 2 mm) with XBPM2",
+   "category": "frontEnd",
+   "branch": null,
+   "distanceM": 25.4,
+   "distanceNote": "exact: FDR Table 4.57",
+   "enclosure": "9-ID-A (front-end exit table)",
+   "plain": "A water-cooled metal block with a 2 mm square hole that trims the beam to its useful core.",
+   "expert": "Standard HHL exit mask, 2 (H) x 2 (V) mm, integrated XBPM2; differential pump instead of a Be window (windowless exit).",
+   "specs": {
+    "aperture_mm": "2 x 2"
+   },
+   "source": "r1",
+   "deflection": "none"
+  },
+  {
+   "id": "fe-exit-collimator",
+   "name": "Front-end exit collimator",
+   "category": "collimator",
+   "branch": null,
+   "distanceM": 26.1,
+   "distanceNote": "exact: FDR Table 4.57",
+   "enclosure": "9-ID-A",
+   "plain": "A tungsten block that stops stray high-energy radiation (bremsstrahlung) from following the X-ray beam.",
+   "expert": "Tungsten exit collimator, 5 x 5 mm aperture (narrowed for small-offset monochromators, FDR 3-2.1.1).",
+   "specs": {
+    "aperture_mm": "5 x 5"
+   },
+   "source": "r1",
+   "deflection": "none"
+  },
+  {
+   "id": "sl-1",
+   "name": "Slits 9ID-SL-1",
+   "category": "slits",
+   "distanceM": 27.1,
+   "distanceNote": "exact per FDR Table 4.57 (HHL white-beam slits w/ tungsten edge inserts); as-built label 'Slits, PB 9ID-SL-1'",
+   "enclosure": "9-ID-A",
+   "plain": "Four movable jaws that cut the beam to the size the experiment needs.",
+   "expert": "High-heat-load white/pink-beam slits with W edges defining the mirror acceptance (~1 x 1 mm, FDR M1 acceptance 0.96 x 1.0 mm2).",
+   "source": "r1",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "mr-1",
+   "name": "Mirror 9ID-MR-1 (horizontal, flat)",
+   "category": "mirror",
+   "distanceM": 28.2,
+   "deflection": "horizontal",
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "A super-smooth mirror hit at a glancing angle. It bounces the useful X-rays sideways and lets unwanted high-energy X-rays and much of the heat pass by, while keeping the beam's 'orderliness' intact.",
+   "expert": "First optic; flat, horizontally deflecting, water-cooled (FDR: notched substrate to cut thermal bump by ~10x). As-built coating stripes selected by vertical translation: Pt, Si ('Si stripe for 8 keV'), Cr ('Cr for 11 keV') plus a fourth (manual: 4 stripes). FDR design: 2.4 mrad, Si/Pd/Pt; 474 W incident, 311 W absorbed, 0.82 W/mm2 at 8.8 keV (two-device source).",
+   "specs": {
+    "geometry": "flat",
+    "deflection": "horizontal",
+    "stripes": "Pt, Si, Cr (+1 unidentified)",
+    "angle_mrad_FDR": 2.4,
+    "absorbedPower_W_FDR": 311
+   },
+   "source": "r13",
+   "branch": "main"
+  },
+  {
+   "id": "sc-1",
+   "name": "Secondary collimator 9ID-SC-1",
+   "category": "collimator",
+   "distanceM": 28.8,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m (FDR 29.1 m)",
+   "enclosure": "9-ID-A",
+   "plain": "A heavy-metal block that catches stray radiation scattered by the mirror.",
+   "expert": "Bremsstrahlung/secondary collimator downstream of MR-1.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bd-1",
+   "name": "Diagnostic flag 9ID-BD-1 (WB/PB)",
+   "category": "diagnostics",
+   "distanceM": 29.3,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m (FDR 29.5 m)",
+   "enclosure": "9-ID-A",
+   "plain": "A glowing screen that can be dropped into the beam so a camera can see where the X-rays are.",
+   "expert": "Diamond screen imaged by camera, 16.13 um/pixel (calibrated 2024-11-23); shows direct beam when MR-1 is retracted.",
+   "specs": {
+    "screen": "diamond",
+    "calibration_um_per_px": 16.13
+   },
+   "source": "r13",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "pm-1",
+   "name": "Photon mask / white-beam stop 9ID-PM-1",
+   "category": "beamStop",
+   "distanceM": 29.5,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "A cooled block that absorbs the part of the beam the mirror did not reflect.",
+   "expert": "Manual: 'Photon Mask, WB Stop, 9ID-PM-1' - absorbs the unreflected white beam passing MR-1 (the FDR placed its WB stop 9ID-PM-1 at 33.8 m, after the mono). The as-built layout labels it 'Photon Mask, PB, 9ID-PM-1'; the manual list calls it 'Photon Mask, WB Stop, 9ID-PM-1' (r8).",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "pm-2-damm",
+   "name": "Movable photon mask 9ID-PM-2 ('DAMM')",
+   "category": "beamStop",
+   "distanceM": 30.2,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "A movable mask that can be positioned to block or pass selected parts of the beam.",
+   "expert": "Movable pink-beam photon mask labelled 'DAMM' in the as-built layout (manual lists a movable pinhole mask); acronym expansion not documented. The shielding analysis assumed a pinhole-defined source plus two mirrors (r20). The manual component list (ELOG 897) writes it as 'Pinhole Mask, Moveable, 9ID-PM-1', an evident numbering slip. The layout drawing labels it 'DAMM: Photon Mask, movable, PB, 9ID-PM-2'.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "sc-2",
+   "name": "Secondary collimator 9ID-SC-2",
+   "category": "collimator",
+   "distanceM": 30.4,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "Another radiation-catching block.",
+   "expert": "Secondary collimator ahead of MR-2.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "mr-2",
+   "name": "Mirror 9ID-MR-2 (horizontal, bendable)",
+   "category": "mirror",
+   "distanceM": 31.1,
+   "deflection": "horizontal",
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "A second glancing mirror that bounces the beam back parallel to its original direction. It can be gently bent to adjust how the beam converges.",
+   "expert": "Not in the FDR (one mirror). Horizontally deflecting bender with the same 4-stripe layout as MR-1 (operated on Cr in the logged configuration). The two-mirror geometry gives extra harmonic rejection and keeps the line-of-sight blocked. It matches the assumption of the 2020 shielding design study for the pink-beam-rated Grand Tube: pinhole-defined source and two mirrors at >= 3.0 mrad (r20). Whether the as-built angles meet 3.0 mrad is not published.",
+   "specs": {
+    "geometry": "bendable",
+    "deflection": "horizontal",
+    "stripes": "same 4 stripes as MR-1"
+   },
+   "source": "r13",
+   "branch": "main"
+  },
+  {
+   "id": "pm-3",
+   "name": "Photon mask 9ID-PM-3",
+   "category": "beamStop",
+   "distanceM": 31.8,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "Absorbs stray beam after the second mirror.",
+   "expert": "Pink-beam photon mask.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bd-2",
+   "name": "Diagnostic flag 9ID-BD-2",
+   "category": "diagnostics",
+   "distanceM": 32.3,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "A camera screen to check the beam after the mirrors.",
+   "expert": "Diamond screen, WB/PB flag.",
+   "source": "r13",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "pm-4",
+   "name": "Photon mask 9ID-PM-4",
+   "category": "beamStop",
+   "distanceM": 32.9,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "Another protective mask.",
+   "expert": "Pink-beam photon mask upstream of the monochromator.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bc-1",
+   "name": "Bremsstrahlung collimator 9ID-BC-1",
+   "category": "collimator",
+   "distanceM": 33.3,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m (listed in the manual between PM-4 and SL-2; FDR 34.2 m)",
+   "enclosure": "9-ID-A",
+   "plain": "A heavy collimator against high-energy stray radiation.",
+   "expert": "Bremsstrahlung collimator.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "sl-2",
+   "name": "Pink-beam slits 9ID-SL-2",
+   "category": "slits",
+   "distanceM": 33.8,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m (FDR 29.9 m: moved downstream because a second mirror was added)",
+   "enclosure": "9-ID-A",
+   "plain": "Slits that trim the beam before the monochromator.",
+   "expert": "H+V pink-beam slits.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "mn-1",
+   "name": "Horizontal double-crystal monochromator 9ID-MN-1 (HDCM)",
+   "category": "monochromator",
+   "distanceM": 34.8,
+   "deflection": "horizontal",
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m (FDR 30.65 m)",
+   "enclosure": "9-ID-A",
+   "plain": "Two perfect silicon crystals pick out a single X-ray colour (energy) from the rainbow. They bounce the beam sideways rather than upward, so tiny wobbles of the crystals nudge the beam sideways instead of up and down. The single-colour beam comes out parallel to the original path, about 1 cm to the side.",
+   "expert": "Horizontally deflecting DCM (APS seminar abstract, r19); LN2 cooling and fixed exit per FDR. FDR: Si(111) pseudo channel-cut, 13.0 deg at 8.8 keV, 163 W absorbed, footprint 4.65 x 1.08 mm. Contains flag 'Flag3 9ID-BD-3' (10 mm diamond region inboard + CdWO4 region outboard, viewed at 45 deg, 20.833 um/px; ELOG 906 attachment). The same tag 9ID-BD-3 is also used for XBPM-1 in 9-ID-MH (ELOG 898/909), so the manual has a naming clash. Mono beam exits ~10 mm outboard of the pink path (XBPM drawing at 42.38 m); FDR design had a ~2 mm offset. Vendor appears to be IDT ('IDT Mono', manual).",
+   "specs": {
+    "crystals_FDR": "Si(111)",
+    "cooling": "LN2",
+    "deflection": "horizontal",
+    "monoPinkSeparation_mm": "~10 (at 42.4 m)",
+    "absorbedPower_W_FDR": 163,
+    "BraggAngle_deg_8p8keV": 13.0
+   },
+   "source": "r19",
+   "branch": "main"
+  },
+  {
+   "id": "pm-5",
+   "name": "Dual-aperture photon mask 9ID-PM-5",
+   "category": "beamStop",
+   "distanceM": 35.8,
+   "distanceNote": "approx (+/- ~1 m): position estimated by scaling the as-built 9-ID-A isometric layout (r8, ELOG 897) between FDR anchors SL-1 = 27.1 m and the FOE downstream wall ~36.9 m; MR-1 then falls at 28.2 m vs FDR 28.25 m",
+   "enclosure": "9-ID-A",
+   "plain": "A mask with two holes: one for the 'pink' beam path and one for the single-colour beam path.",
+   "expert": "Dual-aperture pink-beam mask passing both pink and mono beam positions.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "transport-a-mh",
+   "name": "Shielded transport 9-ID-A to 9-ID-MH",
+   "category": "beamPipe",
+   "distanceM": 39.0,
+   "distanceNote": "approx: between FOE wall (~36.9 m, FDR Fig. 4.51) and the mini-hutch (~41.5 m)",
+   "enclosure": "Experiment hall floor",
+   "plain": "A shielded vacuum pipe carrying the beam between enclosures.",
+   "expert": "Shielded transport with support stands (~2 m spacing in FDR Fig. 4.51).",
+   "source": "r1",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bs-2",
+   "name": "Pink beamstop 9ID-BS-2 (with gate valve GV-5)",
+   "category": "beamStop",
+   "distanceM": 42.0,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-MH layout and component list (r8, ELOG 898), anchored to the surveyed XBPM 9ID-BD-3 at 42.38 m (r10)",
+   "enclosure": "9-ID-MH",
+   "plain": "A block that stops the full-spectrum ('pink') beam whenever only the single-colour beam, running about 1 cm to the side, is wanted downstream.",
+   "expert": "Pink-beam stop at the upstream end of the mini-hutch; the mono beam passes ~10 mm outboard.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bd-3-xbpm1",
+   "name": "X-ray beam position monitor 9ID-BD-3 (XBPM-1)",
+   "category": "diagnostics",
+   "distanceM": 42.38,
+   "distanceNote": "exact: 42.380 m on the XBPM drawing; survey 2024-12-03 gave Z = 42.4186 m (r10)",
+   "enclosure": "9-ID-MH",
+   "plain": "A sensor that tells, many times per second, exactly where the beam is, so drifts can be corrected.",
+   "expert": "Sydor XBPM (SI-103770), +/-13 mm X, +/-5 mm Y travel; centred on the midplane between pink and mono beams (10 mm apart); 22 mm bypass aperture. Note: the 9-ID-A layout and ELOG 906 also call the mono flag 'Flag3 9ID-BD-3', so the BD-3 tag appears twice in the manual.",
+   "specs": {
+    "vendor": "Sydor",
+    "pinkMonoSeparation_mm": 10,
+    "bypassAperture_mm": 22
+   },
+   "source": "r10",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "sl-3",
+   "name": "Pink-beam slits 9ID-SL-3",
+   "category": "slits",
+   "distanceM": 42.7,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-MH layout and component list (r8, ELOG 898), anchored to the surveyed XBPM 9ID-BD-3 at 42.38 m (r10)",
+   "enclosure": "9-ID-MH",
+   "plain": "Slits that select the most coherent central part of the beam.",
+   "expert": "Pink-beam slits (same mechanics as SL-4/SL-5).",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "ph-1",
+   "name": "Photon shutter 9ID-PH-1",
+   "category": "shutter",
+   "distanceM": 43.0,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-MH layout and component list (r8, ELOG 898), anchored to the surveyed XBPM 9ID-BD-3 at 42.38 m (r10)",
+   "enclosure": "9-ID-MH",
+   "plain": "A safety shutter that blocks the beam so people can enter the experiment station.",
+   "expert": "Photon shutter (as-built label 'Photon Shutter, 9ID-PH-1'), upstream of CRL-1 in the mini-hutch. Its safety role (protecting entry to 9-ID-D) is inferred from the name and position, not documented.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "rl-1-crl1",
+   "name": "Transfocator CRL-1 (9ID-RL-1)",
+   "category": "transfocator",
+   "distanceM": 43.3,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-MH layout and component list (r8, ELOG 898), anchored to the surveyed XBPM 9ID-BD-3 at 42.38 m (r10); FDR placed CRL-1 at 32.4 m in the FOE",
+   "enclosure": "9-ID-MH",
+   "plain": "A stack of tiny curved beryllium lenses that can be slid in or out to focus the X-rays loosely onto the sample, the first stage of a 'zoom lens'.",
+   "expert": "9 cassettes, all 2D parabolic: N = 1,1,1,1,1,1,2,4,8 with R = 2000,1000,500,300,200,100,100,100,100 um (9ID CRL final design review). Provides the larger GIXS/GI-XPCS spots and prefocus for the zoom with CRL-2/KB. FDR version had 12 stacks incl. 1D lenses.",
+   "specs": {
+    "cassettes": 9,
+    "lensType": "2D parabolic (Be assumed)",
+    "N": "1,1,1,1,1,1,2,4,8",
+    "R_um": "2000,1000,500,300,200,100,100,100,100"
+   },
+   "source": "r11",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "bd-4",
+   "name": "Diagnostic flag 9ID-BD-4",
+   "category": "diagnostics",
+   "distanceM": 43.8,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-MH layout and component list (r8, ELOG 898), anchored to the surveyed XBPM 9ID-BD-3 at 42.38 m (r10)",
+   "enclosure": "9-ID-MH",
+   "plain": "A screen and camera to check the focused beam.",
+   "expert": "PB/MB flag.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "sh-1",
+   "name": "Shutter 9ID-SH-1",
+   "category": "shutter",
+   "distanceM": 44.3,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-MH layout and component list (r8, ELOG 898), anchored to the surveyed XBPM 9ID-BD-3 at 42.38 m (r10) (FDR: pink shutter at 35.5 m)",
+   "enclosure": "9-ID-MH",
+   "plain": "Another beam shutter at the exit of the mini-hutch.",
+   "expert": "Station shutter (FDR 'Shutter, Pink, 9ID-SH-1').",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bi-8-fast-shutter",
+   "name": "Fast shutter 9ID-BI-8",
+   "category": "shutter",
+   "distanceM": 47.8,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-D layout and component list (r8, ELOG 895), anchored to XBPM 9ID-BD-5 at 53.43 m (r10) and the CSSI station at 54.992 m (r8, ELOG 916) (FDR slits at 47.7 m)",
+   "enclosure": "9-ID-D",
+   "plain": "A quick shutter that opens only while the detector is recording, to avoid damaging delicate films.",
+   "expert": "Fast experimental shutter on the upstream optical table, synchronised with detector exposures (softGlue timing).",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "at-1",
+   "name": "Attenuator 9ID-AT-1",
+   "category": "attenuator",
+   "distanceM": 48.2,
+   "distanceNote": "approx: FDR filters at 48.2 m; as-built on the same table as the fast shutter (r8)",
+   "enclosure": "9-ID-D",
+   "plain": "Thin metal foils that dim the beam when it is too strong for the sample or detector.",
+   "expert": "Pink/mono-beam filter attenuator.",
+   "source": "r1",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "sl-4",
+   "name": "Pink-beam slits 9ID-SL-4",
+   "category": "slits",
+   "distanceM": 50.3,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-D layout and component list (r8, ELOG 895), anchored to XBPM 9ID-BD-5 at 53.43 m (r10) and the CSSI station at 54.992 m (r8, ELOG 916)",
+   "enclosure": "9-ID-D",
+   "plain": "Slits that clean up the beam before the second lens set.",
+   "expert": "Coherence-defining/cleanup slits upstream of CRL-2 (PDR planned coherence slits ~50 m: 2x vertical, 3x horizontal coherence length).",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "rl-2-crl2",
+   "name": "Transfocator CRL-2 (9ID-RL-2)",
+   "category": "transfocator",
+   "distanceM": 51.0,
+   "distanceNote": "approx: FDR Table 4.57 value; as-built order SL-4 -> RL-2 -> SL-5 (r8)",
+   "enclosure": "9-ID-D",
+   "plain": "The second, stronger set of X-ray lenses, focusing the beam to a few micrometres for coherent experiments.",
+   "expert": "10 cassettes, all 2D: N = 1,1,1,1,1,1,2,4,8,16, R = 2000-100 um (cassettes 9 and 10 annotated as swapped). FDR: 3.5 x 1.7 um (H x V) at 8.8 keV with a 3x2-mode coherent aperture, 9.4e13 ph/s/0.1%BW.",
+   "specs": {
+    "cassettes": 10,
+    "N": "1,1,1,1,1,1,2,4,8,16",
+    "R_um": "2000,1000,500,300,200,100,100,100,100,100",
+    "spot_um_FDR_8p8keV": "3.5 x 1.7"
+   },
+   "source": "r11",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "sl-5",
+   "name": "Pink-beam slits 9ID-SL-5",
+   "category": "slits",
+   "distanceM": 52.9,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-D layout and component list (r8, ELOG 895), anchored to XBPM 9ID-BD-5 at 53.43 m (r10) and the CSSI station at 54.992 m (r8, ELOG 916)",
+   "enclosure": "9-ID-D",
+   "plain": "Final slits before the focusing mirrors.",
+   "expert": "Pink-beam slits.",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bd-5-xbpm2",
+   "name": "X-ray beam position monitor 9ID-BD-5 (XBPM-2)",
+   "category": "diagnostics",
+   "distanceM": 53.43,
+   "distanceNote": "exact: 53.432 m on the XBPM drawing; survey 2024-12-03 gave Z = 53.3988 m (r10)",
+   "enclosure": "9-ID-D",
+   "plain": "A second beam-position sensor just before the focusing mirrors.",
+   "expert": "Sydor XBPM, same assembly as BD-3.",
+   "source": "r10",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "mr-3-kb",
+   "name": "Kirkpatrick-Baez mirror pair 9ID-MR-3",
+   "category": "kbMirror",
+   "distanceM": 54.2,
+   "deflection": "vertical+horizontal",
+   "distanceNote": "approx: FDR has V-KB 1.0 m and H-KB 0.8 m upstream of the 55 m sample (54.0/54.2 m); SPIE 2025 quotes a ~650 mm working distance to the CSSI sample at 54.992 m",
+   "enclosure": "9-ID-D",
+   "plain": "Two curved mirrors at right angles, one squeezing the beam vertically and one horizontally, focus it to about half a micrometre, 200 times thinner than a hair.",
+   "expert": "Two bendable flat mirrors, V upstream of H (FDR: Pt coating, 2.5 mrad; as-built coating and angles not published), piezo-lever weak-link flexure benders, flexure alignment stages with a 4-interferometer metrology frame in UHV chambers on granite air-bearing stages. Targets: 500 nm diffraction-limited focus at ~650 mm WD; angular stability 19 nrad (H) / 14 nrad (V); figure error <0.3 nm (H) / <0.2 nm (V) rms. FDR spots: 0.75 x 0.42 um at 8.8 keV, 0.66 x 0.35 um at 26.4 keV. Manual geometry: hexapod centre is 1.818 m from KB-V and 1.552 m from KB-H, so the two mirrors are ~0.27 m apart (r8, ELOG 916). The KB and the CSSI sample station sit on one shared granite table (r17).",
+   "specs": {
+    "coating": "Pt (FDR design; as-built not published)",
+    "workingDistance_mm": "~650 (SPIE 2025); 550 (MEDSI 2020)",
+    "stability_nrad": "19 (H), 14 (V)",
+    "figureError_nm_rms": "<0.3 (H), <0.2 (V)",
+    "spot_um_8p8keV": "0.75 x 0.42"
+   },
+   "source": "r17",
+   "branch": "main"
+  },
+  {
+   "id": "wn-1",
+   "name": "Window 9ID-WN-1 (Be or SiN)",
+   "category": "window",
+   "distanceM": 54.6,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-D layout and component list (r8, ELOG 895), anchored to XBPM 9ID-BD-5 at 53.43 m (r10) and the CSSI station at 54.992 m (r8, ELOG 916)",
+   "enclosure": "9-ID-D",
+   "plain": "A paper-thin window separating the ultra-clean vacuum of the mirrors from the sample chamber.",
+   "expert": "Be or SiN window between KB (UHV) and the CSSI sample chamber (high vacuum).",
+   "source": "r8",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "bi-2-cssi-sss",
+   "name": "CSSI solid sample station 9ID-BI-2",
+   "category": "sample",
+   "distanceM": 54.992,
+   "distanceNote": "exact: 'CSSI-SSS: 54992' mm (r8, ELOG 916)",
+   "enclosure": "9-ID-D",
+   "plain": "The heart of CSSI: a vacuum chamber where the sample stands on its edge and is tilted to a tiny grazing angle with nanometre precision, then turned a few degrees to view it from different directions.",
+   "expert": "High-vacuum sample chamber; vertical sample surface reflecting in the horizontal plane. 5 DOF (3 linear + pitch about vertical axis + yaw about surface normal) with custom weak-link flexure stages (cm travel, nm MIM; piezo 1 mm stage; pitch correction <1 deg, tens-of-nrad MIM), three metrology frames (capacitive + laser interferometers; nm linear, 10s nrad angular). Requirement: 50 nrad sample angular stability (MEDSI 2020) / 55 nrad (SPIE 2025). The KB and the sample station share one granite table to cut floor noise and relative motion. High-precision commercial rotation stages give pitch (vertical axis) and yaw (horizontal axis). Three metrology frames: two measure parasitic motion of the rotation stages, one measures the flexure stages. Designed, assembled and installed at 9-ID (SPIE 2025, r17).",
+   "specs": {
+    "sampleOrientation": "vertical surface, horizontal scattering plane",
+    "DOF": 5,
+    "angularStability_nrad": "50 (MEDSI 2020) / 55 (SPIE 2025)"
+   },
+   "source": "r16",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "bd-6-wavefront",
+   "name": "Wavefront sensor 9ID-BD-6",
+   "category": "diagnostics",
+   "distanceM": 55.4,
+   "distanceNote": "approx (+/- ~1 m): order from the as-built 9-ID-D layout and component list (r8, ELOG 895), anchored to XBPM 9ID-BD-5 at 53.43 m (r10) and the CSSI station at 54.992 m (r8, ELOG 916) (listed directly after the CSSI station)",
+   "enclosure": "9-ID-D",
+   "plain": "A device that measures the shape of the X-ray wave itself, to check the mirrors and lenses are not distorting it.",
+   "expert": "Compact X-ray wavefront sensor assembly (APS Optics group design by X. Shi, presented at the 2023 InterCAT TWG) for at-wavelength characterisation of the focused beam; sensing principle not stated in public pages.",
+   "source": "r40",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  },
+  {
+   "id": "hexapod-gixpcs",
+   "name": "High-load hexapod sample stage (GI-XPCS)",
+   "category": "sampleEnvironment",
+   "distanceM": 55.9,
+   "distanceNote": "approx/derived: 'downstream of CSSI Solid Sample Station on the stationary granite of the GIXS table' (r40); manual gives hexapod centre to KB-H 1.552 m and to KB-V 1.818 m (r8) which, with KB-H ~0.65 m upstream of 54.992 m, puts it near 55.9 m",
+   "enclosure": "9-ID-D",
+   "plain": "A six-legged robotic platform that holds heavier sample cells steady for the 'twinkling speckle' measurements.",
+   "expert": "Aerotech HEX500-350HL (500 mm diameter, high load), Automation1 iXR3/XSP3-10 drives; identical to the 8-ID-I rheometer hexapod; used by the Bluesky 'gixpcs' configuration with Grand Tube motion and EIGER 16M. Received 2024-10-07 (S/N 486416-01) (r40, ELOG 893).",
+   "specs": {
+    "model": "Aerotech HEX500-350HL"
+   },
+   "source": "r40",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "gixs-diffractometer",
+   "name": "GIXS diffractometer (from 8-ID-E) on granite translation",
+   "category": "diffractometer",
+   "distanceM": 56.59,
+   "distanceNote": "exact: 'GIXS: 56590' mm (r8, ELOG 916)",
+   "enclosure": "9-ID-D",
+   "plain": "A sturdy sample stage for flat-lying films, where films can be heated, cooled, exposed to solvent vapour or spin-coated while X-rays watch.",
+   "expert": "Legacy 8-ID-E GISAXS/GIWAXS diffractometer and infrastructure for horizontal samples, on a translatable granite; environments: Linkam HFSX350-GI (-196/-180..350/300 C), solvent-vapour annealing (Nealey chamber), spin coating/deposition, user solar simulator; UR3e sample robot.",
+   "specs": {
+    "sampleOrientation": "horizontal",
+    "origin": "8-ID-E"
+   },
+   "source": "r19",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "pilatus-1mf-waxs",
+   "name": "GIWAXS detector Pilatus 1M-F on motion system 9ID-BI-7",
+   "category": "detector",
+   "distanceM": 56.9,
+   "distanceNote": "approx: in air immediately downstream/beside the GIXS sample; position variable on the WAXS detector motion system (r8)",
+   "enclosure": "9-ID-D",
+   "plain": "A camera close to the film that catches X-rays scattered at wide angles, revealing how molecules are packed.",
+   "expert": "Dectris Pilatus 1M-F, 172 um pixels (standard Pilatus), 135 fps (directory), HDF5 via areaDetector; in-air WAXS detector positioning system 9ID-BI-7.",
+   "specs": {
+    "frameRate_fps": 135
+   },
+   "source": "r5",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "grand-tube",
+   "name": "Grand Tube in-vacuum flight path (9-ID-GT)",
+   "category": "flightTube",
+   "distanceM": 57.5,
+   "distanceNote": "approx start: detector distances 2.9-21.8 m from the CSSI sample (r4) imply detector z ~57.9-76.8 m; tube length ~20.5 m (r20) -> ~57.4-77.9 m; FDR flight path 58.0-76.0 m (r1)",
+   "enclosure": "9-ID-GT",
+   "plain": "A walk-in steel tube about 20 m long and almost 3 m across, pumped to vacuum so air does not scatter the faint X-ray speckles. Cameras inside ride on a carriage up to about 22 m from the sample.",
+   "expert": "Stainless-steel vessel, 2.75 m dia x ~20.5 m, 8 mm wall acting as pink-beam radiation shielding (STAC8/FLUKA analysis); 100,000 lb, unloaded in 4 sections in Aug 2023 and installed Sep-Oct 2023, assembled in 3 weeks (r21, r23, r41, r7); operating vacuum: the MM-PAD power interlock trips above a gauge reading of 1e-3 (units not stated, probably Torr); EIGER must be <0.01 mbar or at ambient); internal Z-carriage with x/y/z detector motion; personnel entry under an access SOP.",
+   "specs": {
+    "length_m": "~20.5 (20 per r18; 66 ft per r4; 70 ft per r21)",
+    "diameter_m": 2.75,
+    "wall_mm": 8,
+    "weight_lb": 100000,
+    "sections": 4
+   },
+   "source": "r20",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "eiger-16m",
+   "name": "In-vacuum EIGER 16M (on Z-carriage)",
+   "category": "detector",
+   "distanceM": 75.0,
+   "distanceNote": "movable: ~57.9-76.8 m (2.9-21.8 m from CSSI sample, r4); 75.0 m shown = ~20 m camera length",
+   "enclosure": "9-ID-GT",
+   "plain": "An 18-megapixel X-ray camera that counts single photons, mounted inside the vacuum tube and able to move closer, farther, up/down and sideways.",
+   "expert": "Dectris EIGER 16M operated in vacuum: 75 um pixels, ~4150 x 4370 px (~311 x 328 mm; the PDR format is the first-generation EIGER X 16M), 400 fps (550 fps burst, directory), photon counting; must be powered off while pumping/venting through 1 bar-0.01 mbar; HV interlock tied to tube vacuum. Used for CSSI, GISAXS and GI-XPCS. Exact EIGER2 variant not stated.",
+   "specs": {
+    "pixel_um": 75,
+    "frameRate_fps": "400 (550 burst)",
+    "pixels": "~18 M",
+    "environment": "in vacuum"
+   },
+   "source": "r12",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "mm-pad",
+   "name": "In-vacuum MM-PAD (mixed-mode pixel array detector)",
+   "category": "detector",
+   "distanceM": 75.0,
+   "distanceNote": "movable inside the Grand Tube (exact mounting not published)",
+   "enclosure": "9-ID-GT",
+   "plain": "A special camera that can handle the blinding direct reflection and the faintest speckles at the same time, so no beam blocker is needed.",
+   "expert": "Mixed-mode integrating+counting PAD developed by the Gruner group (Cornell); the vendor and version installed at 9-ID are not published. PDR values: 150 um pixels, 256 x 384 px, ~1.1 kHz, 1e8 ph/pixel/s sustained and 1e12 instantaneous. The PDR's '47 x 49 mm' area disagrees with 256 x 384 x 150 um (= 38.4 x 57.6 mm). power interlocked to Grand Tube pressure (cut-off 1e-3) since 2026-06-04. CSSI keeps the specular region (no beamstop) because low-q data constrain the reconstruction.",
+   "specs": {
+    "pixel_um": 150,
+    "format": "256 x 384 (PDR)",
+    "frameRate_Hz": "~1100 (PDR)"
+   },
+   "source": "r12",
+   "branch": "main",
+   "deflection": "none"
+  },
+  {
+   "id": "end-beamstop",
+   "name": "End-of-line beam stop",
+   "category": "beamStop",
+   "distanceM": 78.0,
+   "distanceNote": "approx: FDR Table 4.57 'Beam Stop, PB' at 78.0 m (labelled 8ID-BS-1, evidently a typo); as-built end stop not documented publicly",
+   "enclosure": "9-ID-GT",
+   "plain": "A final block that safely absorbs whatever beam reaches the end of the line.",
+   "expert": "Pink-beam-rated stop at the downstream end of the flight path (FDR).",
+   "source": "r1",
+   "branch": "main",
+   "deflection": "none",
+   "specs": {}
+  }
+ ],
+ "enclosures": [
+  {
+   "name": "Storage-ring tunnel / front end",
+   "role": "source (revolver undulator, downstream slot) and HHL front end",
+   "startM": -2.7,
+   "endM": 22.1,
+   "widthM": null,
+   "branch": null,
+   "notes": "Straight-section limits approximate (~5.4 m straight); ratchet wall ~22.1-23.6 m by analogy with other APS-U sectors."
+  },
+  {
+   "name": "9-ID-A",
+   "role": "first optics enclosure (FOE), white/pink beam",
+   "startM": 23.6,
+   "endM": 36.9,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Boundaries read from FDR Fig. 4.51 scale (+/-0.3 m); wedge-shaped in plan. Contains FE exit table, SL-1, MR-1, MR-2, masks/collimators, flags, SL-2, HDCM, dual-aperture mask PM-5. Shielding verified 2024-12-18."
+  },
+  {
+   "name": "9-ID-MH",
+   "role": "mini-hutch (pink-beam capable) for CRL-1, XBPM-1 and shutters",
+   "startM": 41.5,
+   "endM": 45.0,
+   "widthM": null,
+   "branch": "main",
+   "notes": "As-built addition not in the FDR (FDR had open transport 37-47 m). Extent estimated around the surveyed XBPM at 42.38 m; contains BS-2, BD-3, SL-3, PH-1, RL-1, BD-4, SH-1. Shielding verified 2024-12-18."
+  },
+  {
+   "name": "9-ID-D",
+   "role": "experimental station: beam conditioning, CSSI solid-sample station, GI-XPCS hexapod, GIXS diffractometer + WAXS detector",
+   "startM": 47.0,
+   "endM": 57.5,
+   "widthM": null,
+   "branch": "main",
+   "notes": "Start from FDR Fig. 4.51/PDR ('single long end station from 47 m', formed by merging the old B, C, D stations); end estimated where the Grand Tube begins (photos show the tube outside any hutch). FDR text also calls this station 9-ID-B (Fig. 4.57). Shielding verified 2025-01-28..30."
+  },
+  {
+   "name": "9-ID-GT (Grand Tube)",
+   "role": "self-shielding in-vacuum detector flight path (walk-in vacuum vessel) on the open experiment floor",
+   "startM": 57.5,
+   "endM": 78.0,
+   "widthM": 2.75,
+   "branch": "main",
+   "notes": "Cylinder, 2.75 m diameter, ~20.5 m long, 8 mm stainless steel; domed end head; external stiffening rings; painted light grey (APS photo). Contains detector Z-carriage, EIGER 16M, MM-PAD. Shielding verified 2025-01-28..30."
+  }
+ ],
+ "instruments": [
+  {
+   "name": "CSSI solid-sample instrument (KB + solid sample station 9ID-BI-2)",
+   "enclosure": "9-ID-D",
+   "plain": "A nanometre-steady stage that holds a chip-like sample on edge in vacuum, with focusing mirrors just upstream, built for lens-free 3D imaging of surfaces.",
+   "expert": "Five subsystems: granite air-bearing stages aligning KB and sample to the beam; UHV KB chambers; high-vacuum sample chamber; bendable KB mirrors with flexure alignment and 4-interferometer metrology; sample nanopositioning stages in 5 groups (granite base, alignment, scanning, orientation correction, point-of-interest) with capacitive/interferometric metrology frames. KB: 500 nm focus at ~650 mm WD, 19/14 nrad mirror stability; sample 50 nrad. Installed 2024-2025, performance reported at SPIE 2025.",
+   "detectors": [
+    "In-vacuum EIGER 16M (Grand Tube)",
+    "In-vacuum MM-PAD (Grand Tube)"
+   ],
+   "sampleEnvironments": [
+    "High-vacuum sample chamber",
+    "In-plane (yaw) rotation series for tomographic CSSI"
+   ],
+   "source": "r16"
+  },
+  {
+   "name": "GIXS instrument (GISAXS / GIWAXS), migrated from 8-ID-E",
+   "enclosure": "9-ID-D",
+   "plain": "The workhorse station for thin films lying flat: heat them, cool them, anneal them in solvent vapour or spin-coat them while measuring.",
+   "expert": "Legacy 8-ID-E diffractometer on stationary + translating granite at z = 56.59 m; in-air Pilatus 1M-F on detector motion system 9ID-BI-7 for GIWAXS; GISAXS on the in-vacuum EIGER 16M at 3-20 m; Bluesky (BITS) plans incl. gap-fill; GIXSGUI/GIXS-U analysis; DM workflows to HPC.",
+   "detectors": [
+    "Pilatus 1M-F (in air, 135 fps)",
+    "EIGER 16M (in vacuum)"
+   ],
+   "sampleEnvironments": [
+    "Linkam HFSX350-GI thermal stage (-180 to 300 C per directory; -196 to 350 C per manual)",
+    "Solvent-vapour annealing (Nealey chamber)",
+    "Spin coating and thin-film deposition",
+    "UR3e sample-handling robot",
+    "User solar simulator support"
+   ],
+   "source": "r5"
+  },
+  {
+   "name": "GI-XPCS setup (high-load hexapod + Grand Tube)",
+   "enclosure": "9-ID-D / 9-ID-GT",
+   "plain": "Measures how fast surfaces and buried interfaces move by recording thousands of speckle frames and seeing how quickly they change.",
+   "expert": "Aerotech HEX500-350HL hexapod on the GIXS stationary granite; EIGER 16M at 3-20 m in vacuum, 1e-3-1e3 s; q-maps with pySimpleMask (APS_9IDD geometry), GPU multi-tau/two-time correlation with boost-corr in automated DM workflows, XPCS-Viewer.",
+   "detectors": [
+    "EIGER 16M (in vacuum)"
+   ],
+   "sampleEnvironments": [
+    "Linkam stage",
+    "user cells on hexapod"
+   ],
+   "source": "r40"
+  },
+  {
+   "name": "Grand Tube detector system (9-ID-GT)",
+   "enclosure": "9-ID-GT",
+   "plain": "A 20-metre vacuum 'corridor' with a detector trolley inside: moving the camera far away spreads speckles over many pixels; moving it sideways catches finer detail.",
+   "expert": "2.75 m x ~20.5 m stainless vacuum vessel (8 mm wall, pink-beam rated) with Z-carriage and x/y detector motion; detectors move in all three dimensions to tile reciprocal space and choose oversampling vs q-range; vacuum interlocks for EIGER HV and MM-PAD power.",
+   "detectors": [
+    "EIGER 16M",
+    "MM-PAD"
+   ],
+   "sampleEnvironments": [],
+   "source": "r4"
+  }
+ ],
+ "totalLengthM": 78.0,
+ "geometryNotes": "Single, non-canted ID line (dual-inline straight, only the downstream revolver installed; source point ~+1.25 m from the straight centre; all distances here are from the straight-section centre as in the FDR tables). Everything sits on the main experiment-hall floor (no LOM or long-beamline building): 9-ID-A FOE (~23.6-36.9 m, wedge-shaped in plan per FDR Fig. 4.51), shielded transport, the small 9-ID-MH mini-hutch (~41.5-45 m, as-built addition), shielded transport, the 9-ID-D station (~47-57.5 m) and the free-standing Grand Tube 9-ID-GT (~57.5-78 m) that is its own pink-beam-rated shielding: a light-grey 2.75 m-diameter cylinder of ~4 flanged sections with stiffener rings and a dished downstream head, resting on saddles on the floor, outside any hutch (APS photo, r4). The line ends close to the hall's outer wall (~90 m available). Optics: all upstream deflections are horizontal. MR-1 (flat) and MR-2 (bender) form a horizontal offset pair (~2.9 m apart in the layout). The HDCM deflects horizontally (mono beam ~10 mm outboard of the pink path at 42.4 m; masks PM-5 and XBPM have dual apertures/bypass). The surveyed XBPM bodies at 42.42 m and 53.40 m sit at almost the same horizontal offset from the white-beam axis (X = -8.79 / -8.64 mm), so the downstream beam runs parallel to the original axis, displaced sideways (r10). The KB pair (V then H) is the exception: the V mirror deflects the beam vertically (FDR 2.5 mrad grazing, i.e. ~5 mrad upward or downward, direction not documented) and the H mirror horizontally, focusing ~0.65 m downstream. Beam height ~1.4 m above floor throughout (FDR). Inside 9-ID-D (as-built isometric, r8): upstream optical table (fast shutter, attenuator) -> slits SL-4 -> CRL-2 transfocator stand -> slits SL-5 + XBPM-2 table -> KB UHV chamber on granite -> window -> round multi-port CSSI sample chamber on granite -> stationary granite with hexapod -> GIXS diffractometer on translating granite with in-air Pilatus WAXS detector arm -> Grand Tube entrance flange in the downstream wall. Two sample geometries: CSSI sample surface VERTICAL (incidence and specular reflection in the horizontal plane, so the reflected beam and exit-angle axis spread sideways in the tube); GIXS samples HORIZONTAL (classic GISAXS, exit angles vertical). Detector carriage translates along z and in x/y within the 2.75 m bore. Exact as-built z positions are public only for the CSSI station (54.992 m), GIXS (56.590 m) and the two XBPMs (42.38 m, 53.43 m); other positions are estimates (+/-1 m). Mirror-deflection sense (inboard vs outboard) of MR-1/MR-2 is not documented; only the mono-vs-pink offset direction is.",
+ "interactiveIdeas": [
+  {
+   "title": "Skip a stone with X-rays: the critical angle",
+   "concept": "A slider tilts a silicon wafer from 0 to 1 deg in front of an X-ray beam. Below the critical angle the beam reflects almost totally and only a few-nm-deep evanescent wave enters; above it the beam dives in. Show reflectivity curve, penetration depth and the footprint stretching across the wafer.",
+   "whatUserLearns": "Why surface X-ray methods work at tiny angles, how depth sensitivity is tuned, and why a 1 um beam paints a ~0.2 mm stripe on the sample.",
+   "physicsToGetRight": "alpha_c = sqrt(2 delta), delta proportional to lambda^2 rho_e: Si alpha_c ~0.20 deg (3.5 mrad) and Au ~0.50 deg at 8.8 keV, scaling as 1/E. Penetration depth below alpha_c ~ lambda/(4 pi sqrt(alpha_c^2 - alpha^2)) ~ a few nm (include beta for absorption). Footprint = beam size / sin(alpha): 0.75 um at 0.2 deg -> ~215 um. Yoneda peak at alpha_f = alpha_c."
+  },
+  {
+   "title": "Speckle zoom: why the Grand Tube is 20 m long",
+   "concept": "Drag the EIGER/MM-PAD along the tube (2.9-21.8 m) and sideways; choose energy (6-25 keV) and focal spot (0.6-3.5 um). The speckle pattern rescales live over a pixel grid; meters show oversampling ratio and the finest resolvable feature.",
+   "whatUserLearns": "The core trade-off of coherent imaging: far away = speckles big enough to sample (oversampling), close or off-axis = higher q = finer detail; the tube allows both by moving the detector in 3D.",
+   "physicsToGetRight": "Speckle size s ~ lambda D / d (d = illuminated size projected normal to the exit direction); oversampling O = s/p >= 2 per dimension (Nyquist), ~5 preferred. Examples: 8.8 keV, D = 20 m, d = 0.75 um -> s ~3.8 mm (~50 EIGER pixels); 25 keV, d = 3.5 um, D = 20 m -> s ~0.28 mm (O ~1.9 with 150 um MM-PAD pixels). Half-period resolution ~ pi/q_max, q_max = (4 pi/lambda) sin(theta_max): detector half-width 0.155 m at 20 m and 8.8 keV gives ~9 nm; at 2.9 m ~1.3 nm. In grazing incidence resolution is anisotropic (poor along the beam footprint) - rotation series fix this."
+  },
+  {
+   "title": "Lloyd's mirror in the hard X-ray world",
+   "concept": "A glowing point (a nanoscale feature) floats above a mirror-like substrate. Move it up and down and watch interference fringes appear on a virtual detector near the horizon, then reverse: given fringes, guess the height.",
+   "whatUserLearns": "How a substrate acts as a built-in reference beam, turning surface scattering into a hologram that encodes height from a single image.",
+   "physicsToGetRight": "Two paths: direct scattering and scattering reflected by the substrate (phase flip ~pi near alpha_f = 0 where Fresnel reflectance -> 1). Fringe period in qz ~ 2 pi/(2d) for height d; strongest for alpha_f < ~0.3 deg and alpha_i above alpha_c (Chu et al. 2023). Keep Fresnel reflectivity and absorption; it is dark-field (away from specular)."
+  },
+  {
+   "title": "Then and now: how orderly is the X-ray beam?",
+   "concept": "Two virtual pinholes (Young's double slit) at 30 m from the source: toggle between the 1996-2023 APS and APS-U sources and energies. Fringe visibility and the number of 'coherent modes' across the beam change dramatically, especially horizontally.",
+   "whatUserLearns": "What 'coherence' means and why the multi-bend-achromat upgrade made CSSI practical.",
+   "physicsToGetRight": "Transverse coherence length (rms) xi = lambda z/(2 pi Sigma), Sigma = sqrt(sigma_e^2 + sigma_r^2), sigma_r = sqrt(2 lambda L)/(4 pi). At 10 keV, 30 m: APS-U xi_x ~48 um (round mode), old APS ~2 um; vertical ~70 um vs ~58 um. Coherent fraction per plane = (lambda/4pi)/(Sigma Sigma'): ~2.6% (round) / ~6% (flat) total at 10 keV vs ~0.05% before. Use r15 parameters; do not use the 2019 FDR 'brightness mode' as current. r15 values are zero-current; the 9-ID source slide (r9) plots ~6% coherent fraction at 10 keV (~2% at 25 keV) for APS-U vs ~0.05% for the old APS, consistent with the flat-beam case. Show coherent FLUX (brilliance x (lambda/2)^2), not total flux, as the quantity that rose ~100x."
+  },
+  {
+   "title": "Twinkle, twinkle: build a g2 curve",
+   "concept": "A live speckle movie from a thin polymer film; the user chooses temperature (viscosity) and film thickness. A cursor-picked speckle's intensity trace feeds a real-time correlation function g2(tau).",
+   "whatUserLearns": "How XPCS turns flicker into a relaxation time and how different motions (diffusion, capillary waves) leave different q-dependences.",
+   "physicsToGetRight": "g2(q,tau) = 1 + beta |f(q,tau)|^2, f = exp(-Gamma tau) for simple relaxation; diffusion Gamma = D q^2; overdamped capillary waves on thick films Gamma = gamma q/(2 eta) (thin films: Gamma ~ gamma h^3 q^4/(3 eta)); beta (speckle contrast) < 1 set by coherence and pixel/speckle ratio. Fastest time limited by detector (~2 ms at 400-550 fps) and by photons: SNR ~ beta * I * sqrt(T tau N); at fixed SNR the shortest tau scales as 1/brilliance^2. 9-ID window 1e-3-1e3 s."
+  },
+  {
+   "title": "Zoom lens of beryllium: the transfocators",
+   "concept": "Toggle the 9 + 10 lens cassettes of CRL-1 and CRL-2 (binary stacks of R = 2000..100 um lenses) and the KB mirrors to zoom the spot from ~30 um to ~0.5 um at the sample; see flux and number of coherent modes accepted.",
+   "whatUserLearns": "How X-ray lenses work (weakly), why many lenses are stacked, and the trade-off between spot size and coherent flux.",
+   "physicsToGetRight": "Thin-lens focal length f = R/(2 N delta) for paraboloid lenses (Be delta ~4.4e-6 at 8.8 keV, so N=1, R=100 um gives f ~11 m), combine stacks with 1/f = sum; imaging 1/p + 1/q = 1/f; spot ~ source size x magnification convolved with diffraction ~lambda/(2 NA). Use as-built cassettes (r11), not the FDR 12-stack lists."
+  }
+ ],
+ "funFacts": [
+  "The Grand Tube weighs about 100,000 lb (~45 t). It was unloaded at Argonne in four crated sections in August 2023, assembled in three weeks and installed at 9-ID in Sep-Oct 2023 (r21, r23, r41, r7).",
+  "It is big enough to walk inside: about 2.75 m (9 ft) across and ~20 m long; entering it requires a formal access procedure (r20, r4, r8).",
+  "Its 8 mm stainless-steel wall doubles as radiation shielding, so the tube itself is a certified X-ray enclosure (9-ID-GT) rather than a pipe inside a hutch (r20, r6).",
+  "The first CSSI demonstration (2012, APS 8-ID-E) used a CCD only 0.7 m from the sample that detected just ~0.13% of scattered photons. It needed a few hours to record one pattern, peaking at 3,000 counts, from a gold 'Argonne' test pattern 400 um long, 5 um wide and 40 nm thick (r3, r24).",
+  "The KB mirrors must hold their angle to 14-19 nanoradians, the angle a 1 cm coin subtends seen from about 500-700 km away (r16, r17; comparison derived).",
+  "At a 1 degree grazing angle, raising the sample by 1 um slides the beam footprint ~57 um along the surface; the stage must find the surface to <50 nm (r3).",
+  "In CSSI the mirror-like reflection can be as bright as the incoming beam while useful speckles are 8-10 orders of magnitude fainter - up to 1e11 counts/s per pixel near the critical angle - so a special mixed-mode detector (MM-PAD) replaces the usual beamstop (r3).",
+  "Before the upgrade the horizontal coherence length 30 m from the source was only ~2 um at 10 keV; at the upgraded APS it is ~40-50 um (derived from r15).",
+  "9-ID used to host the USAXS instrument (now at 12-ID-E) and the Bionanoprobe (now at 2-ID-D); its GIXS instrument moved in from 8-ID-E (r6, r19).",
+  "The holographic analysis echoes Humphrey Lloyd's 19th-century mirror-interference experiment, redone with hard X-rays and a silicon wafer as the mirror (r26)."
+ ],
+ "figures": [
+  {
+   "file": "figs/cssi/fdr2019-fig4-51-cssi-layout-plan.png",
+   "caption": "Layout of the CSSI beamline, plan view with metre scale from 24 to 78 m: FOE 9-ID-A, transport, and the long 9-ID-D station enclosing the flight path. APS-U Final Design Report (2019), Fig. 4.51 (printed p. 4-86). Upscaled 1.5x from the embedded raster.",
+   "source": "r1",
+   "page": 108,
+   "whatItShows": "2019 design footprint and hutch outlines (9-ID-A ~23.6-36.9 m; 9-ID-D ~47-78 m with a widened downstream section). As built, the flight path became the free-standing Grand Tube (9-ID-GT) and a mini-hutch 9-ID-MH was added near 42 m."
+  },
+  {
+   "file": "figs/cssi/fdr2019-fig4-52-cssi-optical-layout.png",
+   "caption": "Basic optical layout of the CSSI beamline: U21 + U21/U25 revolver, HHL slits, M1 at 2.4 mrad, DCM/DMM with 2 mm offset, CRL-1, CRL-2, KB, sample, WAXS and SAXS detectors. APS-U FDR (2019), Fig. 4.52 (printed p. 4-87). Upscaled 1.6x.",
+   "source": "r1",
+   "page": 109,
+   "whatItShows": "Design-stage optical concept (pink path dashed, mono path solid). Differs from as-built: one undulator only, two mirrors, no DMM, CRL-1 moved to the 9-ID-MH mini-hutch."
+  },
+  {
+   "file": "figs/cssi/asbuilt-9id-a-mh-d-layouts-usermanual.png",
+   "caption": "As-built component layouts of 9-ID-A (FOE), 9-ID-MH (mini-hutch) and 9-ID-D (experimental station), from the 9-ID User Manual (APS 8-ID/9-ID ELOG off-site mirror, entries 897, 898, 895; attachments dated Oct 2024 - Apr 2025). Beam travels right to left. Internal Box links removed from the images. Reuse terms not stated - check with APS before public redistribution.",
+   "source": "r8",
+   "page": 0,
+   "whatItShows": "Labelled isometric CAD renders of every as-built component: two horizontal mirrors, masks, flags, HDCM; pink beamstop, XBPM, CRL-1 and shutters in the mini-hutch; fast shutter, attenuator, CRL-2, KB, CSSI sample chamber, GIXS diffractometer and Pilatus WAXS arm in 9-ID-D."
+  },
+  {
+   "file": "figs/cssi/asbuilt-9id-source-characteristics-slide.png",
+   "caption": "9-ID source characteristics slide (courtesy L. Rebuffi), attached to the 9-ID User Manual 'Undulator Source' entry (ELOG 945, uploaded 2026-05-29). It shows the revolver undulator, brilliance of the U25/U21 harmonics vs the old APS U33, coherent fraction APS-U vs APS, and the XPCS SNR scaling. Reuse terms not stated; check with APS before public display.",
+   "source": "r9",
+   "page": 0,
+   "whatItShows": "APS-U brilliance ~1-2e22 vs ~1e20 for the old APS, and coherent fraction ~6% vs ~0.05% at 10 keV. Use it as ground truth for the 'Then and now' explainer."
+  },
+  {
+   "file": "figs/cssi/asbuilt-9id-xbpm-pink-mono-offset.png",
+   "caption": "XBPM 9ID-BD-3 at 42.380 m viewed from upstream, showing the mono beam 5 mm outboard and the pink beam 5 mm inboard of the XBPM centre (10 mm apart) and the 22 mm bypass aperture. From 'XBPM_and_beams_9ID.pdf', 9-ID User Manual ELOG 909 (Dec 2024). Reuse terms not stated; check with APS before public display.",
+   "source": "r10",
+   "page": 0,
+   "whatItShows": "The as-built horizontal offset between the pink and monochromatic beam paths, needed to model the HDCM's sideways deflection correctly in 3D."
+  }
+ ],
+ "references": [
+  {
+   "id": "r1",
+   "title": "Advanced Photon Source Upgrade Project Final Design Report, Chapter 4: Experimental Facilities, Section 4-8 'CSSI 9-ID' (Tables 4.56-4.61, Figs. 4.51-4.57)",
+   "authors": "APS Upgrade Project, Argonne National Laboratory",
+   "year": 2019,
+   "venue": "APSU-2.01-RPT-003 (FDR), May 2019",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%204%20-%20Experimental%20Facilities.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r2",
+   "title": "APS-U Final Design Report, Chapter 3: Front Ends and Insertion Devices (Table 3.1 FE configurations, Sec. 3-2.1 HHLFE and Fig. 3.2, Table 3.13 ID selections)",
+   "authors": "APS Upgrade Project",
+   "year": 2019,
+   "venue": "APS-U FDR, May 2019",
+   "url": "https://www.aps.anl.gov/sites/www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/FDR/Chapter%203%20-%20Front%20Ends%20and%20Insertion%20Devices.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r3",
+   "title": "APS-U Preliminary Design Report, Chapter 6 Experimental Facilities, Section 6-5 'Coherent Surface Scattering Imaging (CSSI) Beamline' (Tables 6.16-6.20, Figs. 6.31-6.42)",
+   "authors": "APS Upgrade Project",
+   "year": 2017,
+   "venue": "APS-U PDR",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/Documents",
+   "type": "report"
+  },
+  {
+   "id": "r4",
+   "title": "Coherent Surface Scattering Imaging (CSSI) at 9-ID (feature beamline page)",
+   "authors": "Advanced Photon Source",
+   "year": 2025,
+   "venue": "aps.anl.gov (page dated 10.08.2025)",
+   "url": "https://www.aps.anl.gov/Feature-Beamlines/Coherent-Surface-Scattering-Imaging",
+   "type": "web"
+  },
+  {
+   "id": "r5",
+   "title": "Beamline Directory: 9-ID-D: APS-U 9-ID-D (specifications, detectors, equipment, status)",
+   "authors": "Advanced Photon Source",
+   "year": 2026,
+   "venue": "aps.anl.gov Beamline Directory #221 (accessed 2026-10-08)",
+   "url": "https://www.aps.anl.gov/Beamlines/Beamline-Directory/221",
+   "type": "web"
+  },
+  {
+   "id": "r6",
+   "title": "Sector 9-ID home page (APS-U Sector 9-ID; status updates through cycle 2026-3)",
+   "authors": "APS X-ray Science Division, Dynamics and Structure Group",
+   "year": 2026,
+   "venue": "aps.anl.gov (page dated 07.27.2026)",
+   "url": "https://www.aps.anl.gov/Sector-9/9-ID",
+   "type": "web"
+  },
+  {
+   "id": "r7",
+   "title": "Sector 9-ID: Research Highlights and News (shielding verification dates, Grand Tube installation)",
+   "authors": "APS Dynamics and Structure Group",
+   "year": 2025,
+   "venue": "aps.anl.gov (page dated 01.30.2025)",
+   "url": "https://www.aps.anl.gov/Sector-9/9-ID/Science-and-Research/Research-Highlights-and-News",
+   "type": "web"
+  },
+  {
+   "id": "r8",
+   "title": "9ID User Manual (ELOG entry 892) and component entries 916 (layouts/positions), 897 (9-ID-A), 898 (9-ID-MH), 895 (9-ID-D), 896 (9-ID-GT) with layout attachments",
+   "authors": "J. Strzalka et al. (APS 9-ID staff)",
+   "year": 2026,
+   "venue": "APS 8-ID/9-ID ELOG, off-site mirror",
+   "url": "https://logbook.xray.aps.anl.gov/8id-mirror/8-ID/892",
+   "type": "web"
+  },
+  {
+   "id": "r9",
+   "title": "9ID User Manual II.0 'Undulator Source' (ELOG 945) with attachment '9ID_UndulatorSourceCharacteristics.pdf' (slide courtesy L. Rebuffi: revolver, brilliance, coherent fraction, XPCS SNR scaling)",
+   "authors": "APS 9-ID staff; L. Rebuffi",
+   "year": 2026,
+   "venue": "APS ELOG off-site mirror (uploaded 2026-05-29)",
+   "url": "https://logbook.xray.aps.anl.gov/8id-mirror/8-ID/945",
+   "type": "web"
+  },
+  {
+   "id": "r10",
+   "title": "9ID manual: XBPM Sydor (ELOG 909) - 'XBPM_and_beams_9ID.pdf' (9ID-BD-3 @ 42.380 m, 9ID-BD-5 @ 53.432 m, pink/mono beams 10 mm apart) and survey report 2024-12-03",
+   "authors": "APS 9-ID staff; APS Survey & Alignment",
+   "year": 2024,
+   "venue": "APS ELOG off-site mirror",
+   "url": "https://logbook.xray.aps.anl.gov/8id-mirror/8-ID/909",
+   "type": "web"
+  },
+  {
+   "id": "r11",
+   "title": "9ID manual: CRL-1,2 Transfocators (ELOG 915) - CRL lens arrangement from the 9ID CRL Final Design Review",
+   "authors": "APS 9-ID staff",
+   "year": 2025,
+   "venue": "APS ELOG off-site mirror",
+   "url": "https://logbook.xray.aps.anl.gov/8id-mirror/8-ID/915",
+   "type": "web"
+  },
+  {
+   "id": "r12",
+   "title": "9ID manual: Detectors (ELOG 947), Eiger16M Operations (ELOG 891), MM-PAD vacuum interlock (ELOG 948)",
+   "authors": "APS 9-ID staff",
+   "year": 2026,
+   "venue": "APS ELOG off-site mirror",
+   "url": "https://logbook.xray.aps.anl.gov/8id-mirror/8-ID/947",
+   "type": "web"
+  },
+  {
+   "id": "r13",
+   "title": "9ID manual: 9-ID-A mirrors MR-1/MR-2 stripes (ELOG 953), HDCM 9ID-MN-1 (ELOG 904), flags (ELOG 906, 907)",
+   "authors": "APS 9-ID staff",
+   "year": 2024,
+   "venue": "APS ELOG off-site mirror",
+   "url": "https://logbook.xray.aps.anl.gov/8id-mirror/8-ID/953",
+   "type": "web"
+  },
+  {
+   "id": "r14",
+   "title": "Insertion Devices by Sector (S09: US empty; DS revolver APS21R25#5 with APS21#10 and APS25#8) - updated Sep. 22, 2026",
+   "authors": "APS ASD Magnetic Devices group (W. Li)",
+   "year": 2026,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/Magnetic-Devices/Insertion-Devices/Insertion-Devices-by-Sector",
+   "type": "web"
+  },
+  {
+   "id": "r15",
+   "title": "APS Storage Ring Parameters (nominal ID source parameters, round- and flat-beam modes)",
+   "authors": "M. Borland",
+   "year": 2024,
+   "venue": "ops.aps.anl.gov (Aug. 27, 2024)",
+   "url": "https://ops.aps.anl.gov/SRparameters/SRparameters.html",
+   "type": "web"
+  },
+  {
+   "id": "r16",
+   "title": "Progress of Nano-Positioning Design for the Coherent Surface Scattering Imaging Instrument",
+   "authors": "J.W.J. Anton, M. Chu, Z. Jiang, S. Narayanan, D. Shu, J. Strzalka, J. Wang",
+   "year": 2021,
+   "venue": "Proc. MEDSI2020 (Chicago), paper TUPC09, pp. 196-198, doi:10.18429/JACoW-MEDSI2020-TUPC09 (CC BY 3.0)",
+   "url": "https://proceedings.jacow.org/medsi2020/papers/tupc09.pdf",
+   "type": "paper"
+  },
+  {
+   "id": "r17",
+   "title": "Design and performance of the coherent surface-scattering imaging solid sample station for the advanced photon source upgrade (abstract)",
+   "authors": "Z. Jiang, J. Anton, S.P. Kearney, S. Bean, M. Chu, J. Wang, D. Shu, S. Narayanan",
+   "year": 2025,
+   "venue": "Proc. SPIE 13599, Optomechanical Engineering 2025, 1359904, doi:10.1117/12.3066532; spie.org/SPIE Digital Library pages are bot-blocked; abstract text verified via the Semantic Scholar API record for the DOI (2026-10-09)",
+   "url": "https://spie.org/optics-photonics/presentation/Design-and-performance-of-the-coherent-surface-scattering-imaging-solid/13599-3",
+   "type": "paper"
+  },
+  {
+   "id": "r18",
+   "title": "State of the Art Instruments for Dynamics and Structure: APS-U Feature Beamlines 9-ID and 8-ID (abstract)",
+   "authors": "J. Strzalka, Z. Jiang, J. Wang, Q. Zhang, E. Dufresne, S. Narayanan",
+   "year": 2025,
+   "venue": "Structural Dynamics 12(2 Suppl.), A302 (ACA meeting abstract), doi:10.1063/4.0000608",
+   "url": "https://pubs.aip.org/aca/sdy/article/12/2_Supplement/A302/3343503/State-of-the-Art-Instruments-for-Dynamics-and",
+   "type": "talk"
+  },
+  {
+   "id": "r19",
+   "title": "The program for nanoscale structure, kinetics and dynamics at APS-U Feature beamline 9-ID, a new home for grazing incidence x-ray scattering from soft matter interfaces (seminar abstract)",
+   "authors": "J. Strzalka",
+   "year": 2025,
+   "venue": "Soft Matter Interface Interest Group seminar, 2025-01-15 (APS event page; recording on YouTube)",
+   "url": "https://www.aps.anl.gov/APS-Events/2025-01-15/soft-matter-interface-interest-group-the-program-for-nanoscale-structure",
+   "type": "talk"
+  },
+  {
+   "id": "r20",
+   "title": "Radiation shielding analysis of the small-angle X-ray scattering flight tube end station of APS upgrade project",
+   "authors": "C. Sunil",
+   "year": 2020,
+   "venue": "Nucl. Instrum. Methods B 484, 48-58, doi:10.1016/j.nimb.2020.10.010 (OSTI 1763304 abstract)",
+   "url": "https://www.osti.gov/biblio/1763304",
+   "type": "paper"
+  },
+  {
+   "id": "r21",
+   "title": "Watch the assembly of the Grand Tube at the Advanced Photon Source",
+   "authors": "Advanced Photon Source",
+   "year": 2023,
+   "venue": "APS News, 2023-11-17 (video 'Assembling the Grand Tube...')",
+   "url": "https://www.aps.anl.gov/APS-News/2023-11-17/watch-the-assembly-of-the-grand-tube-at-the-advanced-photon-source/2023-11-17",
+   "type": "news"
+  },
+  {
+   "id": "r22",
+   "title": "Progress on the Beamlines (APS Upgrade news)",
+   "authors": "APS Upgrade Project",
+   "year": 2023,
+   "venue": "aps.anl.gov, 2023-07-11",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/Progress-on-the-Beamlines",
+   "type": "news"
+  },
+  {
+   "id": "r23",
+   "title": "APS Upgrade Progress in Pictures (Aug./Sept. 2023 Grand Tube captions)",
+   "authors": "Advanced Photon Source",
+   "year": 2023,
+   "venue": "aps.anl.gov",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/Progress-In-Pictures",
+   "type": "web"
+  },
+  {
+   "id": "r24",
+   "title": "Three-dimensional coherent X-ray surface scattering imaging near total external reflection",
+   "authors": "T. Sun, Z. Jiang, J. Strzalka, L. Ocola, J. Wang",
+   "year": 2012,
+   "venue": "Nature Photonics 6, 586-590, doi:10.1038/nphoton.2012.178",
+   "url": "https://doi.org/10.1038/nphoton.2012.178",
+   "type": "paper"
+  },
+  {
+   "id": "r25",
+   "title": "Probing three-dimensional mesoscopic interfacial structures in a single view using multibeam X-ray coherent surface scattering and holography imaging",
+   "authors": "M. Chu, Z. Jiang, M. Wojcik, T. Sun, M. Sprung, J. Wang",
+   "year": 2023,
+   "venue": "Nature Communications 14, 5795, doi:10.1038/s41467-023-39984-3 (open access)",
+   "url": "https://www.nature.com/articles/s41467-023-39984-3",
+   "type": "paper"
+  },
+  {
+   "id": "r26",
+   "title": "A 3D View of Mesoscale Interfacial Structures in a Single Glance (APS Science Highlight)",
+   "authors": "M. Wolverton",
+   "year": 2023,
+   "venue": "APS Science Highlights, 2023-11-01",
+   "url": "https://www.aps.anl.gov/APS-Science-Highlight/2023-11-01/a-3d-view-of-mesoscale-interfacial-structures-in-a-single-glance",
+   "type": "news"
+  },
+  {
+   "id": "r27",
+   "title": "Multislice forward modeling of coherent surface scattering imaging on surface and interfacial structures",
+   "authors": "P. Myint, M. Chu, A. Tripathi, M.J. Wojcik, J. Zhou, M.J. Cherukara, S. Narayanan, J. Wang, Z. Jiang",
+   "year": 2023,
+   "venue": "Optics Express 31(7), 11261 (2023), doi:10.1364/OE.481401; arXiv:2212.01253",
+   "url": "https://arxiv.org/abs/2212.01253",
+   "type": "paper"
+  },
+  {
+   "id": "r28",
+   "title": "Nonuniform Iterative Phasing Framework and Sampling Requirements for 3D Dynamical Inversion from Coherent Surface Scattering Imaging",
+   "authors": "J.J. Donatelli, M. Chu, Z. Hu, Z. Jiang, N. Schwarz, J. Wang, J.A. Sethian",
+   "year": 2026,
+   "venue": "arXiv:2604.18817 (preprint, Apr. 2026)",
+   "url": "https://arxiv.org/abs/2604.18817",
+   "type": "paper"
+  },
+  {
+   "id": "r29",
+   "title": "Coherent Surface Scattering in Grazing Incidence and Reflection: Advancements and Challenges (abstract)",
+   "authors": "J. Wang",
+   "year": 2023,
+   "venue": "canSAS 2023 workshop (ILL), contribution 28, 2023-10-17",
+   "url": "https://workshops.ill.fr/event/354/contributions/1612/",
+   "type": "talk"
+  },
+  {
+   "id": "r30",
+   "title": "Grazing-Incidence X-ray Holography for Visualizing Surface Mesostructures (invited talk abstract)",
+   "authors": "J. Wang, M. Chu, Z. Jiang, M. Wojcik, T. Sun, M. Sprung",
+   "year": 2024,
+   "venue": "SRI 2024 (Hamburg), contribution 422, 2024-08-27",
+   "url": "https://indico.desy.de/event/43493/contributions/172753/",
+   "type": "talk"
+  },
+  {
+   "id": "r31",
+   "title": "Bridging length scales in organic mixed ionic-electronic conductors through internal strain and mesoscale dynamics",
+   "authors": "R. Wu, D. Meli, J. Strzalka, S. Narayanan, Q. Zhang, B.D. Paulsen, J. Rivnay, C.J. Takacs",
+   "year": 2024,
+   "venue": "Nature Materials 23, 648-655, doi:10.1038/s41563-024-01813-3; accepted manuscript at par.nsf.gov/servlets/purl/10548137 (Methods: operando GI-XPCS at APS 8-ID-I, 10.92 keV)",
+   "url": "https://doi.org/10.1038/s41563-024-01813-3",
+   "type": "paper"
+  },
+  {
+   "id": "r32",
+   "title": "Film formation mechanisms in mixed-dimensional 2D/3D halide perovskite films revealed by in situ grazing-incidence wide-angle X-ray scattering (+ APS highlight 2022-10-24)",
+   "authors": "J.M. Hoffman, I. Hadar, X. Li, W. Ke, E.S. Vasileiadou, J. Strzalka, L.X. Chen, M.G. Kanatzidis",
+   "year": 2022,
+   "venue": "Chem 8(4), 1067, doi:10.1016/j.chempr.2021.12.022",
+   "url": "https://www.aps.anl.gov/APS-Science-Highlight/2022-10-24/grazing-incidence-x-rays-illuminate-solar-cell-film-formation",
+   "type": "paper"
+  },
+  {
+   "id": "r33",
+   "title": "Evidence for Viscoelastic Effects in Surface Capillary Waves of Molten Polymer Films",
+   "authors": "Z. Jiang, H. Kim, X. Jiao, H. Lee, Y.-J. Lee, Y. Byun, S. Song, D. Eom, et al.",
+   "year": 2007,
+   "venue": "Physical Review Letters 98, 227801, doi:10.1103/PhysRevLett.98.227801",
+   "url": "https://doi.org/10.1103/PhysRevLett.98.227801",
+   "type": "paper"
+  },
+  {
+   "id": "r34",
+   "title": "de Gennes Narrowing and Relationship between Structure and Dynamics in Self-Organized Ion-Beam Nanopatterning",
+   "authors": "P. Myint, K.F. Ludwig, L. Wiegart, Y. Zhang, A. Fluerasu, X. Zhang, R.L. Headrick",
+   "year": 2021,
+   "venue": "Physical Review Letters 126, 016101, doi:10.1103/PhysRevLett.126.016101 (measured at NSLS-II)",
+   "url": "https://doi.org/10.1103/PhysRevLett.126.016101",
+   "type": "paper"
+  },
+  {
+   "id": "r35",
+   "title": "Grazing-incidence reflective x-ray holography for CD metrology with nanometer resolution",
+   "authors": "M. Chu, J. Wang, Z. Jiang",
+   "year": 2024,
+   "venue": "Proc. SPIE 12955, Metrology, Inspection, and Process Control XXXVIII, doi:10.1117/12.3011020",
+   "url": "https://doi.org/10.1117/12.3011020",
+   "type": "paper"
+  },
+  {
+   "id": "r36",
+   "title": "Critical dimension metrology with hard x-rays in the reflection geometry",
+   "authors": "M. Chu, J. Wang, Z. Jiang",
+   "year": 2026,
+   "venue": "Proc. SPIE, Metrology, Inspection, and Process Control XL (Apr. 2026), doi:10.1117/12.3089963",
+   "url": "https://doi.org/10.1117/12.3089963",
+   "type": "paper"
+  },
+  {
+   "id": "r37",
+   "title": "Hybrid First Experiments Workshop for Coherent Surface Scattering Imaging (CSSI) beamline at 9-ID (agenda), Aug. 1-2, 2023",
+   "authors": "Advanced Photon Source",
+   "year": 2023,
+   "venue": "APS News, 2023-07-06",
+   "url": "https://www.aps.anl.gov/APS-News/2023-07-06/hybrid-first-experiments-workshop-for-coherent-surface-scattering-imaging-cssi",
+   "type": "news"
+  },
+  {
+   "id": "r38",
+   "title": "GIXSGUI: a MATLAB toolbox for grazing-incidence X-ray scattering data visualization and reduction",
+   "authors": "Z. Jiang",
+   "year": 2015,
+   "venue": "J. Appl. Cryst. 48, 917-926, doi:10.1107/S1600576715004434",
+   "url": "https://doi.org/10.1107/S1600576715004434",
+   "type": "paper"
+  },
+  {
+   "id": "r39",
+   "title": "Coherent Surface Scattering Imaging (CSSI) Beamline for Unraveling Mesoscopic Spatial-Temporal Correlations (APS-U beamline white paper WP36)",
+   "authors": "J. Wang, Z. Jiang, T. Sun, A. Sandy, J. Strzalka, B. Lin, B. Lee, P. Nealey, B. Ocko, O. Shpyrko, K. Ludwig",
+   "year": 2016,
+   "venue": "APS Upgrade beamline white papers",
+   "url": "https://www.aps.anl.gov/files/APS-Uploads/Aps-Upgrade/Beamlines/Abstracts/WP36.pdf",
+   "type": "report"
+  },
+  {
+   "id": "r40",
+   "title": "9ID manual instrument entries: high-load hexapod (ELOG 893), wavefront sensor assemblies (883), data collection/analysis/workflows (912, 913, 954), sample environments (950, 933, 937), softGlue (911)",
+   "authors": "APS 9-ID staff",
+   "year": 2026,
+   "venue": "APS ELOG off-site mirror",
+   "url": "https://logbook.xray.aps.anl.gov/8id-mirror/8-ID/912",
+   "type": "web"
+  },
+  {
+   "id": "r41",
+   "title": "APS Upgrade Update: September 2023 (Grand Tube arrival and installation at 9-ID)",
+   "authors": "APS Upgrade Project",
+   "year": 2023,
+   "venue": "aps.anl.gov APS-U news",
+   "url": "https://www.aps.anl.gov/APS-Upgrade/APS-Uprade-News/Update-September-2023",
+   "type": "news"
+  },
+  {
+   "id": "r42",
+   "title": "de Gennes Narrowing and the Relationship Between Structure and Dynamics in Self-Organized Ion Beam Nanopatterning (preprint; experiment at NSLS-II CHX)",
+   "authors": "P. Myint et al.",
+   "year": 2020,
+   "venue": "arXiv:2007.07395",
+   "url": "https://arxiv.org/abs/2007.07395",
+   "type": "paper"
+  }
+ ],
+ "openQuestions": [
+  "As-built z positions are public only for the CSSI station (54.992 m), GIXS (56.590 m) and XBPMs (42.38 / 53.43 m); the '09-ID Beamline Component Reference Table' and optics schematic are on access-restricted Box. All other positions here are FDR values or +/-1 m estimates from isometric drawings.",
+  "Enclosure boundaries of 9-ID-MH (~41.5-45 m) and the 9-ID-D / Grand Tube interface (~57.5 m) are estimates; hutch widths are not published (FDR plan figure appears anisotropically scaled).",
+  "Mirror incidence angles as built are not published (FDR: single M1 at 2.4 mrad; shielding analysis assumed two mirrors at >=3.0 mrad). The fourth mirror stripe is unidentified, and whether MR-1 deflects inboard or outboard is unknown.",
+  "HDCM: crystal set (FDR Si(111) only; PDR Si(111)+Si(220); the directory lists a 'High resolution' mode with dE/E = 2.8e-5, which would fit Si(311)) and the fixed-exit offset (FDR '2 mm offset' vs ~10 mm pink/mono separation at 42.4 m in the XBPM drawing) are unconfirmed. No DMM appears in as-built lists although FDR/PDR reserved one.",
+  "CRL-1 moved from the FOE (FDR 32.4 m) to the mini-hutch (~43 m) and the lens sets changed (as-built 9/10 cassettes, all 2D, R >= 100 um vs FDR 12 stacks incl. 1D and R = 50 um), yet the Beamline Directory still quotes the FDR focal sizes (29 x 16 um, 3.5 x 1.7 um); actual as-built spot sizes and fluxes need confirmation.",
+  "Directory fluxes (e.g. 3.4e13 ph/s CRL-1, 9.4e12 CRL-2, 1.2e13 KB at 8.8 keV; 3.2e11 / 3.7e11 at 25 keV, and '3 um x 12 um' for CRL-2 high energy) are inconsistent with FDR Table 4.58 by roughly a bandwidth factor or 10x; treat as indicative.",
+  "KB working distance: FDR geometry (V 1.0 m / H 0.8 m upstream of sample), MEDSI 2020 (550 mm) and SPIE 2025 abstract ('about 650 mm', verified) differ; ~650 mm is the most recent. The full SPIE paper (measured stability; the abstract states a 55 nrad sample-stability requirement vs 50 nrad in 2020) was not accessible.",
+  "Grand Tube dimensions differ by source: 20 m x 2.75 m (Struct. Dyn. 2025), 20.5 m x 2.75 m (shielding paper), '66-foot, ~nine feet' (feature page), '70-foot' (APS news), '20 m x 3 m' (2023 update). The overall vessel incl. heads is probably ~21 m; inner bore assumed 2.75 m.",
+  "Detector specifics: EIGER 16M variant (EIGER2 X vs XE; 400/550 fps suggests XE) and the MM-PAD version, mounting and travel ranges inside the tube are not published; beamstop arrangement for GISAXS/CSSI is undocumented.",
+  "The FDR liquid-surface diffractometer (57 m, double-crystal beam tilter for liquid/liquid interfaces) is absent from as-built lists; status (deferred or cancelled) unknown.",
+  "Second undulator: the upstream slot is empty; no public schedule for installing the planned planar U21 (FDR flux tables assume both devices, 4.6 m).",
+  "Exact first-light date: the manual says only 'first light in 2024-2'. Whether CSSI (vs GIXS/GI-XPCS) is routinely offered to general users or mainly in partner/collaborative mode in 2026-3 is not stated beyond the 80% GUP allocation 'for GI-SAXS/WAXS/XPCS and CSSI'.",
+  "No published 9-ID (post-upgrade) CSSI reconstruction or GI-XPCS paper was found as of 2026-10-08; science cases cite pre-upgrade 8-ID/P10 work and the legacy 8-ID-E instrument.",
+  "'First light in 2024-2' (manual) predates the 9-ID-A shielding verification (2024-12-18), so it cannot mean X-rays in the hutches. The date the first X-rays reached 9-ID-A or 9-ID-D is not published; technical commissioning began the week of 2025-02-03.",
+  "The tag 9ID-BD-3 is used both for the mono flag inside the HDCM (9-ID-A) and for XBPM-1 in 9-ID-MH; ask staff which is correct before labelling hotspots.",
+  "Vertical-deflection sense of the KB-V mirror (beam up or down) and as-built KB angles and coating are not published."
+ ],
+ "verification": {
+  "checkedBy": "adversarial-verifier",
+  "date": "2026-10-09",
+  "claims": [
+   {
+    "claim": "9-ID has a single revolver undulator (APS21R25#5: arrays APS21#10 and APS25#8) in the downstream slot; the upstream slot is empty",
+    "verdict": "confirmed",
+    "source": "APS 'Insertion Devices by Sector' table, updated Sep. 22, 2026 (S09 US '-', DS-1/DS-2); 9-ID manual ELOG 945 ('upstream position remains empty')"
+   },
+   {
+    "claim": "U21 array: 112 periods, Keff 1.38, E1 8.34 keV at 8.5 mm, 216 kW/mrad2, 5.4 kW; U25 array: 94 periods, Keff 1.99, E1 4.58 keV, 225 kW/mrad2, 8.1 kW; admin/user minimum gap 8.72/9.0 mm",
+    "verdict": "confirmed",
+    "source": "APS Insertion Devices by Sector table (fetched 2026-10-09)"
+   },
+   {
+    "claim": "Device length ~2.35 m (112 x 21 mm)",
+    "verdict": "confirmed",
+    "source": "Derived from the ID table; the 9-ID source slide says '2.3 m long' and FDR Table 4.56 says 2.3 m"
+   },
+   {
+    "claim": "FDR baseline was a dual-inline straight with an upstream planar 2.1 cm and a downstream revolver 2.5/2.1 cm undulator, the revolver 1.25 m downstream of the straight centre",
+    "verdict": "confirmed",
+    "source": "FDR Ch. 3 Table 3.13; FDR Ch. 4 Table 4.56"
+   },
+   {
+    "claim": "HHL front end (21 kW, 590 kW/mrad2), windowless with differential pump, 2x2 mm exit mask at 25.4 m with integrated XBPM2, 5x5 mm exit collimator at 26.1 m",
+    "verdict": "confirmed",
+    "source": "FDR Ch. 3 Sec. 3-2.1 and Table 3.1; FDR Ch. 4 Sec. 4-8.3 and Table 4.57"
+   },
+   {
+    "claim": "Shielding verified: 9-ID-A/9-ID-MH on 2024-12-18, 9-ID-D/9-ID-GT on 2025-01-28..30; technical commissioning from the week of 2025-02-03; full operations 2026-03-14; run 2026-2 50% and run 2026-3 (from 2026-09-09) 80% of beamtime to general users",
+    "verdict": "confirmed",
+    "source": "APS Sector 9-ID home page (dated 07.27.2026) and 9-ID Research Highlights and News page (dated 01.30.2025)"
+   },
+   {
+    "claim": "'First light during run 2024-2'",
+    "verdict": "corrected",
+    "source": "ELOG 945 says this, but X-rays could not enter 9-ID-A before its shielding verification on 2024-12-18, so the phrase must refer to the source/front end; reworded in status2026"
+   },
+   {
+    "claim": "Beamline Directory: 'Operational/Accepting General Users', on-site; 6-25 keV, fully tunable; focal spots 0.5-30 um; in-vacuum EIGER 16M (400 fps, 550 fps burst), in-vacuum MM-PAD, in-air Pilatus 1M-F (135 fps); Linkam -180 to 300 C; UR3e robot; GI-XPCS 0.001-1000 s",
+    "verdict": "confirmed",
+    "source": "APS Beamline Directory entry 221 (fetched 2026-10-09)"
+   },
+   {
+    "claim": "Directory fluxes at 8.8 keV: 1.2e13 (KB), 9.4e12 (CRL-2), 3.4e13 (CRL-1); at 25 keV: 3.2e11 / 3.7e11; these do not match FDR Table 4.58",
+    "verdict": "confirmed",
+    "source": "Beamline Directory 221 vs FDR Table 4.58. The KB value equals the FDR 9.2e13 ph/s/0.1%BW times a Si(111) bandwidth of ~1.3e-4; the CRL values are simply FDR/10"
+   },
+   {
+    "claim": "Feature page: 6-25 keV, spot 0.6x0.35 to 3.5x1.7 um2 (HxV), 'working distance 2.9 to 21.8 m', Grand Tube '66-foot-long ... approximately nine feet in diameter'",
+    "verdict": "confirmed",
+    "source": "APS CSSI feature page (dated 10.08.2025)"
+   },
+   {
+    "claim": "Grand Tube: 70-foot-long enclosure, 100,000 lb, four sections, three weeks to assemble",
+    "verdict": "confirmed",
+    "source": "APS News 2023-11-17 (Grand Tube assembly video page)"
+   },
+   {
+    "claim": "Grand Tube 'delivered Aug 2023'",
+    "verdict": "corrected",
+    "source": "Progress in Pictures (Aug 2023: crane unloads the four sections; Sep 2023: inside view); APS-U Update Sep 2023 ('20 meters long and three meters wide', uncrated and installed that month); 9-ID news: 'installed 2023.9-10'. Refined to unloaded Aug 2023, installed Sep-Oct 2023"
+   },
+   {
+    "claim": "Grand Tube design: 20.5 m long, 2.75 m diameter stainless steel, pink-beam rated; 8 mm wall adequate for a pinhole-defined source with two mirrors at >= 3.0 mrad",
+    "verdict": "confirmed",
+    "source": "Sunil, NIM B 484 (2020) 48-58 abstract (Semantic Scholar record)"
+   },
+   {
+    "claim": "Grand Tube 2.75 m diameter x 20 m length",
+    "verdict": "confirmed",
+    "source": "Strzalka et al., Struct. Dyn. 12(2 Suppl.) A302 (2025) abstract"
+   },
+   {
+    "claim": "Storage ring (zero current): natural emittance 41.5 pm; ID round-beam mode sigma_x/y 12.3/8.26 um, sigma_x'/y' 2.34/3.47 urad (28.7 pm per plane); flat-beam mode 14.5/3.08 um, 2.75/1.29 urad",
+    "verdict": "confirmed",
+    "source": "ops.aps.anl.gov SR parameters, Table 5 (Aug 2024). Added caveat: zero-current values"
+   },
+   {
+    "claim": "Coherent fraction at 10 keV ~2.6% (round) / ~6% (flat) vs ~0.05% pre-upgrade; ~0.8% / ~2% at 25 keV",
+    "verdict": "confirmed",
+    "source": "Recomputed from r15 and PDR Table 6.18 (275 um / 11 urad / 10 um / 3.5 urad); the 9-ID source slide (ELOG 945 attachment) plots ~6% at 10 keV and ~2% at 25 keV vs ~5e-4 for the old APS"
+   },
+   {
+    "claim": "Horizontal coherence length at 30 m, 10 keV: ~48 um (APS-U round mode) vs ~2 um pre-upgrade",
+    "verdict": "confirmed",
+    "source": "Recomputed: xi = lambda z / (2 pi Sigma) with Sigma_x = 12.45 um vs 275 um"
+   },
+   {
+    "claim": "Peak brilliance ~1e22, about 100x the pre-upgrade Undulator A",
+    "verdict": "confirmed",
+    "source": "PDR Sec. 6-5.3.1 ('over 1e22 ... at 10 keV, a full two orders of magnitude higher than the current Undulator A'); the 9-ID slide shows ~2e22 (U21) vs ~1.1e20 (U33), i.e. ~100-200x. Wording refined"
+   },
+   {
+    "claim": "'Shortest accessible correlation time scales as brilliance^2'",
+    "verdict": "corrected",
+    "source": "Physics: SNR = beta*I*sqrt(T*tau*N), so at fixed SNR tau_min scales as 1/brilliance^2. The r9 slide wording is loose; text corrected"
+   },
+   {
+    "claim": "CSSI solid sample station at z = 54.992 m, GIXS at 56.590 m; hexapod centre 1.552 m from KB-H and 1.818 m from KB-V",
+    "verdict": "confirmed",
+    "source": "9-ID manual ELOG 916"
+   },
+   {
+    "claim": "XBPMs 9ID-BD-3 at 42.380 m and 9ID-BD-5 at 53.432 m (survey 2024-12-03: Z = 42418.6 / 53398.8 mm); mono beam 10 mm outboard of pink; 22 mm bypass aperture; travel +/-13 mm X, +/-5 mm Y",
+    "verdict": "confirmed",
+    "source": "ELOG 909 attachments XBPM_and_beams_9ID.pdf and 9ID_BPMCheck_WE.pdf"
+   },
+   {
+    "claim": "As-built component sequence in 9-ID-A (SL-1, MR-1, SC-1, BD-1, PM-1, PM-2 DAMM, SC-2, MR-2, PM-3, BD-2, PM-4, BC-1, SL-2, MN-1 with Flag3, PM-5), 9-ID-MH (GV-5, BS-2, BD-3 XBPM, SL-3, PH-1, RL-1, BD-4, SH-1) and 9-ID-D (BI-8, AT-1, SL-4, RL-2, SL-5, BD-5, MR-3 KB, WN-1, BI-2, BD-6, hexapod, GIXS, WAXS BI-7)",
+    "verdict": "confirmed",
+    "source": "ELOG 897, 898 and 895 component lists plus the layout PDFs. The manual list calls the DAMM 'PM-1' (slip), and the tag BD-3 is used twice; notes added"
+   },
+   {
+    "claim": "MR-1 'Mirror, Horizontal, Flat'; MR-2 'Mirror, Horizontal, Bender'; both have 4 stripes including Pt, Si ('for 8 keV') and Cr ('for 11 keV'); MR-2 operated on Cr",
+    "verdict": "confirmed",
+    "source": "ELOG 897 and 953"
+   },
+   {
+    "claim": "Horizontally deflecting DCM; FDR: Si(111) pseudo-channel-cut, LN2-cooled, fixed exit, 13.0 deg at 8.8 keV, 163 W absorbed, footprint 4.65 x 1.08 mm",
+    "verdict": "confirmed",
+    "source": "Strzalka seminar abstract (2025-01-15); FDR Sec. 4-8.5.4 and Table 4.61. LN2 attribution moved from the seminar to the FDR"
+   },
+   {
+    "claim": "CRL-1 (9ID-RL-1, mini-hutch): 9 2D cassettes N = 1,1,1,1,1,1,2,4,8, R = 2000..100 um; CRL-2 (9ID-RL-2, 9-ID-D): 10 cassettes adding N = 16",
+    "verdict": "confirmed",
+    "source": "ELOG 915 attachment CRL_diagram_annotated.png (9ID CRL Final Design Review tables 3 and 4)"
+   },
+   {
+    "claim": "KB focuses to a 500 nm diffraction limit at ~650 mm working distance; angular stability 19 nrad (H) / 14 nrad (V)",
+    "verdict": "confirmed",
+    "source": "SPIE 13599 (2025) abstract, doi:10.1117/12.3066532 (text via Semantic Scholar API; SPIE pages bot-blocked)"
+   },
+   {
+    "claim": "MEDSI 2020: 550 mm working distance, sample-to-detector up to 23 m, 50 nrad sample angular stability, vertically placed sample reflecting horizontally, pitch (vertical axis) and yaw (horizontal axis) stages",
+    "verdict": "confirmed",
+    "source": "Anton et al., MEDSI2020 TUPC09 (JACoW PDF)"
+   },
+   {
+    "claim": "Sample angular-stability requirement 50 nrad (presented as current)",
+    "verdict": "corrected",
+    "source": "The SPIE 2025 abstract states 'a sample stability of 55 nrad'; both values now given with dates"
+   },
+   {
+    "claim": "FDR optics: M1 flat, notched, 2.4 mrad, Si/Pd/Pt stripes; KB bendable Pt-coated at 2.5 mrad, V 1000 mm and H 800 mm upstream of sample; KB figure error < 0.3 nm (H) and < 0.2 nm (V); beam height 1400 mm; Table 4.57 positions incl. CRL-1 at 32.4 m, sample 55.0 m, liquid diffractometer 57.0 m, flight path 58-76 m, beam stop 78.0 m labelled '8ID-BS-1'",
+    "verdict": "confirmed",
+    "source": "FDR Ch. 4 Sec. 4-8 (Tables 4.57, 4.60, 4.61; Sec. 4-8.5.3, 4-8.5.4, 4-8.6.4)"
+   },
+   {
+    "claim": "FDR Table 4.58 at 8.8 keV: KB 0.75x0.42 um, 9.2e13; CRL-2 3.5x1.7 um, 9.4e13; CRL-1 29x16 um, 3.4e14 ph/s/0.1%BW",
+    "verdict": "confirmed",
+    "source": "FDR Table 4.58"
+   },
+   {
+    "claim": "'All optics deflect horizontally' (expert summary and geometry notes)",
+    "verdict": "corrected",
+    "source": "Wrong for the KB: the vertical-focusing mirror deflects the beam vertically (FDR 2.5 mrad grazing). Changed to 'all upstream optics'; KB deflection set to vertical+horizontal"
+   },
+   {
+    "claim": "High-load hexapod Aerotech HEX500-350HL (500 mm), iXR3/XSP3-10 drives, identical to the 8-ID-I rheometer hexapod, on the GIXS stationary granite downstream of the CSSI station",
+    "verdict": "confirmed",
+    "source": "ELOG 893"
+   },
+   {
+    "claim": "EIGER 16M must be powered off between 1 bar and 0.01 mbar during pump/vent; MM-PAD head power interlocked to Grand Tube vacuum (cut-off 1e-3) since 2026-06-04",
+    "verdict": "confirmed",
+    "source": "ELOG 891 and 948"
+   },
+   {
+    "claim": "EIGER 16M format 4150 x 4371 px, 311 x 328 mm",
+    "verdict": "corrected",
+    "source": "This is the PDR Table 6.20 entry for the first-generation EIGER X 16M (133 Hz); the 9-ID unit runs at 400/550 fps, so the variant differs. Changed to '~4150 x 4370' with a caveat"
+   },
+   {
+    "claim": "MM-PAD 256 x 384 px, 47 x 49 mm, 'Cornell/Sydor'",
+    "verdict": "corrected",
+    "source": "PDR Table 6.20 gives 256 x 384 px with 150 um pixels, which is 38.4 x 57.6 mm, not 47 x 49 mm (inconsistency flagged). Vendor/version at 9-ID not published; the PDR names the Gruner group (Cornell)"
+   },
+   {
+    "claim": "2012 CSSI demo at 8-ID-E: 7.35 keV, ~1e9 coherent ph/s, CCD at 0.7 m (0.13% detection efficiency), Au 'Argonne' pattern 400 um x 5 um x 40 nm, a few hours per pattern, max 3000 counts, resolution 2.6 um x 22 nm x 2.7 nm",
+    "verdict": "confirmed",
+    "source": "PDR Ch. 6 Sec. 6-5.2.1 and Fig. 6.31"
+   },
+   {
+    "claim": "Later P10 data 'exceeded 5 nm in-plane'",
+    "verdict": "corrected",
+    "source": "Wang, canSAS 2023 abstract: improved flux and detectors brought in-plane resolution 'below 5 nm'. Reworded to 'better than 5 nm'"
+   },
+   {
+    "claim": "Chu et al. 2023 holography data: '8-ID-I and P10, 8 keV, EIGER X 4M at 5 m'",
+    "verdict": "corrected",
+    "source": "Nat. Commun. 14, 5795 Methods: P10 at 8.0 keV with EIGER X 4M at 5.0 m (incidence 0.2-0.8 deg); 8-ID-I at 7.35 keV with Lambda 2M at 3.95 m and ~5e9 coherent ph/s. FE-DWBA used 'more than 5 million cells'"
+   },
+   {
+    "claim": "Multislice CSSI paper: 8-ID prototype at 7.36 keV, ~2x2 um beam, 5e9 ph/s; simulations assume 100x more flux (APS-U)",
+    "verdict": "confirmed",
+    "source": "Myint et al., Opt. Express 31(7) 11261 (2023) / arXiv:2212.01253"
+   },
+   {
+    "claim": "Wu et al. Nat. Mater. 2024 was 'operando GIWAXS/XPCS at Sector 8'",
+    "verdict": "corrected",
+    "source": "Accepted manuscript Methods: operando grazing-incidence XPCS at 8-ID-I, 10.92 keV, 2 x 20 um beam, 10 Hz frames, cone cell; GIWAXS came from earlier complementary work. Science case rewritten"
+   },
+   {
+    "claim": "Hoffman et al. Chem 2022 in situ GIWAXS during spin coating 'presumably at 8-ID-E'",
+    "verdict": "confirmed",
+    "source": "APS Science Highlight 2022-10-24 names the 8-ID-E beamline; hedge removed"
+   },
+   {
+    "claim": "Myint et al. PRL 2021 de Gennes narrowing measured at NSLS-II CHX",
+    "verdict": "confirmed",
+    "source": "arXiv:2007.07395 acknowledgements/methods (CHX beamline, NSLS-II)"
+   },
+   {
+    "claim": "Jiang et al. PRL 2007: GI-XPCS shows viscoelastic effects in capillary waves of molten polymer films",
+    "verdict": "confirmed",
+    "source": "PRL 98, 227801 abstract (OpenAlex); wording refined: the capillary-wave model needs a shear modulus"
+   },
+   {
+    "claim": "9-ID previously hosted USAXS (now 12-ID-E) and the Bionanoprobe (now 2-ID-D); operations suspended 2022-08-01; GIXS instrument migrated from 8-ID-E",
+    "verdict": "confirmed",
+    "source": "APS Sector 9-ID home page; Strzalka seminar abstract (2025-01-15)"
+   },
+   {
+    "claim": "2023 first-experiments workshop featured semiconductor metrology (NIST talk)",
+    "verdict": "confirmed",
+    "source": "APS News 2023-07-06 agenda: R. Joseph Kline (NIST), 'Metrology for Semiconductor Industry'"
+   },
+   {
+    "claim": "PDR: single long end station 47-78 m formed by combining old stations B, C, D; surface location < 50 nm and incidence angle < 1 urad; specular intensity up to 1e11 counts/s/pixel spanning 8-10 orders of magnitude, so no beamstop",
+    "verdict": "confirmed",
+    "source": "PDR Ch. 6 Sec. 6-5.4 'Experiment End Station', 'Nanostage', 'Detectors'"
+   },
+   {
+    "claim": "No liquid-surface diffractometer or multilayer monochromator in the as-built component lists",
+    "verdict": "confirmed",
+    "source": "ELOG 895 and 897 component lists (absence)"
+   },
+   {
+    "claim": "Physics numbers in explainers: Si alpha_c ~0.20 deg at 8.8 keV; Be delta ~4.4e-6 gives f ~11 m for N=1, R=100 um; speckle ~3.8 mm at 20 m for a 0.75 um spot at 8.8 keV; half-period resolution ~9 nm (20 m) / ~1.3 nm (2.9 m); footprint 215 um at 0.2 deg",
+    "verdict": "confirmed",
+    "source": "Recomputed by the verifier from standard formulas"
+   },
+   {
+    "claim": "KB 14-19 nrad equals a 1 cm coin seen from ~700 km",
+    "verdict": "corrected",
+    "source": "1 cm / 19 nrad = 526 km and 1 cm / 14 nrad = 714 km; changed to 500-700 km"
+   },
+   {
+    "claim": "Wavefront sensor 9ID-BD-6 designed by Xianbo Shi, presented at the InterCAT TWG in July 2023",
+    "verdict": "confirmed",
+    "source": "ELOG 883"
+   },
+   {
+    "claim": "Linkam HFSX350-GI: -196 to 350 C (manual) vs -180 to 300 C (directory)",
+    "verdict": "confirmed",
+    "source": "ELOG 937; Beamline Directory 221"
+   },
+   {
+    "claim": "Mono flag Flag3: diamond + CdWO4 screens, 20.833 um/pixel",
+    "verdict": "confirmed",
+    "source": "ELOG 906 and attachment 9-ID_Flag3.pdf"
+   },
+   {
+    "claim": "Mirror incidence angles, the fourth stripe, KB-V up/down sense, as-built KB coating",
+    "verdict": "unverifiable",
+    "source": "Not in any public source; the component reference table is on access-restricted Box"
+   },
+   {
+    "claim": "Positions of all components other than the CSSI station, GIXS and the two XBPMs; enclosure boundaries (9-ID-MH ~41.5-45 m, 9-ID-D ~47-57.5 m, Grand Tube ~57.5-78 m)",
+    "verdict": "unverifiable",
+    "source": "Estimates from isometric drawings and FDR values; no public coordinates"
+   },
+   {
+    "claim": "Grand Tube appearance (light grey, ~4 flanged sections, stiffener rings, dished head, saddles)",
+    "verdict": "unverifiable",
+    "source": "From APS photos only; not independently checked against a drawing"
+   },
+   {
+    "claim": "Reference point of the feature page's 'working distance 2.9-21.8 m' (CSSI sample vs GIXS sample)",
+    "verdict": "unverifiable",
+    "source": "Feature page does not say; assumed CSSI sample"
+   }
+  ]
+ }
+}

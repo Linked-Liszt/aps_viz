@@ -1,0 +1,193 @@
+{
+  "$comment": "Exhibit-copy overrides applied by scripts/build-sectors.py on top of research/sectors.json (see exhibit.py). Keys are sector numbers. Sector-level fields (plainLabel, operators) are set on the sector; `enhancement` is merged into every enhanced beamline of the sector; `beamlines` patches one beamline by its exact name (applied last). Every sector with an enhanced beamline must have a plainLabel. Status language for visitors: 'Status (2026): ...', no source comparisons.",
+
+  "sectors": {
+    "1": { "plainLabel": "High-energy X-rays inside metals & batteries" },
+
+    "2": {
+      "plainLabel": "Element maps of cells, soils & chips",
+      "enhancement": {
+        "plain": "2-ID makes X-ray ‘element maps’ of cells, soils and microchips by scanning a tiny spot and recording the glow (fluorescence) each element gives off. The upgrade plan adds mirrors that keep the tiny new beam steady, a mirror-focused microprobe at 2-ID-E, and a new frozen-sample nanoprobe (Bionanoprobe-II) aiming for 10-nanometre detail. Status (2026): Bionanoprobe-II is under construction, and 2-ID-E still runs with its zone-plate lenses.",
+        "expert": "FDR scope (the design report had the whole 2-ID line canted in 2019, ahead of APS-U; S02 now holds two short canted 2.8 cm devices): a vertically focusing mirror on each branch so that, with the existing horizontal bendable mirrors, the source is re-imaged stigmatically onto beam-defining apertures at ~35 m (stable secondary source, tolerant of the 2.5× vertical source-size change between timing and brightness modes; spec to 30 keV under full heat load); 2-ID-E: replace zone plates by figured in-vacuum KB mirrors (60–80% vs 10–20% efficiency; achromatic, allows pink-beam/multi-harmonic XRF) with BDA, compact interferometers and <10 nm, >10 mm-travel fast stages – predicted focus gains of ~10² (micro-XAS) and ~10⁴ (micro-XRF); 2-ID-D: BNP-II cryogenic nanoprobe, <10 nm resolution, few-atom sensitivity, ptychography-enhanced XRF."
+      },
+      "beamlines": { "2-ID-E": { "title": "2-ID-E: X-ray Fluorescence Microprobe" } }
+    },
+
+    "3": {
+      "plainLabel": "Nuclear resonance: atom vibrations under pressure",
+      "beamlines": { "3-ID-B,C,D": { "title": "3-ID-B,C,D: Nuclear Resonant Scattering (NRS)" } }
+    },
+
+    "5": {
+      "plainLabel": "DND-CAT powder, surface & small-angle scattering",
+      "beamlines": {
+        "5-BM-B": { "title": "5-BM-B: X-ray Absorption Spectroscopy & Diffraction" },
+        "5-ID-B,C,D": { "title": "5-ID-B,C,D: Powder Diffraction, Surface Science & Small-Angle Scattering" }
+      }
+    },
+
+    "6": {
+      "plainLabel": "Magnetism & atomic order in crystals",
+      "enhancement": {
+        "plain": "Sector 6 studies magnetism and atomic order in crystals. The upgrade split the sector into two independent X-ray beams pointing at slightly different angles (canting), so two experiments can run at once. The plan also included stacks of tiny X-ray lenses: beryllium lenses to focus the 6-ID-B/C beam to about a micrometre, and aluminium lenses for the high-energy 6-ID-D beam (a test at 60 keV gave about 50 × 4 micrometres). Status (2026): the two canted beams are in user operation; installation of the lens systems has not been announced.",
+        "expert": "FDR scope: cant the straight with 1 mrad separation – upstream planar undulator → outboard → 6-ID-D; downstream SCU (1.8 cm) → inboard → 6-ID-B/C; twin Be paraboloid CRL transfocators (entrance of 6-ID-B and 3 m downstream, before the Psi diffractometer) for a stable <1 µm coherent beam over 5–25 keV with ~400 eV energy scans; Al paraboloid CRLs for 6-ID-D (a test with the Sector-1 CRLs gave 50 (h) × 3.7 (v) µm at 60 keV and a ×108 flux-density gain over slits). As built, both canted devices are permanent-magnet undulators (2.3 and 2.7 cm); the downstream SCU was not installed."
+      }
+    },
+
+    "7": { "plainLabel": "Stop-motion X-ray movies of fast changes" },
+
+    "9": {
+      "beamlines": { "9-ID-D": { "title": "9-ID-D: Coherent Surface Scattering Imaging & Grazing-Incidence Scattering" } }
+    },
+
+    "10": {
+      "beamlines": {
+        "10-BM-B": { "title": "10-BM-B: In Situ X-ray Absorption Spectroscopy" },
+        "10-ID-B": { "title": "10-ID-B: Time-Resolved X-ray Absorption & Emission Spectroscopy" }
+      }
+    },
+
+    "11": { "plainLabel": "Atom arrangements in glasses, catalysts & batteries" },
+
+    "12": {
+      "plainLabel": "Small-angle scattering: nanoparticle sizes & shapes",
+      "beamlines": { "12-ID-B": { "title": "12-ID-B: Small- & Wide-Angle X-ray Scattering (SAXS/WAXS)" } }
+    },
+
+    "13": {
+      "plainLabel": "GSECARS Earth science at high pressure",
+      "enhancement": {
+        "expert": "FDR scope: re-polish the 1000 mm KB mirrors (13-ID-C/D) and the 350 mm KB (13-ID-D); new dual horizontal 500 mm mirrors and re-polished 250 mm KB pairs for 13-ID-E, plus a DCM enhancement and a table-stability upgrade (FDR Table 4.3)."
+      },
+      "beamlines": {
+        "13-BM-C": { "title": "13-BM-C: Surface & High-Pressure Diffraction" },
+        "13-BM-D": { "title": "13-BM-D: Microtomography & High-Pressure Diffraction" },
+        "13-ID-C,D": { "title": "13-ID-C,D: Mineral Surfaces (C) & Laser-Heated High Pressure (D)" },
+        "13-ID-E": { "title": "13-ID-E: X-ray Microprobe (micro-XRF, XAFS & XRD)" }
+      }
+    },
+
+    "14": {
+      "beamlines": {
+        "14-ID-B": {
+          "title": "14-ID-B: Time-Resolved Laue Crystallography (BioCARS)",
+          "techniques": ["time-resolved Laue crystallography (single X-ray pulses)", "serial Laue", "E-field-jump crystallography", "time-resolved SAXS/WAXS"]
+        }
+      }
+    },
+
+    "15": {
+      "plainLabel": "ChemMatCARS: liquid surfaces & tiny crystals",
+      "beamlines": {
+        "15-ID-B,E": { "title": "15-ID-B,E: Small-Molecule Crystallography (B) & Liquid–Solid Interfaces (E)" },
+        "15-ID-C,D": { "title": "15-ID-C,D: Liquid Surfaces (C) & Single-Crystal Diffraction (D)" }
+      }
+    },
+
+    "16": {
+      "operators": "HPCAT (operated with XSD)",
+      "beamlines": {
+        "16-BM-B,D": { "title": "16-BM-B,D: High-Pressure Press (B) & Microdiffraction (D)" },
+        "16-ID-B": { "title": "16-ID-B: High-Pressure Microdiffraction" },
+        "16-ID-D,E": { "title": "16-ID-D,E: High-Pressure Spectroscopy (D) & Imaging (E)" }
+      }
+    },
+
+    "17": {
+      "beamlines": { "17-ID-B": { "title": "17-ID-B: Industrial Protein Crystallography (IMCA-CAT)" } }
+    },
+
+    "18": { "operators": "BioCAT (Biophysics CAT; an NIH-supported national resource)" },
+
+    "19": {
+      "beamlines": { "19-BM-D": { "title": "19-BM-D: Automated High-Energy Tomography" } }
+    },
+
+    "20": {
+      "beamlines": { "20-ID-D,E": { "title": "20-ID-D,E: HEXM, High-Energy X-ray Microscope" } }
+    },
+
+    "21": {
+      "beamlines": {
+        "21-ID-D": { "title": "21-ID-D: Tunable Protein Crystallography" },
+        "21-ID-F": { "title": "21-ID-F: Fixed-Energy Protein Crystallography" },
+        "21-ID-G": { "title": "21-ID-G: Fixed-Energy Protein Crystallography" }
+      }
+    },
+
+    "22": {
+      "beamlines": {
+        "22-ID-D": { "title": "22-ID-D: Tunable Protein Crystallography" },
+        "22-ID-E": {
+          "title": "22-ID-E: Fixed-Wavelength Protein Crystallography",
+          "techniques": ["fixed-wavelength MX at 12.700 keV (new)"]
+        }
+      }
+    },
+
+    "23": {
+      "beamlines": {
+        "23-ID-B": { "title": "23-ID-B: Protein Micro-Crystallography" },
+        "23-ID-D": {
+          "title": "23-ID-D: High-Energy Protein Crystallography",
+          "techniques": ["high-energy MX (up to 35–45 keV)", "Eiger2 XE 16M CdTe", "serial crystallography"]
+        }
+      }
+    },
+
+    "24": {
+      "beamlines": {
+        "24-ID-C": { "title": "24-ID-C: Tunable Protein Crystallography" },
+        "24-ID-E": { "title": "24-ID-E: Fixed-Energy Protein Crystallography" }
+      }
+    },
+
+    "25": {
+      "plainLabel": "Spectroscopy: chemistry maps & X-ray Raman",
+      "enhancement": {
+        "plain": "Sector 25 is the new home of the APS spectroscopy and time-resolved programs. Two undulators one behind the other, angled slightly apart (canted), feed two independent beamlines: one for micro-spectroscopy and one for X-ray Raman and laser ‘flash’ experiments. The enhancement funded new monochromators that can switch from silicon crystals to multilayer reflectors for 10–100 times more X-rays (with less colour purity), and an upgraded X-ray Raman spectrometer.",
+        "expert": "FDR Table 4.3 enhancement items: LN₂-cooled silicon/multilayer monochromators (Si(111) 4–40 keV; multilayer stripes with d ≈ 24 Å and ≈ 48 Å; small 9–11 mm offset) and a LERIX spectrometer upgrade (better analyzer placement). The canted photon-delivery system of the new Advanced Spectroscopy and LERIX (ASL) beamline is described in FDR Sec. 4-10."
+      }
+    },
+
+    "26": { "plainLabel": "Hard X-ray Nanoprobe: strain & chemistry at 20 nm" },
+
+    "27": {
+      "plainLabel": "RIXS: electronic & magnetic waves in quantum materials",
+      "enhancement": {
+        "plain": "27-ID does resonant inelastic X-ray scattering (RIXS): it measures the tiny energy X-rays lose when they kick electrons and magnetic waves in quantum materials. Some of its spectrometer motion stages were more than 30 years old, and the point where all its rotation axes should meet wandered by about 0.2 mm (two or three hair widths), so the upgrade rebuilt it to be far more precise and to fit bigger sample environments. It was the first APS-U enhancement to be finished, in March 2022."
+      }
+    },
+
+    "28": {
+      "beamlines": {
+        "28-ID-D,E": { "techniques": ["fixed-energy branch (diamond monochromator, 15 keV)", "hexapod diffractometer (D)", "PLD diffractometer with HAXPES (E)"] }
+      }
+    },
+
+    "30": {
+      "plainLabel": "Atomic vibrations (phonons) in crystals",
+      "enhancement": {
+        "plain": "30-ID measures how sound-like vibrations (phonons) travel through crystals using X-rays sorted to about 1–1.5 thousandths of an electron-volt out of 23,700 (roughly one part in 16–24 million). The upgrade cools its key crystals to cryogenic temperatures so the energy does not drift, making the very small energy shifts scientists look for measurable."
+      },
+      "beamlines": { "30-ID-B,C": { "title": "30-ID-B,C: High-Resolution Inelastic Scattering (HERIX) & NRS" } }
+    },
+
+    "31": {
+      "beamlines": { "31-ID-D": { "title": "31-ID-D: Automated Protein Crystallography (LRL-CAT)" } }
+    },
+
+    "32": {
+      "plainLabel": "Ultrafast X-ray movies & 3D nano-imaging",
+      "enhancement": {
+        "plain": "32-ID takes ultra-fast X-ray movies (single flashes of about 100 trillionths of a second) of things like 3D-printing laser melts and fuel sprays, and 3D nanoscale images with an X-ray microscope. The upgrade split its two undulators into two angled (canted) beams and moved its X-ray microscope into its own hutch; the plan is for one beam to film an event while a second, focused beam measures the crystal structure at the same spot. Status (2026): the canted beams and the relocated microscope are in use and 32-ID-C offers high-speed diffraction with the second beam; the simultaneous dual-beam setup and a new projection nano-CT microscope are planned.",
+        "expert": "FDR scope: cant the straight (U28 + U13.5 replacing U33 + U18) with new white-beam shutter/mask, slits, filters, windows and transport; dual-beam mode: the U13.5 single-line beam CRL-focused and steered back onto the sample by small multilayer mirrors for simultaneous diffraction/WAXS/SAXS while the U28 beam does full-field imaging; relocate the TXM to 32-ID-B; new KB-based cone-beam projection nano-CT in 32-ID-C (high-speed imaging from 1 µm to <100 nm; nano-CT temporal resolution from 500 ms to tens of µs); multilayer KBs optimized for 25 and 12 keV, double vertical mirrors, CRL transfocator."
+      }
+    },
+
+    "33": {
+      "operators": "XSD Surface Scattering & Microdiffraction; XSD Microscopy (PtychoProbe)",
+      "beamlines": { "33-ID-C": { "operator": "XSD Microscopy group" } }
+    }
+  }
+}
