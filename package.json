@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "packageManager": "pnpm@9.15.9",
   "description": "Interactive 3D exhibit of the APS Upgrade feature beamlines at the Advanced Photon Source",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",

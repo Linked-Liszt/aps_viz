@@ -182,3 +182,8 @@ beamlines are schematic. Component models use realistic sizes and documented dis
 The station test page at `/explainer.html?id=xpcs` accepts optional `color` and `bl` parameters, such as
 `&color=%23ff8800&bl=xpcs`. To take a screenshot, run `node scripts/shot.mjs '#/beamline/xpcs' out.png`.
 Append `?nobatch` to the URL to compare rendering without static batching.
+
+## License
+
+The project's original code and documentation are licensed under the [MIT License](LICENSE).
+Third-party dependencies, figures and source data retain their original licenses and attribution requirements.
