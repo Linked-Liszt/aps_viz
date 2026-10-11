@@ -236,7 +236,7 @@ export class Stage {
 
   /**
    * Redraw the shadow map on the next frame. Call after anything that adds, removes, shows, hides or moves a shadow
-   * caster (entering or leaving a beamline, tour scenery, the roof, static batching…).
+   * caster (entering or leaving a beamline, tour scenery, static batching…).
    */
   requestShadowUpdate(): void {
     this.renderer.shadowMap.needsUpdate = true;

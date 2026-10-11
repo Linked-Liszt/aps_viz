@@ -1,5 +1,5 @@
 import { h, icon, svg } from '../lib/dom';
-import { store, type Depth, type Quality } from '../app/store';
+import { store, type Quality } from '../app/store';
 
 export interface Crumb {
   label: string;
@@ -12,27 +12,8 @@ function moreIcon(): SVGSVGElement {
   return s;
 }
 
-/**
- * Visitor / Specialist segmented switch, kept in sync with the store. Only the primary (top-bar) copy carries
- * `data-depth`; the phone-menu copy uses `data-d`, so `[data-depth=…]` names one control.
- */
-function depthSeg(primary: boolean): HTMLElement {
-  const attr = primary ? 'data-depth' : 'data-d';
-  const seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Explanation depth' });
-  for (const [d, label, tip] of [
-    ['visitor', 'Visitor', 'Plain-language explanations'],
-    ['specialist', 'Specialist', 'Dense technical detail, specs and caveats'],
-  ] as [Depth, string, string][]) {
-    seg.appendChild(h('button', { [attr]: d, title: tip, 'aria-pressed': String(store.state.depth === d), onclick: () => store.set({ depth: d }) }, label));
-  }
-  store.subscribe((s, prev) => {
-    if (s.depth !== prev.depth) for (const b of seg.querySelectorAll<HTMLElement>('button')) b.setAttribute('aria-pressed', String(b.getAttribute(attr) === s.depth));
-  });
-  return seg;
-}
-
-/** Rendering-quality and roof controls (used by the desktop gear popover and the phone menu). */
-function settingsControls(idSuffix: string): HTMLElement[] {
+/** Rendering-quality controls (used by the desktop gear popover and the phone menu). */
+function settingsControls(): HTMLElement[] {
   const q = h('div', { class: 'seg', role: 'group', 'aria-label': 'Rendering quality' });
   for (const [v, label] of [
     ['high', 'High'],
@@ -41,17 +22,13 @@ function settingsControls(idSuffix: string): HTMLElement[] {
   ] as [Quality, string][]) {
     q.appendChild(h('button', { 'data-q': v, 'aria-pressed': String(store.state.quality === v), onclick: () => store.set({ quality: v, qualityChosen: true }) }, label));
   }
-  const roof = h('input', { type: 'checkbox', id: `opt-roof${idSuffix}`, onchange: (e: Event) => store.set({ showRoof: (e.target as HTMLInputElement).checked }) });
-  roof.checked = store.state.showRoof;
   store.subscribe((s, prev) => {
     if (s.quality !== prev.quality) for (const b of q.querySelectorAll<HTMLElement>('button')) b.setAttribute('aria-pressed', String(b.dataset.q === s.quality));
-    if (s.showRoof !== prev.showRoof) roof.checked = s.showRoof;
   });
   return [
     h('div', { class: 'kicker' }, 'Rendering'),
     q,
     h('p', { class: 'small muted' }, 'Use “Light” on laptops with integrated graphics.'),
-    h('label', { class: 'check', for: `opt-roof${idSuffix}` }, roof, ' Show the experiment-hall roof'),
   ];
 }
 
@@ -68,6 +45,7 @@ export class TopBar {
   onTour: () => void = () => {};
   onStory: () => void = () => {};
   onHelp: () => void = () => {};
+  onAuthor: () => void = () => {};
   onSearch: () => void = () => {};
 
   constructor() {
@@ -92,14 +70,14 @@ export class TopBar {
 
     // Popovers live directly in the header (position: fixed), never inside the tool row, whose overflow or
     // backdrop-filter would clip them.
-    this.settings = h('div', { class: 'popover settings glass', id: 'tb-settings', role: 'group', 'aria-label': 'Display settings' }, ...settingsControls(''));
+    this.settings = h('div', { class: 'popover settings glass', id: 'tb-settings', role: 'group', 'aria-label': 'Display settings' }, ...settingsControls());
     this.settingsBtn = h(
       'button',
       { class: 'btn btn-icon tb-wide', 'aria-label': 'Display settings', title: 'Display settings', 'aria-expanded': 'false', 'aria-controls': 'tb-settings', onclick: (e: Event) => this.toggle(this.settings, e.currentTarget as HTMLElement) },
       icon('gear', 17),
     );
 
-    // Phone: Story, Tour, depth, settings and Help fold into one menu.
+    // Phone: Story, Tour, Author's note, Help and the rendering settings fold into one menu.
     // focus goes back to the menu button first, so a dialog opened from the menu returns focus there on close
     // (the item itself is hidden by then)
     const item = (ic: Parameters<typeof icon>[0], label: string, fn: () => void) =>
@@ -109,14 +87,13 @@ export class TopBar {
       { class: 'popover tb-menu glass', id: 'tb-menu', role: 'group', 'aria-label': 'More' },
       item('bolt', 'The upgrade', () => this.onStory()),
       item('tour', 'Guided tour', () => this.onTour()),
+      item('pen', 'Author’s note', () => this.onAuthor()),
       item('keyboard', 'Help', () => this.onHelp()),
-      h('div', { class: 'kicker' }, 'Explanations'),
-      depthSeg(false),
-      ...settingsControls('-m'),
+      ...settingsControls(),
     );
     this.menuBtn = h(
       'button',
-      { class: 'btn btn-icon btn-ghost tb-more', 'aria-label': 'More: tour, story, depth, settings, help', title: 'More', 'aria-expanded': 'false', 'aria-controls': 'tb-menu', onclick: (e: Event) => this.toggle(this.menu, e.currentTarget as HTMLElement) },
+      { class: 'btn btn-icon btn-ghost tb-more', 'aria-label': 'More: the upgrade, tour, author’s note, help, settings', title: 'More', 'aria-expanded': 'false', 'aria-controls': 'tb-menu', onclick: (e: Event) => this.toggle(this.menu, e.currentTarget as HTMLElement) },
       moreIcon(),
     );
 
@@ -156,7 +133,7 @@ export class TopBar {
         h('button', { class: 'btn btn-ghost btn-icon', onclick: () => this.onSearch(), title: 'Search (/ or Ctrl+K)', 'aria-label': 'Search' }, icon('search', 17)),
         h('button', { class: 'btn btn-ghost tb-wide', onclick: () => this.onStory(), 'aria-label': 'The upgrade', title: 'Why the upgrade? Interactive stations about the new storage ring' }, icon('bolt', 16), h('span', { class: 'tb-label' }, 'The upgrade')),
         h('button', { class: 'btn btn-ghost tb-wide', onclick: () => this.onTour(), 'aria-label': 'Guided tour', title: 'Guided tour (T)' }, icon('tour', 16), h('span', { class: 'tb-label' }, 'Guided tour')),
-        h('span', { class: 'tb-wide' }, depthSeg(true)),
+        h('button', { class: 'btn btn-ghost btn-icon tb-wide', onclick: () => this.onAuthor(), 'aria-label': 'Author’s note', title: 'Author’s note' }, icon('pen', 17)),
         this.settingsBtn,
         h('button', { class: 'btn btn-icon btn-ghost tb-wide', 'aria-label': 'Help and keyboard shortcuts', title: 'Help (?)', onclick: () => this.onHelp() }, icon('keyboard', 17)),
         this.menuBtn,

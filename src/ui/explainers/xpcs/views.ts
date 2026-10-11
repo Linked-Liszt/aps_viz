@@ -13,7 +13,6 @@ export interface ViewState {
   ringR: number;
   ringHw: number;
   theta: number;
-  depth: 'visitor' | 'specialist';
   accent: string;
   interacted: boolean;
   dragging: boolean;
@@ -277,7 +276,7 @@ export class DetectorView {
 
     // ring label (placed outward of the handle, kept inside the canvas)
     const q = sim.qOf(s.ringR);
-    const ringTxt = s.depth === 'specialist' ? `q = ${sci(q)} Å⁻¹` : `details ≈ ${fmtLen((2 * Math.PI) / (q * 1e10))}`;
+    const ringTxt = `details ≈ ${fmtLen((2 * Math.PI) / (q * 1e10))} · q = ${sci(q)} Å⁻¹`;
     ctx.font = `600 11px ${FONT}`;
     const tw = ctx.measureText(ringTxt).width + 12;
     let lx = hx + 14 * Math.cos(s.theta) + (Math.cos(s.theta) >= 0 ? 6 : -6 - tw);
@@ -311,7 +310,7 @@ export class DetectorView {
 
     // too-fast warning
     if (info.tauFrames < 2.5) {
-      pill(ctx, s.depth === 'specialist' ? 'τ < 2.5 frames: too fast for 50 µs frames' : 'Too fast for the detector’s 50 µs frames', g.cx, g.y0 + g.side - 14, {
+      pill(ctx, 'Too fast for the 50 µs frames (τ < 2.5 frames)', g.cx, g.y0 + g.side - 14, {
         align: 'center',
         size: 10.5,
         color: '#fff',
@@ -319,7 +318,7 @@ export class DetectorView {
       });
     } else if (!s.interacted) {
       const a = 0.55 + 0.45 * pulse;
-      pill(ctx, 'drag the ring  ⟷', g.cx, g.y0 + g.side - 14, { align: 'center', size: 11, color: rgba('#ffffff', a), border: rgba(s.accent, 0.6 * a) });
+      pill(ctx, 'drag the ring ⟷', g.cx, g.y0 + g.side - 14, { align: 'center', size: 11, color: rgba('#ffffff', a), border: rgba(s.accent, 0.6 * a) });
     }
 
     // colour bar + q scale (bottom)
@@ -369,15 +368,16 @@ export class DetectorView {
     const qBar = 1e-3 / this.sim.dqA; // detector px per 10⁻³ Å⁻¹
     const bw = qBar * g.scale;
     const xr = g.x0 + g.side;
-    if (s.depth !== 'specialist') {
-      // only if it clears the colour-bar unit label (narrow phones: the note in the controls says the same)
-      const hint = 'outer rings = finer details';
-      ctx.font = `500 10px ${FONT}`;
-      const unitEnd = x + barW + 8 + ctx.measureText(s.view === 'long' ? 'log intensity' : s.view === 'ideal' ? 'mean photons' : 'photons').width;
-      if (xr - ctx.measureText(hint).width > unitEnd + 12) txt(ctx, hint, xr, y + 7, { size: 10, color: TOKENS.ink3, align: 'right' });
-      return;
-    }
-    if (xr - bw > x + barW + 90 && xr < w) {
+    // the Δq scale bar where it fits, and the plain hint to its left (narrow phones: the note in the controls says
+    // the same)
+    const hint = 'outer rings = finer details';
+    ctx.font = `500 10px ${FONT}`;
+    const unitEnd = x + barW + 8 + ctx.measureText(s.view === 'long' ? 'log intensity' : s.view === 'ideal' ? 'mean photons' : 'photons').width;
+    const hintW = ctx.measureText(hint).width;
+    const bar = xr - bw > x + barW + 90 && xr < w;
+    const hintR = bar ? xr - bw - 12 : xr;
+    if (hintR - hintW > unitEnd + 12) txt(ctx, hint, hintR, y + 7, { size: 10, color: TOKENS.ink3, align: 'right' });
+    if (bar) {
       ctx.strokeStyle = TOKENS.ink2;
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -601,7 +601,7 @@ export class SampleView {
 
     // annotations ---------------------------------------------------------------
     // beam label
-    const bl = s.depth === 'specialist' ? `coherent beam, ${GEOM.beamFwhmUm} µm FWHM` : 'X-ray spot (3 µm)';
+    const bl = `coherent X-ray spot, ${GEOM.beamFwhmUm} µm wide`;
     pill(ctx, bl, cx, Math.max(32, cy - rF - 2), { size: 10.5, color: '#e6f7ff', align: 'center', border: rgba(s.accent, 0.45) });
     // ripple label: dimension arrow between two neighbouring crests, placed below-right of centre
     if (spacing > 10) {
@@ -627,7 +627,7 @@ export class SampleView {
         ctx.lineTo(px0 - dir * 5 * ux + 3 * uy, py0 - dir * 5 * uy - 3 * ux);
         ctx.stroke();
       }
-      const lab = s.depth === 'specialist' ? `2π/q = ${fmtLen(lamUm * 1e-6)}` : `ring detail ≈ ${fmtLen(lamUm * 1e-6)}`;
+      const lab = `ring detail 2π/q ≈ ${fmtLen(lamUm * 1e-6)}`;
       ctx.font = `600 10.5px ${FONT}`;
       const tw = ctx.measureText(lab).width + 12;
       let lx = (bx + ex) / 2 - uy * 14 - tw / 2;
@@ -647,12 +647,14 @@ export class SampleView {
     ctx.stroke();
     txt(ctx, '1 µm', 10 + k + 6, sbY + 3.5, { size: 10.5, color: TOKENS.ink2 });
     // sample info (top-right)
-    const narrow = w < 420;
-    const info = narrow
-      ? `${Math.round(radiusNm)} nm · ${Math.round(tempC)} °C`
-      : s.depth === 'specialist'
-        ? `a = ${Math.round(radiusNm)} nm · ${Math.round(tempC)} °C · ≈${Math.round(nInBeam)} in FWHM`
-        : `${Math.round(radiusNm)} nm particles · ${Math.round(tempC)} °C water`;
+    // longest variant that clears the panel title on the left
+    ctx.font = `500 10.5px ${FONT}`;
+    const variants = [
+      `radius ${Math.round(radiusNm)} nm · ${Math.round(tempC)} °C water · ≈${Math.round(nInBeam)} in the spot`,
+      `radius ${Math.round(radiusNm)} nm · ${Math.round(tempC)} °C water`,
+      `${Math.round(radiusNm)} nm · ${Math.round(tempC)} °C`,
+    ];
+    const info = variants.find((t) => w - 8 - ctx.measureText(t).width > 190) ?? variants[variants.length - 1];
     txt(ctx, info, w - 8, 16, { size: 10.5, color: TOKENS.ink3, align: 'right', base: 'middle' });
     if (slowMo > 1) {
       const sm = slowMo >= 100 ? Math.round(slowMo / 10) * 10 : Math.round(slowMo);
@@ -661,7 +663,7 @@ export class SampleView {
     // trail legend (bottom-right)
     ctx.strokeStyle = TOKENS.electron;
     ctx.lineWidth = 2;
-    const tl = s.depth === 'specialist' ? `random walks, last ${fmtTime(TRAIL * GEOM.frameS)}` : 'paths of 3 particles';
+    const tl = `3 random walks, last ${fmtTime(TRAIL * GEOM.frameS)}`;
     ctx.font = `500 10.5px ${FONT}`;
     const tlw = ctx.measureText(tl).width;
     ctx.beginPath();
@@ -772,8 +774,8 @@ export class G2View {
     const f = plotFrame(
       ctx,
       rect,
-      { min: Q0, max: Q1, log: true, ticks: [3e-4, 5e-4, 1e-3, 2e-3, 3e-3], format: fq, label: s.depth === 'specialist' ? 'q (Å⁻¹)' : 'ring size q (finer details →)' },
-      { min: G0, max: G1, log: true, ticks: [1, 10, 100, 1e3, 1e4, 1e5], format: fG, label: s.depth === 'specialist' ? 'Γ = 1/τ (s⁻¹)' : 'how fast: 1/τ (per second)' },
+      { min: Q0, max: Q1, log: true, ticks: [3e-4, 5e-4, 1e-3, 2e-3, 3e-3], format: fq, label: 'ring q (Å⁻¹) · finer details →' },
+      { min: G0, max: G1, log: true, ticks: [1, 10, 100, 1e3, 1e4, 1e5], format: fG, label: 'rate Γ = 1/τ (s⁻¹)' },
     );
     this.frame = f;
     const tf = GEOM.frameS;
@@ -847,20 +849,20 @@ export class G2View {
     ctx.globalAlpha = 1;
     ctx.restore();
     // region labels
-    if (yFast - f.y1 > 14) txt(ctx, s.depth === 'specialist' ? 'τ < 2 frames (100 µs): too fast for the detector' : 'too fast for the detector', f.x0 + 6, f.y1 + 12, { size: 10, color: '#fca5a5' });
-    if (f.y0 - ySlow > 14) txt(ctx, s.depth === 'specialist' ? `τ > T/3: measure longer (T = ${fmtTime(m.T)})` : 'too slow: keep measuring', f.x0 + 6, f.y0 - 6, { size: 10, color: TOKENS.ink3 });
+    if (yFast - f.y1 > 14) txt(ctx, 'too fast for the detector (τ < 2 frames, 100 µs)', f.x0 + 6, f.y1 + 12, { size: 10, color: '#fca5a5' });
+    if (f.y0 - ySlow > 14) txt(ctx, `too slow so far: τ > T/3, measuring time T = ${fmtTime(m.T)}`, f.x0 + 6, f.y0 - 6, { size: 10, color: TOKENS.ink3 });
     // slope annotation
     const qa = 1.5e-3;
     const Ga = m.D * (qa * 1e10) ** 2;
     if (Ga > G0 * 3 && Ga < G1 / 3) {
-      const lab = s.depth === 'specialist' ? 'Γ = Dq²  (slope 2)' : 'half the size → 4× faster';
+      const lab = 'Γ = Dq²: half the size → 4× faster';
       ctx.font = `600 10.5px ${FONT}`;
       const tw = ctx.measureText(lab).width;
       pill(ctx, lab, Math.min(f.x1 - tw - 14, f.px(qa) + 10), f.py(Ga) + 16, { size: 10.5, color: TOKENS.ink, border: 'rgba(233,238,245,0.35)' });
     }
     // legend (bottom-right: below the diffusion line there is always free space)
-    const spec = s.depth === 'specialist' && Number.isFinite(m.Dfit);
-    const dTxt = spec ? `D_fit ${(m.Dfit * 1e12).toFixed(2)} µm²/s · SE ${(m.D * 1e12).toFixed(2)}` : '';
+    const spec = Number.isFinite(m.Dfit);
+    const dTxt = spec ? `D: fit ${(m.Dfit * 1e12).toFixed(2)}, theory ${(m.D * 1e12).toFixed(2)} µm²/s` : '';
     ctx.font = `600 10.5px ${FONT}`;
     const legW = Math.max(110, spec ? ctx.measureText(dTxt).width + 4 : 0);
     const lx = f.x1 - legW - 4;
@@ -910,7 +912,7 @@ export class G2View {
     ctx.moveTo(x0, yb + 0.5);
     ctx.lineTo(x1, yb + 0.5);
     ctx.stroke();
-    txt(ctx, s.depth === 'specialist' ? 'I(t) at the marked pixel' : 'one speckle pixel, live', x0, y0 + 2, { size: 10.5, color: TOKENS.ink2, base: 'top', weight: 600 });
+    txt(ctx, 'one speckle pixel, live: intensity I(t)', x0, y0 + 2, { size: 10.5, color: TOKENS.ink2, base: 'top', weight: 600 });
     txt(ctx, `last ${fmtTime(TRACE_LEN * GEOM.frameS)} → now`, x1, y0 + 2, { size: 10, color: TOKENS.ink3, base: 'top', align: 'right' });
     txt(ctx, '0', x0 - 5, yb, { size: 10, color: TOKENS.ink3, align: 'right', base: 'middle' });
     txt(ctx, String(ymax), x0 - 5, yt, { size: 10, color: TOKENS.ink3, align: 'right', base: 'middle' });
@@ -945,7 +947,7 @@ export class G2View {
     const mean = d.ringMean;
     if (mean > 0 && mean < 0.05) {
       const every = Math.round(1 / mean).toLocaleString('en-US');
-      const t = s.depth === 'specialist' ? `⟨n⟩ ≈ ${sci(mean, 2)}/frame: ~1 photon per ${every} frames` : `almost dark: ~1 photon every ${every} frames`;
+      const t = `almost dark: ⟨n⟩ ≈ ${sci(mean, 2)} per frame, ~1 photon every ${every} frames`;
       pill(ctx, t, (x0 + x1) / 2, (yt + yb) / 2, { size: 10.5, color: TOKENS.ink2, align: 'center' });
     }
   }
@@ -957,8 +959,8 @@ export class G2View {
     const f = plotFrame(
       ctx,
       rect,
-      { min: TAU_MIN, max: TAU_MAX, log: true, ticks: [1e-4, 1e-3, 1e-2, 1e-1, 1], format: fmtX, label: s.depth === 'specialist' ? 'delay τ' : 'time delay' },
-      { min: Y_MIN, max: Y_MAX, ticks: [0.8, 1, 1.2, 1.4, 1.6, 1.8], format: (v) => v.toFixed(1), label: s.depth === 'specialist' ? 'g₂(q, τ)' : 'g₂ · similarity' },
+      { min: TAU_MIN, max: TAU_MAX, log: true, ticks: [1e-4, 1e-3, 1e-2, 1e-1, 1], format: fmtX, label: 'time delay τ' },
+      { min: Y_MIN, max: Y_MAX, ticks: [0.8, 1, 1.2, 1.4, 1.6, 1.8], format: (v) => v.toFixed(1), label: 'similarity g₂(τ)' },
     );
     this.frame = f;
     // baseline g2 = 1 and the contrast level
@@ -972,10 +974,8 @@ export class G2View {
     ctx.stroke();
     ctx.restore();
 
-    if (s.depth !== 'specialist') {
-      txt(ctx, 'fully scrambled', f.x1 - 4, f.py(1) + 12, { size: 10, color: TOKENS.ink3, align: 'right' });
-      txt(ctx, 'same pattern', f.x0 + 6, f.py(1 + d.beta) - 9, { size: 10, color: TOKENS.ink3 });
-    }
+    txt(ctx, 'fully scrambled: g₂ = 1', f.x1 - 4, f.py(1) + 12, { size: 10, color: TOKENS.ink3, align: 'right' });
+    txt(ctx, 'same pattern: 1 + β', f.x0 + 6, f.py(1 + d.beta) - 9, { size: 10, color: TOKENS.ink3 });
     // theory
     const xs = this.xs;
     const ys = this.ys;
@@ -1002,27 +1002,27 @@ export class G2View {
       const lab = `τ = ${fmtTime(tauS)}`;
       ctx.font = `600 10.5px ${FONT}`;
       const tw = ctx.measureText(lab).width;
-      const legendL = f.x1 - 130; // the legend occupies the top-right corner
+      const legendL = f.x1 - 190; // the legend occupies the top-right corner (3–4 rows)
       let lx = X + 5;
       let ly = f.y1 + 10;
       if (lx + tw > legendL) {
         if (X - tw - 5 > f.x0 && X < legendL) lx = X - tw - 5;
         else {
           lx = Math.min(X + 5, f.x1 - tw - 2);
-          ly = f.y1 + 60;
+          ly = f.y1 + 76;
         }
       }
       pill(ctx, lab, lx - 6, ly, { size: 10.5, color: TOKENS.ink, bg: 'rgba(5,8,14,0.85)' });
     }
 
-    // fits (specialist)
-    if (s.depth === 'specialist') {
-      for (const si of [0, 1] as const) {
-        const ft = d.fit[si];
-        if (!ft) continue;
-        for (let i = 0; i < nT; i++) ys[i] = 1 + ft.beta * Math.exp((-2 * ft.gamma * xs[i]) / tf);
-        this.curve(f, xs, ys, nT, si === 1 ? rgba(s.accent, 0.9) : 'rgba(154,166,184,0.8)', 1.2, []);
-      }
+    // fits to the data (thin solid lines), once a source's curve stands clear of the noise
+    let anyFit = false;
+    for (const si of [0, 1] as const) {
+      const ft = d.fit[si];
+      if (!ft) continue;
+      anyFit = true;
+      for (let i = 0; i < nT; i++) ys[i] = 1 + ft.beta * Math.exp((-2 * ft.gamma * xs[i]) / tf);
+      this.curve(f, xs, ys, nT, si === 1 ? rgba(s.accent, 0.9) : 'rgba(154,166,184,0.8)', 1.2, []);
     }
 
     // data: other source first (faded), selected on top
@@ -1037,7 +1037,7 @@ export class G2View {
     // legend
     const lx = f.x1 - 6;
     let ly = f.y1 + 10;
-    const item = (label: string, col: string, kind: 'dot' | 'dash', alpha: number) => {
+    const item = (label: string, col: string, kind: 'dot' | 'dash' | 'line', alpha: number) => {
       ctx.font = `600 10.5px ${FONT}`;
       const tw = ctx.measureText(label).width;
       txt(ctx, label, lx, ly, { size: 10.5, color: TOKENS.ink2, align: 'right', base: 'middle', weight: 600 });
@@ -1049,8 +1049,8 @@ export class G2View {
         ctx.fill();
       } else {
         ctx.strokeStyle = col;
-        ctx.setLineDash([5, 3]);
-        ctx.lineWidth = 1.6;
+        ctx.setLineDash(kind === 'dash' ? [5, 3] : []);
+        ctx.lineWidth = kind === 'dash' ? 1.6 : 1.2;
         ctx.beginPath();
         ctx.moveTo(lx - tw - 20, ly);
         ctx.lineTo(lx - tw - 5, ly);
@@ -1062,7 +1062,8 @@ export class G2View {
     };
     item('APS-U', s.accent, 'dot', s.src === 1 ? 1 : 0.55);
     item('APS (pre-2023)', TOKENS.old, 'dot', s.src === 0 ? 1 : 0.55);
-    item(s.depth === 'specialist' ? '1 + β e^(−2Dq²τ)' : 'theory', 'rgba(233,238,245,0.85)', 'dash', 1);
+    item('theory: 1 + β·exp(−2Dq²τ)', 'rgba(233,238,245,0.85)', 'dash', 1);
+    if (anyFit) item('fit to the data', rgba(s.accent, 0.9), 'line', 1);
 
     if (d.series[0].n === 0 && d.series[1].n === 0) {
       txt(ctx, 'collecting photons…', (f.x0 + f.x1) / 2, (f.y0 + f.y1) / 2, { size: 12, color: TOKENS.ink3, align: 'center', base: 'middle' });

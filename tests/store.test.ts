@@ -3,7 +3,8 @@ import { parseHash, sameView, store, viewToHash, type View } from '../src/app/st
 
 /**
  * An in-memory localStorage, installed before store.ts is imported (it builds the Store at import time and reads the
- * saved preferences then). Saved: Specialist depth and a 'low' quality that the visitor never chose explicitly.
+ * saved preferences then). Saved: an obsolete explanation-depth key from earlier versions (every text now exists
+ * once), a 'low' quality that the visitor never chose explicitly, and an unknown intro value.
  */
 const saved = vi.hoisted(() => {
   const data = new Map<string, string>([
@@ -125,22 +126,32 @@ describe('sameView', () => {
 describe('store', () => {
   it('starts on the overview (no location) with the saved preferences', () => {
     expect(store.state.view).toEqual({ mode: 'overview' });
-    expect(store.state.depth).toBe('specialist');
     // only an explicit quality choice is remembered; an unknown stored value falls back
     expect(store.state.qualityChosen).toBe(false);
     expect(store.state.quality).toBe('balanced');
     expect(store.state.introSeen).toBe(false);
   });
 
-  it('notifies subscribers with the previous state, persists the depth, and unsubscribes', () => {
+  it('has no explanation-depth state and drops the obsolete saved key', () => {
+    expect(Object.keys(store.state).sort()).toEqual(['hover', 'introSeen', 'quality', 'qualityChosen', 'view']);
+    expect(saved.has('apsu.depth')).toBe(false);
+  });
+
+  it('notifies subscribers with the previous state, persists explicit choices, and unsubscribes', () => {
     const seen: [string, string][] = [];
-    const off = store.subscribe((s, prev) => seen.push([s.depth, prev.depth]));
-    store.set({ depth: 'visitor' });
-    expect(saved.get('apsu.depth')).toBe('visitor');
+    const off = store.subscribe((s, prev) => seen.push([s.quality, prev.quality]));
+    store.set({ quality: 'high', qualityChosen: true });
+    expect(saved.get('apsu.quality')).toBe('high');
+    expect(saved.get('apsu.qualityChosen')).toBe('yes');
+    store.set({ introSeen: true });
+    expect(saved.get('apsu.intro')).toBe('seen');
     off();
-    store.set({ depth: 'specialist' });
-    expect(seen).toEqual([['visitor', 'specialist']]);
-    expect(saved.get('apsu.depth')).toBe('specialist');
+    store.set({ quality: 'low' });
+    expect(seen).toEqual([
+      ['high', 'balanced'],
+      ['high', 'high'],
+    ]);
+    expect(saved.get('apsu.quality')).toBe('low');
   });
 
   it('keeps working when storage throws (private mode, blocked site data)', () => {
@@ -152,14 +163,16 @@ describe('store', () => {
       setItem: () => {
         throw new Error('QuotaExceededError');
       },
+      removeItem: () => {
+        throw new Error('SecurityError');
+      },
     };
     Object.defineProperty(globalThis, 'localStorage', { value: broken, configurable: true, writable: true });
     try {
-      expect(() => store.set({ depth: 'visitor', introSeen: true })).not.toThrow();
-      expect(store.state.depth).toBe('visitor');
+      expect(() => store.set({ quality: 'balanced', qualityChosen: true, introSeen: true })).not.toThrow();
+      expect(store.state.quality).toBe('balanced');
     } finally {
       Object.defineProperty(globalThis, 'localStorage', { value: real, configurable: true, writable: true });
-      store.set({ depth: 'specialist' });
     }
   });
 });

@@ -21,16 +21,15 @@
  *   when overfilled.
  * Numbers: electron beams FDR 2019 Table 2.1 (APS) and Storage Ring Parameters 2024 Table 5 (APS-U, zero current);
  *   design curves from the facility research dossier (IPAC'21 MOXA02 Fig. 1; FDR Fig. 2.1, Tables 1.1, 2.2).
- * Illustrative (said so in the specialist text): the fixed F, the slit geometry, Kim's Gaussian photon beam with
- *   no energy spread, interpolation between digitized points.
+ * Illustrative (said so in the notes): the fixed F, the slit geometry, Kim's Gaussian photon beam with no energy
+ *   spread, interpolation between digitized points.
  */
-import type { Depth } from '../../app/store';
 import type { ExplainerModule } from './registry';
 import { button, canvas2d, createStation, group, loop, motionGate, note, readout, slider, toggle, type Canvas2D } from './kit';
 import * as P from './brightness/physics';
 import { SourceView, sourceMinHeight } from './brightness/source';
 import { BrillianceChart, E_MAX, E_MIN } from './brightness/chart';
-import { approxGain, fmtGain, fmtKeV, fmtOneIn, fmtSmall, sci } from './brightness/format';
+import { approxGain, fmtGain, fmtKeV, fmtOneIn, fmtSmall } from './brightness/format';
 
 type Preset = 'aps' | 'round' | 'flat' | 'custom';
 type Ds = 'envelope' | 'devices';
@@ -48,7 +47,6 @@ const CAPTION_MIN_H = 84;
 
 const CSS = `
 .brt-root .stn-readout-value { white-space: nowrap; }
-.brt-root[data-depth=visitor] .brt-spec-only { display: none !important; }
 .brt-root .stn-toggle button { padding: 6px 7px; }
 `;
 
@@ -57,7 +55,7 @@ const mod: ExplainerModule = {
   subtitle: 'Squeeze the X-ray source and count the photons a lens can focus through a tiny slit — then see how much brighter the upgraded APS really is.',
   mount(host, ctx) {
     const accent = ctx.color || '#5cd3ff';
-    const station = createStation(host, { depth: ctx.depth, color: accent, layout: 'side' });
+    const station = createStation(host, { color: accent, layout: 'side' });
     const { visual, controls, root } = station;
     root.classList.add('brt-root');
     const style = document.createElement('style');
@@ -65,7 +63,6 @@ const mod: ExplainerModule = {
     root.appendChild(style);
 
     // ------------------------------------------------------------ state
-    let depth: Depth = ctx.depth;
     const st = {
       preset: DEFAULTS.preset,
       /** which APS-U coupling the comparison marker uses (last APS-U preset chosen) */
@@ -76,31 +73,28 @@ const mod: ExplainerModule = {
     };
 
     // ------------------------------------------------------------ canvases
-    const titles = {
-      p1: ['1 · Same photons, brighter beam', '1 · Brightness of a Gaussian source'],
-      p2: ['2 · The real machines, before and after', '2 · Design brilliance vs photon energy'],
-    };
-    const c1 = canvas2d(visual, { label: titles.p1[0] });
-    const c2 = canvas2d(visual, { label: titles.p2[0] });
+    const titles = { p1: '1 · Same photons, brighter beam', p2: '2 · The real machines: design brightness' };
+    const c1 = canvas2d(visual, { label: titles.p1 });
+    const c2 = canvas2d(visual, { label: titles.p2 });
+    c1.canvas.setAttribute('aria-label', `${titles.p1}: a lens focuses photons from the source through a slit; brightness meter below`);
+    c2.canvas.setAttribute('aria-label', `${titles.p2}: log–log chart of brightness versus X-ray energy; use left and right arrow keys to change the energy`);
     const visual2 = document.createElement('div');
     visual2.className = 'stn-visual';
     const wrapOf = (c: Canvas2D) => c.canvas.parentElement as HTMLElement;
-    const labelOf = (c: Canvas2D) => wrapOf(c).querySelector('.stn-canvas-label') as HTMLElement | null;
 
     const srcView = new SourceView(c1, accent);
-    const chart = new BrillianceChart(c2, accent, (E) => setE(E, true), { E: st.E, ds: st.ds, depth, src: st.e, srcKey: keyOf(st.e) });
+    const chart = new BrillianceChart(c2, accent, (E) => setE(E, true), { E: st.E, ds: st.ds, src: st.e, srcKey: keyOf(st.e) });
     c2.onResize(() => (chart.needsDraw = true));
 
     // ------------------------------------------------------------ controls
     note(
       controls,
       station,
-      '**Flashlight vs laser pointer.** Both can send out the same amount of light, but the laser’s comes from a tiny spot and heads one way, so a lens can focus it to a tiny dot: it is *brighter*. Here the photon count is fixed: **squeeze the source** and count how many the lens can focus through a tiny slit.',
-      'Panel 1 (horizontal plane, to scale): photons from the source at fixed F; a lens at 15 m images it 1:1 onto a slit at 30 m — slit ⇒ position, aperture ⇒ angle, so the count follows brightness. Soft (Gaussian) apertures, kick λ/4πs. Sliders set the *electron* σ (drawn: Σ = √(σ² + σ_{r}²)). Panel 2: hover, drag or arrow keys.',
+      '**Flashlight vs laser pointer.** Both can send out the same number of photons, but the laser’s come from a tiny spot and head one way, so a lens can focus them to a tiny dot: it is *brighter*. Here the photon rate is fixed. **Squeeze the source** — the sliders set the electron beam’s sideways width and angle spread (rms) — and count how many photons the lens can focus through the slit. The slit picks position and the lens aperture picks angle, so the count follows brightness, not the photon total. The slit is tall, so only the sideways squeeze counts there; the meter includes both directions. Panel 2: hover, drag or use the arrow keys.',
     );
     const guideEl = controls.lastElementChild as HTMLElement;
 
-    const g1 = group(controls, '1 · The X-ray source');
+    const g1 = group(controls, '1 · The X-ray source (sideways)');
     const tPreset = toggle<Preset>(g1, {
       options: [
         { value: 'aps', label: 'Old APS', title: 'APS before the upgrade (2019): σx 275 µm, σx′ 11 µrad, σy 10 µm, σy′ 3.5 µrad (FDR 2019 Table 2.1)' },
@@ -110,12 +104,10 @@ const mod: ExplainerModule = {
       value: st.preset,
       onChange: (v) => applyPreset(v),
     });
-    const presetWrap = g1.lastElementChild as HTMLElement;
     // reduced motion: panel 1 shows a still picture of the photons (redrawn when the source changes)
     const motion = motionGate(station, g1, { title: 'Your device asks for reduced motion, so the photons in panel 1 hold still. Press to let them fly.' });
-    presetWrap.querySelectorAll('button')[2]?.classList.add('brt-spec-only');
     const sW = slider(g1, {
-      label: 'Source width',
+      label: 'Electron beam width',
       min: SX.min,
       max: SX.max,
       log: true,
@@ -127,7 +119,7 @@ const mod: ExplainerModule = {
       },
     });
     const sD = slider(g1, {
-      label: 'Spread angle',
+      label: 'Electron angle spread',
       min: SXP.min,
       max: SXP.max,
       log: true,
@@ -139,9 +131,9 @@ const mod: ExplainerModule = {
       },
     });
 
-    const g2 = group(controls, '2 · X-ray energy');
+    const g2 = group(controls, '2 · X-ray energy & design data');
     const sE = slider(g2, {
-      label: 'Energy',
+      label: 'X-ray energy',
       min: E_MIN,
       max: E_MAX,
       log: true,
@@ -161,12 +153,11 @@ const mod: ExplainerModule = {
         changed(true);
       },
     });
-    const dsWrap = g2.lastElementChild as HTMLElement;
 
     const gN = group(controls, 'Numbers');
-    const rGain = readout(gN, 'vs old APS, same photons', { big: true, color: accent });
+    const rGain = readout(gN, 'Brightness vs old APS, same photons', { big: true, color: accent });
     const rPass = readout(gN, 'Through lens and slit');
-    const rReal = readout(gN, 'Real machines at 20 keV', { big: true });
+    const rReal = readout(gN, 'Design gain at 20 keV', { big: true });
     const rowLabel = (r: { el: HTMLElement }) => r.el.querySelector('.stn-readout-label') as HTMLElement;
     for (const r of [rGain, rPass, rReal]) {
       const raw = r.set.bind(r);
@@ -194,37 +185,13 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      '**Why is the gain biggest for high-energy X-rays?** Light is a wave, so even a perfect beam has a tiny built-in blur and spread — smaller for shorter waves. The old source was so wide that this never mattered. The new one is so small that at low energies the light’s own blur is now the limit; at high energies the squeeze pays off in full.',
-      '**Why the gain rises with E.** Σ² = σ_{e}² + σ_{r}², σ_{r}σ_{r}′ = λ/4π (9.9 pm·rad at 10 keV, 2.0 pm at 50 keV). Horizontally the APS (ε_{x} 3.1 nm) is emittance-dominated at every E, so its Σ_{x}Σ′_{x} hardly changes, while APS-U (ε_{x} 29–42 pm) is near λ/4π at a few keV: its photon terms dominate at low E and fade at high E. Vertically both rings were already close to λ/4π (ε_{y} 40 pm vs 29 pm round), so that ratio stays ≈ ×1.2 (flat, ε_{y} 4 pm: ×1.7 → ×6). Source term alone (dashed): ×27 at 1 keV → ×106 at 100 keV (round), ×36 → ×390 (flat). Design ÷ source term (≈ ×1 at 1 keV, ×9.5 at 20 keV) is mostly flux — 2× current (200 mA), longer, shorter-period undulators at 8.5 mm gaps, SCUs above ~50 keV — plus what this simple source model leaves out (real lengths, harmonics, energy spread).',
+      '**Why is the gain biggest for high-energy X-rays?** Light is a wave, so even a perfect electron beam gives an X-ray source with a built-in size and angle spread, whose product is λ/4π: 9.9 pm·rad at 10 keV, less for shorter waves. The old beam (3.1 nm·rad sideways) was so wide that this never mattered. The new one (29–42 pm·rad) is so small that at low energy the light’s own blur sets the limit, while at high energy the squeeze pays off in full: from the source alone, ×27 at 1 keV rising to ×106 at 100 keV (round beam). Panel 1 includes this blur, and its meter’s *diffraction limit* is what a perfect electron beam would give. The rest of the design gain is *more* photons: twice the current (200 mA) and new, shorter-period undulators.',
     );
     note(
       controls,
       station,
-      '**The curves in panel 2 are design calculations** from the upgrade project — nobody has published a measured brightness curve yet.',
-      '**Caveats.** All curves are design calculations; no measured APS-U brightness curve has been published (dossier, Oct. 2026). Envelope digitized from IPAC’21 Fig. 1 (±20 % per point, ~±30 % on the ratio); the headline “up to 500×” matches FDR Table 1.1 (×540 at 20 keV). Panel 1: Kim Gaussian photon beam, L = 2.4 m, zero current, no energy spread (σ_{δ} = 0.136 % degrades high harmonics; Tanaka–Kitamura give σ_{r} ≈ 2× Kim); F = 10^{15} ph/s/0.1%BW fixed (order of one APS-U undulator at 20 keV) and the lens + slit geometry are illustrative. Gaussian apertures keep the wave optics exact (the Wigner function stays Gaussian; a parabolic CRL’s absorption aperture is Gaussian too); hard edges would add side lobes to the focus. Two bare slits at 15 & 30 m would not do: their acceptance (β ≥ 72 m at the source) is mismatched to the APS-U photon beam (β ≈ 3 m), so the count would saturate far below the brightness gain.',
+      '**The curves in panel 2 are design calculations:** no measured APS-U brightness curve had been published as of October 2026. They are digitized from a 2021 conference paper (IPAC’21; about ±20 % per point, ±30 % on a ratio); the headline “up to 500×” matches the design report’s ×540 at 20 keV. Panel 1 is a simplified model: a fixed photon rate (10¹⁵ per second in 0.1 % bandwidth, roughly one APS-U undulator at 20 keV), a soft-edged (Gaussian) lens aperture and slit, and an idealised photon beam from a 2.4-m undulator with no electron energy spread, which in reality weakens the higher harmonics.',
     );
-
-    // ------------------------------------------------------------ depth-dependent labels
-    const applyDepthLabels = () => {
-      const spec = depth === 'specialist';
-      const i = spec ? 1 : 0;
-      const l1 = labelOf(c1);
-      const l2 = labelOf(c2);
-      if (l1) l1.textContent = titles.p1[i];
-      if (l2) l2.textContent = titles.p2[i];
-      c1.canvas.setAttribute('aria-label', `${titles.p1[i]}: a lens focuses photons from the source through a slit; brightness meter below`);
-      c2.canvas.setAttribute('aria-label', `${titles.p2[i]}: log–log chart; use left and right arrow keys to change the energy`);
-      setSliderLabel(sW.input, spec ? 'σx electron beam (rms)' : 'Source width');
-      setSliderLabel(sD.input, spec ? 'σ′x electron beam (rms)' : 'Spread angle');
-      setSliderLabel(sE.input, spec ? 'Photon energy E' : 'Energy');
-      (g1.querySelector('.stn-group-title') as HTMLElement).textContent = spec ? '1 · Source (horizontal plane)' : '1 · The X-ray source';
-      (g2.querySelector('.stn-group-title') as HTMLElement).textContent = spec ? '2 · Photon energy & data set' : '2 · X-ray energy';
-      setToggleLabels(dsWrap, spec ? ["IPAC'21 envelope", 'FDR Fig. 2.1'] : ['Best of all', 'Examples']);
-      const dl = dsWrap.querySelector('.stn-slider-label');
-      if (dl) dl.textContent = spec ? 'Design curves' : 'Undulators compared';
-      rowLabel(rGain).textContent = spec ? 'B ÷ B(APS 2019), same F' : 'vs old APS, same photons';
-      rowLabel(rPass).textContent = spec ? 'P(lens ∧ slit)' : 'Through lens and slit';
-    };
 
     // ------------------------------------------------------------ state changes
     function applyPreset(p: Preset): void {
@@ -290,11 +257,10 @@ const mod: ExplainerModule = {
         Bapsu: m.Bapsu,
         Blim: m.Blim,
         pass: m.pass,
-        depth,
         name: presetName(st.preset),
         apsuName: st.ring === 'flat' ? 'APS-U flat' : 'APS-U',
       });
-      chart.set({ E: st.E, ds: st.ds, depth, src: st.e, srcKey: keyOf(st.e) });
+      chart.set({ E: st.E, ds: st.ds, src: st.e, srcKey: keyOf(st.e) });
       updateReadouts();
       if (pendingImmediate) lastCapT = 0;
       pendingImmediate = false;
@@ -303,13 +269,12 @@ const mod: ExplainerModule = {
 
     function updateReadouts(): void {
       const m = model;
-      const spec = depth === 'specialist';
       rGain.set(fmtGain(m.B / m.Baps));
-      rPass.set(spec ? pct(m.pass) : fmtOneIn(m.pass));
+      rPass.set(fmtOneIn(m.pass));
       const v = chart.valuesAt(st.E);
-      rowLabel(rReal).textContent = spec ? `Design gain at ${fmtKeV(st.E)} keV` : `Real machines at ${fmtKeV(st.E)} keV`;
-      // visitors: rounded to what the design data support (±30 % on the ratio)
-      rReal.set(Number.isFinite(v.gain) ? (spec ? fmtGain(v.gain) : `≈ ×${approxGain(v.gain)}`) : 'no data');
+      rowLabel(rReal).textContent = `Design gain at ${fmtKeV(st.E)} keV`;
+      // rounded to what the design data support (±30 % on the ratio)
+      rReal.set(Number.isFinite(v.gain) ? `≈ ×${approxGain(v.gain)}` : 'no data');
     }
 
     // ------------------------------------------------------------ captions
@@ -326,8 +291,7 @@ const mod: ExplainerModule = {
         return;
       }
       lastCapT = now;
-      const [v, s] = captions();
-      station.setCaption(v, s);
+      station.setCaption(caption());
       capFade();
     };
     /** a caption that scrolls (side layout, short host) fades out at the bottom while there is more below */
@@ -340,7 +304,7 @@ const mod: ExplainerModule = {
     };
     station.caption.addEventListener('scroll', capFade, { passive: true });
 
-    function captions(): [string, string] {
+    function caption(): string {
       const m = model;
       const aps = P.photonBeam(P.APS_2019.e, st.E);
       const gain = m.B / m.Baps;
@@ -350,49 +314,36 @@ const mod: ExplainerModule = {
       const Et = `${fmtKeV(st.E)} keV`;
       const atFloor = st.preset === 'custom' && (st.e.sx < m.r.size || st.e.sxp < m.r.div * 0.6);
 
-      // ---------------- visitor
-      let vis = '';
+      let t = '';
       if (st.preset === 'aps') {
-        vis = `**This is the old APS source.** Its X-rays come from a spot about ${((m.ph.sx * 4) / 1000).toFixed(1)} mm wide and fan out widely, so the lens can only focus them to a broad blur and just **${fmtOneIn(m.pass)}** photons make it through the slit. Press **APS-U**, or drag the sliders, to squeeze it.`;
+        t = `**This is the old APS source.** Its X-rays come from a spot about ${((m.ph.sx * 4) / 1000).toFixed(1)} mm wide and fan out widely, so the lens can only focus them to a broad blur and just **${fmtOneIn(m.pass)}** photons (${pct(m.pass)}) make it through the slit. Press **APS-U**, or drag the sliders, to squeeze it.`;
       } else {
-        const who = st.preset === 'custom' ? 'Your source' : 'The APS-U source';
+        const who = st.preset === 'custom' ? 'Your source' : st.preset === 'flat' ? 'The APS-U flat-beam source' : 'The APS-U source';
         const head = gain >= 1.05 ? `**Same number of photons — ${fmtGain(gain).slice(1)} times brighter than the old APS.**` : gain <= 0.95 ? `**Same number of photons — but dimmer than the old APS** (${fmtGain(gain)}).` : '**About as bright as the old APS.**';
         const spot = m.focus * 4;
         const spotTxt = spot < 1000 ? `${spot < 10 ? spot.toFixed(1) : Number(spot.toPrecision(2))} µm` : `${(spot / 1000).toFixed(1)} mm`;
-        vis = `${head} ${who} is ${fmtRatio(wRatio)} than the old one and its X-rays fan out ${fmtRatio(dRatio, 'less')}, so the lens focuses them to a spot about ${spotTxt} across and **${fmtOneIn(m.pass)}** photons make it through the slit (old APS: ${fmtOneIn(m.passAps)}).`;
-        if (m.pass < 0.8 * m.passRay) vis += ` Why is the focus blurred? Light is a wave: a lens this small can’t focus it to a sharp point — worse at low energy (longer waves) — so fewer fit through the slit.`;
-        if (m.pass > 0.25 && gain > 100) vis += ` That’s close to the limit: the count can’t rise past “all of them”, even though brightness keeps climbing.`;
-        if (atFloor) vis += ` You’ve hit the floor: light is a wave, so even a perfect electron beam makes a source about ${fmtSmall(m.r.size)} µm wide that spreads ${fmtSmall(m.r.div)} µrad at ${Et}. Shorter waves (higher energy) lower the floor.`;
+        t = `${head} ${who} is ${fmtRatio(wRatio)} than the old one and its X-rays fan out ${fmtRatio(dRatio, 'less')}, so the lens focuses them to a spot about ${spotTxt} across and **${fmtOneIn(m.pass)}** photons make it through the slit (old APS: ${fmtOneIn(m.passAps)}).`;
+        if (m.pass < 0.8 * m.passRay)
+          t += ` Why is the focus blurred? Light is a wave: passing the lens’s ${P.SLITS.s1}-µm aperture spreads it by about ${fmtSmall(P.diffractionKick(st.E, P.SLITS.s1))} µrad — more at low energy (longer waves) — so fewer photons fit through the slit.`;
+        if (m.pass > 0.25 && gain > 100) t += ' That’s close to the limit: the count can’t rise past “all of them”, even though brightness keeps climbing.';
+        if (atFloor)
+          t += ` You’ve hit the floor: light is a wave, so even a perfect electron beam makes a source about ${fmtSmall(m.r.size)} µm wide (rms) that spreads ${fmtSmall(m.r.div)} µrad at ${Et}. Shorter waves (higher energy) lower the floor.`;
       }
       if (Number.isFinite(v.gain)) {
-        // design curves are good to ~±30 % on the ratio: visitors get one significant figure, and the headline
-        // figure they will have read elsewhere ("up to 500×", FDR Table 1.1: ×540 at 20 keV) is put in context
+        // design curves are good to ~±30 % on the ratio: one significant figure, and the headline figure readers will
+        // have seen elsewhere ("up to 500×", FDR Table 1.1: ×540 at 20 keV) is put in context
         const g = approxGain(v.gain);
         const which = st.ds === 'envelope' ? 'each with its best undulator' : 'with these example undulators';
-        vis +=
+        t +=
           v.gain / m.srcU >= 1.5
-            ? ` In panel 2, the real machines at ${Et}, ${which}: the upgraded APS has a smaller, tighter source *and* makes more photons (twice the current, better undulators), so its design brightness is **about ${g} times** the old one.`
-            : ` In panel 2, the real machines at ${Et}, ${which}: the design brightness is **about ${g} times** the old one — at this energy almost all of it comes from the smaller, tighter source.`;
-        vis +=
+            ? ` In panel 2, the real machines at ${Et}, ${which}: APS-U’s design brightness is **about ${g} times** the old one — ${fmtGain(m.srcU)} from its smaller, tighter ${st.ring === 'flat' ? 'flat-beam ' : ''}source alone, the rest from *more* photons (twice the current, better undulators).`
+            : ` In panel 2, the real machines at ${Et}, ${which}: APS-U’s design brightness is **about ${g} times** the old one — at this energy almost all of it from the smaller, tighter source.`;
+        t +=
           st.ds === 'envelope'
             ? ' These are design estimates (±30 %), and the gain depends on the energy, from about 20 times for the softest X-rays to several hundred times at higher energies. The facility quotes one round figure, “up to 500 times brighter” (540× at 20 keV in its design report).'
             : ' Other undulators do better at some energies: “Best of all” shows the best one at each energy.';
-      } else vis += ` (No design data at ${Et} for this comparison.)`;
-
-      // ---------------- specialist
-      const p = m.ph;
-      let sp = `**E = ${st.E.toFixed(1)} keV, λ = ${((P.wavelength(st.E) * 1e10)).toFixed(3)} Å, λ/4π = ${P.diffractionLimitUmUrad(st.E).toFixed(2)} pm.** Kim (L = 2.4 m): σ_{r} = ${fmtSmall(m.r.size)} µm, σ_{r}′ = ${fmtSmall(m.r.div)} µrad. `;
-      sp += `${presetName(st.preset)}: Σ_{x} = ${fmtSmall(p.sx)} µm, Σ′_{x} = ${fmtSmall(p.sxp)} µrad, Σ_{y} = ${fmtSmall(p.sy)} µm, Σ′_{y} = ${fmtSmall(p.syp)} µrad → **B = F/(4π²Σ_{x}Σ′_{x}Σ_{y}Σ′_{y}) = ${sci(m.B, 2)}** at F = 10^{15} ph/s/0.1%BW: ${fmtGain(gain)} vs the APS-2019 beam at equal F; ceiling 4F/λ² = ${sci(m.Blim, 2)}. `;
-      const sl = P.SLITS;
-      const kick = P.diffractionKick(st.E, sl.s1);
-      const bx = (aps.sx * aps.sxp) / (p.sx * p.sxp);
-      const by = (aps.sy * aps.syp) / (p.sy * p.syp);
-      sp += `Lens + slit: A = 2πs_{1}s_{2}/Δz = ${P.acceptance(sl).toFixed(1)} µm·µrad, kick λ/4πs_{1} = ${fmtSmall(kick)} µrad (blur ${fmtSmall(kick * (sl.z2 - sl.z1))} µm), focus ${fmtSmall(m.focus)} µm rms → P = ${pct(m.pass)} (rays ${pct(m.passRay)}, bound A/2πΣ_{x}Σ′_{x} ${pct(P.passFractionSmall(p.sx, p.sxp))}); APS ${pct(m.passAps)} → ${fmtGain(m.pass / m.passAps)} vs horizontal B ratio ${fmtGain(bx)} (the vertical ${fmtGain(by)} is not tested by tall slits). `;
-      if (Number.isFinite(v.gain)) {
-        const dsName = st.ds === 'envelope' ? 'IPAC’21 envelope' : 'FDR Fig. 2.1, best APS-U device';
-        sp += `Design (${dsName}) at ${Et}: APS ${sci(v.old, 2)}, APS-U ${sci(v.best, 2)} → **${fmtGain(v.gain)}** = source term (${st.ring === 'flat' ? 'flat' : 'round'}) ${fmtGain(m.srcU)} × remainder ${fmtGain(v.gain / m.srcU)} (mostly flux; model-dependent). FDR Table 1.1 (20 keV): ×540.`;
-      } else sp += `No tabulated design data at ${Et} in this set.`;
-      return [vis, sp];
+      } else t += ` (No design data at ${Et} for this comparison.)`;
+      return t;
     }
 
     // The caption only grows while the layout stays the same (avoids canvas re-allocation while dragging).
@@ -430,7 +381,6 @@ const mod: ExplainerModule = {
     ctlA.style.overflowY = 'visible';
     let layoutMode = '';
     let lastW = -1;
-    let lastDepth: Depth | '' = '';
     // Side layout: the caption may take what the host leaves below the visual row's floor and scrolls beyond that,
     // so a long caption (custom source, low energy) cannot push the station out of a short dialog (story dialog at
     // 1280×800: 557 px = 412 px floor + 145 px). A host that grows with its content (the story dialog's) overflows
@@ -467,11 +417,9 @@ const mod: ExplainerModule = {
         resetCaptionHeight();
       }
       const mode = w >= SIDE_MIN_W ? 'side' : w >= 780 ? 'mid' : 'narrow';
-      if (mode === layoutMode && depth === lastDepth) return fitCaption();
+      if (mode === layoutMode) return fitCaption();
       resetCaptionHeight();
       layoutMode = mode;
-      lastDepth = depth;
-      const spec = depth === 'specialist';
       const stack = mode !== 'side';
       root.classList.toggle('stn-stack', stack);
       root.classList.toggle('stn-side', !stack);
@@ -489,10 +437,10 @@ const mod: ExplainerModule = {
         root.style.gridTemplateRows = 'repeat(5, max-content)';
         root.append(visual, ctlA, visual2, controls, station.caption);
         vs.gridTemplateColumns = 'minmax(0,1fr)';
-        vs.gridTemplateRows = spec ? '540px' : '520px';
+        vs.gridTemplateRows = '540px';
         vs.minHeight = '';
         v2.gridTemplateColumns = 'minmax(0,1fr)';
-        v2.gridTemplateRows = spec ? '500px' : '480px';
+        v2.gridTemplateRows = '500px';
         v2.minHeight = '';
         return fitCaption();
       }
@@ -511,7 +459,7 @@ const mod: ExplainerModule = {
       } else {
         controls.prepend(guideEl, g1, g2, gN, resetRow);
         root.style.gridTemplateRows = 'repeat(3, max-content)';
-        vs.gridTemplateRows = spec ? '540px' : '520px';
+        vs.gridTemplateRows = '540px';
         vs.minHeight = '';
       }
       fitCaption();
@@ -527,7 +475,6 @@ const mod: ExplainerModule = {
     });
 
     // ------------------------------------------------------------ start
-    applyDepthLabels();
     applyLayout();
     changed(true);
     srcView.warm();
@@ -541,17 +488,7 @@ const mod: ExplainerModule = {
       if (chart.needsDraw) chart.draw();
     });
 
-    return {
-      destroy: () => station.destroy(),
-      setDepth: (d) => {
-        depth = d;
-        station.setDepth(d);
-        applyDepthLabels();
-        applyLayout();
-        changed(true);
-        chart.draw();
-      },
-    };
+    return { destroy: () => station.destroy() };
   },
 };
 export default mod;
@@ -593,17 +530,6 @@ function fmtRatio(r: number, kind: 'narrow' | 'less' = 'narrow'): string {
   if (r > 1.1) return `${n}× narrower`;
   if (r < 0.9) return `${(1 / r).toFixed(1)}× wider`;
   return 'about as wide';
-}
-
-function setSliderLabel(input: HTMLInputElement, text: string): void {
-  const l = input.parentElement?.querySelector('.stn-slider-label');
-  if (l) l.textContent = text;
-}
-
-function setToggleLabels(wrap: HTMLElement, labels: string[]): void {
-  wrap.querySelectorAll('button').forEach((b, i) => {
-    if (labels[i]) b.textContent = labels[i];
-  });
 }
 
 /** nearest ancestor that scrolls vertically (the story dialog's stage), or null */

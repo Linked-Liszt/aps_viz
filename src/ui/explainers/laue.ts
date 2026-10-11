@@ -19,7 +19,7 @@
  *                    (Larson, Yang, Ice, Budai & Tischler, Nature 415, 887 (2002)).
  * Instrument numbers come from the 3DMN research dossier (APS-U FDR 2019, PDR 2017, Gürsoy et al. 2022,
  * lauelab geometry files, Larson et al. 2002); illustrative elements (pink-beam spectrum shape, mono
- * acceptance, photon counts) are labelled as such in the specialist text.
+ * acceptance, photon counts) are labelled as such in each part's "About this model" fine print.
  */
 import type { ExplainerModule } from './registry';
 import { createStation, loop, toggle } from './kit';
@@ -33,12 +33,12 @@ const mod: ExplainerModule = {
   title: 'A rainbow of X-rays maps a crystal in 3D',
   subtitle: 'Turn a crystal in a rainbow X-ray beam, strain it, then sweep a wire to find how deep each grain lies.',
   mount(host, ctx) {
-    const station = createStation(host, { depth: ctx.depth, color: ctx.color, layout: 'side' });
+    const station = createStation(host, { color: ctx.color, layout: 'side' });
     station.root.classList.add('laue-root');
     injectStyle(station.root);
 
     let current: PartId = 'pattern';
-    let lastCap = ['', ''];
+    let lastCap = '';
     let ready = false;
     // captions change continuously during scans: throttle DOM updates to ~5 Hz (trailing update guaranteed)
     let capTimer = 0;
@@ -56,12 +56,12 @@ const mod: ExplainerModule = {
       }
       lastCapT = now;
       const part = current === 'pattern' ? pattern : daxm;
-      const [v, s] = part.caption();
-      if (v === lastCap[0] && s === lastCap[1]) return;
-      lastCap = [v, s];
-      station.setCaption(v, s);
+      const v = part.caption();
+      if (v === lastCap) return;
+      lastCap = v;
+      station.setCaption(v);
     };
-    // The caption only ever grows within a part/depth/width: a shrinking caption would resize every canvas
+    // The caption only ever grows within a part/width: a shrinking caption would resize every canvas
     // (re-allocating backing stores) several times a second while a scan runs. Observed (no forced layout).
     let capMin = 0;
     const capRo = new ResizeObserver(() => {
@@ -98,7 +98,7 @@ const mod: ExplainerModule = {
       current = p;
       pattern.setActive(p === 'pattern');
       daxm.setActive(p === 'daxm');
-      lastCap = ['', ''];
+      lastCap = '';
       lastCapT = 0;
       resetCaptionHeight();
       refreshCaption();
@@ -148,15 +148,6 @@ const mod: ExplainerModule = {
 
     return {
       destroy: () => station.destroy(),
-      setDepth: (d) => {
-        station.setDepth(d);
-        pattern.depthChanged();
-        daxm.depthChanged();
-        lastCap = ['', ''];
-        lastCapT = 0;
-        resetCaptionHeight();
-        refreshCaption();
-      },
     };
   },
 };

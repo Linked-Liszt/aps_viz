@@ -40,7 +40,7 @@
  *   instrument positions D 35.5 m, F/1 45.5 m, G/1 52.0 m, B 64.5 m, C 72.0 m (FDR Table 4.5); its interim
  *   canted HPMUs are 2.07 m long (APS-U f lower by 4–11 % than with 2.4 m over 5–105 keV — stated, not plotted).
  *
- * APPROXIMATIONS (stated in the specialist UI text): Gaussian beams; zero current; NO energy spread. σ_δ = 0.136 %
+ * APPROXIMATIONS (stated in the station's notes): Gaussian beams; zero current; NO energy spread. σ_δ = 0.136 %
  * (APS-U), 0.095 % (APS) inflates σ_r' by Q_a(x), x = 2πnNσ_δ (Tanaka & Kitamura, JSR 16, 380 (2009),
  * Q_a(x) = [2x² / (−1 + e^{−2x²} + √(2π)·x·erf(√2·x))]^{1/2}): Q_a ≈ 1.7 for APS-U at n = 5, N = 74 (CHEX 25 keV),
  * ≈ 1.2 for APS at n = 3, N = 72 — so f falls below the curves from the 3rd–5th harmonic up, more for APS-U.
@@ -77,7 +77,7 @@ export type RingId = 'aps' | 'round' | 'flat';
 
 export interface Ring {
   id: RingId;
-  /** visitor-facing name */
+  /** display name */
   name: string;
   energyGeV: number;
   x: PlaneBeam;

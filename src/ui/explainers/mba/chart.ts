@@ -4,11 +4,10 @@
  *     faint at the other energy)
  *   • the two real machines: APS 3.1 nm·rad (M = 2, 7 GeV), APS-U 41.7 pm·rad (M = 7, 6 GeV, design)
  *   • λ/4π at 10 keV (9.9 pm·rad), the "diffraction limit" for 10-keV X-rays
- *   • specialist: MBA bound ε_min(M) = C_q γ²θ³/(12√15 J_x)·(M+1)/(M−1) (Wolski 2015 eq. 180) for J_x = 1 (and
+ *   • the theoretical minimum ε_min(M) = C_q γ²θ³/(12√15 J_x)·(M+1)/(M−1) (Wolski 2015 eq. 180) for J_x = 1 (and
  *     the APS-U J_x = 2.25), see physics.ts
  * Click / drag on the plot to choose M.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, dots, line, plotFrame, type Canvas2D, type PlotFrame } from '../kit';
 import * as P from './physics';
 import { hexA } from './sector';
@@ -20,7 +19,6 @@ const Y_MAX = 12000;
 export class EmittanceChart {
   private M = 7;
   private E = 6;
-  private depth: Depth;
   private frame: PlotFrame | null = null;
   private dragging = false;
   private ys = new Float64Array(MS.length);
@@ -28,10 +26,8 @@ export class EmittanceChart {
   constructor(
     private c: Canvas2D,
     private accent: string,
-    depth: Depth,
     private onPick: (M: number) => void,
   ) {
-    this.depth = depth;
     const cv = c.canvas;
     cv.style.cursor = 'pointer';
     const pick = (e: PointerEvent) => {
@@ -55,10 +51,9 @@ export class EmittanceChart {
     cv.addEventListener('pointercancel', end);
   }
 
-  set(o: { M: number; E: number; depth: Depth }): void {
+  set(o: { M: number; E: number }): void {
     this.M = o.M;
     this.E = o.E;
-    this.depth = o.depth;
   }
 
   draw(): void {
@@ -66,15 +61,14 @@ export class EmittanceChart {
     const ctx = c.ctx;
     const w = c.w;
     const h = c.h;
-    const spec = this.depth === 'specialist';
     ctx.clearRect(0, 0, w, h);
     const yTicks = [10, 100, 1000, 10000];
     const f = plotFrame(
       ctx,
       { x: 4, y: 2, w: w - 8, h: h - 4 },
-      { min: 2, max: 10, ticks: [2, 3, 4, 5, 6, 7, 8, 9, 10], label: spec ? 'dipoles per sector, M' : 'bends per sector' },
+      { min: 2, max: 10, ticks: [2, 3, 4, 5, 6, 7, 8, 9, 10], label: 'bends per sector, M' },
       { min: Y_MIN, max: Y_MAX, log: true, ticks: yTicks, format: (v) => (v >= 1000 ? `${v / 1000} nm` : `${v} pm`) },
-      spec ? 'Emittance εₓ (pm·rad, log) vs dipoles per sector' : 'Beam emittance (log scale) vs number of bends',
+      w < 400 ? 'Emittance (log scale) vs bends' : 'Emittance εₓ (pm·rad, log scale) vs bends per sector',
     );
     this.frame = f;
     const otherE = this.E === 6 ? 7 : 6;
@@ -93,15 +87,15 @@ export class EmittanceChart {
     ctx.font = `600 10.5px ${TOKENS.font}`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'bottom';
-    const dlTxt = spec ? 'λ/4π at 10 keV = 9.9 pm·rad' : 'laser-like 10-keV X-rays below this line';
+    const dlTxt = w < 400 ? '10-keV diffraction limit, 9.9 pm·rad' : 'diffraction limit for 10-keV X-rays: λ/4π = 9.9 pm·rad';
     ctx.fillStyle = 'rgba(5,8,14,0.7)';
     ctx.fillRect(f.x0 + 4, f.py(dl) - 16, ctx.measureText(dlTxt).width + 4, 13);
     ctx.fillStyle = TOKENS.good;
     ctx.fillText(dlTxt, f.x0 + 6, f.py(dl) - 3);
     ctx.restore();
 
-    // specialist: theoretical minimum
-    if (spec) {
+    // theoretical minimum for M equal bends (faint: context, not a target)
+    {
       for (let i = 0; i < MS.length; i++) this.ys[i] = P.emittanceMin(MS[i], this.E, 1);
       line(ctx, f, MS, this.ys, hexA(TOKENS.ink3, 0.9), 1.3, [2, 3]);
       for (let i = 0; i < MS.length; i++) this.ys[i] = P.emittanceMin(MS[i], this.E, P.APSU.Jx);
@@ -113,8 +107,8 @@ export class EmittanceChart {
       ctx.textAlign = 'left';
       const pxPerM = f.px(3) - f.px(2);
       for (const [Jx, txt, alpha, M0, above] of [
-        [1, 'MBA bound, Jₓ = 1', 0.95, 3.9, true],
-        [P.APSU.Jx, 'MBA bound, Jₓ = 2.25', 0.75, 2.45, false],
+        [1, 'theoretical minimum, Jₓ = 1', 0.95, 3.9, true],
+        [P.APSU.Jx, 'minimum, Jₓ = 2.25', 0.75, 2.45, false],
       ] as [number, string, number, number, boolean][]) {
         const tw = ctx.measureText(txt).width;
         const M1 = M0 + ((tw + 4) / pxPerM) * 0.92;
@@ -146,7 +140,7 @@ export class EmittanceChart {
     const lx = f.px(lm) + 6;
     const ly = f.py(P.emittanceScaling(lm, Math.max(this.E, otherE))) - 6;
     ctx.fillStyle = this.accent;
-    ctx.fillText(spec ? `ε ∝ E²/M³ at ${this.E} GeV` : `scaling law, ${this.E} GeV`, lx, ly);
+    ctx.fillText(w < 440 ? `scaling law, ${this.E} GeV` : `scaling law ε ∝ E²/M³, ${this.E} GeV`, lx, ly);
     ctx.fillStyle = hexA(TOKENS.ink3, 0.95);
     ctx.textBaseline = 'top';
     // label the other-energy curve away from the current-choice tag (which sits near the dot at M)
@@ -176,10 +170,10 @@ export class EmittanceChart {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = TOKENS.ink2;
     ctx.textAlign = 'left';
-    ctx.fillText(spec ? 'APS 3.1 nm (7 GeV)' : 'old APS: 3.1 nm', f.px(2) + 9, f.py(P.APS.epsX) + 1);
+    ctx.fillText('old APS: 3.1 nm·rad (7 GeV)', f.px(2) + 9, f.py(P.APS.epsX) + 1);
     ctx.fillStyle = TOKENS.ink;
     ctx.textAlign = 'right';
-    const apsuTxt = spec ? 'APS-U design 41.7 pm' : 'real APS-U: 42 pm';
+    const apsuTxt = 'APS-U design: 41.7 pm·rad';
     ctx.fillText(apsuTxt, ux - 10, uy + 12);
     ctx.restore();
 

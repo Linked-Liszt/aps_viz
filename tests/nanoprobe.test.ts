@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   ELEMENTS,
   W_EDGES,
@@ -265,5 +267,19 @@ describe('synthetic cathode and scan engine', { timeout: 60000 }, () => {
     }
     expect(m1 / w).toBeCloseTo(7.472, 2);
     expect(SPEC.e1).toBeGreaterThan(13);
+  });
+});
+
+describe('one presentation for every reader', () => {
+  it('the station never reads the retired Visitor/Specialist depth', () => {
+    const src = ['nanoprobe.ts', 'nanoprobe/views.ts', 'nanoprobe/sample.ts'].map((f) => readFileSync(join(__dirname, '../src/ui/explainers', f), 'utf8')).join('\n');
+    expect(src).not.toMatch(/ctx\.depth|station\.depth|setDepth|'specialist'|data-depth|app\/store/);
+  });
+  it('every in situ step has one text, written as whole sentences in exhibit typography', () => {
+    for (const st of CELL_STATES) {
+      expect(st.text, st.text).toMatch(/^[A-Z].{20,}[.)]$/);
+      expect(st.text).not.toMatch(/\s{2,}|\d\s?um\b|\s->\s|\^(?!\{)|\d(?:\.\d+)?e[-+]?\d/);
+      expect(Object.keys(st)).not.toContain('specialist');
+    }
   });
 });

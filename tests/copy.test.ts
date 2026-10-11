@@ -7,6 +7,7 @@ import { FEATURE_META } from '../src/data/meta';
 import { BEAMLINES } from '../src/data/beamlines';
 
 const fac = JSON.parse(readFileSync(join(__dirname, '../src/data/facility.json'), 'utf8'));
+const sectors = JSON.parse(readFileSync(join(__dirname, '../src/data/sectors.json'), 'utf8'));
 const after = fac.ring.after;
 const before = fac.ring.before;
 
@@ -30,12 +31,21 @@ describe('overview numbers match the facility dossier', () => {
     const s = JSON.stringify(fac.brightness.statements);
     expect(s).toMatch(/500 times brighter/);
   });
+  it('the overview text quotes the dossier’s source sizes and brightness framing', () => {
+    const t = OVERVIEW_COPY.text;
+    expect(t).toContain(`${before.horizontalBeamSizeAtID.value} × ${before.verticalBeamSizeAtID.value} µm`);
+    expect(t).toContain(`${Math.round(after.horizontalBeamSizeAtID_round.value)} × ${Math.round(after.verticalBeamSizeAtID_round.value)}`);
+    expect(t).toMatch(/about 500 times brighter/);
+    expect(t).toMatch(/100 to 1,000 times/);
+  });
 });
 
 // ------------------------------------------------------------------ guided tour text
 
-/** Visible text of a tour stop at a depth (as Overlays renders it: Specialist falls back to the plain text). */
-const tourText = (s: TourStep, depth: 'visitor' | 'specialist') => (depth === 'specialist' && s.expert ? s.expert : s.plain);
+/** Visible text of a tour stop (as the tour card renders it). */
+const tourText = (s: TourStep) => s.text;
+/** The tour card has room for about four sentences; the copy aims at ≤ ~85 words. */
+const TOUR_MAX_WORDS = 95;
 
 /** Starts like a sentence: a capital, a digit, a Greek symbol (ε_{x} falls …) or an opening quote/parenthesis. */
 const SENTENCE_START = /^(?:[\p{Lu}\d“"‘(]|\p{Script=Greek})/u;
@@ -95,8 +105,9 @@ describe('guided tour text', () => {
   });
 
   describe.each(TOUR.map((s, i) => [i, s] as const))('stop %i', (_i, s) => {
-    it.each(['visitor', 'specialist'] as const)('%s text reads as whole sentences', (depth) => {
-      expect(proseProblems(tourText(s, depth)), tourText(s, depth).slice(0, 60)).toEqual([]);
+    it('text reads as whole sentences and fits the tour card', () => {
+      expect(proseProblems(tourText(s)), tourText(s).slice(0, 60)).toEqual([]);
+      expect(tourText(s).split(/\s+/).length, s.title).toBeLessThanOrEqual(TOUR_MAX_WORDS);
     });
 
     it('has a short title that names the beamline once', () => {
@@ -132,13 +143,11 @@ describe('firstSentences (tour fallback for beamlines without curated copy)', ()
     expect(firstSentences('Only one sentence.', 3)).toBe('Only one sentence.');
   });
 
-  it('gives whole sentences for every dossier summary it could be used on', () => {
+  it('gives whole sentences for every dossier text it could be used on', () => {
     for (const b of Object.values(BEAMLINES)) {
       const sources: [string, string | undefined, number][] = [
-        ['whatAPSUEnables.plain', b.whatAPSUEnables?.plain, 2],
-        ['whatAPSUEnables.expert', b.whatAPSUEnables?.expert, 3],
-        ['plainSummary', b.plainSummary, 2],
-        ['expertSummary', b.expertSummary, 3],
+        ['whatAPSUEnables.text', b.whatAPSUEnables?.text, 2],
+        ['summary', b.summary, 2],
       ];
       for (const [field, text, n] of sources) {
         if (!text) continue;
@@ -158,8 +167,63 @@ describe('firstSentences (tour fallback for beamlines without curated copy)', ()
 
 describe('overview copy', () => {
   it('reads as whole sentences without research notation', () => {
-    expect(proseProblems(OVERVIEW_COPY.plain)).toEqual([]);
-    expect(proseProblems(OVERVIEW_COPY.expert)).toEqual([]);
+    expect(proseProblems(OVERVIEW_COPY.text)).toEqual([]);
     for (const s of OVERVIEW_COPY.stats) if (s.note) expect(proseProblems(s.note), s.label).toEqual([]);
+  });
+});
+
+// ------------------------------------------------------------------ "The upgrade" story (Overlays renders these)
+
+/** Primer questions the story dialog shows (src/ui/Overlays.ts PRIMER). */
+const PRIMER_KEYS = ['whatIsSynchrotron', 'whatIsUndulator', 'whatIsMBA', 'whyEmittanceMatters', 'whatIsCoherence', 'whatIsSwapOut', 'whatIsBunchLengthening', 'whyLowerEnergy', 'whyRoundBeams'];
+
+describe('story copy', () => {
+  it('every primer answer exists and each of its paragraphs reads as whole sentences', () => {
+    for (const k of PRIMER_KEYS) {
+      const text: unknown = fac.explainers?.[k];
+      expect(typeof text, k).toBe('string');
+      const paras = String(text).split(/\n\s*\n/);
+      expect(paras.length, k).toBeLessThanOrEqual(2);
+      for (const para of paras) expect(proseProblems(para.trim()), `${k}: ${para.slice(0, 50)}`).toEqual([]);
+    }
+  });
+
+  it('timeline events and number cards read as whole sentences', () => {
+    for (const t of fac.timeline) expect(proseProblems(t.event), `${t.date}: ${t.event.slice(0, 50)}`).toEqual([]);
+    for (const n of fac.exhibitNumbers) expect(proseProblems(n.explanation), n.label).toEqual([]);
+  });
+});
+
+// ------------------------------------------------------------------ one voice
+
+/**
+ * Every text exists once, for every reader: nothing on show may mention the retired Visitor / Specialist modes or
+ * tell the reader to switch. (Dossier `interactiveIdeas` are design notes that are never shown.)
+ */
+const MODE_WORDS = [/\b(?:Visitor|Specialist)s?\b/, /\b(?:visitor|specialist|expert) (?:mode|depth|view|text|switch)\b/i, /\bfor specialists\b/i, /\bexplanation depth\b/i, /\bswitch to (?:visitor|specialist|expert)\b/i];
+
+function modeMentions(o: unknown, path: string, out: string[]): string[] {
+  if (typeof o === 'string') {
+    for (const rx of MODE_WORDS) if (rx.test(o)) out.push(`${path}: "${o.match(rx)?.[0]}"`);
+  } else if (Array.isArray(o)) o.forEach((x, i) => modeMentions(x, `${path}[${i}]`, out));
+  else if (o && typeof o === 'object') for (const [k, v] of Object.entries(o)) if (k !== 'interactiveIdeas') modeMentions(v, `${path}.${k}`, out);
+  return out;
+}
+
+describe('one voice for every reader', () => {
+  it('no shown text mentions Visitor / Specialist modes', () => {
+    const out: string[] = [];
+    modeMentions(TOUR, 'tour', out);
+    modeMentions(OVERVIEW_COPY, 'overview', out);
+    modeMentions({ explainers: fac.explainers, timeline: fac.timeline, exhibitNumbers: fac.exhibitNumbers }, 'facility', out);
+    modeMentions(sectors.sectors, 'sectors', out);
+    for (const b of Object.values(BEAMLINES)) modeMentions(b, b.id, out);
+    expect(out).toEqual([]);
+  });
+
+  it('tour stops and the overview carry a single text each (no plain/expert pairs)', () => {
+    for (const s of TOUR) expect(Object.keys(s).filter((k) => /^(?:plain|expert)$/.test(k)), s.title).toEqual([]);
+    expect(Object.keys(OVERVIEW_COPY).filter((k) => /^(?:plain|expert)$/.test(k))).toEqual([]);
+    expect(fac.plainExplainers).toBeUndefined();
   });
 });

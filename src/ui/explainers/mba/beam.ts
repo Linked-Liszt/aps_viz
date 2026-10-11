@@ -12,7 +12,6 @@
  * 0.13 · 271.6 kHz ≈ 35 kHz (y) (ν = 95.12 / 36.13, srp2024); the drawing is otherwise to scale.
  * The 1σ (rms) ellipse is outlined. "Magnify" multiplies the scale; the scale bar follows.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import * as P from './physics';
 import { hexA } from './sector';
@@ -61,7 +60,6 @@ export class BeamView {
   private mode: Coupling = 'round';
   private zoomT = 6;
   private zoom = 6;
-  private depth: Depth;
   private sx = P.APSU.round.sigX;
   private sy = P.APSU.round.sigY;
   private old = cloud(520, 7);
@@ -74,17 +72,14 @@ export class BeamView {
   constructor(
     private c: Canvas2D,
     private accent: string,
-    depth: Depth,
   ) {
-    this.depth = depth;
     this.glow = gaussSprite('rgba(170,182,200,', 0.55);
     this.glowNew = gaussSprite(cssRgbPrefix(accent), 0.95);
   }
 
-  set(o: { mode?: Coupling; zoom?: number; depth?: Depth }): void {
+  set(o: { mode?: Coupling; zoom?: number }): void {
     if (o.mode) this.mode = o.mode;
     if (o.zoom !== undefined) this.zoomT = o.zoom;
-    if (o.depth) this.depth = o.depth;
   }
 
   /** current APS-U target sizes (µm rms) */
@@ -104,7 +99,6 @@ export class BeamView {
     const ctx = c.ctx;
     const w = c.w;
     const h = c.h;
-    const spec = this.depth === 'specialist';
     // ease zoom (log space) and APS-U size changes
     const ez = still ? 1 : 1 - Math.exp(-dt * 7);
     this.zoom = Math.exp(Math.log(this.zoom) + (Math.log(this.zoomT) - Math.log(this.zoom)) * ez);
@@ -135,15 +129,23 @@ export class BeamView {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = TOKENS.ink2;
     ctx.textAlign = 'left';
-    const oTxt = spec ? `APS σ_{x} = ${P.APS.sigX} µm` : 'old APS beam';
-    const oX = Math.min(w - 8 - richWidth(ctx, oTxt), ocx + P.APS.sigX * k0 * 1.05);
+    ctx.font = `600 10px ${TOKENS.font}`;
+    const tsw = ctx.measureText('TO SCALE').width;
+    // the longest wording that stays clear of the scale bar (same row) at the top left
+    const sbMax = Math.min(w * 0.22, 110);
+    const sb = niceStep(sbMax / k0);
+    ctx.font = `600 10.5px ${TOKENS.mono}`;
+    const sbEnd = 10 + tsw + 10 + sb * k0 + 6 + ctx.measureText(fmtLen(sb)).width + 10;
+    ctx.font = `600 10.5px ${TOKENS.font}`;
+    const opts = [`old APS beam, ${P.APS.sigX} µm wide (rms)`, `old APS, ${P.APS.sigX} µm wide`, 'old APS beam'];
+    const oTxt = opts.find((t) => w - 8 - richWidth(ctx, t) >= sbEnd) ?? opts[opts.length - 1];
+    const oX = Math.max(sbEnd, Math.min(w - 8 - richWidth(ctx, oTxt), ocx + P.APS.sigX * k0 * 1.05));
     richText(ctx, oTxt, oX, ocy - Math.max(9, P.APS.sigY * k0 + 8));
     ctx.fillStyle = TOKENS.ink3;
     ctx.font = `600 10px ${TOKENS.font}`;
     ctx.fillText('TO SCALE', 10, ov.y + 7);
-    const tsw = ctx.measureText('TO SCALE').width;
     ctx.restore();
-    this.scaleBar(ctx, 10 + tsw + 10, ov.y + 7, k0, Math.min(w * 0.22, 110));
+    this.scaleBar(ctx, 10 + tsw + 10, ov.y + 7, k0, sbMax);
 
     // zoom box in the overview + connectors to the magnified view
     const bw = zm.w / this.zoom;
@@ -181,10 +183,8 @@ export class BeamView {
     ctx.save();
     ctx.font = `600 10.5px ${TOKENS.font}`;
     tag(ctx, `×${this.zoom.toFixed(this.zoom < 10 ? 1 : 0)}`, zm.x + zm.w - 10, zm.y + 12, 'right', this.accent);
-    if (spec) {
-      ctx.font = `500 10px ${TOKENS.font}`;
-      tag(ctx, '1σ outlines · e⁻ motion slowed ~10⁵×', zm.x + zm.w - 10, zm.y + zm.h - 11, 'right', TOKENS.ink2);
-    }
+    ctx.font = `500 10px ${TOKENS.font}`;
+    tag(ctx, w < 420 ? 'outlines: rms size' : 'outlines: rms size · electrons slowed ~10⁵×', zm.x + zm.w - 10, zm.y + zm.h - 11, 'right', TOKENS.ink2);
     ctx.restore();
 
     // ---------------- info rows
@@ -270,7 +270,6 @@ export class BeamView {
   }
 
   private zoomLabels(ctx: CanvasRenderingContext2D, r: { x: number; y: number; w: number; h: number }, cx: number, cy: number, k: number, rbc: { x: number; y: number; r: number } | null): void {
-    const spec = this.depth === 'specialist';
     const top = r.y + 8;
     const bot = r.y + r.h - 24;
     const w = r.w;
@@ -283,7 +282,7 @@ export class BeamView {
       const a = (-140 * Math.PI) / 180;
       let hx = cx + Math.cos(a) * rh;
       let hy = cy + Math.sin(a) * rh;
-      const txt = spec ? `hair Ø ${P.HAIR_UM} µm` : `a human hair (${P.HAIR_UM} µm)`;
+      const txt = `a human hair (${P.HAIR_UM} µm)`;
       const tw = ctx.measureText(txt).width;
       if (hy < top + 4) {
         // edge outside: point at the visible arc where it crosses the top region
@@ -299,7 +298,7 @@ export class BeamView {
     // old APS ribbon: label at the right, above the band
     {
       const ey = cy - Math.max(3, P.APS.sigY * k);
-      const txt = spec ? (w < 420 ? `APS σ_{y} ${P.APS.sigY} µm` : `APS (σ_{x} ${P.APS.sigX} µm, σ_{y} ${P.APS.sigY} µm)`) : w < 420 ? 'old APS beam (wider)' : 'old APS beam (far wider than this view)';
+      const txt = w < 420 ? `old APS, ${P.APS.sigY} µm tall` : `old APS beam: ${P.APS.sigY} µm tall, far wider than this view`;
       ctx.font = `600 10.5px ${TOKENS.font}`;
       const ly = Math.max(top + 24, ey - 12);
       tag(ctx, txt, w - 10, ly, 'right', TOKENS.ink2);
@@ -309,7 +308,7 @@ export class BeamView {
       const ex = cx + this.sx * k * 0.72;
       const ey = cy + this.sy * k * 0.72;
       ctx.font = `650 11.5px ${TOKENS.font}`;
-      const txt = spec ? `APS-U ${fmt1(this.sx)} × ${fmt1(this.sy)} µm` : 'APS-U beam';
+      const txt = `APS-U beam ${fmt1(this.sx)} × ${fmt1(this.sy)} µm`;
       const tw = ctx.measureText(txt).width;
       const gap = Math.max(22, Math.max(this.sy * k, P.APS.sigY * k) + 14);
       let lx = ex + 18;
@@ -322,7 +321,7 @@ export class BeamView {
       ctx.font = `500 10.5px ${TOKENS.font}`;
       ctx.fillStyle = 'rgb(252,165,165)';
       ctx.textAlign = 'right';
-      const txt = spec ? `red blood cell ${P.RBC_UM} µm` : 'red blood cell';
+      const txt = `red blood cell (${P.RBC_UM} µm)`;
       const tx = Math.max(ctx.measureText(txt).width + 8, rbc.x - rbc.r - 5);
       tag(ctx, txt, tx, rbc.y, 'right', 'rgb(252,165,165)');
     }
@@ -351,46 +350,58 @@ export class BeamView {
     ctx.restore();
   }
 
+  /** [dot colour, name, values]: rms size and angle spread (width × height) of both beams */
   private infoLines(): [string, string, string][] {
-    const spec = this.depth === 'specialist';
     const tg = this.target();
-    const mode = this.mode === 'round' ? (spec ? 'round, κ = 1' : 'round beam') : spec ? 'flat, κ = 0.1' : 'flat beam';
     const aOld = P.APS.sigX * P.APS.sigY;
     const aNew = tg.sx * tg.sy;
     const div = this.mode === 'round' ? P.APSU.round : P.APSU.flat;
-    return spec
-      ? [
-          ['rgba(206,214,226,0.9)', 'APS (7 GeV)', `σ ${P.APS.sigX} × ${P.APS.sigY} µm · σ′ ${P.APS.divX} × ${P.APS.divY} µrad`],
-          [this.accent, `APS-U (6 GeV, ${mode})`, `σ ${fmt1(tg.sx)} × ${fmt1(tg.sy)} µm · σ′ ${div.divX} × ${div.divY} µrad · area ÷${Math.round(aOld / aNew)}`],
-        ]
-      : [
-          ['rgba(206,214,226,0.9)', 'Old APS', `beam size ${P.APS.sigX} × ${P.APS.sigY} µm (width × height)`],
-          [this.accent, `APS-U (${mode})`, `${fmt1(tg.sx)} × ${fmt1(tg.sy)} µm — ${Math.round(aOld / aNew)}× smaller area`],
-        ];
+    return [
+      ['rgba(206,214,226,0.9)', 'Old APS (7 GeV)', `width × height ${P.APS.sigX} × ${P.APS.sigY} µm (rms) · angle spread ${P.APS.divX} × ${P.APS.divY} µrad`],
+      [this.accent, `APS-U (6 GeV, ${this.mode})`, `${fmt1(tg.sx)} × ${fmt1(tg.sy)} µm · spread ${div.divX} × ${div.divY} µrad · ${Math.round(aOld / aNew)}× smaller area`],
+    ];
+  }
+
+  /**
+   * Layout of the info block: per beam, the value goes beside the name when it fits, otherwise on its own lines
+   * below it, wrapped after " · " (never cut off).
+   */
+  private infoLayout(ctx: CanvasRenderingContext2D): { col: string; name: string; inline: boolean; lines: string[] }[] {
+    const w = this.c.w;
+    ctx.save();
+    const out = this.infoLines().map(([col, name, val]) => {
+      ctx.font = `650 11.5px ${TOKENS.font}`;
+      const nw = ctx.measureText(name).width;
+      ctx.font = `500 11px ${TOKENS.font}`;
+      if (26 + nw + 8 + ctx.measureText(val).width <= w - 8) return { col, name, inline: true, lines: [val] };
+      const lines: string[] = [];
+      let cur = '';
+      for (const part of val.split(' · ')) {
+        const next = cur ? `${cur} · ${part}` : part;
+        if (cur && ctx.measureText(next).width > w - 34) {
+          lines.push(cur);
+          cur = part;
+        } else cur = next;
+      }
+      if (cur) lines.push(cur);
+      return { col, name, inline: false, lines };
+    });
+    ctx.restore();
+    return out;
   }
 
   /** number of text lines the info block needs at the current width */
   private infoRows(ctx: CanvasRenderingContext2D): number {
-    const w = this.c.w;
-    let n = 0;
-    ctx.save();
-    for (const [, name, val] of this.infoLines()) {
-      ctx.font = `650 11.5px ${TOKENS.font}`;
-      const nw = ctx.measureText(name).width;
-      ctx.font = `500 11px ${this.depth === 'specialist' ? TOKENS.mono : TOKENS.font}`;
-      n += 26 + nw + 8 + ctx.measureText(val).width > w - 8 ? 2 : 1;
-    }
-    ctx.restore();
-    return n;
+    return this.infoLayout(ctx).reduce((n, r) => n + (r.inline ? 1 : 1 + r.lines.length), 0);
   }
 
   private drawInfo(ctx: CanvasRenderingContext2D, y0: number): void {
     const w = this.c.w;
-    const spec = this.depth === 'specialist';
+    const rows = this.infoLayout(ctx);
     ctx.save();
     ctx.textBaseline = 'middle';
     let y = y0 + 7;
-    for (const [col, name, val] of this.infoLines()) {
+    for (const { col, name, inline, lines } of rows) {
       ctx.fillStyle = col;
       ctx.beginPath();
       ctx.arc(16, y, 4, 0, Math.PI * 2);
@@ -400,12 +411,14 @@ export class BeamView {
       ctx.textAlign = 'left';
       ctx.fillText(name, 26, y);
       const nw = ctx.measureText(name).width;
-      ctx.font = `500 11px ${spec ? TOKENS.mono : TOKENS.font}`;
+      ctx.font = `500 11px ${TOKENS.font}`;
       ctx.fillStyle = TOKENS.ink2;
-      if (26 + nw + 8 + ctx.measureText(val).width > w - 8) {
-        y += 15;
-        ctx.fillText(fitText(ctx, val, w - 34), 26, y);
-      } else ctx.fillText(val, 26 + nw + 8, y);
+      if (inline) ctx.fillText(lines[0], 26 + nw + 8, y);
+      else
+        for (const l of lines) {
+          y += 15;
+          ctx.fillText(fitText(ctx, l, w - 34), 26, y);
+        }
       y += 15;
     }
     ctx.restore();

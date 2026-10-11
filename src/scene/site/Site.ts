@@ -44,7 +44,6 @@ export class Site {
   private beamlineGroup = new THREE.Group();
   private hutchGroup = new THREE.Group();
   private labelGroup = new THREE.Group();
-  private roof: THREE.Mesh;
   private bunches: THREE.Points;
   private bunchPhase: Float32Array;
   private sectorStrips = new Map<number, THREE.Mesh>();
@@ -81,7 +80,6 @@ export class Site {
     this.buildInjector();
     this.buildBeamlines();
     this.buildEnhancedMarkers();
-    this.roof = this.buildRoof();
     const b = this.buildBunches();
     this.bunches = b.points;
     this.bunchPhase = b.phase;
@@ -120,19 +118,6 @@ export class Site {
     cap.rotation.x = -Math.PI / 2;
     cap.position.y = 4;
     this.group.add(cap);
-  }
-
-  private buildRoof(): THREE.Mesh {
-    const roof = new THREE.Mesh(
-      new THREE.RingGeometry(SITE.tunnelInnerM - 1, SITE.hallOuterM + 0.8, 400, 1),
-      new THREE.MeshStandardMaterial({ color: 0xeeeae2, roughness: 0.9, transparent: true, opacity: 0.92, side: THREE.DoubleSide }),
-    );
-    roof.rotation.x = -Math.PI / 2;
-    roof.position.y = 11;
-    roof.visible = false;
-    roof.castShadow = true;
-    this.group.add(roof);
-    return roof;
   }
 
   private buildTunnelAndRing(): void {
@@ -786,10 +771,6 @@ export class Site {
   }
 
   // ---------------------------------------------------------------- state
-
-  setRoof(on: boolean): void {
-    this.roof.visible = on;
-  }
 
   /** Hide schematic hutches in a sector (a detailed model replaces them). */
   hideGenericHutches(sector: number, hidden: boolean): void {

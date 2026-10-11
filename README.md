@@ -26,17 +26,43 @@ camera settles (hundreds of draw calls instead of thousands).
 | **The APS** (overview) | Orbit the facility, built from OpenStreetMap footprints (ring building, LOMs, injector, Long Beamline Building). Watch electron bunches circulate. Hover any sector to see what runs there; click a glowing feature beamline to step inside. |
 | **Feature beamlines** | True-distance 3D models generated from researched dossiers: undulators, front end, ratchet wall, cut-away hutches, mirrors, monochromators, focusing optics, instruments, detectors. White → monochromatic beam, scattering cones, scale figures, a distance ruler and a "subway map" strip of every component. |
 | **Exhibit panel** | Overview · How it works (interactive station) · Inside (component by component) · Science · Specs & sources (design-record figures, parameters, references). |
-| **Visitor / Specialist** | One switch changes every text from plain language to dense technical detail with specs and caveats. |
+| **One voice, layered** | Every text exists once, written like a museum label for a curious visitor and a beamline scientist alike: an everyday lead, the mechanism with each term defined in passing, then the telling number and its caveat. Specifications, positions, figures, open questions and sources follow as fine print and tables, open to everyone. |
 | **Guided tour** | Injector → new storage ring → undulators → each feature beamline → Long Beamline Building. |
-| **The upgrade** | A plain-language primer, stations on the multi-bend-achromat lattice, brightness, undulators and coherence, an APS-vs-APS-U *By the numbers* comparison, and a timeline. |
-| **Every other sector** | Hover or click any of the 35 beamline sectors for its beamlines, operators, status and — for the 15 enhanced sectors — what the upgrade changed. |
+| **The upgrade** | A primer, stations on the multi-bend-achromat lattice, brightness, undulators and coherence, an APS-vs-APS-U *By the numbers* comparison, and a timeline. |
+| **Every other sector** | Hover or click any of the 35 beamline sectors for what its science is, who runs it, each beamline's status and techniques, and — for the 15 enhanced sectors — what the upgrade changed. |
 | **Search** | `/` or `Ctrl+K` finds beamlines, components, techniques and sectors. |
 
-Keyboard: `Esc` back · `[` `]` previous/next component · `F` frame · `R` ride the beam · `T` tour · `V` depth ·
+Keyboard: `Esc` back · `[` `]` previous/next component · `F` frame · `R` ride the beam · `T` tour ·
 `1–9` beamlines · `/` search · `?` help. With the 3D view focused: arrows orbit, `Shift`+arrows pan, `+`/`−` or
 `PgUp`/`PgDn` zoom, `Home` re-frames. Dialogs trap focus, panels use proper tab semantics, and
 `prefers-reduced-motion` freezes the animated beams, bunches and stations.
 Deep links: `#/beamline/xpcs`, `#/beamline/3dmn/<component-id>`, `#/tour/3`, `#/sector/12`.
+
+## The author's pages
+
+Two Markdown files belong to the exhibit's author and are shown as written:
+
+- `src/author/welcome.md` — the welcome dialog that greets every visit (empty the file to switch it off).
+- `src/author/note.md` — the *Author's note* (pen icon in the top bar, the phone menu, and the welcome dialog).
+
+They support headings, paragraphs, **bold**, *italic*, links, lists, quotes and dividers; `<!-- comments -->` are
+not shown. AI agents and automated tools must not edit them (see `AGENTS.md`).
+
+## How the texts are written
+
+Every text exists once, for every reader, layered like the label of a good science-museum exhibit: easy for a
+curious non-expert to follow, and correct in the details a beamline scientist would check.
+
+1. **Lead** — what it is or does and why it matters, in everyday words.
+2. **How** — the mechanism in plain terms, naming each technical term once and defining it in passing.
+3. **Specifics** — one or two telling numbers with units, and the caveat a specialist would look for (design vs
+   as built, planned vs operating as of October 2026, which mode, what limits it).
+
+Simplifying means leaving out, never saying something false. Dense detail is not hidden but moved down a layer:
+component `specs` and `keyParameters` are compact tables, and position notes, detectors, sample environments,
+figure notes, open questions, operators and techniques are shown to everyone as fine print. Typography is Unicode
+(µm, Å, °, ×, 10⁻³); `tests/data.test.ts` and `tests/copy.test.ts` reject ASCII research notation, and the copy
+tests also check that tour stops fit their card and that every shown text speaks in this one voice.
 
 ## Where the content comes from
 
@@ -48,10 +74,11 @@ APS web pages, and newer publications (MEDSI, SRI, J. Synchrotron Rad., RSI, APS
 (see `scripts/build-site.py`).
 
 The facility story (*By the numbers*, *Timeline*, *Primer*) and the 35 sector cards are generated from the
-fact-checked facility and sector research dossiers. Exhibit wording — plain-language rewrites, visitor `plain`
-variants, status phrasing, plain sector labels and typography — lives in `scripts/exhibit-overrides/*.json`, which the
-build scripts apply on top of the research (a stale override key is an error). Never hand-edit the generated JSON;
-edit the overrides and rebuild:
+fact-checked facility and sector research dossiers. Exhibit wording — the single exhibit text of each displayed field
+(primer answers under `explainers`, timeline `event`, number-card `explanation`, sector `enhancement.text`), status
+phrasing, everyday sector labels and typography — lives in `scripts/exhibit-overrides/*.json`, which the build scripts
+apply on top of the research (a stale override key is an error) and lint for typography. Never hand-edit the generated
+JSON; edit the overrides and rebuild:
 
 ```bash
 python3 scripts/build-facility.py research/facility.json src/data/facility.json
@@ -90,5 +117,5 @@ research/     fact-checked research dossiers (source of truth for the generated 
 scripts/      build-site / build-sectors / build-facility (+ exhibit-overrides/), compress-figures, shot.mjs
 ```
 
-Development helpers: station harness `/explainer.html?id=xpcs&depth=specialist`; screenshots
+Development helpers: station harness `/explainer.html?id=xpcs` (optional `&color=%23ff8800&bl=xpcs`); screenshots
 `node scripts/shot.mjs '#/beamline/xpcs' out.png` (append `?nobatch` to the URL to compare without static batching).

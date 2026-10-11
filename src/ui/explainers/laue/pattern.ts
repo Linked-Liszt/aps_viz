@@ -15,8 +15,7 @@ export interface PartApi {
   layout(narrow: boolean, width: number): void;
   setActive(on: boolean): void;
   frame(dt: number): void;
-  caption(): [string, string];
-  depthChanged(): void;
+  caption(): string;
   reset(): void;
 }
 
@@ -97,7 +96,6 @@ export function createPattern(station: Station, color: string, onCaption: () => 
   let byDir = new Map<number, P.Spot>();
   let maxShiftPx = 0;
   let Iref = 1;
-  let multiHarm = 0;
 
   let geomVer = 0;
   let tableMat = st.mat;
@@ -120,11 +118,9 @@ export function createPattern(station: Station, color: string, onCaption: () => 
     map0 = new Map(res0.spots.map((s) => [s.dir, s]));
     byDir = new Map(res.spots.map((s) => [s.dir, s]));
     maxShiftPx = 0;
-    multiHarm = 0;
     for (const s of res.spots) {
       const s0 = map0.get(s.dir);
       if (s0) maxShiftPx = Math.max(maxShiftPx, Math.hypot(s.x - s0.x, s.z - s0.z) / P.GEOM.pitch);
-      if (s.harm.length > 1) multiHarm++;
     }
     // direction indices belong to one material's table: a material switch invalidates hover & selection
     if (st.mat !== tableMat) {
@@ -269,7 +265,7 @@ export function createPattern(station: Station, color: string, onCaption: () => 
   const gCry = group(ctl, 'Crystal');
   toggle(gCry, {
     options: [
-      { value: 'Ni', label: 'Nickel (fcc)', title: 'Ni, a = 3.524 Å, face-centred cubic' },
+      { value: 'Ni', label: 'Nickel', title: 'Ni, a = 3.524 Å, face-centred cubic' },
       { value: 'Si', label: 'Silicon (diamond)', title: 'Si, a = 5.431 Å, diamond structure' },
     ],
     value: st.mat,
@@ -293,20 +289,26 @@ export function createPattern(station: Station, color: string, onCaption: () => 
   rndBtn.dataset.k = 'random';
   let rndSeed = 3;
 
-  const tipNote = note(
+  note(
     ctl,
     station,
-    '**Try:** tap two spots to see the angle between their atomic planes — then stretch the crystal and watch that angle change.',
-    '**Indexing:** tap two spots → measured angle between q̂₁ and q̂₂ vs. the ideal (hkl)₁∠(hkl)₂. Deviatoric strain shows up as these small angle mismatches (LaueGo/lauelab fit ~10⁻⁴).',
+    '**Try:** tap two spots to see the angle between their atomic planes, then stretch the crystal and watch that angle drift from the perfect-crystal value. Matching such angles is how a pattern is **indexed**; fitting the tiny mismatches (with codes such as LaueGo) measures the shape-changing part of the strain to about 1 part in 10⁴.',
   );
   note(
     ctl,
     station,
-    '**What APS-U changes:** the rainbow beam is squeezed to about **0.1 µm** (it was 0.3–0.5 µm) and carries ~1000× more X-rays, so one pattern can come from a single tangle of defects inside a grain — and 3-D maps that took days should take minutes.',
-    '**APS-U:** KB focus is an image of the source (σ_x 280 → 14.7 µm rms; brightness ~×100), so design spots shrink to 103 × 68 nm² (micro, 60 m) and 37 × 37 nm² (nano, 65.5 m) at 14 keV without aperturing; pink flux ~10¹¹ → ~10¹⁴ ph/s (FDR 2019/PDR 2017 design; as-built values not yet published, 3DMN in commissioning). Enables strain tensors inside dislocation-cell walls and single-dislocation strain fields.',
+    '**What APS-U changes:** the focusing mirrors form a shrunken image of the X-ray source, and the source itself is now far narrower (its horizontal rms width fell from 280 to 14.7 µm). So the rainbow beam focuses to about **0.1 µm** (design at 14 keV: 103 × 68 nm, or 37 × 37 nm in the nano station; it was 0.3–0.5 µm) and carries ~1,000× more X-rays (≈10¹¹ → 10¹⁴ photons/s). One pattern can then come from a single tangle of defects inside a grain, and 3-D maps that took days should take minutes. These are design values: 3DMN is still being commissioned (October 2026).',
   );
   const resetRow = div('laue-row', ctl);
   button(resetRow, '↺ Reset', () => reset());
+  // the model's fine print, in smaller type
+  const gModel = group(ctl, 'About this model');
+  note(
+    gModel,
+    station,
+    'One grain on the 34-ID-E geometry: a 409.6 mm square detector (2,048² pixels of 200 µm) 510.9 mm above the sample, centred on 2θ = 90°. Spot brightness follows simple (kinematic) diffraction theory for a thick crystal, with absorption: nickel spots just above its 8.33 keV absorption edge come out ~8× weaker. The rainbow’s spectrum shape is illustrative, and extinction, air and detector efficiency are left out. The silicon (111) monochromator passes a band ΔE/E ≈ 1.3×10⁻⁴ wide; each spot accepts a band set by ≈1 mrad of beam convergence and crystal mosaic (illustrative); 3DMN keeps the rainbow and single-energy beams focused on the same ~100 nm spot. One 200 µm pixel spans ≈3.9×10⁻⁴ rad of scattering angle. The Ewald plot turns each lattice point about the beam into one plane; this is exact, because the spheres are round about the beam, so the turn never moves a point into or out of the shell.',
+  );
+  (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
 
   // ---------------------------------------------------------------- state changes
   /** user-driven orientation change: coalesced, the pattern is recomputed once in the next frame */
@@ -390,9 +392,9 @@ export function createPattern(station: Station, color: string, onCaption: () => 
 
   // ---------------------------------------------------------------- info card + caption
   function updateInfo(): void {
-    const sp = station.depth === 'specialist';
     const sel = st.sel.map((d) => byDir.get(d)).filter((s): s is P.Spot => !!s);
     const m = P.MATERIALS[st.mat];
+    const metal = m.id === 'Ni' ? 'nickel' : 'silicon';
     if (!sel.length) {
       info.innerHTML = '';
       return;
@@ -407,35 +409,28 @@ export function createPattern(station: Station, color: string, onCaption: () => 
           const dm = P.HC / (2 * hb.E * s.sinT);
           const N = Math.sqrt(hb.h * hb.h + hb.k * hb.k + hb.l * hb.l);
           const aM = dm * N;
+          const da = ((aM - m.a) / m.a) * 100;
           parts.push(
-            sp
-              ? `**(\`${hklStr(hb.h, hb.k, hb.l)}\`)** lit at E = \`${hb.E.toFixed(4)} keV\` ⇒ d = λ/(2 sinθ) = \`${dm.toFixed(5)} Å\` ⇒ a = d·√(h²+k²+l²) = \`${aM.toFixed(5)} Å\` (unstrained ${m.a.toFixed(4)} Å; Δa/a = ${fmtE((aM - m.a) / m.a)}). Only the energy gives this absolute length.`
-              : `**Spot (\`${hklStr(hb.h, hb.k, hb.l)}\`) lights up at ${hb.E.toFixed(3)} keV.** Knowing the exact colour gives the true spacing of its atomic planes: **${dm.toFixed(4)} Å** — so the crystal's real size is measured, not just its shape.`,
+            `**Spot (\`${hklStr(hb.h, hb.k, hb.l)}\`) lights up at ${hb.E.toFixed(3)} keV.** Knowing the exact energy gives the true spacing of its atomic planes, d = λ ÷ (2 sinθ) = **${dm.toFixed(4)} Å**, and with it the edge of the crystal’s cubic unit cell: ${aM.toFixed(4)} Å (${Math.abs(da) < 5e-4 ? 'unstrained' : `${signed(da, 3)} % from the unstrained ${m.a.toFixed(4)} Å`}). The rainbow pattern alone gives the crystal’s shape; only an energy gives its size.`,
           );
         } else {
+          const ov = s.harm.slice(1);
           parts.push(
-            sp
-              ? `**(\`${hklStr(h0.h, h0.k, h0.l)}\`)** dark at ${st.E0.toFixed(3)} keV; its harmonics need ${s.harm.map((h) => `${h.E.toFixed(3)}`).join(', ')} keV (window ±${(P.monoWindow(h0.E, s.sinT) / 2 * 1000).toFixed(0)} eV). Tap again to tune the monochromator.`
-              : `**Spot (\`${hklStr(h0.h, h0.k, h0.l)}\`) is dark** — its planes need **${h0.E.toFixed(2)} keV** X-rays. Tap it to tune the monochromator there.`,
+            `**Spot (\`${hklStr(h0.h, h0.k, h0.l)}\`) is dark** at ${st.E0.toFixed(3)} keV: its planes need **${h0.E.toFixed(3)} keV**${ov.length ? `, or ${ov.map((h) => h.E.toFixed(3)).join(' or ')} keV for its overtones` : ''}, within about ±${(P.monoWindow(h0.E, s.sinT) / 2 * 1000).toFixed(0)} eV. Tap it to tune the monochromator there.`,
           );
         }
         continue;
       }
-      // visitor text names the label harmonic h0 with ITS energy and d (Bragg-consistent, strained lattice)
+      // names the label harmonic h0 with ITS energy and d (Bragg-consistent, strained lattice)
       const lam = P.HC / h0.E;
-      const extra = s.harm.length > 1 ? s.harm.slice(1).map((h) => `(\`${hklStr(h.h, h.k, h.l)}\`) ${h.E.toFixed(2)} keV`).join(', ') : '';
       const s0 = st.strain !== 0 ? map0.get(s.dir) : undefined;
       const e0 = s0?.harm.find((x) => x.n === h0.n);
       const moved = s0 ? Math.hypot(s.x - s0.x, s.z - s0.z) / P.GEOM.pitch : 0;
       const dEtxt = e0
-        ? sp
-          ? ` · strained: E ${e0.E.toFixed(4)} → ${h0.E.toFixed(4)} keV (${fix((h0.E / e0.E - 1) * 100, 3)} %), spot moved ${moved.toFixed(2)} px`
-          : ` Strain changed its energy from ${e0.E.toFixed(3)} to ${h0.E.toFixed(3)} keV${moved < 0.05 ? ' — but the spot did not move' : ` and moved it ${moved.toFixed(1)} pixels`}.`
+        ? ` Strain changed its energy from ${e0.E.toFixed(3)} to ${h0.E.toFixed(3)} keV (${signed((h0.E / e0.E - 1) * 100, 3)} %)${moved < 0.05 ? ' — but the spot did not move' : ` and moved it ${moved.toFixed(1)} detector pixels`}.`
         : '';
       parts.push(
-        sp
-          ? `**(\`${hklStr(h0.h, h0.k, h0.l)}\`)**  d = \`${dS.toFixed(4)} Å\` · 2θ = \`${fix(s.tth / DEG, 3)}°\` · E = \`${h0.E.toFixed(3)} keV\` · 1/μ = ${(1 / h0.mu).toFixed(1)} µm · I = ${fmtRel(s.I / Iref)}${extra ? ` · harmonics on the same pixel: ${extra}` : ''}${dEtxt}`
-          : `**Spot (\`${hklStr(h0.h, h0.k, h0.l)}\`)**: atomic planes **${dS.toFixed(3)} Å** apart reflect X-rays of **${h0.E.toFixed(1)} keV** (wavelength ${lam.toFixed(2)} Å), bending them through ${(s.tth / DEG).toFixed(1)}°.${extra ? ` The same spot also holds ${s.harm.length - 1} “overtone” reflection${s.harm.length > 2 ? 's' : ''} (planes ${s.harm.slice(1).map((h) => `${+(h.n / h0.n).toFixed(2)}×`).join(', ')} closer, at ${s.harm.slice(1).map((h) => h.E.toFixed(1)).join(', ')} keV).` : ''}${dEtxt}`,
+        `**Spot (\`${hklStr(h0.h, h0.k, h0.l)}\`)**: atomic planes **${dS.toFixed(4)} Å** apart reflect X-rays of **${h0.E.toFixed(2)} keV** (wavelength ${lam.toFixed(3)} Å), bending them through 2θ = ${(s.tth / DEG).toFixed(2)}°. At this energy X-rays fade to 1/e within ${(1 / h0.mu).toFixed(1)} µm of ${metal}.${s.harm.length > 1 ? ` The same spot also holds ${s.harm.length - 1} “overtone” reflection${s.harm.length > 2 ? 's' : ''} (planes ${s.harm.slice(1).map((h) => `${+(h.n / h0.n).toFixed(2)}×`).join(', ')} closer, at ${s.harm.slice(1).map((h) => h.E.toFixed(2)).join(', ')} keV).` : ''}${dEtxt}`,
       );
     }
     if (sel.length === 2 && st.mode === 'pink') {
@@ -444,9 +439,7 @@ export function createPattern(station: Station, color: string, onCaption: () => 
       const ideal = P.angleBetween([a.h, a.k, a.l], [b.h, b.k, b.l]) / DEG;
       const dd = meas - ideal;
       parts.push(
-        sp
-          ? `∠(q̂₁, q̂₂) = \`${meas.toFixed(4)}°\` vs ideal ∠(hkl)₁(hkl)₂ = \`${ideal.toFixed(4)}°\`, Δ = ${Math.abs(dd) < 5e-9 ? '`0` — no deviatoric strain along this pair.' : `\`${fix(dd, 4)}°\` (${fmtE(dd * DEG)} rad).`}`
-          : `These two plane families meet at **${meas.toFixed(3)}°**${Math.abs(dd) > 5e-4 ? ` — a perfect crystal would give ${ideal.toFixed(3)}°. That tiny difference **is** the strain` : ', exactly as crystal geometry demands. Matching such angles is how a pattern is “indexed”'}.`,
+        `These two plane families meet at **${meas.toFixed(4)}°**${Math.abs(dd) >= 5e-5 ? ` — a perfect crystal would give ${ideal.toFixed(4)}°. That tiny difference (${signed(dd, 4)}°, ${fmtE(dd * DEG)} rad) **is** the strain.` : ', exactly as crystal geometry demands. Matching such angles is how a pattern is “indexed”: it fixes the grain’s orientation.'}`,
       );
     }
     info.innerHTML = parts.map((p) => `<div>${mdLite(p)}</div>`).join('<div style="height:6px"></div>');
@@ -459,7 +452,7 @@ export function createPattern(station: Station, color: string, onCaption: () => 
   }
 
   let lastCount = '';
-  function caption(): [string, string] {
+  function caption(): string {
     const N = res.spots.length;
     const cnt = st.mode === 'mono' ? `${litCount()} of ${N}` : `${N}`;
     if (cnt !== lastCount) {
@@ -467,30 +460,24 @@ export function createPattern(station: Station, color: string, onCaption: () => 
       spotsR.set(cnt);
     }
     const m = P.MATERIALS[st.mat];
-    const sp = st.strain !== 0;
+    const strained = st.strain !== 0;
     const pct = `${Math.abs(st.strain * 100).toFixed(2)} %`;
     let v = '';
-    let s = '';
     if (st.mode === 'mono') {
       const n = litCount();
-      v = `**One X-ray colour (${st.E0.toFixed(2)} keV): ${n === 0 ? `none of the ${N} spots lights up` : n === 1 ? `just 1 of the ${N} spots lights up` : `only ${n} of the ${N} spots light up`}** — at a single wavelength almost no atomic planes sit at exactly the right angle. That is why Laue uses the whole rainbow. Press **Scan energy** to sweep the colour, or tap a grey ring to tune to it: the exact energy reveals the true spacing of the planes.`;
-      s = `**Monochromatic, E = ${st.E0.toFixed(3)} keV** (Si(111), ΔE/E ≈ 1.3×10⁻⁴; a reflection is excited over ΔE/E ≈ Δθ·cotθ, Δθ ≈ 1 mrad convergence + mosaic, illustrative): ${n}/${N} reflections lit — one Ewald sphere instead of a shell. An energy scan through an indexed spot measures |G| absolutely, d = hc/(2E sinθ), fixing the dilatation that white-beam Laue cannot see (Ice et al. 2005); 3DMN keeps the pink and mono foci on the same ~100 nm spot.`;
+      v = `**One X-ray energy, ${st.E0.toFixed(3)} keV: ${n === 0 ? `none of the ${N} spots lights up` : n === 1 ? `just 1 of the ${N} spots lights up` : `only ${n} of the ${N} spots light up`}.** A monochromator (a silicon crystal) picks it from the rainbow, and at a single wavelength almost no atomic planes sit at exactly the right angle. Press **Scan energy** to sweep, or tap a grey ring to tune to it: the exact energy gives the true plane spacing, and with it the uniform swelling that the rainbow pattern cannot see.`;
     } else {
-      v = `**${N} spots**: each is one family of atomic planes in this ${m.id === 'Ni' ? 'nickel' : 'silicon'} grain, reflecting the one X-ray colour that fits Bragg's law (λ = 2d sinθ). The colours show those energies. **Drag the pattern** to turn the crystal — every spot moves, so the pattern is a fingerprint of the grain's orientation, read without rotating the sample.`;
-      s = `**${N} reflections** on the 409.6 mm detector at L = 510.9 mm (2θ ≈ 68–112°), ${res.elsewhere} more diffract elsewhere. Each spot fixes only q̂ ∥ G_{hkl}: k is free over 5.3–30 keV, so |q| is unknown and harmonics n·(hkl) superpose (${multiHarm} spot${multiHarm === 1 ? '' : 's'} here carry ≥2). Indexing inter-spot angles yields the orientation matrix U (Chung & Ice 1999). Brightness ∝ S(E)·λ²|F|²e^{−2Bs²}·P/sin²θ × A(E) (S per unit energy, i.e. i(λ)λ⁴/2sin²θ per unit wavelength), A = 1/[μ(1 + sinα_{in}/sinα_{out})] for a thick crystal${m.id === 'Ni' ? ' — Ni spots just above the 8.33 keV K edge are ~8× weaker' : ''}; S(E) illustrative; no extinction, air or detector efficiency.`;
+      v = `**${N} spots**: each is one family of atomic planes in this ${m.id === 'Ni' ? 'nickel' : 'silicon'} grain, reflecting the one X-ray energy from the 5.3–30 keV “rainbow” (drawn as colours) that fits Bragg’s law, λ = 2d sinθ (wavelength λ, plane spacing d, glancing angle θ). A spot fixes only the planes’ direction: planes 2× or 3× closer reflect 2× or 3× the energy onto the same spot. **Drag the pattern** to turn the crystal: every spot moves, so the pattern is a fingerprint of the grain’s orientation, read without rotating the sample.`;
     }
-    if (sp) {
+    if (strained) {
       if (st.kind === 'hydrostatic') {
-        v += ` You **${st.strain > 0 ? 'swelled' : 'shrank'}** the crystal by ${pct} in every direction: **no spot moved** — only the energies changed (by ${signed(-st.strain / (1 + st.strain) * 100, 2)} %). Laue alone can't see a uniform ${st.strain > 0 ? 'swelling' : 'shrinking'}; one exact energy (mono) can.`;
-        s += ` **Hydrostatic ε = ${fix(st.strain * 100, 2)} %**: max spot shift ${maxShiftPx.toFixed(4)} px — Ĝ is invariant under dilatation; every E scales by 1/(1+ε) = ${fix((1 / (1 + st.strain) - 1) * 100, 3)} %. Needs one energy for the 6th strain component.`;
+        v += ` You **${st.strain > 0 ? 'swelled' : 'shrank'}** the crystal by ${pct} in every direction: **no spot moved**, only every energy changed (by ${signed(-st.strain / (1 + st.strain) * 100, 2)} %). Strain has six independent parts; spot positions give the five that change the crystal’s shape, and one exact energy (mono) gives the sixth, its volume.`;
       } else {
-        v += st.strain > 0
-          ? ` You **stretched** the crystal sideways by ${pct} (it thins slightly the other ways, keeping its volume): spots shift by up to ${maxShiftPx.toFixed(1)} detector pixels (arrows magnified). Shape changes of the lattice are exactly what Laue measures.`
-          : ` You **squeezed** the crystal sideways by ${pct} (it bulges slightly the other ways, keeping its volume): spots shift by up to ${maxShiftPx.toFixed(1)} detector pixels (arrows magnified). Shape changes of the lattice are exactly what Laue measures.`;
-        s += ` **Deviatoric ε = diag(${fix(st.strain * 100, 2)}, ${fix((1 / Math.sqrt(1 + st.strain) - 1) * 100, 2)}, ${fix((1 / Math.sqrt(1 + st.strain) - 1) * 100, 2)}) %** (lab X, Y, Z; det(I+ε)=1): spots move up to ${maxShiftPx.toFixed(2)} px (200 µm); 1 px ≈ 3.9×10⁻⁴ rad, sub-pixel fits reach ~10⁻⁴ in strain.`;
+        const side = Math.abs((1 / Math.sqrt(1 + st.strain) - 1) * 100).toFixed(2);
+        v += ` You **${st.strain > 0 ? 'stretched' : 'squeezed'}** the crystal sideways by ${pct} (it ${st.strain > 0 ? 'thins' : 'bulges'} by ${side} % the other two ways, keeping its volume): spots shift by up to ${maxShiftPx.toFixed(1)} detector pixels (arrows magnified). Such shape changes are what Laue measures: fitting spot centres to a fraction of a 200 µm pixel reaches strains of ~10⁻⁴.`;
       }
     }
-    return [v, s];
+    return v;
   }
 
   // ---------------------------------------------------------------- detector drawing
@@ -510,15 +497,13 @@ export function createPattern(station: Station, color: string, onCaption: () => 
     ctx.clearRect(0, 0, w, h);
     if (w < 60 || h < 60) return;
     const top = 30;
-    const spD = station.depth === 'specialist';
-    const barH = spD ? 68 : 56; // specialist: one more line (detector specs) under the energy axis
+    const barH = 56;
     const side = 30;
     const S = Math.max(80, Math.min(w - 2 * side, h - top - barH - 6));
     dg = { x0: Math.round((w - S) / 2), y0: top, S, barY: top + S + 8, barH };
     const { x0, y0 } = dg;
-    const sp = station.depth === 'specialist';
 
-    detBg.draw(det, `${S}|${sp}|${st.mode}`, (c) => {
+    detBg.draw(det, `${S}|${st.mode}`, (c) => {
       drawBarStatic(c);
       // detector face
       c.save();
@@ -573,20 +558,6 @@ export function createPattern(station: Station, color: string, onCaption: () => 
       c.rotate(-Math.PI / 2);
       haloText(c, 'downstream (beam direction) →', 0, 0, { size: 10, color: TOKENS.ink3, align: 'center', baseline: 'middle' });
       c.restore();
-      if (sp) {
-        // lab axes as seen from the sample: +Z (downstream) up, +X (outboard) right
-        const tx = x0 + S - 58;
-        const ty = y0 + 40;
-        arrow(c, tx, ty, tx, ty - 20, 'rgba(183,195,210,0.75)', 1.2, 5);
-        arrow(c, tx, ty, tx + 20, ty, 'rgba(183,195,210,0.75)', 1.2, 5);
-        haloText(c, 'Z', tx, ty - 24, { size: 9.5, color: TOKENS.ink3, align: 'center' });
-        haloText(c, 'X out', tx + 23, ty + 3, { size: 9.5, color: TOKENS.ink3 });
-      }
-      if (sp) {
-        const spec = '409.6 mm square · 2048² × 200 µm pixels · 510.9 mm above the sample';
-        const short = '409.6 mm · 2048² px · 510.9 mm above sample';
-        haloText(c, textWidth(c, spec, 9.5) <= S ? spec : short, x0, dg.barY + 64, { size: 9.5, color: 'rgba(131,148,169,0.9)' });
-      }
     });
 
     // strain arrows
@@ -671,9 +642,9 @@ export function createPattern(station: Station, color: string, onCaption: () => 
         ctx.restore();
       }
     }
-    if (sp || st.sel.length === 0) {
+    if (st.sel.length === 0) {
       // label the strongest few spots so the pattern reads as "indexed"
-      const nLab = sp ? 12 : 5;
+      const nLab = 8;
       const sorted = [...res.spots].sort((a, b) => b.I - a.I).slice(0, nLab);
       const boxes: [number, number, number, number][] = [];
       for (const s of sorted) {
@@ -871,9 +842,8 @@ export function createPattern(station: Station, color: string, onCaption: () => 
     const kMin = P.BAND.min / P.HBARC;
     const padL = 14;
     const padR = 14;
-    const spD = station.depth === 'specialist';
-    const leg1 = spD ? 'vertical: q⊥ = √(qx² + qy²) — lattice rotated' : 'dots = families of atomic planes';
-    const leg2 = spD ? 'about k_in into one plane (exact by symmetry)' : 'inside the rainbow shell ⇒ they reflect';
+    const leg1 = 'dots = families of atomic planes';
+    const leg2 = 'inside the rainbow shell ⇒ they reflect';
     // the DOM canvas label ("EWALD CONSTRUCTION") occupies ≈ 150 px at the top left
     const legW = Math.max(textWidth(ctx, leg1, 9.5), textWidth(ctx, leg2, 9.5));
     const legBelow = w - 8 - legW < 160;
@@ -891,7 +861,7 @@ export function createPattern(station: Station, color: string, onCaption: () => 
     const Y = (qp: number) => oy - qp * sc;
     const mono = st.mode === 'mono';
 
-    ewBg.draw(ew, `${w}|${h}|${st.mode}|${station.depth}`, (c) => {
+    ewBg.draw(ew, `${w}|${h}|${st.mode}`, (c) => {
       c.save();
       c.beginPath();
       c.rect(0, 0, w, oy);
@@ -962,14 +932,13 @@ export function createPattern(station: Station, color: string, onCaption: () => 
       }
       haloText(c, 'q along the beam (Å⁻¹) →', X(qzMin), oy + 26, { size: 10, color: TOKENS.ink3 });
       haloText(c, '000', ox - 3, oy - 4, { size: 10, color: TOKENS.ink2, mono: true, align: 'right' });
-      const sp = station.depth === 'specialist';
       const kM = kMax;
       haloText(c, '30 keV sphere', X(-kM), Y(kM) - 5, { size: 10, color: eCss(30), align: 'center' });
       haloText(c, '5.3 keV', X(-2 * kMin) - 4, oy - 4, { size: 10, color: eCss(5.3), align: 'right' });
       // "detector" just outside the 30 keV sphere, beside the wedge's low-2θ edge (r_sphere = −2k cos∠)
       const angIn = Math.PI / 2 + t1;
       const rL = -2 * kMax * Math.cos(angIn) + 0.9;
-      const dTxt = sp ? 'detector (2θ 68–112°)' : 'detector';
+      const dTxt = 'detector (2θ 68–112°)';
       haloText(c, dTxt, X(rL * Math.cos(angIn)) + 7, Y(rL * Math.sin(angIn)) + 3, { size: 9.5, color: 'rgba(233,238,245,0.7)', align: 'left' });
       haloText(c, leg1, w - 8, legBelow ? 32 : 14, { size: 9.5, color: TOKENS.ink3, align: 'right' });
       haloText(c, leg2, w - 8, legBelow ? 44 : 26, { size: 9.5, color: TOKENS.ink3, align: 'right' });
@@ -1168,7 +1137,6 @@ export function createPattern(station: Station, color: string, onCaption: () => 
     ctx.clearRect(0, 0, w, h);
     if (w < 60 || h < 60) return;
     camSetup(w, h);
-    const sp = station.depth === 'specialist';
     const Ld = P.GEOM.L / 100;
     const hw = P.GEOM.half / 100;
     // detector (seen from below)
@@ -1309,9 +1277,9 @@ export function createPattern(station: Station, color: string, onCaption: () => 
     const dc: P.Vec3[] = [[-hw, Ld, -hw], [hw, Ld, -hw], [hw, Ld, hw], [-hw, Ld, hw]];
     let dRight = dc[0];
     for (const q of dc) if (project(q)[0] > project(dRight)[0]) dRight = q;
-    const dLines = sp ? ['detector', '511 mm above', '2θ = 90° at centre'] : ['detector', '½ m above'];
+    const dLines = ['detector', '511 mm above'];
     lab(dLines, dRight, [[6, 4], [-4, 24], [6, -26], [-70, 34]], TOKENS.ink2, 'left');
-    lab([sp ? 'sample, surface at 45°' : 'sample (tilted 45°)'], corner(0, -1, -tk), [[0, 16], [0, 28]], TOKENS.ink2, 'center');
+    lab(['sample (surface at 45°)'], corner(0, -1, -tk), [[0, 16], [0, 28]], TOKENS.ink2, 'center');
     lab([mono ? `one colour, ${st.E0.toFixed(1)} keV` : 'pink beam 5.3–30 keV'], [0, 0, -5.1], [[0, 23], [0, 36], [0, -10]], mono ? eCss(st.E0) : TOKENS.ink, 'left');
     lab(['KB mirrors'], [0, 0.14, -3.2], [[0, -9], [0, -21], [0, 22]], TOKENS.ink3, 'center');
     lab(['Pt wire'], [-0.95, wc[1], wc[2]], [[-5, -4], [-5, -16], [-5, -28], [-5, 12]], TOKENS.ink3, 'right');
@@ -1447,15 +1415,11 @@ export function createPattern(station: Station, color: string, onCaption: () => 
       tip.classList.remove('is-on');
       return;
     }
-    const sp = station.depth === 'specialist';
     const h0 = s.harm[0];
-    let html = `<b class="mono">(${hklStr(h0.h, h0.k, h0.l)})</b>`;
-    if (sp) {
-      html += `<div class="mono">E ${s.harm.map((h) => h.E.toFixed(3)).join(' / ')} keV</div><div class="mono">2θ ${(s.tth / DEG).toFixed(3)}°  d ${(P.HC / h0.E / (2 * s.sinT)).toFixed(4)} Å</div><div class="mono dim">x ${fix(s.x, 1)}  z ${fix(s.z, 1)} mm · I ${fmtRel(s.I / Iref)}</div><div class="mono dim">1/μ ${s.harm.map((h) => (1 / h.mu).toFixed(1)).join(' / ')} µm</div>`;
-    } else {
-      const nOv = s.harm.length - 1;
-      html += ` · ${h0.E.toFixed(1)} keV<div class="dim">planes ${(P.HC / h0.E / (2 * s.sinT)).toFixed(3)} Å apart${nOv ? ` · +${nOv} overtone${nOv > 1 ? 's' : ''} on this spot` : ''}</div>`;
-    }
+    const ov = s.harm.slice(1);
+    let html = `<b class="mono">(${hklStr(h0.h, h0.k, h0.l)})</b> · ${h0.E.toFixed(2)} keV`;
+    html += `<div class="dim">planes ${(P.HC / h0.E / (2 * s.sinT)).toFixed(4)} Å apart · 2θ ${(s.tth / DEG).toFixed(2)}°</div>`;
+    if (ov.length) html += `<div class="dim">+${ov.length} overtone${ov.length > 1 ? 's' : ''} here: ${ov.map((h) => h.E.toFixed(2)).join(', ')} keV</div>`;
     tip.innerHTML = html;
     tip.classList.add('is-on');
     const W = det.w;
@@ -1766,15 +1730,9 @@ export function createPattern(station: Station, color: string, onCaption: () => 
     if (on) dirty = true;
   }
 
-  function depthChanged(): void {
-    updateInfo();
-    void tipNote;
-    dirty = true;
-  }
-
   markPreset();
   recompute();
-  return { el, ctl, layout, setActive, frame, caption, depthChanged, reset };
+  return { el, ctl, layout, setActive, frame, caption, reset };
 }
 
 function niceMag(x: number): number {
@@ -1795,10 +1753,6 @@ function fmtE(v: number): string {
 function signed(v: number, d: number): string {
   const t = Math.abs(v).toFixed(d);
   return Number(t) === 0 ? t : `${v > 0 ? '+' : '−'}${t}`;
-}
-
-function fmtRel(v: number): string {
-  return v >= 0.01 ? v.toFixed(3) : v.toExponential(1);
 }
 
 /** tiny markdown: **bold**, `code`, _{sub} — the kit's md() is not exported for inline HTML reuse with sup */

@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   ARCSEC,
   EDGES,
@@ -295,5 +297,12 @@ describe('XMCD spectra and sum rules', () => {
 
   it('edge jumps follow the 2:1 statistical ratio', () => {
     expect(EDGES.L2.jump / EDGES.L3.jump).toBeCloseTo(0.5, 12);
+  });
+});
+
+describe('one presentation for every reader', () => {
+  it('the station never reads the retired Visitor/Specialist depth', () => {
+    const src = ['xmcd.ts', 'xmcd/beam.ts', 'xmcd/spectra.ts', 'xmcd/magnet.ts'].map((f) => readFileSync(join(__dirname, '../src/ui/explainers', f), 'utf8')).join('\n');
+    expect(src).not.toMatch(/ctx\.depth|station\.depth|setDepth|'specialist'|data-depth|app\/store/);
   });
 });

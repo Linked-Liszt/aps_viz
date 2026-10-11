@@ -34,12 +34,11 @@
  *   GI-XPCS: XPCS SNR ≈ β·I·√(T·τ·N_pix) in the low-count limit (I = count rate per pixel), so at fixed SNR the
  *   shortest accessible τ ∝ 1/I² (~200× flux → ~4×10⁴× faster dynamics; detector frame rate ~1 ms is the real limit).
  *   Geometry is drawn in the classic horizontal-sample GISAXS frame; the CSSI station mounts the surface vertically
- *   (α_f then spreads horizontally in the tube) — physics identical, stated in the specialist text.
+ *   (α_f then spreads horizontally in the tube) — physics identical, stated in the Numbers note.
  * Illustrative (labelled in the UI): CH time units, photon-count scale (absolute rates depend strongly on the sample;
  *   only the APS : APS-U ratio is meaningful), 2.56 µm simulated patch, full transverse coherence.
  */
 import type { ExplainerModule } from './registry';
-import type { Depth } from '../../app/store';
 import { button, canvas2d, createStation, group, loop, md, note, onReducedMotionChange, prefersReducedMotion, readout, slider, toggle, type Canvas2D } from './kit';
 import { poisson, rng } from '../../lib/fft';
 import { DEG, POLYSTYRENE, SILICON, fresnel, footprint, optics, penetrationDepth, refractedAngle, speckleSize, wavelengthNm, waveNumber } from './gisaxs/physics';
@@ -79,26 +78,19 @@ const mod: ExplainerModule = {
   subtitle: 'Tilt the X-rays to a whisper-thin angle, watch the surface glow on the detector — then switch on APS-U coherence.',
   mount(host, ctx) {
     const accent = ctx.color || '#34d399';
-    const station = createStation(host, { depth: ctx.depth, color: accent, layout: host.clientWidth < 760 ? 'stack' : 'side' });
+    const station = createStation(host, { color: accent, layout: host.clientWidth < 760 ? 'stack' : 'side' });
     const { visual, controls } = station;
 
     // ------------------------------------------------------------ canvases
     const cSide = canvas2d(visual, { label: '1 · Side view' });
-    const cDet = canvas2d(visual, { label: '2 · Detector' });
-    const cDepth = canvas2d(visual, { label: '3 · Into the surface' });
-    const cTop = canvas2d(visual, { label: '4 · Surface from above' });
+    const cDet = canvas2d(visual, { label: '2 · What the detector sees' });
+    const cDepth = canvas2d(visual, { label: '3 · How deep the X-rays go' });
+    const cTop = canvas2d(visual, { label: '4 · The surface from above' });
     const wrapOf = (c: Canvas2D) => c.canvas.parentElement as HTMLElement;
     wrapOf(cSide).style.gridArea = 'side';
     wrapOf(cDet).style.gridArea = 'det';
     wrapOf(cDepth).style.gridArea = 'depth';
     wrapOf(cTop).style.gridArea = 'top';
-    const labelEls = [cSide, cDet, cDepth, cTop].map((c) => wrapOf(c).querySelector('.stn-canvas-label') as HTMLElement);
-    const panelTitles: [string, string][] = [
-      ['1 · Side view', '1 · Scattering geometry'],
-      ['2 · What the detector sees', '2 · Detector pattern (DWBA)'],
-      ['3 · How deep do X-rays go?', '3 · Field intensity & 1/e depth'],
-      ['4 · The surface from above', '4 · Surface (live coarsening)'],
-    ];
     cTop.canvas.style.cursor = 'crosshair';
     cDet.canvas.style.cursor = 'crosshair';
     cDepth.canvas.style.cursor = 'ew-resize';
@@ -363,7 +355,7 @@ const mod: ExplainerModule = {
       detDrawDirty = true;
     };
 
-    const flags = (): ViewFlags => ({ specialist: station.depth === 'specialist', coherent: st.coherent, mix: st.mix, accent });
+    const flags = (): ViewFlags => ({ coherent: st.coherent, mix: st.mix, accent });
 
     // ------------------------------------------------------------ controls
     const gBeam = group(controls, 'Beam');
@@ -460,48 +452,36 @@ const mod: ExplainerModule = {
     note(
       gCoh,
       station,
-      'How alike is the speckle now and *τ* seconds ago? It fades as the islands move. That fading time is what **GI-XPCS** measures. Tap the surface map and watch the memory drop.',
-      'C(τ) = [⟨u(t)u(t−τ)⟩/(⟨u(t)⟩⟨u(t−τ)⟩) − 1]/β, u = I/⟨I⟩ (⟨I⟩ = ensemble GISAXS), over |q_{y}| = 0.5–2 q∗, α_{f} ≈ α_{c}…α_{c}+0.5°: one row of the two-time correlation ≈ (g_{2}(q,τ)−1)/β = |f(q,τ)|^{2}; β = contrast of the noise-free speckle (a calibration constant in practice). Coarsening slows with age, so the decay stretches (aging; dashed = ~10 s earlier). Shot noise does not bias C(τ>0), it scatters it (grey band ≈ ±1σ shot noise).',
+      'How alike is the speckle now and *τ* seconds ago? This **memory** fades as the islands move, and its fading time is what **GI-XPCS** (grazing-incidence X-ray photon correlation spectroscopy) measures. As the film ages, ripening slows and the memory lengthens (dashed: ~10 s earlier). Photon noise scatters the curve (grey band) but does not bias it. Tap the surface map and watch the memory drop.',
     );
     const memory = new SpeckleMemory(64, 3200);
     note(
       controls,
       station,
-      'Drag the angle below silicon’s **critical angle** (the grey dashed line in panel 3): the X-rays stop going in and just skim the top few nanometres. Then switch to the **coherent** beam.',
-      '**DWBA, islands on Si:** F = F(p_{i}+p_{f}) + R_{i}F(p_{f}−p_{i}) + R_{f}F(p_{i}−p_{f}) + R_{i}R_{f}F(−p_{i}−p_{f}), p = k sin α. For islands thin compared with 1/q_{z} this → T_{i}T_{f} F(q_{∥}, 0): |T(α_{f})|^{2} puts the **Yoneda** maximum at α_{f} = α_{c}. Drag in panel 3 to set α_{i}; hover the detector for q.',
+      'Drag the angle below silicon’s **critical angle** (the grey dashed line in panel 3): the X-rays stop going in and just skim the top few nanometres. The pattern includes the paths that bounce off the wafer before or after scattering (the distorted-wave Born approximation); they make the scattered light peak as it leaves at the critical angle, the **Yoneda** band. Then switch to the **coherent** beam.',
     );
 
     const gNum = group(controls, 'Numbers');
-    const rAc = readout(gNum, 'Critical angle, silicon');
-    const rAcPs = readout(gNum, 'Critical angle, polymer');
-    const rPen = readout(gNum, 'X-rays reach (Si)');
+    const rAc = readout(gNum, '');
+    const rAcPs = readout(gNum, '');
+    const rPen = readout(gNum, '');
     const rFoot = readout(gNum, 'Beam footprint');
-    const rSpk = readout(gNum, 'Speckle size, 21.8 m away');
-    const rNote = note(gNum, station, '', '');
-
-    const readoutLabels: [{ el: HTMLElement }, string, string][] = [
-      [rL, 'Island spacing', 'L = 2π/q∗'],
-      [rAc, 'Critical angle, silicon', 'α_{c} Si = √(2δ)'],
-      [rAcPs, 'Critical angle, polymer', 'α_{c} polystyrene'],
-      [rPen, 'X-rays reach (silicon)', 'Λ_{1/e} in Si'],
-      [rFoot, 'Beam footprint', 'footprint h/sin α_{i}'],
-      [rSpk, 'Speckle size, 21.8 m away', 'speckle λD/W, D = 21.8 m'],
-    ];
-    const relabel = () => {
-      const sp = station.depth === 'specialist';
-      for (const [r, v, s] of readoutLabels) (r.el.querySelector('.stn-readout-label') as HTMLElement).innerHTML = md(sp ? s : v);
-      labelEls.forEach((el, i) => (el.textContent = panelTitles[i][sp ? 1 : 0]));
-      rAcPs.el.style.display = '';
-    };
+    const rSpk = readout(gNum, 'Speckle size at 21.8 m');
+    note(
+      gNum,
+      station,
+      'Coherent photons per second: **APS-U (9-ID): about 10^{12}**, roughly **200 times more** than the old APS (realistic with one 2.35 m undulator: ~100–200×). The detector sits up to **21.8 m** away inside a walk-in vacuum tube, so each speckle, of size λD/W (D the distance, W the beam width), spans the two or more pixels needed to decode it, even at 25 keV. (The 2012 proof of principle at the old APS, 0.7 m away, needed hours per pattern.) Drawn as a horizontal sample; at 9-ID the surface stands vertical (same physics). *Illustrative:* the 2.56 µm patch (real speckle is finer along the upward angle), the time units and the photon-count scale; only the APS : APS-U ratio is meaningful.',
+    );
+    // readout labels with symbols (the kit's mini-markdown: α_{c} → α with a subscript c)
+    for (const [r, t] of [
+      [rL, 'Island spacing L = 2π/q*'],
+      [rAc, 'Critical angle α_{c}, silicon'],
+      [rAcPs, 'Critical angle α_{c}, polymer'],
+      [rPen, 'Reach into silicon (1/e)'],
+    ] as const)
+      (r.el.querySelector('.stn-readout-label') as HTMLElement).innerHTML = md(t);
 
     // ------------------------------------------------------------ text
-    /** sample–detector distance [m] for `ns` pixels of size p [m] per speckle λD/W (W [m]) */
-    const dNeed = (ns: number, p: number, W: number) => (ns * p * W) / (D.lambda * 1e-9);
-    const fmtM = (m: number) => (m < 1 ? `${(m * 100).toFixed(0)} cm` : `${m.toFixed(m < 10 ? 1 : 0)} m`);
-    const sci = (x: number) => {
-      const e = Math.floor(Math.log10(x));
-      return `${(x / Math.pow(10, e)).toFixed(2)}×10^{${e}}`;
-    };
     function updateText(): void {
       const aC = D.si.alphaC;
       const aCp = D.ps.alphaC;
@@ -510,50 +490,33 @@ const mod: ExplainerModule = {
       rAcPs.set(fmtDeg(aCp, 3));
       rPen.set(fmtLen(D.penSi));
       rFoot.set(fmtLen(D.foot * 1000));
-      rFoot.el.title = `beam size normal to the surface h = ${D.beamH} µm (${st.coherent ? 'CSSI coherent focus, horizontal size on the vertical surface' : 'ordinary GISAXS, CRL-1 full beam'})`;
+      rFoot.el.title = `beam size normal to the surface h = ${D.beamH} µm (${st.coherent ? 'CSSI coherent focus, horizontal size on the vertical surface' : 'ordinary GISAXS, CRL-1 full beam'}), spread over h/sin αᵢ`;
       const s = speckleSize(D.lambda * 1e-9, DETECTOR_DISTANCE, BEAM_FWHM_NM * 1e-9);
       rSpk.set(`${(s * 1e3).toFixed(1)} mm`);
-      rSpk.el.title = `≈ ${Math.round(s / PIXEL_EIGER)} Eiger pixels (75 µm) for a 1 µm wide coherent beam`;
-      const footCoh = footprint(BEAM_H_COHERENT, D.aI) * 1000;
-      // minimum distance for 2 pixels per speckle (Nyquist), p = 75–150 µm, W = vertical focus 0.35–1.7 µm
-      const dLo = dNeed(2, 75e-6, 0.35e-6);
-      const dHi = dNeed(2, 150e-6, 1.7e-6);
-      rNote.set(
-        'Coherent photons per second: **APS-U (9-ID): about 10^{12}**, roughly **200 times more** than the old APS. The detector sits up to **21.8 m** away inside a walk-in vacuum tube, so each speckle grows big enough to see.',
-        `δ_{Si} = ${sci(D.si.delta)}, β_{Si} = ${sci(D.si.beta)}, δ_{PS} = ${sci(D.ps.delta)}. Oversampling: the speckle λD/W must span ≥ 2 pixels p (Nyquist for phasing): D ≥ 2pW/λ = ${fmtM(dLo)}–${fmtM(dHi)} at ${st.E.toFixed(1)} keV for p = 75–150 µm and W = 0.35–1.7 µm (vertical focus = width across the beam on the vertical CSSI surface); ×2.5 more for ~5 px per speckle, and λ is 3× shorter at 25 keV → the Grand Tube: EIGER 16M (75 µm) and MM-PAD (150 µm, no beamstop) ride 2.9–21.8 m from the CSSI sample (z = 55.0 m). Flux: ≈1.2×10^{13} ph/s into the 0.75 × 0.42 µm KB focus at 8.8 keV with ≈3×2 coherent modes (FDR; Beamline Directory) → ~2×10^{12} per mode, modelled as 10^{12} coherent ph/s; pre-upgrade ~5×10^{9} coherent ph/s (8-ID-I), ~10^{9} in the 2012 CSSI demonstration (8-ID-E, D = 0.7 m, hours per pattern). Drawn as classic horizontal-sample GISAXS; the CSSI station mounts the surface vertically (same physics, α_{f} spreads sideways). *Illustrative:* 2.56 µm patch (real coherent footprint ${fmtLen(footCoh)} for h = ${BEAM_H_COHERENT} µm, so real speckle is ~${Math.max(1, Math.round(footCoh / (N * PIXEL_NM)))}× finer along α_{f} via q_{x} = k(cos α_{f} − cos α_{i})), Cahn–Hilliard time units, photon-count scale (only the APS : APS-U ratio is meaningful), full transverse coherence.`,
-      );
+      rSpk.el.title = `λD/W ≈ ${Math.round(s / PIXEL_EIGER)} Eiger pixels (75 µm) for a 1 µm wide coherent beam`;
       // caption
       const a = st.aIdeg;
       let v: string;
-      let spc: string;
       const Rpct = fmtPct(D.fSi.R).replace('%', '');
       const E = `${st.E.toFixed(1)} keV`;
       if (D.aI < aCp) {
-        v = `**Below the critical angle: total reflection.** At ${a.toFixed(2)}° the X-rays can’t get in. They bounce off like a stone skipping on water (${Rpct}% reflected), and only a faint *evanescent* wave reaches about **${fmtLen(D.penSi)}** into the surface. Everything the detector sees comes from the very top.`;
-        spc = `α_{i} = ${fmtDeg(D.aI, 3)} < α_{c}(PS) = ${fmtDeg(aCp, 3)} < α_{c}(Si) = ${fmtDeg(aC, 3)} at ${E}: total external reflection, |R|^{2} = ${Rpct}%, evanescent Λ_{1/e} = ${fmtLen(D.penSi)} (→ λ/4πα_{c} = ${fmtLen(D.lambda / (4 * Math.PI * aC))} as α_{i} → 0), |T_{i}|^{2} = ${D.fSi.T2.toFixed(2)}.`;
+        v = `**Below the critical angle: total reflection.** At ${a.toFixed(2)}° the X-rays can’t get in. They bounce off like a stone skipping on water (${Rpct}% reflected), and only a faint *evanescent* wave reaches about **${fmtLen(D.penSi)}** into the surface. Everything the detector sees comes from the very top. (Critical angles at ${E}: silicon ${fmtDeg(aC, 3)}, polymer ${fmtDeg(aCp, 3)}.)`;
       } else if (D.aI < aC) {
-        v = `**Between two critical angles.** At ${a.toFixed(2)}° the beam can enter the polymer islands, but the silicon underneath still reflects almost all of it (${Rpct}%). The islands sit in a bright *standing wave* (panel 3), which is why grazing incidence is so good at seeing very thin layers.`;
-        spc = `α_{c}(PS) = ${fmtDeg(aCp, 3)} < α_{i} = ${fmtDeg(D.aI, 3)} < α_{c}(Si) = ${fmtDeg(aC, 3)} at ${E}: islands fully illuminated while Si still totally reflects (|R|^{2} = ${Rpct}%, Λ_{Si} = ${fmtLen(D.penSi)}); |T_{i}|^{2} = ${D.fSi.T2.toFixed(2)}, peaking just above α_{c} (→ 4 for β → 0; absorption caps it lower).`;
+        v = `**Between two critical angles.** At ${a.toFixed(2)}° the beam can enter the polymer islands (critical angle ${fmtDeg(aCp, 3)}), but the silicon underneath (${fmtDeg(aC, 3)}) still reflects almost all of it (${Rpct}%). Incoming and reflected waves overlap into a bright *standing wave* (panel 3), ${D.fSi.T2.toFixed(1)}× the incoming intensity at the surface, which is why grazing incidence is so good at seeing very thin layers.`;
       } else {
-        v = `**Above the critical angle.** At ${a.toFixed(2)}° the X-rays dive about **${fmtLen(D.penSi)}** into the silicon and the mirror reflection fades to ${Rpct}%. The **Yoneda band** on the detector does not move when you tilt: it always sits at silicon’s critical angle, a built-in fingerprint of the material.`;
-        spc = `α_{i} = ${fmtDeg(D.aI, 3)} > α_{c}(Si) = ${fmtDeg(aC, 3)} at ${E}: Λ_{1/e} = ${fmtLen(D.penSi)}, |R|^{2} = ${Rpct}%, refracted at ${fmtDeg(D.aT, 3)}. Specular at α_{f} = α_{i} (q_{z} = 2k sin α_{i} = ${(2 * D.k * Math.sin(D.aI)).toFixed(3)} nm^{−1}); Yoneda stays at α_{f} = α_{c}.`;
+        v = `**Above the critical angle.** At ${a.toFixed(2)}° the X-rays dive about **${fmtLen(D.penSi)}** into the silicon (bending to ${fmtDeg(D.aT, 3)} inside) and the mirror reflection fades to ${Rpct}%. The **Yoneda band** on the detector does not move when you tilt: it always sits at silicon’s critical angle, ${fmtDeg(aC, 3)} at ${E}, a built-in fingerprint of the material.`;
       }
-      const qs = det.peakBin * DQ;
       if (!st.coherent) {
-        v += ` The two bright stripes are the islands’ **spacing fingerprint** (about ${fmtLen(Lnm)}). As the islands ripen and grow apart, the stripes slide toward the centre.`;
-        spc += ` Ordinary GISAXS (h = ${BEAM_H_GISAXS} µm normal to the surface, footprint ${fmtLen(D.foot * 1000)}): ensemble DWBA with ring-averaged slice spectra; correlation rods at ±q∗ = ${qs.toFixed(4)} nm^{−1}, L = 2π/q∗ = ${fmtLen(Lnm)}.`;
+        v += ` The two bright stripes are the islands’ **spacing fingerprint**: they sit at ±q* = 2π/L, for a spacing L of about ${fmtLen(Lnm)}. As the islands ripen and grow apart, the stripes slide toward the centre.`;
       } else if (st.source === 'apsu') {
-        v += ` **Coherent beam (APS-U):** the smooth stripes break into **speckle**, a barcode of exactly which islands sit under the beam. As the islands move, the barcode flickers. Timing that flicker is **GI-XPCS**; decoding the barcode into a 3D picture of the surface is **coherent surface scattering imaging (CSSI)**.`;
-        spc += ` Coherent (W = 1 µm FWHM across × h = ${BEAM_H_COHERENT} µm normal to the surface, footprint ${fmtLen(footCoh)}): I = |Σ_{l} c_{l}(α_{f}) M̃_{l}(q)|^{2} over the actual islands, speckle width Δq_{y} ≈ 2π/W; dashed = ensemble average. The speckle decorrelates as the islands coarsen (GI-XPCS); phase retrieval inverts it to a 3D surface image (CSSI).`;
+        v += ` **Coherent beam (APS-U):** the smooth stripes break into **speckle**, a barcode of exactly which islands sit under the 1 µm beam (dashed in the cuts: the ordinary average). As the islands move, the barcode flickers. Timing that flicker is **GI-XPCS**; decoding the barcode into a 3D picture of the surface is **coherent surface scattering imaging (CSSI)**.`;
       } else {
-        v += ` **The same experiment with the old APS:** about 200 times fewer coherent photons, so each 1-second frame catches only a sprinkle of photons. The barcode is still there, but buried in noise: you would have to add up many frames, far too slow to follow a surface that changes in seconds.`;
-        spc += ` ~5×10^{9} coherent ph/s (pre-upgrade 8-ID) vs 10^{12} for APS-U 9-ID (~200×): Poisson-limited 1 s frames (${photons !== null ? fmtCount(photons) : '…'} photons here, illustrative scale). XPCS SNR ≈ β·I·√(T·τ·N_{pix}) at low counts, so at fixed SNR and total time the shortest resolvable τ ∝ 1/I^{2}: the old APS could follow only ~4×10^{4}× slower dynamics. (The 2012 CSSI demonstration at 8-ID-E had ~10^{9} ph/s and needed hours per pattern; Sun et al., Nat. Photon. 6, 586 (2012).)`;
+        v += ` **The same experiment with the old APS:** about 200 times fewer coherent photons, so each 1-second frame catches only a sprinkle of photons (${photons !== null ? fmtCount(photons) : '…'} here). The barcode is still there, but buried in noise. At low counts the signal-to-noise grows with the count rate but only with the square root of the delay, so at equal quality the old APS could follow only ~200² ≈ 40,000× slower changes: far too slow for a surface that changes in seconds.`;
       }
       if (restartNotice > 0) {
-        v = `**A fresh film!** The islands had fully ripened, so the exhibit started a new one. ` + v;
-        spc = `New quench (islands had coarsened to L > ${RESTART_L_NM} nm, i.e. only ~5 islands across the 2.56 µm patch). ` + spc;
+        v = `**A fresh film!** The islands had fully ripened (spacing above ${RESTART_L_NM} nm, only ~5 islands across the 2.56 µm patch), so the exhibit started a new one. ` + v;
       }
-      station.setCaption(v, spc);
+      station.setCaption(v);
     }
 
     // ------------------------------------------------------------ interactions
@@ -839,7 +802,7 @@ const mod: ExplainerModule = {
           xpcsClock = 0;
           freshFrame = false;
           memory.push(disp, cohN, incN, t, photonScale());
-          memory.draw(cX, accent, station.depth === 'specialist', null);
+          memory.draw(cX, accent, null);
         }
       }
       if (pulse) {
@@ -883,21 +846,12 @@ const mod: ExplainerModule = {
     refreshSurface();
     recomputeDetector();
     composeDisplay();
-    relabel();
     updateText();
     tick(0, 0);
     loop(station, tick);
 
     return {
       destroy: () => station.destroy(),
-      setDepth: (d: Depth) => {
-        station.setDepth(d);
-        relabel();
-        updateText();
-        detDrawDirty = true;
-        depthDirty = true;
-        topDirty = true;
-      },
     };
   },
 };

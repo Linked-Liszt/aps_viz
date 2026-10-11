@@ -1,25 +1,35 @@
 {
-  "$comment": "Exhibit-copy overrides applied by scripts/build-sectors.py on top of research/sectors.json (see exhibit.py). Keys are sector numbers. Sector-level fields (plainLabel, operators) are set on the sector; `enhancement` is merged into every enhanced beamline of the sector; `beamlines` patches one beamline by its exact name (applied last). Every sector with an enhanced beamline must have a plainLabel. Status language for visitors: 'Status (2026): ...', no source comparisons.",
+  "$comment": "Exhibit-copy overrides applied by scripts/build-sectors.py on top of research/sectors.json (see exhibit.py). Keys are sector numbers. Sector-level fields (plainLabel, operators) are set on the sector; `enhancement` is merged into every enhanced beamline of the sector; `beamlines` patches one beamline by its exact name (applied last). Every sector with an enhanced beamline needs a plainLabel and an enhancement `text`: one text for every reader (no plain/expert variants), 2–4 sentences – what the beamline does in everyday words, what the program changed and why (terms defined in passing, one or two telling numbers), then 'Status (2026): …' from the research asBuilt/deliveryStatus, keeping its hedges. No source comparisons in the text.",
 
   "sectors": {
-    "1": { "plainLabel": "High-energy X-rays inside metals & batteries" },
+    "1": {
+      "plainLabel": "High-energy X-rays inside metals & batteries",
+      "enhancement": {
+        "text": "1-ID uses very high-energy X-rays, about 40–140 keV (thousand electron-volts), that pass through centimetres of metal to map stress and crystal grains inside engine parts and batteries. The plan replaces its bent-crystal monochromator – two bent silicon crystals that select one X-ray energy – with one turned on its side, deflecting the beam sideways rather than upwards because the new ring's source is smallest in the vertical plane, where an upward-deflecting crystal would blur it; it also gives 1-ID-C a new sample-handling and detector system. Status (2026): the 1-ID-C system has been delivered and 1-ID-E keeps its pre-upgrade setup; the new monochromator and the planned superconducting undulator are not confirmed as installed."
+      }
+    },
 
     "2": {
       "plainLabel": "Element maps of cells, soils & chips",
       "enhancement": {
-        "plain": "2-ID makes X-ray ‘element maps’ of cells, soils and microchips by scanning a tiny spot and recording the glow (fluorescence) each element gives off. The upgrade plan adds mirrors that keep the tiny new beam steady, a mirror-focused microprobe at 2-ID-E, and a new frozen-sample nanoprobe (Bionanoprobe-II) aiming for 10-nanometre detail. Status (2026): Bionanoprobe-II is under construction, and 2-ID-E still runs with its zone-plate lenses.",
-        "expert": "FDR scope (the design report had the whole 2-ID line canted in 2019, ahead of APS-U; S02 now holds two short canted 2.8 cm devices): a vertically focusing mirror on each branch so that, with the existing horizontal bendable mirrors, the source is re-imaged stigmatically onto beam-defining apertures at ~35 m (stable secondary source, tolerant of the 2.5× vertical source-size change between timing and brightness modes; spec to 30 keV under full heat load); 2-ID-E: replace zone plates by figured in-vacuum KB mirrors (60–80% vs 10–20% efficiency; achromatic, allows pink-beam/multi-harmonic XRF) with BDA, compact interferometers and <10 nm, >10 mm-travel fast stages – predicted focus gains of ~10² (micro-XAS) and ~10⁴ (micro-XRF); 2-ID-D: BNP-II cryogenic nanoprobe, <10 nm resolution, few-atom sensitivity, ptychography-enhanced XRF."
+        "text": "2-ID makes X-ray ‘element maps’ of cells, soils and microchips by scanning a tiny spot across the sample and recording the fluorescence – X-rays of a characteristic energy that each element gives off. The plan adds a focusing mirror to each branch that re-images the source onto a fixed aperture, a steady stand-in source that tolerates the 2.5-fold change in vertical source size between operating modes; replaces the zone-plate lenses of 2-ID-E with Kirkpatrick–Baez (KB) mirrors, which deliver 60–80% of the X-rays instead of 10–20%; and builds a frozen-sample nanoprobe, Bionanoprobe-II, aiming for 10-nanometre detail. Status (2026): Bionanoprobe-II is under construction, and 2-ID-E still runs with zone plates."
       },
       "beamlines": { "2-ID-E": { "title": "2-ID-E: X-ray Fluorescence Microprobe" } }
     },
 
     "3": {
       "plainLabel": "Nuclear resonance: atom vibrations under pressure",
+      "enhancement": {
+        "text": "3-ID tunes X-rays so precisely – to about a thousandth of an electron-volt out of 14,400, better than one part in ten million – that they make the nuclei of particular isotopes such as iron-57 resonate, revealing how atoms vibrate inside rocks squeezed to deep-Earth pressures or inside enzymes. The upgrade added Kirkpatrick–Baez (KB) focusing mirrors that shrink the beam from about 20 µm to about 1 µm, so tiny samples in diamond-anvil pressure cells can be measured. Status (2026): the focusing is in use – about 1.5 × 12 µm (horizontal × vertical) with the iron-57 monochromator – while a planned, funding-dependent new cryogenic monochromator has not been confirmed."
+      },
       "beamlines": { "3-ID-B,C,D": { "title": "3-ID-B,C,D: Nuclear Resonant Scattering (NRS)" } }
     },
 
     "5": {
       "plainLabel": "DND-CAT powder, surface & small-angle scattering",
+      "enhancement": {
+        "text": "5-ID, run by the DND-CAT consortium, does powder diffraction, surface studies and small-angle scattering. Its mirrors dated from 1995 and had lost both shape accuracy and reflectivity, and its monochromator – the silicon crystals that select one X-ray energy – topped out at 18 keV (thousand electron-volts), so the upgrade plan was to refurbish the mirrors and upgrade the monochromator, for a steadier beam and higher energies. Status (2026): the beamline now lists energies up to 35 keV, consistent with an upgraded monochromator; the mirror work has not been described publicly."
+      },
       "beamlines": {
         "5-BM-B": { "title": "5-BM-B: X-ray Absorption Spectroscopy & Diffraction" },
         "5-ID-B,C,D": { "title": "5-ID-B,C,D: Powder Diffraction, Surface Science & Small-Angle Scattering" }
@@ -29,12 +39,20 @@
     "6": {
       "plainLabel": "Magnetism & atomic order in crystals",
       "enhancement": {
-        "plain": "Sector 6 studies magnetism and atomic order in crystals. The upgrade split the sector into two independent X-ray beams pointing at slightly different angles (canting), so two experiments can run at once. The plan also included stacks of tiny X-ray lenses: beryllium lenses to focus the 6-ID-B/C beam to about a micrometre, and aluminium lenses for the high-energy 6-ID-D beam (a test at 60 keV gave about 50 × 4 micrometres). Status (2026): the two canted beams are in user operation; installation of the lens systems has not been announced.",
-        "expert": "FDR scope: cant the straight with 1 mrad separation – upstream planar undulator → outboard → 6-ID-D; downstream SCU (1.8 cm) → inboard → 6-ID-B/C; twin Be paraboloid CRL transfocators (entrance of 6-ID-B and 3 m downstream, before the Psi diffractometer) for a stable <1 µm coherent beam over 5–25 keV with ~400 eV energy scans; Al paraboloid CRLs for 6-ID-D (a test with the Sector-1 CRLs gave 50 (h) × 3.7 (v) µm at 60 keV and a ×108 flux-density gain over slits). As built, both canted devices are permanent-magnet undulators (2.3 and 2.7 cm); the downstream SCU was not installed."
+        "text": "Sector 6 studies magnetism and atomic order in crystals. The upgrade split its straight section into two independent X-ray beams angled 1 milliradian apart (‘canting’), so 6-ID-B/C and 6-ID-D can run at once. The plan also adds compound refractive lenses – stacks of tiny curved lenses, each bending X-rays only slightly – in beryllium to focus 6-ID-B/C below a micrometre, and in aluminium for high-energy 6-ID-D, where a test at 60 keV gave a 50 × 3.7 µm spot. Status (2026): both canted beams are in user operation, fed by permanent-magnet undulators rather than the planned superconducting one; installation of the lenses has not been announced."
       }
     },
 
-    "7": { "plainLabel": "Stop-motion X-ray movies of fast changes" },
+    "7": {
+      "plainLabel": "Stop-motion X-ray movies of fast changes",
+      "enhancement": {
+        "text": "7-ID makes ‘stop-motion movies’ of materials: a laser flash starts a change and an X-ray flash, a precisely timed moment later, records it. The upgrade added a mirror as the first optic to shield the monochromator from the beam's heat, fixed-shape Kirkpatrick–Baez (KB) mirrors that focus the X-rays to about 100 nanometres, and a dedicated hutch, 7-ID-D, for time-resolved nano-diffraction – aiming at changes on 100-nanometre and 100-picosecond (a tenth of a billionth of a second) scales. Status (2026): delivered, and the general user program has fully resumed."
+      }
+    },
+
+    "8": {
+      "beamlines": { "8-BM-B": { "summary": "Maps metals across whole tissue sections and large samples (up to about 10 cm) at micrometre resolution." } }
+    },
 
     "9": {
       "beamlines": { "9-ID-D": { "title": "9-ID-D: Coherent Surface Scattering Imaging & Grazing-Incidence Scattering" } }
@@ -47,17 +65,26 @@
       }
     },
 
-    "11": { "plainLabel": "Atom arrangements in glasses, catalysts & batteries" },
+    "11": {
+      "plainLabel": "Atom arrangements in glasses, catalysts & batteries",
+      "enhancement": {
+        "text": "Sector 11 uses very high-energy X-rays to measure how atoms are arranged in glasses, catalysts and battery materials, often while they react. The upgrade split the sector's light into two independent beams angled slightly apart (canted) and built a new station, 11-ID-D, extended by 11 m so that a detector can sit 12–15 m from the sample and record everything from atom-to-atom distances to nanoparticle sizes at once. Status (2026): 11-ID-B and 11-ID-C are back in user operation and 11-ID-D is in scientific commissioning; permanent-magnet undulators stand in for the planned superconducting ones."
+      },
+      "beamlines": { "11-ID-C": { "title": "11-ID-C: High-Energy X-ray Scattering (HEXS)" } }
+    },
 
     "12": {
       "plainLabel": "Small-angle scattering: nanoparticle sizes & shapes",
+      "enhancement": {
+        "text": "Sector 12 measures the sizes and shapes of tiny particles, from about a nanometre to tens of micrometres, by how they scatter X-rays at very small angles (small-angle X-ray scattering, SAXS). The upgrade built a long vacuum flight tube so the detector can sit far from the sample, and added lenses that focus the beam onto that distant detector – together designed to resolve angles up to about ten times finer; it also moved the ultra-small-angle instrument (USAXS) here from 9-ID and rebuilt it. Status (2026): delivered, with a 10-m flight tube rather than the 12 m planned, in a station now called 12-ID-E."
+      },
       "beamlines": { "12-ID-B": { "title": "12-ID-B: Small- & Wide-Angle X-ray Scattering (SAXS/WAXS)" } }
     },
 
     "13": {
       "plainLabel": "GSECARS Earth science at high pressure",
       "enhancement": {
-        "expert": "FDR scope: re-polish the 1000 mm KB mirrors (13-ID-C/D) and the 350 mm KB (13-ID-D); new dual horizontal 500 mm mirrors and re-polished 250 mm KB pairs for 13-ID-E, plus a DCM enhancement and a table-stability upgrade (FDR Table 4.3)."
+        "text": "GSECARS, run by the University of Chicago, studies rocks, minerals and soils, including samples squeezed between diamond anvils to deep-Earth pressures. The upgrade re-polished its Kirkpatrick–Baez (KB) mirrors – curved mirrors up to a metre long that focus X-rays at grazing angles – and added new ones, so they focus the new, smaller source without blurring it; it also upgraded a monochromator and made the instrument tables more stable. Status (2026): completed in 2025; the 13-ID-E microprobe now puts about five times more X-rays, around 10¹³ photons per second, into a spot smaller than a micrometre."
       },
       "beamlines": {
         "13-BM-C": { "title": "13-BM-C: Surface & High-Pressure Diffraction" },
@@ -78,6 +105,9 @@
 
     "15": {
       "plainLabel": "ChemMatCARS: liquid surfaces & tiny crystals",
+      "enhancement": {
+        "text": "ChemMatCARS, supported by the US National Science Foundation (NSF), studies molecules at liquid surfaces – such as a film of oil on water – and the structures of tiny crystals. The APS-U enhancement replaces an ageing mirror pair (an electrically bent ‘bimorph’ mirror and a flat one), whose shape errors had grown, with mechanically bent silicon mirrors, and adds 95 small aluminium lenses so that 30–70-keV X-rays can be squeezed into spots about 2–3 µm tall and 11–16 µm wide; separately, NSF funded a whole second beamline, stations 15-ID-B and 15-ID-E. Status (2026): the new beamline is in technical commissioning, and installation of the APS-U mirrors and lenses has not been confirmed publicly."
+      },
       "beamlines": {
         "15-ID-B,E": { "title": "15-ID-B,E: Small-Molecule Crystallography (B) & Liquid–Solid Interfaces (E)" },
         "15-ID-C,D": { "title": "15-ID-C,D: Liquid Surfaces (C) & Single-Crystal Diffraction (D)" }
@@ -100,7 +130,14 @@
     "18": { "operators": "BioCAT (Biophysics CAT; an NIH-supported national resource)" },
 
     "19": {
-      "beamlines": { "19-BM-D": { "title": "19-BM-D: Automated High-Energy Tomography" } }
+      "beamlines": {
+        "19-BM-D": { "title": "19-BM-D: Automated High-Energy Tomography" },
+        "19-ID-E": {
+          "$comment": "Status follows the newer beamline-directory evidence in research/isn.json.status2026 (read 2026-10-09); the commissioning chart alone is older.",
+          "status": "Operational/Accepting General Users (directory, 9 October 2026; commissioning continues)",
+          "summary": "A nanoprobe about 220 m from the source that maps chemistry and structure inside working devices with 4.8–30 keV X-rays."
+        }
+      }
     },
 
     "20": {
@@ -145,17 +182,24 @@
     "25": {
       "plainLabel": "Spectroscopy: chemistry maps & X-ray Raman",
       "enhancement": {
-        "plain": "Sector 25 is the new home of the APS spectroscopy and time-resolved programs. Two undulators one behind the other, angled slightly apart (canted), feed two independent beamlines: one for micro-spectroscopy and one for X-ray Raman and laser ‘flash’ experiments. The enhancement funded new monochromators that can switch from silicon crystals to multilayer reflectors for 10–100 times more X-rays (with less colour purity), and an upgraded X-ray Raman spectrometer.",
-        "expert": "FDR Table 4.3 enhancement items: LN₂-cooled silicon/multilayer monochromators (Si(111) 4–40 keV; multilayer stripes with d ≈ 24 Å and ≈ 48 Å; small 9–11 mm offset) and a LERIX spectrometer upgrade (better analyzer placement). The canted photon-delivery system of the new Advanced Spectroscopy and LERIX (ASL) beamline is described in FDR Sec. 4-10."
+        "text": "Sector 25 is the new home of the APS spectroscopy and time-resolved programs. Two undulators one behind the other, angled slightly apart (canted), feed two independent beamlines: one for micro-spectroscopy, and one for laser ‘flash’ experiments and X-ray Raman scattering, which lets penetrating hard X-rays probe light elements. The enhancement funded liquid-nitrogen-cooled monochromators that switch between silicon crystals (4–40 keV) and multilayer reflectors, which pass a broader band of energies and so 10–100 times more X-rays, plus an upgraded X-ray Raman spectrometer. Status (2026): in user operation; the new X-ray Raman instrument is still being commissioned."
+      },
+      "beamlines": {
+        "25-ID-D,E": { "summary": "X-ray Raman scattering lets penetrating hard X-rays probe light elements usually studied with soft X-rays (D); laser-pump/X-ray-probe movies of chemistry (E)." }
       }
     },
 
-    "26": { "plainLabel": "Hard X-ray Nanoprobe: strain & chemistry at 20 nm" },
+    "26": {
+      "plainLabel": "Hard X-ray Nanoprobe: strain & chemistry at 20 nm",
+      "enhancement": {
+        "text": "The Hard X-ray Nanoprobe at 26-ID-C, run by the Center for Nanoscale Materials (CNM) with the APS, maps strain and chemistry inside nanostructures with a 20-nanometre X-ray spot. The plan rebuilds its microscope for much faster scanning – a field about a micrometre square at about 10-nm resolution in 10–100 milliseconds – and for experiments in which a laser flash starts a change that the X-rays then follow; it also refurbishes the first mirror, rebuilds the monochromator to cope with about 100 times more heat, and adds zone-plate lenses for 15–25 keV. Status (2026): the beamline is in user operation, but the rebuilt microscope and the new lenses have not been publicly confirmed."
+      }
+    },
 
     "27": {
-      "plainLabel": "RIXS: electronic & magnetic waves in quantum materials",
+      "plainLabel": "Electronic & magnetic excitations in quantum materials",
       "enhancement": {
-        "plain": "27-ID does resonant inelastic X-ray scattering (RIXS): it measures the tiny energy X-rays lose when they kick electrons and magnetic waves in quantum materials. Some of its spectrometer motion stages were more than 30 years old, and the point where all its rotation axes should meet wandered by about 0.2 mm (two or three hair widths), so the upgrade rebuilt it to be far more precise and to fit bigger sample environments. It was the first APS-U enhancement to be finished, in March 2022."
+        "text": "27-ID does resonant inelastic X-ray scattering (RIXS): it measures the tiny amounts of energy X-rays lose when they stir up electrons and their magnetism in quantum materials. Some of its spectrometer's motion stages were more than 30 years old, and the point where all its rotation axes should meet wandered by about 200 µm (two or three hair widths); the rebuild was designed to hold it within 5 µm, separates the sample motions from the detector arm and leaves room for bigger sample environments. It was the first APS-U enhancement to be finished, in March 2022 – before the old ring shut down."
       }
     },
 
@@ -168,9 +212,14 @@
     "30": {
       "plainLabel": "Atomic vibrations (phonons) in crystals",
       "enhancement": {
-        "plain": "30-ID measures how sound-like vibrations (phonons) travel through crystals using X-rays sorted to about 1–1.5 thousandths of an electron-volt out of 23,700 (roughly one part in 16–24 million). The upgrade cools its key crystals to cryogenic temperatures so the energy does not drift, making the very small energy shifts scientists look for measurable."
+        "text": "30-ID measures how sound-like vibrations of atoms (phonons) travel through crystals, using X-rays sorted to about 1–1.5 thousandths of an electron-volt (meV) out of 23,700 eV – roughly one part in 16–24 million. The upgrade cools the key monochromator crystals to cryogenic temperatures so the selected energy does not drift; in a test at 3-ID the design held it to about 0.05 meV over three to four days, more than 100 times steadier than before. Status (2026): the high-heat-load monochromator, which takes the full beam first, is now listed as cryogenically cooled; whether the new high-resolution one is in service has not been stated."
       },
-      "beamlines": { "30-ID-B,C": { "title": "30-ID-B,C: High-Resolution Inelastic Scattering (HERIX) & NRS" } }
+      "beamlines": {
+        "30-ID-B,C": {
+          "title": "30-ID-B,C: High-Resolution Inelastic Scattering (HERIX) & NRS",
+          "summary": "Measures how atomic vibrations travel through crystals, resolving energy changes of about 1.5 thousandths of an electron-volt (meV)."
+        }
+      }
     },
 
     "31": {
@@ -180,14 +229,22 @@
     "32": {
       "plainLabel": "Ultrafast X-ray movies & 3D nano-imaging",
       "enhancement": {
-        "plain": "32-ID takes ultra-fast X-ray movies (single flashes of about 100 trillionths of a second) of things like 3D-printing laser melts and fuel sprays, and 3D nanoscale images with an X-ray microscope. The upgrade split its two undulators into two angled (canted) beams and moved its X-ray microscope into its own hutch; the plan is for one beam to film an event while a second, focused beam measures the crystal structure at the same spot. Status (2026): the canted beams and the relocated microscope are in use and 32-ID-C offers high-speed diffraction with the second beam; the simultaneous dual-beam setup and a new projection nano-CT microscope are planned.",
-        "expert": "FDR scope: cant the straight (U28 + U13.5 replacing U33 + U18) with new white-beam shutter/mask, slits, filters, windows and transport; dual-beam mode: the U13.5 single-line beam CRL-focused and steered back onto the sample by small multilayer mirrors for simultaneous diffraction/WAXS/SAXS while the U28 beam does full-field imaging; relocate the TXM to 32-ID-B; new KB-based cone-beam projection nano-CT in 32-ID-C (high-speed imaging from 1 µm to <100 nm; nano-CT temporal resolution from 500 ms to tens of µs); multilayer KBs optimized for 25 and 12 keV, double vertical mirrors, CRL transfocator."
+        "text": "32-ID films ultrafast events such as laser melting in 3D printing, with single X-ray flashes about 100 picoseconds (a tenth of a billionth of a second) long, and takes 3D nanoscale images with a transmission X-ray microscope. The upgrade split its two undulators into two canted beams and moved the microscope into its own hutch, 32-ID-B; the plan is for one beam to film an event while the second, lens-focused and steered back by small multilayer mirrors, measures the crystal structure at the same spot. Status (2026): the canted beams and the relocated microscope are in use, and 32-ID-C offers high-speed diffraction with the second beam; the simultaneous dual-beam setup and a new projection microscope for nano-CT (3D scans at the nanoscale) are not confirmed."
       }
     },
 
     "33": {
       "operators": "XSD Surface Scattering & Microdiffraction; XSD Microscopy (PtychoProbe)",
-      "beamlines": { "33-ID-C": { "operator": "XSD Microscopy group" } }
+      "beamlines": {
+        "33-ID-C": {
+          "operator": "XSD Microscopy group",
+          "summary": "Aims to focus hard X-rays to about 5 nm to see individual nanostructures inside chips, batteries and cells."
+        }
+      }
+    },
+
+    "34": {
+      "beamlines": { "34-ID-E": { "summary": "Maps how each crystal grain inside metals and chips is tilted and strained, in 3D, with a beam designed to be about 100 nm across." } }
     }
   }
 }

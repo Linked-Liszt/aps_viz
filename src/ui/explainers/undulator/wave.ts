@@ -7,12 +7,11 @@
  *   • bottom left: harmonic content |c_n|² = F_n(K)/4 as bars (exact identity, verified in tests/undulator.test.ts),
  *     normalised to the strongest.
  *   • bottom right: zoom on one harmonic line (the 1st, or the one the station tuned to). The wave train is N periods
- *     long, so its spectrum is sinc²(πnN(E/E_n − 1)): FWHM ΔE/E = 0.886/(nN), zeros at ±1/(nN). Specialist view adds
- *     the same line convolved with the energy-spread Gaussian (rms 2σ_E in E/E_n, since E_n ∝ γ²) — numerically, so
+ *     long, so its spectrum is sinc²(πnN(E/E_n − 1)): FWHM ΔE/E = 0.886/(nN), zeros at ±1/(nN). Dashed: the
+ *     same line convolved with the energy-spread Gaussian (rms 2σ_E in E/E_n, since E_n ∝ γ²) — numerically, so
  *     its FWHM and peak are exact for a Gaussian spread; the spectrum heights and captions use the same cached numbers
  *     (physics.ts `spreadFactor`, `spreadFwhm`). Beam divergence is not included in this line shape.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import * as P from './physics';
 import { label, withAlpha } from './scene';
@@ -35,7 +34,6 @@ export interface LineInput {
 
 export class WaveView {
   private K = 1;
-  private depth: Depth = 'visitor';
   private lam1 = 1; // Å
   private buf = new Float32Array(M);
   private peak = 1;
@@ -61,11 +59,10 @@ export class WaveView {
   ) {
   }
 
-  set(K: number, lam1A: number, depth: Depth, line: LineInput): void {
+  set(K: number, lam1A: number, line: LineInput): void {
     this.ver++;
     this.K = K;
     this.lam1 = lam1A;
-    this.depth = depth;
     this.peak = P.waveform(K, this.buf) || 1;
     let mx = 0;
     for (let n = 1; n <= NB; n++) {
@@ -110,7 +107,6 @@ export class WaveView {
   private draw(): void {
     const { ctx, w, h } = this.c;
     if (w < 20) return;
-    const spec = this.depth === 'specialist';
     ctx.save();
     ctx.fillStyle = TOKENS.bg;
     ctx.fillRect(0, 0, w, h);
@@ -199,13 +195,16 @@ export class WaveView {
     const trTxt = trainAs < 10 ? trainAs.toFixed(1) : trainAs.toFixed(0);
     ctx.font = `500 10.5px ${TOKENS.font}`;
     const room = wx1 - (wx0 + cyc + 6);
-    const opts = spec
-      ? [`T₁ = λ₁/c = ${asTxt} as · train N·T₁ = ${trTxt} as`, `T₁ = λ₁/c = ${asTxt} as`, `T₁ = ${asTxt} as`]
-      : [`1 wave passes in ${asTxt} attoseconds · ${N} waves in a row`, `1 wave passes in ${asTxt} attoseconds`, `1 wave: ${asTxt} attoseconds`];
+    const opts = [
+      `1 wave passes in ${asTxt} attoseconds; the train of all ${N} in ${trTxt} attoseconds`,
+      `1 wave passes in ${asTxt} attoseconds, all ${N} in ${trTxt}`,
+      `1 wave passes in ${asTxt} attoseconds`,
+      `1 wave: ${asTxt} attoseconds`,
+    ];
     const tTxt = opts.find((t) => ctx.measureText(t).width <= room) ?? opts[opts.length - 1];
     label(ctx, tTxt, wx0 + cyc + 6, yb + 4, TOKENS.ink3, 10.5, 'left', 500);
     // shape descriptor, top-right of the canvas, unless the DOM panel title already reaches there
-    const kTxt = spec ? `K = ${this.K.toFixed(2)}` : this.K < 0.8 ? 'smooth wave' : this.K < 1.6 ? 'getting peaky' : 'sharp flashes';
+    const kTxt = `K = ${this.K.toFixed(2)}: ${this.K < 0.8 ? 'smooth wave' : this.K < 1.6 ? 'getting peaky' : 'sharp flashes'}`;
     ctx.font = `600 10.5px ${TOKENS.font}`;
     const kx = showBars && !stacked ? w - 12 : wx1;
     if (kx - ctx.measureText(kTxt).width > this.titleRight() + 10) label(ctx, kTxt, kx, 16, this.K < 0.8 ? TOKENS.ink2 : this.accent, 10.5, 'right', 600);
@@ -233,20 +232,20 @@ export class WaveView {
         }
         label(ctx, String(k), cx, by1 + 12, k % 2 ? TOKENS.ink2 : 'rgba(131,148,169,0.6)', 10, 'center', 600);
       }
-      const title = spec ? 'harmonic content Fₙ(K)' : 'colours in this wave';
+      const title = 'harmonics in this wave';
       label(ctx, title, bx0 - 4, by0 - 6, TOKENS.ink3, 10, 'left', 600);
       const tw = ctx.measureText(title).width;
-      const evenTxt = spec ? 'even n: 0 on axis' : 'even: none';
+      const evenTxt = 'even: none on axis';
       ctx.font = `500 9.5px ${TOKENS.font}`;
       if (bx0 - 4 + tw + 10 + ctx.measureText(evenTxt).width <= bx1) label(ctx, evenTxt, bx1, by0 - 6, 'rgba(131,148,169,0.75)', 9.5, 'right', 500);
     }
 
     // ---- zoom on one harmonic line
-    if (stacked && zx1 - zx0 > 90) this.drawLine(ctx, zx0, zx1, by0, by1, spec);
+    if (stacked && zx1 - zx0 > 90) this.drawLine(ctx, zx0, zx1, by0, by1);
     ctx.restore();
   }
 
-  private drawLine(ctx: CanvasRenderingContext2D, x0: number, x1: number, y0: number, y1: number, spec: boolean): void {
+  private drawLine(ctx: CanvasRenderingContext2D, x0: number, x1: number, y0: number, y1: number): void {
     const { n, En } = this.line;
     const span = this.zSpan;
     const px = (d: number) => x0 + ((d + span) / (2 * span)) * (x1 - x0);
@@ -254,7 +253,7 @@ export class WaveView {
     const py = (v: number) => y1 - v * hgt;
     const eV = (rel: number) => rel * En * 1000;
     // title
-    const title = spec ? `line n = ${n}, zoomed` : `zoom on the ${P.ordinal(n)} colour`;
+    const title = `zoom on the ${P.ordinal(n)} harmonic`;
     label(ctx, title, x0 - 2, y0 - 6, TOKENS.ink3, 10, 'left', 600);
     // baseline + centre tick
     ctx.strokeStyle = 'rgba(170,190,215,0.25)';
@@ -283,8 +282,8 @@ export class WaveView {
     ctx.strokeStyle = this.accent;
     ctx.lineWidth = 1.6;
     ctx.stroke();
-    // with energy spread (specialist)
-    if (spec) {
+    // with the electrons' energy spread (dashed)
+    {
       ctx.beginPath();
       for (let i = 0; i < NZ; i++) {
         const x = px(-span + (2 * span * i) / (NZ - 1));
@@ -317,9 +316,9 @@ export class WaveView {
     // which only the low side-lobes reach. Anything that does not fit is dropped (the read-outs carry the numbers).
     const cx = px(0);
     // the dashed (σ_E) curve only crosses half height when its peak is above 0.5
-    const flank = Math.max(xb, spec && this.zPkSpr > 0.5 ? px(this.zFwSpr / 2) : xb);
+    const flank = Math.max(xb, this.zPkSpr > 0.5 ? px(this.zFwSpr / 2) : xb);
     const fwTxt = `${fmtEv(eV(this.zFwNat))} eV`;
-    const natTxt = spec ? `${fwTxt} (N only)` : `${fwTxt} wide`;
+    const natTxt = `${fwTxt} wide`;
     const tag = (t: string, x: number, y: number, color: string, size: number, weight: number) => {
       ctx.font = `${weight} ${size}px ${TOKENS.font}`;
       const tw = ctx.measureText(t).width;
@@ -335,9 +334,9 @@ export class WaveView {
       nw = ctx.measureText(nt).width;
     }
     if (flank + 6 + nw <= x1) tag(nt, flank + 6, yh + 3.5, '#fff', 10, 600);
-    if (spec) {
-      // "┄ with σ_E: 59 eV" (dashed swatch, subscript drawn by hand; FWHM of the broadened line) and "peak ×0.86"
-      // below it; the "with" is dropped when space is short
+    {
+      // "┄ with energy spread: 59 eV" (dashed swatch; FWHM of the broadened line) and "peak ×0.86" below it, in
+      // the top-left corner; shorter wordings when space is short.
       // the two label rows reach down to v = vMin: keep clear of wherever either curve rises above that
       const vMin = (y1 - (y0 + 24)) / hgt;
       let occ = 0;
@@ -346,22 +345,12 @@ export class WaveView {
       }
       const room = cx - (px(occ) - cx) - 8 - x0;
       const fs = 9.5;
-      const sub = 7.5;
-      const rest = `: ${fmtEv(eV(this.zFwSpr))} eV`;
-      ctx.font = `500 ${fs}px ${TOKENS.font}`;
-      const wSig = ctx.measureText('σ').width;
-      const wRest = ctx.measureText(rest).width;
-      const wWith = ctx.measureText('with ').width;
-      ctx.font = `500 ${sub}px ${TOKENS.font}`;
-      const wSub = ctx.measureText('E').width;
       const sw = 12;
-      let total = sw + 4 + wWith + wSig + wSub + 1 + wRest;
-      let pre = 'with ';
-      if (total > room) {
-        total -= wWith;
-        pre = '';
-      }
-      if (total <= room) {
+      const ev = `${fmtEv(eV(this.zFwSpr))} eV`;
+      ctx.font = `500 ${fs}px ${TOKENS.font}`;
+      const txt = [`with energy spread: ${ev}`, `energy spread: ${ev}`, `with spread: ${ev}`, `spread: ${ev}`].find((t) => sw + 4 + ctx.measureText(t).width <= room);
+      if (txt) {
+        const total = sw + 4 + ctx.measureText(txt).width;
         const y = y0 + 8;
         ctx.fillStyle = 'rgba(5,8,14,0.78)';
         ctx.fillRect(x0 - 2, y - fs + 1, total + 4, fs + 4);
@@ -373,16 +362,7 @@ export class WaveView {
         ctx.lineTo(x0 + sw, y - 3);
         ctx.stroke();
         ctx.setLineDash([]);
-        let x = x0 + sw + 4;
-        if (pre) {
-          label(ctx, pre, x, y, TOKENS.ink, fs, 'left', 500);
-          x += wWith;
-        }
-        label(ctx, 'σ', x, y, TOKENS.ink, fs, 'left', 500);
-        x += wSig;
-        label(ctx, 'E', x, y + 2.5, TOKENS.ink, sub, 'left', 500);
-        x += wSub + 1;
-        label(ctx, rest, x, y, TOKENS.ink, fs, 'left', 500);
+        label(ctx, txt, x0 + sw + 4, y, TOKENS.ink, fs, 'left', 500);
         const l2 = `peak ×${this.zPkSpr.toFixed(2)}`;
         ctx.font = `500 ${fs}px ${TOKENS.font}`;
         if (ctx.measureText(l2).width + sw + 4 <= room) tag(l2, x0 + sw + 4, y0 + 21, TOKENS.ink2, fs, 500);

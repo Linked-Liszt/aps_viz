@@ -55,7 +55,7 @@
  *
  * Not included: the spectral broadening by beam divergence (≈ γ²σ′²/(1 + K²/2): 3×10⁻⁴ at APS-U, small next to
  * 2σ_E = 2.7×10⁻³, but ~7×10⁻³ at the old APS), the source size, correlated phase errors, and the even harmonics
- * that appear off axis. The UI says so in specialist text.
+ * that appear off axis. The station's "What comes out" hint says so.
  */
 
 export const MC2_MEV = 0.51099895;
@@ -107,7 +107,7 @@ export interface Device {
   /** button label */
   short: string;
   name: string;
-  /** one-line status for the specialist text */
+  /** one-line status, shown in the station's gap hint */
   status: string;
 }
 
@@ -117,8 +117,8 @@ export const DEVICES: Record<DeviceId, Device> = {
   u25: { id: 'u25', kind: 'pm', periodMm: 25, N: 94, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 25, kRef: 1.98, short: '25', name: 'U25', status: 'new for APS-U (9 + 3 canted, mostly in revolvers)' },
   u21: { id: 'u21', kind: 'pm', periodMm: 21, N: 112, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 21, kRef: 1.37, short: '21', name: 'U21', status: 'new for APS-U (11 + 5 canted)' },
   u13: { id: 'u13', kind: 'pm', periodMm: 13.5, N: 175, lengthM: 2.36, gapMinMm: 8.5, gapMaxMm: 13.5, kRef: 0.41, short: '13.5', name: 'U13.5', status: 'new for APS-U (2 full + 1 canted)' },
-  scu18: { id: 'scu18', kind: 'scu', periodMm: 18.5, N: 70, lengthM: 1.3, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 2.291, short: '18.5', name: 'SCU18.5', status: 'planned canted pair for 28-ID (CHEX); not installed as of Sep 2026' },
-  scu16: { id: 'scu16', kind: 'scu', periodMm: 16.5, N: 115, lengthM: 1.9, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 1.63, short: '16.5', name: 'SCU16.5', status: 'planned in-line pairs for 1-ID and 20-ID (HEXM), and a 1.5 m canted pair for 11-ID; not installed as of Sep 2026' },
+  scu18: { id: 'scu18', kind: 'scu', periodMm: 18.5, N: 70, lengthM: 1.3, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 2.291, short: '18.5', name: 'SCU18.5', status: 'planned canted pair for 28-ID (CHEX); not installed as of September 2026' },
+  scu16: { id: 'scu16', kind: 'scu', periodMm: 16.5, N: 115, lengthM: 1.9, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 1.63, short: '16.5', name: 'SCU16.5', status: 'planned in-line pairs for 1-ID and 20-ID (HEXM), and a 1.5 m canted pair for 11-ID; not installed as of September 2026' },
 };
 export const PM_IDS: DeviceId[] = ['u33', 'u28', 'u25', 'u21', 'u13'];
 export const SCU_IDS: DeviceId[] = ['scu18', 'scu16'];

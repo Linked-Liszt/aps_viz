@@ -1,6 +1,5 @@
 import { h, icon, nodes, p, rich } from '../lib/dom';
-import { store, type Depth } from '../app/store';
-import { Modal, depthToggle, holdExclusive, loadErrorNotice, mountStation } from './Modal';
+import { Modal, holdExclusive, loadErrorNotice, mountStation } from './Modal';
 import { loadExplainer } from './explainers/registry';
 import { FACILITY, type Param } from '../data/facility';
 import { TOUR, type TourStep } from '../data/tour';
@@ -100,12 +99,20 @@ const PRIMER: [string, string][] = [
   ['whyRoundBeams', 'Why a round beam?'],
 ];
 
+/** A primer answer: one or two paragraphs separated by a blank line, each its own <p>. */
+const paragraphs = (text: string): HTMLParagraphElement[] =>
+  text
+    .split(/\n\s*\n/)
+    .map((t) => t.trim())
+    .filter(Boolean)
+    .map((t) => p(typo(t)));
+
 function primer(): HTMLElement {
-  const ex = FACILITY.plainExplainers ?? {};
+  const ex = FACILITY.explainers ?? {};
   return h(
     'div',
     { class: 'primer' },
-    ...PRIMER.filter(([k]) => ex[k]).map(([k, title], i) => h('details', { class: 'primer-item', open: i === 0 }, h('summary', null, title), p(ex[k]))),
+    ...PRIMER.filter(([k]) => ex[k]).map(([k, title], i) => h('details', { class: 'primer-item', open: i === 0 }, h('summary', null, title), ...paragraphs(ex[k]))),
   );
 }
 
@@ -126,14 +133,12 @@ function planes(x: P, withErr = false): { h?: string; v?: string } {
   }
   return out;
 }
-const round = (x: P) => (typeof x?.value === 'number' ? fmtNum(Math.round(x.value)) : undefined);
 
 /**
  * The ring before and after. The APS-U column is what users get: the round-beam (full-coupling) user mode;
- * the flat, low-coupling mode is given underneath.
+ * the flat, low-coupling mode is given underneath. Row notes are fine print: what the number is and its caveat.
  */
-function compareTable(depth: Depth): HTMLElement {
-  const specialist = depth === 'specialist';
+function compareTable(): HTMLElement {
   const B = (FACILITY.ring?.before ?? {}) as Record<string, Param>;
   const A = (FACILITY.ring?.after ?? {}) as Record<string, Param>;
   const roundEmit = planes(A.emittanceMeasuredRound);
@@ -145,27 +150,27 @@ function compareTable(depth: Depth): HTMLElement {
     ['Stored current', '', one(B.beamCurrent), one(A.beamCurrent)],
     [
       'Emittance (design, horizontal)',
-      specialist ? 'APS: effective emittance; APS-U: natural emittance of the new lattice' : 'APS-U value: natural emittance, about 75× smaller',
+      'The beam’s size × angular spread. APS: effective value as operated; APS-U: natural emittance of the new lattice, about 75× smaller',
       one(B.horizontalEmittance),
       one(A.naturalEmittance),
     ],
     [
       'Emittance in user operation (h × v)',
-      specialist && roundErr.h && roundErr.v
-        ? `APS-U: measured in the round-beam (full-coupling) user mode, 2024: ${roundErr.h} (h), ${roundErr.v} (v)`
-        : 'APS-U: measured in the round-beam user mode (2024)',
+      roundErr.h && roundErr.v
+        ? `APS-U: measured in 2024 in the round-beam user mode, with the two planes fully coupled: ${roundErr.h} (h), ${roundErr.v} (v)`
+        : 'APS-U: measured in 2024 in the round-beam user mode, with the two planes fully coupled',
       pair(valOf(B.horizontalEmittance), valOf(B.verticalEmittance), unitOf(B.horizontalEmittance)),
       pair(roundEmit.h, roundEmit.v, unitOf(A.emittanceMeasuredRound)),
     ],
     [
       'Beam size at an undulator (h × v, rms)',
-      specialist ? 'APS-U: round-beam mode, zero-current model' : 'APS-U: round-beam user mode',
+      'APS-U: round-beam user mode, model value at zero current',
       pair(valOf(B.horizontalBeamSizeAtID), valOf(B.verticalBeamSizeAtID), unitOf(B.horizontalBeamSizeAtID)),
       pair(valOf(A.horizontalBeamSizeAtID_round), valOf(A.verticalBeamSizeAtID_round), unitOf(A.horizontalBeamSizeAtID_round)),
     ],
     [
       'Beam divergence (h × v, rms)',
-      '',
+      'The beam’s angular spread. APS-U: round-beam user mode, model value at zero current',
       pair(valOf(B.horizontalDivergenceAtID), valOf(B.verticalDivergenceAtID), unitOf(B.horizontalDivergenceAtID)),
       pair(roundDiv.h, roundDiv.v, unitOf(A.divergenceAtID_round)),
     ],
@@ -174,35 +179,45 @@ function compareTable(depth: Depth): HTMLElement {
     ['RF frequency', '', one(B.rfFrequency), one(A.rfFrequency)],
   ];
   const flatEmit = planes(A.emittanceMeasuredFlat, true);
-  const flat = specialist
-    ? `**Flat (low-coupling, κ = 0.1) mode:** emittance ${pair(valOf(A.horizontalEmittanceFlatModel), valOf(A.verticalEmittanceFlatModel), unitOf(A.horizontalEmittanceFlatModel))} (model${flatEmit.h && flatEmit.v ? `; measured ${flatEmit.h} (h), ${flatEmit.v} (v)` : ''}), beam ${pair(valOf(A.horizontalBeamSizeAtID_flat), valOf(A.verticalBeamSizeAtID_flat), unitOf(A.horizontalBeamSizeAtID_flat))}, divergence ${pair(valOf(A.horizontalDivergenceAtID_flat), valOf(A.verticalDivergenceAtID_flat), unitOf(A.horizontalDivergenceAtID_flat))} rms. Round-mode sizes and divergences are zero-current model values (κ = 1).`
-    : `Users normally get the round beam shown here. A flat, low-coupling mode is also possible: about ${pair(round(A.horizontalEmittanceFlatModel), round(A.verticalEmittanceFlatModel), unitOf(A.horizontalEmittanceFlatModel))} emittance and a ${pair(valOf(A.horizontalBeamSizeAtID_flat), valOf(A.verticalBeamSizeAtID_flat), unitOf(A.horizontalBeamSizeAtID_flat))} beam.`;
+  const flatModel = pair(valOf(A.horizontalEmittanceFlatModel), valOf(A.verticalEmittanceFlatModel), unitOf(A.horizontalEmittanceFlatModel));
+  const flatSize = pair(valOf(A.horizontalBeamSizeAtID_flat), valOf(A.verticalBeamSizeAtID_flat), unitOf(A.horizontalBeamSizeAtID_flat));
+  const flatDiv = pair(valOf(A.horizontalDivergenceAtID_flat), valOf(A.verticalDivergenceAtID_flat), unitOf(A.horizontalDivergenceAtID_flat));
+  const flat =
+    'Users normally get the round beam shown here, in which the emittance is shared equally between the horizontal and vertical planes (full coupling, κ = 1). ' +
+    (flatModel && flatSize
+      ? `A flat, low-coupling mode (κ = 0.1) is also possible: emittance ${flatModel} in the model${flatEmit.h && flatEmit.v ? ` (measured ${flatEmit.h} horizontally, ${flatEmit.v} vertically)` : ''}, a ${flatSize} beam${flatDiv ? ` and ${flatDiv} divergence` : ''}, all rms. `
+      : '') +
+    'The APS-U beam sizes and divergences are model values at zero current.';
   return h(
     'div',
     { class: 'compare-wrap' },
+    p('Scroll sideways to see both columns.', 'small muted compare-scroll-hint'),
     h(
-      'table',
-      { class: 'specs compare' },
-      h('caption', { class: 'sr-only' }, 'The storage ring before and after the upgrade'),
-      h('thead', null, h('tr', null, h('th', { scope: 'col' }, h('span', { class: 'sr-only' }, 'Parameter')), h('th', { scope: 'col' }, 'APS (as last operated, 2023)'), h('th', { scope: 'col' }, 'APS-U (user mode, 2024–)'))),
+      'div',
+      { class: 'compare-scroll', role: 'region', tabindex: '0', 'aria-label': 'APS and APS-U comparison; scroll horizontally to see all columns on a small screen' },
       h(
-        'tbody',
-        null,
-        ...rows
-          .filter(([, , b, a]) => b || a)
-          .map(([label, note, b, a]) =>
-            h('tr', null, h('th', { scope: 'row' }, label, note ? h('div', { class: 'small muted' }, note) : null), h('td', { class: 'mono' }, b || '—'), h('td', { class: 'mono hl' }, a || '—')),
-          ),
+        'table',
+        { class: 'specs compare' },
+        h('caption', { class: 'sr-only' }, 'The storage ring before and after the upgrade'),
+        h('thead', null, h('tr', null, h('th', { scope: 'col' }, h('span', { class: 'sr-only' }, 'Parameter')), h('th', { scope: 'col' }, 'APS (as last operated, 2023)'), h('th', { scope: 'col' }, 'APS-U (user mode, 2024–)'))),
+        h(
+          'tbody',
+          null,
+          ...rows
+            .filter(([, , b, a]) => b || a)
+            .map(([label, note, b, a]) =>
+              h('tr', null, h('th', { scope: 'row' }, label, note ? h('div', { class: 'fineprint compare-row-note' }, note) : null), h('td', { class: 'mono' }, b || '—'), h('td', { class: 'mono hl' }, a || '—')),
+            ),
+        ),
       ),
     ),
-    p(flat, 'small muted compare-note'),
+    p(flat, 'fineprint compare-note'),
   );
 }
 
-function numbers(depth: Depth): HTMLElement {
-  const visitor = depth === 'visitor';
+function numbers(): HTMLElement {
   const cards = (FACILITY.exhibitNumbers ?? []).map((n) => {
-    const exp = (visitor && n.plain) || n.explanation;
+    const exp = n.explanation;
     return h(
       'div',
       { class: 'num-card' },
@@ -211,7 +226,7 @@ function numbers(depth: Depth): HTMLElement {
       exp ? h('div', { class: 'num-exp small muted' }, rich(typo(exp))) : null,
     );
   });
-  return h('div', { class: 'numbers-tab' }, compareTable(depth), h('div', { class: 'num-grid' }, ...cards));
+  return h('div', { class: 'numbers-tab' }, compareTable(), h('div', { class: 'num-grid' }, ...cards));
 }
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -231,30 +246,27 @@ function friendlyDate(d: string): string {
   return part ? `${part[0].toUpperCase()}${part.slice(1)} ${when}` : when;
 }
 
-function timeline(depth: Depth): HTMLElement {
+function timeline(): HTMLElement {
   const items = [...(FACILITY.timeline ?? [])].sort((a, b) => dateKey(a.date).localeCompare(dateKey(b.date)));
   if (!items.length) return p('Timeline data unavailable.');
-  const specialist = depth === 'specialist';
   return h(
     'ol',
     { class: 'timeline' },
-    ...items.map((t) =>
-      h(
+    ...items.map((t) => {
+      // the full date, day included where it is known; machine-readable when it is a plain ISO date
+      const iso = /^\d{4}(?:-\d{2}){0,2}$/.test(t.date.trim()) ? t.date.trim() : undefined;
+      return h(
         'li',
         null,
-        h('div', { class: 'tl-date mono' }, specialist ? t.date : friendlyDate(t.date)),
-        h('div', { class: 'tl-event' }, rich(typo(specialist || !t.plain ? t.event : t.plain))),
-      ),
-    ),
+        h(iso ? 'time' : 'div', { class: 'tl-date mono', datetime: iso }, friendlyDate(t.date)),
+        h('div', { class: 'tl-event' }, rich(typo(t.event))),
+      );
+    }),
   );
 }
 
-/** Story tabs rendered from data (no station): re-rendered when the depth changes. */
-const STATIC_TABS: Record<string, (d: Depth) => HTMLElement> = {
-  primer: () => primer(),
-  numbers,
-  timeline,
-};
+/** Story tabs rendered from data (no station). */
+const STATIC_TABS: Record<string, () => HTMLElement> = { primer, numbers, timeline };
 
 export function openStory(modal: Modal, startTab = 'primer'): void {
   let alive = true;
@@ -263,7 +275,6 @@ export function openStory(modal: Modal, startTab = 'primer'): void {
   let destroyStation: (() => void) | null = null;
   const tabs = h('div', { class: 'tab-row story-tabs', role: 'tablist', 'aria-label': 'The upgrade, step by step' });
   const stage = h('div', { class: 'story-stage', role: 'tabpanel', id: 'story-panel' });
-  const depth = depthToggle();
 
   const select = async (id: string, focusTab = false): Promise<void> => {
     const token = ++seq;
@@ -280,7 +291,7 @@ export function openStory(modal: Modal, startTab = 'primer'): void {
     stage.scrollTop = 0;
     const render = STATIC_TABS[id];
     if (render) {
-      stage.replaceChildren(render(store.state.depth));
+      stage.replaceChildren(render());
       return;
     }
     stage.replaceChildren(h('div', { class: 'station-loading' }, 'Loading interactive station…'));
@@ -310,21 +321,12 @@ export function openStory(modal: Modal, startTab = 'primer'): void {
     e.preventDefault();
     void select(STORY_TABS[j].id, true);
   });
-  const unsub = store.subscribe((s, prev) => {
-    const render = STATIC_TABS[current];
-    if (s.depth === prev.depth || !render) return;
-    const top = stage.scrollTop;
-    stage.replaceChildren(render(s.depth));
-    stage.scrollTop = top;
-  });
-
   modal.open(
     [
       h(
         'header',
         { class: 'modal-head' },
         h('div', { class: 'modal-head-text' }, h('div', { class: 'kicker' }, 'Why upgrade?'), h('h2', { class: 'modal-title' }, 'What changed in the APS Upgrade')),
-        depth.el,
       ),
       tabs,
       stage,
@@ -332,8 +334,6 @@ export function openStory(modal: Modal, startTab = 'primer'): void {
     () => {
       alive = false;
       seq++;
-      unsub();
-      depth.dispose();
       destroyStation?.();
       destroyStation = null;
     },
@@ -369,13 +369,13 @@ export function openHelp(modal: Modal): void {
           row('F', 'Frame the whole beamline'),
           row('R', 'Ride the beam from source to sample'),
           row('T', 'Start / stop the guided tour'),
-          row('V', 'Toggle Visitor / Specialist depth'),
           row('/ | Ctrl+K', 'Search beamlines, components, techniques, sectors'),
           row('1 – 9', 'Jump to a feature beamline'),
         ),
       ),
+      h('h3', { class: 'about-h' }, 'Reading the exhibit'),
       p(
-        '**Visitor** mode explains everything in plain language. **Specialist** mode switches to dense technical text, shows full parameter tables, design-record figures and open questions.',
+        'Every text is layered like a museum label: first what a thing is and why it matters, then how it works, then a telling number and its caveat. Finer detail sits in small print and tables, open to everyone; each beamline’s *Specs & sources* tab holds its parameters, design-record figures, open questions and references.',
       ),
       p('Distances along each beamline are true to the published designs; component sizes are realistic but simplified. Elsewhere on the floor, hutches are schematic.', 'muted small'),
       h('h3', { class: 'about-h' }, 'About this exhibit'),
@@ -460,12 +460,11 @@ export class TourCard {
     this.el.classList.add('is-open');
     this.el.inert = false;
     this.el.style.setProperty('--c', s.color ?? '#5cd3ff');
-    const specialist = store.state.depth === 'specialist';
     this.body.replaceChildren(
       ...nodes(
         h('div', { class: 'kicker' }, s.kicker),
         h('h3', { class: 'tour-title' }, s.title),
-        p(specialist && s.expert ? s.expert : s.plain),
+        p(s.text),
         isRingShot(s) ? magnetLegend() : null,
         s.beamline ? h('button', { class: 'btn tour-open', onclick: () => this.onOpenBeamline(s.beamline!) }, icon('layers', 15), `Step inside ${s.title.split(' ')[0]}`) : null,
       ),
@@ -519,7 +518,7 @@ export class TourCard {
 
   private schedule(): void {
     if (this.timer) clearTimeout(this.timer);
-    const words = (TOUR[this.step]?.plain ?? '').split(/\s+/).length;
+    const words = (TOUR[this.step]?.text ?? '').split(/\s+/).length;
     this.timer = setTimeout(() => this.go(this.step + 1), Math.max(9000, words * 330));
   }
 }

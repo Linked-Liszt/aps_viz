@@ -189,7 +189,7 @@ export function div(cls: string, parent?: HTMLElement): HTMLDivElement {
 
 /**
  * Offscreen layer for the static part of a canvas (backgrounds, axes, labels). Re-rendered only when its key
- * changes (size, mode, depth …); blitting a bitmap is far cheaper than re-rasterising fills and text each frame.
+ * changes (size, mode …); blitting a bitmap is far cheaper than re-rasterising fills and text each frame.
  */
 export class Layer {
   private c: HTMLCanvasElement | null = typeof document !== 'undefined' ? document.createElement('canvas') : null;

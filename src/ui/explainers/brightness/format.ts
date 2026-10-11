@@ -26,7 +26,7 @@ export function sci(v: number, digits = 2): string {
 
 /**
  * A design gain rounded to what its uncertainty supports (digitized design curves: ±20 % per point, ~±30 % on a
- * ratio): one significant figure. 688 → "700", 545 → "500", 75 → "80", 3.4 → "3". For visitor-facing text.
+ * ratio): one significant figure. 688 → "700", 545 → "500", 75 → "80", 3.4 → "3". For the station text and readouts.
  */
 export function approxGain(g: number): string {
   if (!Number.isFinite(g) || g <= 0) return '—';
@@ -35,10 +35,10 @@ export function approxGain(g: number): string {
   return (Math.round(g / m) * m).toLocaleString('en-US');
 }
 
-/** ×72, ×540, ×3.4 */
+/** ×72, ×540, ×3.4, ×1,883 */
 export function fmtGain(g: number): string {
   if (!Number.isFinite(g)) return '—';
-  if (g >= 1e4) return `×${Math.round(g).toLocaleString('en-US')}`;
+  if (g >= 999.5) return `×${Math.round(g).toLocaleString('en-US')}`;
   if (g >= 9.95) return `×${Math.round(g)}`;
   return `×${g.toFixed(1)}`;
 }

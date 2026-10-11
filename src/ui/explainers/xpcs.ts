@@ -29,10 +29,9 @@
  * frames (no exposure blur), 97×97-pixel detector crop, a dilute non-interacting sample, 50 µs frames
  * (8-ID's Rigaku 3M runs at 19.2 µs).
  */
-import type { Depth } from '../../app/store';
 import type { ExplainerModule } from './registry';
 import { TOKENS, button, canvas2d, createStation, group, loop, note, onReducedMotionChange, prefersReducedMotion, readout, slider, toggle } from './kit';
-import { APSU_GAIN, GEOM, coherentGainEstimate, emaResidualContrast, equalSnrTimeRatio, fitG2, fitRingAngle, fmtLen, fmtTime, sci, waterViscosity } from './xpcs/physics';
+import { APSU_GAIN, GEOM, emaResidualContrast, equalSnrTimeRatio, fitG2, fitRingAngle, fmtLen, fmtTime, sci } from './xpcs/physics';
 import { DISP_FRAMES, LONG_FRAMES, XpcsSim, type G2Series, type SourceIx } from './xpcs/sim';
 import { DetectorView, G2View, SampleView, type DetView, type MapData, type ViewState } from './xpcs/views';
 
@@ -54,8 +53,6 @@ const newSeries = (): G2Series => ({ n: 0, tau: new Float64Array(96), g2: new Fl
 
 const G_TXT = APSU_GAIN.toLocaleString('en-US');
 const G2_TXT = (APSU_GAIN * APSU_GAIN).toLocaleString('en-US');
-const G2_SCI = sci(APSU_GAIN * APSU_GAIN, 2);
-const EST = coherentGainEstimate(GEOM.energyKeV);
 /** round to one significant figure: 352 → 400 (the SNR model behind the time ratio is good to ~15–25 %) */
 const round1 = (v: number) => {
   const m = Math.pow(10, Math.floor(Math.log10(v)));
@@ -63,7 +60,7 @@ const round1 = (v: number) => {
 };
 
 /** Two-bar signal-to-noise meter (log scale) comparing APS-U and APS on the selected ring. */
-function snrMeter(parent: HTMLElement, accent: string): { set(u: number, a: number, fmt: (v: number) => string): void; setHead(t: string): void } {
+function snrMeter(parent: HTMLElement, accent: string): { set(u: number, a: number, fmt: (v: number) => string): void } {
   const box = document.createElement('div');
   box.style.cssText = 'display:flex;flex-direction:column;gap:5px;padding:8px 9px;border-radius:8px;background:rgba(255,255,255,.035);border:1px solid rgba(150,180,220,.1)';
   const head = document.createElement('div');
@@ -97,6 +94,7 @@ function snrMeter(parent: HTMLElement, accent: string): { set(u: number, a: numb
     rows.push({ bar, val });
   }
   box.setAttribute('role', 'group');
+  box.title = 'Expected signal-to-noise of the curve’s starting height (short delays), from photon counting and the number of independent speckles averaged';
   parent.appendChild(box);
   const frac = (v: number) => Math.max(0, Math.min(1, Math.log10(1 + Math.max(0, v)) / Math.log10(1 + 1000)));
   return {
@@ -107,9 +105,6 @@ function snrMeter(parent: HTMLElement, accent: string): { set(u: number, a: numb
       rows[1].val.textContent = fmt(a);
       box.setAttribute('aria-label', `Signal-to-noise: APS-U ${fmt(u)}, APS ${fmt(a)}`);
     },
-    setHead(t) {
-      headL.textContent = t;
-    },
   };
 }
 
@@ -117,7 +112,7 @@ const mod: ExplainerModule = {
   title: 'Watch nanoparticles dance',
   subtitle: 'Drag the ring on the X-ray speckle, then switch the source between APS and APS-U.',
   mount(host, ctx) {
-    const station = createStation(host, { depth: ctx.depth, color: ctx.color, layout: 'side' });
+    const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = /^#[0-9a-f]{6}$/i.test(ctx.color) ? ctx.color : '#38bdf8';
     // fixed seed → every visitor sees the same, representative realisation (seed scan: early fits within ~7 % of theory)
     const sim = new XpcsSim(31);
@@ -202,7 +197,6 @@ const mod: ExplainerModule = {
       ringR: DEF.ringR,
       ringHw: RING_HW,
       theta: DEF.theta,
-      depth: ctx.depth,
       accent,
       interacted: false,
       dragging: false,
@@ -281,12 +275,6 @@ const mod: ExplainerModule = {
     applyLayout();
 
     // ------------------------------------------------------------------ controls
-    const isSpec = () => station.depth === 'specialist';
-    const relabel = (rowInput: HTMLElement, text: string) => {
-      const l = rowInput.closest('.stn-slider, .stn-readout')?.querySelector('.stn-slider-label, .stn-readout-label');
-      if (l) l.textContent = text;
-    };
-
     // 1. source
     const gSrc = group(station.controls, 'X-ray source');
     const srcToggle = toggle<'aps' | 'apsu'>(gSrc, {
@@ -306,14 +294,13 @@ const mod: ExplainerModule = {
     note(
       gSrc,
       station,
-      `The upgraded ring squeezes its electron beam ~20× narrower and ~4× more parallel, and carries twice the current, so its X-rays deliver **~${G_TXT}× more coherent photons**: ${G_TXT}× more light in every speckle.`,
-      `Only photons inside one transverse coherent mode, a phase-space volume (λ/2)^{2} (source size × divergence, both planes), interfere into full-contrast speckle, so the coherent flux is F_{c} = B·(λ/2)^{2} = Bλ^{2}/4 ∝ brightness B. 8-ID design: 1.7×10^{13} ph/s in one coherent mode at 10 keV, Si(111), vs ≈2×10^{10} at pre-upgrade 8-ID-I (7.4 keV, Ge(111); ≈850×, but different energy and bandwidth); FDR Table 1.1 @ 20 keV: 0.6 → 312×10^{11} ph/s. Gaussian-source estimate here at ${GEOM.energyKeV} keV: coherent fraction ${(EST.fracAps * 100).toFixed(3)} % → ${(EST.fracApsu * 100).toFixed(1)} % (ε 3.1 nm → 42 pm), central-cone flux ×${EST.fluxRatio.toFixed(1)} (200 vs 100 mA, 224 vs 144 periods) ⇒ ≈${Math.round(EST.gain / 10) * 10}× before energy-spread losses. We use **${G_TXT}×**: the APS frame is the APS-U frame with each photon kept with p = 1/${G_TXT} (Poisson thinning ⇒ exactly Poisson(λ/${G_TXT})).`,
+      `The upgraded ring squeezes its electron beam ~20× narrower and ~4× more parallel, and carries twice the current. Only **coherent** photons, from a source patch whose size × angular spread is below about half a wavelength, form crisp speckle, so coherent flux grows with brightness: **~${G_TXT}× more** here, ${G_TXT}× more light in every speckle (documented for 8-ID: 500–850×, depending on energy and bandwidth).`,
     );
 
     // 2. sample
     const gSmp = group(station.controls, 'Sample: spheres in water');
     const sRad = slider(gSmp, {
-      label: 'Particle radius',
+      label: 'Particle radius a',
       min: 40,
       max: 250,
       log: true,
@@ -330,22 +317,18 @@ const mod: ExplainerModule = {
       format: (v) => `${Math.round(v)} °C`,
       onInput: (v) => setSample(sRad.get(), v),
     });
-    const rD = readout(gSmp, 'Jiggle speed D');
+    const rD = readout(gSmp, 'Diffusion constant D');
     note(
       gSmp,
       station,
-      'Bigger or colder particles wander more slowly: the speckles calm down and the curve slides to the right.',
-      'D = k_{B}T/6πηa, η(T) of water (Vogel eq.). Dilute, non-interacting spheres: S(q) = 1 and f(q,τ) = e^{−Dq²τ}. The sphere form factor P(qa) shapes the mean intensity (minima show up for a ≳ 150 nm). The simulated slice holds 1000 spheres (~40 in the FWHM); a real 1 mm-thick sample has ~10^{4}–10^{6} in the beam, with the same Gaussian speckle statistics once N ≫ 1.',
+      'Bigger or colder particles wander more slowly: the speckles calm down and the curve slides to the right. Stokes–Einstein gives their diffusion constant, D = k_{B}T/6πηa: a is the particle radius, T the temperature in kelvin, η the water’s viscosity, and k_{B} Boltzmann’s constant, which connects temperature to energy. The slice holds 1,000 dilute spheres, ~40 in the beam; a real 1 mm-thick sample has 10^{4}–10^{6}, with the same speckle statistics.',
     );
 
     // 3. measurement
     const gMeas = group(station.controls, 'Measurement');
-    const ringFmt = (r: number) => {
-      const q = sim.qOf(r);
-      return isSpec() ? `${sci(q)} Å⁻¹` : fmtLen((2 * Math.PI) / (q * 1e10));
-    };
+    const ringFmt = (r: number) => fmtLen((2 * Math.PI) / (sim.qOf(r) * 1e10));
     const sRing = slider(gMeas, {
-      label: 'Ring: detail size',
+      label: 'Ring: detail size 2π/q',
       min: RING_MIN,
       max: RING_MAX,
       step: 1,
@@ -371,10 +354,11 @@ const mod: ExplainerModule = {
         refreshCaption(true);
       },
     });
-    const rTau = readout(gMeas, 'Pattern scrambles in', { big: true, color: accent });
-    const rBeta = readout(gMeas, 'Speckle contrast β');
+    const rTau = readout(gMeas, 'Scrambles in τ = 1/Dq²', { big: true, color: accent });
+    const rBeta = readout(gMeas, `Contrast β, fit (theory ${sim.beta.toFixed(2)})`);
     rBeta.el.title = 'Starting height of the curve above 1: how crisp the speckle is (1 = perfectly coherent beam)';
-    const rFit = readout(gMeas, 'τ fit');
+    const rFit = readout(gMeas, 'τ from the fit');
+    rFit.el.title = 'Weighted fit of g₂ = 1 + β·exp(−2τ/τ_fit) to the selected source’s data, shown once the curve stands clear of the noise';
     const rTime = readout(gMeas, 'Measuring time');
     const btnRow = document.createElement('div');
     btnRow.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap';
@@ -397,24 +381,20 @@ const mod: ExplainerModule = {
     note(
       gMeas,
       station,
-      'Drag the ring on the detector: bigger rings watch finer details, and finer details change faster.',
-      'Ring = 3 radial bins (Δq = 4.75×10^{−5} Å^{−1}/px: 75 µm pixels at 8 m, 10 keV); 50 µs frames. Multi-tau (8 channels/level), symmetric normalisation, average over ring pixels; error bars = scatter of 8 azimuthal sectors (Friedel pairs merged), floored at the speckle-sampling error √(v/M), M = (N_{pix}/A_{c})(1 + 1.1 N_{f}Γ t_{f}) independent speckle realisations. Neighbouring lags see the same speckles, so in the speckle-limited regime the whole curve moves up or down together.',
+      'Drag the ring on the detector: bigger rings (larger scattering vector q) watch finer details, 2π/q across, and finer details change faster. Each ring is 3 pixels wide, a frame comes every 50 µs, and the error bars compare 8 sectors of the ring.',
     );
     const gIdea = group(station.controls, 'What XPCS measures');
     note(
       gIdea,
       station,
-      'An ordinary X-ray picture averages the twinkling away and shows only the particles’ size and arrangement (try **Long exp.**). XPCS keeps the twinkle and asks: *how alike is the pattern now and a time τ later?* The curve starts high (β: how crisp the speckle is) and sinks to 1 once the particles have moved. How soon it sinks tells how fast they move, and from that, how big they are.',
-      'XPCS measures **dynamics, not structure**: the time-averaged I(q) is just SAXS ∝ P(q)S(q) (try *Long exp.*). The intensity autocorrelation g_{2}(q,τ) = ⟨I(t)I(t+τ)⟩/⟨I⟩^{2} (average over t and the ring pixels) yields the intermediate scattering function f(q,τ) = S(q,τ)/S(q) through the **Siegert relation** g_{2} = 1 + β|f(q,τ)|^{2}, valid for Gaussian speckle (many independent scatterers, ergodic, no static reference field, else heterodyne terms appear). β = speckle contrast, set by the coherent fraction seen per pixel: 0.53 here from an illustrative two-mode beam; real setups often trade β ≈ 0.1–0.3 against flux. Free diffusion: f = e^{−Dq²τ} ⇒ g_{2} = 1 + β e^{−2Dq²τ}, and a = k_{B}T/(6πηD) gives the hydrodynamic radius: dynamic light scattering, but at nm length scales and in opaque samples.',
+      'An ordinary X-ray picture averages the twinkling away and shows only the particles’ size and arrangement (small-angle scattering; try **Long exp.**). XPCS keeps the twinkle and asks: *how alike is the pattern now and a time τ later?* That correlation is g_{2}(τ) = ⟨I(t)·I(t+τ)⟩/⟨I⟩^{2}: I is the scattered intensity at time t, and brackets mean an average over measurements. It starts at 1 + β, where the **speckle contrast** β is how crisp the speckle is (0.53 here; real setups often accept 0.1–0.3 for more flux), and sinks to 1 once the particles have moved. For many freely diffusing particles g_{2} = 1 + β·e^{−2Dq²τ}, where q sets the detail size 2π/q: how soon it sinks gives the diffusion constant D, and D gives the particle size, as in dynamic light scattering, but at nanometre scales and in opaque samples.',
     );
     const gAbout = group(station.controls, 'At 8-ID');
     note(
       gAbout,
       station,
-      'The 8-ID beamline is built for exactly this: watching how things move, from nanoparticles and gels to metallic glasses, on times from **millionths of a second** to hours.',
-      'APS-U 8-ID: two in-line revolver undulators (2.1/2.5 cm periods, 2 × 2.35 m), 8–25 keV. SA-XPCS in 8-ID-I (3–10 µm zoom focus, detector 4–12 m); WA-XPCS in 8-ID-E (0.3–3 µm). Rigaku 3M: 19.2 µs continuous, ~1 µs burst; design goal ~100 ns. At fixed SNR the shortest delay scales as 1/B^{2}.',
+      'The 8-ID beamline is built for exactly this: watching how things move, from nanoparticles and gels to metallic glasses, on times from **millionths of a second** (its Rigaku 3M detector takes a frame every 19.2 µs, about 1 µs in bursts) to hours: small-angle XPCS in 8-ID-I, wide-angle in 8-ID-E. When photons are scarce, doubling the coherent photon rate lets it follow delays four times shorter at the same signal-to-noise.',
     );
-
     // ------------------------------------------------------------------ actions
     function setSample(radiusNm: number, tempC: number) {
       sim.setSample(radiusNm, tempC);
@@ -571,7 +551,8 @@ const mod: ExplainerModule = {
       const tauS = 1 / sim.gammaAt(vs.ringR);
       rTau.set(fmtTime(tauS));
       const frames = sim.corr[1].frames;
-      rTime.set(isSpec() ? `${fmtTime(frames * GEOM.frameS)} · ${frames.toLocaleString('en-US')} fr` : fmtTime(frames * GEOM.frameS));
+      rTime.set(fmtTime(frames * GEOM.frameS));
+      rTime.el.title = `${frames.toLocaleString('en-US')} detector frames of 50 µs`;
       // APS = APS-U photons thinned by 1/GAIN, so its exact expectation is the (better measured) APS-U rate ÷ GAIN;
       // the readout, the trace annotation and the caption all quote this same number
       const nU = sim.ringMeanCounts(1, vs.ringR, RING_HW);
@@ -598,22 +579,22 @@ const mod: ExplainerModule = {
       const T = fmtTime(frames * GEOM.frameS);
       const nU = sim.ringMeanCounts(1, vs.ringR, RING_HW);
       const nA = nU / APSU_GAIN;
-      const npx = sim.ringPixels(vs.ringR, RING_HW);
       const tooFast = tauS / GEOM.frameS < 2.5;
       // long exposure: speckle survives where τ is not ≪ the averaging window (residual contrast β/(1 + 2T_e/τ));
       // judge by the innermost (slowest) and outermost-full (fastest) rings, not only the selected one
       const tLong = LONG_FRAMES * GEOM.frameS;
       const tauIn = 1 / sim.gammaAt(RING_MIN);
       const tauOut = 1 / sim.gammaAt(sim.half);
+      const residual = `Speckle contrast left on your ring: ${emaResidualContrast(sim.beta, tauS, tLong).toFixed(2)}, down from ${sim.beta.toFixed(2)}. `;
       const viewSentence =
         vs.view === 'ideal'
           ? 'You are looking at the **ideal** speckle — what infinitely many photons would show. '
           : vs.view === 'long'
-            ? tauIn < 0.1 * tLong
-              ? 'In the **long exposure** the twinkling averages away: you see only the particles’ average shape and arrangement (ordinary small-angle scattering) — the motion is lost. '
-              : tauOut < 0.1 * tLong
-                ? 'In the **long exposure** the fast outer speckles average away into the particles’ average shape (ordinary small-angle scattering); near the centre, where the pattern changes more slowly than the ~50 ms window, grainy speckle survives. '
-                : 'In the **long exposure** the pattern hardly smooths out: these particles move so slowly that the speckle outlasts the ~50 ms window. '
+            ? (tauIn < 0.1 * tLong
+                ? 'In the **long exposure** the twinkling averages away: you see only the particles’ average shape and arrangement (ordinary small-angle scattering) — the motion is lost. '
+                : tauOut < 0.1 * tLong
+                  ? 'In the **long exposure** the fast outer speckles average away into the particles’ average shape (ordinary small-angle scattering); near the centre, where the pattern changes more slowly than the ~50 ms window, grainy speckle survives. '
+                  : 'In the **long exposure** the pattern hardly smooths out: these particles move so slowly that the speckle outlasts the ~50 ms window. ') + residual
             : '';
       // time APS needs for the same quality: (G² + x)/(1 + x), x = (SNR_shot,U/SNR_speckle)² (validated model, stable
       // in T). Quoted to one significant figure: the model is good to ~15–25 %.
@@ -621,17 +602,22 @@ const mod: ExplainerModule = {
       const xReg = snrSpk > 0 ? (snrShotU / snrSpk) ** 2 : 0;
       const reliable = frames >= 200 && snrSpk > 0;
       const fmtRatio = (r: number) => round1(r).toLocaleString('en-US');
-      const upTo = ratio < 0.3 * APSU_GAIN * APSU_GAIN ? `, and up to **${G2_TXT}×** for faster motions where every photon counts` : '';
+      // why the factor is not simply G²: APS-U is limited by how many independent speckles it averages, not by photons
+      const regime =
+        xReg > 1
+          ? ` Not ${G_TXT}² = ${G2_TXT}×: here APS-U is limited by how many independent speckles it averages, not by photons.`
+          : ` Close to ${G_TXT}² = ${G2_TXT}×: when photons are scarce, the time for equal quality grows with the square of the photon ratio.`;
       let srcSentence: string;
       if (vs.src === 1) {
         srcSentence =
           (snr[1] >= 8 ? `With **APS-U** the curve is already clean after ${T} of measuring.` : 'With **APS-U** the curve sharpens within a fraction of a second of measuring.') +
           ` The old **APS**, with ${G_TXT}× fewer coherent photons, ` +
           (snr[0] < 3 ? 'is still lost in the noise' : 'is noisier') +
-          (reliable ? `: it would need about **${fmtRatio(ratio)}× longer** for the same quality.` : '.');
+          (reliable ? `: it would need about **${fmtRatio(ratio)}× longer** for the same quality.${regime}` : '.');
       } else {
         const every = nA > 0 ? Math.round(1 / nA) : Infinity;
         const word = snr[0] < 3 ? 'still buried in noise' : snr[0] < 10 ? 'noisy' : 'visible, but noisier';
+        const upTo = ratio < 0.3 * APSU_GAIN * APSU_GAIN ? `, and up to **${G2_TXT}×** for faster motions, where every photon counts` : '';
         srcSentence =
           `With the old **APS** a pixel here catches a photon only about once every ${every.toLocaleString('en-US')} frames, so after the same ${T} the curve is ${word}.` +
           (reliable ? ` Matching APS-U would take about **${fmtRatio(ratio)}× longer** here${upTo}.` : '');
@@ -642,59 +628,18 @@ const mod: ExplainerModule = {
         if (mapData.gamma[1][k] > 0) okU++;
         if (mapData.gamma[0][k] > 0) okA++;
       }
-      const mapVisitor = `**All rings at once:** each dot is how fast one ring’s speckles change. They fall on a line of slope 2, the fingerprint of diffusion: details half as big scramble 4× faster. So far APS-U has pinned down **${okU}** of ${MAP_RINGS.length} rings, the old APS **${okA}**. `;
-      const mapSpec =
-        plotMode === 'map'
-          ? `Γ(q) from independent fits on ${MAP_RINGS.length} rings (3 px each; error bars from χ² curvature, lag correlations ignored): ${okU} rings resolved with APS-U vs ${okA} with APS in the same T` +
-            (Number.isFinite(mapData.Dfit) ? `; D_{fit} = ${(mapData.Dfit * 1e12).toFixed(2)} µm^{2}/s vs Stokes–Einstein ${(sim.D * 1e12).toFixed(2)}` : '') +
-            '. Shaded: τ < 2t_{f} (frame-rate limit) and τ > T/3 (measurement too short) — the accessible window. '
-          : '';
-      const ringVisitor = `Your ring watches details about **${detail}** across (the faint stripes in panel 1): there the pattern scrambles in **${fmtTime(tauS)}**, the time the particles need to drift ~${shuffle}. `;
-      const visitor =
+      const dFit = Number.isFinite(mapData.Dfit) ? `; their fit gives D = ${(mapData.Dfit * 1e12).toFixed(2)} µm²/s, against ${(sim.D * 1e12).toFixed(2)} from Stokes–Einstein` : '';
+      const mapSentence = `**All rings at once:** each dot is the rate Γ = 1/τ at which one ring’s speckles change. On these log axes they fall on a line of slope 2, the fingerprint of diffusion (Γ = Dq²): details half as big scramble 4× faster. So far APS-U has pinned down **${okU}** of ${MAP_RINGS.length} rings, the old APS **${okA}**${dFit}. `;
+      const ringSentence = `Your ring (q = ${sci(q)} Å^{−1}) watches details about **${detail}** across (the faint stripes in panel 1): there the pattern scrambles in **${fmtTime(tauS)}**, the time the particles need to drift ~${shuffle}. `;
+      const caption =
         `In this simulated slice about **${nInBeamCache} particles** sit in the X-ray spot; their scattered waves interfere into a **speckle** pattern that twinkles as they jiggle. ` +
         viewSentence +
-        (plotMode === 'map' ? mapVisitor : ringVisitor) +
-        (tooFast ? '**That is faster than one detector frame** — pick a smaller ring or slow the particles down. ' : '') +
+        (plotMode === 'map' ? mapSentence : ringSentence) +
+        (tooFast ? '**At under 2.5 frames (125 µs), that is too fast for the detector** (real frames would also blur the speckle; not modelled here): pick a smaller ring or slow the particles down. ' : '') +
         srcSentence;
-      const fU = fits[1];
-      const fA = fits[0];
-      const fitTxt = fU
-        ? `Fit APS-U: Γ = ${sci(fU.gamma / GEOM.frameS, 3)} s^{−1}, β = ${fU.beta.toFixed(2)}${fA ? `; APS: Γ = ${sci(fA.gamma / GEOM.frameS, 2)} s^{−1}, β = ${fA.beta.toFixed(2)}` : '; APS: too noisy to fit'}. `
-        : '';
-      const tauF = tauS / GEOM.frameS;
-      const specialist =
-        mapSpec +
-        `Ring q = ${sci(q, 3)} Å^{−1} (${npx} px, 2π/q = ${detail}). Theory: Γ = Dq^{2} = ${sci(1 / tauS, 3)} s^{−1} (τ = ${fmtTime(tauS)}), D = k_{B}T/6πηa = ${(sim.D * 1e12).toFixed(2)} µm^{2}/s with η = ${(waterViscosity(sim.tempC) * 1e3).toFixed(3)} mPa·s; β = Σw^{2}/(Σw)^{2} = ${sim.beta.toFixed(3)}. ` +
-        fitTxt +
-        `T = ${T} (${frames.toLocaleString('en-US')} × 50 µs); ⟨n⟩ per pixel per τ: ${(nU * tauF).toPrecision(2)} (APS-U) vs ${(nA * tauF).toPrecision(2)} (APS). ` +
-        `Expected SNR of the τ ≤ τ_{c}/4 contrast (1/SNR^{2} = 1/SNR_{shot}^{2} + 1/SNR_{speckle}^{2}; checked against run-to-run scatter: ~10 % when speckle-limited, ~30 % optimistic when photon-starved): APS-U ${fmtSnr(snr[1])} (shot ${fmtSnr(snrShotU)}, speckle ${fmtSnr(snrSpk)}) vs APS ${fmtSnr(snr[0])}` +
-        (reliable ? ` ⇒ T_{APS}/T_{APS-U} = (${G_TXT}^{2} + x)/(1 + x) ≈ ${fmtRatio(ratio)}, x = (SNR_{shot,U}/SNR_{speckle})^{2} = ${sci(xReg, 2)}. ` : '. ') +
-        (xReg > 1
-          ? `APS-U is speckle-limited here, so extra flux buys little and the factor is ≪ ${G_TXT}^{2}. With fewer photons per speckle per τ (faster dynamics, weaker scatterers) x → 0, SNR → β⟨n⟩√(N_{pix}T/t_{f}) ∝ coherent flux and the factor → ${G_TXT}^{2} = ${G2_SCI}: at fixed SNR the shortest accessible τ shrinks as 1/B^{2}. `
-          : `APS-U is photon-starved here too, so SNR ≈ β⟨n⟩√(N_{pix}T/t_{f}) ∝ coherent flux and the factor approaches ${G_TXT}^{2} = ${G2_SCI} (at fixed SNR the shortest accessible τ shrinks as 1/B^{2}). `) +
-        (tooFast ? 'Here τ < 2.5 frames: real frames would integrate the motion and lose contrast by (e^{−2x} − 1 + 2x)/2x^{2}, x = Γt_{f} (not modelled). ' : '') +
-        (vs.view === 'long'
-          ? `Long exposure = exponential average with time constant T_{e} = ${LONG_FRAMES} frames (${fmtTime(tLong)}; running mean until then): → static SAXS ∝ P(qa) once T_{e} ≫ τ. Residual speckle contrast β/(1 + 2T_{e}/τ) ≈ βτ/2T_{e}: ${emaResidualContrast(sim.beta, tauS, tLong).toFixed(3)} on this ring, ${emaResidualContrast(sim.beta, tauIn, tLong).toFixed(2)} at the innermost ring. `
-          : '');
-      const key = visitor + specialist;
-      if (!force && key === capKey) return;
-      capKey = key;
-      station.setCaption(visitor, specialist);
-    }
-
-    function applyDepthLabels() {
-      vs.depth = station.depth;
-      relabel(sRad.input, isSpec() ? 'Radius a' : 'Particle radius');
-      relabel(sRing.input, isSpec() ? 'Ring q' : 'Ring: detail size');
-      sRing.set(sRing.get());
-      relabel(rD.el, isSpec() ? 'D (Stokes–Einstein)' : 'Jiggle speed D');
-      relabel(rTau.el, isSpec() ? 'τ = 1/Dq²' : 'Pattern scrambles in');
-      relabel(rPhot.el, isSpec() ? '⟨n⟩ on ring (ph/px/frame)' : 'Photons/pixel/frame (ring)');
-      relabel(rBeta.el, isSpec() ? `β fit (theory ${sim.beta.toFixed(2)})` : 'Speckle contrast β');
-      rFit.el.style.display = isSpec() ? '' : 'none';
-      refreshReadouts();
-      meter.setHead(isSpec() ? 'Expected SNR, short τ' : 'Signal-to-noise of the curve');
-      gAbout.style.display = '';
+      if (!force && caption === capKey) return;
+      capKey = caption;
+      station.setCaption(caption);
     }
 
     // ------------------------------------------------------------------ main loop
@@ -712,7 +657,6 @@ const mod: ExplainerModule = {
       smp.record();
     }
     setRing(DEF.ringR, DEF.theta);
-    applyDepthLabels();
     remeasured();
     // a resize clears a canvas: redraw it even while a silent measurement holds the panels
     for (const c of [smpC, detC, g2C]) c.onResize(() => (prefillShow = true));
@@ -778,11 +722,6 @@ const mod: ExplainerModule = {
 
     return {
       destroy: () => station.destroy(),
-      setDepth: (d: Depth) => {
-        station.setDepth(d);
-        applyDepthLabels();
-        refreshCaption(true);
-      },
     };
   },
 };

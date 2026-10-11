@@ -1,9 +1,30 @@
-import { h, icon, p } from '../lib/dom';
+import { h, icon, nodes, p } from '../lib/dom';
 import { store } from '../app/store';
 import { FEATURE_META } from '../data/meta';
 import { BEAMLINES } from '../data/beamlines';
 import { OVERVIEW_COPY } from '../data/copy';
 import { enhancedSectors, SECTOR_INFO } from '../data/sectors';
+import type { BeamlineMeta } from '../data/types';
+
+/**
+ * Text of a feature-beamline card, shared by the guide and the sector card: where it is and its acronym, an everyday
+ * descriptor of what it is for, and the expanded name in fine print (what the letters stand for).
+ */
+export function featureCardText(m: BeamlineMeta, where: string): HTMLElement {
+  return h(
+    'span',
+    { class: 'fc-text' },
+    h('span', { class: 'fc-top' }, h('span', { class: 'fc-sector mono' }, where), h('span', { class: 'fc-acr' }, BEAMLINES[m.id]?.acronym ?? m.id.toUpperCase())),
+    h('span', { class: 'fc-short' }, m.short),
+    h('span', { class: 'fc-full' }, m.displayName),
+  );
+}
+
+/** '4-ID', or the station where two feature beamlines share a sector ('34-ID-E', '34-ID-F'). */
+export function featureWhere(m: BeamlineMeta): string {
+  const shared = FEATURE_META.some((o) => o.id !== m.id && o.sectorNumber === m.sectorNumber);
+  return shared && !m.stations.includes(',') ? m.stations : `${m.sectorNumber}-ID`;
+}
 
 /**
  * Left-hand "gallery guide" in the overview: what the APS is, what changed, and the nine feature beamlines.
@@ -37,9 +58,6 @@ export class OverviewPanel {
     this.el = h('aside', { class: 'ov-panel glass', 'aria-label': 'Exhibit guide' }, this.collapseBtn, this.scroll);
     this.render();
     this.setCollapsed(window.innerWidth < 760);
-    store.subscribe((s, prev) => {
-      if (s.depth !== prev.depth) this.render();
-    });
   }
 
   private setCollapsed(c: boolean): void {
@@ -62,8 +80,8 @@ export class OverviewPanel {
     );
   }
 
-  /** Visitor: the plain label. Specialist: the plain label plus the directory titles of the enhanced beamlines. */
-  private renderEnhanced(specialist: boolean): void {
+  /** Each enhanced sector: its everyday label, with the directory titles of the enhanced beamlines in fine print. */
+  private renderEnhanced(): void {
     this.enhanced.replaceChildren(
       ...enhancedSectors().map((n) => {
         const info = SECTOR_INFO[n];
@@ -81,7 +99,7 @@ export class OverviewPanel {
               'span',
               { class: 'enh-text' },
               h('span', { class: 'enh-title' }, label),
-              specialist && info.plainLabel && directory ? h('span', { class: 'enh-dir small muted' }, directory) : null,
+              info.plainLabel && directory ? h('span', { class: 'enh-dir' }, directory) : null,
             ),
           ),
         );
@@ -102,23 +120,33 @@ export class OverviewPanel {
   }
 
   render(): void {
-    const specialist = store.state.depth === 'specialist';
     const c = OVERVIEW_COPY;
+    const notes = c.stats.filter((s) => s.note);
     this.intro.replaceChildren(
-      h('div', { class: 'kicker' }, 'Advanced Photon Source · Argonne National Laboratory'),
-      h('h1', { class: 'ov-title', tabindex: '-1' }, c.title),
-      p(specialist ? c.expert : c.plain),
-      h('div', { class: 'stat-row' }, ...c.stats.map((s) => h('div', { class: 'stat', title: s.note ?? '' }, h('div', { class: 'stat-v mono' }, s.value), h('div', { class: 'stat-l' }, s.label)))),
-      h(
-        'div',
-        { class: 'cta-row' },
-        h('button', { class: 'btn btn-primary', onclick: () => this.onTour() }, icon('tour', 15), 'Take the guided tour'),
-        h('button', { class: 'btn', onclick: () => this.onStory() }, icon('bolt', 15), 'Why upgrade?'),
+      ...nodes(
+        h('div', { class: 'kicker' }, 'Advanced Photon Source · Argonne National Laboratory'),
+        h('h1', { class: 'ov-title', tabindex: '-1' }, c.title),
+        p(c.text),
+        h('div', { class: 'stat-row' }, ...c.stats.map((s) => h('div', { class: 'stat', title: s.note ?? '' }, h('div', { class: 'stat-v mono' }, s.value), h('div', { class: 'stat-l' }, s.label)))),
+        // the caveats behind the four numbers, as fine print (the tooltips above are not reachable by touch)
+        notes.length
+          ? h(
+              'details',
+              { class: 'ov-notes' },
+              h('summary', null, 'About these numbers'),
+              h('dl', { class: 'fineprint' }, ...notes.flatMap((s) => [h('dt', null, `${s.value} ${s.label}`), h('dd', null, s.note!)])),
+            )
+          : null,
+        h(
+          'div',
+          { class: 'cta-row' },
+          h('button', { class: 'btn btn-primary', onclick: () => this.onTour() }, icon('tour', 15), 'Take the guided tour'),
+          h('button', { class: 'btn', onclick: () => this.onStory() }, icon('bolt', 15), 'Why upgrade?'),
+        ),
       ),
     );
     this.list.replaceChildren(
       ...FEATURE_META.map((m) => {
-        const b = BEAMLINES[m.id];
         return h(
           'li',
           null,
@@ -134,18 +162,13 @@ export class OverviewPanel {
               onclick: () => this.onOpen(m.id),
             },
             h('span', { class: 'fc-dot', 'aria-hidden': 'true' }),
-            h(
-              'span',
-              { class: 'fc-text' },
-              h('span', { class: 'fc-top' }, h('span', { class: 'fc-sector mono' }, `${m.sectorNumber}-ID`), h('span', { class: 'fc-acr' }, b?.acronym ?? m.id.toUpperCase())),
-              h('span', { class: 'fc-short' }, specialist ? m.displayName : m.short),
-            ),
+            featureCardText(m, featureWhere(m)),
             icon('next', 15),
           ),
         );
       }),
     );
-    this.renderEnhanced(specialist);
+    this.renderEnhanced();
   }
 
   setHot(id: string | null): void {

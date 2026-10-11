@@ -19,10 +19,9 @@
  *  - Time and dose: map time = pixels × dwell (stage ≤ 1 mm/s); for equal counts the other source needs a dwell
  *    Φ_this/Φ_other × longer (again floored by the stage speed, so APS-U's advantage saturates for big steps / short
  *    dwells); dose = Φt/step² · E₀ · μ_en/ρ, the same for both sources at equal counts.
- * Illustrative choices are labelled in the specialist text: detector solid angle (0.1 sr) and throughput,
+ * Illustrative choices are labelled in the station's notes: detector solid angle (0.1 sr) and throughput,
  * the 10 µm electrolyte scatterer, crack/leach kinetics, Gaussian probe, step-scan (no fly-scan smear).
  */
-import type { Depth } from '../../app/store';
 import type { ExplainerModule } from './registry';
 import { button, canvas2d, createStation, group, loop, motionGate, note, readout, slider, toggle, type SliderHandle } from './kit';
 import { rng } from '../../lib/fft';
@@ -94,10 +93,9 @@ const mod: ExplainerModule = {
   title: 'Chemistry at the nanoscale, while it happens',
   subtitle: 'Shrink the X-ray spot, tune its energy, and map the elements in a battery particle as it charges.',
   mount(host, ctx) {
-    const station = createStation(host, { depth: ctx.depth, color: ctx.color, layout: 'side' });
+    const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = /^#[0-9a-f]{6}$/i.test(ctx.color) ? ctx.color : '#5cd3ff';
     const rand = rng(20260906);
-    const isSpec = () => station.depth === 'specialist';
 
     // ------------------------------------------------------------------ sample
     const geom = (GEOM ??= buildGeometry(7));
@@ -201,11 +199,6 @@ const mod: ExplainerModule = {
 
     // ------------------------------------------------------------------ parameters
     const P = { ...DEF, insitu: false };
-    const relabel = (input: HTMLElement, text: string) => {
-      const l = input.closest('.stn-slider, .stn-readout')?.querySelector('.stn-slider-label, .stn-readout-label');
-      if (l) l.textContent = text;
-    };
-    const specOnly: HTMLElement[] = [];
 
     // 0. toolbar: scan / reset, and the in situ switch (the station's headline action)
     const btnRow = document.createElement('div');
@@ -236,7 +229,7 @@ const mod: ExplainerModule = {
     // 1. beam
     const gBeam = group(station.controls, 'X-ray beam');
     const eSlider = slider(gBeam, {
-      label: 'X-ray energy',
+      label: 'X-ray energy E₀',
       min: 5,
       max: 25,
       log: true,
@@ -250,7 +243,7 @@ const mod: ExplainerModule = {
     });
     edgeTicks(eSlider, 5, 25);
     const spotSlider: SliderHandle = slider(gBeam, {
-      label: 'Spot size',
+      label: 'Spot size (FWHM)',
       min: 20,
       max: 1000,
       log: true,
@@ -267,8 +260,7 @@ const mod: ExplainerModule = {
     note(
       gBeam,
       station,
-      'An element glows only if the X-rays carry enough energy to knock out one of its inner electrons: its **edge** (ticks under the slider). Higher energy also allows a **smaller spot**.',
-      'Fluorescence needs E₀ above the edge: K for Mn/Co/Ni (6.539/7.709/8.333 keV), L₃/L₂/L₁ for W (10.207/11.544/12.100 keV). σ_{F} = τ_{shell}ω p falls ≈ E^{−2.7} above an edge, so excite just above it. The KB focus is achromatic but diffraction-limited: s_{min} ≈ 0.88 λq/(L sinθ); FDR: 39 nm at 10 keV, 16 nm at 25 keV.',
+      'An element glows only if the X-rays carry enough energy to knock out one of its inner electrons: its **edge** (ticks under the slider). The glow is strongest just above an edge and fades roughly as E^{−2.7} higher up. Higher energy also allows a **smaller spot**: 39 nm at 10 keV, 16 nm at 25 keV (the mirrors’ diffraction limit).',
     );
 
     // 2. source (before the scan group: the APS vs APS-U comparison stays above the fold)
@@ -289,14 +281,13 @@ const mod: ExplainerModule = {
     note(
       gSrc,
       station,
-      "APS-U's beam is far more **laser-like** (coherent), so hundreds of times more X-rays squeeze into the tiny spot. The gain is biggest for the **smallest** spots.",
-      'APS-U: FDR Table 4.52 design flux (3.5×10^{12} ph/s coherent in 39 nm, 8.9×10^{12} with BDAs open at 10 keV; 3.4×10^{11} / 3.1×10^{12} at 25 keV), scaled in energy with the facility coherent-flux curve. *APS* = the same optics on the 2019 source: ÷ the coherent-flux ratio (≈160× at 10 keV, ≈350× at 25 keV) at the coherent spot; bigger spots admit the old beam\'s extra modes (accepted phase space ∝ spot per plane, up to its 0.43 × 0.05 µm image), so the gain falls to ~10–20× for µm spots. Good to ~×2. Pre-upgrade nanoprobes used zone plates (~10× less efficient): the PDR quotes 10^{3}–10^{4}.',
+      "APS-U's beam is far more **laser-like** (coherent), so hundreds of times more X-rays squeeze into the tiny spot: ~160× more at 10 keV, ~350× at 25 keV. Bigger spots also take in the old beam's incoherent part, so the gain falls to ~10–20× for micrometre spots. Same optics on both sources assumed, good to about 2×; against the old zone-plate nanoprobes the design report quotes 10^{3}–10^{4}×.",
     );
 
     // 3. scan
     const gScan = group(station.controls, 'Scan');
     const stepSlider = slider(gScan, {
-      label: 'Step (pixel size)',
+      label: 'Step (pixel size) · pixels',
       min: 12.5,
       max: 400,
       log: true,
@@ -311,7 +302,7 @@ const mod: ExplainerModule = {
       },
     });
     const dwellSlider = slider(gScan, {
-      label: 'Time per pixel',
+      label: 'Time per pixel (dwell)',
       min: 2e-5,
       max: 2e-2,
       log: true,
@@ -322,19 +313,19 @@ const mod: ExplainerModule = {
         queueRestart();
       },
     });
-    const scanNote = note(gScan, station, '', '');
+    const scanNote = note(gScan, station, '');
 
     // 4. numbers
     const gNum = group(station.controls, 'Per pixel');
     const countsRO = readout(gNum, 'X-rays caught');
     const detRO = readout(gNum, 'Detector input');
-    const doseRO = readout(gNum, 'Dose');
-    specOnly.push(detRO.el, doseRO.el);
+    const doseRO = readout(gNum, 'Radiation dose');
+    detRO.el.title = 'X-rays reaching the detector per second (counts per second); the beam is attenuated to keep it below 3×10⁷';
+    doseRO.el.title = 'Energy absorbed per kilogram of sample, in gray (Gy): photons per area × energy × absorption';
     note(
       gNum,
       station,
-      "A map pixel's brightness is the number of that element's X-rays the detector caught there. Few X-rays → grainy maps.",
-      'N = Φt (Ω/4π) m σ_{F}(E₀) per line, m = probe-weighted areal mass; Ω = 0.1 sr (7-element SDD, illustrative); input capped at 3×10^{7} cps by attenuation. Maps assume ideal spectral fitting: W Lα₁ (8.398 keV) sits 133 eV from Ni Kβ (8.265 keV), inside one SDD FWHM, so real W maps need full-spectrum fits (e.g. MAPS / XRF-Maps). Dose = Φt/step² · E₀ μ_{en}/ρ: for equal counts it is the same on both sources.',
+      "A map pixel's brightness is the number of that element's X-rays the detector caught there. Few X-rays → grainy maps. The detector's collecting angle (0.1 sr) and count-rate limit are illustrative, and the maps assume cleanly separated lines: tungsten's strongest line sits only 133 eV from a nickel line, closer than the detector can resolve, so real tungsten maps need full-spectrum fitting. For equal counts, the dose is the same on both sources.",
     );
 
     // 5. background: the sample and the beamline
@@ -342,14 +333,12 @@ const mod: ExplainerModule = {
     note(
       gAbout,
       station,
-      'The sample: a thin slice of **battery cathode** particles, crystals of nickel, manganese and cobalt oxide, with a pinch of **tungsten** between them. (Lithium is too light to show up.)',
-      'Synthetic W-doped NMC811 (LiNi_{0.8}Mn_{0.1}Co_{0.1}O_{2}) slice, 100 nm thick, ρ = 4.75 g/cm³, ~300 nm grains; W ≈ 0.5 mol% on grain boundaries (≤ 12 wt%) and surface. Intergranular cracking above ~4.2 V (H2→H3 collapse) and Mn/Ni leaching are qualitative and accelerated. Li is invisible to XRF.',
+      'The sample: a 100 nm slice of **battery cathode** particles (NMC811, LiNi_{0.8}Mn_{0.1}Co_{0.1}O_{2}): ~300 nm crystals of nickel, manganese and cobalt oxide, with a pinch of **tungsten** (≈0.5 mol%) on the boundaries between them. Lithium is too light to show up. The cracking above ~4.2 V and the manganese loss are qualitative and sped up.',
     );
     note(
       gAbout,
       station,
-      "**Why is ISN 220 m long?** The spot is a shrunken image of a tiny slit far upstream; the shrink factor is (slit → mirror) ÷ (mirror → sample). Leaving ~6 cm of room for a battery cell or furnace keeps the mirrors away from the sample, so the slit must be very far away: 165 m gives ~400× shrinking.",
-      '**Why 220 m:** the KB images the BDA (secondary source) demagnified by p/q: KBV 165 m / 0.396 m ≈ 417, KBH 156 m / 0.126 m ≈ 1240. The 61 mm working distance for in situ cells fixes q, so a small image needs a large p. For a diffraction-limited spot (≈ 0.88 λq/A, A = L sinθ ≈ 1.0 / 0.32 mm for the 404 / 129 mm mirrors at 2.5 mrad) the BDA must be coherence-matched, Δ ≈ 0.44 λp/A ≈ 3.6 µm (V, 25 keV); a 5× shorter line would need a sub-µm slit. The BDA also decouples the focus from upstream optics motion (KB stability 5/16 nrad).',
+      "**Why is ISN 220 m long?** The spot is a shrunken image of a tiny slit far upstream; the shrink factor is (slit → mirror) ÷ (mirror → sample). Leaving ~6 cm of room for a battery cell or furnace keeps the mirrors away from the sample, so the slit must be very far away: 165 m ÷ 0.4 m gives ~400× shrinking. A 5× shorter beamline would need a slit narrower than a micrometre, and the distant slit also steadies the spot against motion of the optics upstream.",
     );
 
     // ------------------------------------------------------------------ derived quantities
@@ -587,27 +576,23 @@ const mod: ExplainerModule = {
 
     // ------------------------------------------------------------------ readouts & captions
     function updateReadouts(): void {
-      const spc = isSpec();
       const sel = P.src === 'apsu' ? d.effU : d.effA;
       fluxRO.set(`${sci(sel)} /s`);
-      relabel(fluxRO.el, spc ? `Flux on sample (${P.src === 'apsu' ? 'APS-U' : 'APS'})` : 'X-rays hitting the spot');
       const ex = excited();
       const c = d.counts;
       const parts = (['Ni', 'Mn', 'Co', 'W'] as const).filter((_, i) => ex[i]).map((k) => `${k} ${fmtCounts(c[k])}`);
       countsRO.set(parts.length ? parts.join(' · ') : 'none');
-      relabel(countsRO.el, spc ? 'Counts/px' : 'X-rays caught');
-      detRO.set(`${sci(d.rate)} cps${d.att < 0.999 ? ` (att. ×${d.att.toFixed(2)})` : ''}`);
+      detRO.set(`${sci(d.rate)} /s${d.att < 0.999 ? ` (att. ×${d.att.toFixed(2)})` : ''}`);
       doseRO.set(`${sci(d.dose, 1)} Gy`);
-      meter.setHead(spc ? 'Map time for equal counts per pixel' : 'Time to make these maps (same quality)');
       meter.set(d.tU, d.tA, fmtTime, { insituStep: P.insitu || cellIdx > 0 ? INSITU_STEP_S : undefined, selected: P.src, uStage: d.uStage, gain: d.effU / d.effA });
-      for (const el of specOnly) el.style.display = spc ? '' : 'none';
-      // scan note: sampling advice
+      // scan note: sampling advice, then the numbers behind it
       const ratio = d.step / d.spot;
-      let vis = ratio > 1.3 ? `Your step (**${fmtLenNm(d.step)}**) is bigger than the spot: the beam skips what lies between the dots.` : ratio < 0.2 ? `Steps much smaller than the **${fmtLenNm(d.spot)}** spot add pixels and time, but no new detail.` : 'A smaller **step** means more pixels: finer detail, but a longer scan.';
-      if (d.stageLimited) vis += ` The sample can only be moved 1 mm per second, so each ${fmtLenNm(d.step)} pixel really takes **${fmtTime(d.dwell)}**.`;
-      const samp = ratio > 1 ? 'under-sampled: gaps between probe footprints' : ratio > 0.55 ? 'mildly under-sampled (Nyquist wants ≤ FWHM/2)' : ratio < 0.2 ? 'over-sampled: dose and time without resolution' : 'Nyquist-adequate';
-      const spcTxt = `Step ${fmtLenNm(d.step)} = ${ratio.toFixed(2)} × FWHM (${samp}). ${d.nx}² px × ${fmtTime(d.dwell)}${d.stageLimited ? ' (stage limit 1 mm/s)' : ''} = ${fmtTime(d.tSel)}. Dose ∝ Φt/step², independent of the source at equal counts.`;
-      scanNote.set(vis, spcTxt);
+      let t = ratio > 1.3 ? `Your step (**${fmtLenNm(d.step)}**) is bigger than the spot: the beam skips what lies between the dots.` : ratio < 0.2 ? `Steps much smaller than the **${fmtLenNm(d.spot)}** spot add pixels and time, but no new detail.` : 'A smaller **step** means more pixels: finer detail, but a longer scan.';
+      if (d.stageLimited) t += ` The sample can only be moved 1 mm per second, so each ${fmtLenNm(d.step)} pixel really takes **${fmtTime(d.dwell)}**.`;
+      const samp =
+        ratio > 1 ? 'gaps between the spots' : ratio > 0.55 ? 'a little coarse: sampling theory wants at most half the spot width' : ratio < 0.2 ? 'finer than needed: more time and dose, no more detail' : 'fine enough to catch all the detail the spot can resolve';
+      t += ` Now: step = ${ratio.toFixed(2)} × the spot width (${samp}); ${d.nx}² pixels × ${fmtTime(d.dwell)} = ${fmtTime(d.tSel)}.`;
+      scanNote.set(t);
     }
 
     /** Ni counts per pixel at another energy (same requested spot, dwell, source) */
@@ -627,34 +612,29 @@ const mod: ExplainerModule = {
         const names = [...dark].sort((a, b) => ELEMENTS[a].edges[0].e - ELEMENTS[b].edges[0].e).map((k) => `**${ELEMENTS[k].name}** (${ELEMENTS[k].edges[0].e.toFixed(2)} keV)`);
         const list = names.length > 1 ? `${names.slice(0, -1).join(', ')} or ${names[names.length - 1]}` : names[0];
         v = `At **${P.E0.toFixed(1)} keV** the X-rays are not energetic enough to knock out the inner electrons of ${list}, so ${dark.length > 1 ? 'those maps stay' : 'that map stays'} dark. Slide the energy above ${dark.length > 1 ? 'their edges' : 'its edge'}.`;
-      } else if (P.src === 'aps') v = `With the old APS, only ~${fmtCounts(d.counts.Mn)} manganese X-rays reach the detector per pixel, so the maps dissolve into noise. Maps as clean as APS-U's would take the old APS **${fmtTime(d.tCleanA)}** instead of **${fmtTime(d.tCleanU)}**.`;
+      } else if (P.src === 'aps') v = `With the old APS, only ~${fmtCounts(d.counts.Mn)} manganese X-rays reach the detector per pixel, so the maps dissolve into noise. Maps as clean as APS-U's would take the old APS **${fmtTime(d.tCleanA)}** instead of **${fmtTime(d.tCleanU)}**${d.uStage ? ` (less than its ~${Math.round(d.fluxU / d.fluxA)}× flux deficit: the scanning stage, not the X-rays, limits APS-U here)` : `, with ~${Math.round(d.fluxU / d.fluxA)}× less flux into this spot`}.`;
       else if (P.E0 > 17 && d.spot < 30) {
         const xs = elementXS('Ni', 13) / elementXS('Ni', P.E0);
         const fewer = Math.max(2, Math.round(countsAt(13) / Math.max(1e-9, d.counts.Ni)));
         v = `At **${P.E0.toFixed(0)} keV** the spot can shrink to **${spot}**, sharper than ever. But these X-rays are far above the elements' edges, so atoms absorb them ~${Math.round(xs)}× less often${fewer > 1.15 * xs ? ', and fewer X-rays fit into the tinier spot' : ''}: each pixel catches ~${fewer}× fewer nickel X-rays than at 13 keV. Sharpness costs signal.`;
-      }
-      else if (d.spot > 160) v = `The **${spot}** spot is bigger than the crystal grains (~300 nm), so boundaries${st.crackW > 0 ? ' and cracks' : ''} blur away. Shrink the spot to see them.`;
+      } else if (d.spot > 160) v = `The **${spot}** spot is bigger than the crystal grains (~300 nm), so boundaries${st.crackW > 0 ? ' and cracks' : ''} blur away. Shrink the spot to see them.`;
       else if (d.step > d.spot * 1.3) v = `Each pixel is **${fmtLenNm(d.step)}** apart but the spot is only **${spot}**: the beam hops over most of the sample. Make the step smaller than the spot.`;
-      else if (cellIdx > 0 || P.insitu) v = `**${st.volts.toFixed(1)} V.** ${st.visitor}${st.crackW > 0 ? ' Cracks show up as dark lines in every map.' : ''}`;
-      else v = `A **${spot}** X-ray spot scans a thin slice of a battery particle. Each element glows at its own X-ray energy (spectrum, panel 3), giving one map per element. **Tungsten** outlines the ~300 nm crystals: visible only because the spot is far smaller than a crystal.`;
-      const regime = d.regime === 'coherent' ? 'coherent (BDAs closed)' : d.regime === 'partial' ? 'BDAs partly open' : 'BDAs open / defocused';
-      let s = `E₀ = ${P.E0.toFixed(2)} keV${dark.length ? ` (below ${dark.map((k) => ELEMENTS[k].edges[0].label).join(', ')} edge)` : ''}; probe ${spot} FWHM${d.limited ? ` (diffraction limit at ${P.E0.toFixed(1)} keV)` : ''}, ${regime}; Φ = ${sci(P.src === 'apsu' ? d.fluxU : d.fluxA)} ph/s (${P.src === 'apsu' ? 'APS-U' : 'APS'}), gain APS-U/APS = ${Math.round(d.fluxU / d.fluxA)}×${d.att < 0.999 ? `; attenuated ×${d.att.toFixed(2)} to keep the SDD ≤ ${sci(DET.maxCps, 1)} cps` : ''}. Bulk counts/px: Ni ${fmtCounts(d.counts.Ni)}, Mn ${fmtCounts(d.counts.Mn)}, Co ${fmtCounts(d.counts.Co)}, W (boundary) ${fmtCounts(d.counts.W)}.`;
-      if (cellIdx > 0 || P.insitu) s += ` Cell: ${st.specialist}`;
-      else if (P.E0 > W_EDGES.L3 && P.E0 < W_EDGES.L2) s += ' Only W L₃ lines (Lα, Lβ₂, Lℓ) are excited; Lβ₁/Lγ₁ need E₀ > L₂.';
-      else if (d.counts.W < 10 && ex[3]) s += ' W counts are low: detection limit set by counting statistics.';
-      station.setCaption(v, s);
+      else if (cellIdx > 0 || P.insitu) v = `**${st.volts.toFixed(1)} V.** ${st.text}${st.crackW > 0 ? ' Cracks show up as dark lines in every map.' : ''}`;
+      else {
+        v = `A **${spot}** X-ray spot scans a thin slice of a battery particle. Each element glows at its own X-ray energy (spectrum, panel 3), giving one map per element. **Tungsten** outlines the ~300 nm crystals: visible only because the spot is far smaller than a crystal.`;
+        if (P.E0 > W_EDGES.L3 && P.E0 < W_EDGES.L2) v += ` At this energy only tungsten’s L₃ lines are excited; its Lβ₁ and Lγ₁ lines need more than ${W_EDGES.L2.toFixed(2)} keV.`;
+        else if (d.counts.W < 10) v += ' Tungsten gives only a few counts per pixel here, so counting statistics set how little of it can be detected.';
+      }
+      // how the optics make this spot (the slit far upstream, the beam-defining aperture, sets size against flux)
+      if (!dark.length && P.src === 'apsu' && !(cellIdx > 0 || P.insitu))
+        v +=
+          d.regime === 'coherent'
+            ? ` A spot this small uses only the coherent part of the beam: the slit far upstream is nearly closed${d.limited ? `, and ${spot} is the smallest spot possible at ${P.E0.toFixed(1)} keV` : ''}.`
+            : d.regime === 'partial'
+              ? ' For this spot the slit far upstream is partly opened, letting in more, less coherent X-rays.'
+              : ' A spot this large opens the slit far upstream fully (or defocuses), trading sharpness for flux.';
+      station.setCaption(v);
     }
-
-    // ------------------------------------------------------------------ depth
-    const applyDepth = () => {
-      relabel(eSlider.input, isSpec() ? 'Incident energy E₀' : 'X-ray energy');
-      relabel(spotSlider.input, isSpec() ? 'Probe FWHM (requested)' : 'Spot size');
-      relabel(stepSlider.input, isSpec() ? 'Step · pixels' : 'Step (pixel size)');
-      relabel(dwellSlider.input, isSpec() ? 'Dwell per pixel' : 'Time per pixel');
-      updateReadouts();
-      refreshCaption();
-      dirty = true;
-    };
 
     // ------------------------------------------------------------------ first frame: instant scan, then a live one
     applyLayout();
@@ -669,7 +649,10 @@ const mod: ExplainerModule = {
       run = first;
     }
     restart();
-    applyDepth();
+    meter.setHead('Time for these maps (equal counts)');
+    updateReadouts();
+    refreshCaption();
+    dirty = true;
 
     // ------------------------------------------------------------------ animation
     loop(station, (dt) => {
@@ -736,16 +719,15 @@ const mod: ExplainerModule = {
         pending: insituWait > 0 ? `${pendingDir} → ${next.volts.toFixed(1)} V…` : '',
         pendingDir,
         hasCracks: st.crackW > 0,
-        depth: station.depth,
         accent,
         speedLabel: d.speedLabel,
-        hint: isSpec() ? 'click or drag to park the beam (point spectrum)|click to park the beam|click to park' : 'tap the sample to aim the beam|tap to aim the beam|tap to aim',
+        hint: 'tap or drag to aim the beam: its spectrum is in panel 3|tap to aim the beam|tap to aim',
       });
-      maps.draw({ run: r, excited: excited(), scanning, depth: station.depth, accent });
+      maps.draw({ run: r, excited: excited(), scanning, accent });
       specT -= dt;
       if (scanning && specT > 0) return;
       specT = 1 / 30;
-      specView.draw({ spec: spectrum, mean, hasPixel: !!r && r.idx > 0, E0: P.E0, excited: excited(), depth: station.depth, accent, ymax });
+      specView.draw({ spec: spectrum, mean, hasPixel: !!r && r.idx > 0, E0: P.E0, excited: excited(), accent, ymax });
     });
     // a resize clears a canvas: redraw it even while a reduced-motion scan holds the panels
     for (const c of [heroC, mapsC, specC])
@@ -756,10 +738,6 @@ const mod: ExplainerModule = {
 
     return {
       destroy: () => station.destroy(),
-      setDepth: (dp: Depth) => {
-        station.setDepth(dp);
-        applyDepth();
-      },
     };
   },
 };

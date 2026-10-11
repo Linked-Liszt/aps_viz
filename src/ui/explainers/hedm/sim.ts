@@ -5,7 +5,7 @@
  *    radial shifts from the grain's elastic strain (optionally magnified for display) and an intensity from
  *    physics.spotFactor × grain area × absorption along the actual in/out paths through the rod.
  *  • ω coverage in 1° bins: a spot is "recorded" once the sample has turned through its bin.
- *  • Ring fits (specialist readout): per hkl, ε(η) = ε_⊥ + (ε_∥ − ε_⊥) sin²η fitted to the recorded spots' true-scale
+ *  • Ring fits (quoted in the caption under load): per hkl, ε(η) = ε_⊥ + (ε_∥ − ε_⊥) sin²η fitted to the recorded spots' true-scale
  *    Bragg angles referred to their grain centroids (no parallax, independent of the ×20 display), giving the
  *    diffraction elastic constants E_hkl = σ/ε_∥ (≈ 270, 175, 246 GPa for 111, 200, 220 with this model).
  *  • Far-field indexing (illustrative): a grain counts as found once ≥ 8 spots and ≥ 8 % of its detectable

@@ -1,14 +1,16 @@
 """Convert the researched all-sector directory into src/data/sectors.json.
 Usage: python3 scripts/build-sectors.py <research/sectors.json> src/data/sectors.json
 
-Visitor-facing wording (plain labels, titles, status phrasing) comes from scripts/exhibit-overrides/sectors.json
-(see exhibit.py there); never hand-edit the output.
+Exhibit wording (sector labels, titles, summaries, enhancement texts with their 2026 status) comes from
+scripts/exhibit-overrides/sectors.json (see exhibit.py there); never hand-edit the output.
+An enhanced beamline's `enhancement` is {text, program, fdrDeliverables, asBuilt, deliveryStatus, source}: `text` is
+the single exhibit text (required for every enhanced beamline); the research plain/expert pair is not carried over.
 """
 import json, os, re, sys
 
 sys.dont_write_bytecode = True  # keep scripts/exhibit-overrides free of __pycache__
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exhibit-overrides'))
-from exhibit import OverrideError, load, merge, typo  # noqa: E402
+from exhibit import OverrideError, check_text, load, merge, no_variants, typo  # noqa: E402
 
 src, out = sys.argv[1], sys.argv[2]
 d = json.load(open(src))
@@ -21,8 +23,8 @@ for s in d.get('sectors', []):
     bls = []
     for b in s.get('beamlines', []):
         enh = b.get('enhancement') or None
-        if isinstance(enh, dict):
-            enh = {k: clean(v) for k, v in enh.items()}
+        if isinstance(enh, dict):  # research plain/expert are replaced by the exhibit `text` override below
+            enh = {k: clean(v) for k, v in enh.items() if k not in ('plain', 'expert')}
         st = b.get('status2026') or {}
         bls.append({
             'name': b.get('name', ''),
@@ -52,7 +54,9 @@ for n in range(1, 41):
     sectors.setdefault(n, {'sector': n, 'id': n <= 35, 'bm': n <= 35, 'beamlines': []})
 
 # ---- exhibit-copy overrides ------------------------------------------------
-for key, patch in load('sectors.json')['sectors'].items():
+ov = load('sectors.json')
+no_variants(ov, 'sector overrides')
+for key, patch in ov['sectors'].items():
     n = int(key)
     if n not in sectors or not sectors[n]['beamlines']:
         raise OverrideError(f'sector override {key}: no such sector with beamlines')
@@ -78,19 +82,36 @@ for key, patch in load('sectors.json')['sectors'].items():
 missing = [n for n, s in sectors.items() if any(b['enhanced'] for b in s['beamlines']) and not s.get('plainLabel')]
 if missing:
     raise OverrideError(f'enhanced sectors without a plainLabel: {missing}')
+untexted = [b['name'] for s in sectors.values() for b in s['beamlines'] if isinstance(b['enhancement'], dict) and not b['enhancement'].get('text')]
+if untexted:
+    raise OverrideError(f'enhanced beamlines without an enhancement text: {untexted}')
 
 # ---- exhibit typography on displayed text -----------------------------------
 for s in sectors.values():
-    if s.get('operators'):
-        s['operators'] = typo(s['operators'])
+    for k in ('operators', 'plainLabel'):
+        if s.get(k):
+            s[k] = typo(s[k])
     for b in s['beamlines']:
         for k in ('title', 'summary', 'operator'):
             b[k] = typo(b[k])
         b['techniques'] = [typo(t) for t in b['techniques']]
         if isinstance(b['enhancement'], dict):
-            for k in ('plain', 'expert'):
-                if k in b['enhancement']:
-                    b['enhancement'][k] = typo(b['enhancement'][k])
+            e = b['enhancement']
+            b['enhancement'] = {'text': typo(e['text']), **{k: v for k, v in e.items() if k != 'text'}}
+
+# ---- lint everything a sector card or search result shows -------------------
+shown = []
+for n, s in sectors.items():
+    shown += [(f'sectors.{n}.{k}', s[k], 'label') for k in ('operators', 'plainLabel', 'lom') if isinstance(s.get(k), str)]
+    for i, b in enumerate(s['beamlines']):
+        at = f'sectors.{n}.beamlines[{i}]'
+        shown += [(f'{at}.{k}', b[k], 'label') for k in ('name', 'title', 'operator', 'status') if isinstance(b.get(k), str)]
+        shown += [(f'{at}.techniques[{j}]', t, 'label') for j, t in enumerate(b['techniques'])]
+        if b['summary']:
+            shown.append((f'{at}.summary', b['summary'], 'prose'))
+        if isinstance(b['enhancement'], dict):
+            shown.append((f'{at}.enhancement.text', b['enhancement']['text'], 'prose'))
+check_text(shown)
 
 summary = d.get('summary') or {}
 json.dump({'sectors': sectors, 'summary': {'headline': clean(summary.get('headline', '')) if isinstance(summary, dict) else ''}, 'references': d.get('references', [])}, open(out, 'w'), indent=1)

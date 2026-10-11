@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fft2d } from '../src/lib/fft';
 import { fft2, fft2FwdT, fft2InvT } from '../src/ui/explainers/ptycho/fft64';
 import {
@@ -294,4 +296,11 @@ describe('reconstruction (ePIE) reproduces the station demonstrations', () => {
     const r = run(0.7, 1e3, 30);
     for (const e of r.errF) expect(e).toBeLessThan(2);
   }, 120000);
+});
+
+describe('one presentation for every reader', () => {
+  it('the station never reads the retired Visitor/Specialist depth', () => {
+    const src = ['ptycho.ts', 'ptycho/views.ts'].map((f) => readFileSync(join(__dirname, '../src/ui/explainers', f), 'utf8')).join('\n');
+    expect(src).not.toMatch(/ctx\.depth|station\.depth|setDepth|'specialist'|data-depth|app\/store/);
+  });
 });

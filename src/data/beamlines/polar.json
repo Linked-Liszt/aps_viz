@@ -22,11 +22,9 @@
     ]
   },
   "tagline": "Twisting X-rays into left- and right-handed corkscrews to reveal hidden magnetism in matter squeezed to millions of atmospheres.",
-  "plainSummary": "POLAR is a 78-metre X-ray beamline at Argonne's Advanced Photon Source that controls the 'handedness' of light. X-rays from the APS wiggle side to side. POLAR sends them through thin, near-perfect diamond crystals that act as X-ray 'quarter-wave plates', the same trick some 3D-cinema glasses use for visible light. The crystals twist the wiggle into a left- or right-handed corkscrew, or turn it to up-and-down, and can flip the twist about 15 times a second. Magnetic atoms absorb the two corkscrews slightly differently, so comparing them shows which atoms are magnetic, how strongly, and which way their tiny magnets point. Each element answers only at its own X-ray 'colour', so iron, iridium or uranium can be questioned one at a time. The upgraded APS lets POLAR focus this light to 100–400 nanometres, hundreds of times thinner than a hair: small enough for specks crushed between diamond tips to millions of atmospheres, chilled to 1.4 degrees above absolute zero inside a 9-tesla magnet.",
-  "expertSummary": "POLAR (4-ID; stations 4-ID-B/G/H) is the APS-U feature beamline for polarization-dependent resonant spectroscopy, scattering and imaging at 2.7–27 keV. The source is two in-line planar hybrid permanent-magnet undulators (λu = 3.0 cm, 79 periods each, Keff ≈ 2.6, E1 ≈ 2.55 keV) with a phase shifter, on a windowless HHL front end. In the FOE, horizontally deflecting HHL mirrors (Si/Rh/Pt, 3 mrad, M2 bendable) feed an LN2-cooled CINEL vertical DCM. Its Si(111) crystals are joined by 6H-SiC(0006) (θB ≈ 61° at 2.8 keV). SiC is needed only for polarization generated at the source (future SCAPE/X-undulator): near 2.8 keV Si(111) sits at θB ≈ 45° and would suppress the π component. With today's phase plates, which sit after the mono, the vertical DCM sees pure σ light. An in-vacuum Bragg-transmission phase-retarder tank (C(111)/(220) diamond, thin Si(111)) delivers LCP/RCP (Pc ≈ 0.98) and L-V (Plin −0.80 to −0.95) at about 2.7–14 keV, with piezo helicity modulation near 15 Hz and lock-in detection. For focusing, horizontal toroid/cylinder mirrors at 53.7/54.5 m give 5–35 µm, an 8-stack Be transfocator gives ≥2 × 0.9 µm², and two fixed-figure KB pairs give the smallest spots. KB1 (WD 100 mm) puts 100–200 nm on a 4-ID-G Huber horizontal diffractometer, fitted with a ±2 T HTS magnet or an air-bearing imaging stack for dichroic ptychography and Bragg CDI. KB2 (WD 600 mm) puts 300–400 nm into a 4-ID-H 9-1-1 T vector magnet (1.4 K, 75 mm bore) holding a DAC with interferometry, Raman/ruby and a 7-element SDD, for XMCD/XMLD toward 6 Mbar. Calculated flux is about 1.3×10¹³ ph/s at 10 keV into 114 × 92 nm² (SRI 2021 design value, 20 × 20 µrad² acceptance); the beamline directory quotes the same 1.3×10¹³ ph/s. Source-based polarization switching is future scope: superconducting SCAPE devices (designed for 2.7–27 keV) or a permanent-magnet X-undulator (prototype design, from 2.6 keV).",
+  "summary": "POLAR is a 78-metre beamline at Sector 4 of Argonne's Advanced Photon Source (APS) that uses polarized X-rays to study magnetism one element at a time. Its undulators make X-rays whose electric field swings side to side; thin diamond crystals turn this into left- or right-handed circular polarization, a corkscrew, and flip the handedness many times a second. At an element's absorption edge, the X-ray energy at which its inner electrons absorb strongly, a magnetic material absorbs the two handednesses differently, by a fraction of a percent to a few percent; the difference reveals how strongly that element is magnetized and in which direction. The upgraded source lets POLAR focus this light to 100–400 nm, small enough for samples squeezed between two diamond tips to 3 megabars (about 3 million atmospheres), chilled to 1.4 degrees above absolute zero in a 9-tesla magnet. First users came in 2025.",
   "whatAPSUEnables": {
-    "plain": "The old beamline at sector 4 could focus its polarized X-rays to about 15–20 micrometres. APS-U's electron beam is about 20 times narrower horizontally, so the X-ray source is smaller and its light more parallel. POLAR can now squeeze a bright polarized beam about 100 times smaller, to roughly 0.1–0.4 micrometres. At 10 keV about 200 times more of its light is also 'coherent' (laser-like). Tiny beams allow tinier samples between smaller diamond tips. The design goal is about ten times the old pressure range, roughly 6 million atmospheres, well past the ~3.6 million at Earth's centre; in 2026 the beamline lists 3 million atmospheres as available. Coherent light is meant to let scientists rebuild lens-free magnetic images of domains only tens of nanometres across; the 2026 directory quotes 400 nm for routine dichroic imaging.",
-    "expert": "The 42 pm-rad multi-bend achromat (MBA) lattice cuts the horizontal electron beam size from about 275 to 14.5 µm and the divergence from 11 to 2.9 µrad (brightness mode). Fixed-figure KB optics can therefore demagnify to 0.1–0.4 µm even at long working distances (100 and 600 mm) chosen to fit cryostats, magnets and DACs, with about 25–40% transmission. This enables three things. (i) XANES/XMCD/XMLD in DACs with culets and samples small enough for 3–6 Mbar (double-stage or toroidal anvils), with fewer pressure-gradient and gasket artefacts. (ii) Real-space dichroic mapping at 100–400 nm and coherent dichroic imaging (ptychography/tomography, Bragg CDI) at about 10–50 nm, from a coherent fraction about 200× larger at 10 keV. (iii) Weak or diffuse resonant magnetic scattering from small crystals at pressure. On-axis swap-out injection also allows small round ID vacuum chambers. That is the precondition for the planned superconducting SCAPE sources, which would remove phase-plate losses (×5–30) and extend polarization control to 14–27 keV (actinide L edges, 4d K edges; elliptical rather than fully circular light in the higher harmonics), and for the permanent-magnet X-undulator alternative (prototype design, from 2.6 keV). These sources are not yet installed (Sept 2026).",
+    "text": "The upgraded ring's electron beam is about 19 times narrower horizontally (14.5 µm root-mean-square width in the 2021 flat-beam design instead of 275 µm) and spreads less, so POLAR's mirrors can focus polarized X-rays to 100–400 nm; before the upgrade the polarized beam at Sector 4 was about 15 µm across. Smaller beams allow smaller samples, and so higher pressures: the design goal is about 6 megabars, against about 0.5 megabar for magnetic measurements before the upgrade and 3.6 megabars at Earth's centre. The coherent fraction, the share of the beam whose waves march in step as lens-free imaging requires, is about 200 times larger at 10 keV, for magnetic images aimed at 10–50 nm. In a 300 nm spot the planned gain is about 100 times more polarized flux. The caveats: in 2026 the beamline lists 3 megabars and 400 nm for magnetic imaging, and the polarizing undulators that would avoid the phase plates' 5–30-fold flux loss and reach above 14 keV are not yet installed.",
     "quantitative": [
       "Horizontal electron beam size 275 µm → 14.5 µm and divergence 11 → 2.9 µrad, APS vs APS-U brightness mode (POLAR town hall 2021)",
       "Coherent fraction at 10 keV increased ×200 vs the pre-upgrade APS (POLAR workshop slides 2023; POLAR town hall 2021)",
@@ -43,51 +41,43 @@
     {
       "name": "X-ray magnetic circular dichroism",
       "abbrev": "XMCD",
-      "plain": "Measure how much a material absorbs left-handed versus right-handed X-rays at an element's absorption edge. The difference is a fingerprint of that element's magnetism, telling us how strongly its atoms are magnetized and in which direction.",
-      "expert": "Helicity- (or field-) modulated absorption at K edges of 3d metals, L2,3 edges of 4d metals (2.8–3.4 keV), rare-earth (4f) and 5d elements, and M4,5 edges of actinides (3.3–4 keV). 4d K edges (17–25.5 keV) and actinide L2,3 edges (16.3–22.3 keV) lie above the ~14 keV phase-plate limit and need the future polarizing source (APS-U PDR 2017; X-ray Data Booklet). Hard-x-ray XMCD amplitudes are typically 0.1–6% of the edge jump (Haskel et al. 2007), and the design goal was signals down to ~10 ppm (APS-U PDR 2017). Lock-in detection at the phase-plate modulation frequency (~13–15 Hz) is used, with a ~1–4 kHz chopper for dark-current subtraction (POLAR town hall 2021; Haskel et al. 2007). Where the L2,3 final states carry the moment (e.g. 4d and 5d metals), sum rules (Thole 1992, Carra 1993) separate orbital and spin moments (Thole et al. 1992). At 3d K edges and rare-earth L2,3 edges the signal comes from induced 4p or 5d polarization, so the sum rules are not directly applicable and the data are interpreted more qualitatively (Haskel et al. 2007). The effect was first observed in 1987 at the Fe K edge, a hard-x-ray edge (Schütz et al. 1987)."
+      "text": "X-ray magnetic circular dichroism (XMCD) compares how strongly a material absorbs left- and right-circularly polarized X-rays at one element's absorption edge. A difference appears only where that element's magnetic moments are, on average, aligned; its size and sign reveal their net strength and direction along the beam. With hard X-rays the effect is small, typically 0.1–6% of the absorption step, so the design calls for flipping the handedness about 13–15 times a second and using lock-in detection, which keeps only the signal that flips in step, aiming to detect differences of ten parts per million. At the L edges of 4d and 5d metals, 'sum rules' split the signal into spin and orbital magnetism; at the K edges of 3d metals and the L edges of rare earths it comes from magnetism induced in outer electrons and is read more qualitatively. Edges above the phase plates' limit of about 14 keV, such as actinide L edges, await a future polarizing undulator."
     },
     {
       "name": "X-ray (magnetic) linear dichroism",
       "abbrev": "XLD / XMLD",
-      "plain": "Compare horizontally and vertically wiggling X-rays. This reveals lopsided electron clouds (orbitals) and antiferromagnets, where neighbouring atomic magnets cancel and show no net magnetism.",
-      "expert": "L-H vs L-V absorption via a half-wave (two-plate) phase-retarder setting, with Plin ≈ −0.80 at low E and ≈ −0.95 at high E (APS beamline directory 2026). Probes orbital anisotropy, ferroelectric distortions and AFM order axes. At 4-ID-H, transverse fields up to ±1 T are available for XMLD (POLAR town hall 2021)."
+      "text": "X-ray linear dichroism (XLD) compares absorption of horizontally and vertically polarized X-rays. It reveals lopsided electron clouds (orbitals), ferroelectric distortions and the axis along which magnetic moments line up; the magnetic part, X-ray magnetic linear dichroism (XMLD), works even in antiferromagnets, whose neighbouring moments point in opposite directions and cancel, so they show no circular dichroism. POLAR makes vertical polarization by setting the phase retarders as a half-wave plate, about 80% vertically polarized at low energies and 95% at high energies. At 4-ID-H a field of up to 1 tesla across the beam is available for XMLD."
     },
     {
       "name": "Polarized X-ray absorption near-edge / fine structure",
       "abbrev": "XANES / XAFS",
-      "plain": "Scan the X-ray energy across an element's edge. The shape of the absorption edge shows the element's charge state (valence) and its neighbours. That shows, for example, when pressure pushes an electron out of an atom's inner f shell into the shared 'sea' of conduction electrons.",
-      "expert": "Valence, mixed-valence and Kondo physics in 4f/5f systems (e.g. Yb, Eu, Ce, U) and orbital occupancy in 5d oxides under pressure, measured in transmission through the anvils or in fluorescence. Typically combined with simultaneous XMCD (APS-U PDR 2017; POLAR town hall 2021)."
+      "text": "X-ray absorption near-edge structure (XANES) spectroscopy scans the X-ray energy across an element's absorption edge. The edge's position and shape reveal the element's charge state (valence) and its surroundings, for example when pressure pushes an electron out of a rare earth's localized 4f shell into the shared sea of conduction electrons. POLAR uses it to follow valence changes, mixed valence and the Kondo effect, in which conduction electrons screen a local magnetic moment, in materials containing ytterbium, europium, cerium or uranium, and orbital occupancy in 5d oxides under pressure. Spectra are taken in transmission through the diamond anvils or by fluorescence, usually together with magnetic circular dichroism on the same sample."
     },
     {
       "name": "X-ray resonant magnetic scattering / diffraction",
       "abbrev": "XRMS",
-      "plain": "Tune the X-ray energy to an element's resonance and bounce the beam off a crystal. Extra spots appear that come from the pattern of magnetic order rather than the atoms themselves.",
-      "expert": "Resonant (and non-resonant) magnetic Bragg diffraction on the 4-ID-G horizontal-scattering Huber diffractometer. The detector arm is split by 25°: one branch carries a 2D PAD at 0.5–2 m, the other an APD with a full in-vacuum polarization analyzer (σ/π' separation). Sample environments include CCR (4–450 K) and He-flow cryostats, a ±2 T HTS magnet, mini-DACs (directory: 20 GPa, 2θ up to 70°, 5–325 K) and strain cells (POLAR town hall 2021; POLAR workshop slides 2023; APS beamline directory 2026)."
+      "text": "In X-ray resonant magnetic scattering (XRMS) the energy is tuned to an element's absorption edge and the beam is diffracted by a crystal. Magnetic order with its own repeat pattern, such as an antiferromagnet whose moments alternate, adds weak diffraction spots where the atomic lattice alone gives none; the resonance boosts them and makes them element-specific. POLAR does this on the 4-ID-G Huber diffractometer, whose detector arm is split 25° between an area detector and a polarization analyzer that separates scattered light polarized perpendicular (σ) and parallel (π) to the scattering plane. Samples can be cooled to 4 K, placed in a ±2 T magnet, squeezed in mini diamond cells to 20 GPa, or strained."
     },
     {
       "name": "X-ray resonant magnetic reflectivity",
       "abbrev": "XRMR",
-      "plain": "Reflect polarized X-rays at shallow angles from thin films to map magnetism layer by layer, down to single atomic layers at interfaces.",
-      "expert": "Dichroic specular and off-specular reflectivity for heterostructures. A full in-vacuum setup reaches the 4d transition-metal L edges at 2.75–3.4 keV (Ru, Rh, Pd) in fields up to 2 T (POLAR town hall 2021)."
+      "text": "X-ray resonant magnetic reflectivity (XRMR) reflects polarized X-rays off a stack of thin films at shallow angles. Waves reflected at each interface interfere, so the reflected intensity versus angle encodes how magnetism changes with depth, layer by layer, and can pick up magnetism at an interface only an atomic layer or so thick. POLAR measures the mirror-like (specular) reflection and the diffuse scattering around it with circular dichroism. A fully in-vacuum setup reaches down to 2.75–3.4 keV, the L edges of ruthenium, rhodium and palladium, in fields up to 2 tesla."
     },
     {
       "name": "Dichroic ptychography and tomography",
       "abbrev": "dichroic CDI",
-      "plain": "Instead of using a lens, shine the coherent beam on overlapping spots and let a computer turn the speckle patterns into a magnetic image. Rotating the sample builds a 3D map of the magnetization.",
-      "expert": "Coherent 100–200 nm KB beams (100 mm working distance) on a high-precision stack: ±7° double tilt, XYZ, 360° air-bearing rotation, ±15° tilt, XY and an XYZ nanopositioner with strain gauges. Planned forward-detector distances are 2.7, 4 and 10 m, with Bragg CDI at 2 m (2θ < 45°) and interferometric sample registration (POLAR workshop slides 2023; POLAR town hall 2021). The method follows hard-x-ray dichroic ptychography and vector nanotomography at Gd L3 (Donnelly 2016, 2017). A 3D vector-tomography reconstruction pipeline is implemented at POLAR; it was demonstrated on dichroic STXM data of Nd2Fe14B pillars taken at MAX IV NanoMAX (Nd L2 edge, ~120 nm resolution), not at POLAR (Banerjee et al. 2025). The beamline directory currently quotes 400 nm resolution for 'dichroic imaging' (APS beamline directory 2026)."
+      "text": "Coherent diffractive imaging makes a picture without an image-forming lens. In ptychography a coherent, focused beam steps across the sample in overlapping spots, a camera records the speckle pattern at each, and a computer finds the one image that explains them all; with circularly polarized light tuned to a magnetic edge, that image shows magnetic domains. Rotating the sample and repeating builds a 3D map of the magnetization direction (vector tomography). POLAR's setup combines 100–200 nm coherent beams, a precision air-bearing stage and detectors planned at 2.7, 4 and 10 m. The goal is 10–50 nm; the 2026 beamline directory quotes 400 nm for dichroic imaging, and POLAR's 3D reconstruction pipeline has so far been demonstrated on data taken at MAX IV in Sweden, not at POLAR."
     },
     {
       "name": "Spectroscopy in the diamond anvil cell at extreme pressure, low temperature and high field",
       "abbrev": "HP-XMCD",
-      "plain": "A sample smaller than a grain of salt is squeezed between two diamond tips while it sits inside a superconducting magnet near absolute zero. The X-rays shine straight through the diamonds.",
-      "expert": "Non-magnetic CuBe DACs with double (compression/decompression) He-gas membranes, using perforated or partially perforated anvils to cut diamond absorption at the 5–9 keV transition-metal K and rare-earth L edges (even 1 mm of diamond transmits ~10% at the Fe K edge, while partially perforated anvils leave only ~0.1–0.2 mm in the beam). Pressure is calibrated by ruby fluorescence (<100 GPa), the diamond-edge Raman shift (>100 GPa), or XRD of Au/Ag/Pt using the Holzapfel EOS (POLAR town hall 2021; Haskel et al. 2007; polartools). For multi-Mbar work, double-stage or toroidal anvils are planned (Strempfer et al. 2022)."
+      "text": "The extreme-conditions instrument combines a diamond anvil cell with low temperature and high field. The sample, smaller than a grain of salt, sits between the flat tips (culets) of two diamonds in a non-magnetic copper–beryllium cell, and helium-filled membranes raise or lower the pressure remotely while it is cold. Diamond is fairly transparent to hard X-rays, but it absorbs noticeably at the 5–9 keV edges of transition metals and rare earths: at the iron edge 1 mm passes only about 10%. POLAR therefore uses perforated or partially perforated anvils that leave just 0.1–0.2 mm in the beam. Pressure is read from the fluorescence of a ruby chip below 100 GPa (1 megabar), from the diamond's Raman signal above it, or from X-ray diffraction of a gold, silver or platinum marker. Double-stage or toroidal anvils are planned for multi-megabar work."
     }
   ],
   "scienceCases": [
     {
       "title": "Magnetism and valence of rare earths and actinides at multi-megabar pressure",
-      "plain": "Squeezing a metal pushes its atoms together until electrons change their minds: a magnetic atom can become non-magnetic, or a material can turn into a superconductor. POLAR watches each element's electrons and magnetism as this happens.",
-      "expert": "Pressure tunes the competition between RKKY magnetism and Kondo screening in 4f/5f lattices. Examples: Yb 4f13 (magnetic) vs 4f14 (non-magnetic) valence crossover; mixed-valence superconductivity; Pu and URu2Si2 'hidden order'. These are probed with 4f/5d L-edge XANES/XMCD at 4-ID-H at 1.4–300 K, up to 9 T and toward 6 Mbar. Actinide M4,5 edges (3.3–4 keV) and L2,3 edges (~16.3–22.3 keV) motivate the low-energy (SiC) capability and the future high-energy polarizing source (APS-U PDR 2017; POLAR town hall 2021; Strempfer et al. 2022).",
+      "text": "Squeezing a metal pushes its atoms together until its electrons rearrange: a magnetic atom can lose its magnetism, or the material can become a superconductor. In rare-earth and actinide materials, pressure tips the balance between two rival effects: magnetic coupling between atoms through the conduction electrons (the RKKY interaction) and the screening of each atom's moment by those electrons (the Kondo effect). Examples include ytterbium's crossover between a magnetic 4f¹³ and a non-magnetic 4f¹⁴ state, superconductivity near mixed valence, plutonium, and the unexplained 'hidden order' of URu₂Si₂. POLAR follows them with absorption spectroscopy and magnetic circular dichroism at rare-earth and 5d L edges at 4-ID-H, at 1.4–300 K, up to 9 T and toward the 6-megabar goal. Actinide M edges at 3.3–4 keV lie within today's polarization range; their L edges at about 16–22 keV need the future polarizing undulator.",
       "refs": [
         "r4",
         "r12",
@@ -96,8 +86,7 @@
     },
     {
       "title": "Hydrides and the hunt for room-temperature superconductivity",
-      "plain": "Hydrogen-rich compounds become superconductors near room temperature, but only above a million atmospheres. Tiny, bright, polarized beams can test whether magnetism plays a role in these materials.",
-      "expert": "Superhydrides (e.g. LaH10, Tc near 250 K at ~1.7–1.9 Mbar) and sulfides need micron-scale samples. POLAR's 0.1–0.4 µm beams and Mbar DAC instrumentation target their electronic and magnetic structure, as well as Fe-hydrides where magnetism and superconductivity interplay (POLAR town hall 2021; Strempfer et al. 2022; APS-U PDR 2017).",
+      "text": "Hydrogen-rich compounds such as lanthanum hydride (LaH₁₀) superconduct at up to about 250 K (−23 °C), close to room temperature, but only at around 1.7–1.9 megabars. Samples at such pressures are only micrometres across, so they need beams smaller still. POLAR's 0.1–0.4 µm polarized beams and megabar diamond-cell instruments are aimed at the electronic and magnetic structure of these hydrides and related sulfides, and at iron hydrides, where magnetism and superconductivity interplay. The question is whether magnetism plays a role in these materials.",
       "refs": [
         "r12",
         "r5",
@@ -106,8 +95,7 @@
     },
     {
       "title": "Quantum materials under pressure: spin liquids, Mott and Kondo physics",
-      "plain": "Pressure is a clean 'tuning knob' that changes how electrons talk to each other without adding impurities. It can push a material from insulator to metal, or freeze or melt exotic magnetic states.",
-      "expert": "Pressure tunes bandwidth, hybridization and exchange paths in 4d/5d oxides, such as honeycomb Kitaev candidates and Sr2IrO4-type iridates (Ir L3 XMCD in a DAC was already done at 8 GPa, 11 K at 4-ID-D). It drives insulator–metal transitions in high-bulk-modulus transition-metal oxides and spin melting/freezing in frustrated magnets. Weak diffuse XRMS from short-range order demands the highest brilliance (APS-U PDR 2017; Haskel 2018).",
+      "text": "Pressure is a clean tuning knob: it changes how electrons hop and interact between atoms without adding impurities. It can turn an insulator into a metal, or freeze or melt exotic magnetic states. POLAR targets 4d and 5d oxides such as honeycomb 'Kitaev' candidates for a quantum spin liquid, in which the moments never settle into order, and Sr₂IrO₄-type iridates; iridium-edge magnetic circular dichroism in a diamond cell was already done at 8 GPa and 11 K at POLAR's predecessor, 4-ID-D. Other targets are insulator–metal transitions in stiff transition-metal oxides, which need very high pressure, and spin freezing in 'frustrated' magnets, whose moments cannot all satisfy their neighbours at once. The weak, diffuse scattering from short-range magnetic order needs the brightest possible beam.",
       "refs": [
         "r4",
         "r14"
@@ -115,8 +103,7 @@
     },
     {
       "title": "Imaging magnetic, chiral and polar (ferroelectric) textures",
-      "plain": "Magnets and ferroelectrics break up into patterned regions (domains), swirls and 'skyrmions' that could store data. Coherent polarized X-rays can photograph them inside a crystal, not just on its surface.",
-      "expert": "Dichroic ptychography and tomography at 10–50 nm (reciprocal space) or 100 nm (real space) target ferro/ferrimagnetic domains, skyrmion strings, AFM domains (via XMLD contrast) and polar vortices. Examples cited by the POLAR team: ferroelectric incommensurate spin crystals in SrRuO3/PbTiO3 trilayers (Rusu et al. 2022, coauthored by POLAR staff; measured at the pre-upgrade 4-ID-D, APS 4-ID-D page 2025), and 3D magnetization in Nd2Fe14B pillars (data from MAX IV NanoMAX, reconstructed with the pipeline now implemented at POLAR) (Rusu et al. 2022; Banerjee et al. 2025; POLAR town hall 2021).",
+      "text": "Magnets and ferroelectrics break up into regions of uniform orientation (domains), swirls and knots such as skyrmions that could one day store data. Coherent polarized X-rays can image these textures inside a crystal, not only at its surface. POLAR's dichroic ptychography and tomography target magnetic and antiferromagnetic domains (the latter through linear-dichroism contrast), skyrmion strings and polar vortices, aiming at 10–50 nm by lens-free reconstruction or about 100 nm by direct scanning. The examples the team cites were not measured at POLAR: ferroelectric 'incommensurate spin crystals' in SrRuO₃/PbTiO₃ trilayers at the pre-upgrade 4-ID-D, and the 3D magnetization of Nd₂Fe₁₄B magnet pillars from MAX IV data, reconstructed with the pipeline now implemented at POLAR.",
       "refs": [
         "r34",
         "r33",
@@ -128,8 +115,7 @@
     },
     {
       "title": "Strain gradients and flexomagnetism in thin membranes (first POLAR users)",
-      "plain": "Bending a thin crystal can make it magnetic. The first scientists to use POLAR in 2025, from the University of Wisconsin, studied this 'flexomagnetism' in thin materials for future microelectronics.",
-      "expert": "APS reports that the first POLAR user group, from the University of Wisconsin in the 2025-1 run, studied flexomagnetism in thin materials (APS News, Jun 2025). A related UW–Madison program (Kawasaki group, arXiv Feb 2026) patterns transverse strain gradients of order 10⁶ m⁻¹ into epitaxial GdAuGe films by helium-ion implantation (rippled GdAuGe and GdPtSb membranes are cited as related work), and lists nanoprobe XMCD among the probes needed to quantify the effect (Samanta et al. 2026). Its own nanodiffraction was done at NSLS-II HXN, not at POLAR. The Gd L3 edge (7.243 keV) is within POLAR's phase-plate range. That the POLAR users were this group is our inference.",
+      "text": "Bending a thin crystal stretches one side and compresses the other, and that strain gradient can create magnetism, an effect called flexomagnetism. POLAR's first users, a University of Wisconsin team in the January–May 2025 run, studied it in thin materials for future microelectronics. A related University of Wisconsin–Madison group writes strain gradients of about 10⁶ m⁻¹ into GdAuGe films by helium-ion implantation and lists nanoprobe X-ray magnetic circular dichroism among the measurements needed; gadolinium's L₃ edge at 7.243 keV lies within POLAR's phase-plate range. That the first users came from this group is our inference, and the group's own published nanodiffraction was done at another synchrotron, the National Synchrotron Light Source II, not at POLAR.",
       "refs": [
         "r19",
         "r35"
@@ -137,8 +123,7 @@
     },
     {
       "title": "Interfaces and heterostructures at low photon energy",
-      "plain": "Where two thin layers meet, new magnetism can appear that neither layer has alone. POLAR measures it element by element.",
-      "expert": "In-vacuum XMCD/XMLD/XRMR at 2.75–3.4 keV (Ru, Rh, Pd L2,3) and K edges of 3d metals in ±2 T fields on the 4-ID-G diffractometer study proximity-induced moments and spin-orbit-coupled 4d/5d layers. Uniaxial strain cells and voltage-bias cells are also supported (POLAR town hall 2021; POLAR workshop slides 2023).",
+      "text": "Where two thin layers meet, magnetism can appear that neither has on its own, for example a moment induced in a normally non-magnetic metal by a magnetic neighbour. POLAR measures such interfaces element by element. On the 4-ID-G diffractometer an in-vacuum setup reaches the L edges of ruthenium, rhodium and palladium at 2.75–3.4 keV, as well as the K edges of 3d metals, for magnetic circular and linear dichroism and resonant reflectivity in fields up to ±2 T. Targets include proximity-induced moments and 4d and 5d layers with strong spin–orbit coupling, the link between an electron's spin and its orbital motion; uniaxial strain cells and voltage-bias cells are also supported.",
       "refs": [
         "r12",
         "r13"
@@ -146,8 +131,7 @@
     },
     {
       "title": "Magnetic X-ray emission spectroscopy at extreme conditions (MagXES, in development)",
-      "plain": "A new instrument funded in 2024 will analyse the X-rays a sample re-emits, revealing local magnetism even in materials whose magnets point every which way.",
-      "expert": "A DOE Early Career award (2024, G. Fabbris, $550k/yr for 5 years) funds a MagXES spectrometer at POLAR for magnetism at low T, high pressure and high field, using novel spectrometer instrumentation (APS News, Sep 2024). Its status in 2026 has not been confirmed.",
+      "text": "X-ray emission spectroscopy analyses the X-rays a sample re-emits after absorbing the beam; their spectrum carries a signature of local magnetism, even in materials whose atomic moments point every which way and add up to nothing. A 2024 US Department of Energy Early Career award to G. Fabbris ($550,000 a year for five years) funds a magnetic X-ray emission spectroscopy (MagXES) instrument at POLAR, built around new spectrometer designs, for low temperature, high pressure and high field. Its status in 2026 has not been confirmed.",
       "refs": [
         "r21"
       ]
@@ -158,19 +142,19 @@
       "label": "Energy range",
       "value": "2.7–27 keV",
       "source": "r7",
-      "note": "FDR and SRI 2021 give 2.75–27 keV; the Bluesky mono software limits are 2.6–32 keV (POLAR Bluesky config)"
+      "note": "FDR and SRI 2021 give 2.75–27 keV; the Bluesky mono software limits are 2.6–32 keV (POLAR Bluesky config)."
     },
     {
       "label": "Polarization states",
       "value": "Linear-H from the undulators; left/right circular, elliptical and linear-V via diamond phase retarders",
       "source": "r6",
-      "note": "Source-based switching (SCAPE / X-undulator) is future scope (POLAR town hall 2021; Qian et al. 2024)"
+      "note": "Source-based switching (SCAPE / X-undulator) is future scope (POLAR town hall 2021; Qian et al. 2024)."
     },
     {
       "label": "Phase-retarder energy range",
       "value": "~2.7–14 keV",
       "source": "r12",
-      "note": "Diamond C(111)/(220) and thin Si(111) plates; the low end is quoted as 2.7 or 2.8 keV (POLAR town hall 2021). Pre-upgrade 4-ID-D quoted 3.2–15 keV for diamond and 2.8–3.2 keV for 10 µm Si (APS 4-ID-D page 2018)"
+      "note": "Diamond C(111)/(220) and thin Si(111) plates; the low end is quoted as 2.7 or 2.8 keV (POLAR town hall 2021). Pre-upgrade 4-ID-D quoted 3.2–15 keV for diamond and 2.8–3.2 keV for 10 µm Si (APS 4-ID-D page 2018)."
     },
     {
       "label": "Degree of polarization",
@@ -181,31 +165,31 @@
       "label": "Helicity modulation",
       "value": "~15 Hz (phase plates, piezo AC mode)",
       "source": "r12",
-      "note": "15 Hz is the 2021 design figure (POLAR town hall 2021); the user-mode value is not published. Legacy 4-ID-D: 12.7–13 Hz (Haskel et al. 2007; APS 4-ID-D page 2018); up to 40 Hz reported in 2002 (Srajer 2002)"
+      "note": "15 Hz is the 2021 design figure (POLAR town hall 2021); the user-mode value is not published. Legacy 4-ID-D: 12.7–13 Hz (Haskel et al. 2007; APS 4-ID-D page 2018); up to 40 Hz reported in 2002 (Srajer 2002)."
     },
     {
       "label": "Source",
       "value": "2 × planar hybrid PM undulators APS30#4 (US) and APS30#9 (DS), λu = 3.0 cm, 79 periods each, in-line with phase shifter",
       "source": "r8",
-      "note": "FDR: 2 × 2.3 m U30 at the straight-section center (APS-U FDR 2019)"
+      "note": "FDR: 2 × 2.3 m U30 at the straight-section center (APS-U FDR 2019)."
     },
     {
       "label": "Undulator Keff / first harmonic",
       "value": "Keff ≈ 2.62–2.64 at 9.0 mm; E1 ≈ 2.54–2.56 keV (6 GeV)",
       "source": "r8",
-      "note": "User minimum gap 9.4 mm (US) and 9.1 mm (DS)"
+      "note": "User minimum gap 9.4 mm (US) and 9.1 mm (DS)."
     },
     {
       "label": "Source power",
       "value": "10.2 + 10.4 kW total; 214–215 kW/mrad² peak each at 200 mA, minimum gap",
       "source": "r8",
-      "note": "HHL front-end limits 21 kW and 590 kW/mrad² (APS-U FDR 2019, ch. 3)"
+      "note": "HHL front-end limits 21 kW and 590 kW/mrad² (APS-U FDR 2019, ch. 3)."
     },
     {
       "label": "Monochromator",
-      "value": "CINEL vertical-deflecting LN2-cooled DCM, Si(111) + 6H-SiC(0006), 15.6 mm fixed offset",
+      "value": "CINEL vertical-deflecting LN₂-cooled DCM, Si(111) + 6H-SiC(0006), 15.6 mm fixed offset",
       "source": "r5",
-      "note": "Offset from POLAR town hall 2021. FDR 2019 specified a horizontal DCM; changed to vertical (APS-U FDR 2019; Strempfer et al. 2022; POLAR Bluesky config)"
+      "note": "Offset from POLAR town hall 2021. FDR 2019 specified a horizontal DCM; changed to vertical (APS-U FDR 2019; Strempfer et al. 2022; POLAR Bluesky config)."
     },
     {
       "label": "Energy resolution",
@@ -221,31 +205,31 @@
       "label": "Flux (10 keV)",
       "value": "1.3×10¹³ ph/s into the KB focus",
       "source": "r7",
-      "note": "Same number for 114 × 92 nm² at 4-ID-G in SRI 2021 (Strempfer et al. 2022). The FDR's equivalent calculation (1.3×10¹³ ph/s/0.1%BW into 120 × 115 nm²) included a 500 µm C(111) phase plate, i.e. circularly polarized flux (APS-U FDR 2019); SRI 2021 does not say whether the phase plate is included"
+      "note": "Same number for 114 × 92 nm² at 4-ID-G in SRI 2021 (Strempfer et al. 2022). The FDR's equivalent calculation (1.3×10¹³ ph/s/0.1%BW into 120 × 115 nm²) included a 500 µm C(111) phase plate, i.e. circularly polarized flux (APS-U FDR 2019); SRI 2021 does not say whether the phase plate is included."
     },
     {
       "label": "Smallest focus, 4-ID-G",
       "value": "100–200 nm (KB1, 100 mm WD)",
       "source": "r7",
-      "note": "Design 114 × 92 nm² at 10 keV (Strempfer et al. 2022)"
+      "note": "Design 114 × 92 nm² at 10 keV (Strempfer et al. 2022)."
     },
     {
       "label": "Smallest focus, 4-ID-H",
       "value": "300–400 nm (KB2, 600 mm WD)",
       "source": "r7",
-      "note": "Design 414 × 212 nm² (Strempfer et al. 2022)"
+      "note": "Design 414 × 212 nm² (Strempfer et al. 2022)."
     },
     {
       "label": "CRL (transfocator) focus",
       "value": "~2 × 1 µm² (≥2 × 0.9 µm²)",
       "source": "r7",
-      "note": "Town hall 2021: ≥2 × 0.9 µm², 1.4×10¹³ cps at 10 keV, usable 3–20 keV (POLAR town hall 2021); SRI 2021 table: 2.0 × 0.9 µm² with 1.1×10¹³ ph/s (Strempfer et al. 2022)"
+      "note": "Town hall 2021: ≥2 × 0.9 µm², 1.4×10¹³ cps at 10 keV, usable 3–20 keV (POLAR town hall 2021); SRI 2021 table: 2.0 × 0.9 µm² with 1.1×10¹³ ph/s (Strempfer et al. 2022)."
     },
     {
       "label": "Toroidal-mirror focus",
       "value": "~30 × 5 µm² (H × V); 5–35 µm range",
       "source": "r7",
-      "note": "SRI table: 32 × 4.1 µm² (G) and 35 × 5.9 µm² (H) (Strempfer et al. 2022)"
+      "note": "SRI table: 32 × 4.1 µm² (G) and 35 × 5.9 µm² (H) (Strempfer et al. 2022)."
     },
     {
       "label": "Unfocused beam",
@@ -256,37 +240,37 @@
       "label": "Coherent flux",
       "value": "1.6×10¹² ph/s in 200 × 200 nm² at 10 keV",
       "source": "r5",
-      "note": "KB + slit, 4-ID-G"
+      "note": "KB + slit, 4-ID-G."
     },
     {
       "label": "High-field magnet (4-ID-H)",
       "value": "9-1-1 T vector (±9 T along beam, ±1 T transverse), 1.4–300 K, 3-inch (75 mm) bore",
       "source": "r13",
-      "note": "Cryogenic Ltd, liquid-cryogen cooled for low vibration; ramp 0–9 T in 9 min (2023). Directory lists the DAC instrument at 8.7 T (APS beamline directory 2026)"
+      "note": "Cryogenic Ltd, liquid-cryogen cooled for low vibration; ramp 0–9 T in 9 min (2023). Directory lists the DAC instrument at 8.7 T (APS beamline directory 2026)."
     },
     {
       "label": "Pressure (4-ID-H DAC)",
       "value": "3 Mbar listed operational; design goal ~6 Mbar",
       "source": "r7",
-      "note": "Design goal from POLAR town hall 2021 and Strempfer et al. 2022"
+      "note": "Design goal from POLAR town hall 2021 and Strempfer et al. 2022."
     },
     {
       "label": "Diffractometer magnet (4-ID-G)",
       "value": "±2 T HTS split-pair, 60.4 mm pole gap, GM-cryocooled",
       "source": "r12",
-      "note": "Ramp 0–2 T in 5 min; homogeneity <0.07% over 10 mm DSV"
+      "note": "Ramp 0–2 T in 5 min; homogeneity <0.07% over 10 mm DSV."
     },
     {
       "label": "Detectors",
       "value": "Eiger2X 1M PAD, Lambda 750k, APD, Vortex ME-4 and 7-element SDD, PIN diodes, ion chambers",
       "source": "r7",
-      "note": "Eiger2X and 7-element SDD from POLAR workshop slides 2023; Lambda from POLAR town hall 2021"
+      "note": "Eiger2X and 7-element SDD from POLAR workshop slides 2023; Lambda from POLAR town hall 2021."
     },
     {
       "label": "Controls",
       "value": "EPICS, Bluesky, SPEC",
       "source": "r7",
-      "note": "Bluesky device configuration is public (POLAR Bluesky config)"
+      "note": "Bluesky device configuration is public (POLAR Bluesky config)."
     }
   ],
   "source": {
@@ -318,7 +302,7 @@
         "lengthM": 0,
         "count": 1,
         "polarization": "n/a",
-        "notes": "Sets the electron path delay so that radiation from both undulators adds in phase. APS-U installed 11 phase shifters with correctors in in-line sectors (Dejus et al. 2024). Exposed in POLAR's Bluesky configuration (POLAR Bluesky config). lengthM is unknown (0 = not published).",
+        "notes": "Sets the electron path delay so that radiation from both undulators adds in phase. APS-U installed 11 phase shifters with correctors in in-line sectors (Dejus et al. 2024). Exposed in POLAR's Bluesky configuration (POLAR Bluesky config). The phase-shifter length is unpublished; the zero in the source table is a placeholder.",
         "source": "r9"
       },
       {
@@ -352,11 +336,10 @@
       "name": "Upstream undulator APS30#4",
       "category": "undulator",
       "distanceM": -1.3,
-      "distanceNote": "Approximate. Center of the upstream device: two ~2.4 m devices plus a phase shifter share the ~5 m straight. Inferred, no published coordinate.",
+      "distanceNote": "Approximate: the centre of the upstream device, inferred because no coordinate is published. Two ~2.4 m devices and a phase shifter share the ~5 m straight section.",
       "enclosure": "Storage-ring tunnel, straight section S04",
       "deflection": "none",
-      "plain": "A 2.4-metre row of alternating magnets that makes the electrons slalom 79 times, so they shine a bright beam of X-rays. That light leaves wiggling side to side (horizontally polarized) – the raw material POLAR will later twist into corkscrews.",
-      "expert": "Planar hybrid PM, λu = 3.0 cm, N = 79, device minimum gap 9.0 mm (user 9.4 mm), Keff = 2.62, E1 = 2.56 keV at 6 GeV. 214 kW/mrad² and 10.2 kW at 200 mA. Higher odd harmonics reach 27 keV.",
+      "text": "The first of two 2.4-metre undulators: rows of alternating magnets that steer the 6 GeV electrons through 79 gentle wiggles, each adding to a bright, narrow X-ray beam. The light leaves with its electric field oscillating side to side (horizontal linear polarization), the raw material POLAR later twists into circular polarization. With a 3.0 cm magnet period its lowest (first-harmonic) energy sits near 2.6 keV at the smallest gap, and higher odd harmonics, at odd multiples of that energy, reach 27 keV. Its magnet structure is reused from the original APS.",
       "specs": {
         "period": "30 mm",
         "periods": "79 (77 effective)",
@@ -373,11 +356,10 @@
       "name": "In-line phase shifter + corrector",
       "category": "other",
       "distanceM": 0.0,
-      "distanceNote": "Approximate: between the two undulators near the straight-section center (inferred)",
+      "distanceNote": "Approximate and inferred: between the two undulators, near the centre of the straight section.",
       "enclosure": "Storage-ring tunnel, straight section S04",
       "deflection": "none",
-      "plain": "A short magnet between the two undulators that sends the electrons on a tiny detour, so they reach the second undulator exactly in step. The light from both undulators then adds up instead of partly cancelling.",
-      "expert": "Gap-adjustable phase shifter (EPICS S04ID:ILPS), set as a function of undulator gap for in-phase radiation. Corrector magnets correct the orbit. APS-U installed 11 such units in in-line sectors. Length not published.",
+      "text": "A short, adjustable magnet between the two undulators that delays the electrons by a tiny, precise amount, so they enter the second undulator in step with the light from the first. The two undulators' light then adds up instead of partly cancelling. Its setting follows the undulator gap, and corrector magnets keep the orbit straight; the upgrade installed 11 such units in sectors with two undulators in line.",
       "specs": {
         "control": "S04ID:ILPS gap",
         "purpose": "constructive interference of the two undulators"
@@ -389,11 +371,10 @@
       "name": "Downstream undulator APS30#9",
       "category": "undulator",
       "distanceM": 1.3,
-      "distanceNote": "Approximate center of the downstream device (inferred)",
+      "distanceNote": "Approximate and inferred: the centre of the downstream device.",
       "enclosure": "Storage-ring tunnel, straight section S04",
       "deflection": "none",
-      "plain": "The second, identical undulator, in line with the first; together they roughly double the flux. A future 'polarizing' undulator could one day make corkscrew light directly, but none has been installed yet.",
-      "expert": "Planar hybrid PM, λu = 3.0 cm, N = 79, device minimum gap 9.0 mm (user 9.1 mm), Keff = 2.64, E1 = 2.54 keV. 215 kW/mrad² and 10.4 kW at 200 mA. A future SCAPE or X-undulator pair would replace both devices (not installed as of Sept 2026).",
+      "text": "The second undulator, of the same design and in line with the first; together they roughly double the flux. Both make only horizontally polarized light. Superconducting Arbitrarily Polarizing Emitter (SCAPE) undulators or a permanent-magnet 'X-undulator' could one day make circularly polarized light directly and replace this pair, but neither is installed as of September 2026.",
       "specs": {
         "period": "30 mm",
         "periods": "79",
@@ -412,8 +393,7 @@
       "distanceNote": "Schematic: shown as one unit centred at 20 m. The front end runs from ~13 m to inside the FOE (~26 m), through the ratchet (shield) wall at ~23.6–24.4 m (2021 plan and elevation). Individual element positions are not published; the model follows the 2021 elevation drawing for the last few metres (photon shutter ~22.2 m, tandem safety shutters ~22.7–23.4 m, wall collimator in the ratchet wall) and the FDR element order upstream.",
       "enclosure": "Storage-ring tunnel / ratchet wall",
       "deflection": "none",
-      "plain": "The safety gateway between the accelerator and the beamline, inside the concrete shield tunnel. Water-cooled masks and heavy shutters handle up to 21 kilowatts of X-ray power – the heat of a dozen hair dryers – and stop the beam whenever people need to enter the first hutch.",
-      "expert": "APS-U HHLFE (based on the 28-ID design): LPPS, SRV, burn-through fixed mask BTFM1, FM2, collimator, GRID XBPM1, FM3, PS2/IM1, safety shutters SS1/SS2, wall collimator, FEV, exit mask/XBPM2, exit collimator, BIV. Limits 21 kW and 590 kW/mrad². Differentially pumped, no Be window, preserving coherence and low-energy flux.",
+      "text": "The safety gateway between the accelerator and the beamline, mostly inside the concrete shield tunnel. Water-cooled masks absorb the outer parts of the beam, monitors check its pointing, and heavy shutters stop it whenever people need to enter the first hutch. It is rated for 21 kW of X-ray power, about a dozen hair dryers' worth. It has no beryllium window: differential pumping separates its vacuum from the beamline's, which preserves low-energy flux and coherence.",
       "specs": {
         "powerLimit": "21 kW",
         "powerDensityLimit": "590 kW/mrad²",
@@ -426,11 +406,10 @@
       "name": "Front-end exit mask (with XBPM2)",
       "category": "frontEnd",
       "distanceM": 25.4,
-      "distanceNote": "FDR Table 4.16",
+      "distanceNote": "Design position from FDR Table 4.16.",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "A water-cooled copper block with a 2-millimetre square hole that lets only the bright central part of the beam through and turns the rest into heat. A beam-position monitor here checks that the beam stays centred.",
-      "expert": "Standard HHL front-end exit mask, 2 × 2 mm (H × V) aperture, with XBPM2 at the last front-end table inside the FOE.",
+      "text": "A water-cooled copper block with a 2 × 2 mm hole that passes only the bright central part of the beam and turns the rest into heat. A beam-position monitor built into it checks that the beam stays centred. It sits on the last front-end table, already inside the first hutch.",
       "specs": {
         "aperture": "2 × 2 mm (H × V)"
       },
@@ -441,11 +420,10 @@
       "name": "Front-end exit collimator",
       "category": "collimator",
       "distanceM": 26.1,
-      "distanceNote": "FDR Table 4.16",
+      "distanceNote": "Design position from FDR Table 4.16.",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "A heavy tungsten block with a 5-millimetre hole. It blocks 'bremsstrahlung' – very-high-energy gamma rays made when electrons hit stray gas molecules in the ring – everywhere except a narrow pencil around the beam, which a stop further down then catches.",
-      "expert": "Exit collimator narrowed to a 5 × 5 mm aperture to help beamlines manage bremsstrahlung with small-offset monochromators.",
+      "text": "A heavy tungsten block with a 5 × 5 mm hole. It blocks bremsstrahlung, very high-energy gamma rays made when electrons hit stray gas molecules in the ring, everywhere except a narrow pencil around the beam, which a stop further down then catches. The upgrade narrowed this hole to help beamlines whose monochromators shift the beam only slightly.",
       "specs": {
         "aperture": "5 × 5 mm"
       },
@@ -456,11 +434,10 @@
       "name": "High-heat-load white-beam slits (4ID-SL-1)",
       "category": "slits",
       "distanceM": 27.0,
-      "distanceNote": "FDR Table 4.16. The 2021 plan shows the slit at ~26.8–27.6 m (scaled).",
+      "distanceNote": "Design position from FDR Table 4.16; the 2021 plan shows the slit at ~26.8–27.6 m (scaled).",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "Four tungsten-edged jaws that trim the raw 'white' beam to its bright central cone. At the lowest undulator energies the beam here carries about 512 watts per square millimetre – roughly eight times the power density at the surface of the Sun – so trimming it protects the optics downstream.",
-      "expert": "HHL white-beam slits with tungsten edge inserts. A typical 0.5 × 0.5 mm² opening at 25–27 m accepts ~20 × 20 µrad², used for all flux and spot calculations. 0.92 × 0.92 mm² accepts the full cone at 2.8 keV. Incident power density ~512 W/mm² when tuned to 2.8 keV. Bluesky motors: horizontal, diagonal, pitch, yaw. The FDR gives 432 W through a 0.92 × 0.92 mm² opening with the undulators tuned to 2.8 keV, i.e. the slits throw away ~97% of the ~16 kW total.",
+      "text": "Four tungsten-edged jaws trim the raw 'white' beam, still containing all energies, to its bright central cone and so protect the optics downstream. With the undulators tuned to 2.8 keV the beam here carries about 512 watts per square millimetre, roughly eight times the power density at the surface of the Sun. Even opened to the full 2.8 keV cone (0.92 × 0.92 mm) they pass only 432 W of the roughly 16 kW total; the typical opening is 0.5 × 0.5 mm.",
       "specs": {
         "typicalAperture": "0.5 × 0.5 mm² (20 × 20 µrad²)",
         "powerDensity": "~512 W/mm² (2.8 keV tuning)",
@@ -474,11 +451,10 @@
       "name": "White-beam mirrors M1 + M2 (flat + bendable)",
       "category": "mirror",
       "distanceM": 28.5,
-      "distanceNote": "FDR Table 4.16 (dual mirror system in one vessel). The 2021 plan shows the tank at ~27.6–29.2 m (scaled).",
+      "distanceNote": "Design position from FDR Table 4.16 (both mirrors share one vessel). The 2021 plan shows the tank at ~27.6–29.2 m (scaled).",
       "enclosure": "4-ID-A",
       "deflection": "horizontal",
-      "plain": "Two super-polished silicon mirrors, struck at a grazing angle of just 0.17°, that bounce the beam sideways and back again. They soak up much of the heat, and their metal-coated stripes reflect only the energies wanted, throwing away unwanted high-energy 'harmonics'.",
-      "expert": "Water-cooled single-crystal Si, 320 mm long (300 mm active), 3 mrad grazing angle each (horizontally deflecting), double bounce with ~4 mm lateral offset. Stripes Pt/Rh/bare Si (5 mm wide each) for harmonic rejection. M1 is flat with a notch to reduce thermal deformation. M2 is meridionally bendable (R = ±50 km) to cancel the M1 and DCM-crystal heat bumps. Slope error <0.1 µrad, roughness <0.2 nm. Absorbed power 254 W (M1) and 118 W (M2) at 2.8 keV.",
+      "text": "Two super-polished silicon mirrors, each met at a grazing angle of just 3 milliradians (0.17°), bounce the beam sideways and back, leaving it parallel and about 4 mm to one side. Each carries stripes of bare silicon, rhodium and platinum; a mirror reflects only below a cut-off energy that depends on its coating, so the chosen stripe removes unwanted higher harmonics, X-rays at multiples of the chosen energy. The first, flat mirror absorbs much of the heat (254 W at 2.8 keV); the second can be bent to cancel the heat bumps on the first mirror and the monochromator crystal.",
       "specs": {
         "angle": "3 mrad",
         "length": "320 mm",
@@ -486,7 +462,9 @@
         "slopeError": "<0.1 µrad",
         "M2Radius": "−50 to +50 km",
         "offset": "4 mm",
-        "powerM1": "254 W @2.8 keV"
+        "powerM1": "254 W @2.8 keV",
+        "Power on M2": "118 W @2.8 keV",
+        "roughness": "<0.2 nm"
       },
       "source": "r1"
     },
@@ -495,11 +473,10 @@
       "name": "Photon mask / pink-beam stop (4ID-PM-1)",
       "category": "beamStop",
       "distanceM": 29.3,
-      "distanceNote": "FDR Table 4.16",
+      "distanceNote": "Design position from FDR Table 4.16.",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "A cooled block that catches whatever raw beam the mirrors did not reflect, so only the cleaned-up, mirror-filtered ('pink') beam continues to the crystals.",
-      "expert": "Photon mask / pink-beam stop between the HHL mirrors and the DCM.",
+      "text": "A cooled block that catches whatever part of the raw beam the mirrors did not reflect. Only the mirror-filtered beam, called 'pink' because part of the spectrum has been removed, continues to the monochromator.",
       "source": "r1"
     },
     {
@@ -510,8 +487,7 @@
       "distanceNote": "Approximate; shown at the post-mirror flag. The Bluesky configuration defines two 4-ID-A flag cameras, PostMirrBeam (between the mirror tank, ending ~29.2 m, and the DCM vessel, starting ~30.15 m on the 2021 plan, so ~29.7 m) and PostMonoBeam (after the DCM, ~31.3 m). Positions are not published.",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "Fluorescent screens that swing into the beam while cameras watch them glow, so staff can see where the beam is after the mirrors and after the monochromator.",
-      "expert": "Two retractable YAG/fluorescent flags with Vimba cameras: 4idaPostMirrBeam (after the HHL mirrors) and 4idaPostMonoBeam (after the VDCM); used for alignment and for checking stripe and crystal changes (POLAR Bluesky config).",
+      "text": "Fluorescent screens that swing into the beam and glow where the X-rays hit, watched by cameras, so staff can see where the beam is after the mirrors and after the monochromator. They are used for alignment and to check a change of mirror stripe or crystal.",
       "specs": {
         "cameras": "Allied Vision (Vimba) area cameras"
       },
@@ -525,16 +501,17 @@
       "distanceNote": "Centre of the DCM vessel on the 2021 'Sector 4 2024' plan and elevation (~30.15–31.05 m, scaled; drawn as a drum ~0.9 m across in the elevation). FDR Table 4.16 listed 30.0 m when the DCM was still specified as horizontal-deflecting; as built it is vertical-deflecting.",
       "enclosure": "4-ID-A",
       "deflection": "vertical",
-      "plain": "Two perfect crystals act like a prism for X-rays, picking out a single 'colour' (energy) to about one part in 7,000. Turning them scans the energy across an element's absorption edge, where the magnetic signal lives; liquid nitrogen keeps them flat under the heat load.",
-      "expert": "LN2-cooled, side-cooled crystals. Si(111) (d = 3.135 Å) covers 2.75–27 keV. 6H-SiC(0006) (d = 2.522 Å, θB = 61.4° at 2.8 keV) is used at 2.75–3.2 keV: Si(111) is at θB ≈ 45° near 2.8 keV and would suppress π (vertical) polarization in vertical diffraction. The large first crystal has only a Bragg rotation (the beam walks on it). The small second crystal has coarse and piezo pitch/roll for XBPM feedback in B, G and H. Fixed exit with 15.6 mm offset. Stability spec 50 nrad RMS. ΔE/E ≈ 1.4×10⁻⁴. Changed from the FDR's horizontal DCM: the vertical geometry keeps the source's linear-H light σ-polarized at all angles. SiC matters only once polarization is generated at the source; with the phase plates downstream of the mono, Si(111) at 2.8 keV still reflects the σ (linear-H) beam (APS-U PDR 2017; POLAR town hall 2021). The Bluesky mono device has a crystal-select motor (POLAR Bluesky config); whether the SiC pair is installed and in use in 2026 is not published.",
+      "text": "The monochromator picks a single X-ray energy: two perfect crystals reflect only the wavelength that fits their atomic spacing at the set angle (Bragg's law), selecting the energy to about one part in 7,000. Turning them scans the energy across an element's absorption edge, where the magnetic signal lives, and liquid-nitrogen cooling keeps them flat under the heat load. They deflect the beam vertically, so the horizontally polarized light stays perpendicular to the plane of reflection (σ geometry) at every angle. A second pair of silicon carbide crystals, for energies near 2.8 keV, would matter only once polarization is made in the source; whether it is installed and in use is not published.",
       "specs": {
         "crystals": "Si(111); 6H-SiC(0006)",
         "range": "2.75–27 keV",
         "offset": "15.6 mm (fixed exit)",
-        "cooling": "LN2",
+        "cooling": "LN₂",
         "stability": "50 nrad RMS",
         "resolution": "1.4×10⁻⁴",
-        "maker": "CINEL"
+        "maker": "CINEL",
+        "geometry": "vertical deflection: linear-H light reflects in σ geometry",
+        "SiC crystals": "for source-made polarization near 2.8 keV, where Si(111) reflects at a Bragg angle ≈ 45° and would suppress π (vertical) polarization; 6H-SiC(0006) reflects at 61.4°"
       },
       "source": "r5"
     },
@@ -546,8 +523,7 @@
       "distanceNote": "FDR Table 4.16 gives 31.1 m; the 2021 plan shows a small device at ~31.2 m, just downstream of the as-built DCM tank (used here).",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "Jaws that clean up the edges of the beam right after the monochromator, so stray light does not reach the polarizing optics.",
-      "expert": "In-vacuum JJ-type four-blade slits (Bluesky 'monoslt', 4idVDCM motors m13–m16).",
+      "text": "In-vacuum jaws just after the monochromator that trim the edges of the now single-energy beam. Cleaning it up here stops stray and scattered light from travelling on to the polarizing optics.",
       "source": "r1"
     },
     {
@@ -558,8 +534,7 @@
       "distanceNote": "FDR Table 4.16: secondary collimator 31.3 m, photon mask/WB stop 31.7 m, primary bremsstrahlung collimator 32.0 m. Behind the as-built DCM the 2021 plan shows these small items ~0.25 m further downstream (~31.55, 32.0 and 32.3 m); the model uses the plan values, centred on the WB stop.",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "Shielding blocks that make sure only the monochromatic beam – lifted 15.6 millimetres by the crystals – leaves the first hutch. A tungsten stop catches the leftover beam that went straight through the crystals, and lead collimators block stray high-energy radiation.",
-      "expert": "4ID-SC-1 (31.3 m), 4ID-PM-2 WB stop (31.7 m), 4ID-BC-1 (32.0 m). The vertical mono offset lets the stop intercept the undeflected white and bremsstrahlung line.",
+      "text": "Shielding that makes sure only the monochromatic beam, offset 15.6 mm by the crystals, leaves the first hutch. A tungsten stop intercepts the beam that went straight through the crystals, and collimators block stray high-energy radiation (bremsstrahlung). The monochromator's vertical offset is what lets the stop catch the straight-through line while the useful beam passes clear of it.",
       "source": "r1"
     },
     {
@@ -570,15 +545,17 @@
       "distanceNote": "Centre of the tank on the 2021 plan (~33.0–33.9 m, scaled; two plate stages drawn as circles). FDR Table 4.16: 33.2 m. This is the existing 4-ID-D tank, reused.",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "The heart of POLAR. A thin, near-perfect diamond, tilted a hair's breadth away from its reflecting angle, acts as an X-ray 'quarter-wave plate' that turns side-to-side wiggling light into a left- or right-handed corkscrew. A piezo actuator rocks the diamond to flip the twist about 15 times a second.",
-      "expert": "Bragg-transmission phase retarders. Plates pr1 and pr2 are diamond with selectable C(111) (d = 2.0595 Å) or C(220) (d = 1.261 Å) reflections; pr3 is Si(111). The diffraction plane is set at 45° to the linear-H polarization so σ and π are equal. Near the Bragg angle the σ and π waves propagate with different phase velocities: δ ≈ (π/2)·Δθq/Δθ. One quarter-wave plate gives LCP/RCP (sign of Δθ). Two plates in tandem give δ = π, i.e. linear-V. Piezo (PI E-665) AC offset modulation drives lock-in XMCD. The 4-ID-D legacy set used 50–500 µm diamonds for 3.2–15 keV and a 10 µm Si(111) plate for 2.8–3.2 keV. Costs: ×5–30 flux loss, 5–30% LCP/RCP intensity asymmetry, and impractical above ~14 keV. Principle: Hirano, Ishikawa & Kikuta (Hirano et al. 1993). The Bragg-transmission diamond plates used at APS sector 4 were developed by Lang & Srajer (Lang & Srajer 1995).",
+      "text": "The heart of POLAR: thin diamond plates that make the beam's side-to-side polarization circular. Each plate, tilted one to two hundredths of a degree off the angle at which it would reflect the beam, splits the light into two polarization components that travel at slightly different speeds, the principle of a quarter-wave plate for visible light. With the plane of reflection at 45° to the polarization, a quarter-wave delay makes the light circular; the side of the tilt sets the handedness, and two plates in series give vertical linear polarization. A piezo actuator rocks the plate to flip the handedness, about 15 times a second in the design, with about 98% circular polarization. The price: the plates work only up to about 14 keV and lose a factor of 5–30 in flux.",
       "specs": {
         "plates": "pr1, pr2: C(111)/C(220) diamond; pr3: Si(111)",
         "range": "~2.7–14 keV",
         "Pc": "≈ ±0.98",
         "Plin": "−0.80 to −0.95",
         "modulation": "~15 Hz (piezo AC mode)",
-        "tank": "in-vacuum, reused 4-ID-D tank (4ID-PR-1)"
+        "tank": "in-vacuum, reused 4-ID-D tank (4ID-PR-1)",
+        "principle": "Bragg-transmission quarter-wave plate (Hirano et al. 1993); diamond plates after Lang & Srajer (1995)",
+        "Quarter-wave offset": "~42″ at 10 keV, ~80″ at 8 keV off Bragg (500 µm C(111), calculated)",
+        "fluxCost": "×5–30 flux loss; 5–30% intensity asymmetry between helicities"
       },
       "source": "r26"
     },
@@ -587,11 +564,10 @@
       "name": "Monochromatic station shutter (4ID-SH-1)",
       "category": "shutter",
       "distanceM": 35.1,
-      "distanceNote": "FDR Table 4.16; the 2021 plan shows it at ~34.2–35.5 m.",
+      "distanceNote": "Design position from FDR Table 4.16; the 2021 plan shows it at ~34.2–35.5 m.",
       "enclosure": "4-ID-A",
       "deflection": "none",
-      "plain": "A heavy safety shutter, the gate between the optics and the experiments. It lets the beam out of the first hutch only when the hutches downstream have been searched and locked.",
-      "expert": "Station beam shutter (PSS 'SBS') controlling beam into 4-ID-B (PV PA:04ID:B_BEAM_PRESENT).",
+      "text": "A heavy safety shutter, the gate between the optics hutch and the experiments. Controlled by the personnel safety system, it lets beam into 4-ID-B only when the hutches downstream have been searched and locked.",
       "source": "r1"
     },
     {
@@ -602,8 +578,7 @@
       "distanceNote": "Spans ~36.1–50.5 m on the 2021 plan (scaled); midpoint given. Pipe stands at ~37.8, 39.0, 41.2, 43.3, 45.3, 46.5 and 48.8 m.",
       "enclosure": "Experiment hall floor (shielded pipe)",
       "deflection": "none",
-      "plain": "A 14-metre vacuum pipe wrapped in lead carries the beam across the experiment-hall floor, so people can walk safely beside it while the beam is on.",
-      "expert": "Existing shielded transport pipe on stands every few metres (2021 plan), then the small legacy mini-hutch 4-ID-MH (~50.5–52.8 m).",
+      "text": "A 14-metre vacuum pipe wrapped in lead shielding carries the beam across the experiment-hall floor, so people can walk safely beside it while the beam is on. It rests on stands every few metres and passes a small legacy mini-hutch before entering 4-ID-B.",
       "specs": {
         "length": "~14 m"
       },
@@ -617,8 +592,7 @@
       "distanceNote": "Approximate. The FDR places a mono slit (SL-3) just upstream of the toroids (47.3 m in the FDR layout); the as-built toroids are at 53.7 m. Position inferred.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "Adjustable jaws at the entrance of 4-ID-B that set how much beam reaches the focusing mirrors – and so how small and how bright the focused spot will be.",
-      "expert": "JJ slits (4idbSoft m10–m13). Order follows FDR Table 4.16; position scaled to the 2021 layout.",
+      "text": "Adjustable jaws at the entrance of 4-ID-B that set how much of the beam reaches the focusing optics, and so the balance between spot size and brightness. Their exact position is inferred from the design order.",
       "source": "r26"
     },
     {
@@ -626,17 +600,18 @@
       "name": "Toroidal focusing mirror M3 (bendable)",
       "category": "mirror",
       "distanceM": 53.7,
-      "distanceNote": "2021 town hall slide 'Reflectivities/cut-offs' (toroidal double mirrors at 53.7 and 54.5 m)",
+      "distanceNote": "From the 2021 town-hall slide 'Reflectivities/cut-offs', which places the toroidal double mirrors at 53.7 and 54.5 m.",
       "enclosure": "4-ID-B",
       "deflection": "horizontal",
-      "plain": "A curved, metal-coated mirror that gently focuses the whole beam to a spot a few tens of micrometres wide, for experiments that need lots of photons rather than a tiny spot. When the nano-focusing optics are used instead, it slides out of the way.",
-      "expert": "Horizontal-deflecting, 2–4 mrad, 540 mm (520 active), meridional bender 4–100 km. Stripes (SRI 2021): Pd sagittal cylinder plus flats of bare Si and Pt. FDR 2019 had Si (R_s 83.1 mm) and Pt (79 mm) cylinders plus a Pd flat. Focus at 67.2 m (G) or 73.3 m (H). Also suppresses harmonics. Retracted for KB/CRL modes. Slope error 0.2–0.3 µrad.",
+      "text": "A curved, metal-coated mirror that gently focuses the whole beam to a spot a few tens of micrometres wide (about 30 × 5 µm), for experiments that need many photons rather than a tiny spot. Bending it moves the focus to the 4-ID-G diffractometer at 67.2 m or the 4-ID-H magnet at 73.3 m. Like the first mirrors it also removes unwanted harmonics, and it slides out of the way when the finer focusing optics are used.",
       "specs": {
         "angle": "2–4 mrad",
         "length": "540 mm",
         "bender": "4–100 km",
         "focus": "~30 × 5 µm² (H × V)",
-        "flux": "~2.4–3×10¹³ ph/s @10 keV"
+        "flux": "~2.4–3×10¹³ ph/s @10 keV",
+        "stripes": "Pd sagittal cylinder; Si and Pt flats (SRI 2021)",
+        "focusAt": "67.2 m (4-ID-G) or 73.3 m (4-ID-H)"
       },
       "source": "r12"
     },
@@ -645,15 +620,15 @@
       "name": "Cylinder/flat mirror M4",
       "category": "mirror",
       "distanceM": 54.5,
-      "distanceNote": "2021 town hall slide (53.7 and 54.5 m)",
+      "distanceNote": "From the same 2021 town-hall slide (mirrors at 53.7 and 54.5 m).",
       "enclosure": "4-ID-B",
       "deflection": "horizontal",
-      "plain": "A second mirror that sends the beam back parallel to its original path, finishing the focusing and filtering out unwanted high-energy X-rays.",
-      "expert": "Horizontal-deflecting, 2–4 mrad, 540 mm, R_m > 100 km, 40 mm thick. Stripes (SRI 2021): Pd flat plus Si and Pt sagittal cylinders (FDR: Si flat, Pd cylinder R_s 69.9 mm, Pt flat). Double bounce with M3, so the beam exits parallel with a few-mm lateral offset (~0.8 m × 2θ, computed). Together with M1/M2 it gives harmonic rejection across 2.7–27 keV.",
+      "text": "A second mirror that sends the beam back parallel to its original path, a few millimetres to the side, and completes the focusing. Its palladium, silicon and platinum stripes, together with those of the first mirror pair, suppress unwanted harmonics across the whole 2.7–27 keV range.",
       "specs": {
         "angle": "2–4 mrad",
         "length": "540 mm",
-        "slopeError": "0.2–0.3 µrad"
+        "slopeError": "0.2–0.3 µrad",
+        "stripes": "Pd flat; Si and Pt sagittal cylinders (SRI 2021)"
       },
       "source": "r12"
     },
@@ -665,8 +640,7 @@
       "distanceNote": "Approximate: just downstream of the M4 vessel (54.5 m); inferred from the device name only.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "A glowing screen and camera that show the beam just after the focusing mirrors, so the mirrors can be steered.",
-      "expert": "Vimba flag camera 4idbPostToroBeam, used to align the M3/M4 toroid/cylinder pair (POLAR Bluesky config).",
+      "text": "A fluorescent screen and camera just after the focusing mirrors, used to see the beam while the mirror pair is aligned. Its position is inferred from the device name.",
       "source": "r26"
     },
     {
@@ -677,8 +651,7 @@
       "distanceNote": "Approximate. A small component on the 2021 plan ~0.8 m after M4 (the FDR window was 0.8 m after M4). The FDR specified 'Be or diamond'; Bluesky confirms a diamond window with x/y stages in 4-ID-B.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "A thin diamond sheet that seals the ultra-clean vacuum of the optics from the experiment section while letting X-rays pass almost untouched. Diamond barely disturbs the beam's laser-like (coherent) quality.",
-      "expert": "Separates the windowless UHV optics section (front end → toroids) from the end-station vacuum. Diamond (rather than Be) helps preserve coherence. On motorized x/y stages (4idbSoft m1/m2).",
+      "text": "A thin diamond sheet that separates the windowless, ultra-high vacuum of the optics from the experiment section while letting X-rays pass almost untouched. Diamond, chosen over the more common beryllium, barely disturbs the beam's coherence, the in-step quality that coherent imaging relies on. The window sits on motorized stages.",
       "specs": {
         "material": "CVD/single-crystal diamond (type not published)"
       },
@@ -692,8 +665,7 @@
       "distanceNote": "Approximate. Placed on the 4-ID-B optics table (~57.5–60 m on the 2021 plan) following the FDR component order; the FDR position (53.4 m) predates the toroid move.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "A 'polarization meter'. A thin foil scatters a little of the beam sideways into two detectors set at right angles. Turning it around the beam shows how much of the light still wiggles in a straight line – the check that the diamonds really turned it into a corkscrew.",
-      "expert": "Retractable scattering foil at 45° to the beam, two detectors 90° apart (horizontal and vertical preamps), rotatable about the beam axis for in-line polarization determination. PDR described it as a 90° scatterer, collimator and two photodiodes rotating azimuthally in unison. At 90° scattering it measures the linear Stokes components (P1, P2) directly; the circular degree follows as Pc = √(1 − P1² − P2²) for a fully polarized beam, or by inserting a phase plate as an analyzer.",
+      "text": "A polarization meter that checks the phase retarders' work. A retractable foil scatters a little of the beam through 90° into two detectors set at right angles; X-rays scatter least along the direction in which their electric field oscillates, so the two signals show how much of the light is linearly polarized, and along which axis. Rotating the assembly about the beam completes the measurement; the circular part follows from it for a fully polarized beam, or can be measured by inserting a phase plate as an analyzer.",
       "specs": {
         "principle": "90° Thomson scattering asymmetry"
       },
@@ -704,13 +676,13 @@
       "name": "Diamond XBPM / TetrAMM (4-ID-B)",
       "category": "diagnostics",
       "distanceM": 58.1,
-      "distanceNote": "Approximate (FDR order, scaled to the 2021 plan)",
+      "distanceNote": "Approximate: FDR component order, scaled to the 2021 plan.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "A transparent diamond sensor that reports where the beam is, so the computer can nudge a monochromator crystal and keep the beam locked in place.",
-      "expert": "In-vacuum retractable diamond XBPM read by a TetrAMM. It is the feedback source ('Feedback B') for second-crystal pitch/roll PZTs, with a 0.1 µrad stability goal. The public 4-ID status page lists separate position-feedback loops for stations B, G and H (4-ID status page).",
+      "text": "A thin, nearly transparent diamond sensor that reports where the beam is. Its signal drives a feedback loop that nudges the monochromator's second crystal with piezo actuators, aiming to hold the beam direction steady to 0.1 µrad. Stations B, G and H each have their own feedback loop.",
       "specs": {
-        "readout": "TetrAMM"
+        "readout": "TetrAMM",
+        "stabilityGoal": "0.1 µrad"
       },
       "source": "r26"
     },
@@ -719,13 +691,13 @@
       "name": "In-vacuum optical chopper",
       "category": "other",
       "distanceM": 58.4,
-      "distanceNote": "Approximate (FDR order, scaled)",
+      "distanceNote": "Approximate: FDR component order, scaled to the 2021 plan.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "A spinning slotted wheel that blinks the beam on and off up to 4,000 times a second. Comparing 'on' with 'off' lets the electronics subtract their own background, essential when the magnetic signal can be as small as ten parts in a million.",
-      "expert": "UHV-compatible chopper (design heritage: XTIP SX-STM chopper, Chang et al. 2016), up to 4 kHz, on a translation stage. Used for double-lock-in detection: dark current at the chopper frequency, dichroism at the helicity frequency.",
+      "text": "A spinning slotted wheel that blinks the beam on and off up to 4,000 times a second. Comparing 'on' with 'off' lets the electronics subtract their own background signal (dark current), essential when the design aims to detect magnetic signals as small as ten parts per million. It works alongside the slower helicity flip: one lock-in measurement follows the chopper, another the dichroism.",
       "specs": {
-        "frequency": "up to 4 kHz"
+        "frequency": "up to 4 kHz",
+        "use": "double lock-in: dark current at the chopper frequency, dichroism at the helicity frequency"
       },
       "source": "r12"
     },
@@ -734,11 +706,10 @@
       "name": "Attenuators / filters (4-ID-B)",
       "category": "attenuator",
       "distanceM": 58.6,
-      "distanceNote": "Approximate (FDR order, scaled)",
+      "distanceNote": "Approximate: FDR component order, scaled to the 2021 plan.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "Thin metal foils that slide into the beam to dim it in steps – for alignment, and to protect detectors and delicate samples from too much light.",
-      "expert": "APS filter box (4idbSoft:filter).",
+      "text": "Thin metal foils that slide into the beam to dim it in steps, for alignment and to protect detectors and delicate samples from too much light. They sit in a standard APS filter box.",
       "source": "r26"
     },
     {
@@ -749,8 +720,7 @@
       "distanceNote": "Approximate. Inferred from the 2021 plan table position upstream of the electromagnet; FDR: 55.1 m relative to the magnet at 55.8 m.",
       "enclosure": "4-ID-B",
       "deflection": "vertical",
-      "plain": "A pair of mirrors whose curvature can be adjusted – one focuses up-down, the other side-to-side – that squeeze the beam onto samples inside the 2-tesla electromagnet.",
-      "expert": "Existing bendable KB (FDR 4ID-MR-3). The PDR noted the bender exists with new 200 mm mirrors and WD ~0.4 m. The legacy 4-ID-D Rh-coated KB was 10 cm (V) / 20 cm (H) and gave ~15 × 15 µm with the toroid. Labeled 'KB3' in the 2023 workshop optics schematic. PDR 2017: 'tunable x-ray spot size down to ~10 µm' (APS-U PDR 2017).",
+      "text": "A pair of Kirkpatrick–Baez (KB) mirrors, one focusing vertically and the other horizontally, whose curvature can be adjusted to tune the spot size. They focus the beam onto samples in the 2-tesla electromagnet. The 2017 design called for spots down to about 10 µm; the as-built value is not published.",
       "specs": {
         "type": "bendable KB",
         "focus": "down to ~10 µm (PDR 2017 design value; as-built value not published)"
@@ -762,11 +732,10 @@
       "name": "Incident-intensity monitor I0 (4-ID-B)",
       "category": "diagnostics",
       "distanceM": 59.9,
-      "distanceNote": "Approximate (FDR order, scaled)",
+      "distanceNote": "Approximate: FDR component order, scaled to the 2021 plan.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "Counts the X-rays heading into the sample, so absorption can be measured as a ratio that ignores small flickers in beam intensity.",
-      "expert": "Ion chamber/photodiode I0 with SR570-type preamp (4idbSoft:A3).",
+      "text": "An intensity monitor that counts the X-rays heading into the sample, so absorption can be measured as a ratio that ignores small flickers in the beam. It is an ion chamber or photodiode read by a current amplifier.",
       "source": "r26"
     },
     {
@@ -777,8 +746,7 @@
       "distanceNote": "Approximate, measured from the 2021 'Sector 4 2024' plan (scale ±0.3 m). FDR: 55.8 m in its earlier layout.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "A water-cooled electromagnet inherited from POLAR's predecessor, whose field can be ramped and reversed quickly – for magnetic measurements on films, crystals and lightly squeezed samples without liquid helium in the magnet. Whether it is still offered to users in 2026 is not confirmed.",
-      "expert": "Existing 4-ID-D electromagnet (Kepco BOP supply) with flow cryostat and ruby system. The PDR quotes P < 1 Mbar, T > 10 K and H ≈ 0.8 T across a DAC-sized pole gap, with 2 T maximum at small gaps. It allows fast field ramping and switching for field-dependent XMCD. Sample and magnet x/y/rotation stages. Evidence that it is active: the Bluesky configuration loads the 4-ID-B electromagnet, its KB mirrors and a Kepco magnet driver (POLAR Bluesky config), and POLAR's lead engineer describes 'three instrument stations' (APS News, Jun 2026). It is not listed as an end station in the beamline directory (APS beamline directory 2026), so its user-program status is unconfirmed.",
+      "text": "A water-cooled electromagnet inherited from POLAR's predecessor, 4-ID-D, whose field can be ramped and reversed quickly, without liquid helium in the magnet. It serves films, crystals and lightly compressed samples: up to 2 T at small pole gaps, about 0.8 T with a diamond anvil cell in place, and above 10 K with a flow cryostat. It is configured in the control software but not listed as an end station in the 2026 beamline directory, so whether it is offered to users is unconfirmed.",
       "specs": {
         "field": "up to 2 T (≈0.8 T with DAC gap)",
         "cooling": "water",
@@ -791,11 +759,10 @@
       "name": "Transmission photodiode I (4-ID-B)",
       "category": "detector",
       "distanceM": 61.0,
-      "distanceNote": "Approximate (2021 plan feature just downstream of the magnet)",
+      "distanceNote": "Approximate: a feature on the 2021 plan just downstream of the magnet.",
       "enclosure": "4-ID-B",
       "deflection": "none",
-      "plain": "A photodiode behind the magnet that measures how many X-rays made it through the sample; the dip at an element's absorption edge is the signal.",
-      "expert": "Photodiode with preamp (4idbSoft:A4) for transmission XAS/XMCD.",
+      "text": "A photodiode behind the magnet that measures how many X-rays made it through the sample. The dip in transmission at an element's absorption edge, and its small change with the light's handedness, is the signal.",
       "source": "r26"
     },
     {
@@ -803,11 +770,10 @@
       "name": "Diamond XBPM, filters, slits (4-ID-G entrance)",
       "category": "diagnostics",
       "distanceM": 64.4,
-      "distanceNote": "Approximate (start of the 4-ID-G optics table, ~64.1 m on the 2021 plan)",
+      "distanceNote": "Approximate: the start of the 4-ID-G optics table, ~64.1 m on the 2021 plan.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "The gatekeepers of 4-ID-G: a diamond beam-position sensor, filters and jaws that steady, dim and shape the beam before it is focused.",
-      "expert": "Sydor diamond BPM (4idgSydor T4U) and XBPM for 'Feedback G'. Includes an AVS-type filter box (4idPyFilter) and JJ slits (gslt).",
+      "text": "The gatekeepers of 4-ID-G: a diamond beam-position monitor, a filter box and adjustable jaws that steady, dim and shape the beam before it is focused. The monitor feeds this station's own feedback loop to the monochromator.",
       "source": "r26"
     },
     {
@@ -818,14 +784,14 @@
       "distanceNote": "2 m upstream of the diffractometer (2021 town hall). The 2021 plan shows the CRL at ~65.25 m.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "A stack of tiny curved beryllium lenses. Like adding reading glasses, sliding more lenses in makes the focus stronger, giving a spot about two micrometres wide – the middle ground between the mirrors' big spot and the nano-focus.",
-      "expert": "8 stacks of 2D parabolic Be lenses. N = 1, 1, 1, 2, 4, 8, 8, 16 with R = 1000, 500, 200, 200, 200, 200, 100, 100 µm (FDR had 7 stacks). Binary combinations are chosen by the PyCRL controller for energy and focal size, tracking energy (chromatic). Translation along the beam. Spot ≥2 × 0.9 µm², 1.4×10¹³ cps at 10 keV, usable 3–20 keV. The SRI 2021 table gives 2.0 × 0.9 µm² with 1.1×10¹³ ph/s at 10 keV (Strempfer et al. 2022).",
+      "text": "A stack of tiny curved beryllium lenses that focus X-rays by refraction. X-rays bend only very slightly in any material, so many lenses are needed in a row; like adding reading glasses, sliding more of its eight lens groups into the beam strengthens the focus. Because the focal length changes with energy, software picks the combination for each energy and spot size. It gives a spot about 2 × 0.9 µm, between the mirrors' broad focus and the nano-focus, over 3–20 keV.",
       "specs": {
         "stacks": "8",
         "lenses": "N = 1,1,1,2,4,8,8,16",
         "radii": "1000,500,200,200,200,200,100,100 µm",
         "focus": "≥2 × 0.9 µm²",
-        "range": "3–20 keV"
+        "range": "3–20 keV",
+        "flux": "1.1–1.4×10¹³ ph/s at 10 keV"
       },
       "source": "r12"
     },
@@ -837,14 +803,15 @@
       "distanceNote": "Approximate. Computed from the sample at 67.2 m minus the 100 mm working distance and half-lengths of the FDR KB1 mirrors (VFM 275 mm upstream of HFM 115 mm).",
       "enclosure": "4-ID-G",
       "deflection": "vertical",
-      "plain": "Two small, precisely curved mirrors – one focusing up-down, one side-to-side – squeeze the beam to about 100 nanometres, a thousand times thinner than a hair, just 10 centimetres in front of the sample.",
-      "expert": "Prefigured elliptical-cylinder Si mirrors at 3 mrad, Pt and Rh stripes (5 mm each). FDR KB1: VFM 275 mm (q = 362.5 mm), HFM 115 mm (q = 157.5 mm), figure error <2 nm PV (<0.5 nm RMS), roughness 0.15 nm. Piezo, picomotor and capacitive-sensor motions. Spot 114 × 92 nm² and 1.3×10¹³ ph/s at 10 keV; with a slit, coherent mode gives 200 × 200 nm² and 1.6×10¹² ph/s.",
+      "text": "Two small, precisely curved Kirkpatrick–Baez mirrors, one focusing vertically and one horizontally, squeeze the beam to about 100 nanometres, roughly a thousand times thinner than a hair, just 10 centimetres in front of the sample. Their elliptical shape is accurate to within 0.5 nm (root-mean-square). The design gives 114 × 92 nm with 1.3 × 10¹³ photons per second at 10 keV; closing a slit for coherent imaging leaves 1.6 × 10¹² photons per second in 200 × 200 nm.",
       "specs": {
         "angle": "3 mrad",
         "WD": "100 mm",
         "focus": "100–200 nm",
         "coatings": "Pt, Rh",
-        "figureError": "<0.5 nm RMS"
+        "figureError": "<0.5 nm RMS",
+        "designSpot": "114 × 92 nm² with 1.3×10¹³ ph/s at 10 keV",
+        "coherentMode": "200 × 200 nm² with 1.6×10¹² ph/s (KB + slit, 10 keV)"
       },
       "source": "r5"
     },
@@ -856,8 +823,7 @@
       "distanceNote": "Sample position: toroid focus point 67.2 m (2021 town hall) matches the 2021 plan (~67.3 m). FDR 2019 had the diffractometer at 61.3 m in a different hutch arrangement.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "A precision 'robot arm and turntable' that holds the sample and swings detectors around it. It finds the exact angles at which X-rays bounce off the repeating rows of atoms in a crystal – and off the repeating pattern of their tiny magnets.",
-      "expert": "Horizontal-scattering design. The vertical sample circle is omitted, leaving room for sample environments. Circles: τ (whole), μ (θ in the horizontal plane), χ, φ, γ, δ (hklpy 'ApsPolar' geometry), with full 360° azimuth about the cryostat axis. Option 1: open Eulerian cradle, ±29.75° χ-opening, χ ±100°. Option 2: high-precision imaging stack. The split detector arm (25° offset) carries a 2D PAD at 0.5–2 m and an APD with in-vacuum polarization analyzer. Detector rail and filters on the arm.",
+      "text": "A precision 'robot arm and turntable' that holds the sample and swings detectors around it, to find the exact angles at which X-rays reflect from the repeating rows of atoms in a crystal, and from the repeating pattern of their magnetic moments. It scatters in the horizontal plane and omits the usual vertical circle, leaving room for bulky magnets and cryostats. Its detector arm splits into two branches 25° apart, one with an area detector and one with a polarization analyzer.",
       "specs": {
         "geometry": "4S+2D horizontal (τ, μ, χ, φ, γ, δ)",
         "chiRange": "±100°",
@@ -871,16 +837,17 @@
       "name": "±2 T HTS split-pair magnet (diffractometer)",
       "category": "sampleEnvironment",
       "distanceM": 67.2,
-      "distanceNote": "Mounted on the diffractometer at the sample position",
+      "distanceNote": "Mounted on the diffractometer at the sample position.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "A compact superconducting magnet, cooled by a refrigerator rather than liquid helium, that wraps a 2-tesla field – about 40,000 times Earth's – around the sample, pointing along the beam or across it.",
-      "expert": "Custom high-Tc superconducting magnet, Cryomech AL63 GM cooler (orientation-insensitive), 60.4 mm pole gap, warm bore with full vacuum capability. Field actively controlled (no persistent mode); 0→2 T in 5 min (−2→2 T in 7.5 min); homogeneity <0.07% over 10 mm DSV. Axial opening ±6°; radial opening 190° × 45° (100 mm height). Accepts cryostats, mini-DACs and strain cells, with field ∥ beam (spectroscopy) or ⊥ beam (diffraction). The public 4-ID status page labels it '2T Magnet (HTS-110)', i.e. presumably built by HTS-110 Ltd (4-ID status page).",
+      "text": "A compact superconducting magnet, cooled by a closed-cycle refrigerator rather than liquid helium, that wraps a field of up to 2 tesla, about 40,000 times Earth's, around the sample. It can point along the beam for spectroscopy or across it for diffraction, ramping from zero to 2 T in five minutes. Its high-temperature-superconductor coils leave a 60.4 mm gap for cryostats, mini diamond cells and strain cells.",
       "specs": {
         "field": "±2 T",
         "gap": "60.4 mm",
         "ramp": "0–2 T in 5 min",
-        "homogeneity": "<0.07% (10 mm DSV)"
+        "homogeneity": "<0.07% (10 mm DSV)",
+        "cooler": "Cryomech AL63 GM cryocooler (orientation-insensitive)",
+        "openings": "axial ±6°; radial 190° × 45° (100 mm high)"
       },
       "source": "r12"
     },
@@ -892,8 +859,7 @@
       "distanceNote": "Operating position: it replaces the open Eulerian cradle on the diffractometer base at the 67.2 m sample point. The 3D model shows it parked on a cart beside the diffractometer so both configurations can be seen.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "An ultra-steady, air-bearing sample stage that scans and spins a sample with nanometre precision. It swaps in for the cradle so a computer can build 2D and 3D magnetic images from the scattered light.",
-      "expert": "Stack, bottom to top: double tilt (±7°), XYZ translation, air-bearing rotation (360°), tilt (±15°), XY translation, XYZ nanopositioner with strain gauges. Interferometry registers beam and sample position. Uses for 2D/3D dichroic ptychography, real-space dichroic imaging/tomography (small electromagnet) and dichroic Bragg CDI. The Bluesky configuration also has a Kepco-driven magnet device for 4-ID-G, probably the 'small electromagnet' used for real-space dichroic imaging (inference from the POLAR Bluesky config and the 2023 workshop slides). It replaces the open Eulerian cradle on the Huber base; the two are not mounted at the same time.",
+      "text": "An ultra-steady sample stage for coherent imaging that swaps in for the diffractometer's cradle. From the bottom up it stacks tilts, translations, a 360° air-bearing rotation and a nanometre-precision positioner, while interferometers register the sample against the beam. With it a computer can build 2D and 3D magnetic images from forward-scattered light (ptychography and tomography) or from crystal reflections (Bragg coherent diffraction imaging). The model shows it parked beside the diffractometer so both setups can be seen.",
       "specs": {
         "rotation": "360° air bearing",
         "tilts": "±7° double, ±15°",
@@ -909,8 +875,7 @@
       "distanceNote": "At the sample. Shown looking in from the outboard side just upstream of 90° (snout ~0.17 m from the sample), through the HTS magnet's radial opening and clear of the detector arm; the exact mounting is not published.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "A detector that measures the characteristic X-ray 'glow' (fluorescence) given off by each element, so one element's signal can be picked out from the rest of the sample.",
-      "expert": "Energy-resolving 4-element SDD for fluorescence-yield XMCD/XAS and resonant-scattering background suppression.",
+      "text": "An energy-resolving detector that measures the characteristic X-rays (fluorescence) each element emits after absorbing the beam, so one element's signal can be picked out from the rest of the sample. This four-element silicon drift detector serves fluorescence-detected magnetic dichroism and absorption spectroscopy, and helps suppress fluorescence background in resonant scattering.",
       "specs": {
         "elements": "4"
       },
@@ -924,11 +889,11 @@
       "distanceNote": "On the point-detector branch of the split detector arm, ~0.9 m from the sample (not published). Shown with the arm at 2θ = 60° toward the outboard side (the plan draws the ~2 m arm sweep there), which puts it 67.65 m along the beam.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "A second crystal, set to bounce X-rays through a right angle, that passes only one polarization of the scattered light to a fast detector. Magnetic scattering can rotate the light's polarization while ordinary scattering cannot, so this filter proves whether a faint signal really comes from magnetism.",
-      "expert": "Full in-vacuum analyzer with motions 2θ ±11°, η −110/+30°, χ ±5°. The analyzer crystal is chosen per edge to reach 2θ_A ≈ 90° and separate σ' and π'; the Bluesky analyzer list includes PG(001), Cu, Au, Al, Si, Ge, LiF, MgO, Mo, Pd and Pt reflections (POLAR Bluesky config, analyzerlist.dat; a calculation list, not an inventory). Detection by avalanche photodiode (APD).",
+      "text": "A second crystal, set to reflect through close to 90°, passes only one polarization of the scattered light to a fast avalanche photodiode. Ordinary scattering from electric charge keeps the polarization, while magnetic scattering can rotate it, so a signal in the rotated channel shows that a faint reflection really comes from magnetism. The analyzer crystal is chosen to suit each element's edge energy.",
       "specs": {
         "detector": "APD",
-        "analyzerCrystals": "PG(001), Cu, Au, Al, Si, Ge, LiF, MgO, Mo, Pd, Pt …"
+        "analyzerCrystals": "PG(001), Cu, Au, Al, Si, Ge, LiF, MgO, Mo, Pd, Pt …",
+        "motions": "2θ ±11°, η −110/+30°, χ ±5°"
       },
       "source": "r12"
     },
@@ -940,8 +905,7 @@
       "distanceNote": "Variable 0.5–2 m from the sample on the PAD branch of the arm. Shown at 1.5 m with that branch at 2θ = 35° (25° from the analyzer branch), i.e. 68.4 m along the beam. For forward ptychography, detector distances of 2.7, 4 and 10 m are planned; 10 m would reach into 4-ID-H, unconfirmed.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "A fast X-ray 'camera' with a million pixels that records diffraction spots and the speckle patterns used to rebuild images of magnetic domains.",
-      "expert": "Dectris Eiger2 X 1M (2023 slides) on a rail, plus a Lambda 750k. Used for resonant diffraction, CDI and ptychography. The 'X-ray eye' camera is on the Huber detector arm.",
+      "text": "A fast photon-counting X-ray camera with about a million pixels that records diffraction spots and the speckle patterns from which images of magnetic domains are reconstructed. On the detector arm it sits 0.5–2 m from the sample; a Lambda 750k detector is also available.",
       "specs": {
         "distance": "0.5–2 m (diffraction); 2.7/4/10 m (ptychography, planned)"
       },
@@ -955,8 +919,7 @@
       "distanceNote": "Inferred. The 2021 town-hall elevation drawing shows an unlabelled shutter-sized box on a stand at ~69.6–69.9 m, just upstream of the 4-ID-G/H wall (scaled). The FDR (Table 4.16) listed a second monochromatic shutter, 4ID-SH-2, at the end of its diffractometer hutch (64.6 m in the 2019 layout). Identity, position and as-built status are not published.",
       "enclosure": "4-ID-G",
       "deflection": "none",
-      "plain": "Probably a heavy safety shutter at the end of 4-ID-G (inferred from the drawings, not confirmed). Closing it would let scientists enter the last hutch to load a pressure cell or cool the big magnet while 4-ID-G keeps using the beam.",
-      "expert": "Strempfer et al. 2022 state that 4-ID-H can be accessed for preparation, magnet cooling and maintenance while 4-ID-G takes beam, which requires a radiation-safety shutter or beam stop at the G/H boundary; the public status page lists enclosure and shutter states for A, B, G and H (4-ID status page). The FDR had an equivalent 'Shutter, Mono, 4ID-SH-2' at the end of its diffractometer hutch (APS-U FDR 2019). Its PSS name is not in the public Bluesky configuration, which lists only the front-end and 4-ID-A station shutters. Treat as unconfirmed.",
+      "text": "Probably a safety shutter at the end of 4-ID-G, inferred from the drawings but not confirmed. The beamline's design paper says 4-ID-H can be entered to load a pressure cell, cool the big magnet or do maintenance while 4-ID-G takes beam, which requires a shutter or stop at this boundary.",
       "specs": {
         "FDR equivalent": "4ID-SH-2",
         "status": "inferred"
@@ -971,8 +934,7 @@
       "distanceNote": "FDR Table 4.16. The magnet position (73.3 m) is unchanged between FDR and as-built, so the upstream H positions are kept.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "A diamond beam-position sensor at the entrance of 4-ID-H that keeps the beam locked on the tiny sample inside the big magnet.",
-      "expert": "Diamond XBPM (4ID-BD-2; 4idhSydor) and XBPM for 'Feedback H' to the mono second-crystal PZTs.",
+      "text": "A diamond beam-position monitor at the entrance of 4-ID-H. It feeds this station's own feedback loop to the monochromator crystal, keeping the beam locked on the tiny sample inside the big magnet.",
       "source": "r1"
     },
     {
@@ -980,11 +942,10 @@
       "name": "4-ID-H slits",
       "category": "slits",
       "distanceM": 71.7,
-      "distanceNote": "FDR Table 4.16 (4ID-SL-6, existing)",
+      "distanceNote": "Design position from FDR Table 4.16 (4ID-SL-6, an existing slit).",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "Jaws that set how much of the focusing mirrors is lit, trading a little flux for a cleaner, rounder spot.",
-      "expert": "JJ slits (hslt). Limiting KB illumination also removes spot asymmetry from the two longitudinally displaced undulator sources (PDR ray tracing).",
+      "text": "Jaws that set how much of the focusing mirrors is lit, trading a little flux for a cleaner, rounder spot. Because the two undulators sit one behind the other, the mirrors see two sources at slightly different distances; limiting the illuminated area removes the asymmetry this causes in the spot.",
       "source": "r1"
     },
     {
@@ -992,11 +953,10 @@
       "name": "4-ID-H attenuators",
       "category": "attenuator",
       "distanceM": 71.9,
-      "distanceNote": "FDR Table 4.16",
+      "distanceNote": "Design position from FDR Table 4.16.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "Metal foils that slide into the beam to dim it, protecting detectors and fragile samples during alignment.",
-      "expert": "4ID-FL-1.",
+      "text": "Metal foils that slide into the beam to dim it, protecting detectors and fragile samples during alignment. They are the 4-ID-H counterpart of the filters in 4-ID-B.",
       "source": "r1"
     },
     {
@@ -1007,12 +967,13 @@
       "distanceNote": "Approximate. FDR KB2 at 72.46 m (VFM) and 72.78 m (HFM) for a 400 mm WD; the as-built WD is 600 mm, so the mirrors sit ~0.2 m further upstream (computed).",
       "enclosure": "4-ID-H",
       "deflection": "vertical",
-      "plain": "Focusing mirrors that stand well back – 60 centimetres from their focus – because the giant magnet's body is in the way. They still squeeze the beam to a few hundred nanometres.",
-      "expert": "Prefigured elliptical-cylinder Si, 3 mrad, Pt/Rh stripes. FDR KB2 lengths: VFM 405 mm, HFM 215 mm. WD increased to 600 mm for the 9-1-1 T magnet. Design spot 414 × 212 nm² with 2.1×10¹³ ph/s at 10 keV; directory quotes 300–400 nm.",
+      "text": "Kirkpatrick–Baez focusing mirrors that stand well back, 60 cm from their focus, because the giant magnet's body is in the way. A longer working distance gives less demagnification, yet they still squeeze the beam to 300–400 nm. The working distance was raised from 400 to 600 mm to fit the 9-1-1 T magnet; the design spot is 414 × 212 nm with 2.1 × 10¹³ photons per second at 10 keV.",
       "specs": {
         "angle": "3 mrad",
         "WD": "600 mm",
-        "focus": "300–400 nm"
+        "focus": "300–400 nm",
+        "coatings": "Pt, Rh",
+        "designSpot": "414 × 212 nm² with 2.1×10¹³ ph/s at 10 keV"
       },
       "source": "r12"
     },
@@ -1024,8 +985,7 @@
       "distanceNote": "FDR Table 4.16 (4ID-BD-4), between the KB2 mirrors (ending ~72.7 m) and the magnet's upstream window.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "Counts the X-rays going into the magnet, so the absorption of the sample can be measured precisely.",
-      "expert": "I0 detector with preamp (4idhSoft:A1). I1 and I2 channels are available downstream.",
+      "text": "An intensity monitor that counts the X-rays going into the magnet, so the sample's absorption can be measured as a ratio. Further channels measure the beam downstream.",
       "source": "r1"
     },
     {
@@ -1036,8 +996,7 @@
       "distanceNote": "Toroid focus point 73.3 m (2021 town hall). FDR gives 73.3–73.4 m; the 2021 plan confirms.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "A huge liquid-helium-cooled superconducting magnet with a 7.5-centimetre shaft down the middle for a diamond pressure cell. It makes a 9-tesla field along the beam and 1 tesla sideways, at temperatures down to 1.4 K – colder than outer space.",
-      "expert": "Split coils: ±9 T longitudinal (∥ beam), ±1 T along x and y. VTI 1.4–300 K, 3-inch (~74–75 mm) bore. Liquid-cryogen cooled (not cryogen-free) to minimize vibration for 300 nm beams. Ramp 0–9 T in 9 min (2023 slides; ~20 min quoted in 2021). Re-entrant room-temperature side bores with Be and optical windows (SDD, Raman). Large downstream window for XRD and transmission. Interferometers track drifts during field ramps. The magnet translates inboard for 'beam-pass' mode to the 4 T magnet. Top loading from a platform and stairs.",
+      "text": "A large superconducting magnet cooled by a liquid-helium bath, with a 75 mm shaft down its middle for a diamond anvil cell. Its split coils make up to 9 T along the beam and 1 T in either direction across it, hence '9-1-1', and a variable-temperature insert cools the sample from 300 K down to 1.4 K, colder than outer space. Liquid helium was chosen over a cryocooler on purpose, because a cryocooler's vibrations would blur a 300 nm beam. Side windows give the fluorescence detector and the Raman pressure gauge a view of the sample, interferometers track drift as the field ramps (0–9 T in about 9 minutes), and the whole magnet slides aside to let the beam reach the 4 T magnet behind it.",
       "specs": {
         "field": "±9 T (z), ±1 T (x, y)",
         "T": "1.4–300 K",
@@ -1053,15 +1012,15 @@
       "name": "Diamond anvil cell (double gas membrane)",
       "category": "sample",
       "distanceM": 73.3,
-      "distanceNote": "At the magnet center",
+      "distanceNote": "At the centre of the magnet.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "Two gem diamonds with tips smaller than a pinhead squeeze a sample to millions of atmospheres. Gas-filled 'balloons' turn the pressure up or down remotely while the cell sits cold inside the magnet.",
-      "expert": "Non-magnetic CuBe DAC, compression and decompression He membranes, on an x/y/z nanopositioner at the probe tip. Beam diagnostics and interferometer retroreflectors are on the holder. Perforated or partial anvils (and double-stage or toroidal anvils planned for >3 Mbar). Directory: 3 Mbar, 8.7 T, 1.4–300 K.",
+      "text": "Two gem-quality diamonds with tips smaller than a pinhead squeeze the sample to millions of atmospheres: 3 megabars is listed as available in 2026, and about 6 megabars is the design goal. Helium-filled membranes, one to compress and one to decompress, change the pressure remotely while the cell sits cold inside the magnet. The non-magnetic copper–beryllium cell rides on a nanopositioner that keeps the sample under the beam.",
       "specs": {
         "pressure": "3 Mbar (operational, per directory); ~6 Mbar goal",
         "pressureControl": "in-situ He gas membranes driven by remote pressure controllers (Bluesky devices ge_apply/ge_release)",
-        "mount": "x/y/z nanopositioner at the probe tip"
+        "mount": "x/y/z nanopositioner at the probe tip",
+        "cell": "non-magnetic CuBe, compression + decompression He membranes"
       },
       "source": "r7"
     },
@@ -1073,8 +1032,7 @@
       "distanceNote": "Optical access through the magnet's re-entrant side bore on the outboard side (SRI 2021 drawing).",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "A laser and spectrometer that read the pressure from the glow of a tiny ruby chip, or from the Raman 'note' of the diamond tip, through a side window in the magnet.",
-      "expert": "Ventus-series laser and a spectrometer run through Princeton Instruments LightField (device names in the POLAR Bluesky config), with a motorized objective (x, y, z, tilt, rotation). Ruby fluorescence calibrates pressure below 100 GPa and the diamond-edge Raman shift above 100 GPa; the system also serves multimodal Raman studies (POLAR town hall 2021).",
+      "text": "A laser and spectrometer that read the pressure through a side window of the magnet. Below 100 GPa (1 megabar) the gauge is the shift of the red glow of a tiny ruby chip; above it, the shift of the Raman signal of the squeezed diamond tip. The same system can be used for Raman studies of the sample.",
       "specs": {
         "calibration": "ruby (<100 GPa), diamond Raman edge (>100 GPa)"
       },
@@ -1088,8 +1046,7 @@
       "distanceNote": "Heads on the magnet support, looking into the side bores.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "Laser 'rulers' that notice if the sample drifts while the magnet's field ramps up or down, so motors can steer it back under the tiny beam.",
-      "expert": "Multi-channel interferometry (FDR 4-ID-EX-8, 3-channel) monitors horizontal and vertical magnet and sample positions perpendicular to the beam, feeding slow correction via the nanopositioner.",
+      "text": "Laser interferometers act as rulers that notice if the magnet or sample drifts across the beam while the field ramps up or down. A slow correction loop then uses the nanopositioner to steer the sample back under the sub-micrometre beam.",
       "source": "r5"
     },
     {
@@ -1100,8 +1057,7 @@
       "distanceNote": "At the sample, through a Be-windowed re-entrant side bore of the magnet (inboard side in the model; Raman uses the outboard bore). The FDR lists 74.2 m for the detector stand.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "A seven-element detector at a side window that collects the X-rays re-emitted by the sample, for measurements that cannot be done by looking straight through it.",
-      "expert": "7-element SDD (Xspress3 ME7 readout); FDR also foresaw backscatter photodiode-array fluorescence detection on the DAC assembly.",
+      "text": "A seven-element silicon drift detector at a beryllium-windowed side port of the magnet that collects the X-rays the sample re-emits (fluorescence). It serves measurements that cannot be made by looking straight through the sample.",
       "specs": {
         "elements": "7",
         "readout": "Xspress3 ME7"
@@ -1113,11 +1069,10 @@
       "name": "Transmission detector I (4-ID-H)",
       "category": "detector",
       "distanceM": 74.4,
-      "distanceNote": "FDR Table 4.16 (4ID-BD-5)",
+      "distanceNote": "Design position from FDR Table 4.16 (4ID-BD-5).",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "Measures the X-rays that made it through the diamonds and the sample. Their dip at an absorption edge – and its tiny change with the light's handedness – is the main signal.",
-      "expert": "Photodiode/ion chamber (I1/I2 preamps 4idhSoft:A2/A3) behind the magnet's downstream window.",
+      "text": "A detector behind the magnet that measures the X-rays that made it through the diamonds and the sample. The dip at an absorption edge, and its tiny change when the light's handedness flips, is the main signal of the high-pressure measurements.",
       "source": "r1"
     },
     {
@@ -1125,11 +1080,10 @@
       "name": "4 T cryogen-free magnet (existing)",
       "category": "sampleEnvironment",
       "distanceM": 76.3,
-      "distanceNote": "Approximate, from the 2021 plan (~76.3 m); FDR 75.9 m ('small-bore 4 T magnet, existing')",
+      "distanceNote": "Approximate, from the 2021 plan (~76.3 m); the FDR gives 75.9 m ('small-bore 4 T magnet, existing').",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "A smaller, refrigerator-cooled magnet at the end of the line. The big magnet slides aside on rails to let the beam through to it.",
-      "expert": "Legacy 4-ID-D cryogen-free 4 T small-bore magnet, reached in 'beam-pass' mode with the 9-1-1 magnet translated inboard. Used with toroid-focused beams (tens of µm; the toroid bender sets the focus), since KB2 focuses at 73.3 m, not at the 4 T magnet.",
+      "text": "A smaller, cryogen-free 4-tesla magnet inherited from 4-ID-D, at the end of the line. To reach it, the big 9-1-1 T magnet slides aside ('beam-pass' mode). It works with the broader beam from the toroidal mirrors, tens of micrometres across, because the nano-focusing mirrors focus at the big magnet's position.",
       "specs": {
         "field": "4 T",
         "cooling": "cryogen-free"
@@ -1141,11 +1095,10 @@
       "name": "Beam stop (4ID-BS-1)",
       "category": "beamStop",
       "distanceM": 77.5,
-      "distanceNote": "FDR Table 4.16; the 2021 plan shows ~77.6 m at the downstream wall of 4-ID-H",
+      "distanceNote": "Design position from FDR Table 4.16; the 2021 plan shows it at ~77.6 m, at the downstream wall of 4-ID-H.",
       "enclosure": "4-ID-H",
       "deflection": "none",
-      "plain": "The end of the line: a dense metal block that safely absorbs whatever beam is left.",
-      "expert": "Monochromatic beam stop at the downstream wall of 4-ID-H.",
+      "text": "The end of the line: a dense block at the downstream wall of 4-ID-H that safely absorbs whatever beam is left.",
       "source": "r1"
     }
   ],
@@ -1164,7 +1117,7 @@
       "startM": 36.1,
       "endM": 50.5,
       "widthM": null,
-      "notes": "Existing transport (APS-U PDR 2017; POLAR town hall 2021) An earlier draft called it 'U1-40'; that label is not on the published drawings."
+      "notes": "Existing transport (APS-U PDR 2017; POLAR town hall 2021). An earlier draft called it 'U1-40'; that label is not on the published drawings."
     },
     {
       "name": "4-ID-MH",
@@ -1211,8 +1164,7 @@
     {
       "name": "Phase-retarder polarization control system",
       "enclosure": "4-ID-A",
-      "plain": "Diamond 'quarter-wave plates' that set the twist of the X-ray light and flip it many times a second. Every POLAR experiment depends on them.",
-      "expert": "Three plate stages: pr1 and pr2 diamond (C(111)/C(220) selectable), pr3 Si(111). Bragg-transmission geometry with the scattering plane at 45°. Energy tracking with the mono and undulators. Piezo AC modulation with lock-in. LCP/RCP (Pc ≈ 0.98) and L-V (two plates). Range ~2.7–14 keV. Kept as the polarization source until SCAPE (or an alternative) is commissioned, and planned to stay afterwards as backup.",
+      "text": "The polarization control on which every POLAR experiment depends. Three plate stages, two of diamond and one of thin silicon for the lowest energies, act as X-ray quarter-wave plates in transmission, with the plane of reflection at 45° to the polarization. Their angles track the monochromator and undulators as the energy changes, and piezo modulation with lock-in detection reads out the small dichroism. They give left or right circular polarization (about 98%) or, with two plates, vertical linear polarization, over about 2.7–14 keV, and are planned to stay as a backup once a polarizing undulator is commissioned.",
       "detectors": [],
       "sampleEnvironments": [],
       "source": "r26"
@@ -1220,33 +1172,31 @@
     {
       "name": "2 T electromagnet XMCD station",
       "enclosure": "4-ID-B",
-      "plain": "A quick-switching electromagnet inherited from the old beamline, for magnetic spectroscopy on films, crystals and powders.",
-      "expert": "Existing water-cooled electromagnet (Kepco bipolar supply) with flow cryostat, bendable KB3 focusing and I0/I photodiodes, for transmission and fluorescence XMCD with field reversal. PDR parameter space: P < 1 Mbar, T > 10 K, H ≈ 0.8 T with a DAC. Its place in the 2026 user program is unconfirmed: it is configured in the Bluesky setup but not listed as an end station in the beamline directory (POLAR Bluesky config; APS beamline directory 2026).",
+      "text": "A quick-switching, water-cooled electromagnet inherited from the old beamline, for magnetic absorption spectroscopy on films, crystals, powders and lightly compressed samples. Adjustable Kirkpatrick–Baez mirrors focus the beam, and photodiodes measure transmission or fluorescence while the field is reversed. Its design range is below 1 megabar, above 10 K and about 0.8 T with a diamond cell. It is configured in the control software but not listed as an end station in the 2026 directory, so its place in the user program is unconfirmed.",
       "detectors": [
         "photodiodes / ion chambers (I0, I)"
       ],
       "sampleEnvironments": [
-        "He flow cryostat",
-        "DAC (low pressure)"
+        "He-flow cryostat",
+        "diamond anvil cell (low pressure)"
       ],
       "source": "r26"
     },
     {
       "name": "Huber diffractometer with 2 T HTS magnet (resonant scattering, reflectivity, spectroscopy)",
       "enclosure": "4-ID-G",
-      "plain": "A multi-axis 'goniometer' that turns crystals and films to catch magnetic X-ray reflections, with a 2-tesla magnet around the sample.",
-      "expert": "Horizontal scattering; open Eulerian cradle (χ ±100°, ±29.75° opening). Split detector arm: Eiger2 X 1M / Lambda 750k at 0.5–2 m, APD with in-vacuum polarization analyzer. Vortex SDD. Environments: CCR 4–450 K, He-flow cryostat, ±2 T HTS magnet (field ∥ or ⊥ beam, in-vacuum option), mini-DAC (directory: 20 GPa, 2θ up to 70°, 5–325 K), strain cells, voltage cells. Low-energy in-vacuum XMCD/XRMR down to 2.75–2.8 keV.",
+      "text": "A multi-axis diffractometer that turns crystals and films to catch magnetic X-ray reflections, with a 2-tesla magnet around the sample. Its split detector arm carries a pixel detector at 0.5–2 m and a polarization analyzer with an avalanche photodiode, and a fluorescence detector looks in from the side. Samples can be cooled to 4 K or heated to 450 K, held in mini diamond cells, strained or put under voltage. An in-vacuum option reaches down to 2.75 keV for magnetic circular dichroism and resonant reflectivity at the L edges of 4d metals.",
       "detectors": [
         "Eiger2 X 1M",
         "Lambda 750k",
-        "APD + polarization analyzer",
-        "Vortex ME-4 SDD"
+        "avalanche photodiode + polarization analyzer",
+        "Vortex ME-4 silicon drift detector"
       ],
       "sampleEnvironments": [
-        "closed-cycle cryostat 4–450 K",
+        "closed-cycle cryostat, 4–450 K",
         "He-flow cryostat",
         "±2 T HTS magnet",
-        "mini-DAC",
+        "mini diamond anvil cell",
         "uniaxial strain cell",
         "voltage-bias cell"
       ],
@@ -1255,29 +1205,27 @@
     {
       "name": "Dichroic coherent-imaging setup (ptychography, tomography, Bragg CDI)",
       "enclosure": "4-ID-G",
-      "plain": "Swaps the cradle for an ultra-stable spinning stage to make nanoscale 2D and 3D magnetic images.",
-      "expert": "Air-bearing rotation plus nanopositioner stack, KB1 at 100 mm WD (100 nm), interferometric registration. Forward ptychography at 2.7, 4 and 10 m detector distances; Bragg CDI at 2 m (2θ < 45°). 3D dichroic ptychography was developed under a 2021 LDRD (Strempfer, Deng, Gürsoy).",
+      "text": "This setup swaps the diffractometer's cradle for an ultra-stable stack, an air-bearing rotation topped by a nanopositioner, to make 2D and 3D magnetic images at the nanoscale. Mirrors 100 mm from the focus deliver a coherent beam of about 100 nm, and interferometers register the sample position. Detectors are planned at 2.7, 4 and 10 m for forward ptychography, and at 2 m for Bragg coherent diffraction imaging. The 3D method was developed under a 2021 Argonne internal research grant; which modes are offered to general users in 2026 is not confirmed.",
       "detectors": [
         "Eiger2 X 1M"
       ],
       "sampleEnvironments": [
-        "room temperature / small electromagnet (others under development)"
+        "room temperature or small electromagnet (others under development)"
       ],
       "source": "r13"
     },
     {
       "name": "9-1-1 T magnet + DAC extreme-conditions spectroscopy instrument",
       "enclosure": "4-ID-H",
-      "plain": "The 'extreme corner' of POLAR: crushing pressure, near-absolute-zero cold and an intense magnetic field, all at once.",
-      "expert": "Cryogenic Ltd 9-1-1 T vector magnet, 1.4–300 K VTI, 75 mm bore. The CuBe DAC with double membrane sits on an x/y/z nanopositioner. Interferometers. Raman/ruby via side bore. 7-element SDD via a Be side window. Downstream window for XRD. Magnet on a heavy-load motorized table (x, y, rotation, height). KB2 at 600 mm WD. XMCD at up to 9 T; XMLD at 1 T transverse.",
+      "text": "The extreme corner of POLAR: crushing pressure, near-absolute-zero cold and an intense magnetic field at once. A copper–beryllium diamond anvil cell with gas membranes sits on a nanopositioner inside the 9-1-1 T vector magnet, at 1.4–300 K, with Kirkpatrick–Baez mirrors focusing from 600 mm away. Interferometers track drift, a ruby and Raman system reads the pressure, a seven-element detector collects fluorescence through a side window, and a downstream window allows diffraction. Circular dichroism is measured at up to 9 T along the beam and linear dichroism at 1 T across it; the directory lists 3 megabars and 8.7 T for this instrument.",
       "detectors": [
         "ion chambers / photodiodes (I0, I1, I2)",
-        "7-element SDD"
+        "7-element silicon drift detector"
       ],
       "sampleEnvironments": [
         "9-1-1 T magnet",
-        "VTI 1.4–300 K",
-        "DAC with He membranes (3 Mbar operational, 6 Mbar goal)",
+        "variable-temperature insert, 1.4–300 K",
+        "diamond anvil cell with He membranes (3 Mbar operational, 6 Mbar goal)",
         "Raman/ruby spectrometer"
       ],
       "source": "r13"
@@ -1285,8 +1233,7 @@
     {
       "name": "4 T cryogen-free magnet",
       "enclosure": "4-ID-H",
-      "plain": "An older, refrigerator-cooled magnet at the end of the line.",
-      "expert": "Existing small-bore 4 T magnet, used in beam-pass mode.",
+      "text": "An older, refrigerator-cooled 4-tesla magnet with a small bore at the end of the line, inherited from 4-ID-D. It is reached in 'beam-pass' mode, with the 9-1-1 T magnet moved aside, and uses the broader beam focused by the toroidal mirrors.",
       "detectors": [
         "photodiodes"
       ],
@@ -1297,15 +1244,14 @@
     },
     {
       "name": "MagXES spectrometer (planned)",
-      "plain": "A future instrument that reads magnetism from the X-rays a sample emits.",
-      "expert": "Magnetic X-ray emission spectroscopy at low T, high pressure and high field. Funded by a 2024 DOE Early Career award to G. Fabbris. Design, location and schedule are not published.",
+      "text": "A planned instrument for magnetic X-ray emission spectroscopy, which reads local magnetism from the X-rays a sample emits, at low temperature, high pressure and high field. It is funded by a 2024 US Department of Energy Early Career award to G. Fabbris; its design, location within POLAR and schedule have not been published.",
       "detectors": [],
       "sampleEnvironments": [],
       "source": "r21"
     }
   ],
   "totalLengthM": 77.7,
-  "geometryNotes": "One straight, non-canted line from the 4-ID straight, with two collinear planar undulators separated by a phase shifter. Before the upgrade, sector 4 was canted, feeding soft-x-ray 4-ID-C (CPU undulator) and 4-ID-E/XTIP plus hard-x-ray 4-ID-D. Those branches are gone, and POLAR uses the whole straight (APS News 2020; POLAR town hall 2021; Srajer 2002). Beam offsets along the line, all small for a 3D model: (1) The HHL mirror pair deflects horizontally (3 mrad grazing angle each) and returns the beam parallel with ~4 mm lateral offset; the direction (inboard/outboard) is not published. (2) The vertical DCM has a fixed 15.6 mm vertical offset, assumed upward. (3) The phase plates transmit the beam straight through, with each plate's diffraction plane tilted 45° about the beam. (4) The M3/M4 toroid/cylinder pair (53.7/54.5 m) deflects horizontally (2–4 mrad grazing angle each) and returns the beam parallel with a few-mm offset. The pair retracts for KB/CRL modes, so the downstream beam axis differs slightly between toroid and KB modes. (5) Each KB pair has the VFM upstream of the HFM, at 3 mrad each. Enclosures (scaled from the 2021 'Sector 4 2024' plan, ±0.3 m): 4-ID-A 24.4–36.1 m (inside the hall, against the ratchet wall); shielded transport 36.1–50.5 m; mini-hutch 4-ID-MH 50.5–52.8 m; 4-ID-B 52.8–63.3 m (~2.5 m wide, existing, tapered at its downstream end); 4-ID-G 63.5–70.0 m and 4-ID-H 70.0–77.7 m (both new, ~4.6 m wide, H's outboard wall angled inward at the downstream end). All are on the experiment-hall floor (no long-beamline building). The control room sits on the outboard side alongside B (2021 plan: racks level with B's upstream wall, desks at ~60–63 m), next to the existing XTIP rooms. Outboard double doors on B, G and H; an extra double door at H's downstream inboard corner; a staircase and loading platform beside the 9-1-1 magnet; the 9-1-1 magnet translates inboard for beam-pass. The neighbouring 5-BM hutches lie on the inboard side. Note the hutch-name churn: in the PDR (2017) the instruments were in 4-ID-B and 4-ID-D; in the FDR (2019) the SOE was 4-ID-E and the instruments were in 4-ID-B (diffractometer at 61.3 m) and 4-ID-G (magnet at 73.3 m); as built (2021 design onward) the diffractometer is in new 4-ID-G at ~67.2 m and the magnet in new 4-ID-H at 73.3 m (APS-U FDR 2019; APS-U PDR 2017; POLAR town hall 2021). Schematic hints for the unpublished offset directions: the 2021 town-hall layout cartoon (slide 16) draws the DCM with the beam stepping up between the crystals (upward offset) and the M1/M2 pair stepping the beam toward the ring (inboard). It is a cartoon, not an engineering drawing. Hutch heights scaled from the 2021 elevation (slide 16): 4-ID-A and 4-ID-B ≈ 3.4 m, 4-ID-MH ≈ 2.0 m, 4-ID-G ≈ 4.2 m, 4-ID-H ≈ 6.2 m; beam height ≈ 1.4 m above the floor (all ±0.3 m). 3D model: one straight line. The 4 mm (HHL mirrors), 15.6 mm (DCM) and few-mm (toroid) offsets are too small to see at hall scale and are not drawn, but the mirrors are mounted the way the cartoon implies (M1 outboard of the beam, deflecting inboard). Positions follow the 2021 plan where it differs from the FDR table (DCM 30.6 m, phase retarders 33.45 m). Drawing liberties, for legibility: hutches are cut-away glass rooms whose near wall and roof are left out; the phase-retarder plates are drawn about 7× real size in an open-topped tank, with the 45° roll of their diffraction plane drawn at 225° (optically the same); the 9-1-1 T cryostat is see-through and its 9 T split pair has a wedge cut away to show the DAC; the DAC anvils are drawn ~2× size; the imaging stack is parked on a cart beside the diffractometer; the detector arm is shown at 2θ = 60°/35°; the polarization arrows along the beam have a 0.32 m period and slowed helicity flips.",
+  "geometryNotes": "POLAR uses one straight, non-canted line from the 4-ID straight, with two collinear planar undulators separated by a phase shifter. Before the upgrade, sector 4 was canted, feeding soft-x-ray 4-ID-C (CPU undulator) and 4-ID-E/XTIP plus hard-x-ray 4-ID-D. Those branches are gone, and POLAR uses the whole straight (APS News 2020; POLAR town hall 2021; Srajer 2002).\n\nBeam offsets along the line, all small for a 3D model: (1) The HHL mirror pair deflects horizontally (3 mrad grazing angle each) and returns the beam parallel with ~4 mm lateral offset; the direction (inboard/outboard) is not published. (2) The vertical DCM has a fixed 15.6 mm vertical offset, assumed upward. (3) The phase plates transmit the beam straight through, with each plate's diffraction plane tilted 45° about the beam. (4) The M3/M4 toroid/cylinder pair (53.7/54.5 m) deflects horizontally (2–4 mrad grazing angle each) and returns the beam parallel with a few-mm offset. The pair retracts for KB/CRL modes, so the downstream beam axis differs slightly between toroid and KB modes. (5) Each KB pair has the VFM upstream of the HFM, at 3 mrad each.\n\nEnclosures (scaled from the 2021 'Sector 4 2024' plan, ±0.3 m): 4-ID-A 24.4–36.1 m (inside the hall, against the ratchet wall); shielded transport 36.1–50.5 m; mini-hutch 4-ID-MH 50.5–52.8 m; 4-ID-B 52.8–63.3 m (~2.5 m wide, existing, tapered at its downstream end); 4-ID-G 63.5–70.0 m and 4-ID-H 70.0–77.7 m (both new, ~4.6 m wide, H's outboard wall angled inward at the downstream end). All are on the experiment-hall floor (no long-beamline building).\n\nThe control room sits on the outboard side alongside B (2021 plan: racks level with B's upstream wall, desks at ~60–63 m), next to the existing XTIP rooms. Outboard double doors on B, G and H; an extra double door at H's downstream inboard corner; a staircase and loading platform beside the 9-1-1 magnet; the 9-1-1 magnet translates inboard for beam-pass. The neighbouring 5-BM hutches lie on the inboard side.\n\nThe hutch names changed during design: in the PDR (2017) the instruments were in 4-ID-B and 4-ID-D; in the FDR (2019) the SOE was 4-ID-E and the instruments were in 4-ID-B (diffractometer at 61.3 m) and 4-ID-G (magnet at 73.3 m); as built (2021 design onward) the diffractometer is in new 4-ID-G at ~67.2 m and the magnet in new 4-ID-H at 73.3 m (APS-U FDR 2019; APS-U PDR 2017; POLAR town hall 2021).\n\nSchematic hints for the unpublished offset directions: the 2021 town-hall layout cartoon (slide 16) draws the DCM with the beam stepping up between the crystals (upward offset) and the M1/M2 pair stepping the beam toward the ring (inboard). It is a cartoon, not an engineering drawing.\n\nHutch heights scaled from the 2021 elevation (slide 16): 4-ID-A and 4-ID-B ≈ 3.4 m, 4-ID-MH ≈ 2.0 m, 4-ID-G ≈ 4.2 m, 4-ID-H ≈ 6.2 m; beam height ≈ 1.4 m above the floor (all ±0.3 m).\n\nThe exhibit uses one straight beam axis. The 4 mm (HHL mirrors), 15.6 mm (DCM) and few-mm (toroid) offsets are too small to see at hall scale and are not drawn, but the mirrors are mounted the way the cartoon implies (M1 outboard of the beam, deflecting inboard). Positions follow the 2021 plan where it differs from the FDR table (DCM 30.6 m, phase retarders 33.45 m).\n\nDrawing liberties, for legibility: hutches are cut-away glass rooms whose near wall and roof are left out; the phase-retarder plates are drawn about 7× real size in an open-topped tank, with the 45° roll of their diffraction plane drawn at 225° (optically the same); the 9-1-1 T cryostat is see-through and its 9 T split pair has a wedge cut away to show the DAC; the DAC anvils are drawn ~2× size; the imaging stack is parked on a cart beside the diffractometer; the detector arm is shown at 2θ = 60°/35°; the polarization arrows along the beam have a 0.32 m period and slowed helicity flips.",
   "interactiveIdeas": [
     {
       "title": "Make it twist: the diamond quarter-wave plate",
@@ -1351,7 +1297,7 @@
     }
   ],
   "funFacts": [
-    "POLAR flips the 'handedness' of its X-rays by rocking a thin diamond with a piezo actuator: about 15 times per second today (POLAR town hall 2021), and 12.7 Hz in the 2007 high-pressure instrument (Haskel et al. 2007).",
+    "POLAR flips the 'handedness' of its X-rays by rocking a thin diamond with a piezo actuator: about 15 times per second in the 2021 design (POLAR town hall 2021), and 12.7 Hz in the 2007 high-pressure instrument (Haskel et al. 2007).",
     "In 2002, switching the helicity of sector 4's soft-x-ray circularly polarizing undulator took about 5 minutes (Srajer 2002).",
     "The 9-1-1 T magnet is deliberately cooled with liquid helium instead of a cryogen-free cryocooler, because a cryocooler's vibrations would blur a 300 nm beam (Strempfer et al. 2022).",
     "Diamond is nearly transparent to POLAR's hard X-rays: 1 mm of diamond dims the beam only ~10× at the iron edge (7.1 keV), while just 0.1 mm stops soft X-rays almost completely (by ~5×10¹⁰ at 1.5 keV and ~10³⁴ at 1 keV) (Haskel et al. 2007; NIST attenuation tables).",
@@ -1372,7 +1318,7 @@
       "caption": "3D model of the POLAR beamline at Sector 4 (beam travels right to left). 4-ID-A FOE: white-beam mirrors, monochromator, phase retarder. 4-ID-B: toroidal focusing mirrors, 2 T electromagnet. 4-ID-G: CRLs, KB mirrors, diffractometer with 2 T HTS magnet. 4-ID-H: KB mirrors, 9-1-1 T magnet, 4 T magnet. Label colours: red = new optics, blue = new instruments, orange = existing optics, green = existing instruments. From Strempfer et al., J. Phys.: Conf. Ser. 2380, 012038 (2022), Fig. 2, CC BY 3.0.",
       "source": "r5",
       "page": 4,
-      "whatItShows": "The as-designed (2021) arrangement of all four enclosures and the main optics and instruments: the best single overview for the 3D model. (PDF page 4 = article page 3.)"
+      "whatItShows": "The as-designed (2021) arrangement of all four enclosures with the main optics and instruments: the best single overview of the beamline. (PDF page 4 = article page 3.)"
     },
     {
       "file": "polar/polar_plan_view_sector4_2024.png",
@@ -1386,14 +1332,14 @@
       "caption": "Basic optical layout of POLAR, from the APS-U Final Design Report (2019), Fig. 4.11. White-beam mirrors M1/M2 and the HHL monochromator feed three focusing schemes: M3/M4 toroid/cylinder mirrors (large spots), 2D CRLs (µm spots), or KB mirror pairs KB1 and KB2 (100–400 nm) at the two instruments. As built, the DCM deflects vertically; KB1 serves 4-ID-G and KB2 serves 4-ID-H.",
       "source": "r1",
       "page": 44,
-      "whatItShows": "Which optic focuses where. Useful for a 'focusing modes' toggle in the 3D scene. (PDF page 44 = FDR page 4-21.)"
+      "whatItShows": "Which optic focuses where: the three focusing schemes, from broad mirror focus to nano-focus, side by side. (PDF page 44 = FDR page 4-21.)"
     },
     {
       "file": "polar/polar_instruments_sri2021.png",
       "caption": "Top: the 4-ID-G Huber diffractometer with open Eulerian cradle and 2 T magnet in diffraction geometry (left) and spectroscopy geometry (centre), and the interchangeable high-precision goniometer with KB tank and transfocator (right). Bottom: the 4-ID-H 9-1-1 T magnet with KB mirrors upstream and the Raman system outboard, and the probe tip with nanopositioner and double-membrane DAC. From Strempfer et al. (2022), Figs. 3–4, CC BY 3.0.",
       "source": "r5",
       "page": 6,
-      "whatItShows": "Shapes and arrangement of the two main end-station instruments, for modelling hotspots. (PDF page 6 = article page 5.)"
+      "whatItShows": "The shapes and arrangement of the two main end-station instruments. (PDF page 6 = article page 5.)"
     },
     {
       "file": "polar/polar_elevation_townhall2021.png",
@@ -1822,9 +1768,9 @@
   "openQuestions": [
     "As-built component positions in 4-ID-B/G/H are not published in a table. The diffractometer (67.2 m) and magnet (73.3 m) positions come from the 2021 town-hall slides and plan. Positions of the B-table components (window, polarimeter, XBPM, chopper, KB3) and of KB1 and KB2 are inferred from the FDR order and scaled from the plan drawing (±0.5 m).",
     "The FDR (2019) put the diffractometer at 61.3 m in an enlarged 4-ID-B and the toroids at 48 and 50 m in a new 4-ID-E. The 2021 redesign moved the toroids to 53.7/54.5 m and the instruments into new 4-ID-G/H. We could not confirm that the as-built layout matches the 2021 plan in every detail.",
-    "Source upgrade: the FDR planned two in-line SCAPE devices after the project, and the town hall timeline put the replacement around 2026. The Sep 2026 ID table still shows planar APS30#4/#9. A 2023 LDRD funded a permanent-magnet 'X-undulator' for POLAR. Which device (if any) will be installed, and when, is unknown. Both need a small round vacuum chamber instead of the standard 6.3 × 16 mm elliptical APS-U IDVC.",
-    "Whether the APS30 devices are refurbished pre-upgrade structures or new is inferred, not stated.",
-    "Directions of the lateral beam offsets: HHLM ~4 mm and toroid pair a few mm horizontally (inboard or outboard?); DCM 15.6 mm vertical offset (assumed upward).",
+    "Source upgrade: the FDR planned two in-line SCAPE devices after the project, and the town hall timeline put the replacement around 2026. The Sep 2026 ID table still shows planar APS30#4/#9. A 2023 Argonne internal research grant (LDRD) funded a permanent-magnet 'X-undulator' for POLAR. Which device (if any) will be installed, and when, is unknown. Both need a small round vacuum chamber instead of the standard 6.3 × 16 mm elliptical APS-U insertion-device vacuum chamber.",
+    "The APS30 devices are pre-upgrade magnet structures (the IPAC'24 undulator table lists the 3.0 cm period only among 'Existing IDs'); whether and how they were refurbished is not stated.",
+    "Directions of the lateral beam offsets: white-beam mirror pair ~4 mm and toroid pair a few mm horizontally (inboard or outboard?); DCM 15.6 mm vertical offset (assumed upward).",
     "Phase-plate details at POLAR (diamond thicknesses, which plates are in pr1/pr2, actual modulation frequency in user mode) are not published. The 15 Hz figure comes from 2021 planning slides.",
     "The status of the 4-ID-B 2 T electromagnet station in user operation is unclear: it is configured in Bluesky but not listed as an endstation in the beamline directory.",
     "Achieved pressure (directory: 3 Mbar) vs the 6 Mbar design goal; magnet field with DAC (directory 8.7 T vs 9 T spec); 9-1-1 bore quoted as 74 mm (VTI, SRI 2022) vs 3 inches (7.5 cm, slides).",

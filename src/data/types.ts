@@ -1,6 +1,12 @@
 /**
  * Content model. Beamline dossiers are researched JSON files (src/data/beamlines/*.json), fact-checked
  * against the APS-U Final Design Report (2019) and newer publications; every number carries a reference id.
+ *
+ * Every displayed text exists once, written like a museum label for every reader: a plain lead, the mechanism with
+ * each technical term defined in passing, then one or two telling numbers and the caveat a specialist would look for.
+ * Dense detail lives in compact tables (`specs`, `keyParameters`) and in fine-print fields shown to everyone in small
+ * type (`distanceNote`, `detectors`, `sampleEnvironments`, `quantitative`, `geometryNotes`, `whatItShows`,
+ * `openQuestions`, `source.*`).
  */
 
 export type ComponentCategory =
@@ -56,8 +62,9 @@ export interface BeamlineComponent {
   distanceNote?: string;
   enclosure?: string;
   deflection?: 'horizontal' | 'vertical' | 'none' | string;
-  plain: string;
-  expert: string;
+  /** what this part does and why it is there, 2–4 sentences */
+  text: string;
+  /** compact key → value table (key spelled for people, or a research key that `specLabel` formats) */
   specs?: Record<string, string | number>;
   source?: string;
 }
@@ -75,8 +82,7 @@ export interface Enclosure {
 export interface Instrument {
   name: string;
   enclosure?: string;
-  plain: string;
-  expert: string;
+  text: string;
   detectors?: string[];
   sampleEnvironments?: string[];
   source?: string;
@@ -108,11 +114,12 @@ export interface Beamline {
   fullName: string;
   status2026: { state: string; detail: string; sources?: string[] };
   tagline: string;
-  plainSummary: string;
-  expertSummary: string;
-  whatAPSUEnables: { plain: string; expert: string; quantitative: string[] };
-  techniques: { name: string; abbrev?: string; plain: string; expert: string }[];
-  scienceCases: { title: string; plain: string; expert: string; refs?: string[] }[];
+  /** one paragraph: what the beamline is for and how it works */
+  summary: string;
+  /** `text` ends with the key quantitative gain and its caveat; `quantitative` is the fine-print list of numbers */
+  whatAPSUEnables: { text: string; quantitative: string[] };
+  techniques: { name: string; abbrev?: string; text: string }[];
+  scienceCases: { title: string; text: string; refs?: string[] }[];
   keyParameters: { label: string; value: string; source?: string; note?: string }[];
   source: {
     insertionDevices: InsertionDevice[];

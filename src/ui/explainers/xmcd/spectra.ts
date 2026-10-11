@@ -5,7 +5,6 @@
  * (μ_L for LCP, μ_R for RCP, their average for linear light, in between for elliptical).
  * The y-range of the XMCD plot is fixed (full saturation), so the signal visibly shrinks with M.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import * as P from './physics';
 import { COL, linMap, rgba, rich, richW, signed, textW, txt, type Map1 } from './draw';
@@ -16,7 +15,6 @@ export interface SpectraView {
   yMax: number;
   beamPc: number;
   beamColor: string;
-  depth: Depth;
   /** sum-rule read-back on the displayed curves (moments projected on the beam) */
   rb: { mOrb: number; mSpinEff: number; p: number; q: number };
   /** true if μ ≈ 0 (no magnetic order): used for a "flat line" hint */
@@ -34,7 +32,6 @@ export class SpectraPlot {
 
   draw(v: SpectraView): void {
     const { ctx, w, h } = this.c;
-    const spec = v.depth === 'specialist';
     ctx.save();
     ctx.fillStyle = TOKENS.bg;
     ctx.fillRect(0, 0, w, h);
@@ -76,10 +73,10 @@ export class SpectraPlot {
       lx += 21;
       lx += rich(ctx, label, lx, ly, { size: 11, color: TOKENS.ink2 }) + (narrow ? 10 : 14);
     };
-    leg(COL.left, spec ? 'μ_L (LCP)' : '↺ left twist', 'line');
-    leg(COL.right, spec ? 'μ_R (RCP)' : '↻ right twist', 'line');
-    leg(this.accent, spec ? 'Δμ = μ_L − μ_R' : 'difference', 'fill');
-    leg(v.beamColor, spec ? 'selected beam' : 'your beam', 'glow');
+    leg(COL.left, '↺ left twist μ_L', 'line');
+    leg(COL.right, '↻ right twist μ_R', 'line');
+    leg(this.accent, 'difference Δμ = μ_L − μ_R', 'fill');
+    leg(v.beamColor, 'your beam', 'glow');
 
     // ---------------- frames
     const padL = 44;
@@ -122,8 +119,10 @@ export class SpectraPlot {
       txt(ctx, s, 0, 0, { size: 11, color: TOKENS.ink2, align: 'center', baseline: 'middle' });
       ctx.restore();
     };
-    yl(spec ? 'μ (normalized)' : 'absorption', (yTop0 + yTop1) / 2);
-    yl(spec ? 'Δμ (% of L₃ jump)' : 'difference %', (yBot0 + yBot1) / 2);
+    // longer wording where the plot is tall enough
+    const fit = (a: string, b: string, len: number) => (textW(ctx, a, { size: 11 }) <= len - 8 ? a : b);
+    yl(fit('absorption μ (normalized)', 'absorption μ', yTop1 - yTop0), (yTop0 + yTop1) / 2);
+    yl(fit('Δμ (% of L₃ edge step)', 'Δμ (% of step)', yBot1 - yBot0), (yBot0 + yBot1) / 2);
 
     for (const win of wins) {
       const xm = linMap(P.WINDOW.lo, P.WINDOW.hi, win.x0, win.x0 + ww);
@@ -214,7 +213,7 @@ export class SpectraPlot {
       ctx.lineTo(bx + 6, yy - 4);
       ctx.stroke();
     }
-    rich(ctx, spec ? 'E − E_{edge} (eV) · schematic lineshapes' : 'X-ray energy above each edge (eV)', padL + (w - padL - padR) / 2, h - 5, {
+    rich(ctx, narrow ? 'energy above each edge (eV)' : 'X-ray energy above each edge, E − E_{edge} (eV) · schematic shapes', padL + (w - padL - padR) / 2, h - 5, {
       size: 11,
       color: TOKENS.ink2,
       align: 'center',
@@ -234,33 +233,33 @@ export class SpectraPlot {
       const y = yD(d);
       return d >= 0 ? Math.min(y, y0 - 11) : Math.max(y, y0 + 11);
     };
-    if (spec) {
-      // integrated areas of the displayed difference, in eV (μ_L − μ_R, i.e. −P_c·(μ⁺−μ⁻) for M ∥ k)
-      const a3 = -v.rb.p * P.POLAR.pc;
-      const a2 = -(v.rb.q - v.rb.p) * P.POLAR.pc;
-      if (big) {
-        this.tag(xm3(pk3.x), tagY(pk3.v * 0.55), yD(0), `area ${signed(a3, 2)} eV`, L3.x0, L3.x0 + ww);
-        this.tag(xm2(pk2.x), tagY(pk2.v * 0.55), yD(0), `area ${signed(a2, 2)} eV`, L2.x0, L2.x0 + ww);
-      }
-      // sum-rule box in the empty upper right of the L₂ window
+    // integrated areas of the displayed difference, in eV (μ_L − μ_R, i.e. −P_c·(μ⁺−μ⁻) for M ∥ k)
+    const a3 = -v.rb.p * P.POLAR.pc;
+    const a2 = -(v.rb.q - v.rb.p) * P.POLAR.pc;
+    if (big) {
+      const roomy = ww >= 230;
+      const t3 = pk3.v > 0 ? 'left absorbs more' : 'right absorbs more';
+      this.tag(xm3(pk3.x), tagY(pk3.v * 0.6), yD(0), roomy ? `${t3}, area ${signed(a3, 2)} eV` : t3, L3.x0, L3.x0 + ww);
+      this.tag(xm2(pk2.x), tagY(pk2.v * 0.6), yD(0), roomy ? `flipped at L₂, area ${signed(a2, 2)} eV` : 'flipped at L₂', L2.x0, L2.x0 + ww);
+    }
+    // sum-rule read-back in the empty upper right of the L₂ window
+    {
       const bxl = L2.x0 + ww - 6;
       let by = yTop0 + (ww >= 200 ? 32 : 44); // below the edge label (two lines when narrow)
       const lines = [
         ['sum rules on these curves', TOKENS.ink3, 600],
-        [`m_{orb} ${signed(v.rb.mOrb, 3)} μ_B`, TOKENS.ink, 600],
-        [`m_{spin,eff} ${signed(v.rb.mSpinEff, 3)} μ_B`, TOKENS.ink, 600],
+        [`orbital m_{orb} ${signed(v.rb.mOrb, 3)} μ_B`, TOKENS.ink, 600],
+        [`spin m_{spin,eff} ${signed(v.rb.mSpinEff, 3)} μ_B`, TOKENS.ink, 600],
         [Math.abs(v.rb.mSpinEff) > 0.01 ? `ratio ${(v.rb.mOrb / v.rb.mSpinEff).toFixed(3)}` : 'ratio —', TOKENS.ink3, 500],
       ] as [string, string, number][];
       for (const [s, c, wgt] of lines) {
         rich(ctx, s, bxl, by, { size: 10.5, color: c, align: 'right', weight: wgt });
         by += 14;
       }
-    } else if (big) {
-      this.tag(xm3(pk3.x), tagY(pk3.v * 0.6), yD(0), pk3.v > 0 ? 'left absorbs more' : 'right absorbs more', L3.x0, L3.x0 + ww);
-      this.tag(xm2(pk2.x), tagY(pk2.v * 0.6), yD(0), 'flipped at L₂', L2.x0, L2.x0 + ww);
     }
     if (v.quiet) {
-      txt(ctx, spec ? 'Δμ ≈ 0: no net moment along k' : 'no magnetism → no difference', L3.x0 + ww / 2, yBot0 + 14, {
+      // This describes both edges; centring across them also keeps the sentence inside narrow canvases.
+      txt(ctx, 'no magnetism along the beam → Δμ ≈ 0', (L3.x0 + L2.x0 + ww) / 2, yBot0 + 14, {
         size: 11,
         color: TOKENS.ink3,
         align: 'center',

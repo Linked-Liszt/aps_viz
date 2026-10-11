@@ -1,6 +1,5 @@
 import '../styles/panel.css';
 import { h, p, icon, clear, rich } from '../lib/dom';
-import { store, type Depth } from '../app/store';
 import type { Beamline, BeamlineComponent, BeamlineMeta, Figure, Reference } from '../data/types';
 import { loadExplainer, type ExplainerInstance } from './explainers/registry';
 import { categoryIcon, componentKind, componentKindKey } from './categories';
@@ -23,9 +22,6 @@ const STATUS_LABEL: Record<string, string> = {
   unknown: 'Status unconfirmed',
 };
 
-/** Research bookkeeping that belongs in Specialist mode only (visitors see the value, not the paper trail). */
-const INTERNAL_NOTE = /conflict|open question/i;
-
 const tabId = (t: PanelTab) => `blp-tab-${t}`;
 const PANEL_ID = 'blp-tabpanel';
 const TITLE_ID = 'blp-title';
@@ -34,9 +30,11 @@ const TITLE_ID = 'blp-title';
 type FocusIntent = { kind: 'title' } | { kind: 'stop'; id: string } | { kind: 'tab' };
 
 /**
- * The right-hand exhibit panel for one beamline. Text adapts to the Visitor/Specialist depth setting.
+ * The right-hand exhibit panel for one beamline, laid out like a museum label: every text exists once, for every
+ * reader. Each tab leads with readable prose; the dense material (numbers lists, detectors, position notes, layout
+ * notes, figure notes, caveats) follows as subordinate fine print, and specs live in compact tables.
  * The header and tab buttons are persistent (built once per beamline); only the tab panel body is re-rendered, and only
- * when the beamline, tab, component or depth actually changes.
+ * when the beamline, tab or component actually changes.
  */
 export class BeamlinePanel {
   readonly el: HTMLElement;
@@ -51,8 +49,6 @@ export class BeamlinePanel {
   private componentId: string | null = null;
   private explainer: ExplainerInstance | null = null;
   private explainerToken = 0;
-  /** technique notes under the persistent station host (How tab), re-filled on depth changes */
-  private techHost: HTMLElement | null = null;
   private renderedKey = '';
   private pendingTab: PanelTab | null = null;
   private focusIntent: FocusIntent | null = null;
@@ -105,9 +101,6 @@ export class BeamlinePanel {
     this.live = h('div', { class: 'blp-sr', role: 'status' });
     this.el = h('aside', { class: 'bl-panel glass', 'aria-label': 'Beamline' }, this.head, this.tabRow, this.body, this.live);
     this.el.inert = true;
-    store.subscribe((s, prev) => {
-      if (s.depth !== prev.depth && this.b) this.onDepth(s.depth);
-    });
     // Other UI (e.g. search) can ask for a tab, before or after it navigates: the next show() applies it (the app
     // applies views in a microtask); if no show() came by the end of this task, it applies to the open panel.
     window.addEventListener('apsu:panel-tab', (e) => {
@@ -197,15 +190,6 @@ export class BeamlinePanel {
     }, 0);
   }
 
-  private get depth(): Depth {
-    return store.state.depth;
-  }
-
-  private txt(plain: string | undefined, expert: string | undefined): string {
-    if (this.depth === 'specialist') return expert || plain || '';
-    return plain || expert || '';
-  }
-
   private announce(msg: string): void {
     if (msg === this.announced) return;
     this.announced = msg;
@@ -217,7 +201,7 @@ export class BeamlinePanel {
   }
 
   private key(): string {
-    return `${this.b?.id}|${this.tab}|${this.componentId ?? ''}|${this.depth}`;
+    return `${this.b?.id}|${this.tab}|${this.componentId ?? ''}`;
   }
 
   private renderHead(b: Beamline, meta: BeamlineMeta): void {
@@ -255,22 +239,17 @@ export class BeamlinePanel {
     this.body.setAttribute('aria-labelledby', tabId(this.tab));
   }
 
-  private render(opts: { keepScroll?: boolean } = {}): void {
+  private render(): void {
     const b = this.b;
     const meta = this.meta;
     if (!b || !meta) return;
     this.syncTabs();
     const key = this.key();
     if (key === this.renderedKey) return;
-    // same beamline, tab and component: only the depth changed, so keep the reader's place
-    const keepScroll = opts.keepScroll ?? this.renderedKey.split('|').slice(0, 3).join('|') === key.split('|').slice(0, 3).join('|');
     this.renderedKey = key;
     const active = document.activeElement;
     const focusWasInBody = !!active && active !== this.body && this.body.contains(active);
-    // a depth-only re-render (e.g. the V key) puts focus back on the same control when it still exists
-    const sig = focusWasInBody && keepScroll ? focusSig(active as HTMLElement) : null;
     this.destroyExplainer();
-    this.techHost = null;
     clear(this.body);
     switch (this.tab) {
       case 'overview':
@@ -289,11 +268,11 @@ export class BeamlinePanel {
         this.renderSpecs(b, meta);
         break;
     }
-    if (!keepScroll) this.body.scrollTop = 0;
-    this.applyFocus(focusWasInBody, sig);
+    this.body.scrollTop = 0;
+    this.applyFocus(focusWasInBody);
   }
 
-  private applyFocus(focusWasInBody: boolean, sig: FocusSig | null = null): void {
+  private applyFocus(focusWasInBody: boolean): void {
     const intent = this.focusIntent;
     this.focusIntent = null;
     let target: HTMLElement | null = null;
@@ -304,24 +283,9 @@ export class BeamlinePanel {
       target.focus({ preventScroll: intent?.kind === 'title' });
       if (intent?.kind === 'stop') target.scrollIntoView({ block: 'nearest' });
     } else if (focusWasInBody) {
-      // the focused control was replaced: its twin if there is one, else keep focus in the panel (never <body>)
-      const twin = sig ? Array.from(this.body.querySelectorAll<HTMLElement>(sig.tag)).find((el) => sameSig(focusSig(el), sig)) : undefined;
-      (twin ?? this.body).focus({ preventScroll: true });
+      // the focused control was replaced: keep focus in the panel (never <body>)
+      this.body.focus({ preventScroll: true });
     }
-  }
-
-  private onDepth(d: Depth): void {
-    const b = this.b;
-    if (!b) return;
-    if (this.tab === 'how' && this.techHost && (!this.explainer || this.explainer.setDepth)) {
-      // keep the station (its sliders, its scroll position): it re-labels itself; only the notes below are re-written.
-      // A station still loading mounts with the new depth when it arrives.
-      this.explainer?.setDepth?.(d);
-      this.fillTechniques(b);
-      this.renderedKey = this.key();
-      return;
-    }
-    this.render({ keepScroll: true });
   }
 
   // ---------------------------------------------------------------- tabs
@@ -336,42 +300,11 @@ export class BeamlinePanel {
         h('button', { class: 'btn btn-primary', type: 'button', onclick: () => this.openTab('how') }, icon('play', 15), 'Try the interactive station'),
         h('button', { class: 'btn', type: 'button', onclick: () => this.openTab('inside') }, icon('layers', 15), 'Walk the beamline'),
       ),
-      p(this.txt(b.plainSummary, b.expertSummary)),
+      p(b.summary),
     );
     const w = b.whatAPSUEnables;
-    if (w) {
-      const text = this.txt(w.plain, w.expert);
-      const card = h('section', { class: 'callout' }, h('div', { class: 'kicker' }, icon('sparkles', 14), ' What the upgrade makes possible'));
-      const [first, rest] = this.depth === 'visitor' ? splitFirstSentence(text) : [text, ''];
-      const lead = p(first);
-      card.appendChild(lead);
-      if (rest) {
-        const more = p(rest);
-        more.id = 'blp-upgrade-more';
-        more.hidden = true;
-        const btn = h(
-          'button',
-          {
-            class: 'link-btn',
-            type: 'button',
-            'aria-expanded': 'false',
-            'aria-controls': more.id,
-            onclick: () => {
-              const open = more.hidden;
-              more.hidden = !open;
-              btn.setAttribute('aria-expanded', String(open));
-              btn.textContent = open ? 'Show less' : 'Read more';
-            },
-          },
-          'Read more',
-        );
-        lead.append(' ', btn);
-        card.appendChild(more);
-      }
-      if (w.quantitative?.length) {
-        card.appendChild(h('ul', { class: 'numbers' }, ...w.quantitative.slice(0, this.depth === 'specialist' ? 8 : 3).map((q) => h('li', null, rich(stripRefs(q))))));
-      }
-      body.appendChild(card);
+    if (w?.text) {
+      body.appendChild(h('section', { class: 'callout' }, h('div', { class: 'kicker' }, icon('sparkles', 14), ' What the upgrade makes possible'), p(w.text)));
     }
     const params = b.keyParameters?.slice(0, 6) ?? [];
     if (params.length) {
@@ -385,6 +318,10 @@ export class BeamlinePanel {
     }
     if (b.funFacts?.length) {
       body.appendChild(h('section', { class: 'facts' }, h('div', { class: 'kicker' }, 'Did you know?'), ...b.funFacts.slice(0, 3).map((f) => p(stripRefs(f)))));
+    }
+    // the evidence behind the upgrade paragraph, as the label's fine print: last, so it never buries the story above
+    if (w?.quantitative?.length) {
+      body.appendChild(fineBlock('The upgrade in numbers', fineList(w.quantitative.map(stripRefs))));
     }
   }
 
@@ -400,9 +337,12 @@ export class BeamlinePanel {
     const id = meta.explainers[0];
     const stationHost = h('div', { class: 'station-host' });
     const head = h('div', { class: 'station-head' });
-    this.techHost = h('div', { class: 'techniques' });
-    body.append(head, stationHost, this.techHost);
-    this.fillTechniques(b);
+    const techniques = h(
+      'div',
+      { class: 'techniques' },
+      ...(b.techniques ?? []).map((t) => h('section', { class: 'technique' }, h('h4', null, t.name, t.abbrev ? h('span', { class: 'abbr' }, ` ${t.abbrev}`) : null), p(t.text))),
+    );
+    body.append(head, stationHost, techniques);
     const load = () => {
       stationHost.replaceChildren(h('div', { class: 'station-loading' }, 'Loading interactive station…'));
       const token = ++this.explainerToken;
@@ -421,18 +361,10 @@ export class BeamlinePanel {
           h('button', { class: 'btn btn-ghost station-expand', type: 'button', onclick: () => this.onExpandExplainer(id), title: 'Open full screen' }, icon('expand', 15), 'Full screen'),
         );
         stationHost.replaceChildren();
-        this.explainer = mod.mount(stationHost, { depth: this.depth, color: meta.color, beamlineId: b.id });
+        this.explainer = mod.mount(stationHost, { color: meta.color, beamlineId: b.id });
       });
     };
     load();
-  }
-
-  private fillTechniques(b: Beamline): void {
-    this.techHost?.replaceChildren(
-      ...(b.techniques ?? []).map((t) =>
-        h('section', { class: 'technique' }, h('h4', null, t.name, t.abbrev ? h('span', { class: 'abbr' }, ` ${t.abbrev}`) : null), p(this.txt(t.plain, t.expert))),
-      ),
-    );
   }
 
   /** Stops in pin order (the 3D pins number the same list). */
@@ -455,7 +387,6 @@ export class BeamlinePanel {
         'Follow the X-rays from the undulator source to the detector. Pick any stop to fly the camera there; distances are measured from the source point.',
       ),
     );
-    if (b.geometryNotes && this.depth === 'specialist') body.appendChild(p(b.geometryNotes, 'muted small'));
     const list = h('ol', { class: 'stop-list' });
     const branchName = new Map((b.branches ?? []).map((x) => [x.id, x.name]));
     const groups: [string | null, number[]][] = [];
@@ -512,12 +443,17 @@ export class BeamlinePanel {
             'section',
             { class: 'technique' },
             h('h4', null, ins.name, ins.enclosure ? h('span', { class: 'abbr mono' }, ` ${ins.enclosure}`) : null),
-            p(this.txt(ins.plain, ins.expert)),
-            this.depth === 'specialist' && ins.detectors?.length ? h('div', { class: 'small muted' }, h('b', null, 'Detectors: '), ins.detectors.join('; ')) : null,
-            this.depth === 'specialist' && ins.sampleEnvironments?.length ? h('div', { class: 'small muted' }, h('b', null, 'Sample environments: '), ins.sampleEnvironments.join('; ')) : null,
+            p(ins.text),
+            ins.detectors?.length ? fineLine('Detectors', ins.detectors) : null,
+            ins.sampleEnvironments?.length ? fineLine('Sample environments', ins.sampleEnvironments) : null,
           ),
         );
       }
+    }
+    // how the real layout is known (design vs as-built, offsets, what the model assumes): the walk's fine print
+    if (b.geometryNotes) {
+      const notes = b.geometryNotes.split(/\n\s*\n/).map((text) => text.trim()).filter(Boolean);
+      body.appendChild(fineBlock('Notes on the layout', ...notes.map((text) => p(text, 'fine'))));
     }
   }
 
@@ -548,12 +484,11 @@ export class BeamlinePanel {
         c.enclosure ? h('span', { class: 'chip mono', title: enc?.role ?? '' }, c.enclosure) : null,
         c.deflection && c.deflection !== 'none' ? h('span', { class: 'chip' }, `${c.deflection} deflection`) : null,
       ),
-      p(c.plain, this.depth === 'specialist' ? 'muted' : ''),
-      this.depth === 'specialist' && c.expert ? p(c.expert) : !c.expert ? null : h('details', { class: 'more' }, h('summary', null, 'For specialists'), p(c.expert)),
+      p(c.text),
       specs.length
         ? h('table', { class: 'specs' }, h('tbody', null, ...specs.map(([k, v]) => h('tr', null, h('th', { scope: 'row' }, specLabelNode(k)), h('td', { class: 'mono' }, String(v))))))
         : null,
-      c.distanceNote && this.depth === 'specialist' ? p(`Position: ${c.distanceNote}`, 'small muted') : null,
+      c.distanceNote ? p(`**Position:** ${c.distanceNote}`, 'fine') : null,
       ref ? h('div', { class: 'src small' }, icon('doc', 13), ' Source: ', refLink(ref)) : null,
     );
   }
@@ -567,7 +502,7 @@ export class BeamlinePanel {
           'section',
           { class: 'science' },
           h('h4', null, s.title),
-          p(this.txt(s.plain, s.expert)),
+          p(s.text),
           refs.length
             ? h('div', { class: 'src small' }, icon('doc', 13), h('ul', { class: 'ref-list', 'aria-label': 'Sources' }, ...refs.map((r) => h('li', null, refLink(r)))))
             : null,
@@ -578,8 +513,7 @@ export class BeamlinePanel {
 
   private renderSpecs(b: Beamline, meta: BeamlineMeta): void {
     const body = this.body;
-    const visitor = this.depth === 'visitor';
-    if (visitor) body.appendChild(p('These are the engineering details beamline scientists care about. Switch to **Specialist** (top right) for denser explanations everywhere.', 'muted small'));
+    body.appendChild(p('The engineering numbers behind the exhibit, and the documents they come from.', 'muted small'));
     body.appendChild(h('h4', { class: 'sub' }, 'Key parameters'));
     const row = (label: string, value: string, note?: string, prose = false) =>
       h('tr', null, h('th', { scope: 'row' }, label), h('td', { class: prose ? undefined : 'mono' }, value, note ? h('div', { class: 'small muted spec-note' }, note) : null));
@@ -592,7 +526,7 @@ export class BeamlinePanel {
           null,
           row('Full title', b.fullName, undefined, true),
           row('Sector & stations', `${meta.sectorNumber}-ID${meta.stations ? ` · ${meta.stations}` : ''}`),
-          ...(b.keyParameters ?? []).map((k) => row(k.label, k.value, k.note && !(visitor && INTERNAL_NOTE.test(k.note)) ? k.note : undefined)),
+          ...(b.keyParameters ?? []).map((k) => row(k.label, k.value, k.note || undefined)),
         ),
       ),
     );
@@ -613,13 +547,13 @@ export class BeamlinePanel {
                 .filter(Boolean)
                 .join(' · '),
             ),
-            d.notes && !(visitor && INTERNAL_NOTE.test(d.notes)) ? p(d.notes, 'small muted') : null,
+            d.notes ? p(d.notes, 'fine') : null,
           ),
         );
       }
-      if (b.source.canting) body.appendChild(p(`**Canting:** ${b.source.canting}`, 'small'));
-      if (b.source.frontEnd) body.appendChild(p(`**Front end:** ${b.source.frontEnd}`, 'small'));
-      if (b.source.sourceSizeAndDivergence) body.appendChild(p(`**Source size:** ${b.source.sourceSizeAndDivergence}`, 'small'));
+      if (b.source.canting) body.appendChild(p(`**Canting:** ${b.source.canting}`, 'fine'));
+      if (b.source.frontEnd) body.appendChild(p(`**Front end:** ${b.source.frontEnd}`, 'fine'));
+      if (b.source.sourceSizeAndDivergence) body.appendChild(p(`**Source size:** ${b.source.sourceSizeAndDivergence}`, 'fine'));
     }
     if (b.enclosures?.length) {
       body.appendChild(h('h4', { class: 'sub' }, 'Enclosures'));
@@ -652,16 +586,17 @@ export class BeamlinePanel {
               'figcaption',
               null,
               rich(f.caption),
-              this.depth === 'specialist' && f.whatItShows ? h('div', { class: 'small muted' }, rich(f.whatItShows)) : null,
+              f.whatItShows ? h('div', { class: 'fine' }, rich(f.whatItShows)) : null,
               ref ? h('div', { class: 'small muted' }, 'Credit: ', refLink(ref), f.page ? `, p. ${f.page}` : '') : null,
             ),
           ),
         );
       }
     }
-    if (b.openQuestions?.length && this.depth === 'specialist') {
+    if (b.openQuestions?.length) {
       body.appendChild(h('h4', { class: 'sub' }, 'Caveats & open questions'));
-      body.appendChild(h('ul', { class: 'small muted' }, ...b.openQuestions.map((q) => h('li', null, q))));
+      body.appendChild(p('What the public record leaves unsettled, and what this exhibit had to assume.', 'muted small'));
+      body.appendChild(fineList(b.openQuestions));
     }
     body.appendChild(h('h4', { class: 'sub' }, 'References'));
     body.appendChild(h('ol', { class: 'refs small' }, ...b.references.map((r) => h('li', { id: `ref-${b.id}-${r.id}` }, refLink(r), r.venue ? h('span', { class: 'muted' }, ` — ${r.venue}${r.year ? `, ${r.year}` : ''}`) : null))));
@@ -678,7 +613,7 @@ export class BeamlinePanel {
           'figcaption',
           null,
           rich(f.caption),
-          f.whatItShows ? h('div', { class: 'small muted' }, rich(f.whatItShows)) : null,
+          f.whatItShows ? h('div', { class: 'fine' }, rich(f.whatItShows)) : null,
           h(
             'div',
             { class: 'small muted' },
@@ -717,16 +652,23 @@ export function stripRefs(s: string): string {
 
 const sentenceCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-/** Identity of a focusable control that survives a re-render (stop id, element id, or its label). */
-interface FocusSig {
-  tag: string;
-  id: string;
-  label: string;
+// ---------------------------------------------------------------- fine print
+// The exhibit label's small type: technical, complete sentences, shown to every reader below the prose it supports.
+
+/** A titled fine-print section (sub-heading + content). */
+function fineBlock(title: string, ...content: Node[]): HTMLElement {
+  return h('section', { class: 'fine-block' }, h('h4', { class: 'sub' }, title), ...content);
 }
-function focusSig(el: HTMLElement): FocusSig {
-  return { tag: el.tagName.toLowerCase(), id: el.dataset.id || el.id, label: (el.getAttribute('aria-label') ?? el.textContent ?? '').trim().slice(0, 80) };
+
+/** A fine-print bullet list (each item may use the panel's light markup). */
+function fineList(items: string[]): HTMLElement {
+  return h('ul', { class: 'fine fine-list' }, ...items.map((t) => h('li', null, rich(t))));
 }
-const sameSig = (a: FocusSig, b: FocusSig) => a.tag === b.tag && a.id === b.id && a.label === b.label;
+
+/** One fine-print line: a bold label and a short list ("Detectors: A; B"). */
+function fineLine(label: string, items: string[]): HTMLElement {
+  return h('p', { class: 'fine fine-line' }, h('b', null, `${label}: `), rich(items.join('; ')));
+}
 
 /**
  * First clause of an enclosure role ("first optics enclosure (white beam): FE exit mask, …" → "First optics enclosure
@@ -757,12 +699,6 @@ export function firstClause(s: string, max = 84): string {
     out = cut !== undefined ? out.slice(0, cut) : `${out.slice(0, max).replace(/\s+\S*$/, '')}…`;
   }
   return sentenceCase(out.trim());
-}
-
-/** Split off the first sentence (at least 40 characters, so "e.g." or "approx." early on do not end it). */
-export function splitFirstSentence(s: string): [string, string] {
-  const m = /^(.{40,}?[.!?])\s+(?=[A-Z0-9“"‘'(])/s.exec(s);
-  return m ? [m[1], s.slice(m[0].length)] : [s, ''];
 }
 
 /** A short accessible title for a figure: its caption up to the first colon or full stop. */

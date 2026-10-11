@@ -2,7 +2,6 @@
  * Canvas views for the nanoprobe station: the sample with the scanning beam (+ close-up), the four element maps,
  * and the XRF spectrum with the absorption-edge ruler.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, plotFrame, type Canvas2D } from '../kit';
 import { EL_KEYS, ELEMENTS, W_EDGES, comptonE, fmtCounts, fmtLenNm, type ElKey } from './physics';
 import { FOV_NM, type CellState } from './sample';
@@ -50,7 +49,6 @@ export interface HeroState {
   /** direction of the pending change (colours the status text) */
   pendingDir: 'charging' | 'discharging';
   hasCracks: boolean;
-  depth: Depth;
   accent: string;
   speedLabel: string;
   /** footer hint while the beam is parked; "|"-separated variants, longest first (the first that fits is drawn) */
@@ -186,7 +184,7 @@ export class HeroView {
       ctx.fillStyle = 'rgba(5,8,14,0.7)';
       ctx.fillRect(ix, iy, inset, 17);
       ctx.fillRect(ix, iy + inset - 15, inset, 15);
-      const spotT = s.depth === 'specialist' ? `FWHM ${fmtLenNm(s.spot)}` : `spot ${fmtLenNm(s.spot)}`;
+      const spotT = `spot ${fmtLenNm(s.spot)}`;
       ctx.font = `600 10.5px ${FONT}`;
       const sw = ctx.measureText(spotT).width;
       txt(ctx, spotT, ix + inset - 5, iy + 12, { size: 10.5, c: s.accent, align: 'right', w: 600 });
@@ -225,7 +223,7 @@ export class HeroView {
     const bw = txt(ctx, fmtLenNm(bar), x0 + bar * sc + 6, fy, { size: 10.5, c: TOKENS.ink2 });
     let lx = x0 + side;
     const items: [string, string][] = [];
-    items.push([ELEMENTS.W.color, s.depth === 'specialist' ? 'W-rich' : 'tungsten-rich']);
+    items.push([ELEMENTS.W.color, 'tungsten-rich']);
     if (s.hasCracks) items.push(['#1a2433', 'cracks']);
     ctx.textAlign = 'right';
     for (let i = items.length - 1; i >= 0; i--) {
@@ -319,7 +317,6 @@ export interface MapsState {
   run: ScanRun | null;
   excited: boolean[];
   scanning: boolean;
-  depth: Depth;
   accent: string;
 }
 
@@ -413,7 +410,10 @@ export class MapsView {
       const El = ELEMENTS[k];
       const { mx, my, msz } = G[e];
       const sym = txt(ctx, k, mx, my - 4, { size: 13, w: 700, c: El.color });
-      const sub = s.depth === 'specialist' ? `${El.main.name} ${El.main.e.toFixed(2)} keV` : El.name;
+      // element name, plus the line it is mapped with where the map is wide enough
+      const subLong = `${El.name} · ${El.main.name} ${El.main.e.toFixed(2)} keV`;
+      ctx.font = `10.5px ${FONT}`;
+      const sub = sym + 5 + ctx.measureText(subLong).width <= msz ? subLong : El.name;
       txt(ctx, sub, mx + sym + 5, my - 4, { size: 10.5, c: TOKENS.ink3 });
       ctx.fillStyle = '#070a10';
       ctx.fillRect(mx, my, msz, msz);
@@ -423,7 +423,7 @@ export class MapsView {
       // colour bar: "0 ▬▬▬ max unit" on one line
       const cy = my + msz + 11;
       ctx.font = `500 10px ${FONT}`;
-      const unit = s.depth === 'specialist' ? '/px' : ' per pixel';
+      const unit = ' per pixel';
       const maxT = run && s.excited[e] ? `${fmtCounts(run.scale[e])}${unit}` : '';
       const mw = maxT ? ctx.measureText(maxT).width : 0;
       const bx0 = mx + 10;
@@ -446,7 +446,7 @@ export class MapsView {
   draw(s: MapsState): void {
     const { ctx, w, h } = this.c;
     const run = s.run;
-    const key = `${w}|${h}|${this.c.dpr}|${s.depth}|${s.excited.join()}|${run ? Array.from(run.scale, (v) => fmtCounts(v)).join() : ''}`;
+    const key = `${w}|${h}|${this.c.dpr}|${s.excited.join()}|${run ? Array.from(run.scale, (v) => fmtCounts(v)).join() : ''}`;
     if (key !== this.layerKey) {
       this.layerKey = key;
       this.renderLayer(s, w, h);
@@ -486,7 +486,7 @@ export class MapsView {
         ctx.fillStyle = 'rgba(5,8,14,0.8)';
         ctx.fillRect(mx, my, msz, msz);
         const edge = ELEMENTS[k].edges[0];
-        txt(ctx, s.depth === 'specialist' ? 'not excited' : 'dark: not excited', mx + msz / 2, my + msz / 2 - 4, { size: 11.5, w: 650, c: TOKENS.ink, align: 'center' });
+        txt(ctx, 'dark: not excited', mx + msz / 2, my + msz / 2 - 4, { size: 11.5, w: 650, c: TOKENS.ink, align: 'center' });
         txt(ctx, `needs E₀ > ${edge.e.toFixed(2)} keV`, mx + msz / 2, my + msz / 2 + 12, { size: 10.5, c: TOKENS.ink3, align: 'center' });
       }
     });
@@ -502,7 +502,6 @@ export interface SpecState {
   hasPixel: boolean;
   E0: number;
   excited: boolean[];
-  depth: Depth;
   accent: string;
   /** y-axis top (counts per pixel per channel) */
   ymax: number;
@@ -529,7 +528,7 @@ export class SpectrumView {
   private legendBox = { x0: 0, x1: 0, y0: 0, y1: 0 };
   constructor(private c: Canvas2D) {}
 
-  /** axes, ruler, edges and the excitation window: redrawn only when E₀ / size / scale / depth change */
+  /** axes, ruler, edges and the excitation window: redrawn only when E₀ / size / scale change */
   private renderLayer(s: SpecState, w: number, h: number): void {
     const dpr = this.c.dpr;
     this.layer.width = Math.round(w * dpr);
@@ -545,12 +544,11 @@ export class SpectrumView {
     const decades: number[] = [];
     for (let v = ymin * 10; v <= ymax * 1.001; v *= 10) decades.push(v);
     const yt = w < 460 ? decades.filter((_, i) => i % 2 === decades.length % 2 || i === decades.length - 1) : decades;
-    const spc = s.depth === 'specialist';
     const f = plotFrame(
       ctx,
       { x: 0, y: top + ruler, w, h: h - top - ruler },
-      { min: SPEC.e0, max: SPEC.e1, label: spc ? 'emitted photon energy (keV)' : w < 460 ? 'energy of the X-rays coming out (keV)' : 'energy of the X-rays coming out of the sample (keV)', ticks: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] },
-      { min: ymin, max: ymax, log: true, label: spc ? 'counts / px / 10 eV' : 'X-rays per pixel', ticks: yt, format: tickFmt },
+      { min: SPEC.e0, max: SPEC.e1, label: w < 460 ? 'energy of the X-rays coming out (keV)' : 'energy of the X-rays coming out of the sample (keV)', ticks: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] },
+      { min: ymin, max: ymax, log: true, label: 'X-rays per pixel per 10 eV', ticks: yt, format: tickFmt },
     );
     const rY0 = top + 4;
     const rY1 = top + ruler - 4;
@@ -614,7 +612,7 @@ export class SpectrumView {
 
   draw(s: SpecState): void {
     const { ctx, w, h } = this.c;
-    const key = `${w}|${h}|${this.c.dpr}|${s.E0.toFixed(3)}|${s.ymax}|${s.depth}`;
+    const key = `${w}|${h}|${this.c.dpr}|${s.E0.toFixed(3)}|${s.ymax}`;
     if (key !== this.layerKey) {
       this.layerKey = key;
       this.renderLayer(s, w, h);
@@ -697,9 +695,8 @@ export class SpectrumView {
   /** legend with a backing box; top-left on wide plots, top-right on narrow ones (the 10–14 keV region is quiet) */
   private legend(ctx: CanvasRenderingContext2D, s: SpecState): void {
     const F = this.F;
-    const spc = s.depth === 'specialist';
-    const t1 = spc ? 'map average (Σ / N px)' : 'whole map (average)';
-    const t2 = spc ? 'beam position (1 Poisson draw)' : 'the spot under the beam';
+    const t1 = 'whole map (average per pixel)';
+    const t2 = 'the spot under the beam (with photon noise)';
     ctx.font = `500 10.5px ${FONT}`;
     const bw = 19 + Math.max(ctx.measureText(t1).width, ctx.measureText(t2).width) + 8;
     const narrow = F.x1 - F.x0 < 480;
@@ -726,24 +723,26 @@ export class SpectrumView {
 
   private peakLabels(ctx: CanvasRenderingContext2D, s: SpecState, X: (e: number) => number, Y: (v: number) => number, yTop: number, xL: number, xR: number): void {
     const spec = s.spec;
-    const spc = s.depth === 'specialist';
+    // line names (Kα, Lβ …) for everyone; the weaker lines only where the plot is wide
+    const wide = xR - xL > 520;
     const cand: { e: number; text: string; color: string; pri: number }[] = [];
     const ex = (k: ElKey) => s.excited[EL_KEYS.indexOf(k)];
     for (const k of ['Ni', 'Co', 'Mn'] as const) {
       if (!ex(k)) continue;
       const L = ELEMENTS[k].lines;
-      cand.push({ e: L[0].e, text: spc ? `${k} Kα` : k, color: ELEMENTS[k].color, pri: 3 });
-      if (spc && xR - xL > 520) cand.push({ e: L[2].e, text: `${k} Kβ`, color: ELEMENTS[k].color, pri: 1 });
+      cand.push({ e: L[0].e, text: `${k} Kα`, color: ELEMENTS[k].color, pri: 3 });
+      if (wide) cand.push({ e: L[2].e, text: `${k} Kβ`, color: ELEMENTS[k].color, pri: 1 });
     }
     if (ex('W')) {
-      cand.push({ e: 8.3976, text: spc ? 'W Lα' : 'W', color: ELEMENTS.W.color, pri: 2 });
-      if (s.E0 > W_EDGES.L2) cand.push({ e: 9.6724, text: spc ? 'W Lβ' : 'W', color: ELEMENTS.W.color, pri: 2 });
-      if (spc && s.E0 > W_EDGES.L2 && xR - xL > 400) cand.push({ e: 11.2852, text: 'W Lγ', color: ELEMENTS.W.color, pri: 1 });
+      cand.push({ e: 8.3976, text: 'W Lα', color: ELEMENTS.W.color, pri: 2 });
+      if (s.E0 > W_EDGES.L2) cand.push({ e: 9.6724, text: 'W Lβ', color: ELEMENTS.W.color, pri: 2 });
+      if (s.E0 > W_EDGES.L2 && xR - xL > 400) cand.push({ e: 11.2852, text: 'W Lγ', color: ELEMENTS.W.color, pri: 1 });
     }
     if (s.E0 <= SPEC.e1 + 0.2) {
       const ec = comptonE(s.E0);
-      if (spc) {
-        cand.push({ e: ec, text: 'Compton', color: '#9aa6b8', pri: 1 });
+      // the scattered beam: elastic (Rayleigh) at the beam energy, Compton just below it
+      if (wide) {
+        cand.push({ e: ec, text: 'Compton scatter', color: '#9aa6b8', pri: 1 });
         cand.push({ e: s.E0, text: 'Rayleigh', color: '#9aa6b8', pri: 0 });
       } else cand.push({ e: (s.E0 + ec) / 2, text: 'scattered beam', color: '#9aa6b8', pri: 1 });
     }

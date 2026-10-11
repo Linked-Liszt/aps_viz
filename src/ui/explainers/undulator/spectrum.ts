@@ -8,7 +8,6 @@
  *     (λ = 15 cm, 1.6 T, 16 periods — not an APS device).
  *   • hover shows an energy; click/tap asks the station to tune there (main module decides harmonic + gap).
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, plotFrame, type Canvas2D, type PlotFrame } from '../kit';
 import * as P from './physics';
 import { label, roundRect, withAlpha } from './scene';
@@ -26,7 +25,6 @@ export interface SpectrumInput {
   dev: P.Device;
   ring: P.Ring;
   setting: number;
-  depth: Depth;
   tunedN: number | null;
 }
 
@@ -118,12 +116,12 @@ export class SpectrumView {
   }
 
   /**
-   * Axes, tuning bands and reference curves change only with the device, ring, depth and canvas size: they are
+   * Axes, tuning bands and reference curves change only with the device, ring and canvas size: they are
    * rendered once into an offscreen layer, so dragging the gap only redraws the harmonic lines and labels.
    */
-  private renderStatic(spec: boolean, narrow: boolean): PlotFrame {
+  private renderStatic(narrow: boolean): PlotFrame {
     const { w, h, dpr } = this.c;
-    const key = `${w}x${h}@${dpr}|${spec}|${this.curveKey}`;
+    const key = `${w}x${h}@${dpr}|${this.curveKey}`;
     if (key === this.bgKey && this.frame) return this.frame;
     this.bgKey = key;
     const bg = this.bg;
@@ -140,8 +138,8 @@ export class SpectrumView {
     const f = plotFrame(
       ctx,
       { x: 0, y: 24, w, h: plotH },
-      { min: EMIN, max: EMAX, log: true, ticks: [1, 2, 5, 10, 20, 50, 100, 200], format: (v) => String(v), label: spec ? 'photon energy E (keV)' : 'X-ray energy (keV)  →  shorter waves' },
-      { min: FMIN, max: FMAX, log: true, ticks: yt, format: (v) => `10${P.sup(Math.round(Math.log10(v)))}`, label: spec ? 'd²F/dΩ  (ph/s/mrad²/0.1% BW)' : 'X-rays straight ahead (log scale)' },
+      { min: EMIN, max: EMAX, log: true, ticks: [1, 2, 5, 10, 20, 50, 100, 200], format: (v) => String(v), label: 'X-ray photon energy (keV)  →  shorter waves' },
+      { min: FMIN, max: FMAX, log: true, ticks: yt, format: (v) => `10${P.sup(Math.round(Math.log10(v)))}`, label: plotH >= 260 ? 'on-axis flux, ph/s/mrad²/0.1% BW' : 'ph/s/mrad²/0.1% BW' },
     );
     this.frame = f;
     const px = (E: number) => f.px(Math.max(EMIN * 0.5, E));
@@ -209,9 +207,8 @@ export class SpectrumView {
     const { ctx, w, h } = this.c;
     if (!inp || w < 40) return;
     this.dirty = false;
-    const spec = inp.depth === 'specialist';
     const narrow = w < 420;
-    const f = this.renderStatic(spec, narrow);
+    const f = this.renderStatic(narrow);
     ctx.save();
     ctx.drawImage(this.bg, 0, 0, w, h);
     const px = (E: number) => f.px(Math.max(EMIN * 0.5, E));
@@ -266,11 +263,11 @@ export class SpectrumView {
       ctx.fillRect(x0 - 2, y - 10, tw + 4, 13);
       label(ctx, text, x0, y, color, 10.5, 'left', 600);
     };
-    refLabel(this.bmF, spec ? `bending magnet ${inp.ring.bmB.toFixed(2)} T` : 'bending magnet', TOKENS.old);
-    refLabel(this.wgF, spec ? 'wiggler (illustrative, K ≈ 22)' : 'wiggler (example)', TOKENS.ink2);
+    refLabel(this.bmF, `bending magnet, ${inp.ring.bmB.toFixed(2)} T`, TOKENS.old);
+    refLabel(this.wgF, 'wiggler (example, K ≈ 22)', TOKENS.ink2);
 
     // legend (top band of the plot, above every peak); peak labels stay below it
-    const legendBottom = this.legend(ctx, f, spec, narrow);
+    const legendBottom = this.legend(ctx, f, narrow);
 
     // peak markers + labels
     const placed: [number, number, number][] = [];
@@ -296,7 +293,7 @@ export class SpectrumView {
         ctx.arc(x, y, 8, 0, Math.PI * 2);
         ctx.stroke();
       }
-      const txt = n === 1 ? (spec ? `n=1  ${P.fmtKeV(E)} keV` : `1st  ${P.fmtKeV(E)} keV`) : spec ? `n=${n}` : P.ordinal(n);
+      const txt = n === 1 ? `1st  ${P.fmtKeV(E)} keV` : P.ordinal(n);
       ctx.font = `600 10.5px ${TOKENS.font}`;
       const tw = ctx.measureText(txt).width;
       let tx = x - tw / 2;
@@ -341,10 +338,10 @@ export class SpectrumView {
   }
 
   /** draws the legend in the plot's top band; returns its bottom y */
-  private legend(ctx: CanvasRenderingContext2D, f: PlotFrame, spec: boolean, narrow: boolean): number {
+  private legend(ctx: CanvasRenderingContext2D, f: PlotFrame, narrow: boolean): number {
     const items: { kind: 'line' | 'band' | 'dash' | 'dot'; text: string; color: string }[] = [
-      { kind: 'line', text: spec ? 'harmonics now' : 'this undulator now', color: this.accent },
-      { kind: 'band', text: spec ? 'tuning range n = 1, 3, 5' : 'where its peaks can go', color: this.accent },
+      { kind: 'line', text: 'this undulator now', color: this.accent },
+      { kind: 'band', text: 'tuning range of harmonics 1, 3, 5', color: this.accent },
       { kind: 'dash', text: 'bending magnet', color: TOKENS.old },
       { kind: 'dot', text: 'wiggler', color: TOKENS.ink2 },
     ];

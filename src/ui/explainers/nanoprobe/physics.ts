@@ -34,7 +34,7 @@
  *    0.43 µm × 0.05 µm FWHM). So the APS-U gain is largest for the smallest spots (≈10–30× for ~1 µm).
  *    Old source (FDR Table 2.1): σx = 275 µm, σx' = 11 µrad, σy = 10 µm, σy' = 3.5 µrad, 2.4 m undulator A.
  * 4. Dose: D = (Φ t / step²) · E₀ · (μ_en/ρ)_NMC (xraylib CS_Energy_CP), independent of the source for equal counts.
- * Everything labelled "illustrative" above is stated as such in the station's specialist text.
+ * Everything labelled "illustrative" above is stated as such in the station's notes.
  */
 
 export type ElKey = 'Ni' | 'Mn' | 'Co' | 'W';

@@ -392,7 +392,7 @@ describe('station readouts', () => {
   });
 });
 
-describe('visitor analogies', () => {
+describe('everyday analogies', () => {
   it('stress as a hanging weight: 796 MPa on a 1 mm rod ≈ 64 kg, on 5 mm ≈ 1.6 t', () => {
     expect(hangMass(0.796, 1)).toBe('64 kg');
     expect(hangMass(0.796, 5)).toBe('1.6 tonnes');

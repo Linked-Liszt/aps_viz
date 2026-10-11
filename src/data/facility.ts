@@ -20,11 +20,20 @@ export interface Facility {
   swapOut?: Record<string, unknown>;
   harmonicCavity?: Record<string, unknown>;
   brightness?: { statements?: string[]; dataPoints?: Record<string, unknown>[] };
-  /** Sorted by date. `event` is the Specialist wording; `plain` (when present) is the Visitor wording. */
-  timeline?: { date: string; event: string; plain?: string; source?: string; note?: string }[];
-  /** "By the numbers" cards. `plain` (when present) is a Visitor-mode replacement for `explanation`. */
-  exhibitNumbers?: { label: string; value: string; explanation: string; plain?: string; source?: string; note?: string }[];
-  plainExplainers?: Record<string, string>;
+  /**
+   * Sorted by date. `event` is the single exhibit text (one sentence or two, for every reader); `date` is ISO-like
+   * ('2024-04-13', '2024-08', '2024-03-25/28', '2025-09 (late)', 'c. 2014'). `source`/`note` are research annotations.
+   */
+  timeline?: { date: string; event: string; source?: string; note?: string }[];
+  /** "By the numbers" cards: `value` is the headline figure, `explanation` the single exhibit text under it. */
+  exhibitNumbers?: { label: string; value: string; explanation: string; source?: string; note?: string }[];
+  /**
+   * Primer answers keyed whatIsSynchrotron, whatIsUndulator, whatIsMBA, whyEmittanceMatters, whatIsCoherence,
+   * whatIsSwapOut, whatIsBunchLengthening, whyLowerEnergy, whyRoundBeams. Each is one or two paragraphs separated by a
+   * blank line ('\n\n'); render each paragraph as its own <p>. Keys ending in `_source` / `_note` are research
+   * annotations and are not shown.
+   */
+  explainers?: Record<string, string>;
   project?: Record<string, unknown>;
   references?: { id: string; title: string; url?: string; year?: number | string; venue?: string; authors?: string }[];
   openQuestions?: string[];

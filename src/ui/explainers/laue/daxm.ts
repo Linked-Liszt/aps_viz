@@ -194,7 +194,7 @@ export function createDaxm(station: Station, color: string, onCaption: () => voi
   toggle(gUp, {
     options: [
       { value: 'aps', label: 'APS (before)', title: 'Illustrative: 2,000 photons per frame on this pixel' },
-      { value: 'apsu', label: 'APS-U (after)', title: 'Illustrative: ~1000× more photons in the same exposure (design pink flux 10¹¹ → 10¹⁴ ph/s)' },
+      { value: 'apsu', label: 'APS-U (after)', title: 'Illustrative: ~1,000× more photons in the same exposure (design rainbow-beam flux 10¹¹ → 10¹⁴ photons/s)' },
     ],
     value: st.flux,
     onChange: (v) => {
@@ -248,11 +248,15 @@ export function createDaxm(station: Station, color: string, onCaption: () => voi
   note(
     ctl,
     station,
-    '**What’s next:** 3DMN can swap the wire for a tiny **gold barcode** (a “coded aperture”). Every run of 8 bars is unique, so a short sweep tells each pixel where its light came from — about 5× fewer pictures.',
-    '**Coded aperture** (Gürsoy, Sheyfer, Wojcik, Liu & Tischler, J. Appl. Cryst. 2022; RSI 2023/2025): ~4.6 µm Au on Si₃N₄, order-8 binary de Bruijn code (256 bits; 7.5 µm Au / 15 µm open). Decode by offset search + NNLS on d = A_p s; ≈120 µm of scan replaces ~600 µm wire scans at 1 µm steps (~5× fewer frames). “Mask scan” reconstructions are the planned 3DMN default once mature.',
+    '**What’s next:** 3DMN can swap the wire for a tiny **gold barcode**, a “coded aperture”: 256 bars of ~4.6 µm-thick gold on a thin silicon-nitride membrane. Every run of 8 bars is unique (a de Bruijn code), so ≈120 µm of sweep tells each pixel where its light came from, where a wire scan needs ~600 µm in 1 µm steps: about 5× fewer pictures. Such mask scans are planned to become the 3DMN default once the method matures (Gürsoy et al., 2022).',
   );
   const resetRow = div('laue-row', ctl);
   button(resetRow, '↺ Reset', () => reset());
+  // the model's fine print, in smaller type (its numbers follow the geometry)
+  const gModel = group(ctl, 'About this model');
+  const modelNote = note(gModel, station, '');
+  (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
+  let modelShown = '';
 
   function startAuto(): void {
     if (st.u >= uB - 1e-6) {
@@ -303,25 +307,23 @@ export function createDaxm(station: Station, color: string, onCaption: () => voi
     for (const gr of GRAINS) if (s >= gr.s0 && s <= gr.s1) return gr;
     return null;
   }
-  function caption(): [string, string] {
+  function caption(): string {
     const [st_, sl] = P.edgeDepths(st.u, g);
     const gl = grainAt(sl);
     const gt = grainAt(st_);
-    const sp = station.depth === 'specialist';
-    void sp;
-    let now = '';
-    if (gl) now = ` Right now the wire's edge is sliding across **grain ${gl.name}**, ${(sl * Math.SQRT1_2).toFixed(1)} µm below the surface — that grain's light is being cut off, so the pixel dims.`;
-    else if (gt) now = ` Now the wire's *back* edge is uncovering **grain ${gt.name}** again, so the pixel brightens.`;
-    else if (sl < 0) now = ' The wire\'s shadow hasn\'t reached the sample yet.';
-    const v = `The beam dives into the metal and **two grains** along its path both send X-rays to the same detector pixel, so the pixel alone can't tell which came from where. Sweep the **platinum wire** just above the surface: the straight line from the pixel past the wire's edge points exactly at the depth being blocked — a moving pinhole camera.${now} The dips in the pixel's signal become the **depth profile** below.${st.flux === 'aps' ? ' With the old APS’s fewer X-rays the rebuilt profile is grainy — switch to **APS-U** and it sharpens.' : ' Try **APS (before)**: with ~1000× fewer X-rays per picture the rebuilt profile turns grainy.'}`;
     const r = P.depthPerWireStep(g.tth);
+    let now = '';
+    if (gl) now = ` Right now the wire’s edge is sliding across **grain ${gl.name}**, ${(sl * Math.SQRT1_2).toFixed(1)} µm below the surface: that grain’s light is being cut off, so the pixel dims.`;
+    else if (gt) now = ` Now the wire’s *back* edge is uncovering **grain ${gt.name}** again, so the pixel brightens.`;
+    else if (sl < 0) now = ' The wire’s shadow hasn’t reached the sample yet.';
+    const v = `The beam dives into the metal and **two grains** along its path both send X-rays to the same detector pixel, so the pixel alone can’t tell which came from where. Sweep the **platinum wire** just above the surface: the straight line from the pixel past the wire’s edge points exactly at the depth being blocked, so each ${st.step} µm wire step moves the blocked point ${(r * st.step).toFixed(2)} µm along the beam.${now} Step by step, the drops in the pixel’s signal become the rebuilt **depth profile** (the deeper grain looks dimmer: its X-rays are absorbed on the way in and out).${st.flux === 'aps' ? ' With the old APS’s fewer X-rays the rebuilt profile is grainy: switch to **APS-U** and it sharpens.' : ' Try **APS (before)**: with ~1,000× fewer X-rays per picture the rebuilt profile turns grainy.'}`;
+    // fine print: blur terms for the current geometry. Pixel blur: moving the pixel point by p along the detector
+    // moves the triangulated depth by ds = p·y_w/(L − y_w) (y_w = wire height above the beam), independent of 2θ
     const [wy] = P.wireYZ(st.u, g.h);
-    // pixel blur: moving the pixel point by p along the detector moves the triangulated depth by
-    // ds = p·y_w/(L − y_w) (y_w = wire height above the beam) — independent of 2θ
     const blur = (P.GEOM.pitch * 1000 * wy) / (g.L - wy);
-    const soft = edgeSoftness();
-    const s = `**DAXM** (Larson et al., Nature 415, 887 (2002)): pixel at 2θ = ${st.tthDeg.toFixed(1)}° on the detector 510.9 mm above; Pt wire Ø${st.wireD} µm, axis ${g.h} µm above the 45° surface, moving along H = (Y+Z)/√2. The pixel→leading-edge tangent meets the beam at **s = ${fix(sl, 2)} µm** (s/√2 = ${fix(sl * Math.SQRT1_2, 2)} µm below the surface); trailing edge at ${fix(st_, 2)} µm. ds/dH = (1 − cot2θ)/√2 = ${r.toFixed(3)}, so ΔH = ${st.step} µm ⇒ ${(r * st.step).toFixed(2)} µm bins. Blur terms: pixel p·y_w/(L − y_w) ≈ ${blur.toFixed(2)} µm (200 µm px, y_w = ${wy.toFixed(0)} µm wire height above the beam), Pt edge 10–90 % ≈ ${soft.toFixed(2)} µm (μ⁻¹ ≈ 6.2 µm, 20 keV) — the wire edge is modelled exactly, pixel size and beam size are not convolved. Profile ∝ f(s)e^{−μ(s+t_out)} with μ⁻¹(Ni, 20 keV) ≈ 35 µm — hence the dimmer deep grain (not absorption-corrected). Step differences ΔI_{i} = I_{i} − I_{i+1} assigned to the leading edge; Poisson noise, N₀ = ${N0[st.flux].toLocaleString('en-US')} photons/frame (illustrative; ×1000 APS→APS-U = design pink flux 10¹¹ → 10¹⁴ ph/s on sample, same exposure).`;
-    return [v, s];
+    const m = `The watched pixel sits at 2θ = ${st.tthDeg.toFixed(1)}° on the detector 510.9 mm above the sample; the ${st.wireD} µm platinum wire, its axis ${g.h} µm above the 45° surface, moves parallel to it. The wire’s edge is modelled exactly: platinum fades X-rays to 1/e in ≈6.2 µm at 20 keV, which softens the edge to ≈${edgeSoftness().toFixed(1)} µm along the beam (10–90 %). The pixel’s 200 µm size (≈${blur.toFixed(2)} µm of blur here) and the beam’s width are not included. Nickel fades X-rays to 1/e in ≈35 µm at 20 keV, so the deeper grain is dimmer; the profile is not corrected for this. Photon counts are illustrative: ${N0.aps.toLocaleString('en-US')} per picture on this pixel for APS, ×1,000 for APS-U, the design gain in rainbow-beam flux (10¹¹ → 10¹⁴ photons/s) at the same exposure. Method: Larson, Yang, Ice, Budai & Tischler, Nature 415, 887 (2002).`;
+    if (m !== modelShown) modelNote.set((modelShown = m));
+    return v;
   }
 
   /** 10–90 % width (µm along the beam) of the wire-edge transmission step for the current geometry */
@@ -513,7 +515,6 @@ export function createDaxm(station: Station, color: string, onCaption: () => voi
     const zR = v.zc + (v.r.x + v.r.w - v.cx) / v.sc + 5;
     const yB = v.yc - (v.r.y + v.r.h - v.cy) / v.sc - 5;
     const yT = v.yc + (v.cy - v.r.y) / v.sc + 5;
-    const sp = station.depth === 'specialist';
 
     // sample (below the surface line y = z) with its grains
     if (bgOnly) {
@@ -676,7 +677,7 @@ export function createDaxm(station: Station, color: string, onCaption: () => voi
       const wlx = leftOk ? X(wz) - rr - 7 : X(wz) + rr + 7;
       haloText(ctx, t1, wlx, ly, { size: 11, color: TOKENS.ink, align: leftOk ? 'right' : 'left', weight: 600 });
       haloText(ctx, t2, wlx, ly + 13, { size: 9.5, color: TOKENS.ink3, align: leftOk ? 'right' : 'left' });
-      haloText(ctx, sp ? 'focused beam (~0.1 µm)' : 'X-ray beam', v.r.x + 10, Y(0) - 8, { size: 10.5, color: TOKENS.xray });
+      haloText(ctx, 'focused X-ray beam (~0.1 µm)', v.r.x + 10, Y(0) - 8, { size: 10.5, color: TOKENS.xray });
       haloText(ctx, 'Ni sample', v.r.x + v.r.w - 8, Y(0) - 8, { size: 10.5, color: TOKENS.ink3, align: 'right' });
       // to-pixel annotation along the leading edge ray
       const [vy, vz] = P.rayDir(sL, g);
@@ -979,15 +980,11 @@ export function createDaxm(station: Station, color: string, onCaption: () => voi
     }
   }
 
-  function depthChanged(): void {
-    dirty = true;
-  }
-
   rebuild(false);
   st.u = uA;
   updateReadouts();
   void narrow;
-  return { el, ctl, layout, setActive, frame, caption, depthChanged, reset };
+  return { el, ctl, layout, setActive, frame, caption, reset };
 }
 
 function niceStep(max: number): number {

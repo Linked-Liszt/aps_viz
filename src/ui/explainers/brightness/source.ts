@@ -12,7 +12,6 @@
  * (µm) and of the angular spread (µrad), to scale, and a log brightness meter with the old-APS / APS-U values at
  * the same flux and the diffraction-limited ceiling 4F/λ².
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import { gauss, rng } from '../../../lib/fft';
 import { SLITS, afterLens, diffractionKick, slitTransmission, widthAfterLens, type AfterLens, type Beam } from './physics';
@@ -29,7 +28,6 @@ export interface SourceState {
   Blim: number;
   /** exact pass probability through the lens aperture and the slit */
   pass: number;
-  depth: Depth;
   /** short name of the current source, e.g. "APS-U" or "your source" */
   name: string;
   apsuName: string;
@@ -296,7 +294,6 @@ export class SourceView {
 
   private drawRays(g: CanvasRenderingContext2D, G: Geo, s: SourceState): void {
     const { s1, s2, z1, z2 } = SLITS;
-    const spec = s.depth === 'specialist';
     const X = (z: number) => G.xs + z * G.pz;
     const Y = (x: number) => G.yc - x * G.k;
     // backdrop
@@ -467,17 +464,31 @@ export class SourceView {
       g.fillText(t, x, y);
     };
     const yl = G.rayTop + 10;
-    lab(spec ? `lens f ${SLITS.f} m, rms ${s1} µm` : 'lens', spec ? X(z1) - 6 : X(z1), yl, { align: spec ? 'right' : 'center' });
-    if (spec) lab(`${z1} m`, X(z1) + 6, yl, { align: 'left', color: TOKENS.ink2 });
-    lab(spec ? `slit ${s2} µm` : 'slit', spec ? X(z2) - 6 : X(z2), yl, { align: spec ? 'right' : 'center' });
-    if (spec) lab(`${z2} m`, X(z2) + 6, yl, { align: 'left', color: TOKENS.ink2 });
+    // lens: focal length and soft aperture (rms); slit: rms width — left of each, the distance right of it
+    const room = X(z1) - 18;
+    g.font = `600 10.5px ${TOKENS.font}`;
+    const lensTxt = [`lens, focal length ${SLITS.f} m, aperture ${s1} µm`, `lens, aperture ${s1} µm`, 'lens'].find((t) => g.measureText(t).width <= room) ?? 'lens';
+    lab(lensTxt, X(z1) - 6, yl, { align: 'right' });
+    lab(`${z1} m`, X(z1) + 6, yl, { align: 'left', color: TOKENS.ink2 });
+    lab(`slit, ${s2} µm`, X(z2) - 6, yl, { align: 'right' });
+    lab(`${z2} m`, X(z2) + 6, yl, { align: 'left', color: TOKENS.ink2 });
 
-    // source label + size readout
-    lab(spec ? `Σx ${fmtSmall(s.ph.sx)} µm` : 'source', G.xs + 10, G.rayBot - 10, { align: 'left', color: TOKENS.ink2, weight: 600 });
-
-    // pass-rate label (bottom right, above the axis)
-    const passTxt = spec ? `P(lens ∧ slit) = ${pct(s.pass)}` : `${fmtOneIn(s.pass)} get through`;
-    lab(passTxt, G.xr - 2, G.rayBot - 10, { align: 'right', color: this.accent, size: 11.5, weight: 700, mono: spec });
+    // source size (left) and pass rate (right) above the axis: the fullest wordings that do not collide
+    const srcOpts = [`source ${fmtSmall(s.ph.sx)} µm (rms)`, `source ${fmtSmall(s.ph.sx)} µm`];
+    const passOpts = [`${fmtOneIn(s.pass)} get through (${pct(s.pass)})`, `${fmtOneIn(s.pass)} get through`];
+    const tw = (t: string, size: number, weight: number) => {
+      g.font = `${weight} ${size}px ${TOKENS.font}`;
+      return g.measureText(t).width;
+    };
+    const rowRoom = G.xr - 2 - (G.xs + 10) - 12;
+    const [srcTxt, passTxt] =
+      [
+        [srcOpts[0], passOpts[0]],
+        [srcOpts[1], passOpts[0]],
+        [srcOpts[1], passOpts[1]],
+      ].find(([a, b]) => tw(a, 10.5, 600) + tw(b, 11.5, 700) <= rowRoom) ?? [srcOpts[1], passOpts[1]];
+    lab(srcTxt, G.xs + 10, G.rayBot - 10, { align: 'left', color: TOKENS.ink2, weight: 600 });
+    lab(passTxt, G.xr - 2, G.rayBot - 10, { align: 'right', color: this.accent, size: 11.5, weight: 700 });
 
     // scale bar (200 µm, vertical)
     const sb = 200;
@@ -511,7 +522,7 @@ export class SourceView {
     }
     g.stroke();
     for (const z of [0, 10, 20, 30]) lab(`${z} m`, X(z), ya + 11, { size: 10, weight: 500 });
-    const axTxt = spec ? (G.W < 470 ? 'z (m) along · x (µm) sideways · both to scale' : 'z along the beam (m) · sideways x in µm: anamorphic, both to scale') : 'distance from the source →';
+    const axTxt = G.W < 470 ? 'distance from the source (m); sideways in µm' : 'distance from the source (m); sideways positions in µm, both to scale';
     lab(axTxt, (G.xs + G.xr) / 2 + (G.narrow ? 14 : 0), ya + 24, {
       size: 10.5,
       weight: 500,
@@ -548,7 +559,6 @@ export class SourceView {
   // ------------------------------------------------------------------ formula strip
 
   private drawFormula(g: CanvasRenderingContext2D, G: Geo, s: SourceState): void {
-    const spec = s.depth === 'specialist';
     const top = G.fTop;
     const left = 14;
     const right = G.W - 14;
@@ -558,7 +568,7 @@ export class SourceView {
     g.textAlign = 'left';
     g.font = `600 12px ${TOKENS.font}`;
     g.fillStyle = TOKENS.ink;
-    const head = spec ? 'B = F ÷ (2π·Σx·Σy) ÷ (2π·Σ′x·Σ′y)' : G.narrow ? 'Brightness = photons ÷ area ÷ spread' : 'Brightness = photons per second ÷ source area ÷ spread';
+    const head = G.narrow ? 'Brightness = photons ÷ area ÷ spread' : 'Brightness = photons per second ÷ source area ÷ angular spread';
     g.fillText(head, left, top + 8);
     g.restore();
 
@@ -589,9 +599,10 @@ export class SourceView {
 
     // flux block
     const fx = xsB[0] + fluxW / 2;
-    txt(spec ? 'F' : 'PHOTONS / s', fx, tileTop - 10, { size: 10, weight: 700 });
+    txt('PHOTONS / s', fx, tileTop - 10, { size: 10, weight: 700 });
     txt(sci(s.F, 1), fx, cy - 6, { size: G.narrow ? 17 : 20, weight: 700, color: TOKENS.ink });
-    txt(spec ? 'ph/s/0.1%BW' : 'same for all', fx, cy + 16, { size: 10, weight: 500, color: TOKENS.ink3 });
+    txt('same for all', fx, cy + 16, { size: 10, weight: 600, color: TOKENS.ink2 });
+    txt('in 0.1 % bandwidth', fx, cy + 29, { size: 9.5, weight: 500, color: TOKENS.ink3 });
 
     // tiles
     const tile = (x0: number, title: string, value: string, unitScale: number, wx: number, wy: number, color: string, scaleTxt: string, scaleLen: number) => {
@@ -649,21 +660,16 @@ export class SourceView {
     const sDiv = T / 2 / 26;
     const area = 2 * Math.PI * s.ph.sx * s.ph.sy * 1e-6;
     const solid = 2 * Math.PI * s.ph.sxp * s.ph.syp * 1e-6;
-    tile(xsB[1], spec ? '2πΣxΣy' : 'SOURCE AREA', `${fmtTiny(area)} mm²`, sSrc, s.ph.sx, s.ph.sy, this.accent, '100 µm', 100);
-    tile(xsB[2], spec ? '2πΣ′xΣ′y' : 'SPREAD', `${fmtTiny(solid)} mrad²`, sDiv, s.ph.sxp, s.ph.syp, '#9fe3ff', '10 µrad', 10);
-    if (spec) {
-      txt(`${fmtSmall(s.ph.sx)} × ${fmtSmall(s.ph.sy)} µm`, xsB[1] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });
-      txt(`${fmtSmall(s.ph.sxp)} × ${fmtSmall(s.ph.syp)} µrad`, xsB[2] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });
-    } else {
-      txt('end-on view', xsB[1] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });
-      txt('how fast it fans out', xsB[2] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });
-    }
+    tile(xsB[1], 'SOURCE AREA', `${fmtTiny(area)} mm²`, sSrc, s.ph.sx, s.ph.sy, this.accent, '100 µm', 100);
+    tile(xsB[2], 'ANGULAR SPREAD', `${fmtTiny(solid)} mrad²`, sDiv, s.ph.sxp, s.ph.syp, '#9fe3ff', '10 µrad', 10);
+    // rms width × height of the X-ray source and of its angular spread (end-on views above)
+    txt(`${fmtSmall(s.ph.sx)} × ${fmtSmall(s.ph.sy)} µm rms`, xsB[1] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });
+    txt(`${fmtSmall(s.ph.sxp)} × ${fmtSmall(s.ph.syp)} µrad rms`, xsB[2] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });
   }
 
   // ------------------------------------------------------------------ brightness meter
 
   private drawMeter(g: CanvasRenderingContext2D, G: Geo, s: SourceState): void {
-    const spec = s.depth === 'specialist';
     const top = G.mTop;
     const x0 = 16;
     const x1 = G.W - 16;
@@ -725,9 +731,9 @@ export class SourceView {
 
     // reference markers above the bar (staggered on collision)
     const marks: { B: number; label: string; color: string; dashed?: boolean }[] = [
-      { B: s.Baps, label: spec ? 'APS 2019' : 'old APS', color: TOKENS.old },
+      { B: s.Baps, label: 'old APS', color: TOKENS.old },
       { B: s.Bapsu, label: s.apsuName, color: this.accent },
-      { B: s.Blim, label: spec ? '4F/λ² limit' : 'perfect beam', color: '#ffffff', dashed: true },
+      { B: s.Blim, label: 'diffraction limit', color: '#ffffff', dashed: true },
     ];
     marks.sort((p, q) => p.B - q.B);
     const rowRight = [-1e9, -1e9];

@@ -5,7 +5,7 @@
   "fullName": "Coherent High-Energy X-ray Sector for In Situ Science",
   "status2026": {
     "state": "commissioning",
-    "detail": "All four branches received first light in July 2025. On the APS Beamline Commissioning Progress chart of 5 Oct 2026, 28-ID-B,C and 28-ID-F are at stage 5 ('Scientific Commissioning and Early Experiments') and 28-ID-D,E and 28-ID-G at stage 4 ('Technical Commissioning'); none is yet in stage 6 (general user program). In Jan 2026 all four were at stage 4. The Beamline Directory still lists B/C as 'Not Currently Operational' and D/E, F, G as 'Under Development', on-site access. CHEX was delivered within the APS-U project scope (project formally completed Jan 2026). The sector currently runs on interim permanent-magnet undulators (2.8 cm upstream, 3.0 cm downstream; APS insertion-device table updated 22 Sep 2026); the baseline 18.5 mm superconducting undulator pair was delayed by SCU core-reliability issues and is planned for 2026-2027 (APS Strategic Plan 2025-29). The 2025-2 proposal call (Jan 2025) already offered a 'Feature Beamlines' proposal type for CHEX. Timeline note: the Aug 2025 update projected first experiments late 2025/early 2026 and entry into the general user program late in run 2026-1 or early in run 2026-2; as of the 5 Oct 2026 chart no CHEX station has reached stage 6, so that projection has slipped.",
+    "detail": "All four branches received first light in July 2025. On the APS Beamline Commissioning Progress chart of 5 Oct 2026, 28-ID-B,C and 28-ID-F are at stage 5 ('Scientific Commissioning and Early Experiments') and 28-ID-D,E and 28-ID-G at stage 4 ('Technical Commissioning'); none is yet in stage 6 (general user program). In Jan 2026 all four were at stage 4. The Beamline Directory still lists B/C as 'Not Currently Operational' and D/E, F, G as 'Under Development', on-site access. CHEX was delivered within the APS-U project scope (project formally completed Jan 2026). The sector currently runs on interim permanent-magnet undulators (2.8 cm upstream, 3.0 cm downstream; APS insertion-device table updated 22 Sep 2026); the baseline 18.5 mm superconducting undulator pair was delayed by SCU core-reliability issues and is planned for 2026–2027 (APS Strategic Plan 2025–29). The 2025-2 proposal call (Jan 2025) already offered a 'Feature Beamlines' proposal type for CHEX. Timeline note: the Aug 2025 update projected first experiments late 2025/early 2026 and entry into the general user program late in run 2026-1 or early in run 2026-2; as of the 5 Oct 2026 chart no CHEX station has reached stage 6, so that projection has slipped.",
     "sources": [
       "r11",
       "r12",
@@ -19,66 +19,57 @@
       "r23"
     ]
   },
-  "tagline": "Laser-like, high-energy X-rays, split four ways, watch new materials grow atom by atom inside working reactors.",
-  "plainSummary": "CHEX is a family of X-ray stations built to watch materials being made: crystal films growing in a hot gas reactor, oxide layers stacking up in a vacuum chamber, a battery electrode charging. It combines two strengths of the upgraded APS. First, high energy: most of its X-rays carry 15,000 to 105,000 electron-volts, enough to pass through quartz reactor walls, gases and liquids, so experiments can run inside real growth machines. Second, coherence: the new APS beam is so narrow that its X-rays march in step, a bit like laser light. Bounced off a material, they make a grainy 'speckle' pattern, a fingerprint of where atoms, islands and defects sit; as the speckles flicker, you can watch them move. Two undulators feed four beams: one of adjustable colour, and three fixed colours skimmed off a shared beam by thin crystals that act like colour filters. They serve eight experiment spots: four teams can work at once, and slow growth experiments can stay set up for days. In autumn 2026 the stations are still being commissioned; the first experiments have begun.",
-  "expertSummary": "CHEX (28-ID) is a canted-undulator sector (1 mrad) optimized for coherent scattering at 15-105 keV, multiplexed into four simultaneously operating branches and eight instrument positions for in situ synthesis and processing studies. The upstream (outboard) source feeds the tunable branch 28-ID-A/B/C through a horizontally deflecting, LN2-cooled fixed-exit DCM (Si(111)/(311)) at 35 m; the downstream (inboard) source feeds three fixed-energy branches through thin single-crystal side-bounce monochromators at 28.3 m (diamond, D/E), 38.3 m (diamond, F) and 40.2 m (Si, G) that transmit unused flux downstream. Nearly fixed scattering angles (2θ ≈ 22.7-23.2° for diamond, ≈4.9-5.0° for Si) let a change of reflection (111/220/400) select odd harmonics of a common ~5 keV fundamental (the reflection ratios √3:√8:√16 match the harmonic ratios 3:5:7 to within ~2%, so a small re-angling is still needed): 15 keV (D/E), 25/35 keV (F), 75/105 keV (G). Every position has a two-element CRL 'zoom' (CRL1 just downstream of each SCM inside 28-ID-A, or at 50 m in the mini-enclosure SE-1 for B/C; CRL2 1.5-2.5 m before the sample; Ni lenses on G in the FDR design) giving ~1-15 µm (H) × 0.3-5 µm (V) foci at fixed focal plane, sized so speckle is resolved by ~55 µm pixels at 1-4 m. Shared instruments are Huber hexapod diffractometers with a long-distance detector positioner; integrated chambers include oxide MBE (C), PLD + HAXPES (E) and MOCVD (F); tandem hutches with moveable stops allow access to rear stations while front stations run. As of Oct 2026 the sector runs on interim 2.8/3.0 cm HPMUs pending the 18.5 mm SCU pair; B/C and F are in scientific commissioning.",
+  "tagline": "Coherent high-energy X-rays, split four ways, watch new materials grow one atomic layer at a time inside working reactors.",
+  "summary": "CHEX, the Coherent High-Energy X-ray sector at 28-ID, watches materials as they are made: oxide films stacking up in a vacuum chamber, gallium nitride crystals growing in a hot gas reactor, a battery electrode at work. Its X-rays are energetic, mostly 15,000 to 105,000 electron-volts (15–105 keV), so they pass through quartz walls, gases and liquids. A useful share of them is also coherent: their waves march in step, a bit like laser light. Coherent X-rays scatter into a grainy speckle pattern, set by where atoms, islands and defects sit, that flickers as they move. Two undulators, magnet arrays in the ring, feed four branches: one of tunable energy, and three of fixed energy that thin crystals pick off a single shared beam. Eight experiment positions let up to four teams work at once. In October 2026 CHEX is still being commissioned, on interim undulators; first experiments have begun.",
   "whatAPSUEnables": {
-    "plain": "On the old APS only about one high-energy X-ray in ten thousand was 'in step' (coherent). To see speckle from a growing gallium-nitride crystal at 25 keV, scientists had to remove the monochromator and accept a 'pink' beam (the undulator's whole third-harmonic peak, about 1% spread in energy, instead of one sharp colour), and still needed 10-second exposures. The upgrade made the electron beam about 20 times narrower and four times better collimated in its wide direction (a ~70-fold drop in 'emittance'), so the coherent part of the beam at 20-25 keV is now a few hundred times stronger. That turns speckle movies at energies that can see inside real reactors from a heroic stunt into a routine measurement - and fast enough to follow atoms while a film grows. CHEX is the APS-U beamline designed specifically to cash in that gain at high energy.",
-    "expert": "Coherent flux scales as F_coh ≈ B·(λ/2)², so the 15-60+ keV regime needed to penetrate quartz, steel and liquid cells was coherence-starved on the 3 nm·rad ring. APS-U (εeff 42 pm vs 3113 pm) raises coherent flux at 20 keV by ~540× (FDR Table 1.1). The pre-upgrade benchmark (Ju et al. 2019, 12-ID-D) needed pink beam (ΔE/E = 1.3 × 10⁻²) to reach 1.4 × 10¹² ph/s at 25.75 keV with 1.2 × 2.7 µm coherence lengths and 10 s frames. Because XPCS SNR ∝ β·I_pix·√(Δt·N_pix·T), a ~10² gain in coherent intensity can buy up to ~10⁴ shorter delay times at constant SNR, or monochromatic operation with full speckle contrast. The small source (σx ≈ 12-15 µm rms; nearly round only in round-beam mode, 12.3 × 8.3 µm, vs 14.5 × 3.1 µm in flat-beam mode) plus dual-CRL optics delivers speckle-resolving foci (a ≤ 0.886λR/p ≈ 20·R[m]/E[keV] µm for 55 µm pixels; PDR) at R = 2-4 m. Harmonic multiplexing with transmissive diamond SCMs converts the brightness gain into beam time: four long-duration in situ experiments run simultaneously from one straight section.",
+    "text": "Speckle needs coherent X-rays, and the coherent share of a beam shrinks as the energy rises, so the high energies that see inside reactors were starved of it. Before the upgrade roughly one 25 keV X-ray in ten thousand was coherent; to film gallium nitride growing, scientists had to drop the monochromator for a 'pink' beam (the whole undulator peak, about 1% wide in energy) and still needed 10-second frames. The upgraded ring's electron beam is about 19 times narrower and 4 times less divergent horizontally, cutting its emittance (beam size × divergence) from 3,113 to 42 pm·rad. Speckle movies should now work at a single energy and keep pace with a growing film, and crystals sharing one beam let four such experiments run at once. The key figure: about 540 times more coherent flux at 20 keV. It is a design value for an undulator tuned to 20 keV; CHEX runs on interim undulators whose measured flux is unpublished.",
     "quantitative": [
-      "Coherent flux at 20 keV: 312 × 10¹¹ ph/s (APS-U brightness mode) vs 0.6 × 10¹¹ ph/s (pre-upgrade APS), a factor ≈540 (FDR Table 1.1)",
-      "Effective emittance 42 pm (APS-U design, brightness mode) vs 3113 pm pre-upgrade; measured 45 pm·rad at 50 mA and as low as 28 pm·rad in round-beam mode, vs 134 pm·rad previous record at ESRF-EBS (APS News 2024). Note: the 28 pm·rad round-beam figure is the per-plane value (εx = εy = 28.7 pm) - the emittance is shared equally between the two planes, it is not a lower total",
-      "Calculated coherent fraction at 25 keV ≈ 2% (APS-U flat beam, 2.07 m HPMU) vs ≈ 0.01% (old APS, 2.4 m undulator) - ~200×; at 60 keV ≈ 0.6% vs ≈ 0.002% - ~300× (our Gaussian-beam estimate from the APS storage-ring source parameters and FDR Table 1.1, zero energy spread; indicative only)",
-      "Pre-upgrade benchmark: GaN growth XPCS at 25.75 keV required pink beam (ΔE/E = 1.3%), 1.4 × 10¹² ph/s in a 4 × 16 µm spot, 10 s frames (Ju et al. 2019)",
-      "Ju et al. 2017: with APS-U the coherent flux at 12-ID-D-type energies would approach the total flux then available; the optimum energy for coherent flux through 4 mm of fused quartz is ≈23 keV",
-      "FDR design (SCU source) at 28-ID-B: 6.8-37 × 10¹² ph/s at 15 keV and 4.2-11 × 10¹² ph/s at 60 keV into 0.8-9.8 µm (H) × 0.3-3.4 µm (V) FWHM foci (FDR Table 4.10)",
-      "Four simultaneously operating experiments from one sector (eight positions), vs a single goniometer/instrument on comparable coherent beamlines such as ESRF ID01 (PDR comparison; APS feature page)",
-      "Scaling estimate: since XPCS SNR grows linearly with coherent intensity per pixel and only as the square root of frame time, a 100× coherent-intensity gain can shorten the shortest measurable correlation time by up to ~10⁴ at constant SNR (standard XPCS scaling; indicative)"
+      "Coherent flux at 20 keV (undulator optimized for 20 keV): 312 × 10¹¹ ph/s in APS-U brightness mode vs 0.6 × 10¹¹ ph/s before the upgrade; the design report quotes the gain as a factor of 540 (FDR Table 1.1).",
+      "Effective emittance: 42 pm·rad (APS-U design, brightness mode) vs 3,113 pm·rad before the upgrade. Measured: 45 pm·rad at 50 mA and as low as 28 pm·rad in round-beam mode, vs the previous record of 134 pm·rad at ESRF-EBS (APS News 2024). The 28 pm·rad round-beam figure is per plane (ε_{x} = ε_{y} = 28.7 pm·rad): the emittance is shared equally between the two planes, not lower in total.",
+      "Calculated coherent fraction at 25 keV: ≈2% (APS-U flat beam, 2.07 m permanent-magnet undulator) vs ≈0.01% (old APS, 2.4 m undulator), about 200×; at 60 keV ≈0.6% vs ≈0.002%, about 300×. This is our Gaussian-beam estimate from the APS storage-ring source parameters and FDR Table 1.1, assuming zero energy spread; indicative only.",
+      "Pre-upgrade benchmark: XPCS of GaN growth at 25.75 keV required pink beam (ΔE/E = 1.3%), giving 1.4 × 10¹² ph/s in a 4 × 16 µm spot with 10 s frames (Ju et al. 2019).",
+      "Ju et al. (2017): with APS-U, the coherent flux at 12-ID-D-type energies would approach the total flux then available; the optimum energy for coherent flux through 4 mm of fused quartz is ≈23 keV.",
+      "FDR design (superconducting-undulator source) at 28-ID-B: 6.8–37 × 10¹² ph/s at 15 keV and 4.2–11 × 10¹² ph/s at 60 keV, into foci of 0.8–9.8 µm (H) × 0.3–3.4 µm (V) FWHM (FDR Table 4.10).",
+      "Four experiments running at once from one sector (eight positions), vs a single goniometer or instrument on comparable coherent beamlines such as ESRF ID01 (PDR comparison; APS feature page).",
+      "Scaling estimate: XPCS signal-to-noise grows linearly with coherent intensity per pixel but only as the square root of frame time, so a 100× gain in coherent intensity can shorten the shortest measurable correlation time by up to ≈10⁴ at constant signal-to-noise (standard XPCS scaling; indicative)."
     ]
   },
   "techniques": [
     {
       "name": "X-ray photon correlation spectroscopy (surface / grazing-incidence)",
       "abbrev": "XPCS",
-      "plain": "Shine a laser-like X-ray beam on a surface and film the flickering speckle pattern. How fast the speckles change tells you how fast atoms, islands or domains are moving - even when, on average, nothing seems to change.",
-      "expert": "Intensity autocorrelation g2(q,τ) = <I(t)I(t+τ)>/<I>² = 1 + β|f(q,τ)|² for stationary dynamics; for non-equilibrium growth CHEX relies on two-time correlations C(q,t1,t2). Surface XPCS near CTR anti-Bragg positions probes island/step dynamics during MOVPE, PLD, MBE, sputtering or etching. Contrast β is set by coherence lengths vs illuminated volume, bandwidth and pixel size; SNR ∝ β I_pix √(Δt N_pix T) (Lumma et al. 2000; reviewed by Shpyrko 2014)."
+      "text": "X-ray photon correlation spectroscopy (XPCS) films the speckle pattern scattered from a surface and measures how fast it changes, revealing how quickly atoms, islands or domains move, even when on average nothing seems to change. For steady processes the usual measure is the intensity autocorrelation g_{2}: how much the pattern still resembles itself after a delay. Growth never stands still, so CHEX relies on two-time correlations, which compare every moment with every other and show how the motion itself evolves. Measured near the 'anti-Bragg' position, halfway between two diffraction peaks, the speckle is most sensitive to the topmost atomic layer and follows islands and steps during deposition or etching. Speckle contrast falls if the illuminated volume exceeds the coherence lengths, the energy spread is too wide or pixels are larger than the speckles; signal-to-noise grows linearly with coherent intensity per pixel but only as the square root of frame time."
     },
     {
       "name": "Coherent diffraction imaging, Bragg CDI and Bragg ptychography",
       "abbrev": "CDI / BCDI",
-      "plain": "Record the speckle pattern around a single tiny crystal and let a computer turn it back into a 3-D picture of the crystal - including maps of how its atoms are squeezed or stretched.",
-      "expert": "Oversampled (≥2×) coherent diffraction about a Bragg peak is phased iteratively to recover the complex density ρ(r)e^{iQ·u(r)}, giving 3-D displacement/strain fields of nanocrystals or grains in operando; high energy enables penetration of cells and access to multiple reflections. Requires speckle-resolving geometry: the coherently illuminated region (the beam spot, or the isolated crystal if it is smaller) must be ≤ 0.886λR/p ≈ 20·R[m]/E[keV] µm for 55 µm pixels (PDR), and about half that for the ≥2× oversampling CDI needs; plus sub-µm sample stability."
+      "text": "Coherent diffraction imaging records the speckle pattern around a single small crystal and lets a computer turn it back into a 3D image, with no lens. Around a Bragg peak (Bragg CDI), the reconstructed image has a phase as well as an amplitude, and the phase maps how far atoms are displaced along the scattering direction, revealing the strain inside the crystal. Bragg ptychography extends this to larger samples by scanning overlapping spots. High energy lets the beam reach crystals inside working cells and access several reflections. The geometry must resolve the speckle: with 55 µm pixels, the coherently illuminated region (the beam spot, or the crystal if smaller) may be at most about 20 × R/E µm, with R the detector distance in metres and E the energy in keV, and about half that for the twofold oversampling the reconstruction needs. The sample must also hold still to well under a micrometre."
     },
     {
       "name": "In situ surface X-ray diffraction / crystal-truncation-rod scattering",
       "abbrev": "SXRD / CTR",
-      "plain": "X-rays bouncing off a crystal surface carry a signature of the top few atomic layers. During layer-by-layer growth that signal pulses once per completed atomic layer - an atomic-scale stopwatch.",
-      "expert": "Specular and non-specular CTR and diffuse scattering at 15-35 keV through chamber walls; anti-Bragg intensity oscillates with monolayer period during layer-by-layer growth (ideal kinematic case I ∝ |1-2θcov|²). Tunable branch adds resonant/anomalous contrast for multi-cation oxides (PDR)."
+      "text": "Surface X-ray diffraction reads the top few atomic layers of a crystal. Because a crystal ends abruptly at its surface, its diffraction spreads into faint streaks between the Bragg peaks, called crystal truncation rods, whose shape encodes the surface structure. During layer-by-layer growth the intensity at the 'anti-Bragg' point, midway between two peaks, falls as a new layer half fills and recovers as it completes, once per atomic layer: an atomic-scale stopwatch. CHEX measures these rods and the diffuse scattering around them at 15–35 keV through chamber walls, and the tunable branch can add resonant contrast, setting the energy at an element's absorption edge, to tell the metal ions in a complex oxide apart."
     },
     {
       "name": "High-energy X-ray diffraction",
       "abbrev": "HEXD",
-      "plain": "Very-high-energy X-rays (75-105 keV) go through centimetres of material, so you can study crystals deep inside furnaces, reactors or thick samples.",
-      "expert": "28-ID-G at 75/105 keV (Si 022/004) for bulk synthesis, crystal growth, corrosion and mechanical/environmental loading; small Bragg angles, large Q-range on area detectors; Ni CRL focusing."
+      "text": "High-energy X-ray diffraction at 28-ID-G uses 75 or 105 keV X-rays, energetic enough to cross centimetres of many materials, to study bulk synthesis, crystal growth, corrosion and materials under mechanical or environmental load, deep inside furnaces, reactors and thick samples. At these energies the Bragg angles are small, so a flat area detector captures a wide range of reflections at once. Beryllium lenses barely bend such X-rays, so the design gives G nickel lenses, which bend them more strongly."
     },
     {
       "name": "X-ray reflection interface microscopy",
       "abbrev": "XRIM",
-      "plain": "A zone-plate 'X-ray microscope objective' behind the sample makes a real-space image of an interface using X-rays reflected from it - showing steps and domains at a buried surface.",
-      "expert": "Full-field imaging of interfaces using specular/CTR reflectivity contrast; FDR XRIM configuration places a zone-plate objective on the diffractometer detector arm and the PAD on the LDDP; proposed with BCDI for geochemical interfaces (PDR Table 6.9)."
+      "text": "X-ray reflection interface microscopy makes a real-space image of a surface or buried interface using X-rays reflected from it. A zone plate, a microscopic pattern of concentric rings that focuses X-rays by diffraction, acts as the objective lens behind the sample, and contrast comes from how strongly each patch reflects, so atomic steps and domains show up. In the design the zone plate rides on the diffractometer's detector arm and the camera on the long-distance detector positioner. It was proposed together with Bragg coherent imaging for geochemical interfaces, such as minerals reacting with fluids."
     },
     {
       "name": "Hard X-ray photoelectron spectroscopy (with PLD)",
       "abbrev": "HAXPES",
-      "plain": "X-rays knock electrons out of the growing film; measuring their energies tells you the chemistry and electronic state of atoms buried under the surface.",
-      "expert": "At 28-ID-E a 'twisted monochromator' provides 10 keV for HAXPES alongside in situ PLD/SXRD (Directory); the published system used 4-12 keV and a Scienta EW4000 analyser to correlate electronic structure with structure during oxide heterostructure growth (Eres et al. 2019)."
+      "text": "Hard X-ray photoelectron spectroscopy (HAXPES) measures the energies of electrons that X-rays knock out of a material, which reveal the elements present, their chemical state and the electronic structure; with hard, high-energy X-rays the electrons escape from deeper, so buried layers can be read. At 28-ID-E a separate 'twisted' monochromator supplies 10 keV for HAXPES alongside pulsed laser deposition and surface diffraction. A published system of the same kind (Eres et al. 2019) worked at 4–12 keV with a Scienta EW4000 analyser, linking electronic and atomic structure while oxide heterostructures grew."
     }
   ],
   "scienceCases": [
     {
       "title": "Crystals with a memory: island patterns during layer-by-layer growth",
-      "plain": "When gallium nitride grows one atomic layer at a time, tiny islands appear on each new layer. Coherent X-ray 'speckle movies' showed that each layer's islands tend to form where the previous layer's islands were - the crystal remembers.",
-      "expert": "Ju et al. (Nature Phys. 2019) measured two-time correlations of diffuse speckle near the (H 0 -H 0) specular rod at H = 0.48 (just off anti-Bragg) during homoepitaxial MOVPE of m-plane GaN (25.75 keV, pink beam, 10 s frames) and found oscillating correlations that reveal persistent island arrangements between successive monolayers, explained by adatom-mediated interlayer communication (Ehrlich-Schwoebel barrier). CHEX's MOCVD station in 28-ID-F is designed to extend this with far higher coherent flux.",
+      "text": "When gallium nitride grows one atomic layer at a time, small islands form on each new layer. Speckle 'movies' recorded during growth showed that each layer's islands tend to appear where the previous layer's islands were: the crystal remembers. Ju and colleagues (2019) grew gallium nitride by metal-organic vapour-phase epitaxy and compared the speckle at every pair of moments (two-time correlations), measured just off the anti-Bragg point midway between two diffraction peaks, where the signal is most sensitive to the surface. They traced the memory to surface atoms (adatoms) moving between layers, governed by the extra energy barrier they meet at step edges (the Ehrlich–Schwoebel barrier). That work needed a 'pink' beam with no monochromator, at 25.75 keV, and 10-second frames; CHEX's growth reactor in hutch F is designed to extend it with far more coherent flux.",
       "refs": [
         "r17",
         "r18",
@@ -87,8 +78,7 @@
     },
     {
       "title": "Oxide films that rearrange their own layers",
-      "plain": "Researchers trying to stack oxide layers in a chosen order found, by watching with X-rays during growth, that the layers swap places on their own - and used that trick to make a crystal never grown before.",
-      "expert": "Lee et al. (Nature Mater. 2014) used in situ X-ray scattering during oxide MBE at APS 33-ID-E to show dynamic layer rearrangement in Ruddlesden-Popper growth and synthesised single-crystal La3Ni2O7 films. The oxide-MBE program (H. Hong) now has a station at 28-ID-C on the tunable branch, where resonant contrast helps distinguish cations.",
+      "text": "Researchers trying to stack oxide layers in a chosen order found, by watching with X-rays during growth, that the layers swap places on their own, and used the effect to make a crystal never grown before. Lee and colleagues (2014) used in situ X-ray scattering at APS 33-ID-E to follow layered Ruddlesden–Popper oxides growing by molecular-beam epitaxy, in which beams of evaporated atoms build a film in ultra-high vacuum. They went on to synthesise the first single-crystal films of La₃Ni₂O₇. The oxide-growth programme now has a station at 28-ID-C on the tunable branch, where resonant contrast, from tuning the energy to an element's absorption edge, helps tell the metal ions apart.",
       "refs": [
         "r19",
         "r6",
@@ -97,8 +87,7 @@
     },
     {
       "title": "Following electrons and oxygen vacancies while oxide heterostructures grow",
-      "plain": "A laser builds oxide films puff by puff while X-rays measure both where the atoms go and what the electrons are doing - key for 'dead layers' that spoil thin-film electronics.",
-      "expert": "Eres et al. (RSI 2019) combined PLD, real-time SXRD and in situ HAXPES (4-12 keV) and demonstrated oxygen-vacancy-driven perovskite↔brownmillerite transformations in La2/3Sr1/3MnO3 capped with SrTiO3-δ. 28-ID-E hosts a PLD diffractometer with HAXPES fed by a 10 keV 'twisted' monochromator.",
+      "text": "A laser builds oxide films puff by puff while X-rays measure both where the atoms go and what the electrons are doing, which matters for 'dead layers' that spoil thin-film electronics. Eres and colleagues (2019) combined pulsed laser deposition, real-time surface diffraction and in situ hard X-ray photoelectron spectroscopy (4–12 keV). They showed missing oxygen atoms (oxygen vacancies) switching La_{2/3}Sr_{1/3}MnO₃, capped with oxygen-deficient SrTiO_{3−δ}, between two crystal structures, perovskite and brownmillerite. Station 28-ID-E hosts this kind of laser-deposition diffractometer, with a 10 keV 'twisted' monochromator for the photoelectron measurements.",
       "refs": [
         "r20",
         "r7"
@@ -106,8 +95,7 @@
     },
     {
       "title": "Growing better qubit crystals",
-      "plain": "Silicon carbide can host quantum bits, but it is hard to grow perfectly. CHEX lets scientists look inside the growth environment as the crystal forms.",
-      "expert": "The APS CHEX page highlights in situ studies of SiC growth for qubit hosts; 2021 CHEX workshops covered MOCVD/ALD/catalysts/SiC.",
+      "text": "Silicon carbide can host quantum bits (qubits), but it is hard to grow perfectly. CHEX lets scientists look inside the growth environment as the crystal forms: the APS highlights in situ studies of silicon-carbide growth for qubit hosts, and the 2021 CHEX workshops covered silicon carbide alongside metal-organic chemical vapour deposition, atomic layer deposition and catalysts.",
       "refs": [
         "r5",
         "r28"
@@ -115,16 +103,14 @@
     },
     {
       "title": "Chips: watching deposition and etching",
-      "plain": "Computer chips are made by depositing and etching films a few atoms thick. CHEX can watch those steps happen, showing where defects and strain are born.",
-      "expert": "APS Strategic Plan 2025-29: in situ surface scattering and XPCS of deposition and etching at CHEX to probe crystallization, defect formation and strain evolution during microelectronics fabrication steps.",
+      "text": "Computer chips are made by depositing and etching films a few atoms thick. The APS strategic plan for 2025–29 foresees CHEX watching those steps with surface scattering and speckle measurements, to follow how films crystallize, where defects form and how strain evolves during each fabrication step. Because high-energy X-rays pass through the walls of deposition and etching chambers, these steps can be followed while they happen rather than examined afterwards.",
       "refs": [
         "r13"
       ]
     },
     {
       "title": "Batteries, fuel cells and electrochemistry under operating conditions",
-      "plain": "Coherent X-rays can image a single battery particle in 3-D while it charges, revealing defects that move and strain that builds up. CHEX brings this to higher energies that see through real cells.",
-      "expert": "Ulvestad et al. (Science 2015) used BCDI to follow dislocation dynamics in operando LiNi0.5Mn1.5O4 nanoparticles; the PDR cites this as a model for CHEX, where 15-35 keV beams (the energy need listed for electrochemistry and catalysis in PDR Table 6.9) penetrate electrolyte and cell hardware for solid-solid, liquid-solid and vapor-solid interface studies (Fister, Markovic, Zhou community).",
+      "text": "Coherent X-rays can image a single battery particle in 3D while it charges, revealing defects that move and strain that builds up. Ulvestad and colleagues (2015) used Bragg coherent diffraction imaging to follow dislocations, line defects in the crystal, moving inside LiNi₀.₅Mn₁.₅O₄ battery nanoparticles during operation; the CHEX design report cites this as a model. CHEX brings such measurements to 15–35 keV, the range listed for electrochemistry and catalysis, where beams pass through electrolyte and cell hardware to reach solid–solid, liquid–solid and vapour–solid interfaces.",
       "refs": [
         "r24",
         "r4",
@@ -133,8 +119,7 @@
     },
     {
       "title": "Rocks, corrosion and materials in harsh environments",
-      "plain": "From carbon storage in rocks to rusting steel, many important reactions happen in messy, hidden places. High-energy coherent X-rays can image them at the nanoscale as they happen.",
-      "expert": "PDR science case: coherent imaging of mineral-fluid reactivity in porous geomaterials, corrosion (costs >3% of US GDP) and nuclear materials under load using 35-60 keV beams; an environmental load frame and combined XRIM/BCDI instrument were proposed (Table 6.9).",
+      "text": "From carbon storage in rocks to rusting steel, many important reactions happen in messy, hidden places. The design report's science case proposes 35–60 keV coherent beams to image, at the nanoscale and as they happen, mineral–fluid reactions in porous rock, corrosion (whose cost it puts at more than 3% of US GDP) and nuclear materials under load. An environmental load frame and a combined interface-microscopy and coherent-imaging instrument were proposed for this work.",
       "refs": [
         "r4"
       ]
@@ -149,13 +134,13 @@
     },
     {
       "label": "Sector energy range",
-      "value": "5-104 keV",
+      "value": "5–104 keV",
       "source": "r5",
       "note": "As quoted on the APS feature-beamline page: from the low end of the tunable branch to the top of the G branch, whose highest crystal setting the 2026 beamline directory lists as 105 keV."
     },
     {
       "label": "Focusing",
-      "value": "Dual CRL zoom per position; e.g. B: 0.9-9.8 µm (H) × 0.3-3.4 µm (V) FWHM at 15 keV; smallest ≈0.8 × 0.2 µm² at 35 keV",
+      "value": "Dual CRL zoom per position; e.g. B: 0.9–9.8 µm (H) × 0.3–3.4 µm (V) FWHM at 15 keV; smallest ≈0.8 × 0.2 µm² at 35 keV",
       "source": "r1",
       "note": "Feature page: 'down to 1 µm'."
     },
@@ -167,7 +152,7 @@
     },
     {
       "label": "Source as built (Sep 2026)",
-      "value": "US: HPMU 2.8 cm × 74 periods; DS: HPMU 3.0 cm × 69 periods (~2.07 m each)",
+      "value": "US: HPMU 2.8 cm × 74 periods; DS: HPMU 3.0 cm × 69 periods (≈2.07 m each)",
       "source": "r10",
       "note": "Interim devices; branch mapping US→tunable, DS→fixed is inferred (APS canting convention + FDR power tables)."
     },
@@ -187,7 +172,7 @@
       "label": "Source baseline (FDR)",
       "value": "2 × NbTi superconducting undulators, 18.5 mm period, 1.3 m, in one canted cryostat",
       "source": "r1",
-      "note": "FDR Ch.3 Table 3.24 says 1.2 m magnetic length; Strategic Plan 2025 says 1.3 m and installation 2026-2027 (APS Strategic Plan 2025-29). Strategic Plan: SCUs give ~3× higher brightness than HPMUs above 50 keV."
+      "note": "FDR Ch.3 Table 3.24 says 1.2 m magnetic length; Strategic Plan 2025 says 1.3 m and installation 2026–2027 (APS Strategic Plan 2025–29). Strategic Plan: SCUs give ≈3× higher brightness than HPMUs above 50 keV."
     },
     {
       "label": "Interim ID power (min gap, 200 mA)",
@@ -209,13 +194,13 @@
     },
     {
       "label": "Tunable branch (A/B/C)",
-      "value": "5-60 keV design; 6-30 keV listed in 2026 with the Si(111) crystals",
+      "value": "5–60 keV design; 6–30 keV listed in 2026 with the Si(111) crystals",
       "source": "r1",
-      "note": "Sources give 5-60 keV (2019 design report), 15-60 keV (2025 engineering paper) or 6-30 keV (2026 beamline directory); the design range and the 2026 directory value are shown."
+      "note": "Sources give 5–60 keV (2019 design report), 15–60 keV (2025 engineering paper) or 6–30 keV (2026 beamline directory); the design range and the 2026 directory value are shown."
     },
     {
       "label": "Tunable mono",
-      "value": "Horizontal LN2-cooled fixed-exit DCM, Si(111) & Si(311), at 35.0 m",
+      "value": "Horizontal LN₂-cooled fixed-exit DCM, Si(111) & Si(311), at 35.0 m",
       "source": "r1",
       "note": "The design drawing (FDR Fig. 4.3) also allows a double-multilayer monochromator (DMM) in this position."
     },
@@ -223,7 +208,7 @@
       "label": "D/E fixed energy",
       "value": "15 keV, diamond (111), 2θ ≈ 23.2° outboard; SCM at 28.3 m",
       "source": "r7",
-      "note": "Plus 10 keV 'twisted mono' for HAXPES in E"
+      "note": "Plus 10 keV 'twisted mono' for HAXPES in E."
     },
     {
       "label": "F fixed energies",
@@ -235,23 +220,23 @@
       "label": "G fixed energies",
       "value": "75 keV Si(022) or 105 keV Si(004), 2θ ≈ 5° inboard; SCM at 40.2 m",
       "source": "r9",
-      "note": "Design range 45-105 keV (FDR); the two crystal settings listed in the 2026 beamline directory are shown."
+      "note": "Design range 45–105 keV (FDR); the two crystal settings listed in the 2026 beamline directory are shown."
     },
     {
       "label": "Design flux (SCU source)",
-      "value": "B: 6.8-37 × 10¹² ph/s @15 keV, 4.2-11 × 10¹² @60 keV; D: 4.4-10 × 10¹² @15 keV; G/1: 0.21-1.2 × 10¹¹ @105 keV",
+      "value": "B: 6.8–37 × 10¹² ph/s @15 keV, 4.2–11 × 10¹² @60 keV; D: 4.4–10 × 10¹² @15 keV; G/1: 0.21–1.2 × 10¹¹ @105 keV",
       "source": "r1",
       "note": "FDR Table 4.10; 2 mm graphite filter on D/E, F, G. As-built (HPMU) flux not published."
     },
     {
       "label": "Sample-detector distance",
-      "value": "1-2 m (diffractometer arm), 2-4 m (long-distance detector positioner)",
+      "value": "1–2 m (diffractometer arm), 2–4 m (long-distance detector positioner)",
       "source": "r1",
       "note": ""
     },
     {
       "label": "Front-end exit",
-      "value": "Canted-undulator FE, windowless; 2 × 1 mm (H × V) aperture per beam at 25.4-25.6 m",
+      "value": "Canted-undulator FE, windowless; 2 × 1 mm (H × V) aperture per beam at 25.4–25.6 m",
       "source": "r1",
       "note": "Standard CUFE mask 2 × 2 mm; 'windowless' confirmed on 2025 ray trace."
     },
@@ -291,19 +276,19 @@
         "lengthM": 1.3,
         "count": 2,
         "polarization": "linear horizontal",
-        "notes": "Ky = 2.291 → E1 ≈ 5.1 keV at max field; 698 W / 843 W through the 2 × 1 mm mask (upstream/downstream); FDR Ch.3 lists 1.2 m magnetic length; 8 mm magnetic gap, 4.2 K, cryocooler-cooled; delayed by core reliability, installation planned 2026-2027 (APS Strategic Plan 2025-29).",
+        "notes": "Ky = 2.291 → E1 ≈ 5.1 keV at max field; 698 W / 843 W through the 2 × 1 mm mask (upstream/downstream); FDR Ch.3 lists 1.2 m magnetic length; 8 mm magnetic gap, 4.2 K, cryocooler-cooled; delayed by core reliability, installation planned 2026–2027 (APS Strategic Plan 2025–29).",
         "source": "r1"
       }
     ],
     "canting": "Two IDs canted by 1 mrad (0.5 mrad end magnets, 1 mrad centre magnet); upstream ID → outboard beam (tunable branch), downstream ID → inboard beam (fixed-energy branches).",
-    "frontEnd": "APS-U canted-undulator front end (CUFE), windowless with differential pumping; limits 2 × 10 kW and 280 kW/mrad²; GRID XBPM1 + XBPM2 in exit mask; exit mask 2 × 1 mm (H × V) per beam (CHEX requirement; standard 2 × 2 mm), apertures 1 mrad apart, at 25.4-25.6 m; tungsten exit collimator 5 × 5 mm at 26.0 m. An APS-U-design CUFE was installed at 28-ID and tested with beam on the pre-upgrade ring in Nov 2018 (FDR milestone MS-L2-2300, r3; r2 Sec. 3-2.2.1).",
-    "sourceSizeAndDivergence": "Electron beam at an ID straight (APS storage-ring parameters, Aug 2024): round-beam mode σx = 12.3 µm, σy = 8.26 µm, σx' = 2.34 µrad, σy' = 3.47 µrad (ε = 28.7 pm each plane); flat-beam mode (κ = 0.1) σx = 14.5 µm, σy = 3.08 µm, σx' = 2.75 µrad, σy' = 1.29 µrad. FDR Table 1.1 brightness mode: 14.7 µm / 3.2 µm / 2.8 µrad / 1.3 µrad. Single-electron photon contribution for a 2.07 m undulator at 25 keV ≈ 1.1 µm and 3.5 µrad (calculated, σr = √(2λL)/4π, σr' = √(λ/2L)). Canted sources sit ~1.23 m either side of the straight centre; PDR optics designs assumed 50 µm FWHM horizontal source."
+    "frontEnd": "APS-U canted-undulator front end (CUFE), windowless with differential pumping; limits 2 × 10 kW and 280 kW/mrad²; GRID XBPM1 + XBPM2 in exit mask; exit mask 2 × 1 mm (H × V) per beam (CHEX requirement; standard 2 × 2 mm), apertures 1 mrad apart, at 25.4–25.6 m; tungsten exit collimator 5 × 5 mm at 26.0 m. An APS-U-design CUFE was installed at 28-ID and tested with beam on the pre-upgrade ring in Nov 2018 (FDR Ch. 1 milestone MS-L2-2300; FDR Ch. 3, Sec. 3-2.2.1).",
+    "sourceSizeAndDivergence": "Electron beam at an ID straight (APS storage-ring parameters, Aug 2024): round-beam mode σx = 12.3 µm, σy = 8.26 µm, σx' = 2.34 µrad, σy' = 3.47 µrad (ε = 28.7 pm each plane); flat-beam mode (κ = 0.1) σx = 14.5 µm, σy = 3.08 µm, σx' = 2.75 µrad, σy' = 1.29 µrad. FDR Table 1.1 brightness mode: 14.7 µm / 3.2 µm / 2.8 µrad / 1.3 µrad. Single-electron photon contribution for a 2.07 m undulator at 25 keV ≈ 1.1 µm and 3.5 µrad (calculated, σr = √(2λL)/4π, σr' = √(λ/2L)). Canted sources sit ≈1.23 m either side of the straight centre; PDR optics designs assumed 50 µm FWHM horizontal source."
   },
   "branches": [
     {
       "id": "tunable",
-      "name": "28-ID-A/B/C - tunable-energy branch",
-      "description": "Outboard canted beam (upstream undulator) → horizontal LN2-cooled DCM at 35 m → straight ahead through a shielded white-beam transport (43.5-60.6 m, through hutch G) with its own mini-enclosure for transfocator 1 (50 m) → tandem hutches 28-ID-B (shared hexapod diffractometer, 64.5 m) and 28-ID-C (oxide MBE, 72 m). White/pink-beam rated (moveable WB stop at 69.3 m). Energy 5-60 keV (FDR), currently 6-30 keV listed."
+      "name": "28-ID-A/B/C – tunable-energy branch",
+      "description": "Outboard canted beam (upstream undulator) → horizontal LN₂-cooled DCM at 35 m → straight ahead through a shielded white-beam transport (43.5–60.6 m, through hutch G) with its own mini-enclosure for transfocator 1 (50 m) → tandem hutches 28-ID-B (shared hexapod diffractometer, 64.5 m) and 28-ID-C (oxide MBE, 72 m). White/pink-beam rated (moveable WB stop at 69.3 m). Energy 5–60 keV (FDR), currently 6–30 keV listed."
     },
     {
       "id": "inboard",
@@ -312,18 +297,18 @@
     },
     {
       "id": "de",
-      "name": "28-ID-A/D/E - fixed 15 keV",
-      "description": "Diamond (111) SCM at 28.3 m deflects ~23.2° outboard; CRL1 in A; tandem hutches 28-ID-D (Huber hexapod diffractometer, 35.5 m) and 28-ID-E (PLD + HAXPES, 43.0 m); a 10 keV 'twisted' monochromator serves HAXPES."
+      "name": "28-ID-A/D/E – fixed 15 keV",
+      "description": "Diamond (111) SCM at 28.3 m deflects ≈23.2° outboard; CRL1 in A; tandem hutches 28-ID-D (Huber hexapod diffractometer, 35.5 m) and 28-ID-E (PLD + HAXPES, 43.0 m); a 10 keV 'twisted' monochromator serves HAXPES."
     },
     {
       "id": "f",
-      "name": "28-ID-A/F - fixed 25 or 35 keV",
-      "description": "Diamond (022)/(004) SCM at 38.3 m deflects ~23° outboard; one hutch 28-ID-F with two positions F/1 (45.5 m, Huber hexapod diffractometer) and F/2 (49.5 m), hosting the MOCVD growth chamber."
+      "name": "28-ID-A/F – fixed 25 or 35 keV",
+      "description": "Diamond (022)/(004) SCM at 38.3 m deflects ≈23° outboard; one hutch 28-ID-F with two positions F/1 (45.5 m, Huber hexapod diffractometer) and F/2 (49.5 m), hosting the MOCVD growth chamber."
     },
     {
       "id": "g",
-      "name": "28-ID-A/G - fixed 75 or 105 keV",
-      "description": "Si (022)/(004) SCM at 40.2 m deflects ~5° inboard; long hutch 28-ID-G (≈45-61 m) with positions G/1 (52 m, Huber hexapod diffractometer) and G/2 (56 m); nickel CRLs. Shares floor with the shielded tunable-branch transport."
+      "name": "28-ID-A/G – fixed 75 or 105 keV",
+      "description": "Si (022)/(004) SCM at 40.2 m deflects ≈5° inboard; long hutch 28-ID-G (≈47.5–60.7 m on the as-built plan) with positions G/1 (52 m, Huber hexapod diffractometer) and G/2 (56 m); nickel CRLs. Shares floor with the shielded tunable-branch transport."
     }
   ],
   "components": [
@@ -333,11 +318,10 @@
       "category": "undulator",
       "branch": "tunable",
       "distanceM": -1.23,
-      "distanceNote": "approx: canted-pair ID centres sit ~1.23 m either side of the straight-section centre (FDR Fig. 3.11: -1229.5/+1234.5 mm for 2.1 m canted HPMUs); FDR Table 4.4 gives ±1.25 m for the planned SCUs",
+      "distanceNote": "Approx: canted-pair ID centres sit ≈1.23 m either side of the straight-section centre (FDR Fig. 3.11: -1229.5/+1234.5 mm for 2.1 m canted HPMUs); FDR Table 4.4 gives ±1.25 m for the planned SCUs.",
       "enclosure": "Storage-ring tunnel / front end",
       "deflection": "none",
-      "plain": "The X-ray source for the tunable branch: a 2-metre row of alternating magnets that makes the ring's 6 GeV electrons wiggle and shine. Today it is a stand-in permanent-magnet undulator; a superconducting one is planned to replace it.",
-      "expert": "Short canted hybrid permanent-magnet undulator, 28 mm period, 74 periods (~2.07 m), device min gap 8.5 mm (user min 9.0 mm); Keff 2.49 and E1 = 2.98 keV at min gap; 9.0 kW total, 201 kW/mrad² on axis at 200 mA. Interim device: the FDR baseline is an 18.5 mm-period, 1.3 m NbTi superconducting undulator (SCU) in a shared canted cryostat. Upstream ID of a canted pair → outboard beam (APS convention, FDR 6-ID/34-ID text) → 28-ID-A/B/C; corroborated by FDR Table 4.13 (HDCM absorbs 697 W ≈ upstream SCU's 698 W).",
+      "text": "The X-ray source for the tunable branch: a 2.07 m row of alternating magnets that makes the ring's 6 GeV electrons slalom and shine an intense, narrow X-ray beam. Today it is an interim permanent-magnet undulator with a 28 mm period, the repeat length of its magnet pattern. At its 8.5 mm minimum gap its fundamental, the lowest of its emission peaks, lies near 3 keV; opening the gap raises it, and higher energies come from odd harmonics, overtones at 3, 5, 7… times the fundamental. A superconducting undulator with an 18.5 mm period is planned to replace it in 2026–2027. That this upstream device feeds the tunable branch is inferred from the APS canting convention and the design's heat-load tables.",
       "specs": {
         "periodMm": 28,
         "periods": 74,
@@ -347,8 +331,9 @@
         "E1_atMinGap_keV": 2.98,
         "Ptot_kW": 9.0,
         "Pdens_kW_per_mrad2": 201,
-        "plannedReplacement": "SCU, 18.5 mm period, 1.3 m (FDR Table 4.4)",
-        "feeds": "outboard canted beam → tunable branch (inferred)"
+        "plannedReplacement": "SCU, 18.5 mm period, 1.3 m (FDR Table 4.4); planned 2026–2027",
+        "feeds": "outboard canted beam → tunable branch (inferred)",
+        "userMinGapMm": 9.0
       },
       "source": "r10"
     },
@@ -358,15 +343,15 @@
       "category": "other",
       "branch": null,
       "distanceM": 0.0,
-      "distanceNote": "approx: end magnets at each end of the ~5.4 m straight, 1 mrad magnet at its centre (FDR 3-3.3.5)",
+      "distanceNote": "Approx: end magnets at each end of the ≈5.4 m straight, 1 mrad magnet at its centre (FDR 3-3.3.5)",
       "enclosure": "Storage-ring tunnel / front end",
       "deflection": "horizontal",
-      "plain": "Three small steering magnets put a tiny kink, just 0.06 degrees, in the electron path between the two undulators. Their X-ray beams drift apart by about 3 centimetres over the first 30 metres, so one slot in the ring feeds two independent beams.",
-      "expert": "Standard APS-U canted geometry: 0.5 mrad canting magnets at the upstream and downstream ends and a 1 mrad canting magnet (with corrector) between the two IDs; beams separate by 1 mrad × z (≈28 mm at 28 m, ≈65 mm at 64.5 m). For the SCU baseline the centre canting magnet sits inside the shared 4.8 m cryostat at cryogenic temperature.",
+      "text": "Three small steering magnets put a 1 milliradian (mrad) kink, about 0.06°, in the electron path between the two undulators, so one straight section of the ring feeds two independent X-ray beams. The beams drift apart by 1 mm for every metre travelled: about 28 mm at the first crystals and 65 mm at station B. A 1 mrad magnet sits between the undulators and 0.5 mrad magnets at either end of the straight; with the planned superconducting pair, the centre magnet will sit inside the shared cryostat.",
       "specs": {
         "cantAngle_mrad": 1.0,
         "endMagnets_mrad": 0.5,
-        "centreMagnet_mrad": 1.0
+        "centreMagnet_mrad": 1.0,
+        "beam separation": "≈28 mm at 28 m, ≈65 mm at 64.5 m"
       },
       "source": "r2"
     },
@@ -376,11 +361,10 @@
       "category": "undulator",
       "branch": "inboard",
       "distanceM": 1.23,
-      "distanceNote": "approx: see us-undulator",
+      "distanceNote": "Approx: see us-undulator.",
       "enclosure": "Storage-ring tunnel / front end",
       "deflection": "none",
-      "plain": "The second stand-in magnet array. Its beam is shared by three fixed-energy branches: thin crystals along the way each skim off one X-ray colour and let the rest pass on to the next.",
-      "expert": "Short canted hybrid PMU, 30 mm period, 69 periods (~2.07 m), device min gap 9.0 mm (admin min 9.0, user min 12.0 mm in the Sep-2026 table); Keff 2.64, E1 = 2.54 keV at min gap; 9.0 kW, 188 kW/mrad². For harmonic multiplexing the fundamental is set near 5 keV (K≈1.6) so the 3rd/5th/7th harmonics hit 15/25/35 keV and the 15th/21st hit 75/105 keV. Planned replacement: SCU 18.5 mm × 1.3 m with Ky = 2.291 (E1 = 5.1 keV, FDR Table 4.13).",
+      "text": "The second interim permanent-magnet undulator, 2.07 m long with a 30 mm period, feeds the three fixed-energy branches. Its fundamental, the lowest of its emission peaks, is set near 5 keV, so its odd harmonics fall at 15, 25 and 35 keV (3rd, 5th, 7th) and at 75 and 105 keV (15th, 21st). Each thin crystal downstream picks one of these off the shared beam and lets the rest pass on. A superconducting undulator with an 18.5 mm period, whose fundamental is 5.1 keV at full field, is planned to replace it.",
       "specs": {
         "periodMm": 30,
         "periods": 69,
@@ -390,7 +374,10 @@
         "E1_atMinGap_keV": 2.54,
         "Ptot_kW": 9.0,
         "Pdens_kW_per_mrad2": 188,
-        "feeds": "inboard canted beam → D/E, F, G (inferred)"
+        "feeds": "inboard canted beam → D/E, F, G (inferred)",
+        "user min gap (Sep 2026)": "12.0 mm",
+        "harmonics used": "3rd/5th/7th (15/25/35 keV) and 15th/21st (75/105 keV) of a ≈5 keV fundamental (K ≈ 1.6)",
+        "planned replacement": "SCU, 18.5 mm × 1.3 m, Ky = 2.291 (E1 = 5.1 keV)"
       },
       "source": "r10"
     },
@@ -400,11 +387,10 @@
       "category": "diagnostics",
       "branch": null,
       "distanceM": 19.4,
-      "distanceNote": "approx: FDR Table 3.9 quotes the CUFE upstream mask (XBPM1 location) at 19.4 m; not given specifically for 28-ID",
+      "distanceNote": "Approx: FDR Table 3.9 quotes the CUFE upstream mask (XBPM1 location) at 19.4 m; not given specifically for 28-ID.",
       "enclosure": "Storage-ring tunnel / front end",
       "deflection": "none",
-      "plain": "A beam 'GPS' inside the accelerator tunnel. It tracks where the X-ray beam points to about 10 micrometres, so the electron orbit can be steered to hold the beam still.",
-      "expert": "Fluorescence-based grazing-incidence (GRID) XBPM used in the APS-U canted-undulator front end (CUFE) for orbit feedback; requirement 12 µm (H) / 10 µm (V) DC resolution, 3.7/2.4 µm AC (0.01-1000 Hz). XBPM2 is integrated in the exit mask.",
+      "text": "A beam-position monitor inside the accelerator tunnel that tracks where each X-ray beam points, so the electron orbit can be steered to hold the beams still. It is a GRID monitor, which senses the fluorescence the beam excites in metal surfaces at grazing incidence. It must resolve slow drifts to 12 µm horizontally and 10 µm vertically, and faster motion (0.01 Hz to 1 kHz) to 3.7 and 2.4 µm. A second monitor (XBPM2) is built into the exit mask.",
       "specs": {
         "resolutionDC_um": "12 H / 10 V",
         "resolutionAC_um": "3.7 H / 2.4 V"
@@ -417,14 +403,14 @@
       "category": "shutter",
       "branch": null,
       "distanceM": 21.5,
-      "distanceNote": "approx: order from FDR Fig. 3.4 (upstream of the shield wall); 28-ID positions not published - value estimated",
+      "distanceNote": "Approx: order from FDR Fig. 3.4 (upstream of the shield wall); 28-ID positions not published – value estimated.",
       "enclosure": "Storage-ring tunnel / front end",
       "deflection": "none",
-      "plain": "Heavy shutters inside the tunnel that block the beam and stray radiation, so people can safely enter the experiment rooms downstream.",
-      "expert": "CUFE sequence (FDR Fig. 3.4): clearing magnet / LPPS / SRV → BTFM1 → FM2 → lead collimator → FM3 → GRID-XBPM → PS2/IM1 → SS1&SS2 → wall collimator → FEV → exit mask/XBPM2 → exit collimator → BIV. Front end rated 2 × 10 kW and 280 kW/mrad².",
+      "text": "Heavy shutters inside the tunnel that stop the X-ray beam and the stray radiation travelling with it, so people can safely enter the hutches downstream: a photon shutter (PS2) and two safety shutters (SS1 and SS2). They belong to the standard canted-undulator front end of the upgraded APS, rated for two beams of up to 10 kW each and 280 kW per square milliradian at their centres. Their exact positions at 28-ID are not published.",
       "specs": {
         "cufeTotalPowerLimit_kW": "2 × 10",
-        "cufePeakPowerDensityLimit_kW_per_mrad2": 280
+        "cufePeakPowerDensityLimit_kW_per_mrad2": 280,
+        "CUFE sequence (FDR Fig. 3.4)": "clearing magnet / LPPS / SRV → BTFM1 → FM2 → lead collimator → FM3 → GRID-XBPM → PS2/IM1 → SS1 & SS2 → wall collimator → FEV → exit mask/XBPM2 → exit collimator → BIV"
       },
       "source": "r2"
     },
@@ -434,12 +420,13 @@
       "category": "collimator",
       "branch": null,
       "distanceM": 22.8,
-      "distanceNote": "approx: hatched shield block spans ~22.1-23.6 m on the 2025 ray-trace plan (MEDSI 2025 Fig. 2), measured from its 5 m scale",
+      "distanceNote": "Approx: hatched shield block spans ≈22.1–23.6 m on the 2025 ray-trace plan (MEDSI 2025 Fig. 2), measured from its 5 m scale.",
       "enclosure": "Shield (ratchet) wall",
       "deflection": "none",
-      "plain": "The thick concrete-and-lead wall around the accelerator tunnel. The X-rays leave through a small hole in it; everything else stays inside.",
-      "expert": "Wall collimator in the shield wall per CUFE design; the beam then enters the first optics enclosure 28-ID-A. Ray-trace label (2025): 'Canted Undulator Front End - Windowless'.",
-      "specs": {},
+      "text": "The thick concrete-and-lead shielding wall around the accelerator tunnel, called the ratchet wall. The X-ray beams leave through a collimator, a small opening in a heavy block, and enter the first optics hutch, 28-ID-A; everything else stays inside. The front end that crosses the wall is windowless, which the 2025 as-built ray trace confirms.",
+      "specs": {
+        "front-end exit": "windowless (2025 ray-trace label)"
+      },
       "source": "r14"
     },
     {
@@ -448,16 +435,16 @@
       "category": "frontEnd",
       "branch": null,
       "distanceM": 25.6,
-      "distanceNote": "exact for 28-ID per FDR Table 4.6 (25.6 m); FDR Table 4.4 footnote places the 2 × 1 mm mask at 25.4 m",
+      "distanceNote": "Exact for 28-ID per FDR Table 4.6 (25.6 m); FDR Table 4.4 footnote places the 2 × 1 mm mask at 25.4 m.",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A water-cooled copper block with two small holes, one for each undulator beam. It cuts away the hot outer part of each X-ray fan and lets only the bright core through.",
-      "expert": "CHEX requirement: windowless exit with a 2 mm × 1 mm (H × V) aperture per branch (FDR 4-2.3; power figures in Tables 4.4/4.13/4.14 are 'through the front end mask 2 × 1 mm² @ 25.4 m'); FDR Table 4.6 and FDR Ch. 3 describe the standard CUFE exit mask as 2 mm × 2 mm per beam. XBPM2 is built into this mask.",
+      "text": "A water-cooled copper block with two small openings, one for each undulator beam, that passes only the bright central core and absorbs the hot outer part of each X-ray fan. CHEX asked for openings of 2 × 1 mm (horizontal × vertical) instead of the standard 2 × 2 mm; one design table still lists the standard size. There is no exit window: differential pumping keeps the ring's vacuum separate, which preserves the beam's coherence. A second beam-position monitor (XBPM2) is built in.",
       "specs": {
         "aperturePerBeam_mm": "2 × 1 (H × V) CHEX requirement; standard CUFE 2 × 2",
         "beams": 2,
         "beamSeparation_mrad": 1.0,
-        "exit": "windowless (differential pumping)"
+        "exit": "windowless (differential pumping)",
+        "XBPM": "XBPM2 integrated"
       },
       "source": "r1"
     },
@@ -467,11 +454,10 @@
       "category": "collimator",
       "branch": null,
       "distanceM": 26.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A tungsten block with 5-millimetre holes. It stops stray, very-high-energy radiation from the accelerator from travelling down the beamline with the X-rays.",
-      "expert": "Standard CU front-end exit collimator, 5 mm × 5 mm aperture per beam (narrowed so beamlines can manage bremsstrahlung with small-offset monochromators).",
+      "text": "A tungsten block with a 5 × 5 mm opening for each beam. It stops bremsstrahlung, the very-high-energy gamma rays made when stored electrons strike leftover gas in the ring, from travelling down the beamline with the X-rays. For the upgrade these openings were narrowed so that beamlines whose monochromators shift the beam only slightly can still keep the bremsstrahlung contained.",
       "specs": {
         "aperture_mm": "5 × 5 per beam"
       },
@@ -483,11 +469,10 @@
       "category": "slits",
       "branch": null,
       "distanceM": 26.8,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "Water-cooled metal jaws that trim the full-power 'white' beam, which still carries every X-ray colour, before it reaches the delicate crystals.",
-      "expert": "CU variable-aperture photon absorber with tungsten edge inserts. Which canted beam each of SL-1/SL-2 acts on is not stated for 28-ID (at 34-ID SL-1 is inboard, SL-2 outboard).",
+      "text": "Water-cooled jaws with tungsten edges that trim one canted beam while it is still 'white', carrying the undulator's full spectrum and power, before it reaches the crystals. Which of the two beams this pair (SL-1) and its neighbour (SL-2) trim is not stated for 28-ID; in the same design at sector 34, SL-1 acts on the inboard beam.",
       "specs": {
         "designation": "28ID-SL-1"
       },
@@ -499,11 +484,10 @@
       "category": "slits",
       "branch": null,
       "distanceM": 27.3,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A second set of heat-proof jaws, trimming the other undulator beam before the optics.",
-      "expert": "CU variable-aperture photon absorber with tungsten edge inserts.",
+      "text": "The second set of water-cooled, tungsten-edged jaws, trimming the other beam of the canted pair before the optics. With one pair per beam, each undulator beam can be shaped on its own while it still carries the full white spectrum.",
       "specs": {
         "designation": "28ID-SL-2"
       },
@@ -515,14 +499,16 @@
       "category": "filter",
       "branch": "inboard",
       "distanceM": 27.6,
-      "distanceNote": "position NOT given in the FDR - placed just upstream of the first SCM for modelling only",
+      "distanceNote": "Position NOT given in the FDR – placed just upstream of the first SCM for modelling only.",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A 2-millimetre sheet of graphite in the shared beam. It soaks up low-energy X-rays that would only heat the thin diamond crystals downstream, cutting their heat load about four-fold so they stay flat.",
-      "expert": "FDR Table 4.10 footnote: a 2 mm graphite filter is applied for branches D/E, F and G. FDR Table 4.14: absorbed power in the D/E diamond SCM drops from 68.7 W to 16.4 W (200 µm diamond) or 55.6 → 8.8 W (100 µm) with the filter (through the 2 × 1 mm mask). PDR suggested single-crystal diamond filters to avoid wavefront distortion.",
+      "text": "A 2 mm sheet of graphite in the shared inboard beam. It absorbs low-energy X-rays that the thin diamond crystals downstream do not reflect but would soak up as heat: in the design, the heat load on the first 200 µm diamond falls from 68.7 W to 16.4 W, about four-fold, helping the crystal stay flat. The design does not give its position; the model places it just ahead of the first crystal.",
       "specs": {
         "thickness_mm": 2,
-        "material": "graphite"
+        "material": "graphite",
+        "D/E diamond heat load, 200 µm": "68.7 W → 16.4 W with filter",
+        "D/E diamond heat load, 100 µm": "55.6 W → 8.8 W with filter",
+        "PDR alternative": "single-crystal diamond filters (avoid wavefront distortion)"
       },
       "source": "r1"
     },
@@ -532,17 +518,20 @@
       "category": "monochromator",
       "branch": "de",
       "distanceM": 28.3,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre); also Table 4.5",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre); also Table 4.5.",
       "enclosure": "28-ID-A",
       "deflection": "horizontal",
-      "plain": "A thin, see-through diamond crystal that reflects just one X-ray colour (15 keV) sideways by 23 degrees into the D/E branch. The rest of the beam passes straight through it to the next stations.",
-      "expert": "Thin (100-200 µm) diamond, fixed-angle horizontal (outboard) deflection, symmetric Bragg geometry intended to preserve collimation (PDR); LN2-cooled per FDR text. As-built (Directory): C(111) at 15 keV ('single side bounce monochromator'). 2θ = 23.15° for C(111) at 15 keV (= 3rd harmonic of a 5 keV fundamental). Absorbed power 68.7 W (200 µm) → 16.4 W with 2 mm graphite filter (Table 4.14). A separate 'twisted monochromator' provides 10 keV for HAXPES in 28-ID-E (Directory; design not published).",
+      "text": "The first of the thin crystals that share one beam: a diamond 100–200 µm thick that reflects only 15 keV X-rays, sending them 23° sideways (outboard, away from the ring) into the D/E branch, while the rest of the beam passes through to the crystals beyond. At this angle the diamond (111) reflection picks the undulator's 3rd harmonic, three times its 5 keV fundamental. The design calls for liquid-nitrogen cooling and a symmetric reflection that preserves the beam's collimation. Station E also receives 10 keV from a separate 'twisted' monochromator, whose design is unpublished.",
       "specs": {
         "crystal": "diamond (111)",
         "energy_keV": 15,
         "twoTheta_deg": 23.15,
-        "thickness_um": "100-200 (FDR heat-load cases)",
-        "deflection": "outboard"
+        "thickness_um": "100–200 (FDR heat-load cases)",
+        "deflection": "outboard",
+        "cooling (FDR)": "LN₂",
+        "geometry (PDR intent)": "symmetric Bragg, preserves collimation",
+        "harmonic": "3rd of ≈5 keV",
+        "HAXPES beam": "separate 10 keV 'twisted' monochromator (design unpublished)"
       },
       "source": "r7"
     },
@@ -552,11 +541,10 @@
       "category": "collimator",
       "branch": null,
       "distanceM": 29.1,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A shielding block just after the first diamond crystal. Small holes let the two main beams through, while the block keeps stray radiation from spreading along the beamline.",
-      "expert": "Collimator after the first single-crystal monochromator (listed in the A/B/C component table).",
+      "text": "A shielding block just after the first diamond crystal. Small openings let the two main beams through, while the block stops stray radiation travelling with them from spreading along the beamline.",
       "specs": {
         "designation": "28ID-SC-1"
       },
@@ -568,11 +556,10 @@
       "category": "slits",
       "branch": "de",
       "distanceM": 29.3,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "Jaws that trim the freshly reflected 15 keV beam before its first lens stack, passing only the most laser-like core.",
-      "expert": "Slits for CRL1-D/E.",
+      "text": "Adjustable jaws that trim the freshly reflected 15 keV beam before its first lens stack. Passing only the central part of the beam, where the waves are most nearly in step, keeps the speckle contrast high at stations D and E.",
       "specs": {
         "designation": "28ID-SL-6"
       },
@@ -584,11 +571,10 @@
       "category": "crl",
       "branch": "de",
       "distanceM": 29.8,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "The first half of the D/E zoom lens: a stack of up to 19 tiny beryllium lenses, still inside the optics hutch.",
-      "expert": "Be CRLs, 50 µm apex radius; max 19 lenses (D) / 10 (E) (FDR Table 4.12).",
+      "text": "The first half of the D/E zoom lens, still inside the optics hutch: compound refractive lenses (CRLs), tiny curved beryllium lenses that each bend X-rays only slightly, so many are stacked in a row. Up to 19 lenses can be used for station D and 10 for station E, each with a 50 µm tip radius. With a second stack near each sample, it forms a zoom that changes the spot size without moving the focus.",
       "specs": {
         "maxLenses_D": 19,
         "maxLenses_E": 10,
@@ -602,11 +588,10 @@
       "category": "diagnostics",
       "branch": "de",
       "distanceM": 30.0,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A screen and camera for checking the position of the 15 keV beam.",
-      "expert": "Beam visualization monitor.",
+      "text": "A screen and camera for checking where the 15 keV beam is. The screen glows where the X-rays strike it, so staff can see the invisible beam while aligning the D/E optics.",
       "specs": {},
       "source": "r1"
     },
@@ -616,11 +601,10 @@
       "category": "shutter",
       "branch": "de",
       "distanceM": 31.0,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "The D/E branch's own shutter. It can close without affecting the other three branches.",
-      "expert": "P8-20 monochromatic-beam shutter.",
+      "text": "The D/E branch's own shutter, built for the monochromatic (single-energy) beam. Closing it makes hutches D and E safe to enter without interrupting the other three branches.",
       "specs": {
         "type": "P8-20"
       },
@@ -632,11 +616,10 @@
       "category": "diagnostics",
       "branch": "tunable",
       "distanceM": 32.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A fluorescent screen and camera that can be slid into the tunable beam, so staff can see where it is while aligning the optics.",
-      "expert": "Beam visualization monitor for alignment.",
+      "text": "A fluorescent screen and camera that slide into the tunable beam, so staff can see where it is while aligning the optics. It sits just upstream of the tunable branch's monochromator.",
       "specs": {
         "designation": "28ID-BD-1"
       },
@@ -648,11 +631,10 @@
       "category": "beamPipe",
       "branch": "de",
       "distanceM": 32.0,
-      "distanceNote": "position not tabulated; spans from SH-2 to the A outboard wall (~33.4 m path) - approx",
+      "distanceNote": "Position not tabulated; spans from SH-2 to the A outboard wall (≈33.4 m path) – approx.",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A shielded pipe that carries the 15 keV beam out through the optics-hutch wall into hutch D.",
-      "expert": "Shielded transport through 28-ID-A.",
+      "text": "A shielded pipe that carries the 15 keV beam out through the optics hutch's side wall into hutch D. Bent 23° outboard by its diamond crystal, the D/E branch leaves 28-ID-A about 33 m along its path.",
       "specs": {},
       "source": "r1"
     },
@@ -662,11 +644,10 @@
       "category": "slits",
       "branch": "de",
       "distanceM": 33.7,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-D",
       "deflection": "none",
-      "plain": "Jaws that trim the 15 keV beam just before station D's lens stack.",
-      "expert": "Slits for CRL2-D.",
+      "text": "Jaws that trim the 15 keV beam just before station D's second lens stack. Every CHEX station has the same trio within about 3 m of its sample: slits, a lens stack, and a window where the beamline vacuum ends.",
       "specs": {},
       "source": "r1"
     },
@@ -676,11 +657,10 @@
       "category": "collimator",
       "branch": "tunable",
       "distanceM": 33.8,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A shielding collimator just ahead of the tunable monochromator that blocks stray radiation travelling with the beam.",
-      "expert": "Collimator upstream of the HDCM.",
+      "text": "A shielding collimator just ahead of the tunable branch's monochromator. Its heavy block stops stray radiation travelling with the beam, while a small opening lets the X-rays through.",
       "specs": {
         "designation": "28ID-BC-1"
       },
@@ -692,13 +672,14 @@
       "category": "crl",
       "branch": "de",
       "distanceM": 34.0,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-D",
       "deflection": "none",
-      "plain": "The second half of the zoom lens, 1.5 metres before the D sample, setting spots from about 1.5 to 6 micrometres wide.",
-      "expert": "Max 64 Be lenses at 50 µm (Table 4.12). Focus at 35.5 m: 1.5-6.4 × 0.5-2.2 µm (15 keV); design flux 4.4-10 × 10¹² ph/s at 15 keV (Table 4.10).",
+      "text": "The second half of station D's zoom lens, 1.5 m before the sample: up to 64 beryllium lenses with a 50 µm tip radius. Trading lenses between this stack and the first one changes the spot at 15 keV from about 1.5 × 0.5 µm to 6.4 × 2.2 µm (horizontal × vertical) without moving the focus. The design flux at D is 4.4–10 × 10¹² photons per second, calculated for the planned superconducting undulators.",
       "specs": {
-        "maxLenses": 64
+        "maxLenses": 64,
+        "focus at 35.5 m, 15 keV": "1.5–6.4 × 0.5–2.2 µm (H × V)",
+        "design flux, 15 keV": "4.4–10 × 10¹² ph/s (SCU source)"
       },
       "source": "r1"
     },
@@ -708,12 +689,13 @@
       "category": "window",
       "branch": "de",
       "distanceM": 34.3,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-D",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum just before the D sample.",
-      "expert": "Diamond or Be window.",
-      "specs": {},
+      "text": "A thin window of diamond or beryllium, light materials that X-rays cross almost unhindered, that ends the beamline vacuum 1.2 m before station D's sample. From here the beam reaches the sample environment.",
+      "specs": {
+        "material": "diamond or Be"
+      },
       "source": "r1"
     },
     {
@@ -722,18 +704,20 @@
       "category": "monochromator",
       "branch": "tunable",
       "distanceM": 35.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section); also Table 4.5",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section); also Table 4.5.",
       "enclosure": "28-ID-A",
       "deflection": "horizontal",
-      "plain": "Two liquid-nitrogen-cooled silicon crystals that pick out one X-ray colour for the tunable branch. Turning them changes the energy, and the beam leaves parallel to where it came in, shifted sideways by a few millimetres.",
-      "expert": "LN2-cooled, fixed-exit DCM with Si(111) and Si(311) crystals, diffracting in the horizontal plane (side-bounce) to minimise the effect of vibration on brightness. Design heat load (SCU, K=2.291, 5.1 keV fundamental, 2 × 1 mm mask): 697 W absorbed, 77.5 W/mm²; beam 2.72 × 1.36 mm (H×V) at the mono, footprint 7.0 × 1.36 mm, first-crystal angle 23.0° (FDR Table 4.13). FDR text: 5-60 keV; MEDSI 2025: 15-60 keV; Beamline Directory (Oct 2026): Si(111), 6-30 keV. Fig. 4.3 labels the position 'DCM or DMM' (multilayer option, as-built status unknown).",
+      "text": "The tunable branch's monochromator: two silicon crystals that reflect only the X-ray energy matching their atomic spacing at the set angle (Bragg's law), so turning them tunes the energy. They reflect sideways, in the horizontal plane, which reduces the effect of vibration on the beam's brightness, and the beam leaves parallel to the incoming one, offset sideways by a few millimetres that stay fixed as the energy changes (a fixed-exit design). Liquid nitrogen cools them: with the planned superconducting undulator, the design heat load is 697 W. Sources disagree on the range: 5–60 keV in the design, 15–60 keV in a 2025 paper, 6–30 keV listed in 2026 with the Si(111) crystals. A second Si(311) pair and an optional multilayer monochromator are in the design; their as-built status is unknown.",
       "specs": {
         "crystals": "Si(111), Si(311)",
-        "cooling": "LN2",
+        "cooling": "LN₂",
         "geometry": "horizontal, fixed exit",
-        "energyRange_keV": "5-60 (FDR) / 15-60 (MEDSI 2025) / 6-30 listed (Directory 2026)",
+        "energyRange_keV": "5–60 (FDR) / 15–60 (MEDSI 2025) / 6–30 listed (Directory 2026)",
         "designAbsorbedPower_W": 697,
-        "designPowerDensity_W_per_mm2": 77.5
+        "designPowerDensity_W_per_mm2": 77.5,
+        "first-crystal angle (5.1 keV)": "23.0°",
+        "beam at mono (design)": "2.72 × 1.36 mm (H × V); footprint 7.0 × 1.36 mm",
+        "position option": "DCM or DMM (FDR Fig. 4.3)"
       },
       "source": "r1"
     },
@@ -743,14 +727,14 @@
       "category": "diffractometer",
       "branch": "de",
       "distanceM": 35.5,
-      "distanceNote": "exact, FDR Table 4.5 (station table)",
+      "distanceNote": "Exact, FDR Table 4.5 (station table)",
       "enclosure": "28-ID-D",
       "deflection": "none",
-      "plain": "A shared sample robot where visiting teams mount their own reaction cells, such as batteries, catalysts and heated gas cells. When hutch E is in use it lowers itself and lets the beam pass through.",
-      "expert": "Shared CHEX instrument (FDR 4-2.6: hexapod diffractometer + LDDP + PADs). Directory: 'General purpose Huber Hexapod diffractometer'. Operating modes: alignment/imaging and beam-pass (instrument retracts to pass beam to rear position).",
+      "text": "A shared, general-purpose Huber hexapod diffractometer: a six-legged platform on a rotation stage that holds visiting teams' reaction cells, such as batteries, catalysts and heated gas cells, at precise angles to the beam. In the design, the zoom lenses give spots from about 1.5 × 0.5 µm to 6.4 × 2.2 µm here at 15 keV. When the rear hutch E is in use, the instrument retracts ('beam-pass' mode) so the beam travels on.",
       "specs": {
-        "focusH_um_15keV": "1.5-6.4",
-        "focusV_um_15keV": "0.5-2.2"
+        "focusH_um_15keV": "1.5–6.4",
+        "focusV_um_15keV": "0.5–2.2",
+        "modes": "alignment/imaging, beam-pass"
       },
       "source": "r7"
     },
@@ -760,13 +744,13 @@
       "category": "detector",
       "branch": "de",
       "distanceM": 36.5,
-      "distanceNote": "FDR Table 4.5: 36.5-39.5 m (start of range)",
+      "distanceNote": "FDR Table 4.5: 36.5–39.5 m (start of range)",
       "enclosure": "28-ID-D",
       "deflection": "none",
-      "plain": "Speckle-counting cameras up to 4 metres from the D sample.",
-      "expert": "PADs on arm/LDDP (FDR).",
+      "text": "Pixel-array detectors, fast X-ray cameras that record the speckle from the D sample, sit either on the diffractometer arm or on a long-distance positioner, 1–4 m from the sample. Farther away, each speckle spreads over more pixels, so finer speckle can be resolved.",
       "specs": {
-        "rangeM": "36.5-39.5"
+        "rangeM": "36.5–39.5",
+        "sample–detector distance": "1–4 m"
       },
       "source": "r1"
     },
@@ -776,16 +760,17 @@
       "category": "monochromator",
       "branch": "f",
       "distanceM": 38.3,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch); also Table 4.5",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch); also Table 4.5.",
       "enclosure": "28-ID-A",
       "deflection": "horizontal",
-      "plain": "A second diamond crystal, 10 metres further on, that picks a higher colour (25 or 35 keV) out of the same shared beam and sends it 23 degrees sideways to hutch F.",
-      "expert": "Thin diamond, fixed 2θ ≈ 23° outboard. As-built (Directory): C(022) at 25 keV or C(004) at 35 keV (single side-bounce). At fixed angle, 2θ = 22.68° for C(220)@25 keV (5th harmonic of 5 keV) and 22.91° for C(400)@35 keV (7th) per PDR Table 6.10 - i.e. swapping C(220)@25 keV for C(400)@35 keV needs only a 0.23° change in 2θ (the PDR specified 2θ = 23 ± 0.5° for the diamond branches).",
+      "text": "A second thin diamond crystal, 10 m further along the shared beam, that picks out 25 or 35 keV and sends it about 23° outboard to hutch F, while the rest passes on. Two diamond reflections do this at almost the same angle: (022) selects the undulator's 5th harmonic at 25 keV with a deflection 2θ = 22.68°, and (004) the 7th harmonic at 35 keV with 2θ = 22.91°. Switching energy therefore changes the deflection by only 0.23°.",
       "specs": {
         "crystals": "diamond (022) / (004)",
         "energies_keV": "25 / 35",
-        "twoTheta_deg": "≈22.7-23.2",
-        "deflection": "outboard"
+        "twoTheta_deg": "≈22.7–23.2",
+        "deflection": "outboard",
+        "2θ (25 / 35 keV)": "22.68° / 22.91°",
+        "harmonics": "5th / 7th of ≈5 keV"
       },
       "source": "r8"
     },
@@ -795,11 +780,10 @@
       "category": "collimator",
       "branch": null,
       "distanceM": 39.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A second shielding block, just after the second diamond crystal, with holes for the beams that continue downstream.",
-      "expert": "Collimator after the second single-crystal monochromator.",
+      "text": "A second shielding block, just after the second diamond crystal, with openings for the beams that continue downstream. It stops stray radiation travelling straight on from spreading further along the beamline.",
       "specs": {
         "designation": "28ID-SC-2"
       },
@@ -811,11 +795,10 @@
       "category": "slits",
       "branch": "f",
       "distanceM": 39.5,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "Jaws that trim the reflected F beam before its first lens stack.",
-      "expert": "Slits for CRL1-F.",
+      "text": "Adjustable jaws that trim the freshly reflected 25 or 35 keV beam before branch F's first lens stack, passing only its most coherent central part. A smaller opening raises the speckle contrast at the cost of flux.",
       "specs": {},
       "source": "r1"
     },
@@ -825,11 +808,10 @@
       "category": "beamStop",
       "branch": "de",
       "distanceM": 39.9,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-D",
       "deflection": "none",
-      "plain": "A beam stop, moved by hand, at the end of hutch D. Closed, it lets people work in hutch E while D runs.",
-      "expert": "Manual moveable monochromatic beam stop.",
+      "text": "A beam stop, moved by hand, at the end of hutch D. When it is in place, the 15 keV beam ends here, so people can safely work in hutch E while station D runs.",
       "specs": {},
       "source": "r1"
     },
@@ -839,11 +821,10 @@
       "category": "crl",
       "branch": "f",
       "distanceM": 40.0,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "The first half of the F zoom lens, still inside the optics hutch.",
-      "expert": "Be, 50 µm apex; max 19 (F/1) / 12 (F/2) lenses.",
+      "text": "The first half of branch F's zoom lens, still inside the optics hutch: a stack of beryllium compound refractive lenses (CRLs), each bending X-rays only slightly, with a 50 µm tip radius. Up to 19 lenses are used for position F/1 and 12 for F/2; a second stack near each sample completes the zoom.",
       "specs": {
         "maxLenses_F1": 19,
         "maxLenses_F2": 12
@@ -856,11 +837,10 @@
       "category": "diagnostics",
       "branch": "f",
       "distanceM": 40.2,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A screen and camera for checking the position of the F beam.",
-      "expert": "Beam visualization monitor.",
+      "text": "A screen and camera for checking where the F beam is. It sits just after the branch's first lens stack, so staff can align the 25 or 35 keV beam after its crystal and lenses.",
       "specs": {},
       "source": "r1"
     },
@@ -870,16 +850,17 @@
       "category": "monochromator",
       "branch": "g",
       "distanceM": 40.2,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch); also Table 4.5",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch); also Table 4.5.",
       "enclosure": "28-ID-A",
       "deflection": "horizontal",
-      "plain": "The last crystal on the shared beam: silicon, set to grab very-high-energy X-rays (75 or 105 keV) that punch through thick samples, bending them about 5 degrees toward the ring.",
-      "expert": "Fixed-energy single side-bounce Si monochromator with two Si crystals (Directory): Si(022) at 75 keV and Si(004) at 105 keV - the 15th and 21st harmonics of a 5 keV fundamental at a common 2θ ≈ 4.93-4.98° (PDR Table 6.13 '5.0° option'). Deflects inboard (plan view FDR Fig. 4.2 / MEDSI 2025 ray trace). FDR design range 45-105 keV.",
+      "text": "The last crystal on the shared beam: silicon, set to pick out very-high-energy X-rays, 75 or 105 keV, that cross thick samples and vessels, and to bend them about 5° inboard, toward the ring. Two silicon crystals provide the (022) and (004) reflections, which select the undulator's 15th and 21st harmonics of a 5 keV fundamental at almost the same deflection, 2θ ≈ 4.93–4.98°. The design range of this branch is 45–105 keV; 75 and 105 keV are the settings listed in 2026.",
       "specs": {
         "crystals": "Si(022) / Si(004)",
         "energies_keV": "75 / 105",
-        "twoTheta_deg": "≈4.9-5.0",
-        "deflection": "inboard"
+        "twoTheta_deg": "≈4.9–5.0",
+        "deflection": "inboard",
+        "harmonics": "15th / 21st of ≈5 keV",
+        "design range": "45–105 keV"
       },
       "source": "r9"
     },
@@ -889,11 +870,10 @@
       "category": "shutter",
       "branch": "f",
       "distanceM": 41.0,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "Hutch F's own shutter, independent of the other branches.",
-      "expert": "P8-20 monochromatic-beam shutter.",
+      "text": "Hutch F's own shutter, built for the monochromatic (single-energy) beam. Closing it makes hutch F safe to enter while the other three branches keep running.",
       "specs": {},
       "source": "r1"
     },
@@ -903,11 +883,10 @@
       "category": "slits",
       "branch": "de",
       "distanceM": 41.2,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-E",
       "deflection": "none",
-      "plain": "Jaws that trim the 15 keV beam just before station E's lens stack.",
-      "expert": "Slits for CRL2-E.",
+      "text": "Adjustable jaws that trim the 15 keV beam just before station E's second lens stack. They set how much of the beam, and how coherent a part of it, reaches the laser-deposition chamber 1.8 m downstream.",
       "specs": {},
       "source": "r1"
     },
@@ -917,13 +896,13 @@
       "category": "crl",
       "branch": "de",
       "distanceM": 41.5,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-E",
       "deflection": "none",
-      "plain": "The zoom-lens partner for station E, 1.5 metres before the laser-deposition chamber.",
-      "expert": "Max 64 Be lenses at 50 µm (Table 4.12); focus at 43 m 1.3-15 × 0.5-5.3 µm (15 keV).",
+      "text": "The second half of station E's zoom lens, 1.5 m before the laser-deposition chamber: up to 64 beryllium lenses with a 50 µm tip radius. Together with the first stack in the optics hutch, it sets the spot at E between about 1.3 × 0.5 µm and 15 × 5.3 µm (horizontal × vertical) at 15 keV.",
       "specs": {
-        "maxLenses": 64
+        "maxLenses": 64,
+        "focus at 43 m, 15 keV": "1.3–15 × 0.5–5.3 µm (H × V)"
       },
       "source": "r1"
     },
@@ -933,11 +912,10 @@
       "category": "slits",
       "branch": "g",
       "distanceM": 41.5,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "Jaws that trim the very-high-energy G beam before its first lens stack.",
-      "expert": "Slits for CRL1-G.",
+      "text": "Adjustable jaws that trim the very-high-energy G beam before its first lens stack, passing only its central core. They sit 1.3 m after the silicon crystal that picks out G's energy.",
       "specs": {},
       "source": "r1"
     },
@@ -947,12 +925,13 @@
       "category": "window",
       "branch": "de",
       "distanceM": 41.8,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-E",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum in front of station E.",
-      "expert": "Diamond or Be window.",
-      "specs": {},
+      "text": "A thin diamond or beryllium window that ends the beamline vacuum in front of station E. Both are made of light atoms, so 15 keV X-rays pass through almost unhindered.",
+      "specs": {
+        "material": "diamond or Be"
+      },
       "source": "r1"
     },
     {
@@ -961,25 +940,23 @@
       "category": "beamPipe",
       "branch": "f",
       "distanceM": 42.0,
-      "distanceNote": "position not tabulated; from SH-3 to the A outboard wall (~42.5 m path) - approx",
+      "distanceNote": "Position not tabulated; from SH-3 to the A outboard wall (≈42.5 m path) – approx.",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A shielded pipe that carries the F beam out through the optics-hutch wall into hutch F.",
-      "expert": "Shielded transport through 28-ID-A.",
+      "text": "A shielded pipe that carries the F beam out through the optics hutch's side wall into hutch F. Bent about 23° outboard by its diamond crystal, the F branch leaves 28-ID-A roughly 42.5 m along its path.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "crl1-g",
-      "name": "CRL unit 1 for G (28ID-CR-10) - nickel lenses",
+      "name": "CRL unit 1 for G (28ID-CR-10) – nickel lenses",
       "category": "crl",
       "branch": "g",
       "distanceM": 42.0,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "At these extreme energies beryllium lenses barely bend X-rays, so G's lenses are made of nickel.",
-      "expert": "Ni CRLs, 50 µm apex radius; max 19 (G/1) / 15 (G/2) lenses (FDR Table 4.12).",
+      "text": "The first half of branch G's zoom lens. Beryllium lenses barely bend X-rays at 75–105 keV, so the design gives G denser nickel lenses, which bend them more strongly; up to 19 serve position G/1 and 15 serve G/2, each with a 50 µm tip radius. Whether the nickel lenses were built as designed is not confirmed.",
       "specs": {
         "material": "Ni",
         "apexRadius_um": 50,
@@ -994,11 +971,10 @@
       "category": "diagnostics",
       "branch": "g",
       "distanceM": 42.3,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A screen and camera for checking the position of the G beam.",
-      "expert": "Beam visualization monitor.",
+      "text": "A screen and camera for checking where the G beam is during alignment. It sits just after G's first lens stack, at 42.3 m along the G path.",
       "specs": {},
       "source": "r1"
     },
@@ -1008,11 +984,10 @@
       "category": "shutter",
       "branch": "g",
       "distanceM": 42.6,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "Hutch G's own shutter, independent of the other branches.",
-      "expert": "P8-20 monochromatic-beam shutter.",
+      "text": "Hutch G's own shutter, built for the monochromatic (single-energy) beam. Closing it makes the long G hutch safe to enter while the other branches keep running; the tunable beam crosses G inside its own shielded pipe.",
       "specs": {},
       "source": "r1"
     },
@@ -1022,14 +997,14 @@
       "category": "sampleEnvironment",
       "branch": "de",
       "distanceM": 43.0,
-      "distanceNote": "exact, FDR Table 4.5 (station table)",
+      "distanceNote": "Exact, FDR Table 4.5 (station table)",
       "enclosure": "28-ID-E",
       "deflection": "none",
-      "plain": "A laser fires bursts at a target, blasting off puffs of material that settle as an oxide film. X-rays watch the atomic layers form, while an electron analyser reads how the electrons in the new film behave.",
-      "expert": "Directory: 'in-situ Pulsed Laser Diffractometer with HAXPES' (contacts Z. Zhang, J. Tischler); a 'twisted monochromator' supplies 10 keV for HAXPES. The published system (Eres et al. 2019, then at 33-ID-D) mounts a PLD chamber on a diffractometer for real-time SXRD plus in situ HAXPES at 4-12 keV with a Scienta EW4000 analyser; relocation of that exact system to 28-ID-E is inferred, not confirmed.",
+      "text": "A pulsed-laser-deposition (PLD) chamber on a diffractometer: laser pulses strike a target and blast off puffs of material that settle on a substrate as an oxide film. X-rays follow each atomic layer as it forms, while hard X-ray photoelectron spectroscopy (HAXPES), using 10 keV X-rays from a separate 'twisted' monochromator, measures the energies of electrons knocked out of the film to reveal its chemistry and electronic state. A published system of this kind, then at APS 33-ID-D, worked at 4–12 keV with a Scienta EW4000 analyser; that the same system moved to 28-ID-E is likely but not confirmed.",
       "specs": {
         "haxpesEnergy_keV": 10,
-        "analyser_published": "Scienta EW4000"
+        "analyser_published": "Scienta EW4000",
+        "published predecessor": "Eres et al. 2019, 33-ID-D; HAXPES 4–12 keV"
       },
       "source": "r7"
     },
@@ -1039,25 +1014,23 @@
       "category": "beamPipe",
       "branch": "g",
       "distanceM": 43.0,
-      "distanceNote": "position not tabulated - approx (A downstream wall ≈43.4 m)",
+      "distanceNote": "Position not tabulated – approx (A downstream wall ≈43.4 m)",
       "enclosure": "28-ID-A",
       "deflection": "none",
-      "plain": "A shielded pipe that carries the G beam out of the optics hutch into hutch G.",
-      "expert": "Shielded transport through 28-ID-A.",
+      "text": "A shielded pipe that carries the G beam out of the optics hutch toward hutch G. Between the two hutches it crosses a 2.6 m walk-through vestibule, together with the tunable branch's shielded pipe.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "st-1",
-      "name": "White-beam shielded transport 28ID-ST-1 (43.5-60.6 m)",
+      "name": "White-beam shielded transport 28ID-ST-1 (43.5–60.6 m)",
       "category": "beamPipe",
       "branch": "tunable",
       "distanceM": 43.5,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section) (start of 43.5-60.6 m run)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section) (start of 43.5–60.6 m run)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "A lead-shielded pipe, 17 metres long, that carries the tunable beam straight through hutch G to stations B and C, right past the experiment running beside it.",
-      "expert": "White-beam shielded transport from the FOE wall to 28-ID-B (43.5-60.6 m), running beside the G-branch instruments; contains the mini-enclosure SE-1.",
+      "text": "A lead-shielded pipe, 17 m long, that carries the tunable beam from the optics hutch straight through hutch G to stations B and C, right past the experiment running in G. Partway along it opens into a small shielded enclosure (SE-1) that houses the branch's first zoom lens and shutter.",
       "specs": {
         "startM": 43.5,
         "endM": 60.6
@@ -1070,11 +1043,10 @@
       "category": "slits",
       "branch": "f",
       "distanceM": 43.7,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "Jaws that trim the beam just before the F/1 lens stack.",
-      "expert": "Slits for CRL2-F/1.",
+      "text": "Jaws that trim the F beam just before position F/1's second lens stack, 1.8 m ahead of the sample. They set how much of the beam's coherent core reaches the diffractometer.",
       "specs": {},
       "source": "r1"
     },
@@ -1084,13 +1056,12 @@
       "category": "detector",
       "branch": "de",
       "distanceM": 44.0,
-      "distanceNote": "FDR Table 4.5: 44.0-47.5 m (start of range)",
+      "distanceNote": "FDR Table 4.5: 44.0–47.5 m (start of range)",
       "enclosure": "28-ID-E",
       "deflection": "none",
-      "plain": "Area detectors that record X-rays scattered by the growing film.",
-      "expert": "Area detectors.",
+      "text": "Area detectors that record the X-rays scattered by the film growing in the laser-deposition chamber. They can be placed about 1–4.5 m behind the sample.",
       "specs": {
-        "rangeM": "44.0-47.5"
+        "rangeM": "44.0–47.5"
       },
       "source": "r1"
     },
@@ -1100,13 +1071,13 @@
       "category": "crl",
       "branch": "f",
       "distanceM": 44.0,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "The zoom-lens partner for position F/1.",
-      "expert": "Max 63 Be lenses at 50 µm; focus at 45.5 m 1.2-4.8 × 0.4-1.7 µm (15 keV).",
+      "text": "The second half of the zoom lens for position F/1: up to 63 beryllium lenses with a 50 µm tip radius, 1.5 m before the sample. With the first stack in the optics hutch, it sets the spot size at F/1 without moving the focus.",
       "specs": {
-        "maxLenses": 63
+        "maxLenses": 63,
+        "focus at 45.5 m (design table, 15 keV)": "1.2–4.8 × 0.4–1.7 µm (H × V)"
       },
       "source": "r1"
     },
@@ -1116,12 +1087,13 @@
       "category": "window",
       "branch": "f",
       "distanceM": 44.3,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum before position F/1.",
-      "expert": "Diamond or Be window.",
-      "specs": {},
+      "text": "A thin diamond or beryllium window that ends the beamline vacuum 1.2 m before position F/1. Beyond it the beam reaches the sample environment.",
+      "specs": {
+        "material": "diamond or Be"
+      },
       "source": "r1"
     },
     {
@@ -1130,11 +1102,10 @@
       "category": "diffractometer",
       "branch": "f",
       "distanceM": 45.5,
-      "distanceNote": "exact, FDR Table 4.5 (station table)",
+      "distanceNote": "Exact, FDR Table 4.5 (station table)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "A shared sample robot in the front half of hutch F. It can lower itself so the beam passes on to the growth reactor behind it.",
-      "expert": "Shared CHEX instrument; Directory: 'General purpose Huber Hexapod diffractometer and MOCVD chamber' (which position hosts which is not stated).",
+      "text": "A shared, general-purpose Huber hexapod diffractometer at the front of hutch F, where teams mount their own cells and chambers. When the rear position F/2 is in use, it moves out of the way ('beam-pass' mode) so the beam reaches the growth reactor behind it. The directory lists a hexapod diffractometer and a growth chamber in F without saying which position hosts which; the model assumes the diffractometer is at F/1.",
       "specs": {},
       "source": "r8"
     },
@@ -1144,13 +1115,12 @@
       "category": "detector",
       "branch": "f",
       "distanceM": 46.5,
-      "distanceNote": "FDR Table 4.5: 46.5-48.5 m",
+      "distanceNote": "FDR Table 4.5: 46.5–48.5 m.",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "Speckle cameras for position F/1; they move aside to let the beam reach position F/2.",
-      "expert": "PAD on arm/LDDP; beam-pass mode needed for F/2.",
+      "text": "Pixel-array detectors that record speckle for position F/1, 1–3 m behind the sample. In beam-pass mode they move aside so the beam can reach position F/2.",
       "specs": {
-        "rangeM": "46.5-48.5"
+        "rangeM": "46.5–48.5"
       },
       "source": "r1"
     },
@@ -1160,11 +1130,10 @@
       "category": "slits",
       "branch": "f",
       "distanceM": 47.7,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "Jaws that trim the beam just before the F/2 lens stack.",
-      "expert": "Slits for CRL2-F/2.",
+      "text": "Jaws that trim the F beam just before position F/2's second lens stack. They choose how much of the beam's coherent core goes on to position F/2, 1.8 m downstream.",
       "specs": {},
       "source": "r1"
     },
@@ -1174,11 +1143,10 @@
       "category": "beamStop",
       "branch": "de",
       "distanceM": 48.0,
-      "distanceNote": "exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
+      "distanceNote": "Exact, FDR Table 4.7 (path length along the D/E branch from straight-section centre)",
       "enclosure": "28-ID-E",
       "deflection": "none",
-      "plain": "The beam stop at the very end of the D/E branch.",
-      "expert": "Monochromatic beam stop.",
+      "text": "The beam stop at the very end of the D/E branch, behind station E. It absorbs the 15 keV beam after it has passed the laser-deposition chamber and its detectors.",
       "specs": {},
       "source": "r1"
     },
@@ -1188,13 +1156,13 @@
       "category": "crl",
       "branch": "f",
       "distanceM": 48.0,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "The zoom-lens partner for position F/2, 1.5 metres before the growth reactor.",
-      "expert": "Max 63 Be lenses at 50 µm; focus at 49.5 m 1.1-7.8 × 0.4-2.7 µm (15 keV).",
+      "text": "The second half of the zoom lens for position F/2, 1.5 m before the growth reactor: up to 63 beryllium lenses with a 50 µm tip radius. With the first stack in the optics hutch, it sets the spot size on the growing crystal without moving the focus.",
       "specs": {
-        "maxLenses": 63
+        "maxLenses": 63,
+        "focus at 49.5 m (design table, 15 keV)": "1.1–7.8 × 0.4–2.7 µm (H × V)"
       },
       "source": "r1"
     },
@@ -1204,12 +1172,13 @@
       "category": "window",
       "branch": "f",
       "distanceM": 48.3,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum before the reactor.",
-      "expert": "Diamond or Be window.",
-      "specs": {},
+      "text": "A thin diamond or beryllium window that ends the beamline vacuum before the growth reactor. The X-rays then cross the reactor's own quartz wall, which their high energy lets them penetrate.",
+      "specs": {
+        "material": "diamond or Be"
+      },
       "source": "r1"
     },
     {
@@ -1218,11 +1187,10 @@
       "category": "collimator",
       "branch": "tunable",
       "distanceM": 48.7,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28ID-SE-1",
       "deflection": "none",
-      "plain": "A metal aperture inside a small shielded hut that absorbs any part of the tunable beam that strays off its path.",
-      "expert": "Photon mask inside shielded mini-enclosure SE-1.",
+      "text": "A metal aperture, the photon mask, inside the small shielded enclosure SE-1. It absorbs any part of the tunable beam that strays from its intended path, protecting the lenses and pipes downstream.",
       "specs": {
         "designation": "28ID-PM-1"
       },
@@ -1234,11 +1202,10 @@
       "category": "collimator",
       "branch": "tunable",
       "distanceM": 49.1,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28ID-SE-1",
       "deflection": "none",
-      "plain": "Radiation shielding inside the mini-hut SE-1 that stops stray radiation travelling along the tunable line.",
-      "expert": "Collimator inside SE-1.",
+      "text": "A collimator inside the mini-enclosure SE-1: a heavy block with a small opening that lets the X-ray beam through and stops stray radiation travelling along the tunable line. It sits just behind the photon mask.",
       "specs": {
         "designation": "28ID-BC-2"
       },
@@ -1250,11 +1217,10 @@
       "category": "slits",
       "branch": "g",
       "distanceM": 49.2,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "Jaws that trim the beam just before the G/1 lens stack.",
-      "expert": "Slits for CRL2-G/1.",
+      "text": "Jaws that trim the G beam just before position G/1's second lens stack, 2.8 m ahead of the sample. They set how much of the beam's central core goes on.",
       "specs": {},
       "source": "r1"
     },
@@ -1264,31 +1230,33 @@
       "category": "sampleEnvironment",
       "branch": "f",
       "distanceM": 49.5,
-      "distanceNote": "exact, FDR Table 4.5 (station table); assignment of MOCVD to F/2 is an assumption",
+      "distanceNote": "Exact, FDR Table 4.5 (station table); assignment of MOCVD to F/2 is an assumption.",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "A hot, gas-filled quartz reactor, the same kind of machine that makes LED and power-electronics chips. The X-rays pass through its walls to watch gallium nitride crystals grow one atomic layer at a time.",
-      "expert": "Directory: MOCVD chamber in 28-ID-F (contact M. Highland). The predecessor instrument (12-ID-D; Ju et al. 2017) uses a fused-quartz chamber wall (70 mm ID, 2 mm wall; vacuum to +3.75 atm), Mo susceptor with BN-encased graphite heater, NH3/TEGa precursors, mounted on a Huber + hexapod goniometer with separate near/far detector positioners for sub-µm sample and sub-pixel detector stability.",
+      "text": "A hot, gas-filled quartz reactor of the kind used to make LEDs and power-electronics chips: metal-organic chemical vapour deposition (MOCVD) grows crystals such as gallium nitride from gases like ammonia and triethylgallium. The X-rays pass through the quartz wall to watch the crystal grow one atomic layer at a time, and the set-up must hold still to well under a micrometre so the speckle stays put. Its predecessor at APS 12-ID-D had a fused-quartz chamber 70 mm across with 2 mm walls, working from vacuum to 3.75 atmospheres above ambient. Placing it at F/2 is an assumption of the model.",
       "specs": {
         "chamberWall": "fused quartz 70 mm ID × 2 mm (predecessor instrument, Ju et al. 2017)",
-        "precursors": "NH3, triethylgallium (GaN growth, Ju et al. 2019)"
+        "precursors": "NH₃, triethylgallium (GaN growth, Ju et al. 2019)",
+        "pressure range (predecessor)": "vacuum to +3.75 atm",
+        "heater (predecessor)": "BN-encased graphite heater, Mo susceptor"
       },
       "source": "r8"
     },
     {
       "id": "crl2-g1",
-      "name": "CRL unit 2 for G position 1 (28ID-CR-11) - nickel",
+      "name": "CRL unit 2 for G position 1 (28ID-CR-11) – nickel",
       "category": "crl",
       "branch": "g",
       "distanceM": 49.5,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "The nickel zoom-lens partner for position G/1.",
-      "expert": "Max 66 Ni lenses at 50 µm; focus at 52 m 1.8-8.1 × 0.5-2.3 µm (45 keV); design flux at 105 keV 0.21-1.2 × 10¹¹ ph/s.",
+      "text": "The second half of the zoom lens for position G/1: up to 66 nickel lenses in the design, each with a 50 µm tip radius, 2.5 m before the sample. Nickel is chosen because it bends these very energetic X-rays more strongly than beryllium. The design flux at G/1 is 0.21–1.2 × 10¹¹ photons per second at 105 keV, calculated for the planned superconducting undulators.",
       "specs": {
         "material": "Ni",
-        "maxLenses": 66
+        "maxLenses": 66,
+        "focus at 52 m, 45 keV": "1.8–8.1 × 0.5–2.3 µm (H × V)",
+        "design flux, 105 keV": "0.21–1.2 × 10¹¹ ph/s (SCU source)"
       },
       "source": "r1"
     },
@@ -1298,11 +1266,10 @@
       "category": "slits",
       "branch": "tunable",
       "distanceM": 49.7,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28ID-SE-1",
       "deflection": "none",
-      "plain": "Adjustable metal jaws that trim the tunable beam just before the first zoom lens, letting through only its most laser-like core.",
-      "expert": "Monochromatic beam-conditioning slits for CRL unit 1 (sets the coherent fraction accepted by the zoom optics).",
+      "text": "Adjustable jaws that trim the tunable beam just before its first zoom lens, inside the mini-enclosure SE-1. By passing only the beam's most coherent central part, they set how coherent a beam the zoom optics accept, trading flux for speckle contrast.",
       "specs": {
         "designation": "28ID-SL-3"
       },
@@ -1314,12 +1281,13 @@
       "category": "window",
       "branch": "g",
       "distanceM": 49.8,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum before position G/1.",
-      "expert": "Diamond or Be window.",
-      "specs": {},
+      "text": "A thin diamond or beryllium window that ends the beamline vacuum before position G/1. Both light materials let 75–105 keV X-rays through almost untouched.",
+      "specs": {
+        "material": "diamond or Be"
+      },
       "source": "r1"
     },
     {
@@ -1328,17 +1296,19 @@
       "category": "transfocator",
       "branch": "tunable",
       "distanceM": 50.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28ID-SE-1",
       "deflection": "none",
-      "plain": "The first half of an X-ray zoom lens: stacks of tiny beryllium lenses that flip in and out of the beam. It sits in its own shielded mini-hut, so lenses can be changed without disturbing the other branches.",
-      "expert": "UHV transfocator with x/y/z, pitch/yaw; station-B arrangement (FDR Table 4.11): 13 stacks - 2D Be lenses R = 1000, 500, 300, 200, 100 µm (×1 each) and R = 100 µm stacks of 2, 4, 8, 16, 16; plus 1D lenses R = 1000, 500, 500 µm (1,1,2). Max lenses (Table 4.12): 47 (B) / 35 (C) at 100 µm apex radius. Located in its own shielded enclosure so lenses can be changed without disturbing the fixed-energy branches (PDR rationale).",
+      "text": "The first half of the zoom lens for stations B and C: a transfocator, a vacuum box with 13 stacks of tiny beryllium lenses that flip in and out of the beam, so the number of lenses, and with it the focusing power, can be changed remotely. Stacks of 1 to 16 lenses with tip radii from 100 to 1,000 µm allow fine steps, and a few one-dimensional lenses focus in one direction only. Up to 47 lenses are used for B and 35 for C. It sits in its own shielded mini-enclosure (SE-1), so lenses can be changed without disturbing the fixed-energy branches.",
       "specs": {
         "stacks": 13,
         "maxLenses_B": 47,
         "maxLenses_C": 35,
         "apexRadius_um": 100,
-        "material": "Be"
+        "material": "Be",
+        "2D lens stacks": "R = 1,000, 500, 300, 200, 100 µm (1 each); R = 100 µm stacks of 2, 4, 8, 16, 16",
+        "1D lens stacks": "R = 1,000, 500, 500 µm (1, 1, 2)",
+        "motions": "x, y, z, pitch, yaw (UHV)"
       },
       "source": "r1"
     },
@@ -1348,13 +1318,12 @@
       "category": "detector",
       "branch": "f",
       "distanceM": 50.5,
-      "distanceNote": "FDR Table 4.5: 50.5-53.5 m",
+      "distanceNote": "FDR Table 4.5: 50.5–53.5 m.",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "Speckle cameras up to 4 metres behind the growth reactor.",
-      "expert": "PADs.",
+      "text": "Pixel-array detectors that record speckle 1–4 m behind the growth reactor at position F/2. From farther away each speckle covers more pixels, which helps resolve the fine speckle from a growing crystal surface.",
       "specs": {
-        "rangeM": "50.5-53.5"
+        "rangeM": "50.5–53.5"
       },
       "source": "r1"
     },
@@ -1364,11 +1333,10 @@
       "category": "shutter",
       "branch": "tunable",
       "distanceM": 51.4,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28ID-SE-1",
       "deflection": "none",
-      "plain": "The tunable branch's own shutter, so B and C users can open and close their beam without affecting anyone else.",
-      "expert": "P4-40 shutter (FDR designation) for the tunable branch.",
+      "text": "The tunable branch's own shutter (type P4-40), inside the mini-enclosure SE-1. Teams at B and C can open and close their beam without affecting anyone else.",
       "specs": {
         "designation": "28ID-SH-1",
         "type": "P4-40"
@@ -1381,11 +1349,10 @@
       "category": "diffractometer",
       "branch": "g",
       "distanceM": 52.0,
-      "distanceNote": "exact, FDR Table 4.5 (station table)",
+      "distanceNote": "Exact, FDR Table 4.5 (station table)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "A shared sample robot for very-high-energy X-rays, which see through thick samples, furnaces and reaction vessels.",
-      "expert": "Directory: 'General purpose Huber Hexapod diffractometer'; techniques: surface, general and high-energy X-ray diffraction.",
+      "text": "A shared, general-purpose Huber hexapod diffractometer for very-high-energy X-rays (75 or 105 keV), which pass through thick samples, furnaces and reaction vessels. It serves surface, general and high-energy diffraction, and moves aside in beam-pass mode to feed the rear position G/2.",
       "specs": {},
       "source": "r9"
     },
@@ -1395,13 +1362,12 @@
       "category": "detector",
       "branch": "g",
       "distanceM": 53.0,
-      "distanceNote": "FDR Table 4.5: 53.0-55.0 m",
+      "distanceNote": "FDR Table 4.5: 53.0–55.0 m.",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "Area detectors 1 to 3 metres behind the sample. At 75 to 105 keV they need dense sensor materials to stop the X-rays at all.",
-      "expert": "PADs (high-Z sensors needed at 75-105 keV; models unpublished).",
+      "text": "Area detectors 1–3 m behind the G/1 sample. At 75–105 keV most X-rays would pass through a thin silicon sensor unrecorded, so these detectors need dense, heavy-element sensors; the models used are not published.",
       "specs": {
-        "rangeM": "53.0-55.0"
+        "rangeM": "53.0–55.0"
       },
       "source": "r1"
     },
@@ -1411,11 +1377,10 @@
       "category": "slits",
       "branch": "g",
       "distanceM": 54.2,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "Jaws that trim the beam just before the G/2 lens stack.",
-      "expert": "Slits for CRL2-G/2.",
+      "text": "Jaws that trim the G beam just before position G/2's second lens stack, 1.8 m ahead of the sample. They set how much of the beam's central core reaches the rear experiment.",
       "specs": {},
       "source": "r1"
     },
@@ -1425,28 +1390,27 @@
       "category": "beamStop",
       "branch": "f",
       "distanceM": 54.3,
-      "distanceNote": "exact, FDR Table 4.8 (path length along the F branch)",
+      "distanceNote": "Exact, FDR Table 4.8 (path length along the F branch)",
       "enclosure": "28-ID-F",
       "deflection": "none",
-      "plain": "The beam stop at the end of the F branch.",
-      "expert": "Monochromatic beam stop.",
+      "text": "The beam stop at the end of the F branch, behind the growth reactor and its detectors. It absorbs whatever remains of the 25 or 35 keV beam.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "crl2-g2",
-      "name": "CRL unit 2 for G position 2 (28ID-CR-12) - nickel",
+      "name": "CRL unit 2 for G position 2 (28ID-CR-12) – nickel",
       "category": "crl",
       "branch": "g",
       "distanceM": 54.5,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "The nickel zoom-lens partner for position G/2: up to 107 lenses in a row.",
-      "expert": "Max 107 Ni lenses at 50 µm (Table 4.12); focus at 56 m 1.0-11 × 0.3-3.2 µm (45 keV).",
+      "text": "The second half of the zoom lens for position G/2: up to 107 nickel lenses in a row in the design, each with a 50 µm tip radius, 1.5 m before the sample. So many are needed because even nickel bends such energetic X-rays only slightly. In the design table, the spot at G/2 ranges from about 1.0 × 0.3 µm to 11 × 3.2 µm at 45 keV.",
       "specs": {
         "material": "Ni",
-        "maxLenses": 107
+        "maxLenses": 107,
+        "focus at 56 m, 45 keV": "1.0–11 × 0.3–3.2 µm (H × V)"
       },
       "source": "r1"
     },
@@ -1456,12 +1420,13 @@
       "category": "window",
       "branch": "g",
       "distanceM": 54.8,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum before position G/2.",
-      "expert": "Diamond or Be window.",
-      "specs": {},
+      "text": "A thin diamond or beryllium window that ends the beamline vacuum before position G/2. Beyond it the beam travels the last 1.2 m to the sample.",
+      "specs": {
+        "material": "diamond or Be"
+      },
       "source": "r1"
     },
     {
@@ -1470,11 +1435,10 @@
       "category": "sample",
       "branch": "g",
       "distanceM": 56.0,
-      "distanceNote": "exact, FDR Table 4.5 (station table)",
+      "distanceNote": "Exact, FDR Table 4.5 (station table)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "A second experiment spot at the back of hutch G, kept free for large, long-running setups.",
-      "expert": "Rear position served in beam-pass mode; as-built instrument not specified in the Directory.",
+      "text": "A second experiment position at the back of hutch G, kept free for large, long-running set-ups that teams bring with them; the design report's examples are bulk-crystal-growth systems and an environmental load frame. It receives the beam when the front instrument moves aside, and which instrument occupies it in 2026 is not specified.",
       "specs": {},
       "source": "r1"
     },
@@ -1484,13 +1448,12 @@
       "category": "detector",
       "branch": "g",
       "distanceM": 57.0,
-      "distanceNote": "FDR Table 4.5: 57.0-60.0 m",
+      "distanceNote": "FDR Table 4.5: 57.0–60.0 m.",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "Area detectors for position G/2.",
-      "expert": "PADs.",
+      "text": "Area detectors 1–4 m behind position G/2, at the far end of hutch G. Like those at G/1, they need dense, heavy-element sensors to stop 75–105 keV X-rays; the models are not published.",
       "specs": {
-        "rangeM": "57.0-60.0"
+        "rangeM": "57.0–60.0"
       },
       "source": "r1"
     },
@@ -1500,11 +1463,10 @@
       "category": "beamStop",
       "branch": "g",
       "distanceM": 60.5,
-      "distanceNote": "exact, FDR Table 4.9 (path length along the G branch)",
+      "distanceNote": "Exact, FDR Table 4.9 (path length along the G branch)",
       "enclosure": "28-ID-G",
       "deflection": "none",
-      "plain": "The beam stop at the end of the G branch.",
-      "expert": "Monochromatic beam stop.",
+      "text": "The beam stop at the end of the G branch, at 60.5 m. It absorbs the very-high-energy beam that remains after the G/2 sample.",
       "specs": {},
       "source": "r1"
     },
@@ -1514,11 +1476,10 @@
       "category": "diagnostics",
       "branch": "tunable",
       "distanceM": 62.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-B",
       "deflection": "none",
-      "plain": "A screen and camera at the entrance of hutch B for seeing the beam during alignment.",
-      "expert": "Beam visualization monitor for alignment.",
+      "text": "A screen and camera at the entrance of hutch B that show where the tunable beam is during alignment. The screen glows where the X-rays strike, so staff can see the invisible beam.",
       "specs": {
         "designation": "28ID-BD-2"
       },
@@ -1530,11 +1491,10 @@
       "category": "slits",
       "branch": "tunable",
       "distanceM": 62.7,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-B",
       "deflection": "none",
-      "plain": "Jaws that clean up the beam just before station B's second lens stack, passing only its laser-like core.",
-      "expert": "Monochromatic beam-conditioning slits for CRL2-B.",
+      "text": "Jaws that clean up the tunable beam just before station B's second lens stack. They pass only the beam's most coherent central part, which keeps the speckle contrast high.",
       "specs": {
         "designation": "28ID-SL-4"
       },
@@ -1546,16 +1506,19 @@
       "category": "transfocator",
       "branch": "tunable",
       "distanceM": 63.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-B",
       "deflection": "none",
-      "plain": "The second half of the zoom lens, 1.5 metres before the sample. Working with the first stack, it squeezes the beam to a spot from about 1 to 10 micrometres wide without moving the focus.",
-      "expert": "15 stacks (FDR Table 4.11): 2D Be R = 1000, 500, 200, 100 µm (×1) and R = 50 µm stacks of 1, 2, 4, 8, 16, 32, 64, 64; plus 1D R = 50 µm (1, 2, 4) for astigmatism/heat-bump correction. Max 180 lenses at 50 µm apex radius (Table 4.12). ShadowOui (35 keV, ideal CRLs) gives 9.3 × 2.5 µm² down to 0.8 × 0.2 µm² FWHM at 64.5 m (Fig. 4.6). Note an internal FDR inconsistency: the Table 4.11 stack sizes add up to 191 two-dimensional 50 µm lenses (1+2+4+8+16+32+64+64), while Table 4.12 gives a maximum of 180.",
+      "text": "The second half of station B's zoom lens, 1.5 m before the sample: a transfocator with 15 stacks of beryllium lenses that flip in and out, holding up to 180 lenses with a 50 µm tip radius. Working with the first stack 13 m upstream, it squeezes the beam to a spot anywhere from about 9.8 × 3.4 µm down to 0.9 × 0.3 µm (horizontal × vertical) at 15 keV, without moving the focus; larger spots pass more of the beam. One-dimensional lenses correct astigmatism, unequal focusing in the two directions, and the slight distortion that heat causes in the optics upstream. The design tables disagree slightly: the listed stacks add up to 191 lenses, against a stated maximum of 180.",
       "specs": {
         "stacks": 15,
         "maxLenses": 180,
         "apexRadius_um": 50,
-        "material": "Be"
+        "material": "Be",
+        "2D lens stacks": "R = 1,000, 500, 200, 100 µm (1 each); R = 50 µm stacks of 1, 2, 4, 8, 16, 32, 64, 64",
+        "1D lens stacks": "R = 50 µm (1, 2, 4), astigmatism and heat-bump correction",
+        "zoom range at 35 keV (simulated)": "9.3 × 2.5 → 0.8 × 0.2 µm² FWHM",
+        "table inconsistency": "Table 4.11 stacks sum to 191 lenses vs 180 max in Table 4.12"
       },
       "source": "r1"
     },
@@ -1565,11 +1528,10 @@
       "category": "window",
       "branch": "tunable",
       "distanceM": 63.3,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-B",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum just before the sample. The X-rays pass through it almost unhindered.",
-      "expert": "Diamond or Be window terminating beamline vacuum before the B instrument.",
+      "text": "A thin diamond or beryllium window that ends the beamline vacuum 1.2 m before station B's sample. Both are made of light atoms, so the X-rays pass through almost unhindered.",
       "specs": {
         "material": "diamond or Be"
       },
@@ -1581,16 +1543,15 @@
       "category": "diffractometer",
       "branch": "tunable",
       "distanceM": 64.5,
-      "distanceNote": "exact, FDR Table 4.5 (station table)",
+      "distanceNote": "Exact, FDR Table 4.5 (station table)",
       "enclosure": "28-ID-B",
       "deflection": "none",
-      "plain": "A precision six-legged robot (a hexapod) on a turntable that holds samples or small reaction cells and tilts them to exactly the right angles while detectors catch the scattered X-rays.",
-      "expert": "Shared CHEX endstation: central hexapod diffractometer on rotation stage with detector arm, upstream optical table and flight-path optics, downstream flight path, long-distance detector positioner (LDDP), PADs and a scintillator-CCD module (FDR 4-2.6). Directory (2026): 'Hexapod diffractometer for general diffraction'. Focus at 64.5 m: 0.9-9.8 × 0.3-3.4 µm (15 keV), 0.8-8.1 × 0.3-2.3 µm (60 keV); flux 6.8-37 × 10¹² ph/s (15 keV) and 4.2-11 × 10¹² (60 keV) for the SCU design (Table 4.10).",
+      "text": "Station B's shared diffractometer: a precision six-legged platform (a hexapod) on a large rotation stage that holds samples or small reaction cells and turns them to exactly the right angles, while detectors on an arm 1–2 m away or on a long-distance positioner up to 4 m away catch the scattered X-rays. In the design, the tunable beam reaches it in spots from about 0.9 × 0.3 µm to 9.8 × 3.4 µm at 15 keV. The design flux, calculated for the planned superconducting undulators, is 6.8–37 × 10¹² photons per second at 15 keV and 4.2–11 × 10¹² at 60 keV; flux with today's interim undulators is not published.",
       "specs": {
-        "focusH_um_15keV": "0.9-9.8",
-        "focusV_um_15keV": "0.3-3.4",
-        "flux_15keV_ph_s": "6.8-37 × 10¹² (design)",
-        "flux_60keV_ph_s": "4.2-11 × 10¹² (design)"
+        "focusH_um_15keV": "0.9–9.8",
+        "focusV_um_15keV": "0.3–3.4",
+        "flux_15keV_ph_s": "6.8–37 × 10¹² (design)",
+        "flux_60keV_ph_s": "4.2–11 × 10¹² (design)"
       },
       "source": "r1"
     },
@@ -1600,14 +1561,14 @@
       "category": "detector",
       "branch": "tunable",
       "distanceM": 65.5,
-      "distanceNote": "FDR Table 4.5 gives detector range 65.5-68.5 m; value is the start of the range",
+      "distanceNote": "FDR Table 4.5 gives detector range 65.5–68.5 m; value is the start of the range.",
       "enclosure": "28-ID-B",
       "deflection": "none",
-      "plain": "Photon-counting cameras that record speckle patterns. They can sit 1 to 4 metres from the sample, so each tiny speckle spreads over several pixels.",
-      "expert": "PAD on the diffractometer arm (1-2 m, alignment configuration) or on the LDDP (2-4 m, imaging/XPCS/XRIM). Models not published; PDR envisioned ~55 µm-pixel CdTe photon-counting PADs.",
+      "text": "Pixel-array detectors that record speckle patterns, either on the diffractometer arm 1–2 m from the sample, for alignment, or on the long-distance positioner 2–4 m away, for imaging and speckle measurements. At those distances each speckle spreads over several pixels. The models are not published; the preliminary design envisioned photon-counting detectors with cadmium-telluride sensors and pixels of about 55 µm.",
       "specs": {
-        "rangeM": "65.5-68.5",
-        "sampleDetectorDistance_m": "1-2 (arm), 2-4 (LDDP)"
+        "rangeM": "65.5–68.5",
+        "sampleDetectorDistance_m": "1–2 (arm), 2–4 (LDDP)",
+        "sensor (PDR concept)": "CdTe, ≈55 µm pixels"
       },
       "source": "r1"
     },
@@ -1617,11 +1578,10 @@
       "category": "beamStop",
       "branch": "tunable",
       "distanceM": 69.3,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-B",
       "deflection": "none",
-      "plain": "A motorised block that stops the beam at the end of hutch B, so people can safely build or adjust an experiment in hutch C behind it.",
-      "expert": "Motorised moveable white-beam stop at the downstream end of 28-ID-B; enables the tandem-hutch concept (C accessible while B runs).",
+      "text": "A motorised beam stop at the end of hutch B, rated for the full white beam. When it is closed, the beam ends here, so people can safely build or adjust a large growth chamber in hutch C while station B runs.",
       "specs": {
         "designation": "28ID-BS-1"
       },
@@ -1633,11 +1593,10 @@
       "category": "slits",
       "branch": "tunable",
       "distanceM": 69.7,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-C",
       "deflection": "none",
-      "plain": "Jaws that clean up the beam just before station C's lens stack, passing only its laser-like core.",
-      "expert": "Slits for CRL2-C.",
+      "text": "Jaws that clean up the tunable beam just before station C's second lens stack. Passing only the beam's coherent core keeps the speckle from the growing oxide film high in contrast.",
       "specs": {
         "designation": "28ID-SL-5"
       },
@@ -1649,11 +1608,10 @@
       "category": "transfocator",
       "branch": "tunable",
       "distanceM": 70.0,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-C",
       "deflection": "none",
-      "plain": "The zoom-lens partner for station C, 2 metres before the growth chamber.",
-      "expert": "Max 136 Be lenses at 50 µm apex radius (FDR Table 4.12). Focus at 72 m: 1.1-14 × 0.4-4.7 µm (15 keV).",
+      "text": "The second half of station C's zoom lens, 2 m before the growth chamber: a transfocator holding up to 136 beryllium lenses with a 50 µm tip radius. With the first stack, it sets the spot at C from about 1.1 × 0.4 µm to 14 × 4.7 µm (horizontal × vertical) at 15 keV.",
       "specs": {
         "maxLenses": 136,
         "apexRadius_um": 50
@@ -1666,11 +1624,10 @@
       "category": "window",
       "branch": "tunable",
       "distanceM": 70.3,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-C",
       "deflection": "none",
-      "plain": "A thin diamond or beryllium window that ends the beamline vacuum in front of the growth chamber.",
-      "expert": "Diamond or Be window.",
+      "text": "A thin diamond or beryllium window that ends the beamline vacuum in front of the growth chamber. Beyond it, the X-rays enter the chamber through its own windows.",
       "specs": {
         "material": "diamond or Be"
       },
@@ -1682,13 +1639,13 @@
       "category": "sampleEnvironment",
       "branch": "tunable",
       "distanceM": 72.0,
-      "distanceNote": "exact, FDR Table 4.5 (station table)",
+      "distanceNote": "Exact, FDR Table 4.5 (station table)",
       "enclosure": "28-ID-C",
       "deflection": "none",
-      "plain": "An ultra-clean vacuum chamber that grows oxide crystals one atomic layer at a time from beams of evaporated atoms. X-ray windows let scientists watch each layer form, and the tunable X-ray colour can single out individual chemical elements.",
-      "expert": "Directory (2026): '28-ID-C contains an oxide MBE chamber' (contact H. Hong). Integrated-goniometer instrument at the rear tandem position; uses the tunable branch for resonant/anomalous contrast between cations (PDR Table 6.9). Likely the APS in situ oxide-MBE program formerly at 33-ID-E (inference).",
+      "text": "An ultra-clean vacuum chamber for oxide molecular-beam epitaxy (MBE), which grows crystals one atomic layer at a time from beams of evaporated atoms, with oxygen or ozone supplied to form the oxide. X-ray windows let the beam reach the film, and surface scattering follows each layer as it forms. On the tunable branch, the energy can be set near an element's absorption edge, where that element scatters differently, to tell the metal ions in an oxide apart. It is probably the APS oxide-MBE system formerly at 33-ID-E, though the move is not documented.",
       "specs": {
-        "technique": "in situ surface X-ray scattering during oxide MBE"
+        "technique": "in situ surface X-ray scattering during oxide MBE",
+        "lineage (inferred)": "APS in situ oxide MBE, formerly 33-ID-E"
       },
       "source": "r6"
     },
@@ -1698,13 +1655,12 @@
       "category": "detector",
       "branch": "tunable",
       "distanceM": 73.0,
-      "distanceNote": "FDR Table 4.5: 73.0-76.5 m (start of range)",
+      "distanceNote": "FDR Table 4.5: 73.0–76.5 m (start of range)",
       "enclosure": "28-ID-C",
       "deflection": "none",
-      "plain": "Area detectors 1 to 4.5 metres behind the growth chamber that record the X-rays scattered by the growing film.",
-      "expert": "Area detectors (Directory); positions 73.0-76.5 m (FDR).",
+      "text": "Area detectors 1–4.5 m behind the growth chamber that record the X-rays scattered by the growing oxide film. Placed farther back they spread the speckle over more pixels; closer in, they catch a wider range of angles.",
       "specs": {
-        "rangeM": "73.0-76.5"
+        "rangeM": "73.0–76.5"
       },
       "source": "r1"
     },
@@ -1714,11 +1670,10 @@
       "category": "beamStop",
       "branch": "tunable",
       "distanceM": 77.4,
-      "distanceNote": "exact, FDR Table 4.6 (path length from centre of straight section)",
+      "distanceNote": "Exact, FDR Table 4.6 (path length from centre of straight section)",
       "enclosure": "28-ID-C",
       "deflection": "none",
-      "plain": "The final beam stop of the whole sector, 77 metres from the source, built to absorb even the full-power white beam.",
-      "expert": "White-beam stop at the end of 28-ID-C (B/C hutches are white/pink-beam rated).",
+      "text": "The final beam stop of the whole sector, 77.4 m from the source. Like the stop at the end of hutch B, it is built to absorb even the full-power white beam, since hutches B and C are rated for white or pink beam.",
       "specs": {
         "designation": "28ID-BS-2"
       },
@@ -1751,7 +1706,7 @@
       "endM": 43.4,
       "widthM": 3.5,
       "branch": null,
-      "notes": "Approx from FDR Fig. 4.2: narrow nose (~1.5 m wide) from ~23.6-26.4 m, then ~3-4 m wide, widening slightly downstream; downstream wall ≈43.4 m. Beneficial occupancy was a planned FDR milestone for Jul 2019 (MS-L2-4010, not marked as achieved in the May 2019 FDR). Branch D/E exits through the outboard wall at ~33 m, F at ~42.5 m (path lengths)."
+      "notes": "Approx from FDR Fig. 4.2: narrow nose (≈1.5 m wide) from ≈23.6–26.4 m, then ≈3–4 m wide, widening slightly downstream; downstream wall ≈43.4 m. Beneficial occupancy was a planned FDR milestone for Jul 2019 (MS-L2-4010, not marked as achieved in the May 2019 FDR). Branch D/E exits through the outboard wall at ≈33 m, F at ≈42.5 m (path lengths)."
     },
     {
       "name": "28-ID-D",
@@ -1760,7 +1715,7 @@
       "endM": 40.2,
       "widthM": 5.0,
       "branch": "de",
-      "notes": "Along the D/E branch, ~23° outboard of the main axis; path lengths; width approx from FDR Fig. 4.2. Control Room D adjacent (outboard)."
+      "notes": "Along the D/E branch, ≈23° outboard of the main axis; path lengths; width approx from FDR Fig. 4.2. Control Room D adjacent (outboard)."
     },
     {
       "name": "28-ID-E",
@@ -1778,7 +1733,7 @@
       "endM": 54.8,
       "widthM": 5.0,
       "branch": "f",
-      "notes": "Approx path lengths along the F branch (~23° outboard); Control Room F adjacent."
+      "notes": "Approx path lengths along the F branch (≈23° outboard); Control Room F adjacent."
     },
     {
       "name": "28-ID-G",
@@ -1787,7 +1742,7 @@
       "endM": 60.7,
       "widthM": 2.8,
       "branch": "g",
-      "notes": "As-built 2025 plan (MEDSI 2025 Fig. 2, read at its 5 m scale): upstream wall at ~47.5 m; outboard wall ~0.45 m outboard of the tunable axis, so the shielded transport ST-1 runs inside G along that wall; inboard wall ~1.9 m (upstream) to ~2.7 m (downstream) inboard of the tunable axis, roughly parallel to the G beam (~5° inboard). Between 28-ID-A's end wall (~43.3 m) and G the as-built plan shows a ~2.6 m walk-through vestibule with double doors, through which the shielded tunable and G beam pipes pass. The 2019 FDR plan (Fig. 4.2) placed G's upstream wall at ~44.9 m. Control Room G inboard."
+      "notes": "As-built 2025 plan (MEDSI 2025 Fig. 2, read at its 5 m scale): upstream wall at ≈47.5 m; outboard wall ≈0.45 m outboard of the tunable axis, so the shielded transport ST-1 runs inside G along that wall; inboard wall ≈1.9 m (upstream) to ≈2.7 m (downstream) inboard of the tunable axis, roughly parallel to the G beam (≈5° inboard). Between 28-ID-A's end wall (≈43.3 m) and G the as-built plan shows a ≈2.6 m walk-through vestibule with double doors, through which the shielded tunable and G beam pipes pass. The 2019 FDR plan (Fig. 4.2) placed G's upstream wall at ≈44.9 m. Control Room G inboard."
     },
     {
       "name": "28ID-SE-1",
@@ -1814,82 +1769,77 @@
       "endM": 78.6,
       "widthM": 5.1,
       "branch": "tunable",
-      "notes": "Approx; trapezoidal - outboard wall angles inward downstream; white-beam stop 77.4 m; Control Room C inboard."
+      "notes": "Approx; trapezoidal – outboard wall angles inward downstream; white-beam stop 77.4 m; Control Room C inboard."
     }
   ],
   "instruments": [
     {
       "name": "Shared CHEX endstation (hexapod diffractometer + LDDP)",
       "enclosure": "28-ID-B (also D, F/1, G/1)",
-      "plain": "A big, ultra-steady sample robot: a six-legged 'hexapod' platform on a rotating base holds heavy reaction chambers and tilts them by tiny, precise amounts, while a separate detector carriage parks a camera up to 4 m away.",
-      "expert": "FDR 4-2.6: central diffractometer (hexapod on rotation stage with vertical detector tower, Fig. 4.7), upstream optical table and flight-path optics, downstream flight path, long-distance detector positioner (air pads, granite base, yaw, Y-translation, tilt; Fig. 4.8), PADs and a scintillator-CCD module. Modes: alignment/imaging and beam-pass (all axes clear a beam pipe to the rear position). Configurations: alignment (PAD on arm, 1-2 m), imaging (PAD on LDDP, 2-4 m), XRIM (zone plate on arm, PAD on LDDP). PDR spec: 50 kg chambers, sub-µrad / sub-µm stability. As built (Directory): 'General purpose Huber Hexapod diffractometer' in D, F and G; 'Hexapod diffractometer for general diffraction' in B (make not stated).",
+      "text": "The shared instrument at stations B, D, F and G: a hexapod, a six-legged platform that tilts and shifts its load by tiny, precise amounts, mounted on a large rotation stage beside a vertical detector tower. It carries heavy reaction chambers (the preliminary design asked for 50 kg) and must hold them steady to below a micrometre and a microradian. For alignment a detector rides the diffractometer arm 1–2 m from the sample; for imaging and speckle work a separate long-distance positioner, on air pads over a granite base, parks it 2–4 m away. A third set-up puts a zone-plate objective on the arm for interface microscopy. When a rear position is in use, every axis clears a beam pipe ('beam-pass' mode). The 2026 beamline directory lists general-purpose Huber hexapod diffractometers in D, F and G; B's maker is not stated.",
       "detectors": [
-        "pixel array detectors (models not published)",
-        "scintillator-coupled CCD module (FDR)"
+        "Pixel-array detectors (models not published).",
+        "Scintillator-coupled CCD module (FDR)."
       ],
       "sampleEnvironments": [
-        "user gas/heating cells",
-        "electrochemical cells",
-        "compact CVD/ALD/sputter/etch chambers (PDR)"
+        "User gas and heating cells.",
+        "Electrochemical cells.",
+        "Compact CVD, ALD, sputtering and etching chambers (PDR)."
       ],
       "source": "r1"
     },
     {
       "name": "Oxide MBE chamber",
       "enclosure": "28-ID-C",
-      "plain": "An ultra-clean vacuum chamber that grows oxide crystals one atomic layer at a time from beams of evaporated atoms, with X-ray windows so the growth can be watched live.",
-      "expert": "Integrated-goniometer growth system on the tunable branch (resonant contrast). Directory contact H. Hong. Lineage: in situ X-ray oxide MBE at 33-ID-E (Lee et al. 2014) - relocation inferred.",
+      "text": "An ultra-clean vacuum chamber at 28-ID-C for oxide molecular-beam epitaxy (MBE), which grows crystals one atomic layer at a time from beams of evaporated atoms, with ozone or oxygen supplied to form the oxide. Its own goniometer, a precision rotation stage, sets the chamber's angle so X-rays entering through windows can follow each layer as it forms, and on the tunable branch the energy can be set at an element's absorption edge to tell the metal ions apart. It is probably the in situ oxide-growth system that ran at APS 33-ID-E, where Lee and colleagues watched oxide layers rearrange in 2014, though the move is inferred.",
       "detectors": [
-        "area detectors"
+        "Area detectors."
       ],
       "sampleEnvironments": [
-        "oxide MBE (UHV, ozone/oxygen)"
+        "Oxide MBE (ultra-high vacuum with ozone or oxygen)."
       ],
       "source": "r6"
     },
     {
       "name": "PLD diffractometer with HAXPES",
       "enclosure": "28-ID-E",
-      "plain": "A pulsed laser vaporises a target to build a film while X-rays track the atomic layers and an electron analyser measures the film's chemistry.",
-      "expert": "In situ PLD + real-time SXRD + HAXPES; 10 keV for HAXPES from a 'twisted monochromator'. Published predecessor: Eres et al. RSI 90, 093902 (2019), PLD chamber on a diffractometer, HAXPES at 4-12 keV with Scienta EW4000, online at 33-ID-D.",
+      "text": "Pulsed laser deposition (PLD) grows an oxide film puff by puff: each laser pulse vaporises a little of a target in an oxygen background, and the material settles on a substrate. Surface X-ray diffraction follows the atomic layers in real time, while hard X-ray photoelectron spectroscopy (HAXPES), fed with 10 keV X-rays by a separate 'twisted' monochromator, reads the film's chemistry and electronic state from the energies of electrons knocked out of it. A published predecessor at 33-ID-D combined the two, with HAXPES at 4–12 keV and a Scienta EW4000 analyser.",
       "detectors": [
-        "area detectors",
-        "hemispherical electron analyser (HAXPES)"
+        "Area detectors.",
+        "Hemispherical electron analyser (HAXPES)."
       ],
       "sampleEnvironments": [
-        "pulsed laser deposition (oxygen background)"
+        "Pulsed laser deposition (oxygen background)."
       ],
       "source": "r7"
     },
     {
       "name": "MOCVD growth chamber on hexapod diffractometer",
       "enclosure": "28-ID-F",
-      "plain": "A glowing quartz reactor fed with ammonia and metal-organic gases where semiconductor crystals like GaN grow, built to stand still to within a micrometre so speckle can be measured.",
-      "expert": "Directory: Huber hexapod diffractometer and MOCVD chamber (contact M. Highland). Predecessor (12-ID-D; Ju et al. 2017): fused-quartz wall 70 mm ID × 2 mm, vacuum to +3.75 atm, Huber Phi/Mu/DelRot/Nu circles + hexapod Chi/Eta, separate near/far detector positioners; sample stability ≪ beam size and detector stability ~25 µm at >1 m.",
+      "text": "A glowing quartz reactor, fed with ammonia and metal-organic gases, grows semiconductor crystals such as gallium nitride by metal-organic chemical vapour deposition (MOCVD); the 2026 beamline directory lists it in hutch F alongside a Huber hexapod diffractometer. Measuring speckle demands extreme steadiness: the predecessor at 12-ID-D kept the sample still to much less than the beam size and its detector to about 25 µm at more than 1 m, using a Huber diffractometer combined with a hexapod and separate near and far detector positioners. The predecessor's fused-quartz wall, 70 mm across and 2 mm thick, held anything from vacuum to 3.75 atmospheres above ambient.",
       "detectors": [
-        "photon-counting PADs (predecessor used a 512 × 512, 55 µm GaAs LynX 1800)"
+        "Photon-counting pixel-array detectors (the predecessor used a 512 × 512, 55 µm GaAs LynX 1800)."
       ],
       "sampleEnvironments": [
-        "MOCVD with NH3 and triethylgallium (GaN benchmark: growth ~800 K range, anneal at 1120 K; Ju et al. 2019)"
+        "MOCVD with NH₃ and triethylgallium (GaN benchmark: growth in the ≈800 K range, anneal at 1,120 K; Ju et al. 2019)."
       ],
       "source": "r8"
     },
     {
       "name": "High-energy hexapod diffractometer",
       "enclosure": "28-ID-G",
-      "plain": "A sample robot for very-high-energy X-rays (75-105 keV) that can see through thick samples and furnaces.",
-      "expert": "Directory: general-purpose Huber hexapod diffractometer; surface, general and high-energy X-ray diffraction; second position G/2 for large partner instruments (PDR examples: bulk crystal growth, environmental load frame).",
+      "text": "A shared Huber hexapod diffractometer in hutch G for 75 or 105 keV X-rays, which pass through thick samples, furnaces and reaction vessels; it serves surface, general and high-energy diffraction. Behind it, position G/2 is kept for large partner instruments, such as the bulk-crystal-growth systems and environmental load frame named in the design report. Detectors here need dense, heavy-element sensors to stop such energetic X-rays.",
       "detectors": [
-        "area detectors (high-Z sensor needed)"
+        "Area detectors (heavy-element sensors needed)."
       ],
       "sampleEnvironments": [
-        "furnaces, load frames, bulk-growth systems (proposed)"
+        "Furnaces, load frames and bulk-growth systems (proposed)."
       ],
       "source": "r9"
     }
   ],
   "totalLengthM": 78.5,
-  "geometryNotes": "Plan view (FDR Fig. 4.2, confirmed by the 2025 as-built ray trace, MEDSI 2025): the straight-ahead axis carries the OUTBOARD canted beam (upstream ID) through 28-ID-A (≈23.6-43.4 m), a shielded transport running along the outboard side of hutch G (43.5-60.6 m, with the mini-enclosure SE-1 at 48.2-52.2 m) and on into tandem hutches B (≈60.7-69.5 m) and C (≈69.7-78.6 m). The INBOARD beam (downstream ID) runs 1 mrad inboard of it (lateral separation ≈ 1 mrad × z: ~28 mm at 28 m, ~40 mm at 40 m) and is tapped by three side-bounce SCMs inside A: D/E at 28.3 m and F at 38.3 m deflect it ~23.2° OUTBOARD (away from the ring, toward the experiment-hall outer wall and the control rooms), so these two branches cross over the tunable beam within centimetres of their crystals and leave A through its outboard wall (approx. D/E at ~33.4 m path, F at ~42.5 m path, scaled from FDR Fig. 4.2); G at 40.2 m deflects ~5° INBOARD (toward the ring) into the long G hutch alongside the tunable transport. All tabulated distances are path lengths along each branch from the straight-section centre (sources actually at ≈±1.23 m). Model branch start points: D/E (28.3 m, +23.2°), F (38.3 m, +23.0°), G (40.2 m, -5.0°), positive = outboard. Hutches D and E (and F) are rotated ~23° relative to the main axis; D/E is a tandem pair, F and G are single long hutches with two instrument positions each (front instruments retract in 'beam-pass' mode). Each station has a control room; D, E, F control rooms and a Sample Prep Lab lie outboard; B outboard, C and G inboard. CHEX spreads over floor normally used by 28-BM/29-BM (no BM lines there) and the short neighbouring 27-ID (PDR). Every station has a CRL2 + slit + window 1.5-2.5 m upstream of its sample (beamline vacuum ends at the window). The tunable DCM is horizontal fixed-exit, so the tunable mono beam is laterally displaced (a 2025 ray-trace note mentions shifting a photon mask 4-8 mm outboard for monochromatic mode - low-resolution reading). Beam height ≈1.4 m. Naming caution: the 2017 PDR used different station letters (fixed branches B/C, D, E; tunable F/G) - this dossier uses the FDR/as-built names. Pre-upgrade, 28-ID was unoccupied (2017) and hosted the IDEA optics-test beamline until the 2023 shutdown; the CUFE and FOE 28-ID-A were built early (2018-2019). Control rooms and support: Control Rooms D, E, F and the Sample Prep Lab lie outboard of the D/E/F hutches; Control Rooms B (outboard) and G, C (inboard) flank the downstream hutches (FDR Fig. 4.2). Chemical exhaust and gas-cabinet infrastructure serve hutches B-G (PDR). As-built check (MEDSI 2025 Fig. 2 plan): the outlines of 28-ID-A, B and C agree with the FDR plan to ~0.2 m, but hutch G was built shorter and narrower than drawn in 2019 - upstream wall ~47.5 m instead of ~44.9 m, outboard wall hugging the ST-1 transport (~0.45 m outboard of the tunable axis), inboard wall ~1.9-2.7 m inboard - with a ~2.6 m double-door vestibule between A and G.",
+  "geometryNotes": "Plan view (FDR Fig. 4.2, confirmed by the 2025 as-built ray trace, MEDSI 2025): the straight-ahead axis carries the outboard canted beam (upstream undulator) through 28-ID-A (≈23.6–43.4 m), along a shielded transport on the outboard side of hutch G (43.5–60.6 m, with the mini-enclosure SE-1 at 48.2–52.2 m) and on into the tandem hutches B (≈60.7–69.5 m) and C (≈69.7–78.6 m).\n\nThe inboard beam (downstream undulator) runs 1 mrad inboard of it (lateral separation ≈1 mrad × distance: ≈28 mm at 28 m, ≈40 mm at 40 m) and is tapped by three side-bounce single-crystal monochromators inside A. D/E at 28.3 m and F at 38.3 m deflect it ≈23.2° outboard (away from the ring, toward the experiment-hall outer wall and the control rooms), so these two branches cross over the tunable beam within centimetres of their crystals and leave A through its outboard wall (at ≈33.4 m path length for D/E and ≈42.5 m for F, scaled from FDR Fig. 4.2); G at 40.2 m deflects ≈5° inboard (toward the ring) into the long G hutch alongside the tunable transport.\n\nAll tabulated distances are path lengths along each branch from the straight-section centre (the sources actually sit at ≈±1.23 m).\n\nIn this exhibit, the branches begin at: D/E (28.3 m, +23.2°), F (38.3 m, +23.0°), G (40.2 m, −5.0°), positive = outboard.\n\nHutches D and E (and F) are rotated ≈23° relative to the main axis; D/E is a tandem pair, while F and G are single long hutches with two instrument positions each (the front instruments retract in 'beam-pass' mode). Every station has a CRL2, slits and a window about 1.2–2.8 m upstream of its sample; the beamline vacuum ends at the window.\n\nThe tunable DCM is a horizontal fixed-exit design, so the tunable monochromatic beam is displaced sideways (a 2025 ray-trace note mentions shifting a photon mask 4–8 mm outboard for monochromatic mode; low-resolution reading). Beam height ≈1.4 m.\n\nCHEX spreads over floor normally used by 28-BM/29-BM (there are no bending-magnet lines there) and the short neighbouring 27-ID (PDR). Control rooms and support: Control Rooms D, E, F and the Sample Prep Lab lie outboard of the D/E/F hutches; Control Rooms B (outboard) and G, C (inboard) flank the downstream hutches (FDR Fig. 4.2). Chemical-exhaust and gas-cabinet infrastructure serves hutches B–G (PDR).\n\nNaming caution: the 2017 PDR used different station letters (fixed branches B/C, D, E; tunable F/G); this dossier uses the FDR and as-built names.\n\nBefore the upgrade, 28-ID was unoccupied (2017) and later hosted the IDEA optics-test beamline until the 2023 shutdown; the canted front end and the FOE 28-ID-A were built early (2018–2019).\n\nAs-built check (MEDSI 2025 Fig. 2 plan): the outlines of 28-ID-A, B and C agree with the FDR plan to ≈0.2 m, but hutch G was built shorter and narrower than drawn in 2019, with its upstream wall at ≈47.5 m instead of ≈44.9 m, its outboard wall hugging the ST-1 transport (≈0.45 m outboard of the tunable axis), its inboard wall ≈1.9–2.7 m inboard, and a ≈2.6 m double-door vestibule between A and G.",
   "interactiveIdeas": [
     {
       "title": "One rainbow, four experiments: the harmonic multiplexer",
@@ -1930,25 +1880,25 @@
   ],
   "funFacts": [
     "CHEX gets three experiments out of one undulator: two thin diamond crystals each reflect a different harmonic (15 keV, then 25 or 35 keV) and let the rest of the light pass through to the next crystal, and a final silicon crystal picks off 75 or 105 keV (PDR; APS Beamline Directory).",
-    "Two of its fixed-energy beams (D/E and F) are bent sideways by about 23 degrees by diamond crystals - enormous compared with the few-milliradian (a fraction of a degree) deflections of typical synchrotron mirrors, e.g. 4 mrad at 25-ID (PDR; Beamline Directory; FDR).",
-    "At 75-105 keV, beryllium lenses barely bend X-rays, so CHEX's G station focuses with lenses made of nickel (FDR Table 4.12).",
-    "Before the upgrade, scientists had to pull the monochromator out entirely and use a 'pink' beam - the undulator's whole harmonic peak, about 1% wide in energy - just to get enough coherent X-rays to watch GaN grow (Ju et al. 2019).",
-    "An APS-U-design canted front end was installed at 28-ID and tested with beam on the old ring in November 2018 - a project milestone more than four years before the upgrade dark period began (FDR Ch. 1 and Ch. 3).",
+    "Two of its fixed-energy beams (D/E and F) are bent sideways by about 23 degrees by diamond crystals – enormous compared with the few-milliradian (a fraction of a degree) deflections of typical synchrotron mirrors, e.g. 4 mrad at 25-ID (PDR; Beamline Directory; FDR).",
+    "At 75–105 keV, beryllium lenses barely bend X-rays, so CHEX's G station focuses with lenses made of nickel (FDR Table 4.12).",
+    "Before the upgrade, scientists had to pull the monochromator out entirely and use a 'pink' beam – the undulator's whole harmonic peak, about 1% wide in energy – just to get enough coherent X-rays to watch GaN grow (Ju et al. 2019).",
+    "An APS-U-design canted front end was installed at 28-ID and tested with beam on the old ring in November 2018 – a project milestone more than four years before the upgrade dark period began (FDR Ch. 1 and Ch. 3).",
     "In 2017 sector 28 was empty; before CHEX was built it hosted IDEA, a temporary beamline for testing the optics that would preserve the upgraded APS's coherence (PDR; APS News 2022).",
-    "CHEX currently runs on 'stand-in' permanent-magnet undulators; superconducting undulators cooled to 4.2 K are planned to replace them (APS ID table 2026; Strategic Plan 2025-29).",
+    "CHEX currently runs on 'stand-in' permanent-magnet undulators; superconducting undulators cooled to 4.2 K are planned to replace them (APS ID table 2026; Strategic Plan 2025–29).",
     "Two branches use tandem hutch pairs (B/C and D/E): a beam stop at the end of the front hutch lets teams build and tune a large growth chamber in the back hutch while another experiment runs in front. F and G instead have two positions in one long hutch, where the front instrument moves aside ('beam-pass' mode) to feed the rear one (FDR; PDR).",
     "The design anticipated about 1 terabyte of data per day from each of the four simultaneous experiments (PDR).",
     "The upgraded APS ring's measured emittance (45 pm·rad at 50 mA) beat the previous world record of 134 pm·rad (APS News 2024).",
     "CHEX grew out of years of community workshops; a 2018 project listing named Robert Winarski and Brian Stephenson as its science leads, and today's beamline team (Matt Highland, Zhan Zhang, Hua Zhou, Hawoong Hong, Tomoya Kawaguchi) runs it within the APS Surface Scattering and Microdiffraction group (MEDSI 2018; APS feature page; XSD-SSM).",
-    "Superconducting undulators are expected to give about three times the brightness of the interim permanent-magnet undulators above 50 keV (APS Strategic Plan 2025-29)."
+    "Superconducting undulators are expected to give about three times the brightness of the interim permanent-magnet undulators above 50 keV (APS Strategic Plan 2025–29)."
   ],
   "figures": [
     {
       "file": "chex/fdr2019-fig4-2-chex-layout-plan.png",
-      "caption": "Plan of the CHEX sector at 28-ID (metre scale along the bottom, 23-80 m from the source): optics hutch 28-ID-A, the D/E and F branches fanning ~23° outboard, hutch G with the shielded tunable transport, and tandem hutches B/C. FDR 2019, Fig. 4.2. The 3D model's hutch outlines are read from this drawing (hutch G from the 2025 as-built plan).",
+      "caption": "Plan of the CHEX sector at 28-ID (metre scale along the bottom, 23–80 m from the source): optics hutch 28-ID-A, the D/E and F branches fanning ≈23° outboard, hutch G with the shielded tunable transport, and tandem hutches B/C. FDR 2019, Fig. 4.2. The 3D model's hutch outlines are read from this drawing (hutch G from the 2025 as-built plan).",
       "source": "r1",
       "page": 33,
-      "whatItShows": "Engineering plan of all hutches: optics enclosure 28-ID-A, the ~23° outboard D/E and F branches, the G hutch with the shielded tunable transport, tandem hutches B/C, CRL/instrument/detector positions, control rooms and sample-prep lab."
+      "whatItShows": "Engineering plan of all hutches: optics enclosure 28-ID-A, the ≈23° outboard D/E and F branches, the G hutch with the shielded tunable transport, tandem hutches B/C, CRL/instrument/detector positions, control rooms and sample-prep lab."
     },
     {
       "file": "chex/fdr2019-fig4-3-chex-optical-layout.png",
@@ -1962,7 +1912,7 @@
       "caption": "As-built horizontal ray tracing of 28-ID (drawing A328-RT1000 rev 02, 9 Sep 2025; transverse scale exaggerated 100:1) with the true-scale hutch plan below. Schmidt et al., MEDSI'25 TUOA01, Fig. 2 (CC BY 4.0).",
       "source": "r14",
       "page": 2,
-      "whatItShows": "As-built 2025 geometry: windowless canted front end, apertures and shielding (100:1 transverse exaggeration), tunable-branch monochromatic-mode ray fans, and the true-scale hutch plan confirming the FDR layout. Hutch G as built is shorter (from ~47.5 m) and narrower than in the 2019 plan."
+      "whatItShows": "As-built 2025 geometry: windowless canted front end, apertures and shielding (100:1 transverse exaggeration), tunable-branch monochromatic-mode ray fans, and the true-scale hutch plan confirming the FDR layout. Hutch G as built is shorter (from ≈47.5 m) and narrower than in the 2019 plan."
     },
     {
       "file": "chex/fdr2019-fig4-7-shared-diffractometer.png",
@@ -1976,7 +1926,7 @@
       "caption": "Station B's two-lens zoom: focal-spot size (left) and transmission (right) versus the number of lenses in the upstream stack, at 15 and 35 keV. Bigger spots cost less flux. FDR 2019, Fig. 4.4 (design values for the superconducting-undulator source).",
       "source": "r1",
       "page": 37,
-      "whatItShows": "The zoom trade-off: more CRL1 lenses give a larger spot (~0.9 → 8 µm H) but higher transmission (~0.2 → 0.6-0.8); design values for the SCU source."
+      "whatItShows": "The zoom trade-off: more CRL1 lenses give a larger spot (≈0.9 → 8 µm H) but higher transmission (≈0.2 → 0.6–0.8); design values for the SCU source."
     },
     {
       "file": "chex/fdr2019-fig4-6-station-b-focal-spots.png",
@@ -2251,14 +2201,14 @@
   ],
   "openQuestions": [
     "Which interim undulator feeds which branch is inferred (upstream 2.8 cm → outboard/tunable; downstream 3.0 cm → inboard/fixed) from the APS canting convention (FDR 6-ID and 34-ID text) and FDR power tables; not stated explicitly for 28-ID. The Beamline Directory lists 'SCU0' as the B/C source, which conflicts with the Sep-2026 ID table.",
-    "Installation date of the 18.5 mm SCU pair at 28-ID (Strategic Plan: 2026-2027; ID table of 22 Sep 2026 still shows HPMUs). Length conflict: FDR Ch.4 1.3 m vs FDR Ch.3 1.2 m (magnetic).",
-    "Tunable-branch energy range conflicts: 5-60 keV (FDR text), 15-60 keV (MEDSI 2025, PDR), 6-30 keV (Directory, Si(111) with interim source), sector-wide 5-104 keV (feature page).",
-    "MEDSI 2025 says the selectable-energy branches cover 15-60 keV, but the Directory lists 75/105 keV for G (FDR: 45-105 keV).",
+    "Installation date of the 18.5 mm SCU pair at 28-ID (Strategic Plan: 2026–2027; ID table of 22 Sep 2026 still shows HPMUs). Length conflict: FDR Ch.4 1.3 m vs FDR Ch.3 1.2 m (magnetic).",
+    "Tunable-branch energy range conflicts: 5–60 keV (FDR text), 15–60 keV (MEDSI 2025, PDR), 6–30 keV (Directory, Si(111) with interim source), sector-wide 5–104 keV (feature page).",
+    "MEDSI 2025 says the selectable-energy branches cover 15–60 keV, but the Directory lists 75/105 keV for G (FDR: 45–105 keV).",
     "Sector-wide upper limit: the feature page quotes 104 keV, while the Directory lists 105 keV (Si(004)) for G; possibly 103.9 keV = Si(400) on the 15th harmonic of a 6.93 keV fundamental (PDR Table 6.13), or a rounding.",
     "Whether the Si(311) DCM crystal pair and the optional double-multilayer monochromator ('DCM or DMM') were installed.",
     "Design and location of the 'twisted monochromator' providing 10 keV for HAXPES in 28-ID-E.",
-    "As-built SCM details: diamond thickness, Bragg vs Laue geometry, cooling (FDR says LN2-cooled; PDR emphasised symmetric Bragg), whether D/E also has (022)/(004) crystals, and the exact graphite-filter location.",
-    "As-built transfocator models and lens inventories (FDR Table 4.11-4.12 are design values; Ni lenses for G not confirmed as built).",
+    "As-built SCM details: diamond thickness, Bragg vs Laue geometry, cooling (FDR says LN₂-cooled; PDR emphasised symmetric Bragg), whether D/E also has (022)/(004) crystals, and the exact graphite-filter location.",
+    "As-built transfocator models and lens inventories (FDR Table 4.11–4.12 are design values; Ni lenses for G not confirmed as built).",
     "Detector models (PAD type, sensor material, pixel size) and whether the long-distance detector positioners were built as in FDR Fig. 4.8.",
     "Which F position hosts the MOCVD chamber vs the hexapod diffractometer; instrument at G/2.",
     "Whether the C (oxide MBE), E (PLD/HAXPES) and F (MOCVD) systems are the relocated 33-ID-E, 33-ID-D and 12-ID-D instruments (strongly suggested, not stated).",

@@ -13,10 +13,9 @@
  *   quality = error vs the known truth and FRC(0.5) half-period over one fixed field of view for every scan (only
  *   possible because this is a simulation).
  */
-import type { Depth } from '../../app/store';
 import type { ExplainerModule } from './registry';
 import { TOKENS, button, canvas2d, createStation, group, line, loop, lut, motionGate, note, plotFrame, readout, slider, toggle, type Canvas2D } from './kit';
-import { DF, FLUX, FrcMeter, GEOM, LAMBDA_NM, THICK, slab, Measurement, PROBE_D_NM, PUPIL_R_PX, PtychoSolver, angleMrad, compareObject, emptyMeans, expectedPattern, fovWindow, halfPeriodNm, illumination, makeChip, makeProbe, makeScan, noiseFloor, poissonFast, windowMask, type Means, type Scan, type ScanPattern, type Source } from './ptycho/physics';
+import { FLUX, FrcMeter, GEOM, THICK, slab, Measurement, PROBE_D_NM, PUPIL_R_PX, PtychoSolver, angleMrad, compareObject, emptyMeans, expectedPattern, fovWindow, halfPeriodNm, illumination, makeChip, makeProbe, makeScan, noiseFloor, poissonFast, windowMask, type Means, type Scan, type ScanPattern, type Source } from './ptycho/physics';
 import { Bitmap, fitText, haloText, hexRgb, paintComplex, paintCounts, paintPhase, paintSprite, scaleBar, sci, textW, type Rect } from './ptycho/views';
 import { rng } from '../../lib/fft';
 
@@ -44,8 +43,13 @@ const ICE = lut('ice');
 
 const fmtDwell = (us: number): string => (us < 1000 ? `${us < 10 ? us.toFixed(1) : Math.round(us)} µs` : `${(us / 1000).toFixed(us < 10000 ? 1 : 0)} ms`);
 const fmtRes = (nm: number): string => (nm > 20 ? '> 20 nm' : `${nm.toFixed(1)} nm`);
-/** compact scientific notation for readouts: 1.7e-3 */
-const eNum = (v: number): string => (v > 0 ? v.toExponential(1).replace('e-', 'e−') : '0');
+const SUP: Record<string, string> = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻' };
+/** compact scientific notation for readouts: 1.7×10⁻³ */
+const eNum = (v: number): string => {
+  if (!(v > 0)) return '0';
+  const [m, e] = v.toExponential(1).split('e');
+  return `${m}×10${String(Number(e)).replace(/./g, (c) => SUP[c] ?? c)}`;
+};
 const overlapOf = (stepNm: number): number => Math.max(0, 1 - stepNm / PROBE_D_NM);
 
 interface Run {
@@ -59,10 +63,9 @@ const mod: ExplainerModule = {
   title: 'The lens is a computer',
   subtitle: 'Change the scan step and the X-ray source, then watch a computer turn X-ray speckle into a sharp picture.',
   mount(host, ctx) {
-    const station = createStation(host, { depth: ctx.depth, color: ctx.color, layout: 'side' });
+    const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = /^#[0-9a-f]{6}$/i.test(ctx.color) ? ctx.color : '#60a5fa';
     const accRgb = hexRgb(accent);
-    const isSpec = () => station.depth === 'specialist';
 
     // ------------------------------------------------------------------ physics state
     const chip = makeChip();
@@ -138,28 +141,16 @@ const mod: ExplainerModule = {
 
     // ------------------------------------------------------------------ canvases
     const smpC = canvas2d(station.visual, { label: '1 · Sample + beam' });
-    const detC = canvas2d(station.visual, { label: '2 · Camera' });
+    const detC = canvas2d(station.visual, { label: '2 · Camera (log scale)' });
     const recC = canvas2d(station.visual, { label: "3 · Computer's image" });
     const errC = canvas2d(station.visual, { label: '4 · How far off?' });
     const wraps = { smp: smpC.canvas.parentElement!, det: detC.canvas.parentElement!, rec: recC.canvas.parentElement!, err: errC.canvas.parentElement! };
-    const labelEl = (c: Canvas2D) => c.canvas.parentElement!.querySelector('.stn-canvas-label') as HTMLElement | null;
-    const setLabels = () => {
-      const sp = isSpec();
-      const L: [Canvas2D, string, string][] = [
-        [smpC, '1 · Sample + beam', '1 · Object phase + scan'],
-        [detC, '2 · Camera', '2 · Diffraction (log)'],
-        [recC, "3 · Computer's image", '3 · ePIE reconstruction'],
-        [errC, '4 · How far off?', '4 · Error vs iteration'],
-      ];
-      for (const [c, v, s] of L) {
-        const el = labelEl(c);
-        if (el) el.textContent = sp ? s : v;
-      }
+    {
       smpC.canvas.setAttribute('aria-label', 'Test chip with the scan positions of the X-ray beam. Drag, or focus and use the arrow keys, to aim the beam and see its diffraction pattern.');
       detC.canvas.setAttribute('aria-label', 'Diffraction pattern recorded by the camera for the highlighted beam position, logarithmic colour scale.');
       recC.canvas.setAttribute('aria-label', 'Image recovered by the reconstruction algorithm, with the recovered beam as an inset.');
       errC.canvas.setAttribute('aria-label', 'Plot of the reconstruction error against iteration number.');
-    };
+    }
 
     const truthBmp = new Bitmap(N, N);
     paintPhase(truthBmp, chip.phase, phLo, phHi);
@@ -248,7 +239,9 @@ const mod: ExplainerModule = {
       onChange: () => dirtyAll(),
     });
     const rRes = readout(gRun, 'Finest detail', { big: true, color: accent });
-    const rRF = readout(gRun, 'R_F (floor)');
+    rRes.el.title = 'Half-period of the finest detail that matches the true chip (Fourier ring correlation at 0.5)';
+    const rRF = readout(gRun, 'Data misfit');
+    rRF.el.title = 'R_F: how far the patterns predicted by the current picture and beam are from the recorded ones, compared with the level that photon noise alone would give';
     const syncRunButton = () => {
       bRun.textContent = running ? 'Pause' : stage === 'done' ? 'Resume' : 'Run';
       bRun.setAttribute('aria-pressed', String(running));
@@ -285,8 +278,7 @@ const mod: ExplainerModule = {
     note(
       gSrc,
       station,
-      'Ptychography needs **coherent** X-rays, waves marching in step. APS-U delivers about **100× more** of them.',
-      'Coherent flux ∝ brightness: >100× with APS-U (42 pm). 3.1 × 10^{10} ph/s at 10 keV in the 4-nm-zone FZP focus (FDR design value, caveats below); pre-upgrade ÷100, illustrative. 33 µs ↔ 30 kHz detector.',
+      'Ptychography needs **coherent** X-rays, waves marching in step. Coherent flux grows with the source’s brightness, so APS-U delivers **over 100× more**: 3.1×10^{10} photons/s at 10 keV into this lens’s focus (a design value; see below). The “before” source here is simply 100× weaker, for illustration.',
     );
 
     // scan
@@ -318,29 +310,17 @@ const mod: ExplainerModule = {
     note(
       gScan,
       station,
-      `Each ring is one shot of the ${D_TXT} nm beam. Neighbours must **overlap** by about 60 % or more, so the computer can tell the beam apart from the sample.`,
-      `o = 1 − s/d, d = 2·NA·Δz = ${D_TXT} nm. Overlap gives the redundancy that makes blind P/O retrieval unique: o ≳ 60 % (Bunk 2008). Grid: ±1 px jitter against the raster-grid pathology (Thibault 2009); the Fermat spiral is aperiodic (Huang 2014).`,
+      `Each ring is one shot of the ${D_TXT} nm beam; overlap = 1 − step ÷ ${D_TXT} nm. Neighbours must **overlap** by about 60 % or more, so the computer can tell the beam apart from the sample. The grid is jittered by ±1 pixel, because a perfectly regular grid creates artefacts of its own; the Fermat spiral has no regularity at all.`,
     );
 
-    // model caveats (specialist only)
+    // model caveats: the fine print, in smaller type
     const gModel = group(station.controls, 'About this model');
     note(
       gModel,
       station,
-      '',
-      'A simulation, not data. Illustrative test pattern: Au 150 nm, W and Cu 120 nm (δ, β at 10 keV from CXRO), thinner than the ≈ 170 nm depth of field 5.2Δx^{2}/λ, so single-slice transmission holds. 128² object pixels (Δx = 2 nm), 64² detector crop, one fully coherent probe mode, exact integer positions, Poisson noise only (no read-out noise, beamstop or pixel count-rate limit, which the bright field would exceed at APS-U flux on a real 75 µm-pixel counter). Plain ePIE (α = β = 1) is not noise-optimal: maximum-likelihood or tuned rPIE would do better at low dose, but the APS/APS-U comparison uses the same solver. ε and FRC are measured against the truth over the same chip-sized field of view for every scan. Flux: the FDR value assumes Si(311) bandwidth (11 250 zones need ΔE/E ≲ 1/N ≈ 9 × 10^{-5}; the installed Si(111) gives 1.4 × 10^{-4}) and 4.6 m of undulator (as built ≈ 2.35 m, ~3× less coherent flux).',
+      'A simulation, not data. The test chip is illustrative: gold 150 nm, tungsten and copper 120 nm thick, thinner than the ≈170 nm depth of field, so a single-layer model holds. One fully coherent beam mode, exact positions and photon noise only (no detector noise or count-rate limit). The solver is plain ePIE, not the best at low dose, but APS and APS-U get the same one. The error and the finest detail are measured against the known chip, over the same area for every scan. The design flux assumes a Si(311) monochromator (the lens’s 11,250 zones need a bandwidth below ≈9×10^{−5}; the installed Si(111) passes 1.4×10^{−4}) and 4.6 m of undulator (as built ≈2.35 m: ~3× less coherent flux).',
     );
-
-    const setDepthUi = () => {
-      const sp = isSpec();
-      setLabels();
-      rRF.el.style.display = sp ? '' : 'none';
-      gModel.style.display = sp ? '' : 'none';
-      const resLab = rRes.el.querySelector('.stn-readout-label');
-      if (resLab) resLab.textContent = sp ? 'FRC(0.5) half-period' : 'Finest detail';
-      const stepLab = sStep.input.closest('.stn-slider')?.querySelector('.stn-slider-label');
-      if (stepLab) stepLab.textContent = sp ? 'Step s · overlap o' : 'Step between shots';
-    };
+    (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
 
     // ------------------------------------------------------------------ state transitions
     let dirty = { smp: true, det: true, rec: true, err: true };
@@ -550,7 +530,7 @@ const mod: ExplainerModule = {
       const sc = r.w / N;
       const rad = (PROBE_D_NM / GEOM.dxNm / 2) * sc;
       const shown = stage === 'measure' && meas ? meas.next : scan.count;
-      const key = `${c.w}|${c.h}|${c.dpr}|${shown}|${scanId}|${station.depth}|${manual.on ? 1 : 0}`;
+      const key = `${c.w}|${c.h}|${c.dpr}|${shown}|${scanId}|${manual.on ? 1 : 0}`;
       if (key !== smpKey) {
         smpKey = key;
         smpBase.width = Math.round(c.w * c.dpr);
@@ -593,7 +573,7 @@ const mod: ExplainerModule = {
         ];
         const barW = 2 + 25 * sc + 5 + textW(b, '50 nm', f, 600);
         const legW = (long: boolean) => mats.reduce((acc, [lng, sh]) => acc + textW(b, long ? lng : sh, f, 500) + 20, 0);
-        const useLong = !isSpec() && barW + legW(true) + 8 <= r.w;
+        const useLong = barW + legW(true) + 8 <= r.w;
         const showLeg = barW + legW(false) + 8 <= r.w;
         let x = r.x + r.w;
         for (let k = showLeg ? mats.length - 1 : -1; k >= 0; k--) {
@@ -607,7 +587,7 @@ const mod: ExplainerModule = {
           b.fillRect(x, fy - 4, 8, 8);
           x -= 8;
         }
-        if (!manual.on && c.w >= 200) haloText(b, isSpec() ? 'drag / arrow keys: aim the beam' : 'drag to aim the beam', r.x + r.w - 4, r.y + r.w - 6, { size: f - 0.5, align: 'right', color: TOKENS.ink3, weight: 500 });
+        if (!manual.on && c.w >= 200) haloText(b, fitText(b, ['drag or use the arrow keys to aim the beam', 'drag to aim the beam'], r.w - 8, f - 0.5, 500), r.x + r.w - 4, r.y + r.w - 6, { size: f - 0.5, align: 'right', color: TOKENS.ink3, weight: 500 });
       }
       g.save();
       g.setTransform(1, 0, 0, 1, 0, 0);
@@ -681,18 +661,14 @@ const mod: ExplainerModule = {
         g.stroke();
       }
       g.restore();
-      haloText(g, isSpec() ? 'bright field (lens NA)' : "lens's own cone", cx, cy - PUPIL_R_PX * sc - 4, { size: f, align: 'center', color: TOKENS.ink });
+      haloText(g, fitText(g, ["lens's own cone (bright field)", "lens's own cone"], r.w - 6, f, 600), cx, cy - PUPIL_R_PX * sc - 4, { size: f, align: 'center', color: TOKENS.ink });
       if (meas && meas.done) {
         const reach = Number.isFinite(r1) ? r1 : M / 2;
         const t = fitText(
           g,
-          isSpec()
-            ? Number.isFinite(r1)
-              ? [`⟨n⟩ = 1 ph/px: ${halfPeriodNm(r1).toFixed(1)} nm`, `1 ph/px: ${halfPeriodNm(r1).toFixed(1)} nm`]
-              : ['⟨n⟩ ≥ 1 ph/px to the edge', '≥ 1 ph/px']
-            : Number.isFinite(r1)
-              ? ['outside: < 1 photon per pixel', 'outside: < 1 photon/pixel', '< 1 photon/pixel']
-              : ['≥ 1 photon per pixel to the edge', '≥ 1 photon/pixel'],
+          Number.isFinite(r1)
+            ? [`outside: < 1 photon per pixel (detail < ${halfPeriodNm(r1).toFixed(1)} nm)`, 'outside: < 1 photon per pixel', 'outside: < 1 photon/pixel', '< 1 photon/pixel']
+            : ['≥ 1 photon per pixel to the edge', '≥ 1 photon/pixel'],
           r.w - 6,
           f,
           600,
@@ -700,15 +676,13 @@ const mod: ExplainerModule = {
         const ty = Math.min(r.y + r.h - 5, cy + reach * sc + (Number.isFinite(r1) ? 13 : -5));
         haloText(g, t, cx, ty, { size: f, align: 'center', color: accent });
       }
-      if (manual.on) haloText(g, isSpec() ? 'your beam position' : 'your beam', r.x + 5, r.y + 14, { size: f, color: accent });
+      if (manual.on) haloText(g, 'your beam', r.x + 5, r.y + 14, { size: f, color: accent });
       // footer
       const fy = r.y + r.w + 13;
       const th = angleMrad(M / 2).toFixed(0);
       const edge = fitText(
         g,
-        isSpec()
-          ? [`edge: θ = ${th} mrad, f = θ/λ = ${(1 / (2 * GEOM.dxNm)).toFixed(2)} nm⁻¹ → ${GEOM.dxNm} nm`, `edge: θ = ${th} mrad, f = ${(1 / (2 * GEOM.dxNm)).toFixed(2)} nm⁻¹ → ${GEOM.dxNm} nm`, `edge ${th} mrad ↔ ${GEOM.dxNm} nm half-period`, `edge ${th} mrad ↔ ${GEOM.dxNm} nm`]
-          : [`camera edge ↔ ${GEOM.dxNm} nm detail`, `edge ↔ ${GEOM.dxNm} nm detail`],
+        [`camera edge: ${th} mrad ↔ ${GEOM.dxNm} nm detail`, `edge ${th} mrad ↔ ${GEOM.dxNm} nm detail`, `edge ↔ ${GEOM.dxNm} nm detail`],
         r.w + 8,
         f,
         500,
@@ -751,7 +725,7 @@ const mod: ExplainerModule = {
         g.lineWidth = 1;
         g.strokeRect(ix - 0.5, iy - 0.5, s + 1, s + 1);
         // label centred under the inset but kept inside the canvas
-        const lab = isSpec() ? 'probe P' : fitText(g, ['recovered beam', 'beam'], Math.min(s * 1.7, 2 * (c.w - 4 - (ix + s / 2))), f - 0.5, 600);
+        const lab = fitText(g, ['recovered beam', 'beam'], Math.min(s * 1.7, 2 * (c.w - 4 - (ix + s / 2))), f - 0.5, 600);
         const lw = textW(g, lab, f - 0.5, 600);
         haloText(g, lab, Math.min(ix + s / 2, c.w - 4 - lw / 2), iy + s + 11, { size: f - 0.5, align: 'center', color: TOKENS.ink2 });
         // position being updated
@@ -771,7 +745,7 @@ const mod: ExplainerModule = {
         recBmp.draw(g, r);
         const done = meas ? meas.next : 0;
         // reduced motion, results only: this frame stays up until the picture is solved, so no running count
-        const msg = !motion.on ? (isSpec() ? 'recording & solving…' : 'measuring, then solving…') : isSpec() ? `recording ${done} / ${scan.count} patterns…` : `recording ${done} / ${scan.count} shots…`;
+        const msg = !motion.on ? 'measuring, then solving…' : `recording ${done} / ${scan.count} shots…`;
         haloText(g, msg, r.x + r.w / 2, r.y + r.h / 2, { size: f + 1, align: 'center', baseline: 'middle', color: TOKENS.ink2 });
       }
       // footer
@@ -782,7 +756,7 @@ const mod: ExplainerModule = {
       const e = (lastErr * 100).toFixed(0);
       const t = fitText(
         g,
-        isSpec() ? [`iter ${it} · ε = ${e} % · FRC ${resTxt}`, `ε ${e} % · FRC ${resTxt}`, `FRC ${resTxt}`] : [`finest detail ${resTxt} · beam ${D_TXT} nm`, `detail ${resTxt} · beam ${D_TXT} nm`, `detail ${resTxt}`],
+        [`iteration ${it} · error ${e} % · detail ${resTxt}`, `error ${e} % · detail ${resTxt}`, `detail ${resTxt} · beam ${D_TXT} nm`, `detail ${resTxt}`],
         r.w + 8,
         f,
         500,
@@ -802,7 +776,7 @@ const mod: ExplainerModule = {
         g,
         { x: 2, y: 22, w: c.w - 6, h: c.h - 24 },
         { min: 0, max: xMax, label: 'iteration' },
-        { min: 0.03, max: 5, log: true, ticks: yTicks, label: isSpec() ? 'error ε (%)' : c.h - 60 >= 150 ? 'error vs. true chip (%)' : 'error (%)', format: (v) => `${Math.round(v * 100)}` },
+        { min: 0.03, max: 5, log: true, ticks: yTicks, label: c.h - 60 >= 150 ? 'error ε vs. the true chip (%)' : 'error ε (%)', format: (v) => `${Math.round(v * 100)}` },
       );
       // "blank guess" reference
       g.save();
@@ -814,7 +788,7 @@ const mod: ExplainerModule = {
       g.stroke();
       g.restore();
       const f = fs(c);
-      haloText(g, isSpec() ? 'O = 1 (blank start)' : 'blank start', fr.x1 - 4, fr.py(1) - 4, { size: f - 0.5, align: 'right', color: TOKENS.ink3, weight: 500 });
+      haloText(g, 'blank start', fr.x1 - 4, fr.py(1) - 4, { size: f - 0.5, align: 'right', color: TOKENS.ink3, weight: 500 });
       const xs = (k: number) => {
         const a = new Float64Array(k);
         for (let i = 0; i < k; i++) a[i] = i;
@@ -881,52 +855,50 @@ const mod: ExplainerModule = {
       const res = !Number.isNaN(rn) ? fmtRes(rn) : '';
       // live numbers in the text (iteration, ε, resolution) are re-rendered in coarse steps, not every frame
       const live = key === 'good' ? `${res}|${it >> 3}|${Math.round(lastErr * 50)}` : key === 'early' || key === 'solving' || key === 'overlap' ? `${it >> 2}|${Math.round(lastErr * 50)}` : key === 'dose' ? `${lastErr > 1 ? 1 : 0}|${res}` : '';
-      const full = `${key}|${ovPct}|${par.src}|${Math.round(Math.log10(ph) * 10)}|${live}|${station.depth}|${ghost ? 1 : 0}`;
+      const full = `${key}|${ovPct}|${par.src}|${Math.round(Math.log10(ph) * 10)}|${live}|${ghost ? 1 : 0}`;
       if (full === capKey) return;
       capKey = full;
       const d = PROBE_D_NM.toFixed(0);
       const r1 = meas && meas.done ? meas.data.r1 : NaN;
       let v = '';
-      let s = '';
+      const err = (lastErr * 100).toFixed(0);
+      const misfit = solver && solver.errF.length && meas ? ` (misfit to the patterns ${eNum(solver.errF[solver.errF.length - 1])}, photon-noise floor ${eNum(noiseFloor(meas.data))})` : '';
       switch (key) {
         case 'manual':
-          v = `**You are aiming the beam.** The camera shows this spot's speckle pattern: the bright disc is light that went straight through the lens's cone; the faint speckles outside it were bent by the chip's tiny structures. The finer the structure, the wider the angle.`;
-          s = `**Manual probe position.** I(f) = N_{ph}|F[P·O(r − R)]|^{2}/M^{2} with Poisson noise at N_{ph} = ${sci(ph)} (f = θ/λ, spatial frequency). Inside the dashed circle (f < NA/λ = 0.125 nm^{-1}) the bright-field disc carries a defocused shadow image; dark-field speckle out to the detector edge (f = 0.25 nm^{-1}, θ = ${angleMrad(M / 2).toFixed(0)} mrad) encodes the finest structure.`;
+          v = `**You are aiming the beam.** The camera shows this spot's speckle pattern: the bright disc is light that went straight through the lens's cone (the *bright field*, which carries a blurred shadow image); the faint speckles outside it were bent by the chip's tiny structures. The finer the structure, the wider the angle: the camera's edge, ${angleMrad(M / 2).toFixed(0)} mrad out, stands for 2 nm detail.`;
           break;
         case 'measure':
-          v = `**Recording.** The glowing ring is the X-ray beam, left ${d} nm wide on purpose by putting the chip just past the focus. It hops across the chip, and at each stop the camera records a speckle pattern: not a picture, just scattered X-rays. No X-ray lens can focus to a perfect point, so a computer will make the picture.`;
-          s = `**Data collection:** ${scan.count} far-field patterns, N_{ph} = ${sci(ph)} photons/shot (Poisson). Probe: 4-nm-zone FZP (D = 180 µm, f = 5.8 mm, NA = 15.5 mrad), sample 1.5 µm past focus → d = 2·NA·Δz = ${d} nm. λ = ${LAMBDA_NM.toFixed(3)} nm (10 keV); Δx = λz/(Mp) = 2 nm for 64 × 75 µm pixels at 77 mm. Each pattern oversamples the illuminated area by MΔx/d ≈ ${((M * GEOM.dxNm) / PROBE_D_NM).toFixed(1)} per axis (> 2 needed); overlap adds the redundancy that also solves for the probe.`;
+          v = `**Recording.** The glowing ring is the X-ray beam, left ${d} nm wide on purpose by putting the chip 1.5 µm past the focus of a zone-plate lens with 4 nm outer rings. It hops across the chip, and at each of ${scan.count} stops the camera records a speckle pattern of ~${sci(ph)} photons: not a picture, just scattered X-rays. No X-ray lens can focus to a perfect point, so a computer will make the picture.`;
           break;
         case 'early':
         case 'solving':
-          v = `**The computer is the lens.** Starting from a blank guess, it keeps adjusting its picture, and its idea of the beam, until both reproduce every recorded pattern. Watch the letters sharpen: the beam is ${d} nm wide, but the finest detail is set by the widest angle at which the camera still catches X-rays.`;
-          s = `**ePIE** (Maiden & Rodenburg 2009), one position at a time: Ψ'_{j} = √I_{j}·Ψ_{j}/|Ψ_{j}|, Δψ = F^{-1}[Ψ'_{j}] − ψ_{j}; O ← O + P^{∗}Δψ/max|P|^{2}; P ← P + O^{∗}Δψ/max|O|^{2}, with |O| ≤ 1 and Σ|P|^{2} fixed to the measured flux. Starting guesses: O = 1, P = the lens model with the wrong defocus (1.0 µm). Iteration ${it}: ε = ${(lastErr * 100).toFixed(0)} %.`;
+          v = `**The computer is the lens.** Starting from a blank guess, it keeps adjusting its picture, and its idea of the beam, until both reproduce every recorded pattern; the method, ePIE (extended ptychographic iterative engine), updates one shot at a time. Watch the letters sharpen: the beam is ${d} nm wide, but the finest detail is set by the widest angle at which the camera still catches X-rays. Iteration ${it}: error ${err} %.`;
           break;
         case 'overlap':
-          v = `**Not enough overlap.** At ${ovPct} % neighbouring shots share too little, so the computer can't tell which wiggles belong to the beam and which to the chip: stripes and smears appear and the picture won't come right. Make the step smaller, until neighbouring rings overlap by about 60 % or more.`;
-          s = `**Insufficient overlap (o = ${ovPct} %, ${scan.count} positions).** Too little redundancy for blind retrieval: the P/O factorisation is not unique, and probe structure and scan periodicity imprint on the object (Bunk *et al.* 2008: o ≳ 60 %; Thibault *et al.* 2009). The patterns are fitted about as well as in a good run${solver && solver.errF.length && meas ? ` (R_{F} = ${eNum(solver.errF[solver.errF.length - 1])}, noise floor ${eNum(noiseFloor(meas.data))})` : ''}, yet ε stays near ${(lastErr * 100).toFixed(0)} % over the same field of view: a wrong answer that explains the data${ghost ? '. Compare the dashed curve of the previous run' : ''}.`;
+          v = `**Not enough overlap.** At ${ovPct} % neighbouring shots share too little, so the computer can't tell which wiggles belong to the beam and which to the chip: stripes and smears appear and the picture won't come right. Yet it fits the recorded patterns about as well as a good run${misfit}, while the error stays near ${err} %: a wrong answer that explains the data. Make the step smaller, until neighbouring rings overlap by about 60 % or more.`;
           break;
         case 'dose':
-          v = `**Starved of photons.** ${par.src === 'aps' ? 'The pre-upgrade APS delivers ~100× fewer coherent X-rays' : 'This exposure is very short'}: about ${sci(ph)} photons per shot. The outer camera pixels, where the finest details are written, stay almost empty, so the picture comes out grainy and blurred.${lastErr > 1 ? ' Here it is so noisy that its error even rises above the blank start.' : ''} ${par.src === 'aps' ? 'Switch to **APS-U**.' : 'Expose longer.'}`;
-          s = `**Dose-limited:** N_{ph} = ${sci(ph)}/shot; the mean count per pixel per pattern falls below 1 at f = ${Number.isFinite(r1) ? (r1 * DF).toFixed(3) : '≥ 0.25'} nm^{-1} (θ = ${Number.isFinite(r1) ? angleMrad(r1).toFixed(0) : '≥ 31'} mrad, half-period ${Number.isFinite(r1) ? halfPeriodNm(r1).toFixed(1) : '2'} nm; overlapping shots add up, so this is not a hard cut-off). With Porod-like I ∝ q^{-4}, 10× finer resolution needs ~10^{4}× the fluence; APS-U's >100× coherent flux is what lets PtychoProbe aim for ~1 nm on radiation-hard samples (pre-upgrade Velociprobe: 8.8 nm on Au, Deng *et al.* 2019).${lastErr > 1 ? ` ε = ${(lastErr * 100).toFixed(0)} % > 100 %: amplitude noise exceeds the weak contrast of this nearly pure-phase object (3 % absorption); the FRC still finds ${res || 'coarse'} detail in it.` : ''}`;
+          v = `**Starved of photons.** ${par.src === 'aps' ? 'The pre-upgrade APS delivers ~100× fewer coherent X-rays' : 'This exposure is very short'}: about ${sci(ph)} photons per shot. The outer camera pixels, where the finest details are written, stay almost empty${Number.isFinite(r1) ? ` (below 1 photon per pixel beyond ${halfPeriodNm(r1).toFixed(1)} nm detail; overlapping shots add up, so this is not a hard cut-off)` : ''}, so the picture comes out grainy and blurred.${lastErr > 1 ? ' Here the noise even outweighs the chip’s faint contrast, and the error rises above the blank start.' : ''} Scattering typically fades as the fourth power of the angle, so 10× finer detail needs ~10^{4}× more photons. ${par.src === 'aps' ? 'Switch to **APS-U**.' : 'Expose longer.'}`;
           break;
         default:
           v =
             par.src === 'apsu'
-              ? `**Solved: ${res || 'nm-scale'} detail from a ${d} nm beam.** The camera, not the lens, set the sharpness: wide-angle X-rays carry the fine detail, and APS-U's coherent flux puts enough photons there.${lowOv ? ' With this little overlap it got there only slowly.' : ''} Now try **APS (before)**, or a bigger step.`
-              : `**Solved, but slowly.** The pre-upgrade APS needed ${fmtDwell(par.dwellUs)} per shot to collect what APS-U gathers in ${fmtDwell(par.dwellUs / 100)}: a chip-sized scan that takes APS-U a minute would have taken well over an hour.`;
-          s = `**Converged:** ε = ${(lastErr * 100).toFixed(0)} %, FRC(0.5) half-period ${res} (pixel limit Δx = λz/(Mp) = 2 nm). Resolution is set by detector NA, coherent dose and stability, not by the ${d} nm probe (the lens alone: ≈ 1.22Δr_{N} ≈ 5 nm in focus). R_{F} = ${solver && solver.errF.length ? eNum(solver.errF[solver.errF.length - 1]) : '…'} vs photon-noise floor ${meas ? eNum(noiseFloor(meas.data)) : '…'}. PtychoProbe aims at ~1 nm on radiation-hard samples. Ground truth is known only because this is a simulation; experiments compare two independent half-data-sets.`;
+              ? `**Solved: ${res || 'nm-scale'} detail from a ${d} nm beam** (error ${err} %; the camera's pixels allow 2 nm). The camera, not the lens, set the sharpness: wide-angle X-rays carry the fine detail, and APS-U's coherent flux puts enough photons there. The lens alone would manage ≈5 nm even in focus; PtychoProbe aims at ~1 nm on samples that tolerate the dose.${lowOv ? ' With this little overlap it got there only slowly.' : ''} Now try **APS (before)**, or a bigger step.`
+              : `**Solved, but slowly** (error ${err} %, detail ${res || 'coarse'}). The pre-upgrade APS needed ${fmtDwell(par.dwellUs)} per shot to collect what APS-U gathers in ${fmtDwell(par.dwellUs / 100)}: a chip-sized scan that takes APS-U a minute would have taken well over an hour.`;
       }
-      station.setCaption(v, s);
+      station.setCaption(v);
     }
 
     // ------------------------------------------------------------------ readouts
     const refreshReadouts = () => {
       const rn = resNow();
-      // the specialist label is long: keep the placeholder short so the row does not wrap
-      rRes.set(!Number.isNaN(rn) ? fmtRes(rn) : isSpec() ? '…' : stage === 'measure' ? 'recording…' : 'solving…');
-      if (solver && solver.errF.length && meas) rRF.set(`${eNum(solver.errF[solver.errF.length - 1])} (${eNum(noiseFloor(meas.data))})`);
-      else rRF.set('…');
+      rRes.set(!Number.isNaN(rn) ? fmtRes(rn) : stage === 'measure' ? 'recording…' : 'solving…');
+      if (solver && solver.errF.length && meas) {
+        const rf = solver.errF[solver.errF.length - 1];
+        const fl = noiseFloor(meas.data);
+        rRF.set(fl > 0 ? `${(rf / fl).toFixed(1)}× noise floor` : eNum(rf));
+        rRF.el.title = `R_F = ${eNum(rf)}: how far the patterns predicted by the current picture and beam are from the recorded ones; photon noise alone would give ${eNum(fl)}`;
+      } else rRF.set('…');
     };
 
     // ------------------------------------------------------------------ main loop
@@ -1031,21 +1003,12 @@ const mod: ExplainerModule = {
 
     // ------------------------------------------------------------------ boot
     applyLayout();
-    setDepthUi();
     updateFade();
     remeasure();
     refreshReadouts();
 
     return {
       destroy: () => station.destroy(),
-      setDepth: (d: Depth) => {
-        station.setDepth(d);
-        setDepthUi();
-        capKey = '';
-        refreshCaption();
-        refreshReadouts();
-        dirtyAll();
-      },
     };
   },
 };

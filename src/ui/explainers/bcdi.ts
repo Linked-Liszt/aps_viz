@@ -13,9 +13,8 @@
  * All physics, equations, parameter values and sources are documented in ./bcdi/physics.ts (forward model, fields,
  * coherent-flux estimate, ATOMIC specs) and ./bcdi/phasing.ts (algorithms). Illustrative elements (photon scale,
  * phenomenological surface field, gauge-mapped core–shell field, 2D instead of 3D) are labelled as such in the
- * specialist text.
+ * station's "About this model" fine print.
  */
-import type { Depth } from '../../app/store';
 import type { ExplainerModule } from './registry';
 import { TOKENS, button, canvas2d, createStation, group, label, line, loop, lut, motionGate, note, plotFrame, readout, slider, toggle, type Canvas2D, type SliderHandle } from './kit';
 import {
@@ -103,30 +102,31 @@ const MODES: { id: Mode; name: string }[] = [
   { id: 'surface', name: 'Surface' },
 ];
 
-const MODE_TEXT: Record<Mode, { v: string; s: string }> = {
+/** `lead`: the one-sentence opener of the live caption; `note`: the fuller text beside the controls */
+const MODE_TEXT: Record<Mode, { lead: string; note: string }> = {
   perfect: {
-    v: '**A flawless crystal.** Every row of atoms sits exactly where it belongs: the colour is even and the planes are straight.',
-    s: '**u = 0.** ρ real ⇒ A(−q) = A(q)^{∗} ⇒ I(q) = I(−q) for *any* shape (Friedel). Streaks run ⟂ to each facet; fringe period 2π/L.',
+    lead: '**A flawless crystal.** Every row of atoms sits exactly where it belongs: the colour is even and the planes are straight.',
+    note: '**A flawless crystal.** Every row of atoms sits exactly where it belongs: the colour is even and the planes are straight. Its X-ray pattern is then perfectly symmetric (turned half a turn it looks the same) whatever the crystal’s shape, a rule known as Friedel’s law. The streaks run square to each flat face, and the fringe spacing is set by the crystal’s size.',
   },
   expanded: {
-    v: '**Heated or cooled.** Every row of atoms moves apart (or together) by the same tiny amount, so the planes simply spread evenly. The colours repeat because X-rays cannot tell a shift of exactly one row from no shift at all.',
-    s: '**Uniform strain** u = ε(r − r_{c}) ⇒ φ = εG·r: a linear phase ramp. The peak moves to Δq = −εG but stays centro-symmetric — all that ordinary diffraction sees is ⟨d⟩.',
+    lead: '**Heated or cooled.** Every row of atoms moves apart (or together) by the same tiny amount, so the planes simply spread evenly.',
+    note: '**Heated or cooled.** Every row of atoms moves apart (or together) by the same tiny amount, so the planes simply spread evenly. The colours repeat because X-rays cannot tell a shift of exactly one row from no shift at all. The whole pattern slides but stays symmetric: a uniform strain only changes the average spacing of the planes, which ordinary diffraction measures too.',
   },
   bent: {
-    v: '**Bent like a bow.** One side is stretched, the other squeezed, so the rows of atoms curve.',
-    s: '**Pure bending** u_{x} = −κxy, u_{y} = ½κ(x² + νy²): strain gradient ∂ε_{xx}/∂y = −κ plus lattice rotation κx. φ is quadratic and *even* in r, so on a centro-symmetric crystal it would split/broaden the peak but keep I(q) = I(−q); the weak asymmetry here comes from the substrate-truncated shape. Odd-parity fields (core–shell, surface, off-centre dislocation) are what make patterns strongly lopsided. Capped at R ≥ 200 µm: stronger phase curvature defeats this phasing scheme.',
+    lead: '**Bent like a bow.** One side is stretched, the other squeezed, so the rows of atoms curve.',
+    note: '**Bent like a bow.** One side is stretched, the other squeezed, so the rows of atoms curve. A bend shifts atoms alike on opposite sides of the centre, so on a crystal symmetric about its centre the pattern would spread and split yet stay symmetric; the weak lopsidedness here comes from the crystal’s flat base on the substrate. Shifts that differ on opposite sides (core–shell, surface, an off-centre dislocation) make patterns strongly lopsided. The bend stops at a radius of 200 µm: tighter bends defeat this rebuild method.',
   },
   coreshell: {
-    v: '**A core of slightly different atoms**, like silver inside a gold shell. The core pushes (or pulls) on its shell.',
-    s: '**Misfitting core** (eigenstrain ε_{m}, plane stress, equal moduli): uniform dilatation inside, u = Br + C/r in the shell (Lamé solution, mapped onto the facets — illustrative). Ag core in Au: ε_{m} ≈ +0.18 %. Mean strain = mean eigenstrain (traction-free body), so the peak also shifts a little.',
+    lead: '**A core of slightly different atoms**, like silver inside a gold shell. The core pushes (or pulls) on its shell.',
+    note: '**A core of slightly different atoms**, like silver inside a gold shell, whose atoms sit about 0.18 % farther apart. The core pushes (or pulls) on its shell: the strain is uniform inside the core and fades outward through the shell (the textbook Lamé solution, mapped onto the facets: illustrative). Averaged over the whole crystal the strain equals the core’s mismatch spread over the volume, so the peak also shifts a little.',
   },
   dislocation: {
-    v: '**An extra half-plane of atoms** (the ⊥) — the defect that lets metals bend without breaking. Drag it around inside the crystal!',
-    s: '**Edge dislocation** b = ½[110], line ∥ [1̅ 10] (Lomer-type, glide plane (001); isotropic infinite-medium field, Hirth & Lothe). φ winds by G·b = 2πn around the core: n = 1 for 111, −1 for 1̅ 1̅ 1. Pick 002: G·b = 0 and the vortex vanishes — but here G_{002} ∥ b × l, so the dilatational part (u_{y′}) still shows: G·b = 0 alone does not make an edge dislocation invisible.',
+    lead: '**An extra half-plane of atoms** (the ⊥), the defect that lets metals bend without breaking.',
+    note: `**An extra half-plane of atoms** (the ⊥), the defect that lets metals bend without breaking. Drag it around inside the crystal. Circling its core, atoms shift by one slip step (the Burgers vector b = ½[110]), so the colours swirl through one full cycle for the 111 and ${REFLECTIONS['-1-11'].label} planes. Pick **002**: these planes don’t feel that slip (G·b = 0, with G the arrow in panel 1) and the swirl vanishes, yet the squeeze around the extra half-plane still shows: for this edge dislocation, G·b = 0 alone does not make it invisible.`,
   },
   surface: {
-    v: '**Molecules stuck to the surface** (as in catalysis or sensing) tug on the outer atoms; the strain gathers at edges and corners.',
-    s: '**Surface relaxation** (phenomenological) u = u_{0}Σ_{f} n_{f} e^{−d_{f}/λ}, λ = 15 nm, substrate pinned. Cf. thiol-induced edge strain in Au, Watari et al., Nat. Mater. 2011 (APS 34-ID-C).',
+    lead: '**Molecules stuck to the surface** (as in catalysis or sensing) tug on the outer atoms; the strain gathers at edges and corners.',
+    note: '**Molecules stuck to the surface** (as in catalysis or sensing) tug on the outer atoms; the strain gathers at edges and corners. Here the tug fades over ~15 nm from each face and the base is held by the substrate, a simple illustrative model. Thiol molecules cause this kind of edge strain in gold crystals (Watari et al., Nature Materials 2011, measured at APS 34-ID-C).',
   },
 };
 
@@ -154,8 +154,6 @@ function sciMd(v: number): string {
   const [m, e] = mantExp(v);
   return `${m}×10^{${e}}`;
 }
-/** fixed 3 decimals without a negative zero, with a true minus sign */
-const f3 = (v: number) => (Math.abs(v) < 5e-4 ? '0.000' : v < 0 ? `−${(-v).toFixed(3)}` : v.toFixed(3));
 function fmtTime(s: number): string {
   if (s < 1e-3) return `${(s * 1e6).toFixed(0)} µs`;
   if (s < 1) return s < 0.01 ? `${(s * 1e3).toFixed(1)} ms` : `${(s * 1e3).toFixed(0)} ms`;
@@ -184,13 +182,12 @@ const CSS = `
 .bcdi-mode:focus-visible,.bcdi-row .stn-btn:focus-visible{outline:2px solid var(--c,#5cd3ff);outline-offset:1px}
 .bcdi-row{display:flex;gap:6px;flex-wrap:wrap}
 .bcdi-row .stn-btn{flex:1 1 auto}
-.stn[data-depth=visitor] .bcdi-spec{display:none}
 .bcdi-root.stn-stack .stn-controls{display:block;columns:2 220px;column-gap:16px;padding-bottom:4px}
 .bcdi-root.stn-stack .stn-group{break-inside:avoid;margin-bottom:18px}
 .bcdi-root.stn-side .stn-visual{align-content:center}
 .bcdi-root .stn-readout-value{white-space:nowrap}
+.bcdi-root .bcdi-resolution .stn-readout-value{min-width:0;white-space:normal;text-align:right}
 .bcdi-root .stn-canvas-label{right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bcdi-root[data-depth=specialist] .stn-canvas-label{text-transform:none;letter-spacing:.04em}
 .bcdi-flash{animation:bcdi-flash 1.4s ease-out}
 .bcdi-overlay-btn{position:absolute;z-index:2;font:600 11.5px var(--font,system-ui);padding:5px 11px;border-radius:999px;border:1px solid var(--c,#5cd3ff);background:color-mix(in oklab,var(--c,#5cd3ff) 26%,rgba(8,12,20,.88));color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,.5)}
 .bcdi-overlay-btn:hover{background:color-mix(in oklab,var(--c,#5cd3ff) 45%,rgba(8,12,20,.88))}
@@ -204,13 +201,12 @@ const mod: ExplainerModule = {
   title: 'Strain inside a nanocrystal',
   subtitle: 'Bend, squeeze or break a gold nanocrystal, watch its X-ray pattern change — then let the computer rebuild the crystal from the pattern alone.',
   mount(host, ctx) {
-    const station = createStation(host, { depth: ctx.depth, color: ctx.color, layout: 'side' });
+    const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = ctx.color || TOKENS.xray;
     station.root.classList.add('bcdi-root');
     const style = document.createElement('style');
     style.textContent = CSS;
     station.root.appendChild(style);
-    const dual = (v: string, s: string) => (station.depth === 'specialist' ? s : v);
 
     // ── simulation objects (all buffers preallocated here)
     const sim = new BraggSim();
@@ -259,27 +255,18 @@ const mod: ExplainerModule = {
     let showRun = false;
 
     // ── visual panels
-    // non-empty labels so the kit creates the label element (texts are set per depth in setPanelLabels)
-    const cvT = canvas2d(station.visual, { label: 'The crystal' });
-    const cvD = canvas2d(station.visual, { label: 'X-ray pattern' });
-    const cvR = canvas2d(station.visual, { label: 'Rebuilt by computer' });
+    const cvT = canvas2d(station.visual, { label: '1 · The crystal' });
+    const cvD = canvas2d(station.visual, { label: '2 · X-ray pattern' });
+    const cvR = canvas2d(station.visual, { label: '3 · Rebuilt by computer' });
     const cvC = canvas2d(station.visual, { label: 'Progress' });
     const wrapOf = (c: Canvas2D) => c.canvas.parentElement as HTMLElement;
-    const labelEl = (c: Canvas2D) => wrapOf(c).querySelector('.stn-canvas-label') as HTMLElement | null;
-    const setPanelLabels = () => {
-      const L: [Canvas2D, string, string][] = [
-        [cvT, '1 · The crystal', '1 · Object ρ·exp(iG·u)'],
-        [cvD, '2 · X-ray pattern', '2 · Detector  |A(Δq)|²'],
-        [cvR, '3 · Rebuilt by computer', '3 · Phase retrieval'],
-        [cvC, 'Progress', 'Convergence'],
-      ];
-      for (const [c, v, s] of L) {
-        const e = labelEl(c);
-        if (e) e.textContent = dual(v, s);
-        c.canvas.setAttribute('aria-label', dual(v, s));
-      }
-    };
-    setPanelLabels();
+    for (const [c, a] of [
+      [cvT, 'The crystal: colour shows how far its atoms are shifted along the arrow G'],
+      [cvD, 'The X-ray pattern around the Bragg peak, as counted by the detector'],
+      [cvR, 'The crystal as rebuilt by the computer from the pattern alone'],
+      [cvC, 'Progress of the rebuild: misfit to the pattern and difference from the real crystal, per iteration'],
+    ] as const)
+      c.canvas.setAttribute('aria-label', a);
     cvD.canvas.style.cursor = 'crosshair';
     cvR.canvas.style.cursor = 'crosshair';
     // "Rebuild again" right where the reconstruction is shown (positioned in drawRec)
@@ -445,17 +432,8 @@ const mod: ExplainerModule = {
     });
 
     // ── controls ─────────────────────────────────────────────────────────────────────────────────────────
-    const titles: [HTMLElement, string, string][] = [];
-    const mkGroup = (v: string, s: string) => {
-      const g = group(station.controls, v);
-      const t = g.querySelector('.stn-group-title') as HTMLElement;
-      titles.push([t, v, s]);
-      return g;
-    };
-    const relabel: (() => void)[] = [];
-
     // 1 · crystal
-    const g1 = mkGroup('1 · Choose the crystal', '1 · Displacement field u(r)');
+    const g1 = group(station.controls, '1 · Choose the crystal');
     const modeWrap = document.createElement('div');
     modeWrap.className = 'bcdi-modes';
     modeWrap.setAttribute('role', 'group');
@@ -477,25 +455,25 @@ const mod: ExplainerModule = {
       modeBtns.set(m.id, { btn: b, cv: c });
     }
 
-    const sliders: Partial<Record<Mode, { h: SliderHandle; row: HTMLElement; v: string; s: string }>> = {};
-    const mkSlider = (m: Mode, v: string, s: string, o: Omit<Parameters<typeof slider>[1], 'label'>) => {
-      const h = slider(g1, { ...o, label: v });
+    const sliders: Partial<Record<Mode, { h: SliderHandle; row: HTMLElement }>> = {};
+    const mkSlider = (m: Mode, label: string, o: Omit<Parameters<typeof slider>[1], 'label'>) => {
+      const h = slider(g1, { ...o, label });
       const row = h.input.parentElement as HTMLElement;
-      sliders[m] = { h, row, v, s };
+      sliders[m] = { h, row };
     };
-    mkSlider('expanded', 'Squeeze ↔ stretch', 'Uniform strain ε', {
+    mkSlider('expanded', 'Squeeze ↔ stretch', {
       min: -LIM.eps * 100,
       max: LIM.eps * 100,
       step: 0.005,
       value: st.eps * 100,
-      format: (p) => (station.depth === 'specialist' ? `${signed(p, 3)} %` : `${signed(p, 2)} %`),
+      format: (p) => `${signed(p, 3)} %`,
       onInput: (p) => {
         st.eps = p / 100;
         fieldDirty = true;
         edit();
       },
     });
-    mkSlider('bent', 'Bend', 'Curvature 1/R', {
+    mkSlider('bent', 'Bend (radius R)', {
       min: -1,
       max: 1,
       step: 0.01,
@@ -504,7 +482,7 @@ const mod: ExplainerModule = {
         const k = f * LIM.kappa;
         if (Math.abs(k) < 1e-9) return 'flat';
         const R = 1 / Math.abs(k) / 1000; // µm
-        return station.depth === 'specialist' ? `R = ${signed(R, 0).replace('+', '')} µm` : `R = ${R.toFixed(0)} µm${k < 0 ? ' (down)' : ''}`;
+        return `R = ${R.toFixed(0)} µm${k < 0 ? ' (down)' : ''}`;
       },
       onInput: (f) => {
         st.kappa = f * LIM.kappa;
@@ -512,7 +490,7 @@ const mod: ExplainerModule = {
         edit();
       },
     });
-    mkSlider('coreshell', 'Core size mismatch', 'Core misfit (eigenstrain)', {
+    mkSlider('coreshell', 'Core size mismatch', {
       min: -LIM.misfit * 100,
       max: LIM.misfit * 100,
       step: 0.005,
@@ -524,7 +502,7 @@ const mod: ExplainerModule = {
         edit();
       },
     });
-    mkSlider('dislocation', 'Slide the dislocation', 'Core position along b', {
+    mkSlider('dislocation', 'Slide the dislocation', {
       min: -1,
       max: 1,
       step: 0.01,
@@ -543,25 +521,17 @@ const mod: ExplainerModule = {
         edit();
       },
     });
-    mkSlider('surface', 'Surface tug', 'Surface relaxation u₀', {
+    mkSlider('surface', 'Surface tug', {
       min: -LIM.u0,
       max: LIM.u0,
       step: 0.01,
       value: st.u0,
-      format: (u) => (station.depth === 'specialist' ? `${signed(u, 2)} Å (λ = 15 nm)` : `${signed(u / 10, 3)} nm ${u >= 0 ? 'outward' : 'inward'}`),
+      format: (u) => `${signed(u / 10, 3)} nm ${u >= 0 ? 'outward' : 'inward'}`,
       onInput: (u) => {
         st.u0 = u;
         fieldDirty = true;
         edit();
       },
-    });
-    relabel.push(() => {
-      for (const k of Object.keys(sliders) as Mode[]) {
-        const s = sliders[k]!;
-        const l = s.row.querySelector('.stn-slider-label');
-        if (l) l.textContent = dual(s.v, s.s);
-        s.h.set(s.h.get());
-      }
     });
 
     const reflToggle = toggle<ReflId>(g1, {
@@ -574,12 +544,8 @@ const mod: ExplainerModule = {
         thumbsDirty = true;
       },
     });
-    const reflLabel = (g1.lastElementChild as HTMLElement).querySelector('.stn-slider-label') as HTMLElement;
-    relabel.push(() => {
-      reflLabel.textContent = dual('Which atomic planes reflect', 'Bragg reflection hkl (zone [1̅ 10])');
-    });
     const planesToggle = toggle<'on' | 'off'>(g1, {
-      label: 'Rows of atoms',
+      label: `Rows of atoms (spacing and shifts drawn ×${PLANE_MAG})`,
       options: [
         { value: 'on', label: 'Show planes' },
         { value: 'off', label: 'Colour only' },
@@ -592,14 +558,10 @@ const mod: ExplainerModule = {
         markAll();
       },
     });
-    const planesLabel = (g1.lastElementChild as HTMLElement).querySelector('.stn-slider-label') as HTMLElement;
-    relabel.push(() => {
-      planesLabel.textContent = dual('Rows of atoms', `Lattice planes (drawn ×${PLANE_MAG})`);
-    });
-    const modeNote = note(g1, station, '', '');
+    const modeNote = note(g1, station, '');
 
     // 2 · source
-    const g2 = mkGroup('2 · Shine X-rays on it', '2 · Source & detector');
+    const g2 = group(station.controls, '2 · Shine X-rays on it');
     const srcToggle = toggle<Src>(g2, {
       label: 'X-ray source',
       options: [
@@ -612,10 +574,6 @@ const mod: ExplainerModule = {
         dataDirty = true;
         flash(cvD);
       },
-    });
-    const srcLabel = (g2.lastElementChild as HTMLElement).querySelector('.stn-slider-label') as HTMLElement;
-    relabel.push(() => {
-      srcLabel.textContent = dual('X-ray source', 'Source (coherent flux)');
     });
     const expSlider = slider(g2, {
       label: 'Exposure time',
@@ -645,38 +603,28 @@ const mod: ExplainerModule = {
         updateCaption(true);
       },
     });
-    const viewLabel = (g2.lastElementChild as HTMLElement).querySelector('.stn-slider-label') as HTMLElement;
-    const viewBtns = (g2.lastElementChild as HTMLElement).querySelectorAll('button');
-    relabel.push(() => {
-      viewLabel.textContent = dual('Detector view', 'Detector view');
-      viewBtns[0].textContent = dual('Brightness', 'I(Δq), log');
-      viewBtns[1].textContent = dual('Lopsidedness', 'Friedel asymmetry');
-    });
     const roPhot = readout(g2, 'X-rays collected');
     const roRes = readout(g2, 'Finest detail');
+    roRes.el.classList.add('bcdi-resolution');
+    roRes.el.title = 'Half-period of the finest fringes that still collect at least one X-ray per pixel on average';
     const roSym = readout(g2, 'Symmetry');
+    roSym.el.title = 'Friedel asymmetry: how much the pattern differs from its own half-turn copy (noise-free pattern)';
     const roOther = readout(g2, 'Same data at the old APS');
-    const roRate = readout(g2, 'Peak pixel rate');
-    roRate.el.classList.add('bcdi-spec');
+    const roRate = readout(g2, 'Brightest pixel');
+    roRate.el.title = 'X-rays per second on the brightest detector pixel; above ~10⁶–10⁷ per second a photon-counting detector stops counting linearly';
     const roLbl = (r: { el: HTMLElement }) => r.el.querySelector('.stn-readout-label') as HTMLElement;
-    relabel.push(() => {
-      roLbl(roPhot).textContent = dual('X-rays collected', 'Photons in frame');
-      roLbl(roRes).textContent = dual('Finest detail', 'Half-period at ⟨I⟩ = 1 ph');
-      roLbl(roSym).textContent = dual('Symmetry', 'Friedel asymmetry');
-    });
     note(
       g2,
       station,
-      `**Why APS-U matters:** its beam carries about **${Math.round(COHERENT_GAIN / 10) * 10}× more coherent X-rays** — waves marching in step, which is what makes the speckled pattern. More X-rays in the faint outer fringes means finer detail, or the same picture far faster: fast enough to watch a crystal while it reacts.`,
-      `Coherent fraction f = Π (λ/4π)/(ΣΣ′) at 9 keV, 2.1 m undulator, beam sizes from FDR Table 1.1: 0.049 % (APS) → 5.8 % (APS-U); × 2 current ⇒ **${COHERENT_GAIN.toFixed(0)}× coherent flux** (estimate). In 3D, ⟨I⟩ ∝ q^{−4} so q_{max} ∝ F_{coh}^{1/4} (≈ 4× finer half-period; q^{−3} and F^{1/3} in this 2D model), or the same data ${COHERENT_GAIN.toFixed(0)}× faster. Photon numbers: illustrative for a ~300 nm Au crystal; the brightest pixels would exceed a photon-counting detector's ~10^{6}–10^{7} ph/s linear range, a known ATOMIC challenge.`,
+      `**Why APS-U matters:** its beam carries about **${Math.round(COHERENT_GAIN / 10) * 10}× more coherent X-rays**, waves marching in step, which is what makes the speckled pattern. (An estimate at 9 keV: the coherent share of the beam grows from 0.049 % to 5.8 %, and the current doubles.) More X-rays in the faint outer fringes mean finer detail, or the same data about ${Math.round(COHERENT_GAIN / 10) * 10}× faster: fast enough to watch a crystal while it reacts. Detail improves only slowly with flux, though: in 3-D as its fourth root, about 4× finer. The brightest pixels can then outrun what a photon-counting detector counts faithfully (~10^{6}–10^{7} per second), a known ATOMIC challenge.`,
     );
 
     // 3 · reconstruction
-    const g3 = mkGroup('3 · Rebuild the crystal', '3 · Phase retrieval');
+    const g3 = group(station.controls, '3 · Rebuild the crystal');
     const row = document.createElement('div');
     row.className = 'bcdi-row';
     g3.appendChild(row);
-    const btnRestart = button(row, '↻ Rebuild again', () => startRecon(), 'is-primary');
+    button(row, '↻ Rebuild again', () => startRecon(), 'is-primary');
     const btnPause = button(row, '❚❚ Pause', () => {
       if (rc.phase === 'running') rc.phase = 'paused';
       else if (rc.phase === 'paused') rc.phase = 'running';
@@ -694,9 +642,6 @@ const mod: ExplainerModule = {
       btnPause.disabled = rc.phase !== 'running' && rc.phase !== 'paused';
       btnPause.style.opacity = btnPause.disabled ? '0.5' : '';
     };
-    relabel.push(() => {
-      btnRestart.textContent = dual('↻ Rebuild again', '↻ New random start');
-    });
     const supToggle = toggle<SupportMode>(g3, {
       label: 'Does the computer know the outline?',
       options: [
@@ -709,43 +654,38 @@ const mod: ExplainerModule = {
         startRecon();
       },
     });
-    const supLabel = (g3.lastElementChild as HTMLElement).querySelector('.stn-slider-label') as HTMLElement;
-    const supBtns = (g3.lastElementChild as HTMLElement).querySelectorAll('button');
-    relabel.push(() => {
-      supLabel.textContent = dual('Does the computer know the outline?', 'Support constraint');
-      supBtns[0].textContent = dual('Shape unknown', 'Shrink-wrap');
-      supBtns[1].textContent = dual('Shape known', 'True support');
-    });
     const roIter = readout(g3, 'Iteration');
     const roMatch = readout(g3, 'Match to the real crystal', { big: true, color: accent });
-    const roErr = readout(g3, 'Fourier error / Poisson floor');
-    roErr.el.classList.add('bcdi-spec');
-    const roSol = readout(g3, 'Solution');
-    roSol.el.classList.add('bcdi-spec');
-    relabel.push(() => {
-      roLbl(roIter).textContent = dual('Guess number', 'Iteration · algorithm');
-      roLbl(roMatch).textContent = dual('Match to the real crystal', 'Overlap with truth |⟨T,E⟩|');
-    });
+    roMatch.el.title = 'Overlap of the rebuilt crystal with the true one: possible only because this is a simulation';
+    const roErr = readout(g3, 'Misfit ÷ noise floor');
+    roErr.el.title = 'How far the pattern predicted by the current guess is from the recorded one (Fourier error), divided by the level photon noise alone would give';
     note(
       g3,
       station,
-      'The detector counts X-rays but cannot record their **phase** — and the phase is exactly where the atom shifts are hidden. The computer guesses the phase, checks the guess against the pattern and the crystal’s outline, and repeats hundreds of times until both agree.',
-      `**Phasing:** HIO (β = 0.9) / ER blocks with shrink-wrap (σ 2.5 → 0.9 px, 12 %), support seeded from the autocorrelation F^{−1}[I]. Oversampling ≥ ${OVERSAMPLING.toFixed(1)} per axis (Nyquist sampling of |F|² needs ≥ 2; Miao, Sayre & Chapman 1998: a total ratio > 2 already suffices in principle). Recovered: ψ = ρe^{iφ} with φ mod 2π, up to a global phase, a translation and the twin ψ^{∗}(−r) = ρ(−r)e^{−iφ(−r)} — flipped back here by comparison with the true object (in practice from prior knowledge, e.g. which facet sits on the substrate). If ε_{F} stalls above ${STUCK_RATIO}× the Poisson floor at iteration ${DECIDE_AT}, a new random start is made — the data-only test a user would apply. A shortened version of the 34-ID-C recipe in the ATOMIC PDR (§6-2.4.3: 90–100 HIO + 10–20 ER, ×3–4, shrink-wrap every 5 iterations, 5–50 random starts with guided/genetic selection).`,
+      `The detector counts X-rays but cannot record their **phase**, and the phase is exactly where the atom shifts are hidden. The computer guesses the phase, checks the guess against the pattern and against the crystal’s outline (the “support”, which it tightens as it goes unless the shape is given: shrink-wrap), and repeats ${PR_ITERS} times, alternating an exploring method (hybrid input–output, HIO) with a settling one (error reduction, ER). This works because the pattern is sampled finely: ${OVERSAMPLING.toFixed(1)}× per axis, where 2 is the usual minimum. If the misfit is still above ${STUCK_RATIO}× the photon-noise floor at iteration ${DECIDE_AT}, the computer starts over from a fresh random guess: a test that needs only the data.`,
     );
 
     // 4 · about
-    const g4 = mkGroup('ATOMIC · 34-ID', 'ATOMIC · 34-ID-F');
+    const g4 = group(station.controls, 'ATOMIC · 34-ID-F');
     note(
       g4,
       station,
-      '**ATOMIC** is a beamline built just for this kind of imaging. Its “zoom” mirrors are designed to shrink the X-ray spot from 2 µm down to 50 nm to fit each crystal, with room around the sample for heaters, gases and liquids — so crystals can be watched *while* they work, in batteries, catalysts and under stress.',
-      '**ATOMIC (34-ID-F):** dedicated coherent-diffraction branch of the canted 34-ID front end (revolver U21/U25), windowless; coherence-defining slits at 26.8 m and 50.3 m; small-offset Si(111) DCM, 5.3–30 keV; two bendable zoom-KB pairs ~15 m apart (~54 m in 34-ID-C, ~69 m in 34-ID-F) → 50 nm–2 µm focus, ~50 mm working distance; ~3×10^{12} ph/s in 50 nm at 8.7 keV (FDR Table 4.65); pink-beam bypass so a Laue pattern can index the crystal before a single Bragg peak is measured with monochromatic beam. Goals: sub-10 nm operando BCDI in tens of seconds; ≤ 1 nm design resolution (vs 10–30 nm typical before) and, ultimately, atomic resolution on ~50 nm crystals (~1000 s, PDR §6-2). Status Oct 2026: scientific commissioning. **This station** is a 2D model: the object is a section (≈ projection) along [1̅\u200a10] and the pattern the matching central slice through G, which a real measurement assembles from a ~±0.3° rocking scan; kinematic Fraunhofer optics, Au, 9 keV, q-pixel ' +
-        `Δq = ${(DQ * 1000).toFixed(1)}×10^{−3} nm^{−1} (55 µm pixels at ${DET_DIST.toFixed(2)} m, i.e. 4 × 4-binned at ~${(DET_DIST * 4).toFixed(1)} m).`,
+      '**ATOMIC** is a beamline built just for this kind of imaging. Its bendable “zoom” mirrors are designed to set the X-ray spot anywhere from 2 µm down to 50 nm to fit each crystal (design: ~3×10^{12} photons/s into 50 nm at 8.7 keV), leaving ~50 mm around the sample for heaters, gases and liquids, so crystals can be watched *while* they work, in batteries, catalysts and under stress. A rainbow (“pink”) beam can first find a crystal’s orientation from its Laue pattern before one reflection is measured at a single energy. The goals: sub-10 nm imaging in tens of seconds and ≤ 1 nm design resolution (10–30 nm was typical before). Status, October 2026: scientific commissioning.',
     );
     const resetRow = document.createElement('div');
     resetRow.className = 'bcdi-row';
     g4.appendChild(resetRow);
     button(resetRow, 'Reset station', () => resetAll());
+
+    // the model's fine print, in smaller type
+    const gModel = group(station.controls, 'About this model');
+    note(
+      gModel,
+      station,
+      'A 2-D simulation, not data. The crystal is a slice through a faceted gold nanocrystal (seen along [1̅ 10]) and the pattern is the matching central slice through its Bragg peak, which a real measurement assembles in 3-D from a ~±0.3° rocking scan. Simple far-field (kinematic) optics, gold, 9 keV; ' +
+        `one pixel spans Δq = ${(DQ * 1000).toFixed(1)}×10^{−3} nm^{−1} (55 µm pixels at ${DET_DIST.toFixed(2)} m, i.e. 4 × 4-binned at ~${(DET_DIST * 4).toFixed(1)} m). Photon numbers are illustrative for a ~300 nm crystal. In 2-D the signal falls as q^{−3}, so detail improves as the cube root of the flux here, not the fourth root as in 3-D. The dislocation is an edge type (b = ½[110], line along [1̅ 10], glide plane (001): Lomer-type) with the textbook isotropic field (Hirth & Lothe); the core–shell and surface fields (decay length 15 nm) are illustrative. Phasing: HIO (β = 0.9) and ER with shrink-wrap (blur 2.5 → 0.9 pixels, 12 % threshold), a shortened version of the 34-ID-C recipe in the ATOMIC design report (90–100 HIO + 10–20 ER, ×3–4, shrink-wrap every 5 iterations, 5–50 random starts). A total sampling ratio above 2 already suffices in principle (Miao, Sayre & Chapman, 1998). The answer is fixed only up to a shift, an overall phase and its “twin” (the crystal turned half a turn with its shifts reversed); the twin is flipped back here by comparison with the true crystal, in practice from what is known about the sample, such as which face sits on the substrate. ATOMIC’s optics: slits at 26.8 m and 50.3 m that define the coherent beam, a silicon (111) monochromator (5.3–30 keV), and two bendable mirror pairs at ~54 m (in 34-ID-C) and ~69 m (in 34-ID-F). Ultimately the design report foresees atomic resolution on a ~20 nm gold crystal from ~1,000 s of exposure: an aspiration, not yet demonstrated.`,
+    );
+    (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
 
     // ── mode handling
     let thumbsDirty = true;
@@ -753,7 +693,7 @@ const mod: ExplainerModule = {
       st.mode = m;
       for (const [id, { btn }] of modeBtns) btn.setAttribute('aria-pressed', String(id === m));
       for (const k of Object.keys(sliders) as Mode[]) sliders[k]!.row.style.display = k === m ? '' : 'none';
-      modeNote.set(MODE_TEXT[m].v, MODE_TEXT[m].s);
+      modeNote.set(MODE_TEXT[m].note);
       cvT.canvas.style.cursor = m === 'dislocation' ? 'grab' : 'crosshair';
       fieldDirty = true;
     }
@@ -945,17 +885,11 @@ const mod: ExplainerModule = {
       const s = sim.stats;
       roPhot.set(sci(s.counted));
       roRes.set(s.kmax >= N / 2 ? `${fmtNm(s.resolution)} (detector edge)` : s.kmax > 0 ? fmtNm(s.resolution) : `> ${CRYSTAL_WIDTH} nm`);
-      roSym.set(
-        station.depth === 'specialist'
-          ? s.asym.toFixed(3)
-          : s.asym < 0.01
-            ? 'symmetric'
-            : `lopsided ${(s.asym * 100).toFixed(0)} %`,
-      );
+      roSym.set(s.asym < 0.01 ? 'symmetric' : `lopsided ${(s.asym * 100).toFixed(0)} %`);
       const other = st.src === 'apsu' ? st.exposure * COHERENT_GAIN : st.exposure / COHERENT_GAIN;
-      roLbl(roOther).textContent = st.src === 'apsu' ? dual('Same data at the old APS', 'Equivalent APS (2019) time') : dual('Same data at APS-U', 'Equivalent APS-U time');
+      roLbl(roOther).textContent = st.src === 'apsu' ? 'Same data at the old APS' : 'Same data at APS-U';
       roOther.set(fmtTime(other));
-      roRate.set(`${sci(s.peak / st.exposure)} ph/s`);
+      roRate.set(`${sci(s.peak / st.exposure)}/s`);
       (roRate.el.querySelector('.stn-readout-value') as HTMLElement).style.color = s.peak / st.exposure > 3e6 ? TOKENS.warn : '';
     }
 
@@ -969,16 +903,10 @@ const mod: ExplainerModule = {
     function updateRunReadouts(): void {
       const it = pr.iter;
       const algo = it >= PR_ITERS ? 'done' : algoAt(it);
-      put(
-        roIter,
-        station.depth === 'specialist'
-          ? `${it} / ${PR_ITERS} · ${algo}${rc.attempt > 1 ? ` · start ${rc.attempt}` : ''}`
-          : `${it} / ${PR_ITERS}${rc.attempt > 1 ? ` (attempt ${rc.attempt})` : ''}`,
-      );
+      put(roIter, `${it} / ${PR_ITERS} · ${algo}${rc.attempt > 1 ? ` · start ${rc.attempt}` : ''}`);
       put(roMatch, it === 0 || rc.phase === 'waiting' ? '—' : `${(al.match * 100).toFixed(1)} %`);
       const e = it > 0 ? pr.err[Math.min(it, PR_ITERS) - 1] : NaN;
-      put(roErr, Number.isFinite(e) ? `${e.toFixed(3)} / ${floor.toFixed(3)} = ${(e / floor).toFixed(2)}×` : '—');
-      put(roSol, it === 0 ? '—' : al.twin ? 'twin ψ∗(−r) → flipped' : 'direct');
+      put(roErr, Number.isFinite(e) ? `${(e / floor).toFixed(2)}×` : '—');
     }
 
     function updateCaption(force = false): void {
@@ -987,58 +915,46 @@ const mod: ExplainerModule = {
       rc.lastCaption = now;
       const s = sim.stats;
       const R = REFLECTIONS[st.refl];
-      const mt = MODE_TEXT[st.mode];
-      // pattern
-      // lead sentence: the mode (its full text is also in the controls note), replaced by the G·b = 0 lesson when that applies
-      let lead = mt.v.replace(/ Drag it around inside the crystal!/, '');
+      // lead sentence: the mode (its fuller text is in the controls note), replaced by the G·b = 0 lesson when that applies
+      let lead = MODE_TEXT[st.mode].lead;
       if (st.mode === 'dislocation' && R.n === 0)
         lead = `With the ${R.label} planes the swirl around the ⊥ **vanishes**: this defect slips atoms *along* these planes, and X-rays bouncing off them only sense shifts *across* them. Only the gentler squeeze around the extra half-plane still shows.`;
       let pv: string;
-      let ps: string;
       const shift = Math.hypot(s.comX, s.comY);
       // the symmetry verdict is a property of the noise-free pattern; say so when the counts are too few to show it
       const noisy = s.resolution > 25;
       if (s.asym < 0.01) {
         pv =
           shift > 1.5
-            ? `Its X-ray pattern **slides** ${shift.toFixed(0)} pixels but stays perfectly **symmetric** — turn it half a turn and it looks the same.`
-            : 'Its X-ray pattern is perfectly **symmetric** — turn it half a turn and it looks the same.';
+            ? `Its X-ray pattern **slides** ${shift.toFixed(0)} pixels but stays perfectly **symmetric**: turned half a turn, it looks the same.`
+            : 'Its X-ray pattern is perfectly **symmetric**: turned half a turn, it looks the same.';
       } else if (noisy) pv = `Its X-ray pattern should be **lopsided** (${(s.asym * 100).toFixed(0)} %), but with so few X-rays the noise hides most of it.`;
-      else pv = `Its X-ray pattern is **lopsided** (${(s.asym * 100).toFixed(0)} %) — the tell-tale sign that strain varies inside.`;
+      else pv = `Its X-ray pattern is **lopsided** (${(s.asym * 100).toFixed(0)} %), the tell-tale sign that strain varies inside.`;
       if (st.mode === 'expanded' && Math.abs(st.eps) > 1e-5)
         pv = `${st.eps > 0 ? 'Stretching' : 'Squeezing'} it by ${(Math.abs(st.eps) * 100).toFixed(2)} % is like ${st.eps > 0 ? 'heating' : 'cooling'} gold by about ${Math.abs(st.eps / ALPHA_AU).toFixed(0)} °C. ${pv}`;
-      ps = `A_{F} = ${s.asym.toFixed(3)} (noise-free pattern, re-centred); peak centroid Δq = (${f3(s.comX * DQ)}, ${f3(s.comY * DQ)}) nm^{−1}.`;
-      if (st.mode === 'dislocation') ps += ` G_{${R.label}}·b = ${R.n === 0 ? '0' : `${R.n > 0 ? '' : '−'}2π`} ⇒ vortex charge n = ${R.n}${R.n === 0 ? ' (residual contrast from G·(b × l) ≠ 0)' : ''}.`;
-      if (st.view === 'asym') {
-        pv += ' **Red**: brighter than the matching spot across the centre; **blue**: dimmer; white: balanced.';
-        ps += ' Map: hue = (I(q) − I(−q))/(I(q) + I(−q)) of the noise-free pattern after removing the mean phase ramp (so a pure peak shift reads as symmetric), brightness = log I. I(q) = I(−q) whenever O is real or even (up to a shift and global phase), so asymmetry needs the odd part of φ beyond a linear ramp, or an even φ on a shape without an inversion centre.';
-      }
+      if (st.view === 'asym') pv += ' **Red**: brighter than the matching spot across the centre; **blue**: dimmer; white: balanced (any plain slide of the peak is taken out first).';
       // source
       const tStr = fmtTime(st.exposure);
       const sv =
         st.src === 'apsu'
           ? `**APS-U** collects ${sciMd(s.counted)} X-rays in ${tStr}: enough to see details down to ~${fmtNm(s.resolution)}.`
           : `The **original APS** collects only ${sciMd(s.counted)} X-rays in ${tStr}; details finer than ~${s.kmax > 0 ? fmtNm(s.resolution) : `${CRYSTAL_WIDTH} nm`} drown in the noise.`;
-      const ss = `N_{ph} = ${sciMd(s.counted)} (${st.src === 'apsu' ? 'APS-U' : 'APS 2019'}, ${tStr}); ⟨I⟩ ≥ 1 ph/px to q = ${(s.kmax * DQ).toFixed(2)} nm^{−1} ⇒ half-period ≈ ${fmtNm(s.resolution)}. Poisson floor of ε_{F}: ${floor.toFixed(3)}.`;
       // reconstruction
       let rv = '';
-      let rs = '';
       const pct = `${(al.match * 100).toFixed(0)} %`;
       if (rc.phase === 'waiting') {
-        rv = 'New data — the computer will start rebuilding in a moment.';
-        rs = 'Data changed; phasing restarts after 0.3 s of no input.';
+        rv = 'New data: the computer will start rebuilding in a moment.';
       } else if (rc.phase === 'done') {
         const good = al.match > 0.9;
-        rv = good ? `**Rebuilt!** The computer’s crystal is ${pct} similar to the real one` : `The rebuild is only ${pct} similar to the real crystal: with this few X-rays (or this much strain) many different crystals fit the pattern`;
-        rv += al.twin ? ' — it found the crystal’s **twin** (rotated half a turn, colours reversed: same pattern!), which we flipped back.' : '.';
+        const fit = `misfit ${(pr.err[PR_ITERS - 1] / floor).toFixed(2)}× the photon-noise floor`;
+        rv = good ? `**Rebuilt.** The computer’s crystal is ${pct} similar to the real one (${fit})` : `The rebuild is only ${pct} similar to the real crystal (${fit}): with this few X-rays (or this much strain) many different crystals fit the pattern`;
+        rv += al.twin ? '. It found the crystal’s **twin** (turned half a turn with its colours reversed, it gives the same pattern), which we flipped back.' : '.';
         if (rc.everStuck) rv += ' It got stuck once and started over from a fresh random guess, just as scientists do.';
-        rs = `Done: ${PR_ITERS} iterations, ε_{F} = ${pr.err[PR_ITERS - 1].toFixed(3)} (${(pr.err[PR_ITERS - 1] / floor).toFixed(2)}× floor), overlap ${(al.match).toFixed(3)} with the truth${al.twin ? ' (twin solution, conjugated & inverted for display)' : ''}${rc.attempt > 1 ? `; random start ${rc.attempt} of ≤ ${MAX_ATTEMPTS}` : ''}.`;
       } else {
-        rv = `The computer is rebuilding the crystal from the pattern alone… ${pr.iter > 20 ? `(${pct} similar so far)` : ''}`;
+        rv = `The computer is rebuilding the crystal from the pattern alone…${pr.iter > 20 ? ` (${pct} similar so far)` : ''}`;
         if (rc.attempt > 1) rv += ' It got stuck, so it is trying a fresh random guess.';
-        rs = `${algoAt(pr.iter)} iteration ${pr.iter}/${PR_ITERS}${rc.attempt > 1 ? `, start ${rc.attempt}` : ''}; overlap ${al.match.toFixed(3)}.`;
       }
-      station.setCaption(nbsp(`${lead} ${pv} ${sv} ${rv}`), nbsp(`${ps} ${ss} ${rs}`));
+      station.setCaption(nbsp(`${lead} ${pv} ${sv} ${rv}`));
     }
 
     function flash(c: Canvas2D): void {
@@ -1174,24 +1090,22 @@ const mod: ExplainerModule = {
       label(c, text, x + lenPx / 2, y - 5, { color: TOKENS.ink, size: 10.5, align: 'center', weight: 600 });
     }
 
-    function phaseBar(c: CanvasRenderingContext2D, g: Geo, cw: number, extra?: string): void {
+    function phaseBar(c: CanvasRenderingContext2D, g: Geo, cw: number): void {
       const R = REFLECTIONS[st.refl];
       const y = g.y + g.s + 8;
-      // ≥ 86 px so the visitor end labels ("−0.12", "+0.12 nm") never touch on a phone-width panel
+      // ≥ 86 px so the end labels ("−0.12", "+0.12 nm") never touch on a phone-width panel
       const x = g.x;
       const barW = Math.min(Math.max(86, Math.min(160, g.s * 0.5)), cw - x - 6);
       const grad = c.createLinearGradient(x, 0, x + barW, 0);
       for (let i = 0; i <= 16; i++) grad.addColorStop(i / 16, phaseCss(-Math.PI + (i / 16) * 2 * Math.PI));
       c.fillStyle = grad;
       c.fillRect(x, y, barW, 6);
-      const spec = station.depth === 'specialist';
+      // the colour wheel spans one row spacing d: −d/2 … +d/2 (phase −π … +π)
       const halfD = R.d / 20; // nm
-      const lo = spec ? '−π' : `−${halfD.toFixed(2)}`;
-      const hi = spec ? '+π' : `+${halfD.toFixed(2)} nm`;
-      label(c, lo, x, y + 17, { color: TOKENS.ink3, size: 10, align: 'left' });
-      if (barW >= 100 || spec) label(c, '0', x + barW / 2, y + 17, { color: TOKENS.ink3, size: 10, align: 'center' });
-      label(c, hi, x + barW, y + 17, { color: TOKENS.ink3, size: 10, align: 'right' });
-      const title = extra ?? (spec ? 'φ = G·u' : 'atom shift along arrow');
+      label(c, `−${halfD.toFixed(2)}`, x, y + 17, { color: TOKENS.ink3, size: 10, align: 'left' });
+      if (barW >= 100) label(c, '0', x + barW / 2, y + 17, { color: TOKENS.ink3, size: 10, align: 'center' });
+      label(c, `+${halfD.toFixed(2)} nm`, x + barW, y + 17, { color: TOKENS.ink3, size: 10, align: 'right' });
+      const title = 'atom shift along G';
       if (fits(c, title, x + barW + 10, cw)) label(c, title, x + barW + 10, y + 7, { color: TOKENS.ink2, size: 10.5 });
     }
 
@@ -1238,7 +1152,7 @@ const mod: ExplainerModule = {
       if (g.y + g.s - pySub > 30) {
         // keep clear of the scale-bar text on the left
         const room = g.s - 8 - (10 + (100 / FOV) * g.s / 2 + 26);
-        let t = station.depth === 'specialist' ? 'substrate (no Bragg signal)' : 'substrate';
+        let t = 'substrate (sends no signal here)';
         c.save();
         c.font = `500 10px ${FONT}`;
         if (c.measureText(t).width > room) t = 'substrate';
@@ -1281,8 +1195,8 @@ const mod: ExplainerModule = {
       c.closePath();
       c.stroke();
       c.restore();
-      // facet labels (specialist, roomy panels)
-      if (station.depth === 'specialist' && g.s > 300) {
+      // facet labels (roomy panels only)
+      if (g.s > 300) {
         for (const f of shape.facets) {
           if (f.substrate) continue;
           // midpoint of the facet segment
@@ -1301,7 +1215,7 @@ const mod: ExplainerModule = {
       frameImage(c, g);
       phaseBar(c, g, cvT.w);
       if (st.mode === 'dislocation' && g.s > 150) {
-        label(c, dual('drag the ⊥ to move it', 'drag ⊥ (glide + climb)'), g.x + g.s - 8, g.y + 14, { color: TOKENS.ink3, size: 10, align: 'right' });
+        label(c, 'drag the ⊥ to move it', g.x + g.s - 8, g.y + 14, { color: TOKENS.ink3, size: 10, align: 'right' });
       }
       // hover probe
       if (hover.panel === 't' && !dragging) {
@@ -1316,9 +1230,7 @@ const mod: ExplainerModule = {
             cvT.h,
             hover.x,
             hover.y,
-            station.depth === 'specialist'
-              ? [`φ = ${signed(p, 2)} rad`, `u·Ĝ = ${signed(uA, 3)} Å  (${signed(uA / R.d, 3)} d)`]
-              : [`atoms shifted ${signed(uA / 10, 3)} nm`, `along the G arrow`],
+            [`atoms shifted ${signed(uA / 10, 3)} nm along G`, `(${signed(uA / R.d, 2)} of a row spacing)`],
           );
         }
       }
@@ -1425,7 +1337,6 @@ const mod: ExplainerModule = {
       const px = g.s / N;
       const cx = g.x + g.s / 2;
       const cy = g.y + g.s / 2;
-      const spec = station.depth === 'specialist';
       // unstrained Bragg position
       c.save();
       c.strokeStyle = 'rgba(233,238,245,0.55)';
@@ -1462,7 +1373,7 @@ const mod: ExplainerModule = {
           c.stroke();
           c.restore();
           // intensity centroid = −⟨∇φ⟩ (ρ²-weighted); for uniform strain that is −εG
-          const pl = spec ? (st.mode === 'expanded' ? 'Δq = −εG' : '⟨Δq⟩ = −⟨∇φ⟩') : 'peak moved';
+          const pl = 'peak moved';
           c.font = `600 10.5px ${FONT}`;
           const plx = mx + 9 + c.measureText(pl).width > g.x + g.s - 4 ? mx - 9 - c.measureText(pl).width : mx + 9;
           label(c, pl, plx, my - 8, { color: accent, size: 10.5, weight: 600 });
@@ -1479,8 +1390,10 @@ const mod: ExplainerModule = {
           c.stroke();
           c.restore();
           const a = -Math.PI / 4;
-          const txt = spec ? '⟨I⟩ = 1 ph/px' : 'signal fades into noise';
           c.font = `600 10px ${FONT}`;
+          // where the fringes fall to about one X-ray per pixel (the long form only where it fits)
+          const long = 'signal fades into noise (~1 X-ray/pixel)';
+          const txt = c.measureText(long).width <= g.s - 12 ? long : 'signal fades into noise';
           const tw = c.measureText(txt).width;
           const lx = Math.max(g.x + 4, Math.min(cx + Math.cos(a) * r + 4, g.x + g.s - tw - 6));
           const ly = Math.max(g.y + 14, cy + Math.sin(a) * r - 4);
@@ -1507,7 +1420,7 @@ const mod: ExplainerModule = {
           const xx = g.x + (e / LOG_MAX) * barW;
           label(c, e === 0 ? '1' : `10${SUPS[String(e)]}`, xx, y + 17, { color: TOKENS.ink3, size: 10, align: e === 0 ? 'left' : 'center' });
         }
-        const title = spec ? 'counts / pixel' : 'X-rays per pixel';
+        const title = 'X-rays per pixel';
         if (fits(c, title, g.x + barW + 10, cvD.w)) label(c, title, g.x + barW + 10, y + 7, { color: TOKENS.ink2, size: 10.5 });
       } else {
         const L = lut('rdbu');
@@ -1518,12 +1431,12 @@ const mod: ExplainerModule = {
         }
         c.fillStyle = grad;
         c.fillRect(g.x, y, barW, 6);
-        label(c, spec ? '−1' : 'dimmer', g.x, y + 17, { color: TOKENS.ink3, size: 10 });
+        label(c, 'dimmer', g.x, y + 17, { color: TOKENS.ink3, size: 10 });
         label(c, '0', g.x + barW / 2, y + 17, { color: TOKENS.ink3, size: 10, align: 'center' });
-        label(c, spec ? '+1' : 'brighter', g.x + barW, y + 17, { color: TOKENS.ink3, size: 10, align: 'right' });
-        const title = spec ? '[I(q) − I(−q)] / sum' : 'than its mirror point';
+        label(c, 'brighter', g.x + barW, y + 17, { color: TOKENS.ink3, size: 10, align: 'right' });
+        const title = 'than its mirror point';
         if (fits(c, title, g.x + barW + 10, cvD.w)) label(c, title, g.x + barW + 10, y + 7, { color: TOKENS.ink2, size: 10.5 });
-        if (s.asym < 0.01) label(c, spec ? 'I(q) = I(−q): centro-symmetric' : 'perfectly symmetric', cx, g.y + 18, { color: TOKENS.good, size: 11, weight: 600, align: 'center' });
+        if (s.asym < 0.01) label(c, 'perfectly symmetric', cx, g.y + 18, { color: TOKENS.good, size: 11, weight: 600, align: 'center' });
       }
       // hover probe
       if (hover.panel === 'd') {
@@ -1536,10 +1449,8 @@ const mod: ExplainerModule = {
           const cnt = sim.counts[k];
           const lines =
             st.view === 'asym'
-              ? [Number.isFinite(sim.asymMap[k]) ? `${spec ? 'asymmetry' : 'lopsidedness'} ${signed(sim.asymMap[k], 2)}` : spec ? 'below 1 photon (masked)' : 'too faint to tell']
-              : spec
-                ? [`${sci(cnt)} counts`, `Δq = (${qx.toFixed(3)}, ${qy.toFixed(3)}) nm⁻¹`]
-                : [`${sci(cnt)} X-ray${cnt === 1 ? '' : 's'} in this pixel`];
+              ? [Number.isFinite(sim.asymMap[k]) ? `lopsidedness ${signed(sim.asymMap[k], 2)}` : 'too faint to tell (under 1 X-ray)']
+              : [`${sci(cnt)} X-ray${cnt === 1 ? '' : 's'} in this pixel`, `${qx.toFixed(3)}, ${qy.toFixed(3)} nm⁻¹ from the peak`];
           tooltip(c, cvD.w, cvD.h, hover.x, hover.y, lines);
           c.save();
           c.strokeStyle = 'rgba(255,255,255,0.8)';
@@ -1628,12 +1539,12 @@ const mod: ExplainerModule = {
       }
       scaleBar(c, g, (100 / FOV) * g.s, '100 nm');
       frameImage(c, g);
-      phaseBar(c, g, cvR.w, station.depth === 'specialist' ? 'arg ψ, brightness |ψ|' : undefined);
+      phaseBar(c, g, cvR.w);
       // longest label that fits between the scale-bar text and the right edge of the image
       const room = 0.889 * g.s - 48;
       c.save();
       c.font = `600 11.5px ${FONT}`;
-      const opts = station.depth === 'specialist' ? ['↻ New random start', '↻ New start', '↻'] : ['↻ Rebuild again', '↻ Again', '↻'];
+      const opts = ['↻ Rebuild again', '↻ Again', '↻'];
       const bt = opts.find((t) => c.measureText(t).width + 24 <= room) ?? '↻';
       c.restore();
       if (recBtn.textContent !== bt) recBtn.textContent = bt;
@@ -1641,18 +1552,17 @@ const mod: ExplainerModule = {
       recBtn.style.right = `${Math.round(cvR.w - (g.x + g.s) + 8)}px`;
       recBtn.style.top = `${Math.round(g.y + g.s - 8 - 26)}px`;
       // status badge
-      const spec = station.depth === 'specialist';
       let badge = '';
       let col: string = TOKENS.ink2;
-      if (waiting) badge = spec ? 'new data…' : 'new pattern — starting…';
+      if (waiting) badge = 'new pattern: starting…';
       else if (rc.phase === 'done') {
         badge = al.match > 0.9 ? `✓ ${(al.match * 100).toFixed(0)} % match` : `${(al.match * 100).toFixed(0)} % match`;
         col = al.match > 0.9 ? TOKENS.good : TOKENS.warn;
       } else if (rc.phase === 'paused') badge = 'paused';
-      else if (!motion.on) badge = spec ? 'phasing…' : 'rebuilding…';
+      else if (!motion.on) badge = 'rebuilding…';
       else badge = `${algoAt(pr.iter)} ${pr.iter}`;
       if (performance.now() - rc.stuckFlash < 2200) {
-        badge = spec ? 'stalled → new start' : 'stuck → new guess';
+        badge = 'stuck → new guess';
         col = TOKENS.warn;
       }
       c.save();
@@ -1689,7 +1599,8 @@ const mod: ExplainerModule = {
             const p = Math.atan2(dispIm[k], dispRe[k]);
             const Rf = REFLECTIONS[st.refl];
             const uA = p / Rf.gMag;
-            tooltip(c, cvR.w, cvR.h, hover.x, hover.y, spec ? [`φ = ${signed(p, 2)} rad (mod 2π)`, `|ψ| = ${a.toFixed(2)}`] : [`atoms shifted ${signed(uA / 10, 3)} nm`, '(as rebuilt)']);
+            // the rebuilt phase is only known modulo 2π: the shift modulo one row spacing
+            tooltip(c, cvR.w, cvR.h, hover.x, hover.y, [`atoms shifted ${signed(uA / 10, 3)} nm (as rebuilt)`, 'known only up to whole rows']);
           }
         }
       }
@@ -1700,11 +1611,10 @@ const mod: ExplainerModule = {
       const w = cvC.w;
       const h = cvC.h;
       c.clearRect(0, 0, w, h);
-      const spec = station.depth === 'specialist';
       const rect = { x: 0, y: 18, w: w - 4, h: h - 20 };
       const yMin = 0.003;
       const xt = w < 360 ? [0, 200, 400, 600] : [0, 100, 200, 300, 400, 500, 600];
-      const f = plotFrame(c, rect, { min: 0, max: PR_ITERS, label: dual('guesses (iterations)', 'iteration'), ticks: xt }, { min: yMin, max: 1, log: true, label: dual('error', 'error'), ticks: [0.01, 0.1, 1], format: (v) => (v >= 1 ? '1' : v >= 0.1 ? '0.1' : '0.01') });
+      const f = plotFrame(c, rect, { min: 0, max: PR_ITERS, label: 'guesses (iterations)', ticks: xt }, { min: yMin, max: 1, log: true, label: 'error', ticks: [0.01, 0.1, 1], format: (v) => (v >= 1 ? '1' : v >= 0.1 ? '0.1' : '0.01') });
       // ER bands
       c.save();
       c.fillStyle = 'rgba(255,255,255,0.045)';
@@ -1733,7 +1643,7 @@ const mod: ExplainerModule = {
       line(c, f, [0, PR_ITERS], [fl, fl], 'rgba(183,195,210,0.55)', 1, [5, 4]);
       // above the dashed line, or below it when that would collide with the HIO/ER/ER-polish labels at the top
       const fy = f.py(fl) - 4 < f.y1 + 24 ? f.py(fl) + 13 : f.py(fl) - 4;
-      const ft = dual('photon-noise floor', 'Poisson floor');
+      const ft = 'photon-noise floor';
       c.save();
       c.font = `500 10px ${FONT}`;
       const fw = c.measureText(ft).width;
@@ -1769,8 +1679,8 @@ const mod: ExplainerModule = {
       }
       // legend (one line when it fits, otherwise two)
       const narrow = f.x1 - f.x0 < 220;
-      const t1 = spec ? 'Fourier error (data misfit)' : narrow ? 'misfit to pattern' : 'misfit to the pattern';
-      const t2 = spec ? '1 − overlap (truth)' : narrow ? 'off from real crystal' : 'difference from the real crystal';
+      const t1 = narrow ? 'misfit to pattern' : 'misfit to the pattern';
+      const t2 = narrow ? 'off from real crystal' : 'difference from the real crystal';
       c.save();
       c.font = `500 10px ${FONT}`;
       const w1 = c.measureText(t1).width;
@@ -1879,23 +1789,12 @@ const mod: ExplainerModule = {
       if (performance.now() - rc.stuckFlash < 2400) dirty.r = true;
     });
 
-    const setDepth = (d: Depth) => {
-      station.setDepth(d);
-      for (const [el, v, s] of titles) el.textContent = d === 'specialist' ? s : v;
-      for (const f of relabel) f();
-      setPanelLabels();
-      updateReadouts();
-      updateRunReadouts();
-      updateCaption(true);
-      truthDirty = true;
-      recDirty = true;
-      markAll();
-    };
-    setDepth(ctx.depth);
+    updateReadouts();
+    updateRunReadouts();
+    updateCaption(true);
 
     return {
       destroy: () => station.destroy(),
-      setDepth,
     };
   },
 };

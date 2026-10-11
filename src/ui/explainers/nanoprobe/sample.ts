@@ -72,23 +72,23 @@ export interface CellState {
   thr: number;
   /** leaching strength 0..1 */
   leach: number;
-  visitor: string;
-  specialist: string;
+  /** what happens at this step: plain words first, then the mechanism and the telling number */
+  text: string;
 }
 
 /** The in situ ladder: one snapshot per scan. Crack widths and leaching are illustrative (and accelerated). */
 export const CELL_STATES: CellState[] = [
-  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 0, thr: 1, leach: 0, visitor: 'Fresh battery, fully discharged. Every crystal grain is intact.', specialist: 'Pristine, 3.0 V: no cracks; W decorates the grain boundaries.' },
-  { volts: 3.8, soc: 0.3, dir: 'charging', cycle: 1, crackW: 0, thr: 1, leach: 0, visitor: 'Charging: lithium is leaving the crystals. Nothing visible changes yet.', specialist: '3.8 V (H1→M): Li extraction; the lattice change is too small to open boundaries.' },
-  { volts: 4.1, soc: 0.6, dir: 'charging', cycle: 1, crackW: 7, thr: 0.62, leach: 0, visitor: 'Charging: hairline cracks begin in the middle of the particle.', specialist: '4.1 V: first intergranular hairline cracks (~7 nm) near the core.' },
-  { volts: 4.2, soc: 0.75, dir: 'charging', cycle: 1, crackW: 22, thr: 0.5, leach: 0.1, visitor: 'The crystals suddenly shrink, and cracks open between them.', specialist: '4.2 V: H2→H3 transition, abrupt c-axis collapse; cracks open to ~20 nm along poorly W-covered boundaries.' },
-  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 1, crackW: 36, thr: 0.4, leach: 0.2, visitor: 'More cracks. Liquid electrolyte seeps in and starts to eat away manganese.', specialist: '4.3 V: crack network spreads outward; electrolyte wets fresh surfaces, Mn/Ni dissolution starts (illustrative).' },
-  { volts: 4.5, soc: 1, dir: 'charging', cycle: 1, crackW: 55, thr: 0.33, leach: 0.4, visitor: 'Fully charged: a web of cracks. Notice they avoid the tungsten-rich boundaries.', specialist: '4.5 V: cracks up to ~55 nm; W-rich boundaries stay closed (W pins/strengthens boundaries).' },
-  { volts: 3.9, soc: 0.5, dir: 'discharging', cycle: 1, crackW: 34, thr: 0.33, leach: 0.5, visitor: 'Discharging: the crystals swell back, but the cracks do not fully close.', specialist: '3.9 V discharge: lattice re-expands; cracks partially close (hysteresis), leached rims remain.' },
-  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 22, thr: 0.33, leach: 0.55, visitor: 'End of the first cycle: permanent damage. Manganese is missing near every crack.', specialist: '3.0 V, end of cycle 1: residual cracks ~20 nm; Mn-depleted rims ~35 nm deep (accelerated).' },
-  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 2, crackW: 52, thr: 0.27, leach: 0.7, visitor: 'Second charge: old cracks reopen wider and new ones form.', specialist: '4.3 V, cycle 2: cracks reopen at lower voltage and propagate (fatigue).' },
-  { volts: 4.5, soc: 1, dir: 'charging', cycle: 2, crackW: 70, thr: 0.22, leach: 0.85, visitor: 'The particle is breaking apart from the inside. This is why batteries fade.', specialist: '4.5 V, cycle 2: crack network isolates grains (loss of electronic contact → capacity fade).' },
-  { volts: 3.0, soc: 0, dir: 'rest', cycle: 2, crackW: 40, thr: 0.22, leach: 0.95, visitor: 'After two cycles: cracked, and manganese leached from every exposed surface.', specialist: '3.0 V, end of cycle 2. Reset to start again.' },
+  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 0, thr: 1, leach: 0, text: 'Fresh battery, fully discharged. Every crystal grain is intact, and tungsten decorates the boundaries between them.' },
+  { volts: 3.8, soc: 0.3, dir: 'charging', cycle: 1, crackW: 0, thr: 1, leach: 0, text: 'Charging: lithium is leaving the crystals. Their lattice changes too little to open the boundaries, so nothing visible happens yet.' },
+  { volts: 4.1, soc: 0.6, dir: 'charging', cycle: 1, crackW: 7, thr: 0.62, leach: 0, text: 'Charging: the first hairline cracks, about 7 nm wide, open between grains in the middle of the particle.' },
+  { volts: 4.2, soc: 0.75, dir: 'charging', cycle: 1, crackW: 22, thr: 0.5, leach: 0.1, text: 'The crystals suddenly shrink in height (a phase change called H2→H3), and cracks open to ~20 nm between them, along boundaries with little tungsten.' },
+  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 1, crackW: 36, thr: 0.4, leach: 0.2, text: 'More cracks spread outward. Liquid electrolyte wets the fresh surfaces and starts to dissolve manganese and nickel (illustrative).' },
+  { volts: 4.5, soc: 1, dir: 'charging', cycle: 1, crackW: 55, thr: 0.33, leach: 0.4, text: 'Fully charged: a web of cracks up to ~55 nm wide. Notice they avoid the tungsten-rich boundaries: tungsten strengthens them.' },
+  { volts: 3.9, soc: 0.5, dir: 'discharging', cycle: 1, crackW: 34, thr: 0.33, leach: 0.5, text: 'Discharging: the crystals swell back, but the cracks only partly close, and the leached rims remain.' },
+  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 22, thr: 0.33, leach: 0.55, text: 'End of the first cycle: permanent damage. Cracks ~20 nm wide remain, and manganese is missing about 35 nm deep along every crack (sped up).' },
+  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 2, crackW: 52, thr: 0.27, leach: 0.7, text: 'Second charge: old cracks reopen at a lower voltage and grow (fatigue), and new ones form.' },
+  { volts: 4.5, soc: 1, dir: 'charging', cycle: 2, crackW: 70, thr: 0.22, leach: 0.85, text: 'The particle is breaking apart from the inside: cracks cut grains off, so they lose electrical contact and can no longer be charged. This is why batteries fade.' },
+  { volts: 3.0, soc: 0, dir: 'rest', cycle: 2, crackW: 40, thr: 0.22, leach: 0.95, text: 'After two cycles: cracked, and manganese leached from every exposed surface. Reset to start again.' },
 ];
 
 // --------------------------------------------------------------------------------------------- hashing

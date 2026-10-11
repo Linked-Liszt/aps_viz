@@ -1,6 +1,5 @@
 import { h, icon } from '../lib/dom';
 import { loadExplainer, type ExplainerInstance, type ExplainerModule } from './explainers/registry';
-import { store, type Depth } from '../app/store';
 import { BEAMLINES } from '../data/beamlines';
 import { FEATURE_META, metaById } from '../data/meta';
 
@@ -103,7 +102,7 @@ export function restoreFocus(el: Element | null): void {
 
 // ------------------------------------------------------------------ modal
 
-export type ModalSize = 'default' | 'station' | 'story';
+export type ModalSize = 'default' | 'narrow' | 'station' | 'story';
 
 const openModals = new Set<Modal>();
 
@@ -208,21 +207,6 @@ export class Modal {
 
 // ------------------------------------------------------------------ shared pieces for station / story dialogs
 
-/** Compact Visitor / Specialist switch for dialog headers (the top-bar one is covered by the dialog). */
-export function depthToggle(): { el: HTMLElement; dispose: () => void } {
-  const el = h('div', { class: 'seg seg-sm modal-depth', role: 'group', 'aria-label': 'Explanation depth' });
-  for (const [d, label, tip] of [
-    ['visitor', 'Visitor', 'Plain-language explanations'],
-    ['specialist', 'Specialist', 'Dense technical detail'],
-  ] as [Depth, string, string][]) {
-    el.appendChild(h('button', { 'data-d': d, title: tip, 'aria-pressed': String(store.state.depth === d), onclick: () => store.set({ depth: d }) }, label));
-  }
-  const dispose = store.subscribe((s, prev) => {
-    if (s.depth !== prev.depth) for (const b of el.querySelectorAll<HTMLElement>('button')) b.setAttribute('aria-pressed', String(b.dataset.d === s.depth));
-  });
-  return { el, dispose };
-}
-
 /** "This station could not load" notice with a Retry button (chunk 404 after a redeploy, offline kiosk…). */
 export function loadErrorNotice(onRetry: () => void): HTMLElement {
   return h(
@@ -243,30 +227,15 @@ export function beamlineTag(beamlineId: string | undefined): { label: string; co
   return { label: `${BEAMLINES[m.id]?.acronym ?? m.id.toUpperCase()} (${where})`, color: m.color };
 }
 
-/**
- * Mount a station module into `host` and keep it in step with the depth setting.
- * Returns a destroy function (also unsubscribes).
- */
+/** Mount a station module into `host`. Returns a destroy function. */
 export function mountStation(mod: ExplainerModule, host: HTMLElement, color: string, beamlineId?: string): () => void {
-  let inst: ExplainerInstance = mod.mount(host, { depth: store.state.depth, color, beamlineId });
-  const unsub = store.subscribe((s, prev) => {
-    if (s.depth === prev.depth) return;
-    if (inst.setDepth) inst.setDepth(s.depth);
-    else {
-      inst.destroy();
-      inst = mod.mount(host, { depth: s.depth, color, beamlineId });
-    }
-  });
-  return () => {
-    unsub();
-    inst.destroy();
-  };
+  const inst: ExplainerInstance = mod.mount(host, { color, beamlineId });
+  return () => inst.destroy();
 }
 
 /** Opens one interactive station full-screen. Safe against double clicks and closing while the chunk loads. */
 export function openExplainerModal(modal: Modal, id: string, color: string, beamlineId?: string): void {
   const tag = beamlineTag(beamlineId);
-  const depth = depthToggle();
   const title = h('h2', { class: 'modal-title', id: 'station-modal-title', tabindex: '-1' }, 'Interactive station');
   const sub = h('p', { class: 'station-sub' });
   const host = h('div', { class: 'station-host station-host-full' });
@@ -302,14 +271,12 @@ export function openExplainerModal(modal: Modal, id: string, color: string, beam
           h('div', { class: 'kicker' }, 'Interactive station', tag ? h('span', { class: 'kicker-bl', style: `color:${tag.color}` }, ` · ${tag.label}`) : null),
           title,
         ),
-        depth.el,
       ),
       sub,
       host,
     ],
     () => {
       alive = false;
-      depth.dispose();
       destroy?.();
       destroy = null;
     },

@@ -12,11 +12,12 @@ import { BEAMLINES } from '../data/beamlines';
 import { layoutFor, loadLayouts } from '../beamlines';
 import { compBranch, DEFAULT_LAYOUT, type BeamlineLayout } from '../scene/beamline/layout';
 import { TopBar } from '../ui/TopBar';
-import { OverviewPanel } from '../ui/OverviewPanel';
+import { featureCardText, OverviewPanel } from '../ui/OverviewPanel';
 import { BeamlinePanel, formatDist, stripRefs } from '../ui/BeamlinePanel';
 import { PathStrip } from '../ui/PathStrip';
 import { Modal, openExplainerModal } from '../ui/Modal';
 import { buildIntro, openHelp, openStory, TourCard } from '../ui/Overlays';
+import { hasWelcome, openAuthorNote, openWelcome } from '../ui/Author';
 import { TOUR, type TourShot } from '../data/tour';
 import { componentKind } from '../ui/categories';
 import { Search } from '../ui/Search';
@@ -35,30 +36,32 @@ const BUILDING_NOTES: Record<string, string> = {
  * Sectors 36–40 hold accelerator systems instead of user beamlines. Only the RF straights (36, 37, 40) are confirmed
  * as built; the bunch-lengthening cavity (38) and injection (39) follow the 2019 final design report, whose
  * placements were not confirmed after the move to single-straight injection (research: facility.json).
+ * `text` is the one sector-card text for every reader: what is there and what it does, then the precise caveat.
  */
 const RF_STRAIGHT = {
   short: 'RF accelerating cavities (4)',
-  plain: 'This straight holds four of the ring’s 12 radio-frequency (RF) accelerating cavities. On every lap they give the electrons back the energy they lose by making X-rays.',
-  expert: 'RF straight: 4 single-cell copper 352-MHz cavities (12 in all, in sectors 36, 37 and 40).',
+  text: 'This straight holds four of the ring’s 12 radio-frequency (RF) accelerating cavities. On every lap their 352 MHz field gives each electron back the energy it loses as light: about 2.9–4.5 MeV, depending on how many undulator gaps are closed. All 12 are single-cell copper cavities, four to a straight, in sectors 36, 37 and 40.',
 };
-const MACHINE_SECTORS: Record<number, { short: string; plain: string; expert: string }> = {
+const MACHINE_SECTORS: Record<number, { short: string; text: string }> = {
   36: RF_STRAIGHT,
   37: RF_STRAIGHT,
   38: {
     short: 'Bunch-lengthening cavity (per the 2019 design)',
-    plain: 'In the 2019 design this straight holds the superconducting bunch-lengthening cavity, which stretches each electron bunch so the stored beam lasts longer. Its as-built location is not confirmed.',
-    expert: 'Per the 2019 final design report: the superconducting bunch-lengthening (harmonic) cavity, with the extraction kickers. As-built location unconfirmed.',
+    text: 'In the 2019 Final Design Report this straight holds the superconducting bunch-lengthening cavity, together with the extraction kickers, fast magnets that kick bunches out of the ring. Driven only by the passing bunches, the cavity rings at 1.4 GHz, four times the main radio frequency, and stretches each bunch so the electrons collide less often and the stored beam lasts longer. Where it sits as built is not confirmed.',
   },
   39: {
     short: 'Injection (per the 2019 design)',
-    plain: 'In the 2019 design this is the injection straight, where fresh electron bunches from the booster enter the ring. Its as-built location is not confirmed.',
     // the 2019 design injected vertically through a DC Lambertson septum; the pulsed septum came with the 2021 change
     // to horizontal injection (research: facility.json swapOut.plane)
-    expert:
-      'Per the 2019 final design report: vertical injection through a DC Lambertson septum and kickers, with the swap-out dump in the A:M1 magnet. As built, injection is horizontal, through a pulsed septum and three stripline kickers in one straight. The booster-to-ring transfer line enters at this straight, but the as-built injection sector is unconfirmed.',
+    text: 'In the 2019 Final Design Report this is the injection straight, where fresh electron bunches from the booster enter the ring to replace depleted ones (swap-out). That design injected vertically, through a steady-field (DC) Lambertson septum, a magnet that steers the incoming beam in beside the stored one, and kickers, with the swap-out dump in the A:M1 magnet. As built, injection is horizontal, through a pulsed septum and three stripline kickers in one straight. The booster-to-ring transfer line enters at this straight, but which sector holds the as-built injection is not confirmed.',
   },
   40: RF_STRAIGHT,
 };
+
+/** Who runs a sector, with the APS's own division spelled out once ('XSD: Imaging' → 'X-ray Science Division (XSD): Imaging'). */
+function operatorsText(s: string): string {
+  return s.replace(/\bXSD\b/, 'X-ray Science Division (XSD)');
+}
 
 /** Directory titles that only restate the sector ("Sector 10 - Bending Magnet Beamline") say nothing on a card. */
 const GENERIC_TITLE = /Sector \d+\s*[-–]\s*(Bending Magnet|Insertion Device) Beamline/i;
@@ -175,7 +178,11 @@ export class App {
       },
       { passive: false },
     );
-    window.addEventListener('resize', () => this.queueInsets());
+    window.addEventListener('resize', () => {
+      const v = store.state.view;
+      if (v.mode === 'overview') this.overview.setVisible(!v.focus || window.innerWidth > 900);
+      this.queueInsets();
+    });
     new MutationObserver(() => this.queueInsets()).observe(this.overview.el, { attributes: true, attributeFilter: ['class'] });
     // bottom chrome changes height with its content (strip rows, tour stops, sector cards): keep camera framing above
     // it. (Side panels change width only with the window or a class toggle, both handled above.)
@@ -194,11 +201,6 @@ export class App {
     store.subscribe((s, prev) => {
       if (s.view !== prev.view) this.scheduleView();
       if (s.quality !== prev.quality) this.stage.setQuality(s.quality);
-      if (s.showRoof !== prev.showRoof) {
-        this.site.setRoof(s.showRoof);
-        this.stage.requestShadowUpdate();
-      }
-      if (s.depth !== prev.depth) this.onDepth();
     });
 
     // overview pins go up at once from default geometry and are refined when the layouts arrive
@@ -212,7 +214,23 @@ export class App {
       .catch((e) => console.error('feature beamline layouts could not be applied', e));
     this.scheduleView();
 
-    if (!store.state.introSeen && store.state.view.mode === 'overview') this.showIntro();
+    // The author's welcome greets every visit (not in automated tests unless ?welcome); the first-visit intro follows it.
+    const startIntro = () => {
+      if (!store.state.introSeen && store.state.view.mode === 'overview') this.showIntro();
+    };
+    const params = new URLSearchParams(location.search);
+    if (hasWelcome() && (!params.has('test') || params.has('welcome'))) {
+      // a dialog pauses rendering: wait until the opening view has been drawn so the facility shows behind the welcome
+      // (the view is applied once the beamline layouts load; after 4 s the welcome opens regardless)
+      const t0 = performance.now();
+      let drawnFrom = -1;
+      const whenDrawn = () => {
+        if (this.applied && drawnFrom < 0) drawnFrom = this.frameCount;
+        if ((drawnFrom >= 0 && this.frameCount - drawnFrom > 3) || performance.now() - t0 > 4000) openWelcome(this.modal, startIntro);
+        else requestAnimationFrame(whenDrawn);
+      };
+      whenDrawn();
+    } else startIntro();
     this.startGovernor();
   }
 
@@ -326,6 +344,7 @@ export class App {
     this.topbar.onTour = () => store.go({ mode: 'tour', step: 0 });
     this.topbar.onStory = () => this.openStory();
     this.topbar.onHelp = () => this.openHelp();
+    this.topbar.onAuthor = () => openAuthorNote(this.modal);
     this.topbar.onSearch = () => this.search.open();
     this.overview.onHover = (id) => this.hotFeature(id);
     this.overview.onOpen = (id) => store.go({ mode: 'beamline', id });
@@ -375,20 +394,6 @@ export class App {
     const open = this.modal.isOpen;
     this.stage.setPaused(open);
     if (!open) this.stationOwner = null;
-  }
-
-  private onDepth(): void {
-    // the view on screen (the store's may still be waiting for the layouts, and is not checked yet)
-    const v = this.applied;
-    if (!v) return;
-    if (v.mode === 'tour') this.tour.show(v.step);
-    else if (v.mode === 'overview' && v.focus && this.sectorCard.classList.contains('is-open')) {
-      // same card in the new depth: no camera move, and keyboard focus stays on the card
-      const hadFocus = this.sectorCard.contains(document.activeElement);
-      this.renderSectorCard(Number(v.focus));
-      if (hadFocus) this.sectorCard.querySelector<HTMLElement>('.kicker')?.focus({ preventScroll: true });
-      this.queueInsets();
-    }
   }
 
   /** Home (brand / crumb): the whole APS, re-framed even when the overview is already showing. */
@@ -469,12 +474,7 @@ export class App {
 
     if (field) return;
     const inOwn = !!target?.closest(OWN_KEYS);
-    if (modalOpen || searchOpen) {
-      // the depth switch also works over a full-screen station (the dialog re-renders it)
-      if (modalOpen && this.stationOwner && (e.key === 'v' || e.key === 'V') && !target?.closest(STATION)) this.toggleDepth();
-      return;
-    }
-    if (inOwn) return;
+    if (modalOpen || searchOpen || inOwn) return;
 
     const canvas = this.stage.renderer.domElement;
     const onView = !target || target === canvas || target === document.body || target === document.documentElement;
@@ -513,10 +513,6 @@ export class App {
       case 'T':
         store.go(v.mode === 'tour' ? { mode: 'overview' } : { mode: 'tour', step: 0 });
         break;
-      case 'v':
-      case 'V':
-        this.toggleDepth();
-        break;
       case '?':
         this.openHelp();
         break;
@@ -526,10 +522,6 @@ export class App {
           if (m) store.go({ mode: 'beamline', id: m.id });
         }
     }
-  }
-
-  private toggleDepth(): void {
-    store.set({ depth: store.state.depth === 'visitor' ? 'specialist' : 'visitor' });
   }
 
   /** Escape steps back one level: intro → selected component → sector card → overview. */
@@ -730,13 +722,21 @@ export class App {
     );
   }
 
-  /** Fill the sector card for sector n in the current depth. */
+  /**
+   * Fill the sector card for sector n, layered like a label: what the sector's science is, who runs it (fine print),
+   * the feature beamlines, what the upgrade changed (each enhancement program once, however many beamlines it covers),
+   * then each beamline: what it does, with its techniques in fine print.
+   */
   private renderSectorCard(n: number): void {
     const info = SECTOR_INFO[n];
     const feats = FEATURE_META.filter((m) => m.sectorNumber === n);
-    const specialist = store.state.depth === 'specialist';
     const machine = MACHINE_SECTORS[n];
-    const sub = specialist ? info?.operators : info?.plainLabel;
+    const beamlines = info?.beamlines ?? [];
+    const programs = new Map<string, string[]>();
+    for (const b of beamlines) {
+      const text = b.enhanced ? b.enhancement?.text?.trim() : undefined;
+      if (text) programs.set(text, [...(programs.get(text) ?? []), b.name]);
+    }
     this.sectorCard.setAttribute('aria-label', `Sector ${n}`);
     this.sectorCard.replaceChildren(
       ...nodes(
@@ -749,38 +749,46 @@ export class App {
           info?.canted ? ' · canted undulators' : '',
           machine ? ' · accelerator straight' : '',
         ),
-        sub ? h('p', { class: 'small muted sc-sub' }, sub) : null,
+        info?.plainLabel || machine ? h('p', { class: 'sc-lede' }, info?.plainLabel || machine!.short) : null,
+        info?.operators ? h('p', { class: 'fineprint sc-ops' }, 'Operated by ', operatorsText(info.operators)) : null,
         ...feats.map((m) =>
           h(
             'button',
             { class: 'feature-card', style: `--c:${m.color}`, onclick: () => store.go({ mode: 'beamline', id: m.id }) },
-            h('span', { class: 'fc-dot' }),
-            h(
-              'span',
-              { class: 'fc-text' },
-              h('span', { class: 'fc-top' }, h('span', { class: 'fc-acr' }, BEAMLINES[m.id]?.acronym ?? m.id)),
-              h('span', { class: 'fc-short' }, specialist ? (BEAMLINES[m.id]?.fullName ?? m.displayName) : m.displayName),
-            ),
+            h('span', { class: 'fc-dot', 'aria-hidden': 'true' }),
+            featureCardText(m, stationTag(m)),
             icon('next', 15),
           ),
         ),
-        ...(info?.beamlines ?? [])
+        ...[...programs].map(([text, names]) =>
+          h(
+            'section',
+            { class: 'sc-enh' },
+            h('h4', null, h('span', { class: 'tag tag-enh' }, 'APS-U enhancement'), h('span', { class: 'fineprint' }, names.join(' · '))),
+            h('p', { class: 'small' }, stripRefs(text)),
+          ),
+        ),
+        ...beamlines
           .filter((b) => !b.feature)
           .map((b) =>
             h(
               'section',
               { class: 'sc-bl' },
-              h('h4', null, beamlineHeading(b), b.status ? h('span', { class: 'tag', title: 'Status on the APS commissioning chart, Oct 2026' }, b.status.replace('Scientific Commissioning and Early Experiments', 'early experiments').replace('Restart of General User Program', 'user program')) : null),
-              b.summary && !specialist ? h('p', { class: 'small' }, b.summary) : null,
-              specialist && b.techniques?.length ? h('div', { class: 'small' }, b.techniques.join(' · ')) : null,
-              b.operator ? h('div', { class: 'small muted' }, b.operator) : null,
-              b.enhanced && b.enhancement
-                ? h('div', { class: 'sc-enh small' }, h('span', { class: 'tag tag-enh' }, 'APS-U enhancement'), ' ', stripRefs(specialist ? b.enhancement.expert : b.enhancement.plain))
-                : null,
+              h(
+                'h4',
+                null,
+                beamlineHeading(b),
+                b.status ? h('span', { class: 'tag', title: 'Status on the APS commissioning chart, Oct 2026' }, b.status.replace('Scientific Commissioning and Early Experiments', 'early experiments').replace('Restart of General User Program', 'user program')) : null,
+                b.enhanced && b.enhancement ? h('span', { class: 'tag tag-enh' }, 'enhanced') : null,
+              ),
+              b.summary ? h('p', { class: 'small' }, b.summary) : null,
+              b.techniques?.length ? h('p', { class: 'fineprint' }, 'Techniques: ', b.techniques.join(' · ')) : null,
+              // the sector line above already names who runs it; a beamline's own operator only where there is none
+              b.operator && !info?.operators ? h('p', { class: 'fineprint' }, b.operator) : null,
               b.url ? h('a', { class: 'small', href: b.url, target: '_blank', rel: 'noopener' }, 'APS beamline page ↗') : null,
             ),
           ),
-        !info?.beamlines?.length ? h('p', { class: 'muted small' }, machine ? (specialist ? machine.expert : machine.plain) : 'No beamline information available.') : null,
+        !beamlines.length ? h('p', { class: 'small' }, machine ? machine.text : 'No beamline information available.') : null,
       ),
     );
   }
@@ -826,7 +834,7 @@ export class App {
   private updateInsets(): void {
     const v = store.state.view;
     const H = window.innerHeight;
-    const narrow = window.innerWidth < 900;
+    const narrow = window.innerWidth <= 900;
     // bottom cards sit 18 px above the edge; keep another 12 px clear above them
     const card = this.sectorCard.classList.contains('is-open') ? this.sectorCard.offsetHeight + 30 : 0;
     const tour = v.mode === 'tour' ? this.tour.el.offsetHeight + 30 : 0;
@@ -837,7 +845,7 @@ export class App {
       else if (v.mode === 'overview') {
         const ov = this.overview.el;
         const btn = ov.querySelector<HTMLElement>('.ov-collapse');
-        sheet = ov.classList.contains('is-collapsed') ? (btn ? btn.offsetTop + btn.offsetHeight + 24 : 72) : H * 0.46;
+        if (!ov.classList.contains('is-away')) sheet = ov.classList.contains('is-collapsed') ? (btn ? btn.offsetTop + btn.offsetHeight + 24 : 72) : H * 0.46;
       }
       this.stage.setInsets({ bottom: Math.max(sheet, card, tour, v.mode === 'tour' ? 160 : 0), top: 56 });
       return;
@@ -934,8 +942,9 @@ export class App {
 
   private showOverview(v: Extract<View, { mode: 'overview' }>, prev: View | null): void {
     this.leaveBeamline();
-    this.overview.setVisible(true);
     const n = v.focus ? Number(v.focus) : null;
+    // A sector card occupies the phone's bottom sheet; keep the guide out of its view and tab order until it closes.
+    this.overview.setVisible(!n || window.innerWidth > 900);
     this.topbar.setCrumbs(n ? [{ label: 'The APS', onClick: () => this.goHome() }, { label: `Sector ${n}` }] : [{ label: 'The APS' }]);
     this.stage.setLabel(n ? `3D model of the Advanced Photon Source, sector ${n}` : '3D model of the Advanced Photon Source');
     if (n) this.openSectorCard(n, prev !== null);

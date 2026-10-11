@@ -6,10 +6,9 @@
  *   ┌───────────────────────────────┬──────────────┐
  *   │ visual (one or more canvases) │ controls     │
  *   ├───────────────────────────────┴──────────────┤
- *   │ caption: "what you're seeing" (depth-aware)   │
+ *   │ caption: "what you're seeing"                 │
  *   └───────────────────────────────────────────────┘
  */
-import type { Depth } from '../../app/store';
 import './kit.css';
 
 export const TOKENS = {
@@ -39,13 +38,11 @@ export interface Station {
   /** Register a cleanup function. */
   onDestroy(fn: () => void): void;
   destroy(): void;
-  /** Set caption text for both depths; the right one is shown. Supports **bold** and *italic*. */
-  setCaption(visitor: string, specialist?: string): void;
-  setDepth(d: Depth): void;
-  depth: Depth;
+  /** Set the caption ("what you're seeing"). Supports **bold**, *italic*, `code`, _{sub} and ^{sup}. */
+  setCaption(text: string): void;
 }
 
-export function createStation(host: HTMLElement, opts: { depth: Depth; color?: string; layout?: 'side' | 'stack' } = { depth: 'visitor' }): Station {
+export function createStation(host: HTMLElement, opts: { color?: string; layout?: 'side' | 'stack' } = {}): Station {
   const root = el('div', `stn stn-${opts.layout ?? 'side'}`);
   if (opts.color) root.style.setProperty('--c', opts.color);
   const visual = el('div', 'stn-visual');
@@ -55,13 +52,11 @@ export function createStation(host: HTMLElement, opts: { depth: Depth; color?: s
   host.replaceChildren(root);
   const cleanups: (() => void)[] = [];
   let destroyed = false;
-  let cap: [string, string | undefined] = ['', undefined];
   const s: Station = {
     root,
     visual,
     controls,
     caption,
-    depth: opts.depth,
     // registered after teardown (e.g. by a deferred lookup): run at once
     onDestroy: (fn) => (destroyed ? fn() : void cleanups.push(fn)),
     destroy: () => {
@@ -75,17 +70,10 @@ export function createStation(host: HTMLElement, opts: { depth: Depth; color?: s
       }
       if (root.parentNode === host) host.replaceChildren();
     },
-    setCaption: (v, sp) => {
-      cap = [v, sp];
-      caption.innerHTML = md(s.depth === 'specialist' && sp ? sp : v);
-    },
-    setDepth: (d) => {
-      s.depth = d;
-      root.dataset.depth = d;
-      s.setCaption(cap[0], cap[1]);
+    setCaption: (text) => {
+      caption.innerHTML = md(text);
     },
   };
-  root.dataset.depth = opts.depth;
   STATIONS.set(root, s);
   return s;
 }
@@ -541,22 +529,15 @@ export function announcer(station: Station): { say(text: string | (() => string)
   };
 }
 
-/** Explanatory paragraph that swaps between visitor and specialist wording. */
-export function note(parent: HTMLElement, station: Station, visitor: string, specialist?: string): { set(v: string, s?: string): void } {
+/** Explanatory paragraph beside the controls (same minimal markdown as the caption); `set` rewrites it. */
+export function note(parent: HTMLElement, _station: Station, text: string): { set(text: string): void } {
   const n = el('div', 'stn-note');
   parent.appendChild(n);
-  let cur: [string, string | undefined] = [visitor, specialist];
-  const render = () => (n.innerHTML = md(station.depth === 'specialist' && cur[1] ? cur[1] : cur[0]));
-  const obs = new MutationObserver(render);
-  obs.observe(station.root, { attributes: true, attributeFilter: ['data-depth'] });
-  station.onDestroy(() => obs.disconnect());
-  render();
-  return {
-    set: (v, s) => {
-      cur = [v, s];
-      render();
-    },
+  const set = (t: string) => {
+    n.innerHTML = md(t);
   };
+  set(text);
+  return { set };
 }
 
 export function legend(parent: HTMLElement, items: { color: string; label: string; dashed?: boolean }[]): HTMLElement {

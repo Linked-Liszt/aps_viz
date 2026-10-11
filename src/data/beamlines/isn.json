@@ -5,7 +5,7 @@
   "fullName": "In Situ Nanoprobe (19-ID-E)",
   "status2026": {
     "state": "user-operations",
-    "detail": "The APS Beamline Directory entry for 19-ID-E, fetched 2026-10-09, lists ISN as 'Operational/Accepting General Users' with access via on-site beamline staff. The path there: technical commissioning of the endstation and KB optics in summer 2025. Stage 4, technical commissioning, on the 24 Nov 2025 APS progress graphic. Stage 5, scientific commissioning and early experiments, on the 26 Jan 2026 graphic. The Aug 2025 APS-U update had forecast first experiments 'either late this year or early next year' and general users 'either late in the first run of 2026 or sometime in the second run'. A 31 Jul 2026 Argonne job posting still describes duties as 'commissioning and operation of the ISN'. So 2026 is best read as early user operations with some commissioning still going on. The design target is a 20 nm spot at 25 keV. Abstracts from late 2025 and 2026 quote ~25-30 nm. For context, the APS Upgrade project as a whole was formally completed in early 2026, and Argonne's Sept 2026 nanoscience feature presents ISN as a powerful new in situ tool.",
+    "detail": "The APS Beamline Directory entry for 19-ID-E, fetched on 9 October 2026, lists ISN as 'Operational/Accepting General Users' with access via on-site beamline staff. The path there: technical commissioning of the endstation and KB optics in summer 2025. Stage 4, technical commissioning, on the 24 Nov 2025 APS progress graphic. Stage 5, scientific commissioning and early experiments, on the 26 Jan 2026 graphic. The Aug 2025 APS-U update had forecast first experiments 'either late this year or early next year' and general users 'either late in the first run of 2026 or sometime in the second run'. A 31 Jul 2026 Argonne job posting still describes duties as 'commissioning and operation of the ISN'. So 2026 is best read as early user operations with some commissioning still going on. The design target is a 20 nm spot at 25 keV. Abstracts from late 2025 and 2026 quote ~25–30 nm. For context, the APS Upgrade project as a whole was formally completed in early 2026, and Argonne's Sept 2026 nanoscience feature presents ISN as a powerful new in situ tool.",
     "sources": [
       "r6",
       "r9",
@@ -20,66 +20,57 @@
     ]
   },
   "tagline": "A 220-metre X-ray microscope that watches batteries, catalysts and solar cells at work, in spots just tens of nanometres wide.",
-  "plainSummary": "The In Situ Nanoprobe is an X-ray microscope built to watch materials while they work: a battery charging, a catalyst breathing hot gas, a solar cell being baked into shape. It squeezes X-rays from the upgraded APS into a spot designed to be just 20 nanometres across, about 4,500 times thinner than a human hair (first measurements report 25-30 nm), and sweeps the sample through it. At every point it records which chemical elements glow back, how the atoms are stacked, what electric current or light the X-rays spark, and a speckle pattern that a computer turns into an even sharper picture. The catch is space. Heaters, gas cells and liquid cells need about 5-6 centimetres of room in front of the sample, so the focusing mirrors must be long and lit by very orderly light. That is why the beamline runs about 220 metres, out of the ring building to its own vibration-isolated concrete room in the Long Beamline Building, where the air holds steady to ±0.05 °C over an hour.",
-  "expertSummary": "ISN (19-ID-E) is a KB-mirror hard X-ray nanoprobe for 4.8-30 keV, built around a spatial filter. Source: two in-line revolver undulators (U21/U25, 112/94 periods each) and a windowless HHL front end with a 2 × 2 mm² exit mask at 25.4 m. In 19-ID-A, a flat water-cooled M1 (28 m, down) and a bendable M2 (29 m, up), both 2.5 mrad with Si/Cr/Pt stripes, form a vertical dogleg; M2 focuses vertically onto BDA-V at 55 m. An LN2-cooled horizontal Si(111) DCM (31.7 m) is paired with a designed Mo/B4C DMM (32.7 m, ~1% BW). M3 (35 m, Pt, inboard) focuses horizontally onto BDA-H at 64 m. The BDAs (down to ~3.5-4 µm) form an adjustable secondary source that filters upstream wavefront errors and optic motion. After ~147 m of 4-inch transport, a JTEC KB pair in UHV focuses the beam: KBV 404 mm (q = 396 mm), KBH 129 mm (q = 125.5 mm), θ = 2.5 mrad, NA ~1.7 mrad. Design result: a ~20 nm diffraction-limited focus at 25 keV with 61 mm optical working distance and >3 × 10¹¹ ph/s focused flux (design/abstract values; 2025-26 conference abstracts report ~25-30 nm at 25 keV, and no measured focused flux has been published). Stability requirements are 5/16 nrad (KBV/KBH) and 4 nm rms spot-sample motion. They are addressed with a 1 m isolated VC-G slab, ±0.01 °C surface control, flexure stages and 15-channel interferometry; preliminary KBV pitch noise is 0.4 nrad rms (measured in air with vacuum pumps off). Modalities: fly-scanned XRF and nano-XANES, ptychography, nano-XRD, XBIC/XBIV and XEOL, with in situ cells from 40 K to ~1000 °C, gas and liquid flow, and bias.",
+  "summary": "The In Situ Nanoprobe (ISN) is an X-ray microscope built to watch materials while they work: a battery charging, a catalyst in hot gas, a solar-cell film being baked into shape. It squeezes X-rays into a spot designed to be 20 nanometres across, about 4,500 times thinner than a hair (first measurements report 25–30 nm), and scans the sample through it. At every point it records which elements fluoresce, how the atoms are stacked, what current or light the X-rays spark, and a diffraction pattern that a computer turns into an even sharper image. The challenge is space: heaters and gas or liquid cells need 5–6 cm in front of the sample, so the focusing mirrors must be long and lit by coherent light. That is why the beamline runs about 220 m, out of the ring building to a vibration-isolated concrete room where the air holds to ±0.05 °C over an hour.",
   "whatAPSUEnables": {
-    "plain": "A nanoprobe can only use the orderly, 'coherent' part of an X-ray beam to make its smallest spot. Everything else gets thrown away at a pair of tiny slits. The old APS electron beam was about 275 micrometres wide, so very little of its light was coherent. The upgraded ring squeezes it to about 15 micrometres. That leaves far more usable photons. ISN is designed to make a 20 nm spot and still have enough X-rays to scan big samples quickly. It can also do this at high energies that pass through cell windows, water and gas while the sample is changing.",
-    "expert": "Diffraction-limited KB focusing accepts only about one transverse coherent mode in each plane. The BDAs are closed to roughly the coherence-matched size, Δ ≈ 0.44 λ z / A, where A is the KB acceptance. So the focused flux scales with the source's coherent flux, not its total flux. The MBA lattice brings the horizontal emittance down to ~30-40 pm·rad, and <30 pm·rad has been measured. That is within a factor of ~3-10 of the photon diffraction limit λ/4π (3.9 pm at 25 keV, 9.9 pm at 10 keV; computed). Before the upgrade the emittance was ~70× larger. The upgrade is what makes the ISN layout possible. A 220 m geometry and long KB mirrors (~1.0 mm vertical acceptance) give a 61 mm working distance. Upstream optics sit entirely before the BDAs, so their wavefront errors and nanoradian motions are filtered out. There is also high coherent flux at 20-30 keV for penetrating in situ cells. Two revolver undulators make the U21 structure available to boost brilliance at the high-energy end.",
+    "text": "A nanoprobe can make its smallest spot only from the coherent part of an X-ray beam, the part whose waves stay in step across the beam; the rest is thrown away at a pair of tiny slits that act as a clean secondary source. The old APS electron beam was about 275 µm wide (root-mean-square width), so little of its light was coherent; the design's brightness mode squeezes it to about 15 µm and cuts its emittance (beam size × angular spread) roughly 70-fold. ISN's layout depends on this: a 220 m beamline whose long mirrors focus 61 mm past their ends, upstream wobbles filtered out by the slits, and enough coherent flux at 20–30 keV to pass through cell windows, water and gas. The 2017 design estimated 1,000 to 10,000 times more focused flux than pre-upgrade nanoprobes for spectroscopy, and 10,000 to 100,000 times for mapping with the wide-band multilayer monochromator, whose installation is unconfirmed. No measured focused flux has been published yet.",
     "quantitative": [
-      "Electron beam size shrinks from ~275 µm (H) × 10 µm (V) before the upgrade to ~15 µm × 4 µm in brightness mode; brightness up to 500×",
-      "Horizontal source size reduced ~20× (FDR sec. 4-7.1); measured horizontal emittance <30 pm·rad by grating interferometry at 3-ID-B; pre-upgrade to APS-U emittance reduction ~70-fold",
-      "Coherent flux after the BDAs: 7.2 × 10¹² ph/s at 10 keV (coherent fraction 5.58%) and 4.7 × 10¹¹ ph/s at 25 keV (0.94%) (FDR Table 4.51)",
-      "Design focused flux at 25 keV: 3.4 × 10¹¹ ph/s coherent into 16 × 16 nm² FWHM, or 3.1 × 10¹² ph/s into 24 × 30 nm² with the BDAs open (FDR Table 4.52)",
-      "Design focused flux at 10 keV: 3.5 × 10¹² ph/s coherent into 39 × 39 nm², or 8.9 × 10¹² ph/s into 43 × 52 nm² (FDR Table 4.52)",
-      "JACoW abstract of the MEDSI'25 paper: focused flux >3 × 10¹¹ ph/s at 25 keV. This restates the design capability (cf. FDR 3.4 × 10¹¹ ph/s coherent); the paper itself reports no measured flux",
-      "2017 design estimate: focused-flux gain of 10³-10⁴ over pre-upgrade nanoprobes for spectroscopy (0.01% BW), and 10⁴-10⁵ for elemental mapping and ptychography (1% BW)",
-      "KB mirrors vs diffractive optics: ~10× higher focusing efficiency at 10 keV and ~100× at 30 keV; DMM plus non-chromatic KB gives ~25× more flux than the DCM where chemical-state contrast is not needed",
-      "Expected reduction in acquisition time: a factor of 100 or more"
+      "The electron beam shrinks from ~275 µm (H) × 10 µm (V) before the upgrade to ~15 × 4 µm in brightness mode; brightness rises up to 500×.",
+      "Horizontal source size is reduced ~20× (FDR sec. 4-7.1). A horizontal emittance below 30 pm·rad has been measured by grating interferometry at 3-ID-B; from the pre-upgrade ring to APS-U the emittance falls ~70-fold.",
+      "Coherent flux after the BDAs: 7.2 × 10¹² ph/s at 10 keV (coherent fraction 5.58%) and 4.7 × 10¹¹ ph/s at 25 keV (0.94%) (FDR Table 4.51).",
+      "Design focused flux at 25 keV: 3.4 × 10¹¹ ph/s coherent into 16 × 16 nm² FWHM, or 3.1 × 10¹² ph/s into 24 × 30 nm² with the BDAs open (FDR Table 4.52).",
+      "Design focused flux at 10 keV: 3.5 × 10¹² ph/s coherent into 39 × 39 nm², or 8.9 × 10¹² ph/s into 43 × 52 nm² (FDR Table 4.52).",
+      "The JACoW abstract of the MEDSI'25 paper quotes a focused flux above 3 × 10¹¹ ph/s at 25 keV. This restates the design capability (cf. FDR 3.4 × 10¹¹ ph/s coherent); the paper itself reports no measured flux.",
+      "2017 design estimate: a focused-flux gain of 10³–10⁴ over pre-upgrade nanoprobes for spectroscopy (0.01% bandwidth), and 10⁴–10⁵ for elemental mapping and ptychography (1% bandwidth, i.e. with the multilayer monochromator).",
+      "KB mirrors vs diffractive optics: ~10× higher focusing efficiency at 10 keV and ~100× at 30 keV. The DMM with the achromatic KB pair gives ~25× more flux than the DCM where chemical-state contrast is not needed.",
+      "Expected reduction in acquisition time: a factor of 100 or more."
     ]
   },
   "techniques": [
     {
       "name": "Scanning X-ray fluorescence microscopy and fluorescence tomography",
       "abbrev": "XRF / XRF-CT",
-      "plain": "When the X-ray spot hits an atom, the atom gives off its own X-ray 'colour'. Each element has its own fingerprint colour. Scanning the spot across the sample builds a map of where every element sits, down to trace amounts. Rotating the sample turns these maps into 3D.",
-      "expert": "Energy-dispersive detection uses a Hitachi 7-element SDD or a RaySpec 12-element backscatter SDD with Xspress3 Mk2 readout. The 2017 design called for ~125 eV resolution at Mn Kα and up to 10⁸ counts/s. Scans are fly scans: up to 1 mm/s for horizontal lines (and vertical lines when the ROI is <90 µm), 0.1 mm/s for vertical scans over ROIs up to 10 mm, with a 2 kg payload over 10 × 10 mm. A Micronix PR-160 rotation stage provides 3D. Capacitive sensors on a diamond-turned reference ring correct runout and wobble at ~20 nm. Because mirrors are non-chromatic, 1% bandwidth from the DMM can be used for mapping. Ptychographic recovery of the probe allows XRF maps to be deconvolved to ~10 nm."
+      "text": "When the focused X-ray spot knocks an inner electron out of an atom, the atom refills the gap and emits a fluorescence X-ray whose energy is a fingerprint of the element. Scanning the spot across the sample builds a map of where each element sits, down to trace amounts; rotating the sample and repeating turns the maps into 3D (fluorescence tomography). ISN reads the fluorescence with silicon-drift detectors, a 7-element unit or a 12-element backscatter unit, and scans on the fly at up to 1 mm/s over a 10 × 10 mm area. Because mirrors focus all energies alike, the broad 1% band of the designed multilayer monochromator could speed up mapping, and recovering the exact shape of the X-ray spot by ptychography, a coherent-imaging method, lets the maps be sharpened to about 10 nm."
     },
     {
       "name": "XRF nanospectroscopy (nano-XANES spectromicroscopy)",
       "abbrev": "nano-XANES",
-      "plain": "Tuning the X-ray energy step by step across an element's absorption edge shows its chemical state, for example rusted versus metallic iron. ISN can do this in a spot only tens of nanometres wide, so it can tell the chemistry of one tiny particle from its neighbour.",
-      "expert": "The LN2-cooled Si(111) H-DCM (ΔE/E ≈ 1.4 × 10⁻⁴) scans energy. The KB focus is achromatic, so the spot and the sample position do not move during an energy scan and no focusing optic needs re-tuning; the undulator gap and the DCM angle still track the energy. M1 has a side notch with cooling above it to suppress thermal deformation. The design shows <2% flux change in a 10 µm BDA-V when the undulator is scanned from 5.0 to 5.1 keV. The energy range covers K edges from Ti (4.97 keV) through the 3d and 4d transition metals up to Sn (29.20 keV; Sb at 30.49 keV is just out of range), plus L3 edges of the rare earths (5.48 keV for La to 9.24 keV for Lu) and of heavy elements such as Pb and Bi (edge energies are standard tabulated values)."
+      "text": "Stepping the X-ray energy across an element's absorption edge, the energy at which its inner electrons can just be knocked loose, reveals its chemical state, for example rusted versus metallic iron. This is X-ray absorption near-edge structure (XANES) spectroscopy, read here through the fluorescence in a spot only tens of nanometres wide, so it can tell the chemistry of one tiny particle from its neighbour. The liquid-nitrogen-cooled Si(111) crystal monochromator sets the energy to 1.4 parts in 10,000, and because the mirror focus does not depend on energy, the spot stays on the same point during a scan; only the undulator gap and crystal angle track the energy. The 4.8–30 keV range covers the K edges (of the innermost electron shell) from titanium (4.97 keV) to tin (29.20 keV), plus the L₃ edges (of the next shell) of the rare earths and of heavy elements such as lead and bismuth."
     },
     {
       "name": "Ptychography (2D and 3D coherent diffractive imaging)",
       "abbrev": "ptycho",
-      "plain": "Instead of only counting X-rays, a camera far behind the sample records the speckle pattern each overlapping spot makes. A computer works backward from thousands of these patterns to an image sharper than the spot itself. The design goal is below 10 nanometres for thin, see-through samples.",
-      "expert": "The diffraction-limited focus is intrinsically coherent, so ptychography can run alongside XRF on every transparent sample. The design goal was sub-10 nm resolution. An Eiger2 X 1M sits on a downstream XYZ table with 6 m of travel along the beam. The same detector serves ptychography, SAXS and absorption measurements. Planned data rates are ~5 GB/s at ~3 kHz average frame rate, about 10 PB of raw data per year across ISN. Data stream to ALCF's Aurora for processing. Ptychography also returns the complex KB probe, which is useful for diagnosing optics."
+      "text": "Instead of only counting X-rays, a camera far behind the sample records the diffraction pattern made at each of many overlapping spot positions. A computer works backward from thousands of these patterns to an image sharper than the spot itself; the design goal was below 10 nm for samples thin enough to let X-rays through. ISN's diffraction-limited focus is inherently coherent, which this method needs, so ptychography can run alongside fluorescence mapping. The camera rides a table with 6 m of travel along the beam and also records small-angle scattering and absorption. Planned data rates are about 5 GB/s, part of roughly 10 PB of raw data a year across ISN, processed on Argonne's Aurora supercomputer; the method also recovers the shape of the X-ray probe, a useful check on the mirrors."
     },
     {
       "name": "Nano-diffraction / X-ray diffraction microscopy",
       "abbrev": "nano-XRD",
-      "plain": "Crystals scatter (diffract) X-rays into bright spots at specific angles. A robot arm swings a camera around the sample to catch them, revealing which crystal phase is present at each point and how it changes as the sample is heated or charged.",
-      "expert": "An Eiger2 X 1M is carried by a Stäubli TX2-160L robot so it can be positioned in spherical coordinates. Diffracted beams leave the sample chamber through a 0.5 mm Materion Be dome window. The window is tipped 10° above the beam plane and 25° outboard, has a 152 mm clear aperture and passes ~0.25 sr. The PDR set out to cover a few degrees to ~80° horizontally and 45-60° vertically. Diffraction is described as an auxiliary contrast for tracking phase changes during in situ work (FDR 4-7.7.4 lists 'structural imaging' as auxiliary). The 2020 design Be window gave a 7-60° vertical and -5 to 60° horizontal diffraction cone."
+      "text": "Crystals diffract X-rays into bright spots at angles set by the spacing of their atomic planes. An industrial robot arm carries a camera around the sample to catch these spots, revealing which crystal phase is present at each point and how it changes as the sample is heated or charged. The diffracted X-rays leave the sample chamber through a 0.5 mm beryllium dome window, tipped 10° up and 25° outboard (away from the ring), that passes a cone of about 0.25 steradian. At ISN, diffraction is an auxiliary contrast for following phase changes during in situ work, alongside fluorescence."
     },
     {
       "name": "X-ray beam induced current / voltage",
       "abbrev": "XBIC / XBIV",
-      "plain": "In a solar cell or LED, the X-ray spot frees electrons like a tiny flashlight. Measuring the current or voltage at each spot shows which nanoscale regions work well and which defects kill performance.",
-      "expert": "Current and voltage are read by a CAEN ELS TetrAMM electrometer (how it is triggered during fly scans is not described publicly). XBIC/XBIV is collected pixel by pixel together with XRF, which correlates composition and defects with local charge collection."
+      "text": "In a solar cell or LED, the X-ray spot frees charge carriers much as light does when the device is working. Measuring the resulting current (X-ray beam-induced current, XBIC) or voltage (XBIV) at each point of the scan shows which nanoscale regions collect charge well and which defects kill performance. ISN reads it with a sensitive four-channel picoammeter, pixel by pixel together with the fluorescence map, so composition and defects can be compared directly with local charge collection."
     },
     {
       "name": "X-ray excited optical luminescence microscopy",
       "abbrev": "XEOL",
-      "plain": "Some materials glow with visible or infrared light when X-rays hit them. ISN has a built-in optical microscope that collects this glow, so scientists can link light emission (for example, from a perovskite or LED material) to the chemistry at the same spot.",
-      "expert": "A custom in-line vacuum microscope sits just upstream of the sample. It uses a NIR 10X/0.26 NA objective and a fold mirror with a hole that lets the X-rays pass. Field of view is 600 µm with 1 µm resolution. A motorized path selector collects 430-1800 nm emission into a fiber-coupled spectrometer. An external light module (Optique Peter) can inject excitation or bias light."
+      "text": "Some materials glow with visible or infrared light when X-rays hit them, an effect called X-ray excited optical luminescence (XEOL). ISN has a built-in vacuum light microscope just upstream of the sample that collects this glow through a fold mirror with a hole for the X-rays, so emission from, for example, a perovskite or LED material can be linked to the chemistry at the same spot. It sees a 600 µm field with 1 µm resolution and sends light from 430 to 1,800 nm to a fibre-coupled spectrometer; an external module can also shine excitation or bias light onto the sample."
     }
   ],
   "scienceCases": [
     {
       "title": "Watching a solar-cell absorber form",
-      "plain": "Thin-film solar cells such as CIGS are 'cooked' at about 600 °C in selenium vapour. Tiny defects that form along the way can ruin efficiency. ISN can follow where copper, indium, gallium and selenium move while the film is being made, nanometre by nanometre.",
-      "expert": "The design case is in situ selenization or sulfurization of Cu(In,Ga) precursors under H2Se, or H2S over Se-capped films, while temperature changes. XRF, XBIC and XEOL are correlated pixel by pixel to follow defect formation. A pre-upgrade demonstration at 600 °C took ~7 min per 10 × 10 µm map. ISN aims to cut map times by more than 100×, with doses low enough for beam-sensitive halide perovskites.",
+      "text": "Thin-film solar cells such as CIGS (copper indium gallium selenide) are cooked at about 600 °C in selenium- or sulfur-bearing gas, and tiny defects that form along the way can ruin efficiency. ISN is designed to follow where copper, indium, gallium and selenium move while the film forms, comparing fluorescence, beam-induced current and luminescence point by point. A pre-upgrade demonstration at 600 °C needed about 7 minutes per 10 × 10 µm map; ISN aims to cut map times more than 100-fold, with doses low enough for beam-sensitive halide perovskites.",
       "refs": [
         "r3",
         "r4",
@@ -88,8 +79,7 @@
     },
     {
       "title": "Battery particles, one crystallite at a time",
-      "plain": "Battery electrodes are powders of tiny crystals. Some take up lithium faster than others, and some crack or degrade. ISN can map the chemistry of individual particles while the battery charges and discharges, to find the first ones that fail.",
-      "expert": "Example: LMFP olivine cathodes, where primary crystallites are 25-200 nm. Fast nano-XANES with a 20 nm beam, plus auxiliary XRD, can resolve mixed phases within a crystallite during cycling. An as-built Hummingbird electrochemical holder has two fluid inlets, heating above 100 °C, bulk electrodes and a flow cell thicker than 200 µm. It rotates for tomography. The APS feature page uses battery defects as its illustrative example.",
+      "text": "Battery electrodes are powders of tiny crystals; some take up lithium faster than others, and some crack or degrade. In olivine cathodes such as lithium manganese iron phosphate (LMFP) the individual crystallites are only 25–200 nm across, so fast chemical mapping by nano-XANES (X-ray absorption near-edge structure spectroscopy) with a 20 nm beam, helped by diffraction, can resolve mixed phases inside one crystallite while the battery cycles. The as-built electrochemical holder has two fluid inlets, heats above 100 °C, takes bulk electrodes and a flow cell more than 200 µm thick, and rotates for tomography.",
       "refs": [
         "r4",
         "r5",
@@ -98,8 +88,7 @@
     },
     {
       "title": "Catalysts caught in the act",
-      "plain": "Most fuels and chemicals are made with catalysts, and catalysts change shape and chemistry once they are taken out of the reactor. ISN's gas cell heats samples to about 1000 °C in flowing gas, so scientists can see the active metals as they really are while they work.",
-      "expert": "Targets in the design studies: metal poisoning (Fe, Ni) in fluid-catalytic-cracking particles; the chemical state near grain boundaries of Cu CO2-reduction electrocatalysts under bias; buried interfaces in photo-electrochemical devices. The as-built Hummingbird catalysis and synthesis holder has two pressure-controlled gas inlets, four bias channels and heating to 1000 °C with low drift.",
+      "text": "Most fuels and chemicals are made with catalysts, and catalysts change shape and chemistry once they are taken out of the reactor. ISN's gas cell heats samples to 1,000 °C in flowing gas, with two pressure-controlled gas inlets and four electrical bias channels, so the active metals can be seen as they work. Design studies target metal poisoning by iron and nickel in fluid-catalytic-cracking particles, the chemical state near grain boundaries of copper electrocatalysts for CO₂ reduction under bias, and buried interfaces in photo-electrochemical devices.",
       "refs": [
         "r4",
         "r9"
@@ -107,24 +96,21 @@
     },
     {
       "title": "Finding stray atoms in next-generation chips",
-      "plain": "Modern transistors are only a few nanometres wide. A few misplaced metal atoms can make the insulation between them fail. ISN's hard X-rays see through a whole intact chip and can spot traces of metal at the 0.1% level in tiny regions.",
-      "expert": "The 2017 science case targets dopants, impurities and defects in intact 3D device stacks. Examples are high-k dielectrics and Cu/Co back-end-of-line interconnects at the 7 nm node and beyond. ISN is described as the only non-destructive tool sensitive to impurities at ≤0.1% in small regions of an intact system.",
+      "text": "Modern transistors are only a few nanometres wide, and a few misplaced metal atoms can make the insulation between them fail. ISN's hard X-rays pass through a whole intact chip, so it can look for dopants, impurities and defects in stacked 3D devices, for example in high-k dielectrics (the high-permittivity insulating layers) and in copper or cobalt wiring at the 7 nm technology node and beyond. The 2017 science case describes ISN as the only non-destructive tool sensitive to impurities at 0.1% or below in small regions of an intact system.",
       "refs": [
         "r4"
       ]
     },
     {
       "title": "Electrochemical interfaces for fuel cells and electrolyzers",
-      "plain": "Fuel cells and water electrolyzers rely on thin layers of precious metals whose structure shifts as they run. ISN can watch these layers in liquid, under voltage, at the 10-100 nanometre scale where the changes start.",
-      "expert": "Proposals from the 2023 ISN/PtychoProbe first-experiments workshop include: (1) imaging the distribution of functional phases in PEM fuel-cell and electrolyzer electrodes during fabrication and operation; (2) resolving composition dynamics of partial Au and Pt films on Ir(hkl) over 10-100 nm, where surface diffusion is faster in electrolyte than in gas; (3) vacancy formation in 2D TMD H2-evolution catalysts. The proposals were made for both ISN and PtychoProbe; the Au/Pt-on-Ir abstract names a purpose-built in situ electrochemical cell as the key enabler, which is where ISN's long working distance matters.",
+      "text": "Fuel cells and water electrolysers rely on thin layers of precious metals whose structure shifts as they run. Proposals from the 2023 first-experiments workshop for ISN and its sister nanoprobe PtychoProbe include mapping the functional phases in fuel-cell and electrolyser electrodes while they are made and run, following partial gold and platinum films on iridium crystals over 10–100 nm in liquid, where surface diffusion is faster than in gas, and vacancy formation in atomically thin catalysts for hydrogen evolution. The gold and platinum study names a purpose-built electrochemical cell as the key enabler, which is where ISN's long working distance matters. These are proposals, not yet results.",
       "refs": [
         "r18"
       ]
     },
     {
       "title": "Environmental and quantum materials",
-      "plain": "The same tool can look for valuable metals and toxic elements in coal ash, follow microbes interacting with minerals, or cool quantum materials to minus 233 °C (40 K) to see how tiny regions behave.",
-      "expert": "Workshop topics include nanoscale characterization of coal-ash resource potential and environmental risk, in situ crystallization of epitaxial complex oxides, and driven dynamics in quantum materials. The PDR also points to the earth and environmental community: microbes at soil and gas interfaces, and subsurface carbon sequestration. An APS-built closed-cycle He (ARS) cryostat holder covers 40-355 K with feedback control and is designed for ultralow vibration (still in development at publication).",
+      "text": "The same tool can look for valuable metals and toxic elements in coal ash, follow microbes at soil and gas interfaces, or study carbon stored underground. For quantum materials, an APS-built holder cooled by a closed-cycle helium cryostat reaches 40 K (−233 °C) and goes up to 355 K, designed for ultralow vibration; it was still in development when last described. Workshop topics also include growing epitaxial complex-oxide films in situ and driving quantum materials out of equilibrium.",
       "refs": [
         "r18",
         "r3",
@@ -135,15 +121,15 @@
   "keyParameters": [
     {
       "label": "Photon energy range",
-      "value": "4.8-30 keV",
+      "value": "4.8–30 keV",
       "source": "r1",
-      "note": "Also in the APS directory and MEDSI'25 paper. The JACoW abstract of the same MEDSI'25 paper says 5-30 keV."
+      "note": "Also in the APS directory and MEDSI'25 paper. The JACoW abstract of the same MEDSI'25 paper says 5–30 keV."
     },
     {
       "label": "Focal spot (design)",
       "value": "20 nm × 20 nm FWHM at 25 keV",
       "source": "r1",
-      "note": "Directory lists focused size 0.02 × 0.02 µm. 2025/2026 conference abstracts quote ~25-30 nm at 25 keV. The as-commissioned spot is still being optimized."
+      "note": "Directory lists focused size 0.02 × 0.02 µm. 2025/2026 conference abstracts quote ~25–30 nm at 25 keV. The as-commissioned spot is still being optimized."
     },
     {
       "label": "Diffraction-limited spot vs energy (design)",
@@ -161,7 +147,7 @@
       "label": "Optical working distance (end of KBH to focus)",
       "value": "61 mm",
       "source": "r9",
-      "note": "MEDSI'20 also gives 61 mm. FDR 4-7.7.5: nominal 60 mm, 55 mm once the KB enclosure is included; FDR 4-7.2 and the PDR quote 55 mm; SPIE 2021 quotes 60 mm. In-vacuum sample space 47 mm, 55 mm with the chamber top removed. Directory: 20-50 mm depending on configuration."
+      "note": "MEDSI'20 also gives 61 mm. FDR 4-7.7.5: nominal 60 mm, 55 mm once the KB enclosure is included; FDR 4-7.2 and the PDR quote 55 mm; SPIE 2021 quotes 60 mm. In-vacuum sample space 47 mm, 55 mm with the chamber top removed. Directory: 20–50 mm depending on configuration."
     },
     {
       "label": "Source-to-sample distance",
@@ -183,7 +169,7 @@
     },
     {
       "label": "Undulator K / first harmonic at device minimum gap (8.5 mm)",
-      "value": "U21: K=1.38, E1=8.35/8.32 keV (US/DS); U25: K=2.00, E1=4.56/4.57 keV (US/DS)",
+      "value": "U21: K = 1.38, E₁ = 8.35 / 8.32 keV (upstream / downstream); U25: K = 2.00, E₁ = 4.56 / 4.57 keV (upstream / downstream)",
       "source": "r7",
       "note": "Zero-emittance 6.0 GeV calculation at the 8.5 mm device minimum gap. Current user minimum gap is 8.7 mm (admin minimum 8.67/8.64 mm)."
     },
@@ -191,7 +177,7 @@
       "label": "Undulator power (per device, min gap, 200 mA)",
       "value": "U21: 5.4 kW, 216 kW/mrad²; U25: 8.1 kW, 226 kW/mrad²",
       "source": "r7",
-      "note": "Through the 2 × 2 mm² FE mask: 2.28 kW (FDR Table 4.48, Ky=1.939)"
+      "note": "Through the 2 × 2 mm² FE mask: 2.28 kW (FDR Table 4.48, Kᵧ = 1.939)"
     },
     {
       "label": "Front end",
@@ -201,19 +187,19 @@
     },
     {
       "label": "Monochromator",
-      "value": "LN2-cooled horizontally deflecting Si(111) DCM, ΔE/E ≈ 1.4 × 10⁻⁴",
+      "value": "LN₂-cooled horizontally deflecting Si(111) DCM, ΔE/E ≈ 1.4 × 10⁻⁴",
       "source": "r6",
-      "note": "FDR also specifies a Mo/B4C DMM (d = 25 Å, ~10⁻² bandwidth). The directory lists only the H-DCM. DMM status unconfirmed."
+      "note": "FDR also specifies a Mo/B₄C DMM (d = 25 Å, ~10⁻² bandwidth). The directory lists only the H-DCM. DMM status unconfirmed."
     },
     {
       "label": "Beam-defining apertures (secondary source)",
-      "value": "BDA-V at 55 m, BDA-H at 64 m; minimum aperture ~3.5-4 µm",
+      "value": "BDA-V at 55 m, BDA-H at 64 m; minimum aperture ~3.5–4 µm",
       "source": "r1",
-      "note": "Coherence-matched sizes at 25 keV ≈ 3.6 µm (V) and 10.6 µm (H), computed with 0.44 λz/A; the FDR's fully coherent setting is 13.0 × 4.1 µm² (H × V) and FDR Fig. 4.50 quotes BDA_v 6.5 µm, BDA_h 20 µm at 25 keV. FDR text says 3.5 µm minimum for BDA-V; Table 4.49 says ~4 µm for both. Secondary-source (beam) size at the slits, a geometric estimate for the flat-beam source: ≈6.5 µm FWHM (V, M2 at 29 m imaging 1:0.9) and ≈28 µm FWHM (H, M3 at 35 m imaging 1:0.83). The PDR's 16.4-18 µm (H) assumed the horizontal mirror at 43 m (1:0.49 demagnification)."
+      "note": "Coherence-matched sizes at 25 keV ≈ 3.6 µm (V) and 10.6 µm (H), computed with 0.44 λz/A; the FDR's fully coherent setting is 13.0 × 4.1 µm² (H × V) and FDR Fig. 4.50 quotes BDA_v 6.5 µm, BDA_h 20 µm at 25 keV. FDR text says 3.5 µm minimum for BDA-V; Table 4.49 says ~4 µm for both. Secondary-source (beam) size at the slits, a geometric estimate for the flat-beam source: ≈6.5 µm FWHM (V, M2 at 29 m imaging 1:0.9) and ≈28 µm FWHM (H, M3 at 35 m imaging 1:0.83). The PDR's 16.4–18 µm (H) assumed the horizontal mirror at 43 m (1:0.49 demagnification)."
     },
     {
       "label": "KB mirrors (as built)",
-      "value": "KBV L=404 mm, q=396 mm; KBH L=129 mm, q=125.5 mm; gap 4 mm; θ=2.5 mrad; Si(100); figure error <2.0 nm; roughness <0.15 nm rms; JTEC",
+      "value": "KBV L = 404 mm, q = 396 mm; KBH L = 129 mm, q = 125.5 mm; gap 4 mm; θ = 2.5 mrad; Si(100); figure error < 2.0 nm; roughness < 0.15 nm rms; JTEC",
       "source": "r9",
       "note": "FDR: NF(v) 400 mm upstream of the sample, NF(h) 125 mm; Pt-coated elliptical cylinders; NA 1.67 / 1.74 mrad at 25 keV in FDR Fig. 4.50. The as-built '<2.0 nm' figure-error spec does not state its metric (likely peak-to-valley); the FDR rms targets were 0.38 nm (V) and 0.45 nm (H)"
     },
@@ -227,13 +213,13 @@
       "label": "Sample scanning",
       "value": "10 × 10 mm range, up to 2 kg, fly scans up to 1 mm/s",
       "source": "r9",
-      "note": "Vertical fly scans: 1 mm/s for ROI <90 µm, 0.1 mm/s for ROI <10 mm"
+      "note": "Vertical fly scans: 1 mm/s for ROI < 90 µm, 0.1 mm/s for ROI < 10 mm"
     },
     {
       "label": "Sample environments",
-      "value": "vacuum, air or inert gas; 40 K to >1000 °C; gas and liquid flow; electrical bias",
+      "value": "vacuum, air or inert gas; 40 K to >1,000 °C; gas and liquid flow; electrical bias",
       "source": "r9",
-      "note": "Cryostat holder: 40-355 K. Gas/heating holder: up to 1000 °C. Electrochemistry holder: >100 °C."
+      "note": "Cryostat holder: 40–355 K. Gas/heating holder: up to 1,000 °C. Electrochemistry holder: >100 °C."
     },
     {
       "label": "Endstation thermal stability",
@@ -243,7 +229,7 @@
     },
     {
       "label": "Floor vibration criterion",
-      "value": "VC-G (0.78 µm/s rms, 1-100 Hz) on a 1 m thick isolated slab",
+      "value": "VC-G (0.78 µm/s rms, 1–100 Hz) on a 1 m thick isolated slab",
       "source": "r9",
       "note": "Slab-isolation analysis: Synchrotron Radiation News 2019"
     },
@@ -273,7 +259,7 @@
         "lengthM": 2.35,
         "count": 1,
         "polarization": "linear horizontal",
-        "notes": "Selectable structures: APS21#7, 2.1 cm × 112 periods, or APS25#2, 2.5 cm × 94 periods. periodMm here is illustrative: either structure can be active. FDR Table 3.13 lists a phase shifter/corrector between the two in-line devices to keep them in phase.",
+        "notes": "Selectable structures: APS21#7, 2.1 cm × 112 periods, or APS25#2, 2.5 cm × 94 periods. The listed 25 mm period represents one selectable structure; either can be active. FDR Table 3.13 lists a phase shifter/corrector between the two in-line devices to keep them in phase.",
         "source": "r7"
       }
     ],
@@ -298,12 +284,12 @@
       "distanceNote": "Approximate: two ~2.35 m devices (N × period) and a short phase shifter share the ~4.8 m straight; centres drawn 1.25 m either side of the straight-section centre (source point = 0). Exact centres are not published.",
       "enclosure": "Storage-ring straight section 19",
       "deflection": "none",
-      "plain": "The first of two magnet rows in the ring's straight section. Its magnets wiggle the passing electrons so they shine a bright X-ray beam, and each magnet set can be turned like a revolver to swap between two 'gears': one for low X-ray energies, one for high.",
-      "expert": "Hybrid PM revolver with 2.1 cm/112-period and 2.5 cm/94-period structures (Keff 1.38/2.00 at 8.5 mm). Gap minimum 8.5 mm (user minimum 8.7 mm). Per device at min gap and 200 mA: 5.4 kW (U21) or 8.1 kW (U25).",
+      "text": "The upstream of two undulators in the ring's straight section: a 2.35 m row of alternating permanent magnets that makes the passing 6 GeV electrons wiggle, so they emit a bright, narrow X-ray beam. Like a revolver, it carries two magnet rows on one rotating support and turns, with its gap open, to swap between them: the 25 mm-period row reaches down to 4.56 keV and covers ISN's low-energy end, while the 21 mm row (lowest fundamental energy 8.35 keV) boosts brightness at high energy. At the 8.5 mm minimum gap and 200 mA it radiates 5.4 kW (21 mm) or 8.1 kW (25 mm); users work at 8.7 mm or more.",
       "specs": {
         "periods": "2.1 cm × 112 / 2.5 cm × 94",
         "E1 at min gap": "8.35 keV (U21) / 4.56 keV (U25)",
-        "min gap": "8.5 mm design, 8.7 mm user"
+        "min gap": "8.5 mm design, 8.7 mm user",
+        "power at min gap, 200 mA": "5.4 kW (U21) / 8.1 kW (U25)"
       },
       "source": "r7"
     },
@@ -316,8 +302,7 @@
       "distanceNote": "Approximate: between the two in-line undulators at the straight-section centre (inferred from FDR Table 3.13).",
       "enclosure": "Storage-ring straight section 19",
       "deflection": "none",
-      "plain": "A short magnet between the two undulators. It delays the electrons by a hair so the light from both undulators adds up in step instead of partly cancelling.",
-      "expert": "FDR Table 3.13 lists a 'phase shifter/corrector' for 19-ID dual in-line revolvers. Required because the optimal phasing varies with gap (FDR 3-3.3.6). As-built implementation not confirmed in public sources.",
+      "text": "A short magnet between the two undulators that delays the electrons by a hair, so the light from both devices adds up in step instead of partly cancelling. The right delay changes with the undulator gap, so it must be adjustable. The design lists a phase shifter/corrector here, but its as-built form is not confirmed in public sources.",
       "specs": {},
       "source": "r2"
     },
@@ -330,8 +315,7 @@
       "distanceNote": "Approximate (see the upstream device): centre ~1.25 m downstream of the straight-section centre.",
       "enclosure": "Storage-ring straight section 19",
       "deflection": "none",
-      "plain": "The second undulator, built like the first. Lined up one behind the other and kept in step, the pair makes the beam roughly twice as bright as one alone.",
-      "expert": "Structures APS21#7 (2.1 cm) and APS25#2 (2.5 cm). Total magnetic length of the pair ≈ 4.7 m (FDR: 'revolver undulator of 4.6 m length').",
+      "text": "The second revolver undulator, built like the first and placed directly behind it. Lined up and kept in step by the phase shifter, the pair acts like one undulator about 4.7 m long and makes the beam roughly twice as bright as one device alone.",
       "specs": {
         "periods": "2.1 cm × 112 / 2.5 cm × 94"
       },
@@ -343,15 +327,15 @@
       "category": "frontEnd",
       "branch": "main",
       "distanceM": 20.0,
-      "distanceNote": "Schematic placeholder: the front end runs inside the storage-ring tunnel from roughly 14 m to the FOE at ~24-26 m. No 19-ID-specific positions are published apart from the exit mask and collimator. The windowless exit uses a differential pumping section, placed at ~25.5 m in the 2017 PDR layout.",
+      "distanceNote": "Schematic placeholder: the front end runs inside the storage-ring tunnel from roughly 14 m to the FOE at ~24–26 m. No 19-ID-specific positions are published apart from the exit mask and collimator. The windowless exit uses a differential pumping section, placed at ~25.5 m in the 2017 PDR layout.",
       "enclosure": "Storage-ring tunnel",
       "deflection": "none",
-      "plain": "The front end, inside the thick concrete shielding of the accelerator tunnel. It stands guard between accelerator and beamline: masks soak up excess heat, shutters can stop the beam in an instant, and monitors check where it points. ISN's has no window, so nothing disturbs the beam's orderly waves.",
-      "expert": "APS-U HHLFE based on the 28-ID design: 21 kW / 590 kW/mrad² limits. Includes a clearing magnet, burn-through fixed mask (BTFM1), photon shutter with IM1, GRID XBPM1 (required AC 0.01-1000 Hz resolution 3.7 µm H / 2.4 µm V, FDR Table 3.4), and safety shutters. ISN uses a windowless differential-pumping exit to preserve wavefront quality.",
+      "text": "The front end, inside the thick concrete shielding of the accelerator tunnel, stands guard between the ring and the beamline: masks absorb unwanted power, shutters can stop the beam, and position monitors check where it points. It is the standard high-heat-load design of the upgraded APS, rated for 21 kW in total and 590 kW/mrad² at the beam's centre. ISN's has no exit window, only a differential pumping section that keeps the vacuums apart, so nothing disturbs the beam's wavefront.",
       "specs": {
         "power limit": "21 kW",
         "peak power density limit": "590 kW/mrad²",
-        "exit": "windowless (differential pumping)"
+        "exit": "windowless (differential pumping)",
+        "XBPM1 required resolution (0.01–1,000 Hz)": "3.7 µm (H) / 2.4 µm (V)"
       },
       "source": "r2"
     },
@@ -364,11 +348,11 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A (first optics enclosure)",
       "deflection": "none",
-      "plain": "A thick metal block with a 2-millimetre square hole. Only the bright core of the X-ray fan, still carrying up to 2.3 kilowatts, gets through to the optics, and a built-in monitor checks where the beam points.",
-      "expert": "Standard HHL exit mask, 2 × 2 mm² (H × V) aperture. Transmits up to 2.28 kW at Ky = 1.939 (FDR Table 4.48). XBPM2 is integrated into the exit mask (FDR ch. 3). The 2020 shielding study used a 2 (H) × 1 (V) mm aperture.",
+      "text": "A thick metal block with a 2 mm square hole, the last aperture of the front end. Only the bright core of the undulator's X-ray fan gets through, still carrying up to 2.28 kW, and a built-in position monitor checks where the beam points. A 2020 shielding study assumed a 2 mm wide × 1 mm tall opening; the as-built value is not confirmed.",
       "specs": {
         "aperture": "2 × 2 mm²",
-        "transmitted power": "2.28 kW max"
+        "transmitted power": "2.28 kW max",
+        "aperture in 2020 shielding study": "2 (H) × 1 (V) mm"
       },
       "source": "r1"
     },
@@ -381,8 +365,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "A heavy-metal block with a 5-millimetre opening. It stops stray gamma rays made in the accelerator while letting the X-ray beam through.",
-      "expert": "Standard HHL front-end exit (bremsstrahlung) collimator. Aperture narrowed to 5 × 5 mm² for APS-U small-offset monochromators.",
+      "text": "A heavy-metal block with a 5 mm square opening that stops bremsstrahlung (high-energy gamma rays made when stored electrons strike leftover gas in the ring) while letting the X-ray beam through. For the upgrade its opening was narrowed to 5 × 5 mm², so beamlines whose monochromators shift the beam only slightly sideways can still keep the bremsstrahlung contained.",
       "specs": {
         "aperture": "5 × 5 mm²"
       },
@@ -397,8 +380,7 @@
       "distanceNote": "Exact: FDR Table 4.49. A small pump stand (RGA, gauges) sits at 27.3 m.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "Four adjustable jaws that trim the raw 'white' beam, which still holds every X-ray colour at once. They set how much of the beam, and how much heat, lands on the first mirror.",
-      "expert": "HHL tilting-type white-beam slits. They set the illuminated length and total power on M1. Per the PDR, the WBS defines beam size and power for the mirror system.",
+      "text": "Four adjustable jaws that trim the raw white beam, which still holds every X-ray energy the undulators emit. Their opening sets how much of the first mirror is lit and how much heat it must absorb.",
       "specs": {
         "type": "HHL tilting"
       },
@@ -413,14 +395,16 @@
       "distanceNote": "Exact: FDR Table 4.49 (Knopp 2018 also gives 28 m). M1 and M2 share one vacuum vessel in the FOE drawing (NIMA 2020 Fig. 3a).",
       "enclosure": "19-ID-A",
       "deflection": "vertical",
-      "plain": "A flat, water-cooled silicon mirror 40 centimetres long that the beam skims at about a seventh of a degree. It reflects only the X-ray colours wanted, absorbs up to about 450 watts of heat, and with the next mirror drops the beam by about 5 millimetres.",
-      "expert": "Flat Si mirror, 400 × 50 × 50 mm, water-cooled, downward reflecting at 2.5 mrad (5 mrad deflection). Bare Si, Cr and Pt stripes, selected by horizontal translation, for harmonic rejection across 4.8-30 keV. Absorbs up to 455 W, peak 1.16 W/mm². Thermal slope error <0.05 µrad after correction. Side-notch cooling cuts thermal deformation ~10×.",
+      "text": "A flat, water-cooled silicon mirror 40 cm long that the beam skims at 2.5 mrad, about a seventh of a degree, reflecting it downward. Its three stripes (bare silicon, chromium and platinum) each reflect only up to a certain energy, so choosing one rejects unwanted high-energy harmonics across 4.8–30 keV. It absorbs up to 455 W; a side notch with cooling above it cuts heat-induced bending about tenfold. Together with M2 it lowers the beam by about 5 mm.",
       "specs": {
         "length": "400 mm",
         "angle": "2.5 mrad",
         "stripes": "Si / Cr / Pt",
         "cooling": "water, side notch",
-        "max absorbed power": "455 W"
+        "max absorbed power": "455 W",
+        "size": "400 × 50 × 50 mm",
+        "peak absorbed power density": "1.16 W/mm²",
+        "thermal slope error after correction": "< 0.05 µrad"
       },
       "source": "r1"
     },
@@ -433,13 +417,14 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "vertical",
-      "plain": "A second mirror, facing up, that tips the beam back to level. Bent by a whisker, to a curve about 10 kilometres in radius, it also focuses the beam vertically onto a tiny slit 26 metres downstream.",
-      "expert": "Upward-reflecting, water-cooled, mechanically bent pink-beam mirror at 2.5 mrad, same three stripes as M1. Focuses vertically, near 1:1, onto BDA-V at 55 m. FDR: bending radius as small as ~10 km, which matches pure 29 m to 55 m focusing (R = 2pq/((p+q)θ) ≈ 11 km, computed). The bend also corrects the thermal bumps of M1 and M2; MEDSI'18 FEA needed a 4.38 km radius at 5 keV, the worst heat-load case. The two sources disagree on the minimum radius. Absorbs ~13 W.",
+      "text": "A second mirror, facing up, that tips the beam back to level. Bent by a whisker into a gentle curve, it also focuses the beam vertically onto a tiny slit 26 m downstream, nearly one-to-one, and the bend corrects heat bumps on both mirrors. It sees only the pink beam, which still spans a broad band of energies, and absorbs about 13 W. Sources disagree on the tightest bend needed: about 10 km in the 2019 final design, but 4.38 km at 5 keV in a 2018 heat-load study.",
       "specs": {
         "length": "400 mm",
         "angle": "2.5 mrad",
         "focus": "BDA-V at 55 m",
-        "min radius": "~10 km"
+        "min radius": "~10 km",
+        "absorbed power": "~13 W",
+        "radius for thermal correction (2018 FEA, 5 keV)": "4.38 km"
       },
       "source": "r1"
     },
@@ -452,8 +437,7 @@
       "distanceNote": "Exact: FDR Table 4.49 (listed at 29.7 m together with PM-1).",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "A lead shielding block that stops stray radiation travelling along the old straight-through path, which the mirrored beam no longer uses.",
-      "expert": "Secondary bremsstrahlung collimator downstream of the mirror pair.",
+      "text": "A lead shielding block that stops stray radiation travelling along the old straight-through path, which the mirrored beam no longer uses. It sits just after the mirror pair, together with the white-beam stop.",
       "specs": {},
       "source": "r1"
     },
@@ -466,8 +450,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "A stop that catches any raw 'white' beam that missed the mirrors. Only the mirror-reflected 'pink' beam, now about 5 millimetres lower, slips past underneath.",
-      "expert": "Pink-beam aperture and white-beam stop. Accommodates the vertical offset after M1/M2: about 5 mm downward from 5 mrad × 1.0 m, a geometric estimate.",
+      "text": "A stop that catches any raw white beam that missed the mirrors. Only the mirror-reflected pink beam, already stripped of its highest energies and now about 5 mm lower, slips past underneath; the 5 mm is a geometric estimate (5 mrad × 1.0 m between the mirrors).",
       "specs": {},
       "source": "r1"
     },
@@ -480,8 +463,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "A pop-in fluorescent screen. It glows where the X-rays hit, so staff can watch the beam on a camera and line it up.",
-      "expert": "Diagnostic flag assembly downstream of the mirror pair.",
+      "text": "A pop-in fluorescent screen. It glows where the X-rays hit, so staff can watch the beam on a camera and line it up after the mirrors.",
       "specs": {},
       "source": "r1"
     },
@@ -494,28 +476,28 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "Adjustable jaws that limit the size of the pink beam, and so the heat, reaching the monochromators.",
-      "expert": "Pink slits, CUFE tilting type.",
+      "text": "Adjustable jaws that limit the size of the pink beam, and so the heat, reaching the monochromators. Like the white-beam slits, they are built for high heat loads.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "dcm",
-      "name": "Double-crystal monochromator, LN2-cooled H-DCM (19ID-MN-1)",
+      "name": "Double-crystal monochromator, LN₂-cooled H-DCM (19ID-MN-1)",
       "category": "monochromator",
       "branch": "main",
       "distanceM": 31.7,
       "distanceNote": "Exact: FDR Table 4.49 (FOE drawing places it at ~31.4 m).",
       "enclosure": "19-ID-A",
       "deflection": "horizontal",
-      "plain": "Two perfect silicon crystals, cooled with liquid nitrogen, that pick out a single X-ray colour (energy). Turning them sweeps the energy across an element's absorption edge to read its chemical state; they bounce the beam sideways, not up and down, so any flaw they add stays out of the beam's sharpest, up-and-down direction.",
-      "expert": "Small-offset Si(111) DCM, LN2-cooled, fixed exit, horizontally deflecting (inboard). Crystal motions are minimized for inter-crystal angular stability (~0.1 µrad target per PDR Table 6.25). Horizontal geometry protects the vertical wavefront but costs some π-polarization reflectivity (83% at 5 keV per the PDR). ΔE/E ≈ 1.4 × 10⁻⁴. Incident pink-beam power after M1/M2 is ~80 W (5 keV case).",
+      "text": "The monochromator: two perfect silicon crystals, cooled with liquid nitrogen, that pass a single X-ray energy with a spread of only 1.4 parts in 10,000. Turning them sweeps the energy across an element's absorption edge to read its chemical state, while the exit beam stays fixed. They bounce the beam sideways rather than up or down, so any distortion they add stays out of the vertical, where the source is smallest and most coherent. The price is polarization: the undulator light is polarized horizontally, so a sideways reflection is less efficient; the 2017 preliminary design puts the reflectivity at about 83% at 5 keV.",
       "specs": {
         "crystal": "Si(111)",
-        "cooling": "LN2",
+        "cooling": "LN₂",
         "bandwidth": "1.4 × 10⁻⁴",
         "geometry": "horizontal, fixed exit, small offset",
-        "incident power after mirrors": "~80 W at 5 keV (FDR Table 4.55)"
+        "incident power after mirrors": "~80 W at 5 keV (FDR Table 4.55)",
+        "inter-crystal stability target (PDR)": "~0.1 µrad",
+        "π-polarization reflectivity (PDR)": "83% at 5 keV"
       },
       "source": "r1"
     },
@@ -528,12 +510,14 @@
       "distanceNote": "Exact: FDR Table 4.49 (FOE drawing places it at ~32.5 m). As-built status unconfirmed: the beamline directory lists only the H-DCM.",
       "enclosure": "19-ID-A",
       "deflection": "horizontal",
-      "plain": "A 'wide-band' alternative to the crystals, made of hundreds of nanometre-thin molybdenum and boron-carbide layers. Passing about 1% of the colours gives roughly 25 times more X-rays for fast element maps when chemistry is not needed. It is in the design; whether it has been installed is not confirmed.",
-      "expert": "Design: Mo/B4C, d = 25 Å (9/16 Å), 300 bilayers. Conservative alternative: d = 20 Å, 600 bilayers (40% narrower BW, -15% reflectance). LN2-cooled, fixed exit, flexure-guided, horizontally deflecting inboard. Delivers ~11.6 W to each BDA in the worst case.",
+      "text": "A wide-band alternative to the crystals: two mirrors coated with 300 pairs of alternating nanometre-thin layers of molybdenum and boron carbide, which reflect a band of energies about 1% wide instead of the crystals' 0.014%. Where chemical detail is not needed, that gives roughly 25 times more X-rays for fast element maps. It is in the design, but the 2026 beamline directory lists only the crystal monochromator, so whether it has been installed is not confirmed.",
       "specs": {
-        "multilayer": "Mo/B4C, d = 2.5 nm",
+        "multilayer": "Mo/B₄C, d = 2.5 nm",
         "bandwidth": "~10⁻²",
-        "cooling": "LN2"
+        "cooling": "LN₂",
+        "bilayers": "300",
+        "conservative alternative": "d = 2.0 nm, 600 bilayers (40% narrower band, 15% lower reflectance)",
+        "power on each BDA (worst case)": "~11.6 W"
       },
       "source": "r1"
     },
@@ -546,8 +530,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "A safety mask that catches the beam if it is ever steered the wrong way.",
-      "expert": "Photon mask against pink-beam missteering.",
+      "text": "A safety mask that catches the pink beam if it is ever steered the wrong way, so it cannot strike unprotected parts of the beamline.",
       "specs": {},
       "source": "r1"
     },
@@ -560,8 +543,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "Lead shielding that keeps the most energetic stray radiation inside this first hutch.",
-      "expert": "Lead primary bremsstrahlung collimator.",
+      "text": "A lead collimator that keeps the most energetic stray radiation, the bremsstrahlung gamma rays from the accelerator, inside this first optics enclosure. It is the primary collimator, the main barrier between the straight-through radiation and the hutches downstream.",
       "specs": {
         "material": "Pb"
       },
@@ -576,8 +558,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-A",
       "deflection": "none",
-      "plain": "Adjustable jaws that set how much of the horizontal focusing mirror the beam lights up.",
-      "expert": "Pink slits, tilting type, upstream of M3.",
+      "text": "Adjustable jaws just before M3 that set how much of the horizontal focusing mirror the beam lights up, and so how much of the beam reaches the horizontal slit at 64 m.",
       "specs": {},
       "source": "r1"
     },
@@ -590,13 +571,14 @@
       "distanceNote": "Exact: FDR Table 4.49; the NIMA 2020 FOE drawing shows M3 at the downstream end of 19-ID-A. NOTE: FDR Fig. 4.40 (and the 2017 PDR) label this mirror at 43 m, which is superseded.",
       "enclosure": "19-ID-A",
       "deflection": "horizontal",
-      "plain": "A platinum-coated mirror that turns the beam about 0.3 degrees toward the ring and, gently bent, focuses it side to side onto a second tiny slit 29 metres downstream. From here to the far end, the whole beamline follows this slightly turned line.",
-      "expert": "Inboard-deflecting, bendable, Pt-coated mirror at 2.5 mrad (5 mrad deflection). Focuses horizontally onto BDA-H at 64 m and accepts beam from either the DCM or the DMM. Slope error <0.1 µrad; radius as small as ~11 km. Vertical translation selects the stripe. Consistency check (computed): focusing onto 64 m needs R = 2pq/((p+q)θ) ≈ 12.7 km from 35 m but ≈ 11.3 km from 43 m, so the FDR's '~11 km' matches the older 43 m layout. With M3 at 35 m the horizontal source is imaged nearly 1:1 (0.83×) rather than demagnified 2× as in the PDR.",
+      "text": "A platinum-coated mirror that turns the beam 5 mrad (about 0.3°) toward the ring and, gently bent, focuses it side to side onto the second tiny slit, 29 m downstream. From here on the whole beamline follows this slightly turned line, which ends roughly 0.9 m inboard of the straight-through path at 220 m. It accepts beam from either monochromator. The 2017 preliminary design put this mirror at 43 m, where it would have shrunk the source image by half; at 35 m, its position in the final design, it images the source almost one-to-one (0.83×, a geometric estimate).",
       "specs": {
         "angle": "2.5 mrad",
         "coating": "Pt",
         "focus": "BDA-H at 64 m",
-        "min radius": "~11 km"
+        "min radius": "~11 km",
+        "slope error": "< 0.1 µrad",
+        "source imaging at 35 m (estimate)": "~0.83×"
       },
       "source": "r1"
     },
@@ -606,13 +588,12 @@
       "category": "beamPipe",
       "branch": "main",
       "distanceM": 42.0,
-      "distanceNote": "Exact span 35.8-48.2 m (FDR Table 4.49); midpoint given. The FDR table says 'to 19-ID-B', but the FDR's own optics text places BDA-V 'in enclosure C' and the NIMA 2020 plan labels the hutch 19-ID-C, so 'B' looks like a table error.",
+      "distanceNote": "Exact span 35.8–48.2 m (FDR Table 4.49); midpoint given. The FDR table says 'to 19-ID-B', but the FDR's own optics text places BDA-V 'in enclosure C' and the NIMA 2020 plan labels the hutch 19-ID-C, so 'B' looks like a table error.",
       "enclosure": "Experiment hall floor (between hutches)",
       "deflection": "none",
-      "plain": "A lead-shielded vacuum pipe, 12.4 metres long, that carries the beam safely across the open experiment-hall floor to the next hutch.",
-      "expert": "Lead-shielded vacuum transport, 12.4 m long.",
+      "text": "A lead-shielded vacuum pipe, 12.4 m long, that carries the beam across the open experiment-hall floor from the first optics enclosure to the first aperture hutch, 19-ID-C. Outside the hutches, this shielding is what keeps the hall safe for people walking past.",
       "specs": {
-        "span": "35.8-48.2 m"
+        "span": "35.8–48.2 m"
       },
       "source": "r1"
     },
@@ -625,8 +606,7 @@
       "distanceNote": "Exact: PM-3 at 49.1 m, BC-2 at 49.5 m (FDR Table 4.49); one hotspot at 49.3 m.",
       "enclosure": "19-ID-C",
       "deflection": "none",
-      "plain": "Safety blocks at the entrance of the aperture hutch: a mask against a mis-steered beam and lead shielding against stray radiation.",
-      "expert": "Pink-beam missteering mask plus lead primary bremsstrahlung collimator/stop.",
+      "text": "Safety blocks at the entrance of the first aperture hutch: a mask that catches a mis-steered pink beam, and a lead collimator and stop against stray radiation from the accelerator.",
       "specs": {},
       "source": "r1"
     },
@@ -639,12 +619,12 @@
       "distanceNote": "Exact: FDR Table 4.49; consistent with the NIMA 2020 plan (scaled).",
       "enclosure": "19-ID-C",
       "deflection": "none",
-      "plain": "The heart of ISN's trick. The mirrors focus the beam onto this slit, which can close to just 3.5-4 micrometres, about half the width of a red blood cell, and what passes becomes a clean, steady 'mini source' for the final mirrors 165 metres away. Closing it sharpens the focus; opening it gives more X-rays.",
-      "expert": "Water-cooled vertical aperture at the M2 focus (2017 PDR: vertical secondary-source size ~4.4-6.6 µm). Must reach ~3.5-4 µm with resolution, accuracy and stability to match. It must block 30 keV photons outside the opening (the FDR literally says 'less than 99% ... blocked', apparently meaning <1% transmitted). Gets ~0.2 W with the DCM and up to ~11.6 W with the DMM; at normal incidence the slit would exceed 850 K, so jaws need a grazing-incidence surface. Filters upstream vibration and wavefront errors.",
+      "text": "The heart of ISN's design. M2 focuses the beam onto this slit, which can close to about 3.5–4 µm, roughly half the width of a red blood cell, and what passes becomes a small, clean, steady secondary source for the final mirrors 165 m away. Because those mirrors see only this source, wobbles and wavefront errors of the optics upstream are filtered out. Closed to about 4 µm, the design setting for a fully coherent focus at 25 keV, it gives the sharpest spot; opened, it passes more X-rays into a slightly larger spot. Its jaws take the beam at a grazing angle: with the multilayer monochromator up to 11.6 W can land on them, enough to heat a head-on slit past 850 K.",
       "specs": {
-        "min aperture": "~3.5-4 µm",
+        "min aperture": "~3.5–4 µm",
         "position": "55 m",
-        "power (DCM/DMM)": "0.2 W / up to 11.6 W"
+        "power (DCM/DMM)": "0.2 W / up to 11.6 W",
+        "coherence-matched size at 25 keV (computed)": "≈3.6 µm"
       },
       "source": "r1"
     },
@@ -657,11 +637,12 @@
       "distanceNote": "Exact: FDR Table 4.49; consistent with the NIMA 2020 plan (scaled).",
       "enclosure": "19-ID-D",
       "deflection": "none",
-      "plain": "The matching side-to-side slit, at the focus of the third mirror. Together the two slits act as a tiny pinhole that turns the large, slightly wobbly beam into a small, steady source, so vibrations in the optics upstream never reach the sample.",
-      "expert": "Water-cooled horizontal aperture at the M3 focus (2017 PDR: horizontal secondary-source size ~16-18 µm). Minimum aperture ~4 µm. Example settings: 13.0 × 4.1 µm² (H × V) for fully coherent 16 × 16 nm focus at 25 keV (FDR Fig. 4.41). The PDR used 19 × 6 µm for a 19.6 × 19.8 nm spot. The PDR also required a removable beam flag downstream of the last BDA and beam position monitors after each BDA; their as-built form is not published.",
+      "text": "The matching side-to-side slit, at the focus of M3. Together the two slits act as a tiny adjustable pinhole that turns the large, slightly wobbly beam into a small, steady source, so vibrations in the optics upstream do not reach the sample. For a fully coherent 16 nm focus at 25 keV the design sets the pair to 13.0 µm wide and 4.1 µm tall. The horizontal slit can be the wider one because the short horizontal mirror accepts only a narrow slice of the beam, and light from a wider slit is still coherent across that slice.",
       "specs": {
         "min aperture": "~4 µm",
-        "position": "64 m"
+        "position": "64 m",
+        "fully coherent setting at 25 keV (FDR)": "13.0 × 4.1 µm² (H × V)",
+        "coherence-matched size at 25 keV (computed)": "≈10.6 µm"
       },
       "source": "r1"
     },
@@ -674,8 +655,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-D",
       "deflection": "none",
-      "plain": "A heavy, water-cooled safety shutter. It closes so people can enter the distant endstation while the optics upstream keep running.",
-      "expert": "P9-50 water-cooled pink-beam shutter. Rated for pink beam because a monochromator-retracted beam (one or three mirror reflections) could reach the long transport (cf. NIMA 2020 scenarios).",
+      "text": "A heavy, water-cooled safety shutter. It closes so people can enter the distant endstation while the optics upstream keep running. It is rated for pink beam because, with the monochromator retracted, a mirror-reflected beam could travel down the long transport.",
       "specs": {
         "type": "P9-50, water-cooled"
       },
@@ -687,31 +667,30 @@
       "category": "beamPipe",
       "branch": "main",
       "distanceM": 139.0,
-      "distanceNote": "Exact span 65.5-213.0 m (FDR Table 4.49); midpoint given. Shielded ion-pump stations at 95, 124, 153 and 183 m.",
+      "distanceNote": "Exact span 65.5–213.0 m (FDR Table 4.49); midpoint given. Shielded ion-pump stations at 95, 124, 153 and 183 m.",
       "enclosure": "Experiment hall, LOM area and enclosed corridor to the Long Beamline Building",
       "deflection": "none",
-      "plain": "About 147 metres of vacuum pipe in lead shielding, longer than one and a half football fields. It carries the beam out of the experiment hall, through part of the lab and office wing and an enclosed corridor, to ISN's own building, with pumps every 29 metres keeping the vacuum clean.",
-      "expert": "~146 m of shielded transport, 4-inch inner diameter. Four 200 L/s ion pumps are spaced along it with 100 L/s pumps at the ends; the MolFlow model (outgassing 3 × 10⁻¹⁰ mbar·L/s/cm²) predicted ~2 × 10⁻⁷ mbar at the pumps rising to ~1 × 10⁻⁶ mbar midway between them, and up to ~8 × 10⁻⁶ mbar with two pumps failed (MEDSI 2018 talk, slide 10). Pump stations sit in shielded mini-enclosures. The pipe is wide enough that a mirror-only (pink) beam could reach hutch E, so E is shielded for that case.",
+      "text": "About 147 m of 4-inch (about 10 cm) vacuum pipe in lead shielding, longer than one and a half football fields. It carries the beam out of the experiment hall, through part of the laboratory and office wing and an enclosed corridor, to ISN's endstation in the Long Beamline Building. Ion pumps in shielded stations every 29 m or so keep the pressure near 2 × 10⁻⁷ mbar at the pumps and 1 × 10⁻⁶ mbar between them, according to the design model. The pipe is wide enough that a mirror-only beam could reach the endstation, so the endstation is shielded for that case.",
       "specs": {
-        "span": "65.5-213.0 m",
+        "span": "65.5–213.0 m",
         "inner diameter": "4 in (~102 mm)",
-        "pumps": "4 × 200 L/s + 2 × 100 L/s"
+        "pumps": "4 × 200 L/s + 2 × 100 L/s",
+        "pressure (design model)": "~2 × 10⁻⁷ mbar at pumps, ~1 × 10⁻⁶ mbar between"
       },
       "source": "r1"
     },
     {
       "id": "exit-window",
-      "name": "Double Si3N4 exit window (19ID-WN-1)",
+      "name": "Double Si₃N₄ exit window (19ID-WN-1)",
       "category": "window",
       "branch": "main",
       "distanceM": 213.0,
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "Two ultra-thin silicon-nitride windows that seal the beamline's vacuum off from the endstation. ISN keeps windows to the very end, because every window slightly scrambles the beam's orderly waves.",
-      "expert": "Double Si3N4 window. Windows are kept to the endstation to preserve coherence; the front end is windowless.",
+      "text": "Two ultra-thin silicon-nitride windows that seal the beamline's vacuum off from the endstation. ISN keeps windows to the very end, and its front end has none at all, because every window slightly disturbs the beam's coherent wavefront.",
       "specs": {
-        "material": "Si3N4 (double)"
+        "material": "Si₃N₄ (double)"
       },
       "source": "r1"
     },
@@ -724,8 +703,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "Thin foils that can slide into the beam to dim it for delicate samples.",
-      "expert": "X-ray filters for attenuation, part of the endstation beam-conditioning section on granite blocks in low vacuum.",
+      "text": "Thin foils that can slide into the beam to dim it for delicate samples. They belong to the endstation's beam-conditioning section, which sits on granite blocks, mostly in low vacuum.",
       "specs": {},
       "source": "r1"
     },
@@ -738,8 +716,7 @@
       "distanceNote": "Approximate: between the window (213.0 m) and the KB optics (~219.6 m), on granite blocks (MEDSI'25 Fig. 3). No individual positions published.",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "Cameras, sensors and clean-up slits on heavy granite blocks. They check the beam's position and brightness just before the microscope and trim away stray light.",
-      "expert": "Two scintillator beam-position monitors, clean-up slits and two PIN diodes for flux. Mounted on large granite blocks for stability; mostly low vacuum.",
+      "text": "Cameras, sensors and clean-up slits on heavy granite blocks, the last checks before the microscope. Two scintillator screens act as beam-position monitors, two PIN diodes (silicon photodiodes) measure how many X-rays arrive, and the slits trim away stray light. The granite gives the stability these checks need.",
       "specs": {
         "BPMs": "2 scintillator",
         "flux monitors": "2 PIN diodes"
@@ -755,8 +732,7 @@
       "distanceNote": "Exact: FDR Table 4.49.",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "A quick-acting shutter that lets X-rays onto the sample only while data are being taken, to limit radiation damage.",
-      "expert": "Fast shutter in the endstation beam-conditioning line.",
+      "text": "A quick-acting shutter that lets X-rays onto the sample only while data are being taken, to limit radiation damage. It sits in the endstation's beam-conditioning line, ahead of the focusing mirrors.",
       "specs": {},
       "source": "r1"
     },
@@ -769,14 +745,17 @@
       "distanceNote": "Derived: q_v = 396 mm upstream of the 220.0 m focus (MEDSI'25 Fig. 5a); p = 165.004 m from BDA-V at 55 m.",
       "enclosure": "19-ID-E (UHV optics chamber)",
       "deflection": "vertical",
-      "plain": "A 40-centimetre silicon mirror shaped to within 2 nanometres of a perfect ellipse. Skimming the beam at a seventh of a degree, it squeezes it vertically toward a spot designed to be about 20 nanometres tall, 40 centimetres downstream. To keep that spot still it must hold its tilt to 5 billionths of a radian.",
-      "expert": "JTEC elliptical-cylinder mirror on Si(100): 404 mm long, θ = 2.5 mrad, p = 165.004 m, q = 396 mm. Accepts ~1.0 mm of beam; NA ≈ 1.67 mrad at 25 keV. Spec: figure error <2.0 nm (metric not stated), roughness <0.15 nm rms (FDR target: rms height error <0.38 nm). Pitch stability 5 nrad required, 0.4 nrad rms measured. Pitch is driven differentially by two APS weak-link vertical flexure stages (design aim 1 nm / 5 nrad) with laser-interferometer and capacitive sensors. MEDSI'25 Fig. 5b lists 0.6 nrad fine resolution over a 10 µrad fine range and ±3 mrad coarse range. MEDSI'25 drawing shows it reflecting upward.",
+      "text": "The first of the two final focusing mirrors, in the Kirkpatrick–Baez (KB) arrangement, where one curved mirror focuses vertically and the next horizontally. This one is 404 mm of silicon shaped to within 2 nm of a perfect ellipse; skimming the beam at 2.5 mrad, it takes in about 1 mm of beam and brings it to a focus 396 mm downstream, an image of the slit 165 m upstream shrunk about 400-fold. To keep a ~20 nm spot still, its tilt must hold to 5 nanoradians. During commissioning it held 0.4 nrad rms (root-mean-square), a preliminary figure measured in air with the vacuum pumps off.",
       "specs": {
         "length": "404 mm",
         "focal distance q": "396 mm",
         "source distance p": "165.004 m",
         "NA": "~1.67 mrad",
-        "stability": "5 nrad req., 0.4 nrad rms measured"
+        "stability": "5 nrad required; preliminary 0.4 nrad rms measurement in air with vacuum pumps off",
+        "figure error": "< 2.0 nm (metric not stated)",
+        "roughness": "< 0.15 nm rms",
+        "pitch fine resolution (MEDSI'25)": "0.6 nrad over a 10 µrad range",
+        "maker": "JTEC, Si(100)"
       },
       "source": "r9"
     },
@@ -789,13 +768,15 @@
       "distanceNote": "Derived: q_h = 125.5 mm upstream of the 220.0 m focus (MEDSI'25 Fig. 5a).",
       "enclosure": "19-ID-E (UHV optics chamber)",
       "deflection": "horizontal",
-      "plain": "A shorter, 13-centimetre mirror that focuses the beam side to side. Its end stops 6 centimetres before the focus, leaving room for heaters, gas cells and liquid cells around the sample.",
-      "expert": "JTEC mirror, 129 mm long, q = 125.5 mm, 4 mm gap after KBV. Working distance 61 mm from the mirror end to the focus. NA ≈ 1.74 mrad at 25 keV (FDR). Mounted on a gantry so the sample chamber fits underneath (MEDSI'20). Stability 16 nrad required. FDR target rms height error <0.45 nm.",
+      "text": "The second, shorter Kirkpatrick–Baez mirror, 129 mm long, focuses the beam side to side. Its end stops 61 mm before the focus, leaving room for heaters, gas cells and liquid cells around the sample; in practice the chamber walls leave less, about 47–55 mm. That working distance is the reason for ISN's long mirrors and 220 m length. Its angle must hold to 16 nanoradians, a looser limit than the vertical mirror's 5 nrad because it sits closer to the focus. It hangs from a gantry so the sample chamber fits underneath.",
       "specs": {
         "length": "129 mm",
         "focal distance q": "125.5 mm",
         "working distance": "61 mm",
-        "NA": "~1.74 mrad"
+        "NA": "~1.74 mrad",
+        "stability": "16 nrad required",
+        "gap after KBV": "4 mm",
+        "usable space": "47 mm in vacuum (55 mm with chamber top removed)"
       },
       "source": "r9"
     },
@@ -808,8 +789,7 @@
       "distanceNote": "Approximate: 'a square pinhole after the KB mirrors' (MEDSI'25); exact position not published. Drawn ~5 mm past the downstream end of the KBH (219.939 m), inside the UHV optics chamber, whose wall sits just upstream of the 47 mm in-vacuum sample space (MEDSI'20).",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "A tiny square opening just after the mirrors. It blocks stray light scattered by the mirror edges, so only the focused beam reaches the sample.",
-      "expert": "Cleans up unfocused and singly reflected beam components between the KB optics and the sample.",
+      "text": "A tiny square opening just after the mirrors. It blocks unfocused light and any beam that has bounced off only one of the two mirrors, so only the fully focused beam reaches the sample. Its exact position is not published.",
       "specs": {},
       "source": "r9"
     },
@@ -822,11 +802,11 @@
       "distanceNote": "Approximate: 'just upstream of the sample' (MEDSI'25).",
       "enclosure": "19-ID-E (sample chamber)",
       "deflection": "none",
-      "plain": "A built-in light microscope that looks along the X-ray beam through a small mirror with a hole for the X-rays. Users see exactly where the beam lands and can catch any light the sample gives off.",
-      "expert": "NIR 10X/0.26 NA infinity-corrected objective on XYZ stages. Fold mirror with a hole for the X-rays; FOV 600 µm, 1 µm resolution. Motorized path selector sends 430-1800 nm emission to a fiber spectrometer, and an Optique Peter module injects light.",
+      "text": "A built-in light microscope that looks along the X-ray beam through a small fold mirror with a hole for the X-rays. Users see exactly where the beam lands on the sample, over a 600 µm field with 1 µm resolution, and can send any visible or infrared light the sample gives off (430–1,800 nm) to a spectrometer.",
       "specs": {
         "objective": "10X / 0.26 NA NIR",
-        "spectral range": "430-1800 nm"
+        "spectral range": "430–1,800 nm",
+        "field of view": "600 µm, 1 µm resolution"
       },
       "source": "r9"
     },
@@ -839,14 +819,16 @@
       "distanceNote": "Exact nominal focus: FDR Table 4.49, MEDSI'25. Design geometry gives ~220.4 m.",
       "enclosure": "19-ID-E (HV/air sample chamber)",
       "deflection": "none",
-      "plain": "The sample rides on a stack of ultra-precise motors that sweep it through the focused beam at up to 1 millimetre per second. Fifteen laser beams measure the sample against the mirrors, so spot and sample can be held together within a few nanometres.",
-      "expert": "XYZ stack with 10 mm³ travel: Aerotech PRO225SL (along beam), ANT130L (transverse), APS vertical flexure stage with stepper and piezo, plus a Micronix PR-160 rotation. Quasi-Maxwell kinematic holder mount 60 mm below the beam; max envelope 24 mm diameter cylinder; 2 kg payload. 15-channel interferometry to Invar/Zerodur frames; spot-sample stability 4 nm rms required. Chamber can run high vacuum, air or inert gas, with single-crystal diamond windows and a 2 mm He gap to the UHV optics chamber. A granite table with motorized air bearing handles coarse alignment.",
+      "text": "The sample rides on a stack of ultra-precise motors that sweep it through the focused beam on the fly, at up to 1 mm/s over a 10 mm range with up to 2 kg on board, plus a rotation stage for 3D. Fifteen laser-interferometer beams measure the sample against the mirrors through frames of Invar and Zerodur, materials that barely expand with heat, so spot and sample can be held together to within the required 4 nm rms (root-mean-square). The sample chamber, separated from the mirrors' ultra-high vacuum by diamond windows and a 2 mm helium gap, can run in vacuum, air or inert gas.",
       "specs": {
         "travel": "10 × 10 × 10 mm",
         "payload": "2 kg",
         "fly speed": "up to 1 mm/s",
         "rotation": "Micronix PR-160",
-        "metrology": "15-channel interferometer"
+        "metrology": "15-channel interferometer",
+        "spot–sample stability": "4 nm rms required",
+        "stages": "Aerotech PRO225SL and ANT130L; APS vertical flexure stage",
+        "holder envelope": "24 mm diameter cylinder"
       },
       "source": "r9"
     },
@@ -859,12 +841,12 @@
       "distanceNote": "At the sample position.",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "Swap-in mini-laboratories: a liquid cell for batteries and electrochemistry, a gas cell that heats to 1000 °C for catalysts, and a cryostat holder that cools to 40 K (-233 °C), still in development.",
-      "expert": "Three rotatable holders: (1) Hummingbird Scientific electrochemistry (two fluid inlets, >100 °C, bulk electrodes, >200 µm flow cell); (2) Hummingbird gas/heating (two pressure-controlled gas inlets, four bias channels, up to 1000 °C); (3) APS-built cryo holder, 40-355 K with a closed-cycle ARS He cryostat, in development. A gas-handling system for reactive gases was planned for the endstation (PDR). The 2017 PDR had planned cooling to 10 K; the as-built cryo holder starts at 40 K.",
+      "text": "Swap-in mini-laboratories that let the sample work while it is imaged: a liquid-flow cell for batteries and electrochemistry (above 100 °C, with bulk electrodes), a gas cell that heats to 1,000 °C with four electrical bias channels for catalysts, and an APS-built cryostat holder that cools to 40 K (−233 °C), still in development. All three rotate for tomography. The 2017 plan had aimed for 10 K; the as-built cryostat holder starts at 40 K.",
       "specs": {
-        "temperature": "40 K to >1000 °C",
+        "temperature": "40 K to >1,000 °C",
         "media": "vacuum, air, inert gas, flowing gas/liquid",
-        "bias": "4 channels (gas cell)"
+        "bias": "4 channels (gas cell)",
+        "cryostat holder": "40–355 K, closed-cycle He (in development)"
       },
       "source": "r9"
     },
@@ -877,10 +859,10 @@
       "distanceNote": "At the sample (side/backscatter ports).",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "Detectors that sort the X-rays the sample gives off by energy. Every element glows in its own X-ray colours, so each point of the scan reveals which elements are present, even in trace amounts.",
-      "expert": "Hitachi 7-element SDD or RaySpec 12-element backscatter SDD with Xspress3 Mk2. The 2020 design had two SDD ports 'oriented at 15° and 0° from X' (the instrument X axis, not the beam axis); the 0° port is for the backscatter detector and the 15° port was designed for a multi-element or larger confocal detector.",
+      "text": "Silicon-drift detectors that sort the X-rays the sample gives off by energy. Every element fluoresces at its own characteristic energies, so each point of the scan reveals which elements are present, even in trace amounts. ISN can use a 7-element detector or a 12-element backscatter detector, both read out by fast Xspress3 Mk2 electronics.",
       "specs": {
-        "readout": "Xspress3 Mk2"
+        "readout": "Xspress3 Mk2",
+        "detectors": "Hitachi 7-element SDD; RaySpec 12-element backscatter SDD"
       },
       "source": "r9"
     },
@@ -893,9 +875,10 @@
       "distanceNote": "At the sample (electrical feedthroughs).",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "A very sensitive current meter wired to the sample. In a solar cell or LED it measures the electricity that the X-ray spot frees, point by point.",
-      "expert": "CAEN ELS TetrAMM 4-channel picoammeter for beam-induced current and voltage maps.",
-      "specs": {},
+      "text": "A very sensitive four-channel current meter (a picoammeter) wired to the sample. In a solar cell or LED it measures the current or voltage that the X-ray spot sets free, point by point, mapping which regions collect charge well.",
+      "specs": {
+        "electrometer": "CAEN ELS TetrAMM, 4 channels"
+      },
       "source": "r9"
     },
     {
@@ -907,8 +890,7 @@
       "distanceNote": "Approximate: robot-positioned around and above the sample (MEDSI'25 Fig. 3); variable.",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "A diffraction camera carried by an industrial robot arm. It catches X-rays bounced off crystals at telltale angles, through a thin beryllium dome, revealing which crystal phases form as the sample is heated or charged.",
-      "expert": "Dectris Eiger2 X 1M on a Stäubli TX2-160L in spherical coordinates. Views through a 0.5 mm Be dome window (Materion) tipped 10° up and 25° outboard: 152 mm clear aperture, ~0.25 sr.",
+      "text": "A diffraction camera carried by an industrial robot arm that steers it around the sample in angle and distance. It catches X-rays diffracted by crystals at telltale angles, through a 0.5 mm beryllium dome window tipped 10° up and 25° outboard (away from the ring), revealing which crystal phases form as the sample is heated or charged.",
       "specs": {
         "detector": "Eiger2 X 1M",
         "robot": "Stäubli TX2-160L",
@@ -922,14 +904,14 @@
       "category": "detector",
       "branch": "main",
       "distanceM": 223.0,
-      "distanceNote": "Approximate: on a downstream XYZ table with 6 m travel along the beam (≈220.5-226.5 m); midpoint shown.",
+      "distanceNote": "Approximate: on a downstream XYZ table with 6 m travel along the beam (≈220.5–226.5 m); midpoint shown.",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "A camera straight downstream that records the speckle pattern from each overlapping spot. A computer works backward from thousands of patterns to images of thin samples designed to be sharper than 10 nanometres, finer than the beam itself.",
-      "expert": "Dectris Eiger2 X 1M on an XYZ motion table with 6 m longitudinal travel, for forward-scattering ptychography, SAXS and absorption. The PDR asked for multi-kHz frame rates and >20-bit dynamic range. The 2024 APS computing plan assumed ~3 kHz average frame rate and ~5 GB/s for this detector.",
+      "text": "A camera straight downstream that records the diffraction pattern from each overlapping spot position. A computer works backward from thousands of patterns to an image of a thin sample designed to be sharper than 10 nm, finer than the beam itself. The detector rides a table with 6 m of travel along the beam and also records small-angle scattering and absorption; planning assumed about 3,000 frames a second on average and 5 GB/s of data.",
       "specs": {
         "detector": "Eiger2 X 1M",
-        "travel": "6 m"
+        "travel": "6 m",
+        "planned data rate": "~5 GB/s at ~3 kHz average"
       },
       "source": "r9"
     },
@@ -942,8 +924,7 @@
       "distanceNote": "Exact: FDR Table 4.49; drawn on the downstream wall of the concrete hutch (NIMA 2020 Fig. 3b).",
       "enclosure": "19-ID-E",
       "deflection": "none",
-      "plain": "The end of the line: a block on the hutch's back wall that safely absorbs whatever is left of the beam, 227 metres from where it was made.",
-      "expert": "Monochromatic beamstop on the downstream wall of the 19-ID-E concrete enclosure.",
+      "text": "The end of the line: a block on the concrete hutch's back wall that safely absorbs whatever is left of the monochromatic beam, 227 m from where it was made.",
       "specs": {},
       "source": "r1"
     }
@@ -965,7 +946,7 @@
       "endM": 35.8,
       "widthM": 2.2,
       "branch": "main",
-      "notes": "Approx from NIMA 2020 Fig. 2 scaled to FDR distances (~64 px/m at 400 dpi). The end wall matches the 35.8 m start of transport ST-1. Trapezoidal footprint, roughly 1.9-2.4 m wide inside and wider downstream. The PDR planned to reuse the SBC-era 19-ID-A/B as the FOE."
+      "notes": "Approx from NIMA 2020 Fig. 2 scaled to FDR distances (~64 px/m at 400 dpi). The end wall matches the 35.8 m start of transport ST-1. Trapezoidal footprint, roughly 1.9–2.4 m wide inside and wider downstream. The PDR planned to reuse the SBC-era 19-ID-A/B as the FOE."
     },
     {
       "name": "19-ID-C",
@@ -974,7 +955,7 @@
       "endM": 59.0,
       "widthM": 3.6,
       "branch": "main",
-      "notes": "Start exact (end of ST-1 per FDR). End approx from the NIMA 2020 plan (wall shared with D). Width ~3.2-4.0 m (tapered). The FDR component table calls the upstream end '19-ID-B'; the 2020 plan labels this room 19-ID-C. The FDR optics text itself puts BDA-V in 'enclosure C' and BDA-H in 'enclosure D'."
+      "notes": "Start exact (end of ST-1 per FDR). End approx from the NIMA 2020 plan (wall shared with D). Width ~3.2–4.0 m (tapered). The FDR component table calls the upstream end '19-ID-B'; the 2020 plan labels this room 19-ID-C. The FDR optics text itself puts BDA-V in 'enclosure C' and BDA-H in 'enclosure D'."
     },
     {
       "name": "19-ID-D",
@@ -1001,7 +982,7 @@
       "endM": 227.2,
       "widthM": 6.6,
       "branch": "main",
-      "notes": "Internal 14.6 m × 6.6 m with roof ~2.8 m above the beam (NIMA 2020). Start/end estimated from window (213.0) and beamstop (227.0). Walls are 12 in (0.3 m) concrete per MEDSI'20/'25 (the 2020 shielding model assumed 20 cm). Instrument slab is 1 m (3'-3\") thick with 0.5 in isolation joints. Adjacent rooms: ISN control area, air lock/vestibule, sample-prep area, wet lab, data closet (MEDSI'25 Fig. 2a). The FDR calls the satellite building 'building 444' (FDR 4-7.7.3)."
+      "notes": "Internal 14.6 m × 6.6 m with roof ~2.8 m above the beam (NIMA 2020). Start/end estimated from window (213.0) and beamstop (227.0). Walls are 12 in (0.3 m) concrete per MEDSI'20/'25 (the 2020 shielding model assumed 20 cm). Instrument slab is 1 m (3 ft 3 in) thick with 0.5 in isolation joints. Adjacent rooms: ISN control area, air lock/vestibule, sample-prep area, wet lab, data closet (MEDSI'25 Fig. 2a). The FDR calls the satellite building 'building 444' (FDR 4-7.7.3)."
     },
     {
       "name": "19-ID-E control & support rooms",
@@ -1017,8 +998,7 @@
     {
       "name": "ISN nanoprobe instrument (19ID-BI-1)",
       "enclosure": "19-ID-E",
-      "plain": "A scanning X-ray microscope on a granite table. Ultra-stable mirrors in their own clean vacuum box focus the beam to a spot designed to be ~20 nm wide, 6 cm beyond the last mirror, inside a separate sample chamber. That chamber can be pumped, filled with gas or opened to air while the mirrors stay untouched.",
-      "expert": "Optics and sample sit on a common Invar baseplate in separate chambers: UHV for the KB, HV/air/inert gas for the sample. Both have single-crystal diamond windows with a 2 mm He gap between them. Six custom piezo-driven flexure stages on an Invar structure hold the KB pair (KBV 404 mm, KBH 129 mm). It is aligned with a CMM arm, autocollimator and X-ray methods. A 15-channel interferometer measures optics against sample through Zerodur/Invar frames; the metrology loop runs 466 mm down to the Invar base in the 2020 design. The motorized air-bearing granite table, from the APS granite-stage family, becomes monolithic when depressurized. Fly-scanning covers 10 × 10 mm and 2 kg at 1 mm/s. The rotation stage has capacitive runout correction. Measured KBV pitch noise is 0.4 nrad rms and 1.7 nrad p-p with fiber interferometers in air, pumps off.",
+      "text": "A scanning X-ray microscope on a granite table that floats on air for coarse alignment and locks solid when the air is released. The Kirkpatrick–Baez focusing mirrors sit in their own clean, ultra-high-vacuum box on piezo-driven flexure stages and focus the beam to a spot designed to be about 20 nm wide, some 6 cm beyond the last mirror, inside a separate sample chamber. That chamber can be pumped, filled with gas or opened to air while the mirrors stay untouched; diamond windows and a 2 mm helium gap join the two. Both chambers share an Invar baseplate, and a 15-channel interferometer measures the optics against the sample. Fluorescence, diffraction, ptychography, beam-induced current and luminescence can be combined in the same scan.",
       "detectors": [
         "Hitachi 7-element SDD (Xspress3 Mk2)",
         "RaySpec 12-element backscatter SDD",
@@ -1030,15 +1010,15 @@
       "sampleEnvironments": [
         "High vacuum, air or inert-gas backfill",
         "Hummingbird electrochemical liquid-flow holder (>100 °C, bulk electrodes)",
-        "Hummingbird gas/heating holder (to 1000 °C, 4 bias channels)",
-        "APS closed-cycle He cryostat holder, 40-355 K (in development)",
+        "Hummingbird gas/heating holder (to 1,000 °C, 4 bias channels)",
+        "APS closed-cycle He cryostat holder, 40–355 K (in development)",
         "Pin and flag mounts"
       ],
       "source": "r9"
     }
   ],
   "totalLengthM": 227.0,
-  "geometryNotes": "Source and front end. Two in-line, not canted, revolver undulators share the 19-ID straight, so the beamline sits on the straight-section axis. The HHL front end is windowless. Vertical dogleg in 19-ID-A. M1 (28.0 m) reflects down by 5 mrad and M2 (29.0 m) reflects up by 5 mrad. The beam comes out horizontal again but about 5 mm lower (5 mrad × 1.0 m, estimate). PM-1 at 29.7 m stops the undeflected white beam. Horizontal optics. The DCM (31.7 m) and DMM (32.7 m) are horizontally deflecting, inboard, small-offset and fixed-exit. They displace the beam sideways but do not change its direction; the offset value is not published. M3 (35.0 m) then deflects 5 mrad inboard. Everything downstream runs on a line rotated 5 mrad inboard of the source axis, which puts the endstation ~0.9 m inboard of the straight-through line at 220 m (185 m × 5 mrad, estimate, before the mono offset). Hutches. 19-ID-A is the FOE (~23.9-35.8 m), a narrow trapezoid widening downstream. A 12.4 m shielded pipe crosses open floor to 19-ID-C (48.2-~59 m, BDA-V at 55 m). 19-ID-D shares a wall with C (~59-66 m, BDA-H at 64 m, shutter at 65 m). These three are on the experiment-hall floor in the usual APS position outboard of the ring tunnel. Long transport. From 65.5 to 213 m the 4-inch pipe continues in a straight line. It leaves the experiment floor, crosses the lab/office module (LOM) area that serves sectors 21-22, and runs in an enclosed corridor to the Long Beamline Building (LBB) outside the ring building. Shielded ion-pump stations sit at 95, 124, 153 and 183 m, i.e. every ~29 m (FDR); the 2018 vacuum model also had smaller pumps at each end of the 146 m pipe. The exact point where it leaves the building is not published; FDR Figs. 4.1 and 4.48 are schematic. Long Beamline Building. The LBB (building 444 in the FDR; ~24,000 sq ft) is shared with HEXM (20-ID); the same project built the Activated Materials Laboratory next to HEXM. The two long beamlines come from adjacent sectors, so their transports diverge by ~9° (360°/40 sectors); ISN is the lower one in the FDR plan, HEXM the upper. Endstation 19-ID-E. A concrete hutch, 14.6 × 6.6 m inside, with 12 in walls and roof ~2.8 m above the beam. It sits on a separate 1 m isolated slab, with the control area, airlock, sample-prep area and wet lab alongside. Inside, along the beam: window, filters, beam-conditioning granite blocks, fast shutter, then the UHV KB chamber on a granite table. The focus is 61 mm past the KBH end. Then come the separate sample chamber with a robot-mounted XRD detector above and outboard (Be dome tipped 10° up and 25° outboard), the green 6 m ptychography detector table, and the beamstop on the downstream wall. KB direction. KBV reflects upward in the MEDSI'25 drawing, raising the focus ~2 mm above the incoming beam; the FDR schematic draws a downward-facing mirror. KBH deflects horizontally by 5 mrad, direction not published. Scale cue for 3D: everything from 24 m to 66 m is about 42 m of floor; the next 147 m is just pipe.",
+  "geometryNotes": "Two in-line, not canted, revolver undulators share the 19-ID straight, so the beamline sits on the straight-section axis. The HHL front end is windowless.\n\nInside 19-ID-A, the beam drops in a vertical dogleg. M1 (28.0 m) reflects down by 5 mrad and M2 (29.0 m) reflects up by 5 mrad. The beam comes out horizontal again but about 5 mm lower (5 mrad × 1.0 m, estimate). PM-1 at 29.7 m stops the undeflected white beam.\n\nThe DCM (31.7 m) and DMM (32.7 m) are horizontally deflecting, inboard, small-offset and fixed-exit. They displace the beam sideways but do not change its direction; the offset value is not published. M3 (35.0 m) then deflects 5 mrad inboard. Everything downstream runs on a line rotated 5 mrad inboard of the source axis, which puts the endstation ~0.9 m inboard of the straight-through line at 220 m (185 m × 5 mrad, estimate, before the mono offset).\n\n19-ID-A is the FOE (~23.9–35.8 m), a narrow trapezoid widening downstream. A 12.4 m shielded pipe crosses open floor to 19-ID-C (48.2–~59 m, BDA-V at 55 m). 19-ID-D shares a wall with C (~59–66 m, BDA-H at 64 m, shutter at 65 m). These three are on the experiment-hall floor in the usual APS position outboard of the ring tunnel.\n\nFrom 65.5 to 213 m the 4-inch pipe continues in a straight line. It leaves the experiment floor, crosses the lab/office module (LOM) area that serves sectors 21–22, and runs in an enclosed corridor to the Long Beamline Building (LBB) outside the ring building. Shielded ion-pump stations sit at 95, 124, 153 and 183 m, i.e. every ~29 m (FDR); the 2018 vacuum model also had smaller pumps at each end of the 146 m pipe. The exact point where it leaves the building is not published; FDR Figs. 4.1 and 4.48 are schematic.\n\nThe LBB (building 444 in the FDR; ~24,000 sq ft) is shared with HEXM (20-ID); the same project built the Activated Materials Laboratory next to HEXM. The two long beamlines come from adjacent sectors, so their transports diverge by ~9° (360°/40 sectors); ISN is the lower one in the FDR plan, HEXM the upper.\n\nEndstation 19-ID-E is a concrete hutch, 14.6 × 6.6 m inside, with 12 in walls and roof ~2.8 m above the beam. It sits on a separate 1 m isolated slab, with the control area, airlock, sample-prep area and wet lab alongside. Inside, along the beam: window, filters, beam-conditioning granite blocks, fast shutter, then the UHV KB chamber on a granite table. The focus is 61 mm past the KBH end. Then come the separate sample chamber with a robot-mounted XRD detector above and outboard (Be dome tipped 10° up and 25° outboard), the green 6 m ptychography detector table, and the beamstop on the downstream wall.\n\nKBV reflects upward in the MEDSI'25 drawing, raising the focus ~2 mm above the incoming beam; the FDR schematic draws a downward-facing mirror. KBH deflects horizontally by 5 mrad, direction not published.\n\nFor scale, everything from 24 m to 66 m is about 42 m of floor; the next 147 m is just pipe.",
   "interactiveIdeas": [
     {
       "title": "The pinhole trade-off: buying coherence with photons",
@@ -1080,7 +1060,7 @@
   "funFacts": [
     "ISN is the longest beamline at the APS. Argonne describes it as sitting 720 feet from the storage ring. The instrument is 220 m from the undulator source and the beamstop is at 227 m.",
     "The Long Beamline Building's beamlines are about three times longer than other APS beamlines, roughly two football fields.",
-    "ISN predates the MBA upgrade: a 2013 concept already described it. In the 2015 Early Science report the MBA-era optical design was a 180 m beamline. It grew to 220 m so long focusing mirrors could be lit with coherent light while keeping a 5-6 cm working distance, and the 2017 PDR says the final length was chosen so ISN and HEXM could share one satellite building.",
+    "ISN predates the MBA upgrade: a 2013 concept already described it. In the 2015 Early Science report the MBA-era optical design was a 180 m beamline. It grew to 220 m so long focusing mirrors could be lit with coherent light while keeping a 5–6 cm working distance, and the 2017 PDR says the final length was chosen so ISN and HEXM could share one satellite building.",
     "During commissioning the vertical focusing mirror held its angle to 0.4 nanoradians rms, measured in air with the vacuum pumps off. That is like tilting a 1,000 km plank by 0.4 mm at the far end (the analogy is simple arithmetic).",
     "The endstation air is held to ±0.05 °C for an hour and the instrument surfaces to ±0.01 °C. Fabric 'air socks' blow gentle laminar air, and the exhaust fan is kept outside the room.",
     "The microscope room stands on its own 1-metre-thick concrete slab, cut free from the rest of the building by isolation joints, to meet the VC-G vibration criterion of 0.78 µm/s.",
@@ -1089,8 +1069,8 @@
     "ISN was expected to generate ~10 petabytes of raw data a year, nearly 15× what the APS's 2-ID-D ptychography, 2-ID-E XRF and Bio-Nanoprobe instruments produced together (~730 TB).",
     "Before ISN, 19-ID was the Structural Biology Center's protein-crystallography undulator beamline: 2,277 publications came from 19-ID. SBC planned to support users until the APS 'dark' period began in April 2023. It has since concluded operations and handed over to the multi-beamline eBERlight program.",
     "U.S. Energy Secretary Jennifer Granholm cut the ribbon on the Long Beamline Building on 25 July 2022. Argonne held a ceremonial groundbreaking on 23 July 2020, with construction scheduled to start that fall; Argonne's 2022 release says ground was broken in June 2020.",
-    "The first ISN concept (2013-14, before the MBA upgrade) planned KB mirrors for a 50 nm high-flux spot and zone plates or multilayer Laue lenses for 20 nm. The upgraded source and a 220 m beamline let the final design reach ~20 nm with mirrors alone, keeping a long working distance.",
-    "Samples can be cycled from 40 K (−233 °C) to more than 1000 °C, in vacuum, air or flowing gas, while being scanned at up to 1 mm/s."
+    "The first ISN concept (2013–14, before the MBA upgrade) planned KB mirrors for a 50 nm high-flux spot and zone plates or multilayer Laue lenses for 20 nm. The upgraded source and a 220 m beamline let the final design reach ~20 nm with mirrors alone, keeping a long working distance.",
+    "Samples can be cycled from 40 K (−233 °C) to more than 1,000 °C, in vacuum, air or flowing gas, while being scanned at up to 1 mm/s."
   ],
   "figures": [
     {
@@ -1119,7 +1099,7 @@
       "caption": "(a) Plan view of the 19-ID ISN beamline: FOE 19-ID-A, aperture hutches 19-ID-C and 19-ID-D, and the concrete endstation 19-ID-E (the ~147 m transport is shown with a break). (b) Detail of 19-ID-A with the M1/M2 mirror tank, DCM, DMM and horizontal mirror M3. From Sunil C., 'Radiation shielding analysis of the concrete hutch of a long beamline of the APS Upgrade project', Nucl. Instrum. Meth. A 968 (2020) 163953, accepted manuscript (OSTI 1615745), Figs. 2 and 3a; panel labels added.",
       "source": "r14",
       "page": 24,
-      "whatItShows": "The best public plan of hutch sizes and positions. Scaled to the FDR distances (A ends 35.8 m, C starts 48.2 m), it puts BDA-V at ~55 m and BDA-H at ~64 m, consistent with the table. Use it to block out the 3D hutches. Panel (b) is from page index 25."
+      "whatItShows": "The best public plan of hutch sizes and positions. Scaled to the FDR distances (A ends 35.8 m, C starts 48.2 m), it puts BDA-V at ~55 m and BDA-H at ~64 m, consistent with the table. The exhibit’s hutch outlines follow this drawing. Panel (b) is from page index 25."
     },
     {
       "file": "isn/medsi2025-fig5-kb-mirror-specs-and-stages.png",
@@ -1137,7 +1117,7 @@
     },
     {
       "file": "isn/fdr2019-fig4-48-isn-location-long-beamline-building.png",
-      "caption": "Location of the ISN instrument (red outline, lower left) 220 m from the source, in the Long Beamline Building shared with HEXM (upper left). The beam transports run from the 19-ID and 20-ID hutches on the APS experiment floor (right), across the lab/office area of sectors 21-22. APS-U Final Design Report (2019), Fig. 4.48 (printed p. 4-82).",
+      "caption": "Location of the ISN instrument (red outline, lower left) 220 m from the source, in the Long Beamline Building shared with HEXM (upper left). The beam transports run from the 19-ID and 20-ID hutches on the APS experiment floor (right), across the lab/office area of sectors 21–22. APS-U Final Design Report (2019), Fig. 4.48 (printed p. 4-82).",
       "source": "r1",
       "page": 104,
       "whatItShows": "Site-scale plan: how the 19-ID and 20-ID long transports leave the ring building at diverging angles and end in the LBB. It is the 2019 pre-construction plan; compare with the as-built aerial view (MEDSI'25 Fig. 1)."
@@ -1189,7 +1169,7 @@
     },
     {
       "id": "r5",
-      "title": "The In Situ Nanoprobe (ISN) at 19-ID (feature beamline page; techniques, 4.8-30 keV, 20 nm at 25 keV, 55 mm working distance; page dated 10.08.2025)",
+      "title": "The In Situ Nanoprobe (ISN) at 19-ID (feature beamline page; techniques, 4.8–30 keV, 20 nm at 25 keV, 55 mm working distance; page dated 10.08.2025)",
       "authors": "Advanced Photon Source",
       "year": 2025,
       "venue": "aps.anl.gov",
@@ -1288,7 +1268,7 @@
     },
     {
       "id": "r16",
-      "title": "The In Situ Nanoprobe at APS: Enabling Multimodal, In Situ and Operando Studies of Energy Materials (abstract CH05.04.01; 25-30 nm spot at 25 keV, 55 mm WD, acquisition time reduced by ≥100×)",
+      "title": "The In Situ Nanoprobe at APS: Enabling Multimodal, In Situ and Operando Studies of Energy Materials (abstract CH05.04.01; 25–30 nm spot at 25 keV, 55 mm WD, acquisition time reduced by ≥100×)",
       "authors": "S. Wieghold, P. Mercado Lozano, Z. Cai, J. Maser, Y. Luo, L. Li, T. Mooney, B. Davis, S. Kearney, B. Lai",
       "year": 2025,
       "venue": "2025 MRS Fall Meeting, Boston (2 Dec 2025)",
@@ -1495,10 +1475,10 @@
     }
   ],
   "openQuestions": [
-    "Final focal spot. Design is 20 × 20 nm FWHM at 25 keV (FDR, directory). The MRS Fall 2025 and XRM 2026 abstracts state 25-30 nm at 25 keV, and MEDSI'25 says preliminary measurements 'show promise' of 20 nm. No published measured spot or flux at the sample yet.",
-    "DMM status. The FDR specifies a Mo/B4C double-multilayer monochromator (19ID-MN-2), and the 2020 FOE drawing shows it. The 2026 Beamline Directory lists only an 'LN2-cooled H-DCM'. It is unclear whether the DMM was installed or commissioned.",
-    "Working distance has four published values: 61 mm (optical, MEDSI'20/'25); 60 mm nominal and 55 mm with the KB enclosure (FDR, feature page, 2025-26 abstracts); 47 mm usable in vacuum (MEDSI'20); and '20-50 mm depending on configuration' (Directory). The museum text should say ~55-61 mm optical and less in practice with chambers and detectors.",
-    "M3 position. The FDR component table and the 2020 FOE drawing place M3 at 35.0 m inside 19-ID-A. FDR Fig. 4.40 and the 2017 PDR show the horizontal focusing mirror at 43 m. Assume 35 m as built.",
+    "Final focal spot. Design is 20 × 20 nm FWHM at 25 keV (FDR, directory). The MRS Fall 2025 and XRM 2026 abstracts state 25–30 nm at 25 keV, and MEDSI'25 says preliminary measurements 'show promise' of 20 nm. No published measured spot or flux at the sample yet.",
+    "DMM status. The FDR specifies a Mo/B₄C double-multilayer monochromator (19ID-MN-2), and the 2020 FOE drawing shows it. The 2026 Beamline Directory lists only an 'LN₂-cooled H-DCM'. It is unclear whether the DMM was installed or commissioned.",
+    "Working distance has four published values: 61 mm (optical, MEDSI'20/'25); 60 mm nominal and 55 mm with the KB enclosure (FDR, feature page, 2025–26 abstracts); 47 mm usable in vacuum (MEDSI'20); and '20–50 mm depending on configuration' (Directory). The distance is about 55–61 mm optically, and less in practice once chambers and detectors are in place.",
+    "M3 position. The FDR component table and the 2020 FOE drawing place M3 at 35.0 m inside 19-ID-A. FDR Fig. 4.40 and the 2017 PDR show the horizontal focusing mirror at 43 m. 35 m is taken here as the as-built position.",
     "FE exit mask: 2 × 2 mm² (FDR ch. 3 and 4) vs 2 (H) × 1 (V) mm (Sunil 2020 shielding study). As-built value unconfirmed.",
     "Enclosure naming and boundaries. The FDR component table refers to transport 'from 19-ID-A to 19-ID-B', but the 2020 shielding plan shows only A, C, D and E; the PDR planned to reuse SBC-era A/B as the FOE. Hutch extents here are scaled from a 2020 drawing (±0.5 m), not an as-built survey.",
     "Instrument distance: 220 m in the FDR, PDR, SPIE 2021, MEDSI'25 and Directory, versus 210 m in MEDSI'20 and 250 m (820 ft) in Argonne's July 2020 groundbreaking release and a contractor page. 220 m is adopted. The as-built KB numbers (p = 165.004 m, q = 396 mm) put the focus at 220.4 m if BDA-V is at exactly 55.0 m, or BDA-V at 54.6 m if the focus is at 220.0 m.",
@@ -1508,7 +1488,7 @@
     "Operating mode. Flat-beam vs round-beam storage-ring mode changes the vertical source size (3.1 vs 8.3 µm rms) and so the BDA-V settings and coherent flux. Which mode is standard for 2026 user runs was not confirmed here.",
     "Endstation wall thickness: 12 in concrete (MEDSI'20, MEDSI'25 Fig. 2b) vs 20 cm assumed in the 2020 shielding model. 12 in is taken as as-built.",
     "Status nuance. The Directory says 'Operational/Accepting General Users' (Oct 2026), but a July 2026 job posting still cites commissioning. The scope of the general-user program (techniques and environments offered) is not documented publicly.",
-    "Horizontal secondary-source size. With M3 at 35 m (as built) the 64 m BDA-H sees the source at ~0.83×, about 28 µm FWHM in flat-beam mode (estimate), not the ~16-18 µm quoted in the 2017 PDR for a mirror at 43 m. The FDR's '~11 km' M3 radius also matches the 43 m layout. Measured BDA-plane beam sizes are not published.",
+    "Horizontal secondary-source size. With M3 at 35 m (as built) the 64 m BDA-H sees the source at ~0.83×, about 28 µm FWHM in flat-beam mode (estimate), not the ~16–18 µm quoted in the 2017 PDR for a mirror at 43 m. The FDR's '~11 km' M3 radius also matches the 43 m layout. Measured BDA-plane beam sizes are not published.",
     "Construction start of the LBB: ceremonial groundbreaking 23 Jul 2020 with construction 'scheduled to begin this fall' versus 'broke ground for construction in June 2020' in the 2022 release.",
     "As-built KB figure-error spec '<2.0 nm' (MEDSI'25 Fig. 5a) does not state rms or peak-to-valley; the FDR rms targets were 0.38/0.45 nm. Coating (FDR: Pt) is not restated in the as-built paper."
   ]

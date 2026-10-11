@@ -18,7 +18,6 @@ export interface ViewState {
   omega: number;
   mode: Mode;
   selected: number;
-  depth: 'visitor' | 'specialist';
   accent: string;
   /** seconds since mount */
   t: number;
@@ -218,7 +217,6 @@ export class TopView {
     const { ctx, w, h } = this.c;
     const sim = this.sim;
     const vs = this.vs;
-    const spec = vs.depth === 'specialist';
     const G = this.geom();
     const { cx, cy, r, xd, hb } = G;
     const nf = vs.mode === 'nf';
@@ -419,7 +417,7 @@ export class TopView {
       ctx.fillStyle = '#1b2433';
       ctx.fillRect(xd - 7, cy - 4, 5, 8);
     }
-    const detLabel = nf ? (spec ? 'camera, L ≈ 7 mm' : 'camera 7 mm away') : spec ? 'flat panel, L = 1 m' : 'detector 1 m away';
+    const detLabel = nf ? 'camera 7 mm away' : 'detector 1 m away';
     if (nf) {
       // the camera bar sits close to the sample: label it from the bar rightwards (clear of the hint below the rod)
       ctx.font = `600 10.5px ${FONT}`;
@@ -467,7 +465,7 @@ export class TopView {
     // ---- labels
     txt(ctx, `X-rays · ${sim.E.toFixed(0)} keV`, 8, by0 - 8, { size: 11, color: xray, weight: 700 });
     const tp = T >= 0.995 ? '100' : T >= 0.1 ? (T * 100).toFixed(0) : T >= 0.001 ? (T * 100).toFixed(1) : '< 0.1';
-    const tLabel = spec ? `T = ${tp} %` : `${tp} % through`;
+    const tLabel = `${tp} % through`;
     ctx.font = `700 10.5px ${FONT}`;
     // between the rod and the detector bar if it fits there, else (near field: close camera) beyond the bar
     const tx = cx + r + 8 + ctx.measureText(tLabel).width < xd - 6 ? cx + r + 8 : xd + 8;
@@ -852,7 +850,6 @@ export class DetectorView {
     const { ctx, w, h } = this.c;
     const sim = this.sim;
     const vs = this.vs;
-    const spec = vs.depth === 'specialist';
     this.updateAcc();
     const { dcx, dcy, S, k } = this.geom();
     const x0 = dcx - S / 2;
@@ -891,7 +888,8 @@ export class DetectorView {
         const lx = dcx + Rp * Math.cos(e);
         const ly = dcy - Rp * Math.sin(e);
         if (lx > x0 + 14 && lx < x0 + S - 14 && ly > y0 + 10 && ly < y0 + S - 8) {
-          labels.push({ x: lx, y: ly, s: spec ? `${f.label} · ${(tt / P.DEG).toFixed(2)}°` : f.label });
+          // the first ring also names its scattering angle, which the caption quotes
+          labels.push({ x: lx, y: ly, s: fi === 0 ? `${f.label} · 2θ = ${(tt / P.DEG).toFixed(2)}°` : f.label });
           break;
         }
       }
@@ -949,7 +947,11 @@ export class DetectorView {
     ctx.strokeStyle = 'rgba(190,205,225,0.45)';
     ctx.lineWidth = 1;
     ctx.strokeRect(x0 + 0.5, y0 + 0.5, S - 1, S - 1);
-    for (const l of labels) txt(ctx, l.s, l.x + 3, l.y - 3, { size: spec ? 9.5 : 10, color: 'rgba(233,238,245,0.78)', weight: 600, halo: true, mono: spec });
+    for (const l of labels) {
+      ctx.font = `600 10px ${FONT}`;
+      const x = Math.min(l.x + 3, x0 + S - ctx.measureText(l.s).width - 5);
+      txt(ctx, l.s, x, l.y - 3, { size: 10, color: 'rgba(233,238,245,0.78)', weight: 600, halo: true });
+    }
 
     // beam stop
     ctx.fillStyle = '#1b2433';
@@ -1001,7 +1003,7 @@ export class DetectorView {
     const cov = sim.nVisited;
     const nRec = sim.recordedSpots();
     const fy = y0 + S + 15;
-    txt(ctx, spec ? `Δω ${cov}° · ${nRec} spots` : `turned ${cov}° · ${nRec} spots`, x0, fy, { size: 10.5, color: TOKENS.ink2 });
+    txt(ctx, `turned ${cov}° · ${nRec} spots`, x0, fy, { size: 10.5, color: TOKENS.ink2 });
     if (sim.eps > 0) {
       // line legend: dashed = before pulling, solid = fitted ring under load
       const t2 = sim.mag > 1 ? `under load ×${sim.mag}` : 'under load';
@@ -1027,7 +1029,7 @@ export class DetectorView {
       ctx.lineTo(xx + 15, fy - 4);
       ctx.stroke();
       ctx.setLineDash([]);
-    } else txt(ctx, spec ? 'colour = grain (panel: intensity)' : 'colour = which grain', x0 + S, fy, { size: 10.5, align: 'right', color: TOKENS.ink3 });
+    } else txt(ctx, 'colour = which grain', x0 + S, fy, { size: 10.5, align: 'right', color: TOKENS.ink3 });
     if (cov === 0) pill(ctx, 'Press ▶ or drag the sample to turn it', dcx, dcy + 40, { size: 11, align: 'center' });
     ctx.restore();
   }
@@ -1036,7 +1038,6 @@ export class DetectorView {
     const { ctx, w, h } = this.c;
     const sim = this.sim;
     const vs = this.vs;
-    const spec = vs.depth === 'specialist';
     const { dcx, dcy, S, k } = this.geom();
     const x0 = dcx - S / 2;
     const y0 = dcy - S / 2;
@@ -1088,7 +1089,7 @@ export class DetectorView {
     ctx.fillRect(dcx - bw / 2, dcy - 2, bw, 4);
     ctx.strokeStyle = rgba(TOKENS.xray, 0.5);
     ctx.strokeRect(dcx - bw / 2, dcy - 2, bw, 4);
-    txt(ctx, spec ? 'direct line beam (blocked)' : 'beam (blocked)', dcx, dcy + 15, { size: 10, align: 'center', color: TOKENS.ink3, halo: true });
+    txt(ctx, 'line beam (blocked)', dcx, dcy + 15, { size: 10, align: 'center', color: TOKENS.ink3, halo: true });
     // scale bar 0.5 mm
     const sb = 0.5 * k;
     ctx.strokeStyle = TOKENS.ink2;
@@ -1100,7 +1101,7 @@ export class DetectorView {
     txt(ctx, '0.5 mm', x0 + 8 + sb + 5, y0 + S - 6, { size: 10, color: TOKENS.ink2, halo: true });
     pill(ctx, `ω ${b}° · live`, x0 + S, Math.max(10, y0 - 12), { size: 10, align: 'right', color: vs.accent, mono: true });
     const fy = y0 + S + 15;
-    txt(ctx, spec ? `${NF.npx}² px of ${((2 * NF.half * 1000) / NF.npx).toFixed(0)} µm (real: ~1.5 µm)` : 'each streak = one grain, seen side-on', x0, fy, { size: 10.5, color: TOKENS.ink2 });
+    txt(ctx, 'each streak = one grain, seen side-on', x0, fy, { size: 10.5, color: TOKENS.ink2 });
     if (sim.nVisited === 0) pill(ctx, 'Press ▶ or drag the sample to turn it', dcx, dcy + 44, { size: 11, align: 'center' });
     ctx.restore();
   }
@@ -1136,7 +1137,6 @@ export class PenView {
     const { ctx, w, h } = this.c;
     const sim = this.sim;
     const vs = this.vs;
-    const spec = vs.depth === 'specialist';
     ctx.save();
     ctx.fillStyle = TOKENS.bg;
     ctx.fillRect(0, 0, w, h);
@@ -1144,7 +1144,7 @@ export class PenView {
     // header readout: on the label row if it clears the panel's HTML label, else on a row of its own
     const E = sim.E;
     const att = P.attLengthMm(sim.ni, E);
-    const lab = spec ? `Ni @ ${E.toFixed(0)} keV: 1/μ = ${fmtLen(att)}` : `${E.toFixed(0)} keV: ${fmtLen(att)} into nickel`;
+    const lab = `${E.toFixed(0)} keV: ${fmtLen(att)} into nickel`;
     ctx.font = `700 10.5px ${FONT}`;
     if (this.tagW !== w) {
       // the HTML label's extent changes only with the panel width: read it once per width (no layout per frame)
@@ -1166,7 +1166,7 @@ export class PenView {
     const hx1 = f.px(120);
     ctx.fillStyle = rgba(vs.accent, 0.09);
     ctx.fillRect(hx0, f.y1, hx1 - hx0, f.y0 - f.y1);
-    const hexmLab = spec ? 'HEXM 35–120 keV' : 'HEXM range';
+    const hexmLab = 'HEXM 35–120 keV';
     const hexmL = txt(ctx, hexmLab, (hx0 + hx1) / 2, f.y1 + 12, { size: 10, align: 'center', color: rgba(vs.accent, 0.95), weight: 700, halo: true });
     // lab X-ray tube for comparison: Mo Kα, 17.5 keV (Cu Kα, 8 keV, is off the left edge)
     const xm = f.px(17.48);
@@ -1177,7 +1177,7 @@ export class PenView {
     ctx.lineTo(xm + 4, f.y0 - 8);
     ctx.closePath();
     ctx.fill();
-    txt(ctx, spec ? 'Mo Kα tube' : 'lab X-ray tube', xm + 6, f.y0 - 4, { size: 9.5, color: TOKENS.ink3, weight: 600, halo: true });
+    txt(ctx, 'lab X-ray tube', xm + 6, f.y0 - 4, { size: 9.5, color: TOKENS.ink3, weight: 600, halo: true });
     // sample size line
     const yD = f.py(sim.D);
     ctx.save();
@@ -1233,12 +1233,15 @@ export class PenView {
     ctx.lineTo(xb + 5, f.y0 - 9);
     ctx.closePath();
     ctx.fill();
-    if (spec || Math.abs(xb - xe) > 30) txt(ctx, spec ? `best signal ≈ ${Eb.toFixed(0)} keV` : 'brightest spots', xb + (xb > f.x1 - 90 ? -7 : 7), f.y0 - 6, { size: 9.5, align: xb > f.x1 - 90 ? 'right' : 'left', color: TOKENS.good, weight: 600, halo: true });
+    const bestLabel = `brightest spots ≈ ${Eb.toFixed(0)} keV`;
+    ctx.font = `600 9.5px ${FONT}`;
+    const bestOnLeft = xb + 7 + ctx.measureText(bestLabel).width > f.x1 - 3;
+    txt(ctx, bestLabel, xb + (bestOnLeft ? -7 : 7), f.y0 - 6, { size: 9.5, align: bestOnLeft ? 'right' : 'left', color: TOKENS.good, weight: 600, halo: true });
     // data note (top left), shortened if it would run into the HEXM band label
-    const dataLong = spec ? '1/e depth · NIST XCOM' : 'data: NIST';
+    const dataLong = 'depth where 1/e (37 %) is left · NIST data';
     ctx.font = `500 9.5px ${FONT}`;
     const roomL = (hx0 + hx1) / 2 - hexmL / 2 - 8 - (f.x0 + 6);
-    txt(ctx, ctx.measureText(dataLong).width <= roomL ? dataLong : spec ? '1/e · NIST' : 'NIST', f.x0 + 6, f.y1 + 12, { size: 9.5, color: TOKENS.ink3 });
+    txt(ctx, ctx.measureText(dataLong).width <= roomL ? dataLong : ctx.measureText('1/e depth · NIST').width <= roomL ? '1/e depth · NIST' : 'NIST', f.x0 + 6, f.y1 + 12, { size: 9.5, color: TOKENS.ink3 });
     ctx.restore();
   }
 }
@@ -1364,7 +1367,6 @@ export class AnswerView {
     const { ctx, w } = this.c;
     const sim = this.sim;
     const vs = this.vs;
-    const spec = vs.depth === 'specialist';
     const { cx, cy, r, lx } = this.geom();
     // sample outline (sample frame, ω = 0)
     ctx.fillStyle = 'rgba(150,170,200,0.05)';
@@ -1408,9 +1410,7 @@ export class AnswerView {
     const nf = sim.nFound;
     if (nf === 0) {
       // empty state: say what will appear here
-      const msg = spec
-        ? ['Indexed grains appear here:', 'centre of mass, coloured', 'by axial lattice strain ε_zz']
-        : ['As the sample turns, the', 'computer matches up spots', 'and each grain it finds', 'pops up here'];
+      const msg = ['As the sample turns, the', 'computer matches up spots;', 'each grain it finds appears', 'here, at its centre'];
       const lh = 14;
       let yy = cy - ((msg.length - 1) * lh) / 2 + 4;
       for (const m of msg) {
@@ -1421,7 +1421,7 @@ export class AnswerView {
     txt(ctx, `${nf} / ${sim.ng} grains found`, cx, cy + r + 15, { size: 11, align: 'center', color: nf ? vs.accent : TOKENS.ink3, weight: 700 });
     // legend: colour bar
     const bx = lx;
-    let by = para(ctx, spec ? 'ε_zz (along pull)' : 'atom spacing along pull', bx, 34, w - bx - 8, this.c.h - 4, { size: 10.5, color: TOKENS.ink, weight: 600, lh: 13 }) - 5;
+    let by = para(ctx, 'atom spacing along pull', bx, 34, w - bx - 8, this.c.h - 4, { size: 10.5, color: TOKENS.ink, weight: 600, lh: 13 }) - 5;
     const bw = Math.min(w - bx - 12, 130);
     for (let i = 0; i < bw; i++) {
       const k = Math.round((i / (bw - 1)) * 255);
@@ -1439,7 +1439,7 @@ export class AnswerView {
     ctx.beginPath();
     ctx.arc(bx + 7, by - 4, 6, 0, 2 * Math.PI);
     ctx.stroke();
-    by = para(ctx, spec ? 'ring = IPF-z colour' : 'ring = grain colour', bx + 19, by, w - bx - 27, this.c.h - 4, { size: 10, color: TOKENS.ink2, lh: 12 }) + 6;
+    by = para(ctx, 'ring = grain colour', bx + 19, by, w - bx - 27, this.c.h - 4, { size: 10, color: TOKENS.ink2, lh: 12 }) + 6;
     const maxW = w - bx - 8;
     const yMax = this.c.h - 4;
     if (vs.selected >= 0) {
@@ -1447,21 +1447,15 @@ export class AnswerView {
       const g = vs.selected;
       const ez = sim.strain[g * 9 + 8];
       const found = sim.found[g] === 1;
-      if (spec) {
-        const U = sim.Ucur.subarray(g * 9, g * 9 + 9);
-        by = para(ctx, `${found ? 'indexed' : 'not indexed yet'} · ε_zz = ${ez >= 0 ? '+' : '−'}${Math.abs(ez * 1e3).toFixed(2)}×10⁻³`, bx, by, maxW, yMax, { color: TOKENS.ink2 });
-        para(ctx, `load ∥ ⟨${P.loadAxisHkl(U)}⟩ · E = ${P.youngDir(sim.el, [U[6], U[7], U[8]]).toFixed(0)} GPa`, bx, by, maxW, yMax, { color: TOKENS.ink2 });
-      } else {
-        by = para(ctx, found ? 'Found by the computer.' : 'Not found yet: keep turning.', bx, by, maxW, yMax, { color: TOKENS.ink2 });
-        para(ctx, sim.eps > 0 ? `Atoms ${(ez * 100).toFixed(2)} % farther apart along the pull.` : 'Not pulled yet.', bx, by, maxW, yMax, { color: TOKENS.ink2 });
-      }
+      const U = sim.Ucur.subarray(g * 9, g * 9 + 9);
+      by = para(ctx, found ? 'Found by the computer.' : 'Not found yet: keep turning.', bx, by, maxW, yMax, { color: TOKENS.ink2 });
+      by = para(ctx, sim.eps > 0 ? `Atoms ${(ez * 100).toFixed(2)} % farther apart along the pull.` : 'Not pulled yet.', bx, by, maxW, yMax, { color: TOKENS.ink2 });
+      para(ctx, `Stiffness along the pull: ${P.youngDir(sim.el, [U[6], U[7], U[8]]).toFixed(0)} GPa.`, bx, by, maxW, yMax, { color: TOKENS.ink3 });
       return;
     }
     para(
       ctx,
-      spec
-        ? 'ff-HEDM gives each grain’s centre, orientation and full strain tensor, but not its shape. Tap a dot to follow a grain.'
-        : 'Far field tells where each grain is, how it is turned and how hard it is pulled, but not its shape. Tap a dot to follow one.',
+      'Far field gives each grain’s centre, orientation and full strain, but not its shape. Tap a dot to follow one.',
       bx,
       by,
       maxW,
@@ -1486,7 +1480,6 @@ export class AnswerView {
     const { ctx } = this.c;
     const sim = this.sim;
     const vs = this.vs;
-    const spec = vs.depth === 'specialist';
     const { cx, cy, r, lx } = this.geom();
     const N = 48;
     const d = this.mapImg.data;
@@ -1598,7 +1591,7 @@ export class AnswerView {
     // legend: IPF triangle + confidence
     const maxW = this.c.w - lx - 8;
     const yMax = this.c.h - 4;
-    let by = para(ctx, spec ? 'IPF-z (load axis)' : 'colour = crystal direction', lx, 32, maxW, yMax, { size: 10.5, color: TOKENS.ink, weight: 600, lh: 13 }) - 7;
+    let by = para(ctx, 'colour = crystal direction along the pull', lx, 32, maxW, yMax, { size: 10.5, color: TOKENS.ink, weight: 600, lh: 13 }) - 7;
     const kw = 58;
     const kh = (kw * 52) / 64;
     ctx.imageSmoothingEnabled = true;
@@ -1607,13 +1600,12 @@ export class AnswerView {
     txt(ctx, '101', lx + kw + 6, by + kh + 11, { size: 9, align: 'right', color: TOKENS.ink2, mono: true });
     txt(ctx, '111', lx + kw + 8, by + 6, { size: 9, color: TOKENS.ink2, mono: true });
     by += kh + 28;
-    by = para(ctx, spec ? 'brightness = confidence C' : 'bright = sure, dark = unsure', lx, by, maxW, yMax, { color: TOKENS.ink2 }) + 3;
-    if (spec) by = para(ctx, `⟨C⟩ ${(st.meanC * 100).toFixed(0)} % · ${(st.correct * 100).toFixed(0)} % right`, lx, by, maxW, yMax, { size: 9.5 }) + 3;
+    by = para(ctx, 'bright = sure, dark = unsure', lx, by, maxW, yMax, { color: TOKENS.ink2 }) + 3;
     if (vs.selected >= 0) {
       by = this.grainHead(lx, by + 4);
-      para(ctx, spec ? 'dashed = its true cell' : 'Dashed line: its real outline. Compare!', lx, by, maxW, yMax, { color: TOKENS.ink2 });
+      para(ctx, 'Dashed line: its true outline, for comparison.', lx, by, maxW, yMax, { color: TOKENS.ink2 });
       return;
     }
-    para(ctx, spec ? 'nf-HEDM: grain shapes and orientations; strain needs the far field.' : 'Near field draws each grain’s exact shape.', lx, by, maxW, yMax);
+    para(ctx, 'Near field maps each grain’s shape and orientation; strain needs the far field.', lx, by, maxW, yMax);
   }
 }

@@ -18,12 +18,12 @@
  * Beamline numbers (35–120 keV, 180 m, 20-ID-E detectors, APS-U emittance 3113 → 42 pm, nf line beams 3–4 mm,
  * interim U21 source / planned SCU) come from the HEXM research dossier (APS-U FDR 2019, PDR 2017, Beamline
  * Directory, APS news). Illustrative elements (yield stress, plastic broadening, grain count, coarse nf pixels,
- * indexing threshold) are labelled in the specialist text.
+ * indexing threshold) are labelled as such in the station's "About this model" fine print.
  */
 import type { ExplainerModule } from './registry';
 import { button, canvas2d, createStation, group, loop, note, onReducedMotionChange, prefersReducedMotion, readout, slider, toggle } from './kit';
 import * as P from './hedm/physics';
-import { HedmSim, NF_VOX, type Mode } from './hedm/sim';
+import { HedmSim, NF, NF_VOX, type Mode } from './hedm/sim';
 import { AnswerView, DetectorView, PenView, TopView, fmtLen, type ViewState } from './hedm/views';
 
 const ROT_SPEED = 15 * P.DEG; // rad/s (display speed; real scans: minutes per 360°)
@@ -46,10 +46,10 @@ const mod: ExplainerModule = {
   title: 'Seeing inside a metal under load',
   subtitle: 'Turn a nickel-alloy rod in a high-energy X-ray beam, watch its grains flash onto the detector, then pull on it.',
   mount(host, ctx) {
-    const station = createStation(host, { depth: ctx.depth, color: ctx.color, layout: 'side' });
+    const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = /^#[0-9a-f]{6}$/i.test(ctx.color) ? ctx.color : '#fb923c';
     const sim = new HedmSim(7);
-    const vs: ViewState = { omega: 0, mode: 'ff', selected: -1, depth: ctx.depth, accent, t: 0, flashes: [], touched: false, still: false };
+    const vs: ViewState = { omega: 0, mode: 'ff', selected: -1, accent, t: 0, flashes: [], touched: false, still: false };
 
     // ------------------------------------------------------------------ canvases
     const smpC = canvas2d(station.visual, { label: '1 · Sample slice, from above' });
@@ -121,11 +121,6 @@ const mod: ExplainerModule = {
     applyLayout();
 
     // ------------------------------------------------------------------ helpers
-    const isSpec = () => station.depth === 'specialist';
-    const relabel = (el: HTMLElement, text: string) => {
-      const l = el.closest('.stn-slider, .stn-readout, .stn-toggle-wrap')?.querySelector('.stn-slider-label, .stn-readout-label');
-      if (l) l.textContent = text;
-    };
     let ffDirty = false;
     let lastParam = 0;
     const paramsChanged = (load = false) => {
@@ -144,21 +139,18 @@ const mod: ExplainerModule = {
     const gDet = group(station.controls, 'Detector');
     const tMode = toggle<Mode>(gDet, {
       options: [
-        { value: 'ff', label: 'Far · 1 m', title: 'Far-field HEDM: flat panel 1 m downstream' },
-        { value: 'nf', label: 'Near · 7 mm', title: 'Near-field HEDM: high-resolution camera a few mm behind the sample' },
+        { value: 'ff', label: 'Far · 1 m', title: 'Far-field high-energy diffraction microscopy: a flat-panel detector 1 m downstream' },
+        { value: 'nf', label: 'Near · 7 mm', title: 'Near-field high-energy diffraction microscopy: a high-resolution camera a few mm behind the sample' },
       ],
       value: 'ff',
       onChange: (m) => setMode(m),
     });
-    const detNote = note(gDet, station, '', '');
+    const detNote = note(gDet, station, '');
     const setDetNote = () =>
       detNote.set(
         vs.mode === 'ff'
-          ? 'The **far** detector sorts spots by angle: it tells how each grain is tilted and how much it is stretched, but not its shape.'
-          : 'The **near** camera sits so close that each spot still shows where it came from: together they redraw every grain’s **shape**.',
-        vs.mode === 'ff'
-          ? 'ff: (Y,Z) = P_{y,z} + (L − P_x)(d̂_{y},d̂_{z})/d̂_x with L ≫ sample, so spots encode orientation and d-spacing; centroids come from small position residuals (1-ID-E repeatability ≈ 5 µm, 0.02°, 2×10^{−4} strain). Spots are coloured by grain only to link the panels.'
-          : 'nf: L ≈ 5–10 mm, line beam; spots are projections of grain cross-sections. HEXM 20-ID-E serves nf (D1), ff (D2/D3, 2θ ≤ 18°) and very-far-field (up to ~16 m) at one calibrated sample position.',
+          ? 'The **far-field** detector, 1 m back, sorts spots by angle. From them the computer works out each grain’s tilt, its stretch and its centre, but not its shape. Measured repeatability at APS beamline 1-ID-E: about 5 µm in position, 0.02° in tilt and 2×10^{−4} in strain. Spot colours only mark which grain made them.'
+          : 'The **near-field** camera sits only 5–10 mm (7 mm here) behind a sample lit by a thin sheet of beam, so each spot is still a projection of its grain’s outline: together the spots redraw every grain’s **shape**. HEXM’s 20-ID-E serves near field, far field and very far field (detectors up to ~16 m away) from one calibrated sample position.',
       );
     setDetNote();
 
@@ -180,8 +172,7 @@ const mod: ExplainerModule = {
     note(
       gBeam,
       station,
-      'Higher-energy X-rays slip through more metal and bounce off the atoms at **smaller angles**: the rings shrink.',
-      'λ[Å] = 12.398/E[keV]; 2θ = 2 asin(λ/2d) ≈ λ/d, so ring radii on the flat panel scale ≈ 1/E (Ni 111: 4.99° at 70 keV). Spot signal ∝ λ³/sin2θ · e^{−μD} ≈ λ²d·e^{−μD}: optimum μD ≈ 2/n for μ ∝ E^{−n} (green ▲, panel 3), so thicker parts need higher E (ignores the source spectrum and detector efficiency, both of which fall at high E). HEXM: 35–120 keV from a bent double-Laue Si(111) monochromator (ΔE/E ≈ 10^{−3}); design flux ≈ 10^{14} ph/s unfocused at 70 keV (with the planned SCU).',
+      'Higher-energy X-rays slip through more metal and bounce off the atoms at **smaller angles**, so the rings shrink: their size scales roughly as 1/E (at 70 keV nickel’s 111 ring bends X-rays through just 2θ = 4.99°). But each reflection also weakens as the energy rises, about as 1/E², so the brightest spots come where deeper reach and weaker reflection balance: the green ▼ in panel 3. Thicker parts need higher energies (this estimate leaves out the source spectrum and the detector’s efficiency, which both fall at high energy). HEXM covers 35–120 keV with a bent double-Laue silicon monochromator (energy spread ΔE/E ≈ 10^{−3}).',
     );
 
     // 2. sample
@@ -226,8 +217,7 @@ const mod: ExplainerModule = {
     note(
       gS,
       station,
-      'A **nickel alloy** like those in jet engines. Each coloured patch is a **grain**: a tiny crystal with its own tilt. Pull gently and the atoms spring back; past the **yield point** the metal stretches for good.',
-      'Model: fcc Ni (a = 3.524 Å), C_{11}, C_{12}, C_{44} = 246.5, 147.3, 124.7 GPa (E_{100} = 136, E_{111} = 304 GPa); grain strain = ½(Reuss + Voigt) under uniaxial σ_{zz}; E_{macro} ≈ 221 GPa. σ_y = 900 MPa, H = 1.5 GPa, and the plastic broadening (0.9° misorientation FWHM per % ε_p) are illustrative. 24 grains for clarity (real ff-HEDM: 10^{2}–10^{4} grains in the beam); the slice scales with the rod.',
+      'A **nickel alloy** like those in jet engines. Each coloured patch is a **grain**: a tiny crystal with its own tilt. Pull gently and the atoms spring back; past the **yield point** the metal stretches for good. A nickel crystal is stiffer along some directions than others (136 GPa along a cube edge, 304 GPa along a cube diagonal), so each grain stretches by its own amount. 24 grains keep the picture clear; a real far-field scan follows 10^{2}–10^{4} grains at once.',
     );
 
     // 3. rotation
@@ -262,8 +252,7 @@ const mod: ExplainerModule = {
     note(
       gRot,
       station,
-      'A real scan takes a picture every quarter of a degree for a full turn: over a thousand pictures. Here one second ≈ 15°.',
-      'Bragg in the rotation geometry: cos(ω + φ) = −λ|g|²/(2ρ), ρ = |g_{xy}| → two ω per g (four with Friedel −g); g within θ of the rotation axis never diffracts (blind zone near η = ±90°). Lorentz factor 1/(sin2θ|cos η|). Real ff-HEDM: Δω = 0.1–0.25°, 1440–3600 frames per 360°.',
+      'A real scan takes a picture every 0.1–0.25° through a full turn: 1,440–3,600 pictures. Here one second ≈ 15°. Each set of atomic planes passes the Bragg angle twice per turn (four times, counting the same planes seen from the other side). Planes lying almost square to the rotation axis never reach it, which leaves blind gaps at the top and bottom of each ring.',
     );
 
     // 4. selected grain
@@ -278,14 +267,21 @@ const mod: ExplainerModule = {
     note(
       gU,
       station,
-      'The upgraded ring makes a far narrower, brighter beam. HEXM spreads it over samples **several millimetres** across (about 1 mm before), or squeezes it to ~200 nm to zoom in on one grain, 180 m from the source.',
-      'Emittance 3113 → 42 pm (vertical ≈ 4 pm): at 35–120 keV the electron beam dominates the photon phase space, so the gain carries to high energy. At 20-ID-E (180 m) diamond expanders make 3–4 mm line beams for nf-HEDM; design focus 0.43 × 0.21 µm at 70 keV; ~100× the data rate of pre-upgrade 1-ID. Today’s source is an interim pair of U21 permanent-magnet undulators; a 2 × 1.9 m, 16.5 mm-period SCU is planned (2026–27).',
+      'The upgraded ring packs its electrons into a far tighter beam: its horizontal emittance (size × spread) fell from 3,113 to 42 pm. At these high energies the X-ray beam’s size and spread are set mostly by the electrons, so the gain carries over. At 20-ID-E, 180 m from the source, lenses spread the beam over samples **3–4 mm** across (about 1 mm before) or focus it to 0.43 × 0.21 µm (design, 70 keV) to zoom in on one grain; data should come ~100× faster than at 1-ID before the upgrade. Today’s source is an interim pair of permanent-magnet undulators; the design flux (≈10^{14} photons/s at 70 keV) assumes the superconducting undulator planned for 2026–27.',
     );
+
+    // 6. the model's fine print, in smaller type
+    const gModel = group(station.controls, 'About this model');
+    const modelNote = note(gModel, station, '');
+    modelNote.set(
+      `A simulation, not data. Nickel is modelled as a face-centred cubic crystal (a = 3.524 Å) with elastic constants C_{11}, C_{12}, C_{44} = 246.5, 147.3, 124.7 GPa; each grain’s strain is the average of the two textbook bounds (Reuss and Voigt) under a straight pull, giving an overall stiffness ≈221 GPa. The yield stress (900 MPa), hardening (1.5 GPa) and plastic smearing (0.9° spread in tilt per % of permanent stretch) are illustrative. Spot brightness follows simple (kinematic) diffraction theory: it scales with λ³ (λ the wavelength), the atoms’ scattering strength, their thermal jiggling, polarization, the time each set of planes spends at the Bragg angle, the grain’s volume and the share of X-rays that get through, from NIST XCOM absorption data. The grey ▼ in panel 3 marks a molybdenum lab tube’s 17.5 keV line. A grain counts as found once ≥ 8 of its spots, and ≥ 8 % of its full-turn spots, are recorded (an illustrative threshold). The near-field camera here has ${NF.npx}² pixels of ${((2 * NF.half * 1000) / NF.npx).toFixed(0)} µm (real: ≈1.5 µm), and the map ${NF_VOX}² cells, each testing the ${sim.ng} far-field orientations (after yield also 4 tilted pieces per grain). Real codes (IceNine, HEXRD, MIDAS) search all orientations and use 2–3 camera distances; HEXM’s design aim is ≈1 µm and 0.01°.`,
+    );
+    (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
 
     // where the groups live: all in the side column (wide/mid); in the narrow single column the main ones
     // (with the live caption) move up right under the detector so nobody has to scroll past four panels
     const mainGroups = [gDet, gBeam, gS, gRot];
-    const restGroups = [gSel, gU];
+    const restGroups = [gSel, gU, gModel];
     const quick = document.createElement('div');
     quick.className = 'stn-controls';
     quick.style.cssText = 'grid-area:ctl;grid-template-columns:minmax(0,1fr);border:1px solid rgba(150,180,220,.12);border-radius:8px;overflow:visible';
@@ -311,60 +307,51 @@ const mod: ExplainerModule = {
 
     // ------------------------------------------------------------------ readouts
     function refreshReadouts(): void {
-      const spec = isSpec();
       const T = sim.transmissionCentre;
-      relabel(rT.el, spec ? 'λ · T' : 'Gets through the rod');
-      rT.set(spec ? `${sim.lambda.toFixed(4)} Å · ${tPct(T)} %` : `${tPct(T)} %`);
+      rT.set(`${tPct(T)} %`);
       rT.el.querySelector<HTMLElement>('.stn-readout-value')!.style.color = T < 0.01 ? '#f87171' : T < 0.1 ? '#fbbf24' : '';
       const M = sim.macro;
-      relabel(rStress.el, spec ? 'σ_zz · ε_p' : 'Stress');
       const sMPa = Math.round(M.sigma * 1000);
-      rStress.set(spec ? `${sMPa} MPa · ${pct(M.epsP, 2)} %` : sim.eps === 0 ? 'none' : M.yielded ? `${sMPa} MPa, yielded` : `${sMPa} MPa, springy`);
-      relabel(sE.input, spec ? 'Photon energy E' : 'Energy');
-      relabel(sD.input, spec ? 'Rod diameter D' : 'Rod diameter');
-      relabel(sPull.input, spec ? 'Applied strain ε (macro)' : 'Pull (stretch)');
-      relabel(sOm.input, spec ? 'ω (rotation about z)' : 'Rotation angle ω');
+      rStress.set(sim.eps === 0 ? 'none' : M.yielded ? `${sMPa} MPa, yielded` : `${sMPa} MPa, springy`);
       refreshCard();
     }
 
+    /** signed with a true minus: "+0.35", "−0.12" */
+    const sgn = (v: number, d: number) => {
+      const t = Math.abs(v).toFixed(d);
+      return Number(t) === 0 ? t : `${v > 0 ? '+' : '−'}${t}`;
+    };
     function refreshCard(): void {
       const g = vs.selected;
-      const spec = isSpec();
       card.replaceChildren();
       const add = (text: string, o: { mono?: boolean; strong?: boolean; color?: string; small?: boolean } = {}) => {
         const d = document.createElement('div');
         d.textContent = text;
-        d.style.cssText = `font:${o.strong ? 650 : 500} ${o.small ? 11 : 12}px ${o.mono ? 'var(--mono)' : 'var(--font)'};color:${o.color ?? '#b7c3d2'};white-space:pre`;
+        d.style.cssText = `font:${o.strong ? 650 : 500} ${o.small ? 11 : 12}px ${o.mono ? 'var(--mono)' : 'var(--font)'};color:${o.color ?? '#b7c3d2'};white-space:${o.mono ? 'pre' : 'normal'}`;
         card.appendChild(d);
         return d;
       };
       if (g < 0) {
-        add('Tap a grain in panel 1, a spot in panel 2', { small: true });
-        add('or a dot in panel 4 to follow it.', { small: true });
+        add('Tap a grain in panel 1, a spot in panel 2 or a dot in panel 4 to follow it.', { small: true });
         return;
       }
       const gr = sim.grains[g];
       const head = add(`■ Grain ${g + 1}`, { strong: true, color: '#e9eef5' });
-      head.style.whiteSpace = 'normal';
       const sw = `rgb(${Math.round(gr.ipf[0] * 255)},${Math.round(gr.ipf[1] * 255)},${Math.round(gr.ipf[2] * 255)})`;
       head.innerHTML = `<span style="color:${sw}">■</span> Grain ${g + 1}`;
       const tot = sim.totalSpots[g];
       const seen = sim.seenSpots[g];
       const e = sim.strain.subarray(g * 9, g * 9 + 9);
-      if (spec) {
-        const U = sim.Ucur.subarray(g * 9, g * 9 + 9);
-        const uvw = P.loadAxisHkl(U);
-        const Ed = P.youngDir(sim.el, [U[6], U[7], U[8]]);
-        add(`load axis ∥ ⟨${uvw}⟩ · E_uvw ${Ed.toFixed(0)} GPa`, { small: true });
-        add(`spots recorded ${seen}/${tot} · ${sim.found[g] ? 'indexed' : 'not indexed'}`, { small: true });
-        add('ε (sample frame) ×10⁻⁴:', { small: true });
-        const f = (v: number) => (v * 1e4).toFixed(0).padStart(5, ' ');
+      const U = sim.Ucur.subarray(g * 9, g * 9 + 9);
+      add(sim.found[g] ? `Found: ${seen} of its ${tot} spots recorded` : tot ? `Not found yet (${seen} of ${tot} spots)` : 'Too faint to see at this energy', { small: true });
+      add(`Pull runs ≈ along its crystal direction ⟨${P.loadAxisHkl(U)}⟩, where its stiffness (Young’s modulus) is ${P.youngDir(sim.el, [U[6], U[7], U[8]]).toFixed(0)} GPa`, { small: true });
+      if (sim.eps > 0) {
+        add(`Its atoms: ${sgn(e[8] * 100, 2)} % farther apart along the pull`, { small: true });
+        add('Full strain, ×10⁻⁴ (rows/columns x, y, z; z = pull):', { small: true, color: '#8394a9' });
+        const f = (v: number) => sgn(v * 1e4, 0).replace('+', '').padStart(5, ' ');
         add(`${f(e[0])}${f(e[1])}${f(e[2])}\n${f(e[3])}${f(e[4])}${f(e[5])}\n${f(e[6])}${f(e[7])}${f(e[8])}`, { mono: true, small: true, color: '#e9eef5' });
-      } else {
-        add(sim.found[g] ? `Found: ${seen} of its ${tot} spots seen` : tot ? `Not found yet (${seen} of ${tot} spots)` : 'Too faint to see at this energy', { small: true });
-        add(sim.eps > 0 ? `Its atoms: +${pct(e[8], 2)} % farther apart along the pull` : 'Not pulled yet', { small: true });
-        add('Its spots are ringed on the detector.', { small: true, color: '#8394a9' });
-      }
+      } else add('Not pulled yet', { small: true });
+      add('Its spots are ringed on the detector.', { small: true, color: '#8394a9' });
     }
 
     // ------------------------------------------------------------------ state changes
@@ -528,71 +515,49 @@ const mod: ExplainerModule = {
     ansC.canvas.style.cursor = 'pointer';
 
     // ------------------------------------------------------------------ caption
-    function captionTexts(): [string, string] {
+    function captionText(): string {
       const T = sim.transmissionCentre;
       const M = sim.macro;
       const E = sim.E;
       const D = sim.D.toFixed(1);
       const sMPa = Math.round(M.sigma * 1000);
       const ax = sim.axialStats();
-      const tVis =
+      const att = fmtLen(1 / sim.mu);
+      const tNote =
         T < 0.005
-          ? ` At ${E} keV almost no X-rays get through ${D} mm of nickel: **raise the energy** to see inside.`
+          ? ` At ${E} keV almost no X-rays get through ${D} mm of nickel (the beam fades to 1/e every ${att}): **raise the energy** to see inside.`
           : T < 0.15
-            ? ` Only **${tPct(T)} %** of the beam gets through ${D} mm of nickel, so the spots are faint: try a higher energy.`
+            ? ` Only **${tPct(T)} %** of the beam gets through ${D} mm of nickel (it fades to 1/e every ${att}), so the spots are faint: try a higher energy.`
             : '';
-      const tSpec = ` T = e^{−μD} = ${tPct(T)} % (μ = ${sim.mu.toFixed(2)} mm^{−1}, 1/μ = ${fmtLen(1 / sim.mu)}).`;
       if (vs.mode === 'ff') {
         const nRec = sim.recordedSpots();
-        let v: string;
-        if (sim.nVisited === 0) {
-          v = 'Press **▶ Turn** or drag the sample. As the rod turns, each crystal grain **flashes** when its layers of atoms meet the beam at exactly the right angle, and throws a spot onto the detector.';
-        } else {
-          v = `**${sim.nFound} of ${sim.ng} grains** found from **${nRec} spots**. A grain flashes when its atom layers sit at exactly the right angle to the ${E} keV beam (Bragg’s law); spots from the same kind of layer fall on one ring.${tVis}`;
-          if (sim.eps === 0) v += ' Now **pull** on the rod.';
-          else if (!M.yielded)
-            v += ` Pulled at **${sMPa} MPa** (like hanging **${hangMass(M.sigma, sim.D)}** from this ${D} mm rod), atoms along the pull sit about **${pct(ax.mean, 2)} %** farther apart: spots at the top and bottom creep inward${sim.mag > 1 ? ' (×20 on screen)' : ' (at true size less than a pixel: try **×20**)'}, so the rings turn into ovals.`;
-          else
-            v += ` Past the **yield point** the rod stretches for good (**${pct(M.epsP, 1)} %**), yet the atoms are still only about **${pct(ax.mean, 2)} %** farther apart: layers of atoms **slip** past each other instead. The crystals bend, so their spots **smear** into arcs.`;
-        }
-        let s = `**ff-HEDM**, E = ${E} keV (λ = ${sim.lambda.toFixed(4)} Å), L = 1 m: Ni 111 at 2θ = ${(P.twoThetaOf(sim.fams[0].d, sim.lambda) / P.DEG).toFixed(2)}°. ${nRec} spots from Δω = ${sim.nVisited}°; ${sim.nFound}/${sim.ng} grains indexed (a grain counts once ≥ 8 of its spots, and ≥ 8 % of its full-turn spots, are recorded: illustrative).`;
-        if (sim.eps > 0)
-          s += ` σ_{zz} = ${sMPa} MPa: grain ε_{zz} = ${(ax.min * 1e3).toFixed(2)}–${(ax.max * 1e3).toFixed(2)}×10^{−3} (mean ${(ax.mean * 1e3).toFixed(2)}), spread by elastic anisotropy; ΔR/R ≈ −ε_{hkl}${sim.mag > 1 ? ', drawn ×20' : ', true scale'}.`;
-        if (sim.eps > 0) {
-          const fits = sim.ringFits().filter((f) => f.fam <= 1);
-          if (fits.length)
-            s += ` Ring fits ε(η) = ε_{⊥} + (ε_{∥} − ε_{⊥}) sin²η (2θ referred to each grain’s centroid): ${fits
-              .map((f) => `${sim.fams[f.fam].label}: ε_{∥} = ${(f.epsPar * 1e3).toFixed(2)}, ε_{⊥} = ${(f.epsPerp * 1e3).toFixed(2)}×10^{−3} (E_{hkl} ≈ ${Math.round(M.sigma / f.epsPar)} GPa)`)
-              .join('; ')}.`;
-        }
-        if (M.yielded) s += ` ε_p = ${pct(M.epsP, 2)} %: ${(sim.fx.spread / P.DEG).toFixed(1)}° FWHM misorientation streaks spots in η and ω (illustrative).`;
-        s += tSpec;
-        return [v, s];
+        if (sim.nVisited === 0)
+          return `Press **▶ Turn** or drag the sample. As the rod turns, each crystal grain **flashes** when its layers of atoms meet the ${E} keV beam at exactly the Bragg angle θ, where λ = 2d sinθ (λ the X-ray wavelength, ${sim.lambda.toFixed(3)} Å here; d the spacing of the layers), and throws a spot onto the detector 1 m away.${tNote}`;
+        let v = `**${sim.nFound} of ${sim.ng} grains** found from **${nRec} spots** over ${sim.nVisited}° of turning. A grain flashes when its atom layers meet the ${E} keV beam at exactly the Bragg angle; spots from the same kind of layer fall on one ring (nickel’s 111 ring at 2θ = ${(P.twoThetaOf(sim.fams[0].d, sim.lambda) / P.DEG).toFixed(2)}°).${tNote}`;
+        if (sim.eps === 0) v += ' Now **pull** on the rod.';
+        else if (!M.yielded) {
+          const fit = sim.ringFits().find((f) => f.fam === 0);
+          v += ` Pulled at **${sMPa} MPa** (like hanging **${hangMass(M.sigma, sim.D)}** from this ${D} mm rod), atoms along the pull sit **${pct(ax.mean, 2)} %** farther apart on average, from ${pct(ax.min, 2)} to ${pct(ax.max, 2)} % grain by grain, because each crystal is stiffer in some directions than others. Spots at the top and bottom creep inward${sim.mag > 1 ? ' (×20 on screen)' : ' (at true size less than a pixel: try **×20**)'}, so the rings turn into ovals${fit ? `: the 111 oval gives ${sgn(fit.epsPar * 100, 2)} % along the pull and ${sgn(fit.epsPerp * 100, 2)} % across it` : ''}.`;
+        } else
+          v += ` Past the **yield point** the rod stretches for good (**${pct(M.epsP, 1)} %**), yet the atoms are still only about **${pct(ax.mean, 2)} %** farther apart: layers of atoms **slip** past each other instead. The crystals bend, so their spots **smear** into arcs (a ${(sim.fx.spread / P.DEG).toFixed(1)}° spread in tilt, illustrative).`;
+        return v;
       }
       const st = ans.stats;
       const mapped = Math.round(st.mapped * 100);
-      let v =
-        sim.nVisited === 0
-          ? 'Press **▶ Turn** or drag the sample. A camera just **7 mm** behind the rod catches each spot almost where it leaves its grain.'
-          : `A camera just **7 mm** behind the rod catches each spot almost where it leaves its grain, so every spot is a thin **streak as wide as its grain** looks from that angle; many angles together give the grain’s shape, as in a CT scan. For each point of the slice the computer tries every grain orientation and keeps the one whose predicted spots land on bright pixels: **${mapped} %** mapped so far.${tVis}`;
-      if (M.yielded) v += ' Bent past yield, each grain breaks into **slightly tilted pieces**: the dark lines inside the grains.';
-      const vox = ((sim.D * 1000) / NF_VOX).toFixed(0);
-      let s = `**nf-HEDM**: line beam, L = 7 mm, 3.2 mm field of view (128² × 25 µm pixels: coarse; real ≈ 1.5 µm). Forward model on a 48² voxel grid (${vox} µm): each voxel tests the 24 ff-indexed orientations; C = hits / predicted spots on the camera. Mapped (C ≥ 0.5): ${mapped} %, right grain: ${Math.round(st.correct * 100)} %.`;
-      if (M.yielded) s += ` After yield each grain carries 4 sub-grains misoriented by ~${(sim.fx.spread / P.DEG).toFixed(1)}° FWHM (illustrative); the model then also tests those orientations (a local search around each ff grain), and sub-grain boundaries appear as dark lines.`;
-      s += ' Real reconstructions (IceNine, HEXRD, MIDAS) search orientation space and use 2–3 distances to triangulate; HEXM design: ≈1 µm, 0.01°.';
-      s += tSpec;
-      return [v, s];
+      if (sim.nVisited === 0) return `Press **▶ Turn** or drag the sample. A camera just **7 mm** behind the rod catches each spot almost where it leaves its grain.${tNote}`;
+      let v = `A camera just **7 mm** behind the rod catches each spot almost where it leaves its grain, so every spot is a thin **streak as wide as its grain** looks from that angle; many angles together give the grain’s shape, as in a CT scan. For each point of the slice the computer tries the orientations found in the far field and keeps the one whose predicted spots land on bright pixels: **${mapped} %** mapped so far (fit at least 50 % sure), ${Math.round(st.correct * 100)} % to the right grain.${tNote}`;
+      if (M.yielded) v += ` Bent past yield, each grain breaks into **slightly tilted pieces** (≈${(sim.fx.spread / P.DEG).toFixed(1)}° apart, illustrative): the dark lines inside the grains.`;
+      return v;
     }
     const refreshCaption = (force = false) => {
       const now = performance.now();
       if (!force && (!capDirty || now - capT < 250)) return;
       capT = now;
       capDirty = false;
-      const [v, s] = captionTexts();
-      const key = `${station.depth}|${v}|${s}`;
-      if (key === capLast) return;
-      capLast = key;
-      station.setCaption(v, s);
+      const v = captionText();
+      if (v === capLast) return;
+      capLast = v;
+      station.setCaption(v);
     };
 
     // ------------------------------------------------------------------ loop
@@ -648,14 +613,6 @@ const mod: ExplainerModule = {
 
     return {
       destroy: () => station.destroy(),
-      setDepth: (d) => {
-        station.setDepth(d);
-        vs.depth = d;
-        penDirty = true;
-        refreshReadouts();
-        capLast = '';
-        refreshCaption(true);
-      },
     };
   },
 };

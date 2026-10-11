@@ -5,22 +5,32 @@
  * Brightness framing used everywhere in the exhibit: "about 500× (100–1000× depending on X-ray energy)".
  * Design anchors: ×540 at 20 keV for a 20-keV-optimised undulator (FDR Table 1.1); IPAC'21 design envelope
  * ≈ ×200 at 10 keV, ×700 at 20 keV, ×600–800 at 50–100 keV (coherent flux ≈ ×160 at 10 keV, ×600 at 20 keV).
+ * No measured APS-U brightness curve has been published, so brightness gains are always design values.
  * Source size: round (user) mode 12.3 × 8.3 µm rms, flat mode 14.5 × 3.1 µm rms, vs 275 × 10 µm before.
+ *
+ * `text` is the one overview text for every reader (≤ ~120 words): everyday lead, mechanism, then the telling numbers.
+ * Stat notes are fine print: technical but readable, whole sentences.
  */
 export const OVERVIEW_COPY = {
   title: 'A brighter light',
-  plain:
-    'The Advanced Photon Source is a 1.1-kilometre ring of electrons travelling at 99.9999996% of the speed of light. Magnets make them shed intense X-rays that scientists use to look inside batteries, catalysts, proteins and new materials. In 2023–24 the entire ring was replaced by a new design that squeezes the electron beam to about 10–30 micrometres across (thinner than a human hair), down from about half a millimetre wide, so its X-rays are about 500 times brighter (100 to 1,000 times, depending on the X-ray energy). Nine new “feature beamlines” were built to use that light.',
-  expert:
-    'The APS Upgrade replaced the 7 GeV double-bend-achromat ring with a 6 GeV, 200 mA hybrid seven-bend achromat (H7BA) with six reverse bends per sector: natural emittance ~42 pm·rad (28–44 pm·rad measured depending on coupling) versus ~3,100 pm·rad horizontally before. The source at an undulator shrank from ~275 × 10 µm rms to ~12 × 8 µm in the round-beam user mode (~14 × 3 µm in the low-coupling flat mode). Swap-out injection replaces depleted bunches every ~20 s and a superconducting bunch-lengthening cavity stretches bunches 2–4×. Brightness rises ~500× (design ×540 at 20 keV; 100–1000× across 10–100 keV).',
+  text:
+    'The Advanced Photon Source is a 1.1 km ring of electrons travelling at 99.9999996% of the speed of light; magnets make them shed X-rays that scientists use to look inside batteries, catalysts, proteins and new materials. In 2023–24 the whole ring was replaced. Each of its 40 sectors now bends the electrons in seven gentle steps instead of two, squeezing the beam at the X-ray source to about 12 × 8 micrometres (µm; root-mean-square widths in user mode), down from 275 × 10 µm. Its X-rays are therefore about 500 times brighter, meaning more photons from a smaller spot into a narrower cone: 100 to 1,000 times, depending on energy, by design calculations. Nine new feature beamlines were built to use that light.',
   stats: [
     {
       value: '6 GeV',
       label: 'electron energy (was 7)',
-      note: 'Lower energy lowers emittance (∝ E²) and radiated power (∝ E⁴), making 200 mA affordable; the cost is ~27% lower photon energy per harmonic, made up for with shorter-period undulators and higher harmonics.',
+      note: 'For a given lattice, emittance scales as the square of the electron energy E and radiated power as E⁴, so a lower energy gives a smaller beam and makes 200 mA affordable. The cost is about 27% lower photon energy per harmonic, made up for with shorter-period undulators and higher harmonics.',
     },
-    { value: '42 pm·rad', label: 'emittance (was 3,100)', note: 'Natural emittance of the new lattice; measured 28–44 pm·rad depending on coupling.' },
-    { value: '~500×', label: 'brighter X-rays', note: 'Design: ×540 at 20 keV, 100–1000× across 10–100 keV.' },
-    { value: '1,321', label: 'magnets (was 1,097)', note: '33 per sector × 40, plus one extra corrector near injection; 200 pre-assembled modules.' },
+    {
+      value: '42 pm·rad',
+      label: 'emittance (was 3,100)',
+      note: 'Emittance, the beam’s size × angular spread, sets how small and parallel the X-ray source can be. 42 pm·rad is the new lattice’s natural (design) value; 28–44 pm·rad has been measured, depending on how strongly the two planes are coupled.',
+    },
+    {
+      value: '~500×',
+      label: 'brighter X-rays',
+      note: 'Design values: ×540 at 20 keV for an undulator optimized for 20 keV, and 100–1,000× across 10–100 keV. No measured brightness curve has been published.',
+    },
+    { value: '1,321', label: 'magnets (was 1,097)', note: '33 per sector × 40, plus one extra corrector near injection, installed as 200 pre-assembled modules.' },
   ] as { value: string; label: string; note?: string }[],
 };

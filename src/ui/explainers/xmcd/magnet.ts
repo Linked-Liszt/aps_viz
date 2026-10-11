@@ -3,7 +3,6 @@
  * plus the path actually travelled) and the Weiss mean-field M(T) curve with T_C. Both plots are draggable:
  * horizontal drag on the loop sets the field, on M(T) the temperature.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import * as P from './physics';
 import { inside, linMap, num, rgba, rich, richW, txt, type Rect } from './draw';
@@ -16,7 +15,6 @@ export interface MagnetState {
   m0: number;
   hc: number;
   tc: number;
-  depth: Depth;
 }
 
 const TRAIL = 220;
@@ -85,7 +83,6 @@ export class MagnetPlot {
 
   draw(s: MagnetState): void {
     const { ctx, w, h } = this.c;
-    const spec = s.depth === 'specialist';
     ctx.save();
     ctx.fillStyle = TOKENS.bg;
     ctx.fillRect(0, 0, w, h);
@@ -101,8 +98,8 @@ export class MagnetPlot {
       this.loopRect = { x: padL, y: top + 20, w: w - padL - 12, h: ch - 20 - 30 };
       this.tempRect = { x: padL, y: top + ch + 22, w: w - padL - 12, h: ch - 22 - 30 };
     }
-    this.drawLoop(s, spec);
-    this.drawTemp(s, spec);
+    this.drawLoop(s);
+    this.drawTemp(s);
     ctx.restore();
   }
 
@@ -128,7 +125,7 @@ export class MagnetPlot {
     for (const t of yt) txt(ctx, fy(t), r.x - 5, ym(t) + 4, { size: 10.5, color: TOKENS.ink3, align: 'right' });
   }
 
-  private drawLoop(s: MagnetState, spec: boolean): void {
+  private drawLoop(s: MagnetState): void {
     const { ctx } = this.c;
     const r = this.loopRect;
     const B = P.POLAR.bMax;
@@ -197,7 +194,7 @@ export class MagnetPlot {
         ctx.closePath();
         ctx.fill();
       }
-      if (spec && r.w > 200) rich(ctx, `H_{c} ${s.hc.toFixed(1)} T`, xm(s.hc) + 6, ym(-0.8), { size: 10.5, color: TOKENS.ink3 });
+      if (r.w > 200) rich(ctx, `H_{c} ${s.hc.toFixed(1)} T`, xm(s.hc) + 6, ym(-0.8), { size: 10.5, color: TOKENS.ink3 });
     }
     // current state
     const x = xm(s.H);
@@ -210,9 +207,9 @@ export class MagnetPlot {
     ctx.fill();
     ctx.stroke();
     // titles
-    txt(ctx, spec ? `M(H) at ${Math.round(s.T)} K` : 'Flip it with a magnetic field', r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
-    txt(ctx, spec ? 'μ₀H (T)' : 'field (tesla)', r.x + r.w, r.y + r.h + 27, { size: 10.5, color: TOKENS.ink2, align: 'right' });
-    this.yLabel(spec ? 'M·k̂ / M_{s}' : 'magnetization', r);
+    txt(ctx, `Flip it with a magnetic field: M(H) at ${Math.round(s.T)} K`, r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
+    txt(ctx, 'field μ₀H (tesla)', r.x + r.w, r.y + r.h + 27, { size: 10.5, color: TOKENS.ink2, align: 'right' });
+    this.yLabel(['magnetization M·k̂/M_{s}', 'magnetization'], r);
     if (this.hover === 'loop') txt(ctx, '⇠ drag ⇢', r.x + r.w - 6, r.y + 14, { size: 10.5, color: TOKENS.ink3, align: 'right' });
   }
 
@@ -249,19 +246,17 @@ export class MagnetPlot {
     for (let i = 0; i < n; i++) this.curveH[i] = hAbs > 0.05 ? P.inField(this.curveT[i], s.P, hAbs) : NaN;
   }
 
-  private drawTemp(s: MagnetState, spec: boolean): void {
+  private drawTemp(s: MagnetState): void {
     const { ctx } = this.c;
     const r = this.tempRect;
     this.ensureCurves(s);
     const xm = linMap(0, T_MAX, r.x, r.x + r.w);
     const ym = linMap(0, 1.1, r.y + r.h, r.y);
     this.frame(r, [0, 300, 600, 900], [0, 0.5, 1], xm, ym, (v) => `${v}`, (v) => (v === 0.5 ? '½' : `${v}`));
-    // POLAR sample-environment band (specialist)
-    if (spec) {
-      ctx.fillStyle = 'rgba(92,211,255,0.08)';
-      ctx.fillRect(xm(P.POLAR.tMin), r.y + 1, xm(450) - xm(P.POLAR.tMin), r.h - 1);
-      txt(ctx, 'POLAR cryostats ≤ 450 K', xm(8), r.y + r.h - 6, { size: 10, color: 'rgba(160,215,240,0.7)' });
-    }
+    // POLAR sample-environment band
+    ctx.fillStyle = 'rgba(92,211,255,0.08)';
+    ctx.fillRect(xm(P.POLAR.tMin), r.y + 1, xm(450) - xm(P.POLAR.tMin), r.h - 1);
+    txt(ctx, 'POLAR cryostats ≤ 450 K', xm(8), r.y + r.h - 6, { size: 10, color: 'rgba(160,215,240,0.7)' });
     // room temperature
     const xr = xm(293);
     ctx.strokeStyle = 'rgba(170,190,215,0.35)';
@@ -280,10 +275,11 @@ export class MagnetPlot {
       ctx.stroke();
     }
     ctx.setLineDash([]);
-    if (!spec) txt(ctx, 'room temp.', xr + 4, r.y + r.h - 6, { size: 10, color: TOKENS.ink3 });
+    // above the cryostat note, which runs along the bottom
+    txt(ctx, 'room temp.', xr + 4, r.y + r.h - 20, { size: 10, color: TOKENS.ink3 });
     if (s.tc > 0) {
       const xc = xm(Math.min(T_MAX, s.tc));
-      const lbl = spec ? `T_{C} ${Math.round(s.tc)} K` : `Curie point ${Math.round(s.tc)} K`;
+      const lbl = `Curie point T_{C} ${Math.round(s.tc)} K`;
       const o = { size: 10.5, color: TOKENS.warn, weight: 600 };
       const right = xc + 4 + richW(ctx, lbl, o) < r.x + r.w - 2;
       rich(ctx, lbl, right ? xc + 4 : xc - 4, r.y + 13, { ...o, align: right ? 'left' : 'right' });
@@ -330,14 +326,17 @@ export class MagnetPlot {
     ctx.arc(x, ym(Math.abs(s.M)), 5.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
-    txt(ctx, spec ? 'Weiss mean field, J = 3/2' : 'Heat it: magnetism vs temperature', r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
-    txt(ctx, spec ? 'T (K)' : 'temperature (kelvin)', r.x + r.w, r.y + r.h + 27, { size: 10.5, color: TOKENS.ink2, align: 'right' });
-    this.yLabel(spec ? '|M| / M_{s}' : 'strength', r);
+    txt(ctx, 'Heat it: magnetism vs temperature (mean field)', r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
+    txt(ctx, 'temperature T (kelvin)', r.x + r.w, r.y + r.h + 27, { size: 10.5, color: TOKENS.ink2, align: 'right' });
+    this.yLabel(['strength |M|/M_{s}', 'strength'], r);
     if (this.hover === 'temp') txt(ctx, '⇠ drag ⇢', r.x + r.w - 6, r.y + 28, { size: 10.5, color: TOKENS.ink3, align: 'right' });
   }
 
-  private yLabel(s: string, r: Rect): void {
+  /** rotated axis label: the first variant that fits the plot height */
+  private yLabel(variants: string[], r: Rect): void {
     const { ctx } = this.c;
+    const o = { size: 10.5 };
+    const s = variants.find((v) => richW(ctx, v, o) <= r.h - 6) ?? variants[variants.length - 1];
     ctx.save();
     ctx.translate(r.x - 30, r.y + r.h / 2);
     ctx.rotate(-Math.PI / 2);

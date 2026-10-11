@@ -19,7 +19,6 @@
  *     IPAC'24 TUPG56); the electron's (exaggerated) sideways wiggle shows that it moves *between* the jaws, in the
  *     horizontal plane, not towards them.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import * as P from './physics';
 
@@ -27,7 +26,6 @@ export interface SceneInput {
   dev: P.Device;
   ring: P.Ring;
   setting: number;
-  depth: Depth;
 }
 
 /** Drawn cone half-angle (rad) at 6 GeV: real 1/γ = 85 µrad → magnification ≈ 4,900×. Scales as 1/E. */
@@ -144,8 +142,7 @@ export class UndulatorScene {
       this.geometry();
       this.coneDirty = true;
       this.restartPass();
-    } else if (prev.depth !== inp.depth) this.geometry();
-    else this.trajectory(); // gap / current only: the static layer stays, the field-dependent parts are drawn per frame
+    } else this.trajectory(); // gap / current only: the static layer stays, the field-dependent parts are drawn per frame
   }
 
   setAccent(a: string): void {
@@ -215,10 +212,9 @@ export class UndulatorScene {
   /** [left, right] texts of the bottom row: scale bar caption | magnification */
   private bottomTexts(): [string, string] {
     const inp = this.inp!;
-    const spec = inp.depth === 'specialist';
-    const left = spec ? `10 mm · λu = ${inp.dev.periodMm} mm · ${this.nVis} of N = ${inp.dev.N} periods` : `10 mm · ${this.nVis} of ${inp.dev.N} magnet periods shown`;
+    const left = `10 mm · period λu = ${inp.dev.periodMm} mm · ${this.nVis} of its N = ${inp.dev.N} periods shown`;
     const mag = Math.round(this.magnification() / 100) * 100;
-    const right = spec ? `x, angles ×${mag.toLocaleString('en-US')} · slippage ×${P.fmtSci(this.slipR * 2 * P.gammaOf(inp.ring.E) ** 2, 1)}` : `wiggle ×${mag.toLocaleString('en-US')} · light slowed down`;
+    const right = `wiggle and angles ×${mag.toLocaleString('en-US')} · slippage ×${P.fmtSci(this.slipR * 2 * P.gammaOf(inp.ring.E) ** 2, 1)}`;
     return [left, right];
   }
 
@@ -310,7 +306,6 @@ export class UndulatorScene {
     x.setTransform(dpr, 0, 0, dpr, 0, 0);
     x.fillStyle = TOKENS.bg;
     x.fillRect(0, 0, w, h);
-    const spec = inp.depth === 'specialist';
     const ay = this.axisY;
     const top = ay - this.bandH;
     const bh = 2 * this.bandH;
@@ -387,14 +382,12 @@ export class UndulatorScene {
       x.fillStyle = '#4a5466';
       for (let m = 0; m < nPoles; m++) x.fillRect(this.x0 + m * half - pw / 2, top + 2, pw, bh - 4);
     }
-    // N / S letters (and field symbols for specialists) above the jaw
+    // N / S letters above the jaw
     if (half >= 11) {
       for (let m = 0; m < nPoles; m++) {
         const cx = this.x0 + m * half;
         const isN = m % 2 === 0;
-        const txt = spec ? (isN ? 'N⊙' : 'S⊗') : isN ? 'N' : 'S';
-        if (spec && half < 17) continue;
-        label(x, txt, cx, top - 8, isN ? '#ff8a8a' : '#8db8ff', 9.5, 'center', 700);
+        label(x, isN ? 'N' : 'S', cx, top - 8, isN ? '#ff8a8a' : '#8db8ff', 9.5, 'center', 700);
       }
     } else if (half >= 6) {
       // too tight for letters: tick colours only
@@ -567,7 +560,9 @@ export class UndulatorScene {
       if (this.lamKey !== this.K) {
         this.lamKey = this.K;
         const lam1 = P.lambdaN(1, inp.ring.E, inp.dev.periodMm, this.K);
-        this.lamTxt = inp.depth === 'specialist' ? `λ₁ = ${lam1 < 1 ? lam1.toFixed(3) : lam1.toFixed(2)} Å` : `one wave = ${(lam1 / 10).toFixed(lam1 < 1 ? 3 : 2)} nm`;
+        const v = `${lam1 < 1 ? lam1.toFixed(3) : lam1.toFixed(2)} Å`;
+        ctx.font = `600 10.5px ${TOKENS.font}`;
+        this.lamTxt = [`one wavelength λ₁ = ${v}`, `one wave: ${v}`, `λ₁ = ${v}`].find((t) => bx + ctx.measureText(t).width <= this.w - 4) ?? `λ₁ = ${v}`;
       }
       label(ctx, this.lamTxt, bx, by + 15, this.accent, 10.5, 'left', 600);
     }

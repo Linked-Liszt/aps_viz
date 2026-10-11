@@ -11,13 +11,18 @@ interface Entry {
   kind: 'beamline' | 'component' | 'technique' | 'sector';
   title: string;
   sub: string;
+  /** names, labels and short descriptors: a match here ranks by kind and title */
   hay: string;
+  /** the entry's exhibit text (summary, technique, component or enhancement text): a match only here ranks after every name match */
+  text: string;
   view: View;
   color?: string;
   cat?: string;
 }
 
 const KIND_RANK: Record<Entry['kind'], number> = { beamline: 0, technique: 1, component: 2, sector: 3 };
+/** Score added when the query is found only in an entry's text, not in its names. */
+const TEXT_ONLY = 100;
 const SECTORS = 35;
 
 /**
@@ -36,11 +41,20 @@ function buildIndex(): Entry[] {
       title: `${b.acronym} — ${m.displayName}`,
       sub: `${m.sectorNumber}-ID · ${m.short}`,
       hay: `${b.acronym} ${m.displayName} ${b.fullName} ${b.sector} ${m.stations} ${m.short} ${b.tagline}`,
+      text: `${b.summary ?? ''} ${b.whatAPSUEnables?.text ?? ''}`,
       view: { mode: 'beamline', id: m.id },
       color: m.color,
     });
     for (const t of b.techniques ?? []) {
-      out.push({ kind: 'technique', title: t.abbrev ? `${t.name} (${t.abbrev})` : t.name, sub: `Technique at ${b.acronym} · opens “How it works”`, hay: `${t.name} ${t.abbrev ?? ''} ${b.acronym}`, view: { mode: 'beamline', id: m.id }, color: m.color });
+      out.push({
+        kind: 'technique',
+        title: t.abbrev ? `${t.name} (${t.abbrev})` : t.name,
+        sub: `Technique at ${b.acronym} · opens “How it works”`,
+        hay: `${t.name} ${t.abbrev ?? ''} ${b.acronym}`,
+        text: t.text ?? '',
+        view: { mode: 'beamline', id: m.id },
+        color: m.color,
+      });
     }
     for (const c of b.components) {
       if (c.distanceM === null || c.distanceM === undefined) continue;
@@ -49,6 +63,7 @@ function buildIndex(): Entry[] {
         title: c.name,
         sub: `${b.acronym} · ${componentKind({ category: String(c.category), name: c.name })} · ${formatDist(c.distanceM)}${c.enclosure ? ' · ' + c.enclosure : ''}`,
         hay: `${c.name} ${componentKind({ category: String(c.category), name: c.name })} ${c.category} ${b.acronym} ${c.enclosure ?? ''}`,
+        text: c.text ?? '',
         view: { mode: 'beamline', id: m.id, component: c.id },
         color: m.color,
         cat: componentKindKey({ category: String(c.category), name: c.name }),
@@ -57,12 +72,17 @@ function buildIndex(): Entry[] {
   }
   for (let n = 1; n <= SECTORS; n++) {
     const info = SECTOR_INFO[n];
-    const names = (info?.beamlines ?? []).map((b) => `${b.name} ${b.operator ?? ''} ${(b.techniques ?? []).join(' ')}`).join(' ');
+    const bls = info?.beamlines ?? [];
+    const names = bls.map((b) => `${b.name} ${b.title ?? ''} ${b.operator ?? ''} ${(b.techniques ?? []).join(' ')}`).join(' ');
+    // enhanced beamlines of a sector share one program text: index it once
+    const texts = new Set(bls.flatMap((b) => [b.summary ?? '', b.enhancement?.text ?? '']));
     out.push({
       kind: 'sector',
       title: `Sector ${n}`,
-      sub: [info?.plainLabel, (info?.beamlines ?? []).map((b) => b.name).join(' · ')].filter(Boolean).join(' — ') || 'Beamlines in this sector',
-      hay: `sector ${n} ${info?.plainLabel ?? ''} ${names}`,
+      sub: [info?.plainLabel, bls.map((b) => b.name).join(' · ')].filter(Boolean).join(' — ') || 'Beamlines in this sector',
+      // the sector card spells out the APS's own division once: find it by either name
+      hay: `sector ${n} ${info?.plainLabel ?? ''} ${info?.operators ?? ''}${/\bXSD\b/.test(info?.operators ?? '') ? ' X-ray Science Division' : ''} ${names}`,
+      text: [...texts].join(' '),
       view: { mode: 'overview', focus: String(n) },
     });
   }
@@ -185,10 +205,14 @@ export class Search {
       this.results = idx
         .map((e) => {
           const hay = e.hay.toLowerCase();
-          if (!toks.every((t) => hay.includes(t))) return null;
+          const named = toks.every((t) => hay.includes(t));
+          if (!named) {
+            const all = `${hay} ${e.text.toLowerCase()}`;
+            if (!toks.every((t) => all.includes(t))) return null;
+          }
           if (sector && e.kind === 'sector' && e.title === sector) return { e, score: -1 };
           const title = e.title.toLowerCase();
-          const score = KIND_RANK[e.kind] * 10 + (title.startsWith(toks[0]) ? 0 : title.includes(toks[0]) ? 3 : 6);
+          const score = (named ? 0 : TEXT_ONLY) + KIND_RANK[e.kind] * 10 + (title.startsWith(toks[0]) ? 0 : title.includes(toks[0]) ? 3 : 6);
           return { e, score };
         })
         .filter((x): x is { e: Entry; score: number } => !!x)

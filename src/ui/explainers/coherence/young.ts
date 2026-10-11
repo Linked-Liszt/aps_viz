@@ -5,7 +5,6 @@
  * (physics.youngPattern) with an exponential memory, so the fringes build up and fade as parameters change.
  * Both detectors receive the same photon rate (brightness differences are deliberately not shown).
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, lut, type Canvas2D } from '../kit';
 import * as P from './physics';
 import { roundRect, txt } from './chart';
@@ -20,7 +19,6 @@ export interface YoungParams {
   d: number;
   plane: Plane;
   mode: 'round' | 'flat';
-  depth: Depth;
   /** shown for CHEX (28-ID): name its stations at their distances */
   chex?: boolean;
 }
@@ -160,7 +158,7 @@ class Lane {
 export class YoungView {
   private old: Lane;
   private neu: Lane;
-  private p: YoungParams = { E: 25, Z: 45.5, d: 10e-6, plane: 'x', mode: 'round', depth: 'visitor' };
+  private p: YoungParams = { E: 25, Z: 45.5, d: 10e-6, plane: 'x', mode: 'round' };
   /** everything except the detector images changes only with the parameters or the canvas size */
   private fullDirty = true;
   /** the detectors still show photons of the previous parameters (reduced motion: refill them at once) */
@@ -235,25 +233,24 @@ export class YoungView {
     this.scr.length = 0;
     const { ctx, w, h } = this.c;
     const p = this.p;
-    const spec = p.depth === 'specialist';
     ctx.save();
     ctx.fillStyle = TOKENS.bg;
     ctx.fillRect(0, 0, w, h);
     // header line under the kit label
     const pos = p.chex ? P.nearestChexPosition(p.Z) : null;
     const Etxt = `${p.E.toFixed(1)} keV`;
-    const head = spec
-      ? `${Etxt} · λ = ${(P.wavelength(p.E) * 1e10).toFixed(3)} Å · d = ${fmtUm(p.d)} · Z = ${p.Z.toFixed(1)} m${pos ? ` (${pos.name})` : ''} · slit width d/4`
-      : `${Etxt} X-rays · two slits ${fmtUm(p.d)} apart, ${p.Z.toFixed(1)} m from the source${pos ? ` (${pos.name})` : ''}`;
-    const short = spec
-      ? `${Etxt} · d ${fmtUm(p.d)} · Z ${p.Z.toFixed(1)} m${pos ? ` (${pos.name})` : ''} · width d/4`
-      : `${Etxt} · slits ${fmtUm(p.d)} apart · ${p.Z.toFixed(1)} m from source${pos ? ` (${pos.name.replace('28-ID-', '')})` : ''}`;
+    const at = `${p.Z.toFixed(1)} m from the source${pos ? ` (${pos.name})` : ''}`;
+    const heads = [
+      `${Etxt} X-rays (λ = ${(P.wavelength(p.E) * 1e10).toFixed(3)} Å) · two slits ${fmtUm(p.d)} apart, each ${fmtUm(p.d * P.SLIT_WIDTH_OVER_D)} wide, ${at}`,
+      `${Etxt} X-rays · two slits ${fmtUm(p.d)} apart, ${at}`,
+      `${Etxt} · slits ${fmtUm(p.d)} apart · ${p.Z.toFixed(1)} m from source${pos ? ` (${pos.name.replace('28-ID-', '')})` : ''}`,
+    ];
     const hs = w < 420 ? 10.5 : 11.5;
     ctx.save();
     ctx.font = `500 ${hs}px ${TOKENS.font}`;
-    const fits = ctx.measureText(head).width <= w - 16;
+    const head = heads.find((t) => ctx.measureText(t).width <= w - 16) ?? heads[heads.length - 1];
     ctx.restore();
-    txt(ctx, fits ? head : short, 8, 34, { color: TOKENS.ink2, size: hs });
+    txt(ctx, head, 8, 34, { color: TOKENS.ink2, size: hs });
     const top = 44;
     const laneGap = 10;
     const laneH = (h - top - laneGap - 6) / 2;
@@ -265,7 +262,6 @@ export class YoungView {
   private lane(L: Lane, x: number, y: number, w: number, h: number, isNew: boolean): void {
     const ctx = this.c.ctx;
     const p = this.p;
-    const spec = p.depth === 'specialist';
     const info = L.info;
     const col = L.color;
     // card
@@ -282,7 +278,7 @@ export class YoungView {
     const narrow = w < 440;
     const V = info.V;
     const mw = narrow ? 46 : 64;
-    const vTxt = spec ? `V = ${V < 0.005 ? '0.00' : V.toFixed(2)}` : `${narrow ? 'contrast' : 'fringe contrast'} ${Math.round(V * 100)}%`;
+    const vTxt = `${narrow ? 'contrast' : 'fringe contrast'} ${Math.round(V * 100)} %`;
     const mx1 = x + w - 10;
     const mx0 = mx1 - mw;
     ctx.save();
@@ -298,13 +294,9 @@ export class YoungView {
     const vW = ctx.measureText(vTxt).width;
     ctx.font = `700 12.5px ${TOKENS.font}`;
     const beam = p.mode === 'round' ? 'round' : 'flat';
-    const titles = spec
-      ? isNew
-        ? [`APS-U · 6 GeV · ${beam} beam`, `APS-U · ${beam} beam`, `APS-U · ${beam}`, 'APS-U']
-        : ['APS 2019 · 7 GeV', 'APS 2019', 'APS']
-      : isNew
-        ? ['After the upgrade: APS-U', 'After (APS-U)', 'APS-U']
-        : ['Before the upgrade: APS', 'Before (APS)', 'APS'];
+    const titles = isNew
+      ? [`After the upgrade: APS-U, 6 GeV, ${beam} beam`, `After: APS-U, ${beam} beam`, 'After (APS-U)', 'APS-U']
+      : ['Before the upgrade: APS, 7 GeV', 'Before the upgrade: APS', 'Before (APS)', 'APS'];
     const room = mx0 - 8 - vW - 10 - (x + 10);
     const title = titles.find((t) => ctx.measureText(t).width <= room) ?? titles[titles.length - 1];
     ctx.restore();
@@ -332,13 +324,13 @@ export class YoungView {
 
     // ---- captions under panels
     const cyy = y + h - 7;
-    txt(ctx, spec ? (srcS < 70 ? `Σ_${p.plane}` : `Σ_${p.plane} ${fmtUm(info.sigma)}`) : srcS < 70 ? 'source' : 'source (to scale)', sx + srcS / 2, cyy, { color: TOKENS.ink3, size: 10, align: 'center' });
-    const xiTxt = spec ? `ξ_${p.plane} = ${fmtUm(info.xi)}` : narrow ? `in step ~${fmtUm(info.xi)}` : `in step over ~${fmtUm(info.xi)}`;
+    txt(ctx, srcS < 70 ? 'source' : 'source (to scale)', sx + srcS / 2, cyy, { color: TOKENS.ink3, size: 10, align: 'center' });
+    const xiTxt = narrow ? `in step ~${fmtUm(info.xi)}` : `in step over ~${fmtUm(info.xi)}`;
     txt(ctx, xiTxt, slx + slitW / 2, cyy, { color: isNew ? col : TOKENS.ink2, size: 10, align: 'center', weight: 600 });
     const lam = P.wavelength(p.E);
     const fr = (lam / p.d) * 1e6;
     const frT = `${fr < 1 ? fr.toFixed(2) : fr < 100 ? fr.toFixed(1) : fr.toFixed(0)} µrad`;
-    const scrCap = spec ? (scrW < 260 ? `far field · fringes every ${frT}` : `detector (far field) · fringe period λ/d = ${frT}`) : scrW < 200 ? 'detector, far behind' : 'detector far behind the slits';
+    const scrCap = scrW >= 280 ? `detector far behind · fringes every ${frT} (λ/d)` : scrW >= 200 ? `detector · fringes every ${frT}` : 'detector, far behind';
     txt(ctx, scrCap, scx + scrW / 2, cyy, {
       color: TOKENS.ink3,
       size: 10,
@@ -403,7 +395,6 @@ export class YoungView {
   private slits(L: Lane, x: number, y: number, w: number, h: number): void {
     const ctx = this.c.ctx;
     const p = this.p;
-    const spec = p.depth === 'specialist';
     const vert = p.plane === 'y';
     const info = L.info;
     const xiD = info.xi / p.d;
@@ -466,7 +457,7 @@ export class YoungView {
     ctx.arc(dx, dy, 3.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
-    const muTxt = spec ? `|μ₁₂| = ${m2 < 0.005 ? '0.00' : m2.toFixed(2)}` : `${Math.round(m2 * 100)}% in step`;
+    const muTxt = `${Math.round(m2 * 100)} % in step`;
     // place the label clear of the bell: highest point of the curve over the label's extent (units of d)
     ctx.save();
     ctx.font = `700 10.5px ${TOKENS.font}`;

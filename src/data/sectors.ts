@@ -17,13 +17,27 @@ export interface SectorBeamline {
   techniques?: string[];
   feature?: boolean;
   enhanced?: boolean;
-  enhancement?: { plain: string; expert: string; source?: string } | null;
+  /** APS-U enhancement program of this beamline (shared by all enhanced beamlines of a sector). */
+  enhancement?: SectorEnhancement | null;
   notes?: string;
+}
+
+export interface SectorEnhancement {
+  /** The single exhibit text, 2–4 sentences: what the beamline does, what the program changed, 'Status (2026): …'. */
+  text: string;
+  /** Research program name, e.g. '1-ID (FDR Table 4.3)'. */
+  program?: string;
+  /** Research record (not shown as prose): what the 2019 design report promised, what was built, delivery status. */
+  fdrDeliverables?: string[];
+  asBuilt?: string;
+  deliveryStatus?: string;
+  /** Reference ids into sectors.json `references`. */
+  source?: string[];
 }
 
 export interface SectorInfo {
   sector: number;
-  /** Short plain-language label for the sector's enhancement program (present on every enhanced sector). */
+  /** Short everyday-language label for the sector's science (present on every enhanced sector); `operators` names who runs it. */
   plainLabel?: string;
   lom?: string;
   canted?: boolean;

@@ -13,7 +13,6 @@
  *
  * Bottom: η_x(s) along the sector (APS-U: digitised FDR Fig. 2.2; others: thin-lens model), bends shaded.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, plotFrame, type Canvas2D } from '../kit';
 import * as P from './physics';
 
@@ -57,7 +56,6 @@ const bucketOf = (d: number) => Math.max(0, Math.min(NB - 1, Math.round(((d / DM
 export class SectorView {
   private lat: P.Lattice;
   private E: number;
-  private depth: Depth;
   private layer: HTMLCanvasElement = document.createElement('canvas');
   private layerOk = false;
   // geometry, CSS px
@@ -99,11 +97,9 @@ export class SectorView {
     private accent: string,
     lat: P.Lattice,
     E: number,
-    depth: Depth,
   ) {
     this.lat = lat;
     this.E = E;
-    this.depth = depth;
     for (let i = 0; i < this.NP; i++) {
       this.ps[i] = ((i + this.rnd()) / this.NP) * lat.C;
       let d = this.gauss();
@@ -143,11 +139,6 @@ export class SectorView {
     this.layerOk = false;
   }
 
-  setDepth(d: Depth): void {
-    this.depth = d;
-    this.layerOk = false;
-  }
-
   invalidate(): void {
     this.layerOk = false;
   }
@@ -155,7 +146,7 @@ export class SectorView {
   /** layout: [kit label + header] / drawing / legend (+ footnote) / η strip */
   private split(): { headTop: number; inlineHead: boolean; drawTop: number; drawBot: number; legendTop: number; stripTop: number } {
     const h = this.c.h;
-    const inlineHead = this.c.w >= 780;
+    const inlineHead = this.c.w >= 700;
     // the kit's panel label occupies y ≈ 0..20 at the top-left
     const headTop = inlineHead ? 4 : 22;
     const extra = inlineHead ? 0 : this.headerLines().sub.length - 1;
@@ -167,18 +158,19 @@ export class SectorView {
   }
 
   private legendItems(): { color: string; label: string; kind: 'box' | 'dot' | 'line' | 'text' }[] {
-    const v = this.depth === 'visitor';
+    // a short canvas gets the compact wording (one legend row leaves more room for the drawing)
+    const full = this.c.w >= 900;
     const items: { color: string; label: string; kind: 'box' | 'dot' | 'line' | 'text' }[] = [
-      { color: COL.bend, label: v ? 'bend' : 'dipole', kind: 'box' },
-      { color: COL.reverse, label: 'reverse bend', kind: 'box' },
-      { color: COL.quad, label: v ? 'focusing magnet' : 'quadrupole', kind: 'box' },
-      { color: COL.sext, label: v ? 'fine-tuning magnet' : 'sextupole', kind: 'box' },
-      { color: TOKENS.xray, label: v ? 'X-ray flash' : 'photon', kind: 'line' },
-      { color: COL.hi, label: v ? 'e⁻ more energy' : 'e⁻ δ > 0', kind: 'dot' },
-      { color: COL.lo, label: v ? 'less energy' : 'δ < 0', kind: 'dot' },
+      { color: COL.bend, label: full ? 'bend (dipole)' : 'bend', kind: 'box' },
+      { color: COL.reverse, label: 'backward bend', kind: 'box' },
+      { color: COL.quad, label: full ? 'focusing (quadrupole)' : 'focusing', kind: 'box' },
+      { color: COL.sext, label: full ? 'corrector (sextupole)' : 'corrector', kind: 'box' },
+      { color: TOKENS.xray, label: full ? 'X-ray photon' : 'photon', kind: 'line' },
+      { color: COL.hi, label: full ? 'e⁻ with more energy' : 'e⁻ more energy', kind: 'dot' },
+      { color: COL.lo, label: 'less', kind: 'dot' },
     ];
     if (this.lat.id !== 'apsu') items.splice(1, 1);
-    items.push({ color: TOKENS.ink3, label: `· bends drawn ${EXAG}× sharper, energy fan exaggerated`, kind: 'text' });
+    items.push({ color: TOKENS.ink3, label: full ? `· bends drawn ${EXAG}× sharper, energy fan exaggerated` : `· bends ${EXAG}× sharper, fan exaggerated`, kind: 'text' });
     return items;
   }
 
@@ -272,7 +264,7 @@ export class SectorView {
     this.G = Math.min((0.032 * availW) / 0.24, (0.2 * boxH) / (2.4 * 0.24));
     const u = Math.max(4.5, Math.min(8, w / 75));
     const fan = 2.4 * this.G * P.etaMax(lat) + 1.5 * u;
-    const mTop = fan + (this.depth === 'specialist' ? 14 : 4) + 4;
+    const mTop = fan + 8;
     const mBot = Math.max(u * 1.6 + 22, fan * 0.35);
     const availH = Math.max(20, boxH - mTop - mBot);
     const sc = Math.min(availW / (maxX - minX), availH / Math.max(1e-6, maxY - minY));
@@ -333,7 +325,6 @@ export class SectorView {
     const lat = this.lat;
     const C = lat.C;
     const w = this.c.w;
-    const spec = this.depth === 'specialist';
     const u = Math.max(4.5, Math.min(8, w / 75));
     const n = this.n;
     const G = this.G;
@@ -382,7 +373,7 @@ export class SectorView {
       ctx.translate(lx, ly);
       ctx.rotate(Math.atan2(this.ty[0], this.tx[0]));
       ctx.textAlign = 'center';
-      ctx.fillText(spec ? 'undulator X-rays → beamline' : 'X-rays → to a beamline', 0, -(u * 1.5 + 6));
+      ctx.fillText(w >= 780 ? 'undulator X-rays → beamline' : 'X-rays → beamline', 0, -(u * 1.5 + 6));
       ctx.restore();
     }
 
@@ -452,28 +443,8 @@ export class SectorView {
       }
     }
 
-    // labels: dipole names (specialist, real lattices), reverse-bend callout, ID source point
+    // labels: reverse-bend callout, undulator source point
     ctx.save();
-    ctx.font = `600 9.5px ${TOKENS.mono}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    if (spec && lat.id !== 'generic') {
-      const seen = new Map<string, { s0: number; s1: number; tag: string }>();
-      for (const e of lat.elements) {
-        if (e.kind !== 'bend') continue;
-        const p = seen.get(e.magnet);
-        if (p) p.s1 = e.s1;
-        else seen.set(e.magnet, { s0: e.s0, s1: e.s1, tag: e.tag });
-      }
-      ctx.fillStyle = COL.bendEdge;
-      // the sector is mirror-symmetric: name the downstream half only (the upstream side carries the X-ray label)
-      for (const m of seen.values()) {
-        if ((m.s0 + m.s1) / 2 < C / 2 - 0.5) continue;
-        const i = this.idx((m.s0 + m.s1) / 2);
-        const off = u + 2.4 * G * this.geta[i] + 9;
-        ctx.fillText(m.tag, this.gx[i] + this.nx[i] * off, this.gy[i] + this.ny[i] * off);
-      }
-    }
     if (lat.id === 'apsu') {
       // reverse-bend callout: centred in the bowl under the apex, leaders to both Q8s (inner side)
       const mid = this.idx(C / 2);
@@ -483,7 +454,7 @@ export class SectorView {
       ctx.font = `600 10.5px ${TOKENS.font}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      const txt = spec ? 'reverse bends Q4 · Q5 · Q8' : 'tiny backward bends';
+      const txt = w >= 780 ? 'backward (reverse) bends' : 'backward bends';
       ctx.strokeStyle = hexA(COL.reverse, 0.7);
       ctx.lineWidth = 1;
       for (const name of ['A:Q8', 'B:Q8']) {
@@ -512,17 +483,29 @@ export class SectorView {
       ctx.beginPath();
       ctx.arc(x0, y0, 5.5, 0, Math.PI * 2);
       ctx.stroke();
+      const xr = this.gx[n - 1];
+      const yr = this.gy[n - 1];
+      // the long names when both fit between the two ends of the sector, short ones otherwise
+      const lx = Math.max(6, x0 - 6);
+      const rx = Math.min(w - 6, xr + 6);
+      const width = (t: string, weight: number) => {
+        ctx.font = `${weight} 10.5px ${TOKENS.font}`;
+        return ctx.measureText(t).width;
+      };
+      const [left, right] = [
+        ['undulator source point → panel 2', 'next undulator straight'],
+        ['source point → panel 2', 'next straight'],
+        ['source point → panel 2', ''],
+      ].find(([l, r]) => !r || lx + width(l, 700) + 16 + width(r, 500) <= rx)!;
       ctx.fillStyle = this.accent;
       ctx.font = `700 10.5px ${TOKENS.font}`;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText(spec ? 'ID source point → panel 2' : 'beam measured here → panel 2', Math.max(6, x0 - 6), y0 + u * 1.5 + 5);
-      const xr = this.gx[n - 1];
-      const yr = this.gy[n - 1];
+      ctx.fillText(left, lx, y0 + u * 1.5 + 5);
       ctx.fillStyle = TOKENS.ink3;
       ctx.font = `500 10.5px ${TOKENS.font}`;
       ctx.textAlign = 'right';
-      ctx.fillText(spec ? 'next ID straight' : 'next undulator', Math.min(w - 6, xr + 6), yr + u * 1.5 + 5);
+      if (right) ctx.fillText(right, rx, yr + u * 1.5 + 5);
     }
     ctx.restore();
   }
@@ -540,33 +523,36 @@ export class SectorView {
       ctx.font = `650 ${size}px ${TOKENS.font}`;
     }
     ctx.font = `500 11.5px ${TOKENS.font}`;
-    let sub = [l2];
-    const k = l2.lastIndexOf(' · ');
-    if (ctx.measureText(l2).width > maxW && k > 0) sub = [l2.slice(0, k), l2.slice(k + 3)];
+    // wrap greedily after " · " or ", " (the separator " · " is dropped at a line break, ", " keeps its comma)
+    const parts = l2.split(/(?<=, )|(?= · )/);
+    const sub: string[] = [];
+    let cur = '';
+    for (const p of parts) {
+      const next = cur + p;
+      if (cur && ctx.measureText(next.trimEnd()).width > maxW) {
+        sub.push(cur.trimEnd());
+        cur = p.replace(/^ · /, '');
+      } else cur = next;
+    }
+    if (cur) sub.push(cur.trimEnd());
     ctx.restore();
     return { title: l1, size, sub };
   }
 
   private headerText(st: P.BendStats): [string, string] {
     const lat = this.lat;
-    const spec = this.depth === 'specialist';
     const native = (lat.id === 'apsu' && this.E === 6) || (lat.id === 'aps' && this.E === 7);
     const E = `${this.E.toFixed(1)} GeV${lat.id !== 'generic' && !native ? ' (what if)' : ''}`;
     if (lat.id === 'apsu') {
-      return spec
-        ? ['APS-U · hybrid 7-bend achromat + reverse bends', `7 dipoles ${st.minDeg.toFixed(2)}–${st.maxDeg.toFixed(2)}° (+9.95°), 6 reverse bends (−0.94°) · ${E}`]
-        : [native ? 'APS-U today: 7 gentle bends per sector' : 'The APS-U lattice: 7 gentle bends per sector', `each 1.1–1.6°, plus 6 tiny backward bends · ${E}`];
+      return [
+        native ? 'APS-U today: 7 gentle bends per sector' : 'The APS-U lattice: 7 gentle bends per sector',
+        `7 bends of ${st.minDeg.toFixed(2)}–${st.maxDeg.toFixed(2)}° (+9.95° in all), 6 backward bends (−0.94°) · ${E}`,
+      ];
     }
-    if (lat.id === 'aps') {
-      return spec
-        ? ['APS 1995–2023 · double-bend achromat (schematic)', `2 dipoles × 4.50°, 3.06 m · η: thin-lens model · ${E}`]
-        : ['The old APS: 2 sharp bends per sector', `4.5° each · ${E}`];
-    }
+    if (lat.id === 'aps') return ['The old APS: 2 sharp bends per sector', `2 bends of 4.5°, each 3.06 m long · fan: simplified model · ${E}`];
     const M = lat.M;
     const th = (P.SECTOR_BEND_DEG / M).toFixed(M >= 8 ? 3 : 2);
-    return spec
-      ? [`Model · ${M}-bend achromat, equal dipoles`, `${M} × ${th}° · thin-lens dispersion (illustrative) · ${E}`]
-      : [`What if: ${M} bends per sector`, `${M} equal bends of ${th}° each (a model) · ${E}`];
+    return [`What if: ${M} bends per sector`, `${M} equal bends of ${th}° · a simplified model · ${E}`];
   }
 
   private drawLegend(ctx: CanvasRenderingContext2D): void {
@@ -612,16 +598,14 @@ export class SectorView {
   private drawStrip(ctx: CanvasRenderingContext2D): void {
     const lat = this.lat;
     const { stripTop } = this.split();
-    const spec = this.depth === 'specialist';
     const rect = { x: 0, y: stripTop, w: this.c.w, h: this.c.h - stripTop };
-    // visitor: sideways shift for +1 % energy (mm) = η[m]·10
-    const k = spec ? 1000 : 10;
-    const ymax = spec ? 300 : 3;
+    // sideways shift for +1 % energy (mm) = η[m]·10
+    const k = 10;
     const f = plotFrame(
       ctx,
       rect,
-      { min: 0, max: lat.C, ticks: [0, 5, 10, 15, 20, 25], label: spec ? 's along the sector (m)' : 'distance along the sector (m)' },
-      { min: 0, max: ymax, ticks: spec ? [0, 100, 200, 300] : [0, 1, 2, 3], label: spec ? 'ηₓ (mm)' : 'mm per 1 %' },
+      { min: 0, max: lat.C, ticks: [0, 5, 10, 15, 20, 25], label: 'distance along the sector (m)' },
+      { min: 0, max: 3, ticks: [0, 1, 2, 3], label: 'mm per 1 %' },
       this.stripTitle(ctx, rect.w - 60),
     );
     ctx.save();
@@ -665,7 +649,7 @@ export class SectorView {
     for (let i = 0; i < n; i++) if (lat.eta[i] > lat.eta[im]) im = i;
     const sm = im * lat.ds;
     const v = lat.eta[im] * k;
-    const tag = spec ? `max ηₓ = ${(lat.eta[im] * 1000).toFixed(0)} mm` : `widest: ${v.toFixed(v < 1 ? 2 : 1)} mm`;
+    const tag = `widest: ${v.toFixed(v < 1 ? 2 : 1)} mm (ηₓ = ${(lat.eta[im] * 1000).toFixed(0)} mm)`;
     ctx.save();
     ctx.font = `600 10.5px ${TOKENS.mono}`;
     const tw = ctx.measureText(tag).width;
@@ -680,11 +664,14 @@ export class SectorView {
 
   /** strip title, shortened to fit the available width */
   private stripTitle(ctx: CanvasRenderingContext2D, maxW: number): string {
-    const spec = this.depth === 'specialist';
     const m = this.lat.modelEta;
-    const opts = spec
-      ? [`Dispersion ηₓ(s)${m ? ' — thin-lens model (illustrative)' : ' — APS-U design (FDR Fig. 2.2)'}`, `ηₓ(s)${m ? ', thin-lens model' : ', APS-U design (FDR 2.2)'}`]
-      : ['How far the energies fan apart (shaded: bends)', 'Energy fan-out (shaded: bends)'];
+    const src = m ? 'simplified model' : 'APS-U design';
+    const opts = [
+      `How far the energies fan apart: dispersion ηₓ, ${src} (shaded: bends)`,
+      `Energy fan-out, dispersion ηₓ (${src}; shaded: bends)`,
+      `Energy fan-out, ηₓ (${src})`,
+      'Energy fan-out, ηₓ',
+    ];
     ctx.save();
     ctx.font = `600 12px ${TOKENS.font}`;
     const t = opts.find((o) => ctx.measureText(o).width <= maxW) ?? opts[opts.length - 1];

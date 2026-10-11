@@ -1,13 +1,19 @@
 """Distil the researched facility dossier into src/data/facility.json for the app.
 Usage: python3 scripts/build-facility.py <research/facility.json> src/data/facility.json
 
-Visitor-facing wording comes from scripts/exhibit-overrides/facility.json (see exhibit.py there); never hand-edit the output.
+Exhibit wording comes from scripts/exhibit-overrides/facility.json (see exhibit.py there); never hand-edit the output.
+Output shapes (one unified text per item, no plain/expert variants):
+  timeline[]        {date, event, source?, note?}
+  exhibitNumbers[]  {label, value, explanation, source?, note?}
+  explainers        {whatIsSynchrotron: text, ...}  (primer answers; research key `plainExplainers`; paragraphs are
+                    separated by a blank line; `*_source` / `*_note` keys are research annotations, not shown)
+Typography is applied to the displayed fields only; `source` and `note` keep the research wording.
 """
 import json, os, re, sys
 
 sys.dont_write_bytecode = True  # keep scripts/exhibit-overrides free of __pycache__
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exhibit-overrides'))
-from exhibit import OverrideError, date_key, load, merge, typo_all  # noqa: E402
+from exhibit import OverrideError, check_text, date_key, load, merge, no_variants, typo  # noqa: E402
 
 src, out = sys.argv[1], sys.argv[2]
 d = json.load(open(src))
@@ -25,7 +31,7 @@ keep = {
     'harmonicCavity': d.get('harmonicCavity'),
     'timeline': d.get('timeline'),
     'exhibitNumbers': d.get('exhibitNumbers'),
-    'plainExplainers': d.get('plainExplainers'),
+    'explainers': d.get('plainExplainers'),
     'project': d.get('project'),
     'references': d.get('references'),
 }
@@ -33,6 +39,7 @@ keep = clean(keep)
 
 # ---- exhibit-copy overrides ------------------------------------------------
 ov = load('facility.json')
+no_variants(ov, 'facility overrides')
 
 nums = keep['exhibitNumbers'] or []
 by_label = {n['label']: i for i, n in enumerate(nums)}
@@ -41,7 +48,11 @@ for label, patch in (ov.get('exhibitNumbers') or {}).items():
         raise OverrideError(f'exhibitNumbers override for unknown label {label!r}')
     i = by_label[label]
     nums[i] = None if patch is None else merge(nums[i], patch)
-keep['exhibitNumbers'] = typo_all([n for n in nums if n is not None])
+NUM_SHOWN = ('label', 'value', 'explanation')
+keep['exhibitNumbers'] = [
+    {**{k: typo(n[k]) for k in NUM_SHOWN}, **{k: n[k] for k in ('source', 'note') if k in n}}
+    for n in nums if n is not None
+]
 
 tl = keep['timeline'] or []
 for date, patch in (ov.get('timeline') or {}).items():
@@ -51,17 +62,30 @@ for date, patch in (ov.get('timeline') or {}).items():
     tl[hits[0]] = None if patch is None else merge(tl[hits[0]], patch)
 tl = [t for t in tl if t is not None] + list(ov.get('timelineAdd') or [])
 tl.sort(key=lambda t: date_key(t['date']))  # stable: same-key entries keep research order
-keep['timeline'] = [{**t, **typo_all({k: t[k] for k in ('event', 'plain') if k in t})} for t in tl]
+keep['timeline'] = [{'date': t['date'], 'event': typo(t['event']), **{k: t[k] for k in ('source', 'note') if k in t}} for t in tl]
 
-ex = keep['plainExplainers'] or {}
-for k, text in (ov.get('plainExplainers') or {}).items():
+ex = keep['explainers'] or {}
+annotation = lambda k: k.endswith(('_source', '_note'))
+for k, text in (ov.get('explainers') or {}).items():
     if k not in ex:
-        raise OverrideError(f'plainExplainers override for unknown key {k!r}')
+        raise OverrideError(f'explainers override for unknown key {k!r}')
     if text is None:
         ex.pop(k)
     else:
         ex[k] = text
-keep['plainExplainers'] = {k: (typo_all(v) if not k.endswith(('_source', '_note')) else v) for k, v in ex.items()}
+unreviewed = [k for k in ex if not annotation(k) and k not in (ov.get('explainers') or {})]
+if unreviewed:
+    raise OverrideError(f'explainers without an exhibit-voice override (research wording would leak through): {unreviewed}')
+keep['explainers'] = {k: (v if annotation(k) else typo(v)) for k, v in ex.items()}
+
+# ---- lint everything the story dialog shows ---------------------------------
+shown = []
+for i, n in enumerate(keep['exhibitNumbers']):
+    shown += [(f'exhibitNumbers[{i}].label', n['label'], 'label'), (f'exhibitNumbers[{i}].value', n['value'], 'label'),
+              (f'exhibitNumbers[{i}].explanation', n['explanation'], 'prose')]
+shown += [(f'timeline[{i}].event', t['event'], 'prose') for i, t in enumerate(keep['timeline'])]
+shown += [(f'explainers.{k}', v, 'prose') for k, v in keep['explainers'].items() if not annotation(k)]
+check_text(shown)
 
 json.dump(keep, open(out, 'w'), indent=1)
-print('timeline', len(keep['timeline']), 'numbers', len(keep['exhibitNumbers']))
+print('timeline', len(keep['timeline']), 'numbers', len(keep['exhibitNumbers']), 'explainers', sum(not annotation(k) for k in keep['explainers']))

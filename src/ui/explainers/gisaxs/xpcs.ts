@@ -130,7 +130,7 @@ export class SpeckleMemory {
     return null;
   }
 
-  draw(c: Canvas2D, accent: string, specialist: boolean, note: string | null): void {
+  draw(c: Canvas2D, accent: string, note: string | null): void {
     const { ctx, w, h } = c;
     ctx.clearRect(0, 0, w, h);
     const x0 = 28;
@@ -204,13 +204,13 @@ export class SpeckleMemory {
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = noisy ? TOKENS.warn : TOKENS.ink;
     const span = this.nCurve ? this.lags[this.nCurve - 1] : 0;
-    const noiseMsg = specialist ? `noisy: σ ≈ ±${this.sigma.toFixed(2)} per point` : 'too few photons: noisy';
+    const noiseMsg = `noisy: ±${this.sigma.toFixed(2)} per point`;
     const msg = note ?? (this.nCurve < 3 ? 'recording…' : noisy ? noiseMsg : hl !== null ? `memory ≈ ${hl.toFixed(1)} s` : span >= 3 ? `memory > ${Math.floor(span)} s` : 'recording…');
     ctx.fillText(msg, x1, 14);
     if (this.earlier) {
       ctx.font = `500 9.5px ${TOKENS.font}`;
       ctx.fillStyle = TOKENS.ink3;
-      ctx.fillText(specialist ? '--- 10 s earlier (aging)' : '--- 10 s earlier', x1, y1 + 12);
+      ctx.fillText('--- 10 s earlier (older film)', x1, y1 + 12);
     }
     ctx.restore();
   }

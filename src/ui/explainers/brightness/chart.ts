@@ -6,10 +6,9 @@
  * beam) — the "brighter" part; the gap up to the design curve is "more" photons (2× current, new undulators).
  * Mouse hover reads values; click/drag (or arrow keys when focused) picks the energy.
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import * as P from './physics';
-import { approxGain, fmtGain, fmtKeV, sci, sup } from './format';
+import { approxGain, fmtKeV, sci, sup } from './format';
 import { withAlpha } from './source';
 
 export const E_MIN = 1;
@@ -21,11 +20,11 @@ const G_LO = 0; // ×1
 const G_HI = Math.log10(3000);
 /** gain at or above which the "≈500×" zone is shaded (digitized data are ±20 % each, so ±30 % on the ratio) */
 export const ZONE_GAIN = 450;
+const GAIN_TITLE = 'How many times brighter: APS-U ÷ APS';
 
 export interface ChartState {
   E: number;
   ds: 'envelope' | 'devices';
-  depth: Depth;
   /** panel-1 electron beam (for the source-only gain curve) */
   src: P.Beam;
   srcKey: string;
@@ -198,19 +197,18 @@ export class BrillianceChart {
   }
 
   private legendItems(): { label: string; color: string; dash?: number[] }[] {
-    const spec = this.st.depth === 'specialist';
     const items: { label: string; color: string; dash?: number[] }[] =
       this.st.ds === 'envelope'
         ? [
-            { label: spec ? 'APS 7 GeV, 100 mA (pre-2023)' : 'APS before the upgrade', color: TOKENS.old },
-            { label: spec ? 'APS-U 6 GeV, 200 mA' : 'APS-U after the upgrade', color: this.accent },
+            { label: 'APS before the upgrade (7 GeV, 100 mA)', color: TOKENS.old },
+            { label: 'APS-U (6 GeV, 200 mA)', color: this.accent },
           ]
         : [
-            { label: spec ? P.DEVICES.old.label : 'APS: its undulators', color: TOKENS.old },
-            { label: spec ? 'APS-U HPMU 2.8 & 2.5 cm' : 'APS-U: magnet undulators', color: this.accent },
-            { label: spec ? 'APS-U SCU 2.05 & 1.55 cm' : 'APS-U: superconducting', color: this.accent, dash: [5, 4] },
+            { label: 'APS: 3.3 & 2.7 cm periods', color: TOKENS.old },
+            { label: 'APS-U magnets: 2.8 & 2.5 cm', color: this.accent },
+            { label: 'superconducting: 2.05 & 1.55 cm', color: this.accent, dash: [5, 4] },
           ];
-    if (spec) items.push({ label: 'FDR Table 1.1 (20 keV)', color: '#ffffff', dash: [0, 99] });
+    items.push({ label: 'design report, 20 keV', color: '#ffffff', dash: [0, 99] });
     return items;
   }
 
@@ -237,7 +235,6 @@ export class BrillianceChart {
     this.needsDraw = false;
     const g = this.g;
     const L = (this.lay = this.layout());
-    const spec = this.st.depth === 'specialist';
     const p = this.pre[this.st.ds];
     const px = (E: number) => L.x0 + (Math.log10(E / E_MIN) / Math.log10(E_MAX / E_MIN)) * (L.x1 - L.x0);
     const pyM = (B: number) => L.mBot - ((Math.log10(B) - B_LO) / (B_HI - B_LO)) * (L.mBot - L.mTop);
@@ -341,15 +338,15 @@ export class BrillianceChart {
     for (let e = B_LO; e <= B_HI; e++) txt(`10${sup(e)}`, L.x0 - 6, pyM(Math.pow(10, e)), { align: 'right', size: 10.5 });
     for (const G of [1, 10, 100, 1000]) txt(`×${G.toLocaleString('en-US')}`, L.x0 - 6, pyG(G), { align: 'right', size: 10.5 });
     for (const E of xTicks) txt(`${E}`, px(E), L.gBot + 15, { align: 'center', size: 10.5 });
-    txt(spec ? 'photon energy E (keV)' : 'X-ray energy (keV)  →  shorter waves', (L.x0 + L.x1) / 2, L.H - 10, { align: 'center', size: 11, color: TOKENS.ink2 });
+    txt('X-ray photon energy (keV)  →  shorter waves', (L.x0 + L.x1) / 2, L.H - 10, { align: 'center', size: 11, color: TOKENS.ink2 });
     // y-axis title (main)
     g.save();
     g.translate(11, (L.mTop + L.mBot) / 2);
     g.rotate(-Math.PI / 2);
-    txt(spec ? 'ph/s/mm²/mrad²/0.1%BW' : 'brightness', 0, 0, { align: 'center', size: 10.5, color: TOKENS.ink2 });
+    txt(L.mBot - L.mTop >= 250 ? 'brightness, ph/s/mm²/mrad²/0.1%BW' : 'ph/s/mm²/mrad²/0.1%BW', 0, 0, { align: 'center', size: 10.5, color: TOKENS.ink2 });
     g.restore();
     // gain plot title
-    txt(spec ? 'Gain  B(APS-U) ÷ B(APS)' : 'How many times brighter', L.x0, L.gTop - 11, { size: 11.5, weight: 600, color: TOKENS.ink });
+    txt(GAIN_TITLE, L.x0, L.gTop - 11, { size: 11.5, weight: 600, color: TOKENS.ink });
 
     // ---------------------------------------------------------- curves (clipped)
     const curve = (ys: Float64Array, py: (v: number) => number, color: string, w: number, dash: number[] = [], top = L.mTop, bot = L.mBot) => {
@@ -395,8 +392,8 @@ export class BrillianceChart {
     dotsOf(p.ds.old, TOKENS.old);
     p.ds.neu.forEach((s) => dotsOf(s, this.accent));
 
-    // FDR Table 1.1 anchor (specialist)
-    if (spec) {
+    // design-report anchor at 20 keV (FDR 2019 Table 1.1)
+    {
       const a = P.FDR_20KEV;
       const dia = (E: number, B: number, color: string) => {
         const x = px(E);
@@ -429,7 +426,7 @@ export class BrillianceChart {
     }
     // gain legend (top-right of the gain plot title row)
     {
-      let lab = spec ? 'source term only (panel 1 vs APS, same F)' : 'from the smaller, tighter source alone';
+      let lab = 'panel 1’s source alone, same photons';
       g.font = `500 10.5px ${TOKENS.font}`;
       let w = g.measureText(lab).width;
       const xr = L.x1;
@@ -439,11 +436,11 @@ export class BrillianceChart {
       g.beginPath();
       const titleW = (() => {
         g.font = `600 11.5px ${TOKENS.font}`;
-        return g.measureText(spec ? 'Gain  B(APS-U) ÷ B(APS)' : 'How many times brighter').width;
+        return g.measureText(GAIN_TITLE).width;
       })();
       const fits = xr - w - 24 > L.x0 + titleW + 10;
       if (!fits) {
-        lab = spec ? 'source term only, same F' : 'smaller source alone';
+        lab = 'source alone';
         g.font = `500 10.5px ${TOKENS.font}`;
         w = g.measureText(lab).width;
       }
@@ -510,8 +507,8 @@ export class BrillianceChart {
     if (Number.isFinite(v.gain)) {
       const yg = pyG(v.gain);
       knob(xe, yg, this.accent);
-      // visitors: rounded to what the design data support (±30 % on the ratio), as in the text
-      this.pill(spec ? fmtGain(v.gain) : `≈ ×${approxGain(v.gain)}`, xe + pillSide * 9, yg, pillSide, this.accent, L.gTop + 9, L.gBot - 9, true);
+      // rounded to what the design data support (±30 % on the ratio), as in the text
+      this.pill(`≈ ×${approxGain(v.gain)}`, xe + pillSide * 9, yg, pillSide, this.accent, L.gTop + 9, L.gBot - 9, true);
     }
     if (Number.isFinite(v.src)) {
       const ys = pyG(Math.max(1, Math.min(Math.pow(10, G_HI), v.src)));
@@ -525,7 +522,7 @@ export class BrillianceChart {
     }
     if (!Number.isFinite(v.old) || !Number.isFinite(v.best)) {
       // bottom of the main plot, clear of the value pills
-      const msg = Number.isFinite(v.best) ? (spec ? 'no APS design data at this E' : 'no old-APS data here') : spec ? 'no tabulated data at this E' : 'no data for this energy';
+      const msg = Number.isFinite(v.best) ? 'no old-APS design data at this energy' : 'no design data at this energy';
       g.font = `500 10.5px ${TOKENS.font}`;
       const mw = g.measureText(msg).width;
       const mx0 = pillSide > 0 ? xe + 8 : xe - 8 - mw;
@@ -536,7 +533,7 @@ export class BrillianceChart {
 
     // ≈500× zone label: first free spot (top, then bottom of the gain plot) that avoids pills, legend and cursor
     if (p.zones.length) {
-      const label = spec ? `≥ ×${ZONE_GAIN}` : '≈ 500× and more';
+      const label = '≈ 500× and more';
       g.font = `700 10.5px ${TOKENS.font}`;
       const w = g.measureText(label).width;
       const zs = [...p.zones].sort((a, b) => px(b[1]) - px(b[0]) - (px(a[1]) - px(a[0])));
@@ -592,7 +589,7 @@ export class BrillianceChart {
       hv.neu.forEach((b, k) => {
         if (Number.isFinite(b)) rows.push([neuLabels[k], sci(b, 2), this.accent]);
       });
-      if (Number.isFinite(hv.gain)) rows.push([spec ? 'gain' : 'brighter', fmtGain(hv.gain), '#ffffff']);
+      if (Number.isFinite(hv.gain)) rows.push(['APS-U ÷ APS', `≈ ×${approxGain(hv.gain)}`, '#ffffff']);
       if (rows.length === 1) rows.push(['no data', '', TOKENS.ink3]);
       this.tooltip(rows, xh, L);
     }

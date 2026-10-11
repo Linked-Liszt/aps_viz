@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { MultiTau } from '../src/ui/explainers/xpcs/correlator';
 import {
   APSU_GAIN,
@@ -360,4 +362,11 @@ describe('XPCS simulation end-to-end', () => {
     const fit2 = fitG2(s.tau, s.g2, s.err, n, gFrame / 10, gFrame * 10);
     expect(Math.abs(fit2.gamma / gFrame - 1)).toBeLessThan(0.15);
   }, 60000);
+});
+
+describe('one presentation for every reader', () => {
+  it('the station never reads the retired Visitor/Specialist depth', () => {
+    const src = ['xpcs.ts', 'xpcs/views.ts'].map((f) => readFileSync(join(__dirname, '../src/ui/explainers', f), 'utf8')).join('\n');
+    expect(src).not.toMatch(/ctx\.depth|station\.depth|setDepth|'specialist'|data-depth|app\/store/);
+  });
 });

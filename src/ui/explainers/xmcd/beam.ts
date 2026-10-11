@@ -7,7 +7,6 @@
  * (LCP, optics convention) turns counter-clockwise in the inset.
  * Wavelength and amplitude on screen are of course not to scale (λ ≈ 1 Å).
  */
-import type { Depth } from '../../../app/store';
 import { TOKENS, type Canvas2D } from '../kit';
 import * as P from './physics';
 import { COL, arrow, arrowHead, beamColor, rgba, textW, txt } from './draw';
@@ -29,16 +28,15 @@ export interface BeamState {
   /** 0..1 visibility of the second plate (linear-V = two quarter-wave plates) */
   second: number;
   /** labels for the plate and wave */
-  plateLabel: [string, string];
-  plateSub: [string, string];
-  waveLabel: [string, string];
-  waveSub: [string, string];
+  plateLabel: string;
+  plateSub: string;
+  waveLabel: string;
+  waveSub: string;
   /** magnetization along the beam (units of M_s(0,0)) and spontaneous magnitude */
   m: number;
   m0: number;
   grains: Int8Array;
   pressure: number;
-  depth: Depth;
 }
 
 export class BeamView {
@@ -58,7 +56,6 @@ export class BeamView {
   draw(s: BeamState, dt: number): void {
     this.t += dt * this.speed;
     const { ctx, w, h } = this.c;
-    const spec = s.depth === 'specialist';
     ctx.save();
     ctx.fillStyle = TOKENS.bg;
     ctx.fillRect(0, 0, w, h);
@@ -135,23 +132,23 @@ export class BeamView {
 
     // ---------- head-on inset (above the wave, clear of the plate and of the M arrow over the sample)
     const R = compact ? Math.max(24, Math.min(34, h * 0.13)) : Math.max(26, Math.min(40, h * 0.14));
-    const title = spec ? 'E seen facing the beam' : 'head-on view';
+    const title = 'head-on view of the E field';
     const tw = textW(ctx, title, { size: 10.5, weight: 600 }) / 2 + 4;
     let icx = compact ? (xP + xS) / 2 + 6 : xP + (xS - xP) * 0.56;
     icx = Math.max(tw, R + 10, Math.min(w - tw, w - R - 22, icx));
     // compact: start below the HTML canvas label that runs across the top-left
-    const icy = compact ? 40 + 13 + R : 24 + R + (spec ? 14 : 12);
-    this.inset(icx, icy, R, pol, k * xS - phase0, spec, title);
+    const icy = compact ? 40 + 13 + R : 24 + R + 14;
+    this.inset(icx, icy, R, pol, k * xS - phase0, title);
 
     // ---------- labels along the bottom
     // on narrow canvases the wave's label gets its own row above the component labels
     const yl = h - 22;
     const yw = compact ? h - 54 : yl;
     const items: Lbl[] = [
-      { x: (xU0 + xU1) / 2, y: yl, main: 'undulator', sub: spec ? 'linear-H' : 'side-to-side', pri: 4 },
-      { x: twoPlates ? (xP + xP2) / 2 : xP, y: yl, main: spec ? s.plateLabel[1] : s.plateLabel[0], sub: spec ? s.plateSub[1] : s.plateSub[0], pri: 1 },
-      { x: (xAfter + xS) / 2, y: yw, main: spec ? s.waveLabel[1] : s.waveLabel[0], sub: spec ? s.waveSub[1] : s.waveSub[0], pri: 0, color: beamColor(pol.pc) },
-      { x: xS, y: yl, main: spec ? 'FePt film' : 'magnet', sub: spec ? 'Pt L₃ 11.56 keV' : 'iron + platinum', pri: 2 },
+      { x: (xU0 + xU1) / 2, y: yl, main: 'undulator', sub: 'flat, side to side', pri: 4 },
+      { x: twoPlates ? (xP + xP2) / 2 : xP, y: yl, main: s.plateLabel, sub: s.plateSub, pri: 1 },
+      { x: (xAfter + xS) / 2, y: yw, main: s.waveLabel, sub: s.waveSub, pri: 0, color: beamColor(pol.pc) },
+      { x: xS, y: yl, main: 'magnet: FePt film', sub: 'Pt edge 11.56 keV', pri: 2 },
     ];
     this.labels(items, w);
     ctx.restore();
@@ -420,7 +417,7 @@ export class BeamView {
     ctx.globalAlpha = 1;
   }
 
-  private inset(cx: number, cy: number, R: number, pol: P.Polarization, phAtSample: number, spec: boolean, title: string): void {
+  private inset(cx: number, cy: number, R: number, pol: P.Polarization, phAtSample: number, title: string): void {
     const { ctx } = this.c;
     ctx.save();
     // disc
@@ -439,8 +436,8 @@ export class BeamView {
     ctx.moveTo(cx, cy - R - 4);
     ctx.lineTo(cx, cy + R + 4);
     ctx.stroke();
-    if (spec) {
-      // plate axes σ (45°) and π (135°)
+    {
+      // the diamond's two diagonal axes (σ at 45°, π at 135°): the components it delays against each other
       ctx.setLineDash([2, 3]);
       ctx.strokeStyle = 'rgba(200,232,255,0.35)';
       const d = (R + 2) * Math.SQRT1_2;
@@ -451,8 +448,6 @@ export class BeamView {
       ctx.lineTo(cx - d, cy - d);
       ctx.stroke();
       ctx.setLineDash([]);
-      txt(ctx, 'σ', cx + d + 2, cy - d - 1, { size: 10.5, color: 'rgba(200,232,255,0.7)' });
-      txt(ctx, 'π', cx - d - 2, cy - d - 1, { size: 10.5, color: 'rgba(200,232,255,0.7)', align: 'right' });
     }
     const col = beamColor(pol.pc);
     const norm = normOf(pol);
@@ -492,10 +487,8 @@ export class BeamView {
     ctx.fill();
     // captions
     txt(ctx, title, cx, cy - R - 13, { size: 10.5, color: TOKENS.ink3, align: 'center', weight: 600 });
-    if (spec) {
-      txt(ctx, 'H', cx + R + 12, cy + 4, { size: 10, color: TOKENS.ink3, align: 'left' });
-      txt(ctx, 'V', cx, cy + R + 20, { size: 10, color: TOKENS.ink3, align: 'center' });
-    }
+    txt(ctx, 'H', cx + R + 12, cy + 4, { size: 10, color: TOKENS.ink3, align: 'left' });
+    txt(ctx, 'V', cx, cy + R + 20, { size: 10, color: TOKENS.ink3, align: 'center' });
     ctx.restore();
   }
 

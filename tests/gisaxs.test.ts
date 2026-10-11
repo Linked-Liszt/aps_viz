@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   DEG,
   POLYSTYRENE,
@@ -270,5 +272,12 @@ describe('gisaxs GI-XPCS speckle memory', () => {
     expect(sd).toBeGreaterThan(0.05);
     expect(sig / sd).toBeGreaterThan(0.5);
     expect(sig / sd).toBeLessThan(2);
+  });
+});
+
+describe('one presentation for every reader', () => {
+  it('the station never reads the retired Visitor/Specialist depth', () => {
+    const src = ['gisaxs.ts', 'gisaxs/views.ts', 'gisaxs/xpcs.ts'].map((f) => readFileSync(join(__dirname, '../src/ui/explainers', f), 'utf8')).join('\n');
+    expect(src).not.toMatch(/ctx\.depth|station\.depth|setDepth|'specialist'|data-depth|app\/store/);
   });
 });

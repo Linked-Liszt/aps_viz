@@ -5,14 +5,11 @@ export type View =
   | { mode: 'beamline'; id: string; component?: string }
   | { mode: 'tour'; step: number };
 
-export type Depth = 'visitor' | 'specialist';
 export type Quality = 'high' | 'balanced' | 'low';
 
 export interface AppState {
   view: View;
-  depth: Depth;
   quality: Quality;
-  showRoof: boolean;
   introSeen: boolean;
   /** true once the user picked a quality themselves (the adaptive governor then stays out of the way) */
   qualityChosen: boolean;
@@ -34,6 +31,14 @@ function readPref<T extends string>(key: string, allowed: readonly T[], fallback
 function writePref(key: string, value: string): void {
   try {
     localStorage.setItem(key, value);
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+function dropPref(key: string): void {
+  try {
+    localStorage.removeItem(key);
   } catch {
     /* storage unavailable */
   }
@@ -86,12 +91,12 @@ class Store {
   constructor() {
     const isTest = typeof location !== 'undefined' && /[?&]test\b/.test(location.search);
     const qualityChosen = readPref('apsu.qualityChosen', ['yes', 'no'], 'no') === 'yes';
+    // every text now exists once: the explanation-depth preference of earlier versions is obsolete
+    dropPref('apsu.depth');
     this.state = {
       view: typeof location !== 'undefined' ? parseHash(location.hash) : { mode: 'overview' },
-      depth: readPref<Depth>('apsu.depth', ['visitor', 'specialist'], 'visitor'),
       // only an explicit choice is remembered: the adaptive governor's downgrades last for the session
       quality: qualityChosen ? readPref<Quality>('apsu.quality', ['high', 'balanced', 'low'], 'balanced') : 'balanced',
-      showRoof: false,
       introSeen: isTest || readPref('apsu.intro', ['seen', 'new'], 'new') === 'seen',
       qualityChosen,
       hover: null,
@@ -106,7 +111,6 @@ class Store {
   set(patch: Partial<AppState>): void {
     const prev = this.state;
     this.state = { ...prev, ...patch };
-    if (patch.depth) writePref('apsu.depth', patch.depth);
     if (patch.quality && this.state.qualityChosen) writePref('apsu.quality', patch.quality);
     if (patch.qualityChosen) writePref('apsu.qualityChosen', 'yes');
     if (patch.introSeen) writePref('apsu.intro', 'seen');

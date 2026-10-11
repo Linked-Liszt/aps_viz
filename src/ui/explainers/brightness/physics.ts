@@ -10,9 +10,9 @@
  * PHOTON SOURCE = electron beam ⊗ single-electron undulator radiation (Kim 1989, Gaussian approximation):
  *   Σ² = σ_e² + σ_r²,  Σ′² = σ_e′² + σ_r′²,   σ_r = √(2λL)/4π,  σ_r′ = √(λ/2L)   ⇒  σ_r σ_r′ = λ/4π
  *   L = 2.4 m (a full-length APS undulator; the same convention as the facility dossier's coherence estimates).
- *   Caveats (stated in the specialist UI): Tanaka & Kitamura (2009) give σ_r ≈ 2× Kim's and an energy-spread
- *   broadening of σ_r′ (σ_δ = 0.136 % at APS-U) that matters for high harmonics; zero-current electron beams;
- *   β-mismatch between electron and photon beams is ignored.
+ *   Caveats (the station's notes name the main simplifications): Tanaka & Kitamura (2009) give σ_r ≈ 2× Kim's
+ *   and an energy-spread broadening of σ_r′ (σ_δ = 0.136 % at APS-U) that matters for high harmonics;
+ *   zero-current electron beams; β-mismatch between electron and photon beams is ignored.
  * DIFFRACTION LIMIT: a perfect (zero-emittance) electron beam gives Σ_iΣ′_i = λ/4π per plane, so
  *   B_max = F / (4π² (λ/4π)²) = 4F/λ²  (fully coherent beam; Kim 1989).
  *

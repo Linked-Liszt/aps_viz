@@ -228,10 +228,11 @@ describe('formatting', () => {
     expect(sci(9.96e19)).toBe('10²⁰');
     expect(fmtGain(72.2)).toBe('×72');
     expect(fmtGain(1.04)).toBe('×1.0');
+    expect(fmtGain(1883.4)).toBe('×1,883');
     expect(fmtOneIn(1 / 751)).toBe('1 in 750');
     expect(fmtOneIn(0.0529)).toBe('1 in 19');
   });
-  it('visitor gains are rounded to one significant figure (design data: ~±30 % on a ratio)', () => {
+  it('design gains in the text and readouts are rounded to one significant figure (design data: ~±30 % on a ratio)', () => {
     expect(approxGain(687.5)).toBe('700');
     expect(approxGain(545)).toBe('500');
     expect(approxGain(310)).toBe('300');

@@ -119,6 +119,44 @@ test('clicking a non-feature sector opens the sector card', async ({ page }) => 
   expect(errors).toEqual([]);
 });
 
+test('a phone sector card keeps the guide out of its sheet and restores it on close', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const errors = await open(page);
+  const guide = page.locator('.ov-panel');
+  await guide.getByRole('button', { name: 'Expand guide' }).click();
+  await guide.getByRole('button', { name: 'Collapse guide' }).waitFor();
+  await page.evaluate(() => { location.hash = '#/sector/12'; });
+  await expect(page.locator('.sector-card')).toHaveClass(/is-open/);
+  await expect(guide).toHaveClass(/is-away/);
+  expect(await guide.evaluate((el) => (el as HTMLElement).inert)).toBe(true);
+
+  // Resizing to the desktop restores the side-by-side guide; back on a phone, only the sector sheet is active.
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await expect(guide).not.toHaveClass(/is-away/);
+  expect(await guide.evaluate((el) => (el as HTMLElement).inert)).toBe(false);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(guide).toHaveClass(/is-away/);
+
+  // Responsive visibility changes still respect a dialog's exclusive hold on the background.
+  await page.keyboard.press('?');
+  await expect(page.locator('.modal')).toHaveClass(/is-open/);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await expect(guide).not.toHaveClass(/is-away/);
+  expect(await guide.evaluate((el) => (el as HTMLElement).inert)).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.modal')).not.toHaveClass(/is-open/);
+  expect(await guide.evaluate((el) => (el as HTMLElement).inert)).toBe(false);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(guide).toHaveClass(/is-away/);
+  await page.locator('.sector-card').getByRole('button', { name: 'Close', exact: true }).click();
+  await expect(page).toHaveURL(/#\/$/);
+  await expect(guide).not.toHaveClass(/is-away/);
+  expect(await guide.evaluate((el) => (el as HTMLElement).inert)).toBe(false);
+  await guide.getByRole('button', { name: 'Collapse guide' }).click();
+  await expect(guide.getByRole('button', { name: 'Expand guide' })).toHaveAttribute('aria-expanded', 'false');
+  expect(errors).toEqual([]);
+});
+
 test('enter a feature beamline, walk components, and step back', async ({ page }) => {
   const errors = await open(page);
   await page.locator('.feature-card').filter({ hasText: '3DMN' }).click();
@@ -140,7 +178,7 @@ test('enter a feature beamline, walk components, and step back', async ({ page }
   expect(errors).toEqual([]);
 });
 
-test('every panel tab renders and depth switches the text', async ({ page }) => {
+test('every panel tab renders', async ({ page }) => {
   const errors = await open(page, '#/beamline/3dmn');
   await beamlineReady(page, '3dmn');
   const tabs = page.locator('.bl-panel .tab');
@@ -149,13 +187,99 @@ test('every panel tab renders and depth switches the text', async ({ page }) => 
     await tabs.nth(i).click();
     await expect(page.locator('.panel-body')).not.toBeEmpty();
   }
-  await tabs.nth(0).click();
-  const visitor = await page.locator('.panel-body p').nth(1).innerText();
-  // the top-bar switch (the phone menu and dialogs carry their own copies)
-  const specialist = page.locator('.topbar-tools [data-depth=specialist]').first();
-  await specialist.click();
-  await expect(specialist).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('.panel-body p').nth(1)).not.toHaveText(visitor);
+  expect(errors).toEqual([]);
+});
+
+/** Controls or words left over from the retired Visitor / Specialist explanation modes, anywhere in the document. */
+async function depthLeftovers(page: Page): Promise<string[]> {
+  return page.evaluate(() => {
+    const out: string[] = [];
+    for (const sel of ['[data-depth]', '[data-d]', '.modal-depth', '[aria-label="Explanation depth"]']) {
+      const n = document.querySelectorAll(sel).length;
+      if (n) out.push(`${n}× ${sel}`);
+    }
+    for (const b of document.querySelectorAll('button')) if (/^(?:Visitor|Specialist)$/.test(b.textContent?.trim() ?? '')) out.push(`button "${b.textContent}"`);
+    const text = document.body.innerText;
+    // the mode names (capitalized) and the phrases that went with them
+    for (const rx of [/.{0,30}\b(?:Visitor|Specialist)s?\b.{0,30}/, /.{0,30}\b(?:for specialists|explanation depth|(?:visitor|specialist|expert) mode)\b.{0,30}/i]) {
+      const m = text.match(rx);
+      if (m) out.push(`text: "${m[0]}"`);
+    }
+    if (localStorage.getItem('apsu.depth') !== null) out.push('localStorage apsu.depth');
+    return out;
+  });
+}
+
+test('one voice: there is no depth switch anywhere, and V does nothing harmful', async ({ page }) => {
+  const errors = track(page);
+  // a saved preference from an earlier version is ignored and dropped
+  await page.addInitScript(() => {
+    if (!sessionStorage.getItem('seeded')) {
+      localStorage.setItem('apsu.depth', 'specialist');
+      sessionStorage.setItem('seeded', '1');
+    }
+  });
+  await page.goto('/?test#/beamline/3dmn');
+  await page.waitForFunction(() => (window as any).__app?.frameCount > 5, null, { timeout: 60_000 });
+  await beamlineReady(page, '3dmn');
+  expect(await depthLeftovers(page)).toEqual([]);
+
+  // V on the page: same place, same text, no error
+  const body = page.locator('.panel-body');
+  const before = await body.innerText();
+  await page.keyboard.press('v');
+  await page.keyboard.press('V');
+  await page.waitForTimeout(400);
+  await expect(page).toHaveURL(/#\/beamline\/3dmn$/);
+  expect(await body.innerText()).toBe(before);
+
+  // every panel tab, the help, the phone menu, the story dialog and a full-screen station: nothing left over
+  const tabs = page.locator('.bl-panel .tab');
+  for (let i = 0; i < 5; i++) {
+    await tabs.nth(i).click();
+    await expect(body).not.toBeEmpty();
+    expect(await depthLeftovers(page), `panel tab ${i}`).toEqual([]);
+  }
+  await page.keyboard.press('?');
+  const modal = page.locator('.modal');
+  await expect(modal).toHaveClass(/is-open/);
+  await expect(page.locator('.modal.is-open .modal-content')).not.toContainText('Toggle');
+  expect(await depthLeftovers(page), 'help').toEqual([]);
+  await page.keyboard.press('Escape');
+  await expect(modal).not.toHaveClass(/is-open/);
+
+  await page.locator('.topbar-tools').getByRole('button', { name: /The upgrade/ }).click();
+  await expect(modal).toHaveClass(/is-open/);
+  for (const name of ['Primer', 'By the numbers', 'Timeline']) {
+    await page.locator('.modal.is-open .story-tabs [role=tab]', { hasText: name }).click();
+    await expect(page.locator('.modal.is-open .story-stage')).not.toBeEmpty();
+    expect(await depthLeftovers(page), name).toEqual([]);
+  }
+  // V inside the dialog does nothing; the dialog stays open on the same tab
+  await page.keyboard.press('v');
+  await expect(modal).toHaveClass(/is-open/);
+  await expect(page.locator('.modal.is-open .story-tabs [aria-selected=true]')).toHaveText('Timeline');
+  await page.keyboard.press('Escape');
+  await expect(modal).not.toHaveClass(/is-open/);
+
+  await page.locator('.bl-panel .tab', { hasText: 'How it works' }).click();
+  await expect(page.locator('.bl-panel .station-host .stn')).toBeVisible({ timeout: 30_000 });
+  await page.locator('.bl-panel .station-expand').click();
+  await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
+  await page.locator('.modal.is-open .modal-title').focus();
+  await page.keyboard.press('v');
+  await page.waitForTimeout(300);
+  await expect(modal).toHaveClass(/is-open/);
+  expect(await depthLeftovers(page), 'station dialog').toEqual([]);
+  await page.keyboard.press('Escape');
+  await expect(modal).not.toHaveClass(/is-open/);
+
+  // the phone menu folds the top-bar tools: no explanation switch there either
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('.tb-more').click();
+  await expect(page.locator('#tb-menu')).toHaveClass(/is-open/);
+  await expect(page.locator('#tb-menu')).not.toContainText(/Explanations|Visitor|Specialist/);
+  expect(await depthLeftovers(page), 'phone menu').toEqual([]);
   expect(errors).toEqual([]);
 });
 
@@ -197,6 +321,52 @@ test('the upgrade story modal opens, and the canvas works after closing it', asy
   await page.mouse.move(p.x - 3, p.y - 3);
   await page.mouse.move(p.x, p.y, { steps: 3 });
   await expect(page.locator('.hovercard')).toHaveClass(/is-on/);
+  expect(errors).toEqual([]);
+});
+
+test('the phone comparison keeps values whole and supports keyboard scrolling', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const errors = await open(page);
+  const more = page.locator('.tb-more');
+  await more.click();
+  await page.locator('#tb-menu').getByRole('button', { name: 'The upgrade', exact: true }).click();
+  await page.locator('.modal.is-open .story-tabs').getByRole('tab', { name: 'By the numbers', exact: true }).click();
+  const comparison = page.locator('.modal.is-open .compare-scroll');
+  expect(await comparison.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+  expect(await page.locator('.specs.compare td').evaluateAll((cells) => cells.every((el) => {
+    const value = document.createRange();
+    value.selectNodeContents(el);
+    return value.getClientRects().length === 1 && el.scrollWidth <= el.clientWidth + 1;
+  }))).toBe(true);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+
+  await comparison.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect.poll(() => comparison.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0);
+  await page.keyboard.press('Tab');
+  expect(await page.evaluate(() => !!document.activeElement?.closest('.modal.is-open'))).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.modal')).not.toHaveClass(/is-open/);
+  await expect(more).toBeFocused();
+  expect(errors).toEqual([]);
+});
+
+test('the author’s welcome greets the visitor and the author’s note opens from the top bar', async ({ page }) => {
+  const errors = track(page);
+  // test mode skips the welcome unless ?welcome asks for it
+  await page.goto('/?test&welcome#/');
+  const modal = page.locator('.modal');
+  // the welcome opens once the facility has been drawn behind it (the dialog then pauses rendering)
+  await expect(modal).toHaveClass(/is-open/, { timeout: 60_000 });
+  expect(await page.evaluate(() => (window as any).__app.frameCount)).toBeGreaterThan(2);
+  await expect(page.locator('.modal.is-open .author-md')).toBeVisible();
+  await page.locator('.modal.is-open').getByRole('button', { name: 'Continue' }).click();
+  await expect(modal).not.toHaveClass(/is-open/);
+  await page.locator('.topbar-tools').getByRole('button', { name: 'Author’s note' }).click();
+  await expect(modal).toHaveClass(/is-open/);
+  await expect(page.locator('.modal.is-open .author-md')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(modal).not.toHaveClass(/is-open/);
   expect(errors).toEqual([]);
 });
 

@@ -1,11 +1,8 @@
-import type { Depth } from '../../app/store';
-
 /**
  * Interactive "exhibit stations". Each explainer is a self-contained module that renders into a host element
  * (canvas/SVG/DOM), runs its own small simulation, and cleans up after itself.
  */
 export interface ExplainerContext {
-  depth: Depth;
   /** beamline accent colour */
   color: string;
   /** optional beamline id the explainer is shown for */
@@ -14,7 +11,6 @@ export interface ExplainerContext {
 
 export interface ExplainerInstance {
   destroy(): void;
-  setDepth?(d: Depth): void;
 }
 
 export interface ExplainerModule {
