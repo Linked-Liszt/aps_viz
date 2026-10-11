@@ -103,6 +103,16 @@ The renderer supports headings, paragraphs, bold, italics, links, lists, quotes,
 Write links as `[link text](URL)`. In the welcome, `[author's note](#author-note)` opens the note dialog. Closing the note returns to the welcome. The welcome's choices enter the exhibit without opening another introduction.
 AI agents and automated tools must never edit these files. See `AGENTS.md`.
 
+The welcome shows a "Compiling Shaders" progress bar before enabling navigation. The app prepares the beamline
+shaders for all three rendering settings, including the transparent building and shadow variants. High and
+Balanced share scene shaders. Light uses separate output and shadow settings. Visitors can read the author's
+note during compilation and return to the welcome. Buttons, the close control, backdrop clicks and Escape cannot
+dismiss the welcome until compilation finishes. A failed preparation has a Retry button.
+
+Preparation uses one temporary beamline model at a time. The app retains references to the compiled shader
+materials and releases the temporary geometry. It still caches only two completed beamline models during
+exploration. Direct links skip the welcome and prepare the selected model on entry.
+
 ## Writing exhibit text
 
 Write for a curious non-expert while preserving the details that a beamline scientist would check. Begin with the

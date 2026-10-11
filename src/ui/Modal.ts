@@ -123,6 +123,8 @@ export class Modal {
   private onCloseCb: (() => void) | null = null;
   private release: (() => void) | null = null;
   private openedAt = 0;
+  private dismissible = true;
+  private closeButton: HTMLButtonElement;
   /**
    * Escape closes the dialog wherever focus is (it can fall to <body> when a station re-renders the focused
    * control), unless another overlay is on top or a station already handled the key (preventDefault).
@@ -136,10 +138,11 @@ export class Modal {
 
   constructor(private cls = '') {
     this.content = h('div', { class: 'modal-content' });
+    this.closeButton = h('button', { class: 'btn btn-ghost btn-icon modal-close', 'aria-label': 'Close', title: 'Close (Esc)', onclick: () => this.close() }, icon('close'));
     this.box = h(
       'div',
       { class: 'modal-box glass', role: 'dialog', 'aria-modal': 'true' },
-      h('button', { class: 'btn btn-ghost btn-icon modal-close', 'aria-label': 'Close', title: 'Close (Esc)', onclick: () => this.close() }, icon('close')),
+      this.closeButton,
       this.content,
     );
     this.el = h(
@@ -162,6 +165,7 @@ export class Modal {
     const prev = this.onCloseCb;
     this.onCloseCb = null;
     prev?.();
+    this.setDismissible(true);
     if (!this.isOpen) {
       this.lastFocus = document.activeElement;
       this.openedAt = performance.now();
@@ -180,7 +184,7 @@ export class Modal {
       window.addEventListener('keydown', this.onKey);
     }
     requestAnimationFrame(() => {
-      if (this.isOpen && !this.box.contains(document.activeElement)) (this.box.querySelector('button, [href], input, [tabindex]') as HTMLElement | null)?.focus();
+      if (this.isOpen && !this.box.contains(document.activeElement)) tabbables(this.box)[0]?.focus();
     });
   }
 
@@ -188,8 +192,14 @@ export class Modal {
     return this.el.classList.contains('is-open');
   }
 
-  close(): void {
-    if (!this.isOpen) return;
+  setDismissible(allowed: boolean): void {
+    this.dismissible = allowed;
+    this.closeButton.disabled = !allowed;
+  }
+
+  close(): boolean {
+    if (!this.isOpen) return true;
+    if (!this.dismissible) return false;
     this.el.classList.remove('is-open');
     const cb = this.onCloseCb;
     this.onCloseCb = null;
@@ -203,6 +213,7 @@ export class Modal {
     restoreFocus(f);
     // A close callback may reopen this modal. Finish closing before it opens the next content.
     cb?.();
+    return !this.isOpen;
   }
 }
 

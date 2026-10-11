@@ -9,6 +9,6 @@
 
 Hi! This site is result of a (mostly) one-shot experiment with Opus 5.5. It is almost entirely AI generated. The prompt and details are in the [author's note](#author-note). I recommend checking out the "interactive station" at each of the beamlines.
 
-This is a personal side project, not an official APS project. I haven't gone through and verified all the scientific content. For details, please check out the cited papers and APS resources. 
+This is a personal side project, not an official APS project. The scientific content hasn't been exhaustively verified, so please refer to the cited papers and APS resources for details.
 
 Best explored on a desktop.

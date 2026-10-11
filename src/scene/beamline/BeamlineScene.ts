@@ -161,7 +161,7 @@ export class BeamlineScene {
    * KHR_parallel_shader_compile). Reveal the detailed model once they are ready. The camera can move meanwhile.
    */
   prepare(): Promise<void> {
-    return (this.prepared ??= this.stage.renderer.compileAsync(this.group, this.stage.camera, this.stage.scene).then(
+    return (this.prepared ??= this.stage.compileShaders(this.group).then(
       () => undefined,
       () => undefined,
     ));

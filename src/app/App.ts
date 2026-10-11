@@ -23,6 +23,7 @@ import { componentKind } from '../ui/categories';
 import { Search } from '../ui/Search';
 import { clamp, ease } from '../lib/tween';
 import type { Beamline, BeamlineMeta } from '../data/types';
+import { ShaderPreparation } from './ShaderPreparation';
 
 const BUILDING_NOTES: Record<string, string> = {
   lom: 'Lab/Office Modules contain offices, laboratories and user support space for neighbouring sectors.',
@@ -151,6 +152,7 @@ export class App {
   /** Tour stop to return to while exploring a beamline during this visit. */
   private tourReturnStep: number | null = null;
   private insetsQueued = false;
+  private shaderPreparation: ShaderPreparation | null = null;
 
   constructor(stageHost: HTMLElement, labelHost: HTMLElement, private ui: HTMLElement) {
     this.stage = new Stage(stageHost, labelHost);
@@ -241,10 +243,12 @@ export class App {
         if (!atHome() || this.modal.isOpen || this.search.isOpen) return;
         if (this.applied && drawnFrom < 0) drawnFrom = this.frameCount;
         if ((drawnFrom >= 0 && this.frameCount - drawnFrom > 3) || performance.now() - t0 > 4000) {
+          this.shaderPreparation ??= new ShaderPreparation(this.stage, this.ready, () => this.retainedScenes());
           openWelcome(
             this.modal,
             () => store.set({ introSeen: true }),
             () => store.go({ mode: 'tour', step: 0 }),
+            this.shaderPreparation,
           );
         } else requestAnimationFrame(whenDrawn);
       };
@@ -484,7 +488,7 @@ export class App {
       if (searchOpen) this.search.close();
       else {
         // search navigates: never leave a dialog standing over the place it goes to
-        if (modalOpen) this.modal.close();
+        if (modalOpen && !this.modal.close()) return;
         this.search.open();
       }
       return;

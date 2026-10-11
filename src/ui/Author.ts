@@ -1,6 +1,7 @@
 import { h, icon } from '../lib/dom';
 import { hasContent, renderMarkdown, stripComments } from '../lib/markdown';
 import type { Modal } from './Modal';
+import type { CompilationState, ShaderPreparation } from '../app/ShaderPreparation';
 // AUTHOR-OWNED CONTENT: src/author/*.md are written by the exhibit's author. AI agents and automated tools must not
 // edit them (see AGENTS.md). This module only displays them.
 import welcomeMd from '../author/welcome.md?raw';
@@ -28,30 +29,58 @@ export const hasWelcome = (): boolean => hasContent(welcomeMd);
  * Display the author's welcome with tour and exploration choices. `onDismiss` runs when the welcome closes.
  * Closing the author's note returns to the welcome and its link without dismissing the welcome.
  */
-export function openWelcome(modal: Modal, onDismiss: () => void, onTour: () => void): void {
+export function openWelcome(modal: Modal, onDismiss: () => void, onTour: () => void, preparation?: ShaderPreparation): void {
   const { nodes, title, content } = page(welcomeMd, 'Welcome', 'From the author');
   let toNote = false;
+  let ready = !preparation || preparation.state.status === 'ready';
+  let unsubscribe = () => {};
   const tour = h('button', {
     class: 'btn btn-primary btn-lg',
     onclick: () => {
+      if (!ready) return;
       modal.close();
       onTour();
     },
   }, icon('tour', 17), 'Start the guided tour');
   const explore = h('button', { class: 'btn btn-lg', onclick: () => modal.close() }, icon('ring', 17), 'Explore freely');
   const actions = h('div', { class: 'cta-row author-actions' }, tour, explore);
+  const label = h('span', { class: 'shader-status', role: 'status', 'aria-live': 'polite' }, 'Compiling Shaders');
+  const count = h('span', { class: 'shader-count', 'aria-hidden': 'true' }, '0%');
+  const progress = h('progress', { max: preparation?.state.total ?? 1, value: 0, 'aria-label': 'Compiling Shaders' });
+  const retry = h('button', { class: 'btn', hidden: true, onclick: () => preparation?.start() }, 'Retry');
+  const compilation = h('div', { class: 'shader-preparation', tabindex: '-1' }, h('div', { class: 'shader-progress-head' }, label, count), progress, retry);
+  const update = (state: CompilationState) => {
+    ready = state.status === 'ready';
+    tour.disabled = explore.disabled = !ready;
+    compilation.tabIndex = ready ? -1 : 0;
+    progress.value = state.completed;
+    const failed = state.status === 'error';
+    label.textContent = ready ? 'Shaders ready' : failed ? 'Shader compilation failed. Please retry.' : 'Compiling Shaders';
+    count.textContent = `${Math.round((state.completed / state.total) * 100)}%`;
+    retry.hidden = !failed;
+    compilation.setAttribute('aria-busy', String(state.status === 'compiling'));
+    if (!toNote && modal.el.contains(actions)) {
+      modal.setDismissible(ready);
+      if (ready && document.activeElement === compilation) tour.focus({ preventScroll: true });
+      if (failed && document.activeElement === compilation) retry.focus({ preventScroll: true });
+    }
+  };
   const show = (focus: HTMLElement = tour) => {
     toNote = false;
     modal.open(
-      [...nodes, actions],
+      [...nodes, ...(preparation ? [compilation] : []), actions],
       () => {
-        if (!toNote) onDismiss();
+        if (!toNote) {
+          unsubscribe();
+          onDismiss();
+        }
       },
       title,
       'narrow',
     );
+    if (preparation) update(preparation.state);
     requestAnimationFrame(() => {
-      if (modal.isOpen && modal.el.contains(focus)) focus.focus({ preventScroll: true });
+      if (modal.isOpen && modal.el.contains(focus)) (focus === tour && !ready ? compilation : focus).focus({ preventScroll: true });
     });
   };
   for (const link of content.querySelectorAll<HTMLAnchorElement>('a[href="#author-note"]')) {
@@ -63,6 +92,10 @@ export function openWelcome(modal: Modal, onDismiss: () => void, onTour: () => v
     });
   }
   show();
+  if (preparation) {
+    unsubscribe = preparation.subscribe(update);
+    preparation.start();
+  }
 }
 
 /** The "Author's note" page. */

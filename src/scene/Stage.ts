@@ -218,6 +218,59 @@ export class Stage {
     return this.quality;
   }
 
+  /** Compile for the render target and shadow settings used by this quality. */
+  compileShaders(root: THREE.Object3D, light = this.quality === 'low', scene = this.scene): Promise<void> {
+    const target = this.renderer.getRenderTarget();
+    const shadows = this.renderer.shadowMap.enabled;
+    const lights: { light: THREE.Light; castShadow: boolean }[] = [];
+    scene.traverse((o) => {
+      if (!(o instanceof THREE.DirectionalLight)) return;
+      lights.push({ light: o, castShadow: o.castShadow });
+      o.castShadow = !light;
+    });
+    this.renderer.shadowMap.enabled = !light;
+    this.renderer.setRenderTarget(light ? null : this.composer.renderTarget1);
+    try {
+      return this.renderer.compileAsync(root, this.camera, scene).then(() => undefined);
+    } finally {
+      this.renderer.setRenderTarget(target);
+      this.renderer.shadowMap.enabled = shadows;
+      for (const item of lights) item.light.castShadow = item.castShadow;
+    }
+  }
+
+  /** Draw shader samples off screen so shadow programs are ready before navigation. */
+  renderShaderSamples(scene: THREE.Scene, target: THREE.WebGLRenderTarget): void {
+    const previous = this.renderer.getRenderTarget();
+    const shadows = this.renderer.shadowMap.enabled;
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.needsUpdate = true;
+    this.renderer.setRenderTarget(target);
+    try {
+      this.renderer.render(scene, this.camera);
+      // Three.js updates the light counts after its shadow pass. Draw again with those counts.
+      this.renderer.shadowMap.needsUpdate = true;
+      this.renderer.render(scene, this.camera);
+    } finally {
+      this.renderer.setRenderTarget(previous);
+      this.renderer.shadowMap.enabled = shadows;
+      this.requestShadowUpdate();
+    }
+  }
+
+  /** Prepare every effects pass, including passes disabled by the current quality setting. */
+  prepareEffects(): void {
+    const enabled = this.composer.passes.map((pass) => pass.enabled);
+    for (const pass of this.composer.passes) pass.enabled = !(pass instanceof RenderPass);
+    try {
+      this.composer.render(0);
+    } finally {
+      this.composer.passes.forEach((pass, i) => { pass.enabled = enabled[i]; });
+      // Restore the facility before the browser displays the canvas again.
+      this.renderScene(0);
+    }
+  }
+
   /** Keep the shadow frustum tight around the area of interest for crisp shadows. */
   fitShadow(center: THREE.Vector3, radius: number): void {
     const cam = this.sun.shadow.camera as THREE.OrthographicCamera;

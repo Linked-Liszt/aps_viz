@@ -666,6 +666,133 @@ test("the author's welcome link opens the note and the note also opens from the 
   expect(errors).toEqual([]);
 });
 
+test('the welcome prevents dismissal while compiling and still allows reading the author note', async ({ page }) => {
+  const errors = track(page);
+  await page.addInitScript(() => {
+    Object.defineProperty(window, '__app', {
+      configurable: true,
+      set(app) {
+        Object.defineProperty(window, '__app', { value: app, configurable: true, writable: true });
+        const compile = app.stage.compileShaders;
+        let first = true;
+        app.stage.compileShaders = function (...args: unknown[]) {
+          const result = compile.apply(this, args);
+          if (!first) return result;
+          first = false;
+          return result.then(() => new Promise<void>((resolve) => { (window as any).releaseCompilation = resolve; }));
+        };
+      },
+    });
+  });
+  await page.goto('/?test&welcome#/');
+  const modal = page.locator('.modal');
+  const tour = modal.getByRole('button', { name: 'Start the guided tour', exact: true });
+  const explore = modal.getByRole('button', { name: 'Explore freely', exact: true });
+  const close = modal.getByRole('button', { name: 'Close', exact: true });
+  await expect(page.getByRole('progressbar', { name: 'Compiling Shaders' })).toBeVisible();
+  await page.waitForFunction(() => !!(window as any).releaseCompilation);
+  await expect(tour).toBeDisabled();
+  await expect(explore).toBeDisabled();
+  await expect(close).toBeDisabled();
+  await expect(modal.locator('.shader-preparation')).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(modal.locator('a[href="#author-note"]')).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect(modal.locator('.shader-preparation')).toBeFocused();
+  await page.keyboard.press('Escape');
+  await modal.click({ position: { x: 4, y: 4 } });
+  await explore.evaluate((button) => (button as HTMLButtonElement).click());
+  await close.evaluate((button) => (button as HTMLButtonElement).click());
+  await page.keyboard.press('Control+k');
+  await expect(modal).toHaveClass(/is-open/);
+  await expect(page.locator('.search')).not.toHaveClass(/is-open/);
+  await expect(page).toHaveURL(/#\/$/);
+  await modal.locator('a[href="#author-note"]').click();
+  await expect(page.getByRole('dialog', { name: "Author's note", exact: true })).toBeVisible();
+  await expect(close).toBeEnabled();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'From the author', exact: true })).toBeVisible();
+  await expect(close).toBeDisabled();
+  await expect(explore).toBeDisabled();
+  await page.evaluate(() => (window as any).releaseCompilation());
+  await expect(explore).toBeEnabled({ timeout: 60_000 });
+  await expect(close).toBeEnabled();
+  await expect(page.getByRole('progressbar')).toHaveAttribute('value', '10');
+  await expect(modal.locator('.shader-status')).toHaveText('Shaders ready');
+  await expect(modal.getByRole('button', { name: 'Retry', exact: true })).toBeHidden();
+  expect(await page.evaluate(() => {
+    const app = (window as any).__app;
+    return { cache: app.sceneCache.size, models: app.stage.scene.children.filter((o: any) => o.name.startsWith('beamline-')).length };
+  })).toEqual({ cache: 0, models: 0 });
+  await explore.click();
+  await expect(modal).not.toHaveClass(/is-open/);
+  expect(errors).toEqual([]);
+});
+
+test('a failed shader preparation can be retried before entering the exhibit', async ({ page }) => {
+  const errors = track(page);
+  await page.addInitScript(() => {
+    Object.defineProperty(window, '__app', {
+      configurable: true,
+      set(app) {
+        Object.defineProperty(window, '__app', { value: app, configurable: true, writable: true });
+        const compile = app.stage.compileShaders;
+        app.stage.compileShaders = function () {
+          this.compileShaders = compile;
+          return Promise.reject(new Error('Test shader preparation failure'));
+        };
+      },
+    });
+  });
+  await page.goto('/?test&welcome#/');
+  const modal = page.locator('.modal');
+  const explore = modal.getByRole('button', { name: 'Explore freely', exact: true });
+  await expect(modal.locator('.shader-status')).toContainText('Shader compilation failed');
+  await expect(explore).toBeDisabled();
+  await modal.getByRole('button', { name: 'Retry', exact: true }).click();
+  await expect(explore).toBeEnabled({ timeout: 60_000 });
+  await explore.click();
+  await expect(modal).not.toHaveClass(/is-open/);
+  expect(errors.filter((message) => !message.includes('Test shader preparation failure'))).toEqual([]);
+});
+
+for (const initialQuality of ['balanced', 'low', 'high']) {
+  test(`startup prepares beamline shaders from ${initialQuality} across rendering settings without retaining all models`, async ({ page }) => {
+    test.setTimeout(150_000);
+    const errors = track(page);
+    await page.addInitScript((quality) => {
+      localStorage.setItem('apsu.quality', quality);
+      localStorage.setItem('apsu.qualityChosen', 'yes');
+    }, initialQuality);
+    await page.goto('/?test&welcome#/');
+    await page.getByRole('button', { name: 'Explore freely', exact: true }).click({ timeout: 60_000 });
+    expect(await page.evaluate(() => (window as any).__app.stage.getQuality())).toBe(initialQuality);
+    await page.evaluate(() => {
+      const app = (window as any).__app;
+      (window as any).warmedProgramKeys = new Set(app.stage.renderer.info.programs.map((program: any) => program.cacheKey));
+    });
+    for (const quality of ['balanced', 'low', 'high']) {
+      await page.evaluate((q) => (window as any).__app.stage.setQuality(q), quality);
+      for (const id of quality === 'high' ? ['xpcs'] : FEATURES) {
+        await page.evaluate((bid) => { location.hash = `#/beamline/${bid}`; }, id);
+        await page.waitForFunction((bid) => {
+          const app = (window as any).__app;
+          return app.bl?.data.id === bid && app.bl.group.visible;
+        }, id);
+        const frame = await page.evaluate(() => (window as any).__app.frameCount);
+        await page.waitForFunction((n) => (window as any).__app.frameCount > n + 4, frame);
+        const extra = await page.evaluate(() => {
+          const w = window as any;
+          return w.__app.stage.renderer.info.programs.filter((p: any) => !w.warmedProgramKeys.has(p.cacheKey)).map((p: any) => ({ name: p.name, key: p.cacheKey }));
+        });
+        expect(extra, `${id} in ${quality}`).toEqual([]);
+        expect(await page.evaluate(() => (window as any).__app.sceneCache.size)).toBeLessThanOrEqual(2);
+      }
+    }
+    expect(errors).toEqual([]);
+  });
+}
+
 for (const choice of ['Start the guided tour', 'Explore freely'] as const) {
   test(`a new home visitor chooses ${choice} in the single opening dialog`, async ({ page }) => {
     const errors = track(page);
