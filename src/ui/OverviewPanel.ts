@@ -75,7 +75,7 @@ export class OverviewPanel {
     return h(
       'details',
       { class: 'enh-block' },
-      h('summary', null, h('span', { class: 'kicker' }, `Also upgraded · ${n} enhanced sectors`), h('span', { class: 'small muted' }, ' — existing beamlines given new optics and instruments')),
+      h('summary', null, h('span', { class: 'kicker' }, `Also upgraded · ${n} enhanced sectors`), h('span', { class: 'small muted' }, '. Existing beamlines with new optics and instruments.')),
       this.enhanced,
     );
   }
@@ -111,11 +111,11 @@ export class OverviewPanel {
     return h(
       'div',
       { class: 'legend small' },
-      h('div', null, h('i', { class: 'lg lg-e' }), 'Electron beam (6 GeV storage ring, booster, linac)'),
-      h('div', null, h('i', { class: 'lg lg-x' }), 'X-ray beamlines (one per insertion device / bending magnet)'),
-      h('div', null, h('i', { class: 'lg lg-f' }), 'Feature beamline — click to step inside'),
-      enhancedSectors().length ? h('div', null, h('i', { class: 'lg lg-enh' }), 'Beamline enhanced by the upgrade — hover for details') : null,
-      h('div', { class: 'muted' }, 'Hover any sector of the hall to see what runs there. Hutches outside the feature beamlines are schematic.'),
+      h('div', null, h('i', { class: 'lg lg-e' }), 'Electron beam in the 6 GeV storage ring and injectors'),
+      h('div', null, h('i', { class: 'lg lg-x' }), 'X-ray beamlines from undulators and bending magnets'),
+      h('div', null, h('i', { class: 'lg lg-f' }), 'Feature beamline. Click to enter.'),
+      enhancedSectors().length ? h('div', null, h('i', { class: 'lg lg-enh' }), 'Upgraded existing beamline. Hover for details.') : null,
+      h('div', { class: 'muted' }, 'Hover over a sector to see its beamlines. Hutches outside the feature beamlines are schematic.'),
     );
   }
 
@@ -141,7 +141,7 @@ export class OverviewPanel {
           'div',
           { class: 'cta-row' },
           h('button', { class: 'btn btn-primary', onclick: () => this.onTour() }, icon('tour', 15), 'Take the guided tour'),
-          h('button', { class: 'btn', onclick: () => this.onStory() }, icon('bolt', 15), 'Why upgrade?'),
+          h('button', { class: 'btn', onclick: () => this.onStory() }, icon('bolt', 15), 'About the upgrade'),
         ),
       ),
     );

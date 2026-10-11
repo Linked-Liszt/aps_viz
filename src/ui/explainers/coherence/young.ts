@@ -1,7 +1,7 @@
 /**
  * Young's double-slit view: two "lanes" (old APS, APS-U), each drawn as beam's-eye views of
  *   [photon source, to scale] → Z metres → [slit mask + degree of coherence μ(Δx) centred on one slit] → [detector].
- * The detector accumulates individual photons sampled from the partially coherent far-field pattern
+ * Individual photon counts are accumulated sampled from the partially coherent far-field pattern
  * (physics.youngPattern) with an exponential memory, so the fringes build up and fade as parameters change.
  * Both detectors receive the same photon rate (brightness differences are deliberately not shown).
  */
@@ -239,11 +239,11 @@ export class YoungView {
     // header line under the kit label
     const pos = p.chex ? P.nearestChexPosition(p.Z) : null;
     const Etxt = `${p.E.toFixed(1)} keV`;
-    const at = `${p.Z.toFixed(1)} m from the source${pos ? ` (${pos.name})` : ''}`;
+    const at = `${p.Z.toFixed(1)} m from the source${pos ? ` · ${pos.name}` : ''}`;
     const heads = [
-      `${Etxt} X-rays (λ = ${(P.wavelength(p.E) * 1e10).toFixed(3)} Å) · two slits ${fmtUm(p.d)} apart, each ${fmtUm(p.d * P.SLIT_WIDTH_OVER_D)} wide, ${at}`,
+      `${Etxt} X-rays · λ = ${(P.wavelength(p.E) * 1e10).toFixed(3)} Å · two slits ${fmtUm(p.d)} apart, each ${fmtUm(p.d * P.SLIT_WIDTH_OVER_D)} wide, ${at}`,
       `${Etxt} X-rays · two slits ${fmtUm(p.d)} apart, ${at}`,
-      `${Etxt} · slits ${fmtUm(p.d)} apart · ${p.Z.toFixed(1)} m from source${pos ? ` (${pos.name.replace('28-ID-', '')})` : ''}`,
+      `${Etxt} · slits ${fmtUm(p.d)} apart · ${p.Z.toFixed(1)} m from source${pos ? ` · ${pos.name.replace('28-ID-', '')}` : ''}`,
     ];
     const hs = w < 420 ? 10.5 : 11.5;
     ctx.save();
@@ -295,8 +295,8 @@ export class YoungView {
     ctx.font = `700 12.5px ${TOKENS.font}`;
     const beam = p.mode === 'round' ? 'round' : 'flat';
     const titles = isNew
-      ? [`After the upgrade: APS-U, 6 GeV, ${beam} beam`, `After: APS-U, ${beam} beam`, 'After (APS-U)', 'APS-U']
-      : ['Before the upgrade: APS, 7 GeV', 'Before the upgrade: APS', 'Before (APS)', 'APS'];
+      ? [`APS-U after upgrade · 6 GeV, ${beam} beam`, `APS-U after upgrade · ${beam} beam`, "APS-U after upgrade", 'APS-U']
+      : ["APS before upgrade · 7 GeV", "APS before upgrade", "APS before upgrade", 'APS'];
     const room = mx0 - 8 - vW - 10 - (x + 10);
     const title = titles.find((t) => ctx.measureText(t).width <= room) ?? titles[titles.length - 1];
     ctx.restore();
@@ -324,13 +324,13 @@ export class YoungView {
 
     // ---- captions under panels
     const cyy = y + h - 7;
-    txt(ctx, srcS < 70 ? 'source' : 'source (to scale)', sx + srcS / 2, cyy, { color: TOKENS.ink3, size: 10, align: 'center' });
-    const xiTxt = narrow ? `in step ~${fmtUm(info.xi)}` : `in step over ~${fmtUm(info.xi)}`;
+    txt(ctx, srcS < 70 ? 'source' : "source · to scale", sx + srcS / 2, cyy, { color: TOKENS.ink3, size: 10, align: 'center' });
+    const xiTxt = narrow ? `coherence length ~${fmtUm(info.xi)}` : `coherence length ~${fmtUm(info.xi)}`;
     txt(ctx, xiTxt, slx + slitW / 2, cyy, { color: isNew ? col : TOKENS.ink2, size: 10, align: 'center', weight: 600 });
     const lam = P.wavelength(p.E);
     const fr = (lam / p.d) * 1e6;
     const frT = `${fr < 1 ? fr.toFixed(2) : fr < 100 ? fr.toFixed(1) : fr.toFixed(0)} µrad`;
-    const scrCap = scrW >= 280 ? `detector far behind · fringes every ${frT} (λ/d)` : scrW >= 200 ? `detector · fringes every ${frT}` : 'detector, far behind';
+    const scrCap = scrW >= 280 ? `distant detector · fringe spacing ${frT} = λ/d` : scrW >= 200 ? `detector · fringe spacing ${frT}` : "distant detector";
     txt(ctx, scrCap, scx + scrW / 2, cyy, {
       color: TOKENS.ink3,
       size: 10,
@@ -457,7 +457,7 @@ export class YoungView {
     ctx.arc(dx, dy, 3.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
-    const muTxt = `${Math.round(m2 * 100)} % in step`;
+    const muTxt = `${Math.round(m2 * 100)} % coherent`;
     // place the label clear of the bell: highest point of the curve over the label's extent (units of d)
     ctx.save();
     ctx.font = `700 10.5px ${TOKENS.font}`;

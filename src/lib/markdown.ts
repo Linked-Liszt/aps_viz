@@ -1,6 +1,6 @@
 /**
  * A small, safe Markdown subset for author-written pages (src/author/*.md): headings (#–###), paragraphs, bullet and
- * numbered lists, block quotes, horizontal rules, **bold**, *italic* / _italic_, `code`, [links](https://…) and hard
+ * numbered lists, block quotes, horizontal rules, **bold**, *italic* / _italic_, `code`, fenced code blocks, [links](https://…) and hard
  * line breaks (a line ending in two spaces or a backslash). HTML comments are dropped; any other HTML is shown as
  * text, never interpreted.
  */
@@ -50,6 +50,11 @@ export function markdownToHtml(md: string): string {
   let para: string[] = [];
   let list: { tag: 'ul' | 'ol'; items: string[] } | null = null;
   let quote: string[] = [];
+  let fence: { marker: string; lines: string[] } | null = null;
+  const flushCode = () => {
+    if (fence) out.push(`<pre><code>${esc(fence.lines.join('\n'))}</code></pre>`);
+    fence = null;
+  };
   const flushPara = () => {
     if (para.length) out.push(`<p>${inline(para.join('\n'))}</p>`);
     para = [];
@@ -70,6 +75,17 @@ export function markdownToHtml(md: string): string {
   for (const raw of lines) {
     const line = raw.replace(/\s+$/, (ws) => (ws.length >= 2 && !ws.includes('\t') ? '  ' : ''));
     const t = line.trim();
+    if (fence) {
+      if (new RegExp(`^${fence.marker[0]}{${fence.marker.length},}\\s*$`).test(t)) flushCode();
+      else fence.lines.push(raw);
+      continue;
+    }
+    const code = /^(`{3,}|~{3,})\s*[\w+-]*\s*$/.exec(t);
+    if (code) {
+      flushAll();
+      fence = { marker: code[1], lines: [] };
+      continue;
+    }
     if (!t) {
       flushAll();
       continue;
@@ -114,6 +130,7 @@ export function markdownToHtml(md: string): string {
     flushList();
     para.push(line.trimStart());
   }
+  flushCode();
   flushAll();
   return out.join('\n');
 }

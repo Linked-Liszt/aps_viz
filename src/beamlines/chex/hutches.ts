@@ -3,7 +3,7 @@ import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import type { BuildCtx } from '../../scene/beamline/layout';
 import { mats } from '../../scene/palette';
 import type { P2 } from './geom';
-import { M, box, cached } from './kit';
+import { M, box } from './kit';
 
 /**
  * Polygonal hutches. CHEX's D/E and F hutches are rotated ~23° and A, C and G are not rectangles. The engine's outline
@@ -16,15 +16,6 @@ import { M, box, cached } from './kit';
  */
 
 const FLOOR = new THREE.MeshStandardMaterial({ color: 0x223047, roughness: 0.95, side: THREE.DoubleSide });
-
-/** Same as the engine's cut-away hutch glass: translucent, rendered from the inside only. */
-const cutaway = () =>
-  cached('chex-cutaway', () => {
-    const m = (mats.hutchGlass() as THREE.MeshStandardMaterial).clone();
-    m.side = THREE.BackSide;
-    m.opacity = 0.2;
-    return m;
-  });
 
 /** Signed area in the local (x, z) plane; > 0 = counter-clockwise (wall normals would point inward). */
 const signedArea = (poly: P2[]) => poly.reduce((a, p, i) => { const q = poly[(i + 1) % poly.length]; return a + p.x * q.z - q.x * p.z; }, 0) / 2;
@@ -52,7 +43,7 @@ export function polygonHutch(beamY: number, outline: P2[], height = 3.3): THREE.
     if (len < 1e-3) continue;
     const yaw = -Math.atan2(dz, dx);
     // translucent wall
-    const wall = new THREE.Mesh(new THREE.PlaneGeometry(len, height), cutaway());
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(len, height), mats.hutchWall());
     wall.position.set((a.x + b.x) / 2, y0 + height / 2, (a.z + b.z) / 2);
     wall.rotation.y = yaw;
     wall.renderOrder = 2;

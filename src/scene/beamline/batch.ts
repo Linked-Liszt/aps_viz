@@ -41,7 +41,7 @@ function eligible(m: THREE.Mesh, root: THREE.Object3D): boolean {
   // transparent: only order-independent "glass" (no depth write, normal blending), e.g. cut-away hutch walls
   if (mat.transparent && (mat.depthWrite || mat.blending !== THREE.NormalBlending)) return false;
   if ((mat as THREE.MeshBasicMaterial).wireframe) return false;
-  // merged geometry keeps position / normal / uv only
+  // The merged geometry contains only position, normal and UV attributes.
   const sm = mat as THREE.MeshStandardMaterial;
   if (mat.vertexColors || sm.aoMap || sm.lightMap) return false;
   const g = m.geometry as THREE.BufferGeometry;

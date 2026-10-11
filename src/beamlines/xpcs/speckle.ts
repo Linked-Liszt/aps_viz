@@ -8,7 +8,7 @@ import { reducedMotion } from './kit';
  * intensity autocorrelation is g2(q, τ) = 1 + β exp(−2 D q² τ). We model the far-field amplitude on each pixel as a complex
  * Ornstein–Uhlenbeck process with that q-dependent rate, convolve it with a Gaussian (the speckle grain, set by
  * λ·distance / beam size), square it, and multiply by the form factor of uniform spheres (rings with a first minimum near
- * the edge). Result: grainy speckle whose outer grains twinkle faster than the inner ones — the essence of SA-XPCS.
+ * the edge). Speckles farther from the centre fluctuate faster, as expected for the q-dependent decay rate in SA-XPCS.
  * The 2 × 4 module gaps of an EIGER2 X 4M and the shadow of the in-vacuum beam stop on its rod are overlaid. The rod comes
  * from the outboard side, as in the 3D model; the face texture's +u axis is local +Z (outboard), so the shadow runs to +i.
  */

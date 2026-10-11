@@ -110,7 +110,7 @@ export function fatSegments(segs: [THREE.Vector3, THREE.Vector3][], colors: THRE
   };
 }
 
-/** Unregister (and dispose) every fat-line material under a subtree — call when the subtree is discarded. */
+/** Unregister and dispose of every fat-line material in a discarded subtree. */
 export function releaseLines(root: THREE.Object3D): void {
   root.traverse((o) => {
     const m = (o as THREE.Mesh).material;

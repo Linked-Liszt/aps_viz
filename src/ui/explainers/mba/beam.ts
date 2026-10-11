@@ -1,5 +1,5 @@
 /**
- * Panel 2 — the electron beam seen end-on at an insertion-device (ID) source point, everything to the same scale.
+ * Panel 2. The electron beam seen end-on at an insertion-device (ID) source point, everything to the same scale.
  *
  * Both beams are drawn centred on the same axis, over the cross-section of a human hair (70 µm) for scale:
  *   old APS (FDR 2019 Table 2.1):          σ_x × σ_y = 275 × 10 µm rms
@@ -93,7 +93,7 @@ export class BeamView {
     return Math.max(0.05, (this.c.w - 36) / (2 * 2.6 * P.APS.sigX));
   }
 
-  /** still: reduced motion, paused — no jiggle, and zoom / beam-shape changes are cuts instead of eased */
+  /** still: reduced motion, paused. No jiggle, and zoom / beam-shape changes are cuts instead of eased */
   frame(dt: number, still = false): void {
     const { c } = this;
     const ctx = c.ctx;
@@ -130,20 +130,20 @@ export class BeamView {
     ctx.fillStyle = TOKENS.ink2;
     ctx.textAlign = 'left';
     ctx.font = `600 10px ${TOKENS.font}`;
-    const tsw = ctx.measureText('TO SCALE').width;
+    const tsw = ctx.measureText("To scale").width;
     // the longest wording that stays clear of the scale bar (same row) at the top left
     const sbMax = Math.min(w * 0.22, 110);
     const sb = niceStep(sbMax / k0);
     ctx.font = `600 10.5px ${TOKENS.mono}`;
     const sbEnd = 10 + tsw + 10 + sb * k0 + 6 + ctx.measureText(fmtLen(sb)).width + 10;
     ctx.font = `600 10.5px ${TOKENS.font}`;
-    const opts = [`old APS beam, ${P.APS.sigX} µm wide (rms)`, `old APS, ${P.APS.sigX} µm wide`, 'old APS beam'];
+    const opts = [`old APS width ${P.APS.sigX} µm · rms`, `old APS, ${P.APS.sigX} µm wide`, 'old APS beam'];
     const oTxt = opts.find((t) => w - 8 - richWidth(ctx, t) >= sbEnd) ?? opts[opts.length - 1];
     const oX = Math.max(sbEnd, Math.min(w - 8 - richWidth(ctx, oTxt), ocx + P.APS.sigX * k0 * 1.05));
     richText(ctx, oTxt, oX, ocy - Math.max(9, P.APS.sigY * k0 + 8));
     ctx.fillStyle = TOKENS.ink3;
     ctx.font = `600 10px ${TOKENS.font}`;
-    ctx.fillText('TO SCALE', 10, ov.y + 7);
+    ctx.fillText("To scale", 10, ov.y + 7);
     ctx.restore();
     this.scaleBar(ctx, 10 + tsw + 10, ov.y + 7, k0, sbMax);
 
@@ -282,7 +282,7 @@ export class BeamView {
       const a = (-140 * Math.PI) / 180;
       let hx = cx + Math.cos(a) * rh;
       let hy = cy + Math.sin(a) * rh;
-      const txt = `a human hair (${P.HAIR_UM} µm)`;
+      const txt = `human hair · ${P.HAIR_UM} µm`;
       const tw = ctx.measureText(txt).width;
       if (hy < top + 4) {
         // edge outside: point at the visible arc where it crosses the top region
@@ -321,7 +321,7 @@ export class BeamView {
       ctx.font = `500 10.5px ${TOKENS.font}`;
       ctx.fillStyle = 'rgb(252,165,165)';
       ctx.textAlign = 'right';
-      const txt = `red blood cell (${P.RBC_UM} µm)`;
+      const txt = `red blood cell · ${P.RBC_UM} µm`;
       const tx = Math.max(ctx.measureText(txt).width + 8, rbc.x - rbc.r - 5);
       tag(ctx, txt, tx, rbc.y, 'right', 'rgb(252,165,165)');
     }
@@ -357,8 +357,8 @@ export class BeamView {
     const aNew = tg.sx * tg.sy;
     const div = this.mode === 'round' ? P.APSU.round : P.APSU.flat;
     return [
-      ['rgba(206,214,226,0.9)', 'Old APS (7 GeV)', `width × height ${P.APS.sigX} × ${P.APS.sigY} µm (rms) · angle spread ${P.APS.divX} × ${P.APS.divY} µrad`],
-      [this.accent, `APS-U (6 GeV, ${this.mode})`, `${fmt1(tg.sx)} × ${fmt1(tg.sy)} µm · spread ${div.divX} × ${div.divY} µrad · ${Math.round(aOld / aNew)}× smaller area`],
+      ['rgba(206,214,226,0.9)', 'APS before upgrade · 7 GeV', `width × height ${P.APS.sigX} × ${P.APS.sigY} µm · rms · angular spread ${P.APS.divX} × ${P.APS.divY} µrad`],
+      [this.accent, `APS-U · 6 GeV, ${this.mode}`, `${fmt1(tg.sx)} × ${fmt1(tg.sy)} µm · spread ${div.divX} × ${div.divY} µrad · ${Math.round(aOld / aNew)}× smaller area`],
     ];
   }
 

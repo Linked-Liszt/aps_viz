@@ -17,8 +17,8 @@ import { cssiChamber, gixsDiffractometer, granites, hexapod, pilatusOnMotion, st
 import { eigerOnCarriage, endStop, grandTube, mmPad } from './cssi/tube';
 
 /**
- * 9-ID CSSI — Coherent Surface Scattering Imaging (single, non-canted ID line; one revolver undulator in the downstream
- * slot, upstream slot empty) → windowless HHL front end → 9-ID-A FOE (two horizontally deflecting mirrors, horizontal
+ * 9-ID CSSI is Coherent Surface Scattering Imaging. It is one non-canted ID line with a revolver undulator
+ * in the downstream slot and an empty upstream slot. The component sequence follows → windowless HHL front end → 9-ID-A FOE (two horizontally deflecting mirrors, horizontal
  * LN2 DCM) → shielded transport → 9-ID-MH mini-hutch (pink stop, XBPM, CRL-1) → 9-ID-D (CRL-2, KB, CSSI solid-sample
  * chamber, GI-XPCS hexapod, GIXS diffractometer + Pilatus) → 9-ID-GT "Grand Tube" (2.75 m × ~20.5 m walk-in vacuum
  * vessel with the EIGER 16M and MM-PAD on a carriage, 2.9–21.8 m from the CSSI sample).
@@ -26,13 +26,13 @@ import { eigerOnCarriage, endStop, grandTube, mmPad } from './cssi/tube';
  * Geometry notes:
  * • Distances are from the centre of the ID straight (FDR convention). Exact: CSSI sample 54.992 m, GIXS 56.590 m,
  *   XBPMs 42.38 / 53.43 m; everything else ±1 m from FDR tables and the as-built isometrics (see the dossier).
- * • Single beam axis, no engine branches. The real lateral offsets — the MR-1/MR-2 periscope (~17 mm) and the HDCM
- *   (~10 mm outboard) — are far below hall-scale visibility and are NOT drawn (no exaggeration); MR-1 is drawn
+ * • Single beam axis, no engine branches. The MR-1/MR-2 periscope offset is about 17 mm, and the HDCM offset is about
+ *   10 mm outboard. These offsets are not visible at hall scale and are omitted. MR-1 is drawn
  *   deflecting outboard and MR-2 returning the beam (the sense is undocumented). The HDCM crystal offset inside its tank
  *   is drawn 30 mm (×3) so the double bounce is legible at close range.
  * • Hero: the CSSI sample stands ON EDGE (vertical surface, horizontal scattering plane) at the true α = 0.5°, so the
  *   specular reflection leaves at 2α = 1° and lands |SPEC_SIDE| ≈ 0.35 m to the side on the MM-PAD at 20 m (true
- *   geometry; the chip is drawn facing inboard, toward the cameras — the real side is not documented). A floating
+ *   geometry; the chip is drawn facing inboard, toward the cameras, though the real side is not documented). A floating
  *   magnifier above the chamber repeats the geometry with the chip ×8 and the angles ×24.
  * • Grand Tube: light-grey vessel with a museum cut-away window (upper-inboard quadrant, 63.2–76.9 m, faint skin keeps
  *   the silhouette); axis 0.2 m above the beam (unpublished) so the vessel clears its saddles; four flanged sections,

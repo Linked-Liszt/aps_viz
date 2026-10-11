@@ -16,8 +16,8 @@ export const M1_X = 29.5;
 export const MONO_OFFSET = 0.03;
 /**
  * Inter-crystal distance drawn for the bent Laue pair at 70 keV (computed): Si(111) θB = asin(λ/2d) = 1.62° with
- * λ = 0.1771 Å, d = 3.1356 Å; a 30 mm parallel offset needs D = 0.030 / tan(2θB) = 0.53 m. (At 35 keV D ≈ 0.26 m,
- * at 120 keV ≈ 0.91 m — the second crystal must travel along the beam to keep a fixed offset.)
+ * λ = 0.1771 Å, d = 3.1356 Å; a 30 mm parallel offset needs D = 0.030 / tan(2θB) = 0.53 m. At 35 keV, D ≈ 0.26 m.
+ * At 120 keV, D ≈ 0.91 m. The second crystal moves along the beam to maintain a fixed offset.
  */
 export const THETA_B_70 = Math.asin(0.17712 / (2 * 3.1356));
 export const M1_SEP = MONO_OFFSET / Math.tan(2 * THETA_B_70);

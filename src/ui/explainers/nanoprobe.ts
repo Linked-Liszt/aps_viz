@@ -90,7 +90,7 @@ interface Derived {
 }
 
 const mod: ExplainerModule = {
-  title: 'Chemistry at the nanoscale, while it happens',
+  title: "Element mapping during battery charging",
   subtitle: 'Shrink the X-ray spot, tune its energy, and map the elements in a battery particle as it charges.',
   mount(host, ctx) {
     const station = createStation(host, { color: ctx.color, layout: 'side' });
@@ -200,7 +200,7 @@ const mod: ExplainerModule = {
     // ------------------------------------------------------------------ parameters
     const P = { ...DEF, insitu: false };
 
-    // 0. toolbar: scan / reset, and the in situ switch (the station's headline action)
+    // 0. Toolbar: scan / reset, and the in situ switch (the station's headline action)
     const btnRow = document.createElement('div');
     btnRow.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap';
     station.controls.appendChild(btnRow);
@@ -210,7 +210,7 @@ const mod: ExplainerModule = {
     const motion = motionGate(station, btnRow, {
       play: '▶ Animate scans',
       pause: '❚❚ Results only',
-      title: 'Your device asks for reduced motion: each scan appears when it is done. Press to watch the beam raster across the sample.',
+      title: "Reduced motion is enabled on your device. Each scan appears after calculation. Press to animate the beam position across the sample.",
       onChange: (on) => {
         if (on && scanning && run) elapsed = (run.idx / run.total) * d.animDur;
         dirty = true;
@@ -220,13 +220,13 @@ const mod: ExplainerModule = {
       label: 'Battery cell',
       options: [
         { value: 'off', label: 'Hold still', title: 'The sample stays as it is between scans' },
-        { value: 'on', label: '⚡ Charge it (in situ)', title: 'Charge the battery: the sample changes before every new scan' },
+        { value: 'on', label: "Charge battery", title: 'Charge the battery: the sample changes before every new scan' },
       ],
       value: 'off',
       onChange: (v) => setInsitu(v === 'on'),
     });
 
-    // 1. beam
+    // 1. Beam
     const gBeam = group(station.controls, 'X-ray beam');
     const eSlider = slider(gBeam, {
       label: 'X-ray energy E₀',
@@ -250,7 +250,7 @@ const mod: ExplainerModule = {
       value: P.spot,
       format: (v) => {
         const sd = spotMinNm(P.E0);
-        return v < sd ? `${fmtLenNm(sd)} (min)` : fmtLenNm(v);
+        return v < sd ? `${fmtLenNm(sd)} minimum` : fmtLenNm(v);
       },
       onInput: (v) => {
         P.spot = v;
@@ -260,15 +260,15 @@ const mod: ExplainerModule = {
     note(
       gBeam,
       station,
-      'An element glows only if the X-rays carry enough energy to knock out one of its inner electrons: its **edge** (ticks under the slider). The glow is strongest just above an edge and fades roughly as E^{−2.7} higher up. Higher energy also allows a **smaller spot**: 39 nm at 10 keV, 16 nm at 25 keV (the mirrors’ diffraction limit).',
+      "X-ray fluorescence requires enough incident energy to remove an inner-shell electron. The threshold is the absorption edge, marked below the slider. Fluorescence is strongest just above an edge and decreases roughly as E^{−2.7} at higher energy. The diffraction-limited focal spot also decreases with energy: 39 nm at 10 keV and 16 nm at 25 keV.",
     );
 
-    // 2. source (before the scan group: the APS vs APS-U comparison stays above the fold)
+    // 2. Source (before the scan group: the APS vs APS-U comparison stays above the fold)
     const gSrc = group(station.controls, 'X-ray source');
     const srcToggle = toggle<SourceKey>(gSrc, {
       options: [
-        { value: 'apsu', label: 'APS-U (2024–)', title: 'The upgraded multi-bend-achromat storage ring' },
-        { value: 'aps', label: 'APS (pre-2023)', title: 'The original APS storage ring (1996–2023), same beamline optics' },
+        { value: 'apsu', label: "APS-U since 2024", title: 'The upgraded multi-bend-achromat storage ring' },
+        { value: 'aps', label: "APS before 2023", title: "The original storage ring operated from 1996 to 2023. Both sources use the same beamline optics in this model." },
       ],
       value: P.src,
       onChange: (v) => {
@@ -277,17 +277,17 @@ const mod: ExplainerModule = {
       },
     });
     const meter = timeMeter(gSrc, accent);
-    const fluxRO = readout(gSrc, 'X-rays hitting the spot');
+    const fluxRO = readout(gSrc, "Incident photons per second");
     note(
       gSrc,
       station,
-      "APS-U's beam is far more **laser-like** (coherent), so hundreds of times more X-rays squeeze into the tiny spot: ~160× more at 10 keV, ~350× at 25 keV. Bigger spots also take in the old beam's incoherent part, so the gain falls to ~10–20× for micrometre spots. Same optics on both sources assumed, good to about 2×; against the old zone-plate nanoprobes the design report quotes 10^{3}–10^{4}×.",
+      "Higher APS-U coherence increases flux in small focal spots: ~160× at 10 keV and ~350× at 25 keV. Larger spots include more of the old source's incoherent flux, reducing the gain to ~10 to 20× for micrometre spots. The comparison assumes identical optics and is accurate to about a factor of 2. Against old zone-plate nanoprobes, the design report gives a gain of 10^{3} to 10^{4}×.",
     );
 
-    // 3. scan
+    // 3. Scan
     const gScan = group(station.controls, 'Scan');
     const stepSlider = slider(gScan, {
-      label: 'Step (pixel size) · pixels',
+      label: 'Step size · pixels',
       min: 12.5,
       max: 400,
       log: true,
@@ -315,30 +315,30 @@ const mod: ExplainerModule = {
     });
     const scanNote = note(gScan, station, '');
 
-    // 4. numbers
+    // 4. Numbers
     const gNum = group(station.controls, 'Per pixel');
-    const countsRO = readout(gNum, 'X-rays caught');
+    const countsRO = readout(gNum, "Recorded photons");
     const detRO = readout(gNum, 'Detector input');
     const doseRO = readout(gNum, 'Radiation dose');
-    detRO.el.title = 'X-rays reaching the detector per second (counts per second); the beam is attenuated to keep it below 3×10⁷';
+    detRO.el.title = "Incident detector rate in counts/s. Attenuation keeps it below 3×10⁷.";
     doseRO.el.title = 'Energy absorbed per kilogram of sample, in gray (Gy): photons per area × energy × absorption';
     note(
       gNum,
       station,
-      "A map pixel's brightness is the number of that element's X-rays the detector caught there. Few X-rays → grainy maps. The detector's collecting angle (0.1 sr) and count-rate limit are illustrative, and the maps assume cleanly separated lines: tungsten's strongest line sits only 133 eV from a nickel line, closer than the detector can resolve, so real tungsten maps need full-spectrum fitting. For equal counts, the dose is the same on both sources.",
+      "Map intensity is the recorded fluorescence count for each element at each scan position. Low counts give noisy maps. The 0.1 sr detector solid angle and count-rate limit are illustrative. Maps assume separated emission lines. Tungsten's strongest line is only 133 eV from a nickel line, too close for direct separation at this detector resolution. Actual tungsten maps require full-spectrum fitting. At equal counts, both sources give the same radiation dose.",
     );
 
-    // 5. background: the sample and the beamline
-    const gAbout = group(station.controls, 'About');
+    // 5. Background: the sample and the beamline
+    const gAbout = group(station.controls, "Sample and geometry");
     note(
       gAbout,
       station,
-      'The sample: a 100 nm slice of **battery cathode** particles (NMC811, LiNi_{0.8}Mn_{0.1}Co_{0.1}O_{2}): ~300 nm crystals of nickel, manganese and cobalt oxide, with a pinch of **tungsten** (≈0.5 mol%) on the boundaries between them. Lithium is too light to show up. The cracking above ~4.2 V and the manganese loss are qualitative and sped up.',
+      "The illustrative sample is a 100 nm slice through NMC811 battery-cathode particles, LiNi_{0.8}Mn_{0.1}Co_{0.1}O_{2}. It contains ~300 nm nickel-manganese-cobalt oxide crystals with ≈0.5 mol% tungsten at grain boundaries. Lithium fluorescence is too weak and low in energy for these measurements. Cracking above ~4.2 V and manganese loss are qualitative and accelerated.",
     );
     note(
       gAbout,
       station,
-      "**Why is ISN 220 m long?** The spot is a shrunken image of a tiny slit far upstream; the shrink factor is (slit → mirror) ÷ (mirror → sample). Leaving ~6 cm of room for a battery cell or furnace keeps the mirrors away from the sample, so the slit must be very far away: 165 m ÷ 0.4 m gives ~400× shrinking. A 5× shorter beamline would need a slit narrower than a micrometre, and the distant slit also steadies the spot against motion of the optics upstream.",
+      "The 220 m ISN beamline length permits strong demagnification of an upstream slit. The demagnification is the slit-to-mirror distance divided by the mirror-to-sample distance. A ~6 cm clearance for a battery cell or furnace requires separation between mirrors and sample. Distances of 165 m and 0.4 m give ~400× demagnification. A beamline 5× shorter would require a slit narrower than a micrometre. The distant slit also reduces sensitivity to upstream optic motion.",
     );
 
     // ------------------------------------------------------------------ derived quantities
@@ -562,7 +562,7 @@ const mod: ExplainerModule = {
     function onScanDone(): void {
       scanning = false;
       heroC.canvas.style.cursor = 'crosshair';
-      // the beam parks (on the showcase W-rich boundary, or wherever the visitor aimed it): show that spot's spectrum
+      // The static beam position is the representative tungsten-rich boundary or a user-selected position. Display its spectrum.
       aimAt(park);
       if (P.insitu) {
         if (cellIdx < CELL_STATES.length - 1) insituWait = 1.6;
@@ -582,16 +582,16 @@ const mod: ExplainerModule = {
       const c = d.counts;
       const parts = (['Ni', 'Mn', 'Co', 'W'] as const).filter((_, i) => ex[i]).map((k) => `${k} ${fmtCounts(c[k])}`);
       countsRO.set(parts.length ? parts.join(' · ') : 'none');
-      detRO.set(`${sci(d.rate)} /s${d.att < 0.999 ? ` (att. ×${d.att.toFixed(2)})` : ''}`);
+      detRO.set(`${sci(d.rate)} /s${d.att < 0.999 ? ` · attenuation ×${d.att.toFixed(2)}` : ''}`);
       doseRO.set(`${sci(d.dose, 1)} Gy`);
       meter.set(d.tU, d.tA, fmtTime, { insituStep: P.insitu || cellIdx > 0 ? INSITU_STEP_S : undefined, selected: P.src, uStage: d.uStage, gain: d.effU / d.effA });
       // scan note: sampling advice, then the numbers behind it
       const ratio = d.step / d.spot;
-      let t = ratio > 1.3 ? `Your step (**${fmtLenNm(d.step)}**) is bigger than the spot: the beam skips what lies between the dots.` : ratio < 0.2 ? `Steps much smaller than the **${fmtLenNm(d.spot)}** spot add pixels and time, but no new detail.` : 'A smaller **step** means more pixels: finer detail, but a longer scan.';
-      if (d.stageLimited) t += ` The sample can only be moved 1 mm per second, so each ${fmtLenNm(d.step)} pixel really takes **${fmtTime(d.dwell)}**.`;
+      let t = ratio > 1.3 ? `The ${fmtLenNm(d.step)} step is larger than the focal spot, leaving gaps between illuminated positions.` : ratio < 0.2 ? `Steps much smaller than the ${fmtLenNm(d.spot)} spot increase pixel count and scan time without improving resolution.` : "Smaller steps provide finer sampling but increase scan time.";
+      if (d.stageLimited) t += ` Stage speed is limited to 1 mm/s, so each ${fmtLenNm(d.step)} pixel takes at least ${fmtTime(d.dwell)}.`;
       const samp =
-        ratio > 1 ? 'gaps between the spots' : ratio > 0.55 ? 'a little coarse: sampling theory wants at most half the spot width' : ratio < 0.2 ? 'finer than needed: more time and dose, no more detail' : 'fine enough to catch all the detail the spot can resolve';
-      t += ` Now: step = ${ratio.toFixed(2)} × the spot width (${samp}); ${d.nx}² pixels × ${fmtTime(d.dwell)} = ${fmtTime(d.tSel)}.`;
+        ratio > 1 ? 'gaps between the spots' : ratio > 0.55 ? "coarse; sampling requires a step no larger than half the spot width" : ratio < 0.2 ? "oversampled; additional time and dose without finer resolution" : "fine enough to sample the resolved detail";
+      t += ` Step = ${ratio.toFixed(2)} × spot width, with ${samp}. The scan has ${d.nx}² pixels × ${fmtTime(d.dwell)} = ${fmtTime(d.tSel)}.`;
       scanNote.set(t);
     }
 
@@ -607,32 +607,32 @@ const mod: ExplainerModule = {
       const st = CELL_STATES[cellIdx];
       const spot = fmtLenNm(d.spot);
       let v: string;
-      if (dark.length === 4) v = `At **${P.E0.toFixed(1)} keV** the beam cannot excite any element in this sample: only scattered X-rays come back. Raise the energy past the manganese edge (6.54 keV).`;
+      if (dark.length === 4) v = `At ${P.E0.toFixed(1)} keV, none of the elements in this sample produces fluorescence. Only scattered incident X-rays are recorded. Increase energy above the manganese edge at 6.54 keV.`;
       else if (dark.length > 0) {
-        const names = [...dark].sort((a, b) => ELEMENTS[a].edges[0].e - ELEMENTS[b].edges[0].e).map((k) => `**${ELEMENTS[k].name}** (${ELEMENTS[k].edges[0].e.toFixed(2)} keV)`);
+        const names = [...dark].sort((a, b) => ELEMENTS[a].edges[0].e - ELEMENTS[b].edges[0].e).map((k) => `${ELEMENTS[k].name} at ${ELEMENTS[k].edges[0].e.toFixed(2)} keV`);
         const list = names.length > 1 ? `${names.slice(0, -1).join(', ')} or ${names[names.length - 1]}` : names[0];
-        v = `At **${P.E0.toFixed(1)} keV** the X-rays are not energetic enough to knock out the inner electrons of ${list}, so ${dark.length > 1 ? 'those maps stay' : 'that map stays'} dark. Slide the energy above ${dark.length > 1 ? 'their edges' : 'its edge'}.`;
-      } else if (P.src === 'aps') v = `With the old APS, only ~${fmtCounts(d.counts.Mn)} manganese X-rays reach the detector per pixel, so the maps dissolve into noise. Maps as clean as APS-U's would take the old APS **${fmtTime(d.tCleanA)}** instead of **${fmtTime(d.tCleanU)}**${d.uStage ? ` (less than its ~${Math.round(d.fluxU / d.fluxA)}× flux deficit: the scanning stage, not the X-rays, limits APS-U here)` : `, with ~${Math.round(d.fluxU / d.fluxA)}× less flux into this spot`}.`;
+        v = `At ${P.E0.toFixed(1)} keV, the incident energy is below the absorption edge of ${list}, so ${dark.length > 1 ? 'those maps remain' : 'that map remains'} dark. Increase energy above ${dark.length > 1 ? 'their edges' : 'its edge'}.`;
+      } else if (P.src === 'aps') v = `With the old APS, only ~${fmtCounts(d.counts.Mn)} manganese photons are recorded per pixel, making the maps noisy. Equal-quality maps would take ${fmtTime(d.tCleanA)}, compared with ${fmtTime(d.tCleanU)} for APS-U${d.uStage ? `. The time ratio is below the ~${Math.round(d.fluxU / d.fluxA)}× flux ratio because stage speed limits APS-U` : `, with ~${Math.round(d.fluxU / d.fluxA)}× less flux in this spot`}.`;
       else if (P.E0 > 17 && d.spot < 30) {
         const xs = elementXS('Ni', 13) / elementXS('Ni', P.E0);
         const fewer = Math.max(2, Math.round(countsAt(13) / Math.max(1e-9, d.counts.Ni)));
-        v = `At **${P.E0.toFixed(0)} keV** the spot can shrink to **${spot}**, sharper than ever. But these X-rays are far above the elements' edges, so atoms absorb them ~${Math.round(xs)}× less often${fewer > 1.15 * xs ? ', and fewer X-rays fit into the tinier spot' : ''}: each pixel catches ~${fewer}× fewer nickel X-rays than at 13 keV. Sharpness costs signal.`;
-      } else if (d.spot > 160) v = `The **${spot}** spot is bigger than the crystal grains (~300 nm), so boundaries${st.crackW > 0 ? ' and cracks' : ''} blur away. Shrink the spot to see them.`;
-      else if (d.step > d.spot * 1.3) v = `Each pixel is **${fmtLenNm(d.step)}** apart but the spot is only **${spot}**: the beam hops over most of the sample. Make the step smaller than the spot.`;
-      else if (cellIdx > 0 || P.insitu) v = `**${st.volts.toFixed(1)} V.** ${st.text}${st.crackW > 0 ? ' Cracks show up as dark lines in every map.' : ''}`;
+        v = `At ${P.E0.toFixed(0)} keV, the minimum focal spot is ${spot}. The energy is far above the absorption edges, so absorption is ~${Math.round(xs)}× less frequent${fewer > 1.15 * xs ? ', and flux in the smaller spot is lower' : ''}. Each pixel records ~${fewer}× fewer nickel photons than at 13 keV. Finer spatial resolution therefore comes with lower fluorescence counts.`;
+      } else if (d.spot > 160) v = `The ${spot} spot exceeds the ~300 nm grain size, blurring boundaries${st.crackW > 0 ? ' and cracks' : ''}. Reduce the spot size to resolve them.`;
+      else if (d.step > d.spot * 1.3) v = `The ${fmtLenNm(d.step)} pixel spacing exceeds the ${spot} focal spot, leaving gaps between measured areas. Make the step smaller than the spot.`;
+      else if (cellIdx > 0 || P.insitu) v = `Battery voltage is ${st.volts.toFixed(1)} V. ${st.text}${st.crackW > 0 ? ' Cracks appear as dark lines in every map.' : ''}`;
       else {
-        v = `A **${spot}** X-ray spot scans a thin slice of a battery particle. Each element glows at its own X-ray energy (spectrum, panel 3), giving one map per element. **Tungsten** outlines the ~300 nm crystals: visible only because the spot is far smaller than a crystal.`;
-        if (P.E0 > W_EDGES.L3 && P.E0 < W_EDGES.L2) v += ` At this energy only tungsten’s L₃ lines are excited; its Lβ₁ and Lγ₁ lines need more than ${W_EDGES.L2.toFixed(2)} keV.`;
+        v = `A ${spot} X-ray spot is scanned across a thin battery-particle slice. Characteristic fluorescence energies distinguish elements in the spectrum in panel 3, giving an element map for each. Tungsten marks the ~300 nm crystal boundaries, which are resolved because the spot is much smaller than a crystal.`;
+        if (P.E0 > W_EDGES.L3 && P.E0 < W_EDGES.L2) v += ` At this energy, only tungsten L₃ lines are excited. The Lβ₁ and Lγ₁ lines require more than ${W_EDGES.L2.toFixed(2)} keV.`;
         else if (d.counts.W < 10) v += ' Tungsten gives only a few counts per pixel here, so counting statistics set how little of it can be detected.';
       }
       // how the optics make this spot (the slit far upstream, the beam-defining aperture, sets size against flux)
       if (!dark.length && P.src === 'apsu' && !(cellIdx > 0 || P.insitu))
         v +=
           d.regime === 'coherent'
-            ? ` A spot this small uses only the coherent part of the beam: the slit far upstream is nearly closed${d.limited ? `, and ${spot} is the smallest spot possible at ${P.E0.toFixed(1)} keV` : ''}.`
+            ? ` A nearly closed upstream slit limits illumination to the coherent part of the beam${d.limited ? `, giving the minimum ${spot} spot at ${P.E0.toFixed(1)} keV` : ''}.`
             : d.regime === 'partial'
-              ? ' For this spot the slit far upstream is partly opened, letting in more, less coherent X-rays.'
-              : ' A spot this large opens the slit far upstream fully (or defocuses), trading sharpness for flux.';
+              ? " Flux is greater and coherence is lower with a partly open upstream slit."
+              : " A fully open upstream slit or defocus gives a larger spot with greater flux and lower spatial resolution.";
       station.setCaption(v);
     }
 
@@ -649,7 +649,7 @@ const mod: ExplainerModule = {
       run = first;
     }
     restart();
-    meter.setHead('Time for these maps (equal counts)');
+    meter.setHead('Map time · equal counts');
     updateReadouts();
     refreshCaption();
     dirty = true;

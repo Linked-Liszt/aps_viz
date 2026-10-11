@@ -35,6 +35,19 @@ describe('author Markdown', () => {
     expect(html).toBe('<p>file_name_here and 2 * 3 * 4</p>');
   });
 
+  it('renders fenced code literally, escapes HTML and preserves line breaks and indentation', () => {
+    const text = '<script>\n  **bold** [APS](https://www.aps.anl.gov)\n</script>';
+    for (const marker of ['```', '~~~']) {
+      const html = markdownToHtml(`Before\n\n${marker}text\n${text}\n${marker}\n\nAfter`);
+      expect(html).toBe('<p>Before</p>\n<pre><code>&lt;script&gt;\n  **bold** [APS](https://www.aps.anl.gov)\n&lt;/script&gt;</code></pre>\n<p>After</p>');
+    }
+  });
+
+  it('keeps shorter fences inside code and renders an unclosed block through the end of the file', () => {
+    expect(markdownToHtml('````\n```\ntext\n````')).toBe('<pre><code>```\ntext</code></pre>');
+    expect(markdownToHtml('```\n& text\n  indented')).toBe('<pre><code>&amp; text\n  indented</code></pre>');
+  });
+
   it('the author pages render (content is the author’s; only check that they parse)', () => {
     for (const md of [welcome, note]) expect(() => markdownToHtml(md)).not.toThrow();
   });

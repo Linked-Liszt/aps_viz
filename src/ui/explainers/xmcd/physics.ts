@@ -1,13 +1,13 @@
 /**
- * XMCD station physics — pure functions, no DOM (unit-tested in tests/xmcd.test.ts).
+ * XMCD station physics. Pure functions, no DOM covered by tests/xmcd.test.ts.
  *
- * 1. POLARIZATION: diamond Bragg-transmission phase retarder (how POLAR makes circular light)
+ * 1. Polarization: diamond Bragg-transmission phase retarder at POLAR
  *    The two undulators at 4-ID are planar, so the source is linear-horizontal (LH). A thin diamond crystal set a
  *    small angle Δθ off its Bragg angle, with its scattering plane at 45° to the incident polarization, delays the
  *    π component relative to σ by (asymptotic dynamical theory, valid for |Δθ| ≫ Darwin width)
  *        δ(Δθ) = (π/2) · Δθ_q / Δθ,
  *        Δθ_q  = 2 t cosθ_B r_e² λ³ Re(F_h F_h̄) / (π² V²)        (quarter-wave offset)
- *    — the form used in APS 4-ID-POLAR's Pharet calculator (POLAR research dossier, interactive idea 1); C(111),
+ *. The form used in APS 4-ID-POLAR's Pharet calculator (POLAR research dossier, interactive idea 1); C(111),
  *    t = 0.5 mm, 10 keV gives Δθ_q ≈ 2×10⁻⁴ rad ≈ 42″. Atomic form factor of C from the Cromer–Mann fit
  *    (International Tables for Crystallography Vol. C, Table 6.1.1.4); f′ ≈ 0, static lattice (no Debye–Waller).
  *    Output Jones vector for LH input, plate axes σ̂ = (x̂+ŷ)/√2, π̂ = (−x̂+ŷ)/√2:
@@ -22,7 +22,7 @@
  *    is a left-handed screw. POLAR numbers (dossier, refs r7, r12, r15): P_c ≈ 0.98, LV P_lin ≈ −0.80…−0.95,
  *    piezo helicity flipping ≈ 13–15 Hz with lock-in detection, phase plates usable ≈ 2.7–14 keV.
  *
- * 2. MAGNET: L1₀ FePt (the granular "heat-assisted magnetic recording" alloy), probed at the Pt L₃ / L₂ edges.
+ * 2. Magnet: L1₀ FePt (the granular "heat-assisted magnetic recording" alloy), probed at the Pt L₃ / L₂ edges.
  *    Why Pt L₂,₃: 2p → 5d dipole transitions probe the 5d shell that carries the (induced) Pt moment, so the
  *    Thole–Carra sum rules apply directly (unlike 3d K edges or rare-earth L edges, where the probed 4p / 5d states
  *    are only spectators); L₃ = 11.564 keV and L₂ = 13.273 keV (X-ray Data Booklet) both lie inside POLAR's
@@ -35,12 +35,12 @@
  *    • Hysteresis: a Preisach / Stoner–Wohlfarth ensemble of N independent uniaxial grains with switching fields
  *      H_sw,i = H_c(T)·(1 + σ g_i) (g_i = normal quantiles, σ = 0.25). H_c(T) ∝ H_K ∝ K/M_s ∝ m^{1.1}, using the
  *      K ∝ M_s^{2.1} scaling of FePt (Okamoto et al. PRB 66, 024413 (2002); Mryasov et al. EPL 69, 805 (2005)).
- *      H_c(300 K) ≈ 3 T, typical of granular L1₀ FePt media — illustrative. Grains heated above T_C lose their
+ *      H_c(300 K) ≈ 3 T, typical of granular L1₀ FePt media. Illustrative. Grains heated above T_C lose their
  *      orientation; on cooling they freeze along the field, or at random in zero field (thermally demagnetized).
  *    • Pressure (ILLUSTRATIVE toy model, not FePt data): T_C(P) = T_C0 (1 − P/P*), moment ∝ √(1 − P/P*),
- *      P* = 150 GPa — compression broadens the d bands and weakens exchange until the moment collapses.
+ *      P* = 150 GPa. Compression broadens the d bands and weakens exchange until the moment collapses.
  *
- * 3. SPECTRA (SCHEMATIC lineshapes): each edge = arctan step + pseudo-Voigt "white line" (2p → 5d), normalized to
+ * 3. Spectra with schematic lineshapes: each edge = arctan step + pseudo-Voigt "white line" (2p → 5d), normalized to
  *    an L₃ jump of 1 and an L₂ jump of ½ (statistical 2p₃/₂ : 2p₁/₂ ratio, the usual practice before applying the
  *    sum rules). The XMCD at each edge has the white-line shape with an AREA fixed by the sum rules
  *    (Thole et al. PRL 68, 1943 (1992); Carra et al. PRL 70, 694 (1993); practical form of Chen et al. PRL 75,
@@ -219,7 +219,7 @@ export function zeeman(bTesla: number, tK: number, J: number, g = 2): number {
 /**
  * Weiss mean-field reduced magnetization m ∈ [0, 1] at reduced temperature t = T/T_C and reduced field h ≥ 0:
  * the largest root of g(m) = B_J(3J/(J+1)·m/t + h) − m. B_J is concave for positive argument, so g is concave on
- * m ≥ 0 and Newton's method started at m = 1 (where g < 0) descends monotonically onto the largest root — a few
+ * m ≥ 0 and Newton's method started at m = 1 (where g < 0) descends monotonically onto the largest root. A few
  * iterations instead of a long bisection (this runs a few hundred times per frame while a slider moves).
  */
 export function meanFieldM(t: number, J: number, h = 0): number {
@@ -422,7 +422,7 @@ export interface EdgeShape {
   /** step centre and half-width, eV relative to e0 */
   stepPos: number;
   stepW: number;
-  /** white-line area (jump·eV), centre (eV rel. e0), FWHM (eV), Lorentzian fraction */
+  /** white-line area (jump·eV), centre (eV rel. E0), FWHM (eV), Lorentzian fraction */
   wlArea: number;
   wlPos: number;
   fwhm: number;
@@ -549,7 +549,7 @@ export function readBack(sp: Spectra, pcMag: number, nh: number): { mOrb: number
   return { ...sumRules(p, q, r, nh), p, q, r };
 }
 
-/** Largest |Δμ| (L₃ or L₂) at full saturation and P_c = pcMag — sets a fixed y-range for the XMCD plot. */
+/** Largest |Δμ| (L₃ or L₂) at full saturation and P_c = pcMag. Sets a fixed y-range for the XMCD plot. */
 export function maxDiff(sp: Spectra, s: Omit<SpectraState, 'mProj' | 'pcBeam'>): number {
   const { a3, a2 } = xmcdAreas(s.mSpinEff, s.mOrb, s.nh, whiteLineR());
   let m = 0;

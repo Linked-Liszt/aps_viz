@@ -13,7 +13,7 @@ import {
 } from './isn/endstation';
 
 /**
- * ISN — In Situ Nanoprobe, 19-ID (single branch, ~227 m from the source to the beamstop).
+ * ISN is the In Situ Nanoprobe at 19-ID. Its single branch ends at a beam stop about 227 m from the source.
  *
  * Geometry (sources and derivations in ./isn/geom.ts):
  * • Two in-line revolver undulators (not canted). Vertical dogleg in 19-ID-A: M1 (28 m) reflects down, M2 (29 m) back up
@@ -177,11 +177,11 @@ function custom(ctx: BuildCtx): void {
 
   // ---- context labels
   const lbl = (text: string, x: number, side: number, up: number, maxDist = 90) => ctx.addLabel(text, ctx.at(x, side, up), { maxDist });
-  lbl('Leaves the experiment hall (~91 m)', HALL_EXIT_X + 0.8, beamSide(HALL_EXIT_X) - 1.0, 1.2);
+  lbl('Experiment-hall exit near 91 m', HALL_EXIT_X + 0.8, beamSide(HALL_EXIT_X) - 1.0, 1.2);
   lbl('Enclosed corridor through the lab/office area', 140, beamSide(140) - 1.2, 0.4, 120);
   lbl('Shielded ion-pump station', PUMPS[1] + 0.6, beamSide(PUMPS[1]) + 0.6, 0.6, 30);
-  lbl('Long Beamline Building (Bldg 444)', LBB_X + 2.0, -1.4, 7.8, 160);
-  lbl('1 m isolated slab · supply air socks (±0.05 °C)', E.x1 - 2.2, SE + E.in + 1.0, E.roof - 0.1, 40);
+  lbl('Long Beamline Building, Building 444', LBB_X + 2.0, -1.4, 7.8, 160);
+  lbl('1 m isolated slab. Fabric air ducts. Temperature ±0.05 °C.', E.x1 - 2.2, SE + E.in + 1.0, E.roof - 0.1, 40);
 }
 
 export default layout;

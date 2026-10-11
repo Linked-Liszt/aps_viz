@@ -1,4 +1,4 @@
-"""Convert the researched site dossier (OSM-derived) into src/data/site.json for the app.
+"""Build src/data/site.json from the site research dossier, including OpenStreetMap building footprints.
 Usage: python3 scripts/build-site.py <research/site.json> src/data/site.json
 """
 import json, sys
@@ -96,4 +96,4 @@ site = {
     ],
 }
 json.dump(site, open(out, 'w'), indent=1)
-print('buildings', len(buildings), 'roads', len(roads), 'sector1', site['sector1AngleDeg'])
+print(f"Wrote {len(buildings)} buildings and {len(roads)} roads. The sector 1 angle is {site['sector1AngleDeg']} degrees.")

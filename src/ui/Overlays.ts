@@ -3,6 +3,7 @@ import { Modal, holdExclusive, loadErrorNotice, mountStation } from './Modal';
 import { loadExplainer } from './explainers/registry';
 import { FACILITY, type Param } from '../data/facility';
 import { TOUR, type TourStep } from '../data/tour';
+import { metaById } from '../data/meta';
 import { mats } from '../scene/palette';
 
 /** Touch-first device (kiosk, tablet, phone): gesture hints say drag / pinch instead of right-drag / scroll. */
@@ -47,14 +48,14 @@ export function buildIntro(onExplore: () => void, onTour: () => void): HTMLEleme
       h(
         'p',
         { class: 'intro-lede', id: 'intro-lede' },
-        'A kilometre-long ring of electrons now makes X-rays about 500 times brighter than before. Fly over the facility, step inside the nine new feature beamlines, and play with the physics that each one uses to see the invisible.',
+        'Electrons circulate in a kilometre-long storage ring and emit X-rays about 500 times brighter than before the upgrade. Explore the facility and its nine new feature beamlines. Try the interactive stations to see how scientists study materials with these X-rays.',
       ),
       h('div', { class: 'cta-row' }, primary, h('button', { class: 'btn btn-lg', onclick: () => onExplore() }, icon('ring', 17), 'Explore freely')),
       h('div', { class: 'intro-hints small' }, ...hints.map(([k, v]) => h('span', null, h('b', null, k), v))),
       h(
         'p',
         { class: 'intro-fine small muted' },
-        'Independent educational visualization built from public APS / Argonne documents and peer-reviewed publications (sources listed for every beamline). Not an official APS product. Hutch geometry for non-feature sectors is schematic.',
+        'This independent educational visualization uses public APS and Argonne documents and peer-reviewed publications. Sources are listed for each beamline. It is not an official APS product. Hutches outside the feature beamlines are schematic.',
       ),
     ),
   );
@@ -79,7 +80,7 @@ export function buildIntro(onExplore: () => void, onTour: () => void): HTMLEleme
 
 const STORY_TABS: { id: string; label: string }[] = [
   { id: 'primer', label: 'Primer' },
-  { id: 'mba', label: 'A new kind of ring' },
+  { id: 'mba', label: 'Storage-ring magnets' },
   { id: 'brightness', label: 'Brightness' },
   { id: 'undulator', label: 'Undulators' },
   { id: 'coherence', label: 'Coherence' },
@@ -88,15 +89,15 @@ const STORY_TABS: { id: string; label: string }[] = [
 ];
 
 const PRIMER: [string, string][] = [
-  ['whatIsSynchrotron', 'What is a synchrotron light source?'],
-  ['whatIsUndulator', 'What is an undulator?'],
-  ['whatIsMBA', 'What is a multi-bend achromat?'],
-  ['whyEmittanceMatters', 'Why does emittance matter?'],
-  ['whatIsCoherence', 'What is coherence?'],
-  ['whatIsSwapOut', 'What is swap-out injection?'],
-  ['whatIsBunchLengthening', 'Why stretch the bunches?'],
-  ['whyLowerEnergy', 'Why run at 6 GeV instead of 7?'],
-  ['whyRoundBeams', 'Why a round beam?'],
+  ['whatIsSynchrotron', 'Synchrotron light sources'],
+  ['whatIsUndulator', 'Undulators'],
+  ['whatIsMBA', 'Multi-bend achromats'],
+  ['whyEmittanceMatters', 'Emittance and brightness'],
+  ['whatIsCoherence', 'Coherence'],
+  ['whatIsSwapOut', 'Swap-out injection'],
+  ['whatIsBunchLengthening', 'Bunch lengthening'],
+  ['whyLowerEnergy', 'The change from 7 to 6 GeV'],
+  ['whyRoundBeams', 'Round electron beams'],
 ];
 
 /** A primer answer: one or two paragraphs separated by a blank line, each its own <p>. */
@@ -149,43 +150,43 @@ function compareTable(): HTMLElement {
     ['Electron energy', '', one(B.beamEnergy), one(A.beamEnergy)],
     ['Stored current', '', one(B.beamCurrent), one(A.beamCurrent)],
     [
-      'Emittance (design, horizontal)',
-      'The beam’s size × angular spread. APS: effective value as operated; APS-U: natural emittance of the new lattice, about 75× smaller',
+      'Horizontal design emittance',
+      'The beam\'s size multiplied by its angular spread. The APS value describes the beam as operated. The APS-U value is the natural emittance calculated for the new lattice, about 75 times smaller.',
       one(B.horizontalEmittance),
       one(A.naturalEmittance),
     ],
     [
-      'Emittance in user operation (h × v)',
+      'User-mode emittance, horizontal × vertical',
       roundErr.h && roundErr.v
-        ? `APS-U: measured in 2024 in the round-beam user mode, with the two planes fully coupled: ${roundErr.h} (h), ${roundErr.v} (v)`
-        : 'APS-U: measured in 2024 in the round-beam user mode, with the two planes fully coupled',
+        ? `Measured in 2024 with full coupling between the horizontal and vertical planes. The emittance was ${roundErr.h} horizontally and ${roundErr.v} vertically.`
+        : 'Measured in 2024 in round-beam user mode, with full coupling between the horizontal and vertical planes.',
       pair(valOf(B.horizontalEmittance), valOf(B.verticalEmittance), unitOf(B.horizontalEmittance)),
       pair(roundEmit.h, roundEmit.v, unitOf(A.emittanceMeasuredRound)),
     ],
     [
-      'Beam size at an undulator (h × v, rms)',
-      'APS-U: round-beam user mode, model value at zero current',
+      'Beam size at an undulator, horizontal × vertical',
+      'Root-mean-square values calculated for round-beam user mode at zero current.',
       pair(valOf(B.horizontalBeamSizeAtID), valOf(B.verticalBeamSizeAtID), unitOf(B.horizontalBeamSizeAtID)),
       pair(valOf(A.horizontalBeamSizeAtID_round), valOf(A.verticalBeamSizeAtID_round), unitOf(A.horizontalBeamSizeAtID_round)),
     ],
     [
-      'Beam divergence (h × v, rms)',
-      'The beam’s angular spread. APS-U: round-beam user mode, model value at zero current',
+      'Beam divergence, horizontal × vertical',
+      'The beam\'s angular spread. The APS-U root-mean-square values are calculated for round-beam user mode at zero current.',
       pair(valOf(B.horizontalDivergenceAtID), valOf(B.verticalDivergenceAtID), unitOf(B.horizontalDivergenceAtID)),
       pair(roundDiv.h, roundDiv.v, unitOf(A.divergenceAtID_round)),
     ],
     ['Circumference', '', one(B.circumference), one(A.circumference)],
     ['Magnets', '', one(B.magnets), magnetsAfter ? `${magnetsAfter} magnets` : ''],
-    ['RF frequency', '', one(B.rfFrequency), one(A.rfFrequency)],
+    ['Radio frequency', '', one(B.rfFrequency), one(A.rfFrequency)],
   ];
   const flatEmit = planes(A.emittanceMeasuredFlat, true);
   const flatModel = pair(valOf(A.horizontalEmittanceFlatModel), valOf(A.verticalEmittanceFlatModel), unitOf(A.horizontalEmittanceFlatModel));
   const flatSize = pair(valOf(A.horizontalBeamSizeAtID_flat), valOf(A.verticalBeamSizeAtID_flat), unitOf(A.horizontalBeamSizeAtID_flat));
   const flatDiv = pair(valOf(A.horizontalDivergenceAtID_flat), valOf(A.verticalDivergenceAtID_flat), unitOf(A.horizontalDivergenceAtID_flat));
   const flat =
-    'Users normally get the round beam shown here, in which the emittance is shared equally between the horizontal and vertical planes (full coupling, κ = 1). ' +
+    'Users normally receive the round beam shown here. Its emittance is shared equally between the horizontal and vertical planes, with full coupling, κ = 1. ' +
     (flatModel && flatSize
-      ? `A flat, low-coupling mode (κ = 0.1) is also possible: emittance ${flatModel} in the model${flatEmit.h && flatEmit.v ? ` (measured ${flatEmit.h} horizontally, ${flatEmit.v} vertically)` : ''}, a ${flatSize} beam${flatDiv ? ` and ${flatDiv} divergence` : ''}, all rms. `
+      ? `A flat beam with lower coupling, κ = 0.1, is also possible. The model gives an emittance of ${flatModel}${flatEmit.h && flatEmit.v ? `. Measurements gave ${flatEmit.h} horizontally and ${flatEmit.v} vertically` : ''}. The calculated beam size is ${flatSize}${flatDiv ? ` and the divergence is ${flatDiv}` : ''}. Sizes and divergences are root-mean-square values. `
       : '') +
     'The APS-U beam sizes and divergences are model values at zero current.';
   return h(
@@ -199,14 +200,14 @@ function compareTable(): HTMLElement {
         'table',
         { class: 'specs compare' },
         h('caption', { class: 'sr-only' }, 'The storage ring before and after the upgrade'),
-        h('thead', null, h('tr', null, h('th', { scope: 'col' }, h('span', { class: 'sr-only' }, 'Parameter')), h('th', { scope: 'col' }, 'APS (as last operated, 2023)'), h('th', { scope: 'col' }, 'APS-U (user mode, 2024–)'))),
+        h('thead', null, h('tr', null, h('th', { scope: 'col' }, h('span', { class: 'sr-only' }, 'Parameter')), h('th', { scope: 'col' }, 'APS, last operated in 2023'), h('th', { scope: 'col' }, 'APS-U, user mode since 2024'))),
         h(
           'tbody',
           null,
           ...rows
             .filter(([, , b, a]) => b || a)
             .map(([label, note, b, a]) =>
-              h('tr', null, h('th', { scope: 'row' }, label, note ? h('div', { class: 'fineprint compare-row-note' }, note) : null), h('td', { class: 'mono' }, b || '—'), h('td', { class: 'mono hl' }, a || '—')),
+              h('tr', null, h('th', { scope: 'row' }, label, note ? h('div', { class: 'fineprint compare-row-note' }, note) : null), h('td', { class: 'mono' }, b || 'Unavailable'), h('td', { class: 'mono hl' }, a || 'Unavailable')),
             ),
         ),
       ),
@@ -326,7 +327,7 @@ export function openStory(modal: Modal, startTab = 'primer'): void {
       h(
         'header',
         { class: 'modal-head' },
-        h('div', { class: 'modal-head-text' }, h('div', { class: 'kicker' }, 'Why upgrade?'), h('h2', { class: 'modal-title' }, 'What changed in the APS Upgrade')),
+        h('div', { class: 'modal-head-text' }, h('div', { class: 'kicker' }, 'The APS Upgrade'), h('h2', { class: 'modal-title' }, 'Changes in the APS Upgrade')),
       ),
       tabs,
       stage,
@@ -360,35 +361,35 @@ export function openHelp(modal: Modal): void {
           ...(touch
             ? [row('Drag', 'Orbit the camera'), row('Two-finger drag', 'Pan'), row('Pinch', 'Zoom'), row('Tap', 'Enter a feature beamline or select a component')]
             : [row('Drag', 'Orbit the camera'), row('Right-drag', 'Pan'), row('Scroll', 'Zoom toward the cursor'), row('Click', 'Enter a feature beamline or select a component')]),
-          row('← | → | ↑ | ↓', 'Orbit (when the 3D view has focus)'),
+          row('← | → | ↑ | ↓', 'Orbit while the 3D view has keyboard focus'),
           row('Shift + arrows', 'Pan'),
           row('+ | − | PgUp | PgDn', 'Zoom in / out'),
           row('Home', 'Frame the current view'),
-          row('Esc', 'Step back (component → beamline → whole APS)'),
+          row('Esc', 'Return to the beamline, then to the whole APS'),
           row('[ | ]', 'Previous / next component along the beam'),
           row('F', 'Frame the whole beamline'),
-          row('R', 'Ride the beam from source to sample'),
+          row('R', 'Move the camera along the X-ray path'),
           row('T', 'Start / stop the guided tour'),
           row('/ | Ctrl+K', 'Search beamlines, components, techniques, sectors'),
-          row('1 – 9', 'Jump to a feature beamline'),
+          row('1 to 9', 'Jump to a feature beamline'),
         ),
       ),
       h('h3', { class: 'about-h' }, 'Reading the exhibit'),
       p(
-        'Every text is layered like a museum label: first what a thing is and why it matters, then how it works, then a telling number and its caveat. Finer detail sits in small print and tables, open to everyone; each beamline’s *Specs & sources* tab holds its parameters, design-record figures, open questions and references.',
+        'Each beamline has an overview, an interactive station, component descriptions and examples of its science. The *Specs & sources* tab contains technical parameters, figures from the design reports, unresolved questions and references.',
       ),
-      p('Distances along each beamline are true to the published designs; component sizes are realistic but simplified. Elsewhere on the floor, hutches are schematic.', 'muted small'),
+      p('Beamline distances follow the published designs. Component models have realistic sizes and simplified shapes. Hutches outside the feature beamlines are schematic.', 'muted small'),
       h('h3', { class: 'about-h' }, 'About this exhibit'),
       p(
-        'An independent educational visualization — **not an official APS or Argonne product**. Every beamline is described by a dossier researched from public sources and checked by a second, adversarial fact-checking pass; each beamline component and parameter links to its source in the beamline’s *Specs & sources* tab. Status reflects the APS commissioning chart and news as of October 2026.',
+        'This independent educational visualization is not an official APS or Argonne product. Beamline descriptions use public sources and were checked against those sources in a separate review. References for components and parameters are in each beamline\'s *Specs & sources* tab. Status descriptions follow the APS commissioning chart and news available in October 2026.',
       ),
       h(
         'ul',
         { class: 'small about-src' },
-        h('li', null, 'APS Upgrade ', h('a', { href: 'https://www.aps.anl.gov/APS-Upgrade/Documents', target: '_blank', rel: 'noopener' }, 'Final Design Report (2019) and Preliminary Design Report (2017)'), ' — layouts, optics and instrument designs.'),
-        h('li', null, h('a', { href: 'https://www.aps.anl.gov/APS-Upgrade/Feature-Beamlines', target: '_blank', rel: 'noopener' }, 'APS feature-beamline pages'), ', the APS Beamline Directory, sector locations and news (2023–2026).'),
-        h('li', null, 'Peer-reviewed and conference papers (J. Synchrotron Rad., Rev. Sci. Instrum., MEDSI, SRI, IPAC, SPIE) cited per beamline.'),
-        h('li', null, 'Site footprints © ', h('a', { href: 'https://www.openstreetmap.org/copyright', target: '_blank', rel: 'noopener' }, 'OpenStreetMap contributors'), ' (ODbL); ring geometry fitted to documented parameters.'),
+        h('li', null, 'APS Upgrade ', h('a', { href: 'https://www.aps.anl.gov/APS-Upgrade/Documents', target: '_blank', rel: 'noopener' }, 'Final Design Report, 2019, and Preliminary Design Report, 2017'), '. These describe layouts, optics and instrument designs.'),
+        h('li', null, h('a', { href: 'https://www.aps.anl.gov/APS-Upgrade/Feature-Beamlines', target: '_blank', rel: 'noopener' }, 'APS feature-beamline pages'), ', the APS Beamline Directory, sector locations and news from 2023 to 2026.'),
+        h('li', null, 'Journal and conference papers cited for each beamline. These include publications in Journal of Synchrotron Radiation and Review of Scientific Instruments, and proceedings from MEDSI, SRI, IPAC and SPIE.'),
+        h('li', null, 'Site footprints © ', h('a', { href: 'https://www.openstreetmap.org/copyright', target: '_blank', rel: 'noopener' }, 'OpenStreetMap contributors'), ', under the Open Database License. Ring geometry uses documented parameters.'),
         h('li', null, 'Design-record figures are reproduced with attribution from the cited reports for educational purposes.'),
       ),
     ],
@@ -405,7 +406,7 @@ function magnetLegend(): HTMLElement {
   const items: [string, string][] = [
     ['Bending magnet', hex(mats.magnetDipole())],
     ['Reverse bend', hex(mats.magnetReverse())],
-    ['Quadrupole (focusing)', hex(mats.magnetQuad())],
+    ['Focusing quadrupole', hex(mats.magnetQuad())],
     ['Sextupole', hex(mats.magnetSext())],
     ['Fast corrector', hex(mats.magnetCorrector())],
   ];
@@ -421,25 +422,25 @@ const isRingShot = (s: TourStep) => s.shot.kind === 'site' && s.shot.target === 
 export class TourCard {
   readonly el: HTMLElement;
   private body: HTMLElement;
+  private actions: HTMLElement;
   private counter: HTMLElement;
-  private playBtn: HTMLButtonElement;
   private nextBtn: HTMLButtonElement;
-  private timer: ReturnType<typeof setTimeout> | null = null;
-  private playing = false;
   onStep: (i: number) => void = () => {};
   onExit: () => void = () => {};
   onOpenBeamline: (id: string) => void = () => {};
+  onOpenStation: (beamlineId: string) => void = () => {};
   private step = 0;
 
   constructor() {
-    this.body = h('div', { class: 'tour-body', 'aria-live': 'polite' });
+    this.body = h('div', { class: 'tour-body', 'aria-live': 'polite', role: 'region', 'aria-label': 'Tour description', tabindex: '0' });
+    this.actions = h('div', { class: 'tour-actions', hidden: true });
     this.counter = h('span', { class: 'tour-count mono small muted' });
-    this.playBtn = h('button', { class: 'btn btn-ghost btn-icon', 'aria-label': 'Play tour automatically', title: 'Play tour automatically', 'aria-pressed': 'false', onclick: () => this.togglePlay() }, icon('play', 16)) as HTMLButtonElement;
     this.nextBtn = h('button', { class: 'btn btn-primary tour-next', onclick: () => this.go(this.step + 1) }) as HTMLButtonElement;
     this.el = h(
       'section',
       { class: 'tour glass', 'aria-label': 'Guided tour', inert: true },
       this.body,
+      this.actions,
       h(
         'div',
         { class: 'tour-ctrl' },
@@ -447,7 +448,6 @@ export class TourCard {
         h('span', { class: 'flex1' }),
         h('button', { class: 'btn btn-icon', 'aria-label': 'Previous stop', title: 'Previous stop', onclick: () => this.go(this.step - 1) }, icon('back', 16)),
         this.counter,
-        this.playBtn,
         this.nextBtn,
       ),
     );
@@ -466,21 +466,33 @@ export class TourCard {
         h('h3', { class: 'tour-title' }, s.title),
         p(s.text),
         isRingShot(s) ? magnetLegend() : null,
-        s.beamline ? h('button', { class: 'btn tour-open', onclick: () => this.onOpenBeamline(s.beamline!) }, icon('layers', 15), `Step inside ${s.title.split(' ')[0]}`) : null,
       ),
     );
+    this.body.scrollTop = 0;
+    this.actions.hidden = !s.beamline;
+    this.actions.replaceChildren(...nodes(
+      s.beamline ? h('button', { class: 'btn tour-open', type: 'button', onclick: () => this.onOpenBeamline(s.beamline!) }, icon('layers', 15), `Step inside ${s.title.split(' ')[0]}`) : null,
+      s.beamline && metaById(s.beamline)?.explainers.length ? h(
+        'button',
+        { class: 'btn tour-station', type: 'button', 'aria-haspopup': 'dialog', onclick: () => this.onOpenStation(s.beamline!) },
+        icon('play', 15),
+        'Try the interactive station',
+      ) : null,
+    ));
     this.counter.textContent = `${i + 1} / ${TOUR.length}`;
     this.counter.setAttribute('aria-label', `Stop ${i + 1} of ${TOUR.length}`);
     const last = i >= TOUR.length - 1;
     this.nextBtn.replaceChildren(...(last ? ['Start exploring'] : ['Next', icon('next', 15)]));
     this.nextBtn.title = last ? 'End the tour and explore on your own' : 'Next stop';
-    if (this.playing) this.schedule();
   }
 
   hide(): void {
     this.el.classList.remove('is-open');
     this.el.inert = true;
-    this.stopPlay();
+  }
+
+  focusNext(): void {
+    if (!this.el.inert) this.nextBtn.focus({ preventScroll: true });
   }
 
   private go(i: number): void {
@@ -490,35 +502,5 @@ export class TourCard {
       return;
     }
     this.onStep(i);
-  }
-
-  private setPlayUi(): void {
-    const label = this.playing ? 'Pause tour' : 'Play tour automatically';
-    this.playBtn.replaceChildren(icon(this.playing ? 'pause' : 'play', 16));
-    this.playBtn.setAttribute('aria-pressed', String(this.playing));
-    this.playBtn.setAttribute('aria-label', label);
-    this.playBtn.title = label;
-  }
-
-  private togglePlay(): void {
-    if (this.playing) this.stopPlay();
-    else {
-      this.playing = true;
-      this.setPlayUi();
-      this.schedule();
-    }
-  }
-
-  private stopPlay(): void {
-    this.playing = false;
-    this.setPlayUi();
-    if (this.timer) clearTimeout(this.timer);
-    this.timer = null;
-  }
-
-  private schedule(): void {
-    if (this.timer) clearTimeout(this.timer);
-    const words = (TOUR[this.step]?.text ?? '').split(/\s+/).length;
-    this.timer = setTimeout(() => this.go(this.step + 1), Math.max(9000, words * 330));
   }
 }

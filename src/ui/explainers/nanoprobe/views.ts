@@ -331,7 +331,7 @@ export class MapsView {
 
   constructor(private c: Canvas2D) {}
 
-  /** a new scan begins: keep the last complete maps as a dim "ghost" underneath */
+  /** When a new scan begins, display the previous completed maps faintly underneath */
   begin(run: ScanRun, prevComplete: boolean): void {
     if (this.run && prevComplete) {
       for (let e = 0; e < 4; e++) {
@@ -486,7 +486,7 @@ export class MapsView {
         ctx.fillStyle = 'rgba(5,8,14,0.8)';
         ctx.fillRect(mx, my, msz, msz);
         const edge = ELEMENTS[k].edges[0];
-        txt(ctx, 'dark: not excited', mx + msz / 2, my + msz / 2 - 4, { size: 11.5, w: 650, c: TOKENS.ink, align: 'center' });
+        txt(ctx, "no fluorescence · below edge", mx + msz / 2, my + msz / 2 - 4, { size: 11.5, w: 650, c: TOKENS.ink, align: 'center' });
         txt(ctx, `needs E₀ > ${edge.e.toFixed(2)} keV`, mx + msz / 2, my + msz / 2 + 12, { size: 10.5, c: TOKENS.ink3, align: 'center' });
       }
     });
@@ -547,7 +547,7 @@ export class SpectrumView {
     const f = plotFrame(
       ctx,
       { x: 0, y: top + ruler, w, h: h - top - ruler },
-      { min: SPEC.e0, max: SPEC.e1, label: w < 460 ? 'energy of the X-rays coming out (keV)' : 'energy of the X-rays coming out of the sample (keV)', ticks: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] },
+      { min: SPEC.e0, max: SPEC.e1, label: w < 460 ? "Emitted X-ray energy (keV)" : "X-ray energy from sample (keV)", ticks: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] },
       { min: ymin, max: ymax, log: true, label: 'X-rays per pixel per 10 eV', ticks: yt, format: tickFmt },
     );
     const rY0 = top + 4;
@@ -695,8 +695,8 @@ export class SpectrumView {
   /** legend with a backing box; top-left on wide plots, top-right on narrow ones (the 10–14 keV region is quiet) */
   private legend(ctx: CanvasRenderingContext2D, s: SpecState): void {
     const F = this.F;
-    const t1 = 'whole map (average per pixel)';
-    const t2 = 'the spot under the beam (with photon noise)';
+    const t1 = "map average · per pixel";
+    const t2 = "current beam position · photon-count noise";
     ctx.font = `500 10.5px ${FONT}`;
     const bw = 19 + Math.max(ctx.measureText(t1).width, ctx.measureText(t2).width) + 8;
     const narrow = F.x1 - F.x0 < 480;
@@ -880,12 +880,12 @@ export function timeMeter(parent: HTMLElement, accent: string): TimeMeter {
       const rs = ratio >= 10 ? Math.round(ratio) : ratio.toFixed(1);
       let msg =
         o.uStage && o.gain
-          ? `APS-U is only ${rs}× faster here: it collects these few X-rays ${Math.round(o.gain)}× faster, but the scanning stage tops out at 1 mm/s.`
-          : `APS-U is ${rs}× faster for these maps.`;
+          ? `These maps are ${rs}× faster with APS-U. Photon collection is ${Math.round(o.gain)}× faster, but stage speed is limited to 1 mm/s.`
+          : `These maps are ${rs}× faster with APS-U.`;
       for (const m of marks) m.style.display = o.insituStep ? 'block' : 'none';
       if (o.insituStep) {
         for (const m of marks) m.style.left = `calc(${(fr(o.insituStep) * 100).toFixed(1)}% - 1px)`;
-        if (tA > o.insituStep) msg += ` The old APS is slower than the battery changes (yellow mark: one step ≈ ${fmt(o.insituStep)}).`;
+        if (tA > o.insituStep) msg += ` Mapping with the old APS takes longer than the battery changes. One step is ≈${fmt(o.insituStep)}, marked in yellow.`;
       }
       foot.textContent = msg;
       box.setAttribute('aria-label', `Time for this map: APS-U ${fmt(tU)}, APS ${fmt(tA)}`);

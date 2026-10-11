@@ -15,7 +15,7 @@ import { knifeEdge, nanoDetectors, nanoKB, nanoPositioner, nanoRays, nanoTable, 
 import { NANO_TOP } from './3dmn/nano';
 
 /**
- * 3DMN — 3D Micro & Nano Diffraction, 34-ID-E (outboard branch of the canted 34-ID pair; ATOMIC = inboard partner).
+ * 3DMN, 3D Micro & Nano Diffraction at 34-ID-E, is the outboard branch of the canted pair. ATOMIC is inboard.
  *
  * Geometry (see ./3dmn/geom.ts for sources):
  * • The whole group is rotated +0.5 mrad (cantMrad) so local +X is the 3DMN beam's initial direction; the ATOMIC beam then

@@ -1,5 +1,5 @@
 /**
- * Station "laue" — 3DMN (34-ID-E): polychromatic Laue micro-diffraction + differential-aperture X-ray
+ * Station "laue". 3DMN (34-ID-E): polychromatic Laue micro-diffraction + differential-aperture X-ray
  * microscopy (DAXM). Two hands-on parts:
  *   1. "Laue pattern": one Ni (fcc) or Si (diamond) grain under the 5.3–30 keV pink beam; drag to rotate,
  *      compare rainbow vs one colour (monochromator), and apply deviatoric vs hydrostatic strain.
@@ -8,7 +8,7 @@
  * Physics, equations, numbers and sources: ./laue/physics.ts (full header comment). In brief:
  *   Laue condition   k_out = k_in + G_hkl, |k_out| = |k_in|  ⇒  λ = 2 d sinθ,  sinθ = −k̂_in·Ĝ,  E = hc/λ
  *   Spot direction   k̂_out = k̂_in + 2 sinθ Ĝ  (depends on Ĝ only: harmonics n·hkl overlap; a pure
- *                    dilatation moves nothing — only the deviatoric strain shows in spot positions)
+ *                    dilatation moves nothing. Only the deviatoric strain shows in spot positions)
  *   Extinction       fcc (Ni): h,k,l unmixed; diamond (Si): all odd, or all even with h+k+l = 4n
  *   Intensity        S(E)·λ²|F|²e^{−2Bs²}·P/sin²θ × 1/[μ(E)(1 + sinα_in/sinα_out)]  (kinematic, thick crystal;
  *                    S per unit energy ⇔ the usual i(λ)·λ⁴/(2sin²θ) with i per unit wavelength)
@@ -30,8 +30,8 @@ import { injectStyle, div } from './laue/common';
 type PartId = 'pattern' | 'daxm';
 
 const mod: ExplainerModule = {
-  title: 'A rainbow of X-rays maps a crystal in 3D',
-  subtitle: 'Turn a crystal in a rainbow X-ray beam, strain it, then sweep a wire to find how deep each grain lies.',
+  title: "Crystal orientation, strain and depth",
+  subtitle: "Rotate and strain a crystal in a broad-spectrum X-ray beam, then scan a wire to locate grains below its surface.",
   mount(host, ctx) {
     const station = createStation(host, { color: ctx.color, layout: 'side' });
     station.root.classList.add('laue-root');
@@ -81,8 +81,8 @@ const mod: ExplainerModule = {
     const tabs = div('laue-tabs', station.visual);
     toggle(tabs, {
       options: [
-        { value: 'pattern', label: '① Laue pattern', title: 'Orientation & strain from a rainbow-beam spot pattern' },
-        { value: 'daxm', label: '② Depth: the wire scan', title: 'Differential-aperture X-ray microscopy (DAXM)' },
+        { value: 'pattern', label: '① Laue pattern', title: "Orientation and strain from a broad-spectrum diffraction pattern" },
+        { value: 'daxm', label: "② Grain depth", title: 'Differential-aperture X-ray microscopy (DAXM)' },
       ],
       value: current,
       onChange: (v) => show(v as PartId),

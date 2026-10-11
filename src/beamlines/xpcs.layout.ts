@@ -12,9 +12,11 @@ import { speckleCard, speckleFaceMaterial, speckleSim } from './xpcs/speckle';
 import { cryostage, ghostPipe, laserTracker, lddp, nearDetector, sixCircle } from './xpcs/wa';
 
 /**
- * 8-ID XPCS — two in-line revolver undulators → windowless HHL front end → 8-ID-A FOE (M1/M2 sideways periscope,
- * horizontal LN2 DCM) → 11 m shielded transport → 8-ID-D SOE (CRL-1 transfocator) → 8-ID-E (wide-angle XPCS:
- * KB + Huber six-circle + LDDP) → 8-ID-I (small-angle XPCS: CRL-2, rheometer, 12 m flight tube, fast detector).
+ * 8-ID XPCS has two in-line revolver undulators and a windowless high-heat-load front end.
+ * The 8-ID-A first optics enclosure contains the M1/M2 sideways periscope and horizontal liquid-nitrogen-cooled DCM.
+ * An 11 m shielded transport connects it to 8-ID-D, the second optics enclosure with the CRL-1 transfocator.
+ * The wide-angle station in 8-ID-E contains KB mirrors, a Huber six-circle diffractometer and an LDDP detector.
+ * The small-angle station in 8-ID-I contains CRL-2, a rheometer, a 12 m flight tube and a fast detector.
  *
  * Topology: a single, non-canted beam; the two stations are in series and run one at a time, so no engine `branches`
  * are used. The beam is drawn continuing through 8-ID-E to 8-ID-I, as it does in pinhole-USAXS mode; a label at the
@@ -248,7 +250,7 @@ function custom(ctx: BuildCtx): void {
 
   // ---- the stations take turns: say so where the beam passes the WA instrument
   // (inboard of the beam, clear of the LDDP flight path that leaves the sample toward outboard)
-  ctx.addLabel('Stations take turns: in 8-ID-I mode the beam passes through here', ctx.at(VP2_MID + 0.3, -0.8, 0.35), { maxDist: 9 });
+  ctx.addLabel('During 8-ID-I measurements, the beam passes through 8-ID-E.', ctx.at(VP2_MID + 0.3, -0.8, 0.35), { maxDist: 9 });
 
   // ---- 8-ID-I: swing arc of the flight tube on the floor
   const arc = swingArc(beamY);
@@ -260,7 +262,7 @@ function custom(ctx: BuildCtx): void {
   const cardAnchor = new THREE.Object3D();
   cardAnchor.position.copy(ctx.at(SA.detX + 0.1, 0, 0.18));
   g.add(cardAnchor);
-  speckleCard(ctx.addLabel('', cardAnchor.position, { maxDist: 32 }), cardAnchor, 'Speckle, live (simulated)', 'outer grains twinkle fastest');
+  speckleCard(ctx.addLabel('', cardAnchor.position, { maxDist: 32 }), cardAnchor, 'Simulated speckle', 'Intensity changes faster at larger scattering angles.');
 }
 
 /** Narrow additive cone from a sample to a detector face (half-angle in rad). */

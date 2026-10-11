@@ -1,6 +1,6 @@
 /**
  * Bragg coherent diffraction imaging (BCDI): physics core of the "Strain inside a nanocrystal" station.
- * Pure functions + one preallocated simulator class, no DOM, so everything here is unit-tested (tests/bcdi.test.ts).
+ * Pure functions + one preallocated simulator class, no DOM, so everything here is covered by tests/bcdi.test.ts.
  *
  * ── MODEL ─────────────────────────────────────────────────────────────────────────────────────────────────────
  * A 2D cross-section (in the scattering plane) of a faceted gold nanocrystal on a substrate. Real BCDI records the
@@ -29,11 +29,11 @@
  *                            (A crude, honest proxy for the PRTF cut-off.)
  *
  * ── MATERIAL & GEOMETRY (Au, fcc) ─────────────────────────────────────────────────────────────────────────────
- *   a = 4.0782 Å; ν ≈ 0.42 (isotropic average — Au is elastically anisotropic, Zener ratio ≈ 2.9, ignored here);
+ *   a = 4.0782 Å; ν ≈ 0.42 (isotropic average. Au is elastically anisotropic, Zener ratio ≈ 2.9, ignored here);
  *   thermal expansion α = 14.2×10⁻⁶ K⁻¹. E = 9 keV (λ = 1.3776 Å), typical of 34-ID-C BCDI.
  *   Image plane ⟂ [1̄10]: in-plane axes x ∥ [110], y ∥ [001], rotated so [111] points "up" (the usual specular-ish
  *   111 geometry of dewetted Au crystals). Wulff facets {111} and {100} with γ100/γ111 ≈ 1.15, truncated by the
- *   substrate on the (1̄1̄1̄) side (Winterbottom shape) — so the crystal is NOT centrosymmetric (twin is distinct).
+ *   substrate on the (1̄1̄1̄) side (Winterbottom shape). So the crystal is NOT centrosymmetric (twin is distinct).
  *   Reflections in this zone: 111 (2θ = 34.0°), 1̄1̄1 (34.0°), 002 (39.5°), 220 (57.1°).
  *
  * ── DISPLACEMENT FIELDS u(r) ──────────────────────────────────────────────────────────────────────────────────
@@ -318,7 +318,7 @@ export type PhaseFn = (x: number, y: number) => number;
 
 /** Reference length for the logarithmic term of the dislocation field (only adds a constant phase). */
 const R_LOG = 100;
-/** Core regularisation radius (nm) — well below one pixel. */
+/** Core regularisation radius (nm). Well below one pixel. */
 const R_CORE = 0.5;
 
 /** φ(r) = G·u(r) in radians for positions in nm (physical frame). */
@@ -662,8 +662,8 @@ export class BraggSim {
 
   /**
    * Far-field intensity and a Poisson-noisy measurement with `photons` expected counts. `analyse = false` skips the
-   * Friedel/resolution analysis (re-centred pattern, asymmetry map, azimuthal mean) — about half the cost — so a slider
-   * drag stays smooth; call `analyse()` when the input settles. stats.asym / kmax / resolution keep their old values
+   * Friedel/resolution analysis (re-centred pattern, asymmetry map, azimuthal mean). About half the cost. So a slider
+   * drag stays smooth; call `analyse()` when the input settles. Stats.asym / kmax / resolution keep their old values
    * until then.
    */
   measure(photons: number, seed: number, analyse = true): void {

@@ -1,5 +1,5 @@
 /**
- * HEDM station — canvas renderers. Pure drawing from HedmSim + ViewState (no simulation changes).
+ * HEDM station. Canvas renderers. Pure drawing from HedmSim + ViewState (no simulation changes).
  *   TopView        1 · the rotating sample slice seen from above, beam, flashes, rays, orientation sketch
  *   DetectorView   2 · far-field panel (accumulated ω sweep) or near-field camera (live frame)
  *   PenView        3 · 1/e attenuation length vs energy (NIST), current energy and sample size
@@ -417,16 +417,16 @@ export class TopView {
       ctx.fillStyle = '#1b2433';
       ctx.fillRect(xd - 7, cy - 4, 5, 8);
     }
-    const detLabel = nf ? 'camera 7 mm away' : 'detector 1 m away';
+    const detLabel = nf ? 'detector 7 mm away' : 'detector 1 m away';
     if (nf) {
       // the camera bar sits close to the sample: label it from the bar rightwards (clear of the hint below the rod)
       ctx.font = `600 10.5px ${FONT}`;
       const lx = Math.min(xd - 6, w - 4 - ctx.measureText(detLabel).width);
       txt(ctx, detLabel, lx, cy + hb + 14, { size: 10.5, color: TOKENS.ink2, weight: 600 });
-      txt(ctx, '(not to scale)', lx, cy + hb + 27, { size: 10, color: TOKENS.ink3 });
+      txt(ctx, "not to scale", lx, cy + hb + 27, { size: 10, color: TOKENS.ink3 });
     } else {
       txt(ctx, detLabel, xd + 3, cy + hb + 14, { size: 10.5, align: 'right', color: TOKENS.ink2, weight: 600 });
-      txt(ctx, '(not to scale)', xd + 3, cy + hb + 27, { size: 10, align: 'right', color: TOKENS.ink3 });
+      txt(ctx, "not to scale", xd + 3, cy + hb + 27, { size: 10, align: 'right', color: TOKENS.ink3 });
     }
 
     // ---- rotation arrow + ω readout
@@ -465,7 +465,7 @@ export class TopView {
     // ---- labels
     txt(ctx, `X-rays · ${sim.E.toFixed(0)} keV`, 8, by0 - 8, { size: 11, color: xray, weight: 700 });
     const tp = T >= 0.995 ? '100' : T >= 0.1 ? (T * 100).toFixed(0) : T >= 0.001 ? (T * 100).toFixed(1) : '< 0.1';
-    const tLabel = `${tp} % through`;
+    const tLabel = `${tp} % transmission`;
     ctx.font = `700 10.5px ${FONT}`;
     // between the rod and the detector bar if it fits there, else (near field: close camera) beyond the bar
     const tx = cx + r + 8 + ctx.measureText(tLabel).width < xd - 6 ? cx + r + 8 : xd + 8;
@@ -1029,8 +1029,8 @@ export class DetectorView {
       ctx.lineTo(xx + 15, fy - 4);
       ctx.stroke();
       ctx.setLineDash([]);
-    } else txt(ctx, 'colour = which grain', x0 + S, fy, { size: 10.5, align: 'right', color: TOKENS.ink3 });
-    if (cov === 0) pill(ctx, 'Press ▶ or drag the sample to turn it', dcx, dcy + 40, { size: 11, align: 'center' });
+    } else txt(ctx, "colour identifies grain", x0 + S, fy, { size: 10.5, align: 'right', color: TOKENS.ink3 });
+    if (cov === 0) pill(ctx, "Press ▶ or drag the sample to rotate it", dcx, dcy + 40, { size: 11, align: 'center' });
     ctx.restore();
   }
 
@@ -1089,7 +1089,7 @@ export class DetectorView {
     ctx.fillRect(dcx - bw / 2, dcy - 2, bw, 4);
     ctx.strokeStyle = rgba(TOKENS.xray, 0.5);
     ctx.strokeRect(dcx - bw / 2, dcy - 2, bw, 4);
-    txt(ctx, 'line beam (blocked)', dcx, dcy + 15, { size: 10, align: 'center', color: TOKENS.ink3, halo: true });
+    txt(ctx, "line beam · blocked", dcx, dcy + 15, { size: 10, align: 'center', color: TOKENS.ink3, halo: true });
     // scale bar 0.5 mm
     const sb = 0.5 * k;
     ctx.strokeStyle = TOKENS.ink2;
@@ -1101,8 +1101,8 @@ export class DetectorView {
     txt(ctx, '0.5 mm', x0 + 8 + sb + 5, y0 + S - 6, { size: 10, color: TOKENS.ink2, halo: true });
     pill(ctx, `ω ${b}° · live`, x0 + S, Math.max(10, y0 - 12), { size: 10, align: 'right', color: vs.accent, mono: true });
     const fy = y0 + S + 15;
-    txt(ctx, 'each streak = one grain, seen side-on', x0, fy, { size: 10.5, color: TOKENS.ink2 });
-    if (sim.nVisited === 0) pill(ctx, 'Press ▶ or drag the sample to turn it', dcx, dcy + 44, { size: 11, align: 'center' });
+    txt(ctx, "each streak corresponds to a grain, viewed side-on", x0, fy, { size: 10.5, color: TOKENS.ink2 });
+    if (sim.nVisited === 0) pill(ctx, "Press ▶ or drag the sample to rotate it", dcx, dcy + 44, { size: 11, align: 'center' });
     ctx.restore();
   }
 }
@@ -1113,7 +1113,7 @@ const MAT_STYLE: { id: P.MatId; color: string; label: string }[] = [
   { id: 'al', color: '#9aa6b8', label: 'aluminium' },
   { id: 'ti', color: '#a78bfa', label: 'titanium' },
   { id: 'fe', color: '#f59e0b', label: 'steel' },
-  { id: 'ni', color: '', label: 'nickel (sample)' },
+  { id: 'ni', color: '', label: "nickel sample" },
 ];
 
 export class PenView {
@@ -1166,7 +1166,7 @@ export class PenView {
     const hx1 = f.px(120);
     ctx.fillStyle = rgba(vs.accent, 0.09);
     ctx.fillRect(hx0, f.y1, hx1 - hx0, f.y0 - f.y1);
-    const hexmLab = 'HEXM 35–120 keV';
+    const hexmLab = "HEXM · 35 to 120 keV";
     const hexmL = txt(ctx, hexmLab, (hx0 + hx1) / 2, f.y1 + 12, { size: 10, align: 'center', color: rgba(vs.accent, 0.95), weight: 700, halo: true });
     // lab X-ray tube for comparison: Mo Kα, 17.5 keV (Cu Kα, 8 keV, is off the left edge)
     const xm = f.px(17.48);
@@ -1233,12 +1233,12 @@ export class PenView {
     ctx.lineTo(xb + 5, f.y0 - 9);
     ctx.closePath();
     ctx.fill();
-    const bestLabel = `brightest spots ≈ ${Eb.toFixed(0)} keV`;
+    const bestLabel = `highest spot intensity ≈ ${Eb.toFixed(0)} keV`;
     ctx.font = `600 9.5px ${FONT}`;
     const bestOnLeft = xb + 7 + ctx.measureText(bestLabel).width > f.x1 - 3;
     txt(ctx, bestLabel, xb + (bestOnLeft ? -7 : 7), f.y0 - 6, { size: 9.5, align: bestOnLeft ? 'right' : 'left', color: TOKENS.good, weight: 600, halo: true });
     // data note (top left), shortened if it would run into the HEXM band label
-    const dataLong = 'depth where 1/e (37 %) is left · NIST data';
+    const dataLong = "Depth at 1/e intensity · 37 % · NIST data";
     ctx.font = `500 9.5px ${FONT}`;
     const roomL = (hx0 + hx1) / 2 - hexmL / 2 - 8 - (f.x0 + 6);
     txt(ctx, ctx.measureText(dataLong).width <= roomL ? dataLong : ctx.measureText('1/e depth · NIST').width <= roomL ? '1/e depth · NIST' : 'NIST', f.x0 + 6, f.y1 + 12, { size: 9.5, color: TOKENS.ink3 });
@@ -1410,7 +1410,7 @@ export class AnswerView {
     const nf = sim.nFound;
     if (nf === 0) {
       // empty state: say what will appear here
-      const msg = ['As the sample turns, the', 'computer matches up spots;', 'each grain it finds appears', 'here, at its centre'];
+      const msg = ["As the sample rotates,", "positions and orientations", "are fitted to the spots.", "Grain centres appear here."];
       const lh = 14;
       let yy = cy - ((msg.length - 1) * lh) / 2 + 4;
       for (const m of msg) {
@@ -1448,14 +1448,14 @@ export class AnswerView {
       const ez = sim.strain[g * 9 + 8];
       const found = sim.found[g] === 1;
       const U = sim.Ucur.subarray(g * 9, g * 9 + 9);
-      by = para(ctx, found ? 'Found by the computer.' : 'Not found yet: keep turning.', bx, by, maxW, yMax, { color: TOKENS.ink2 });
-      by = para(ctx, sim.eps > 0 ? `Atoms ${(ez * 100).toFixed(2)} % farther apart along the pull.` : 'Not pulled yet.', bx, by, maxW, yMax, { color: TOKENS.ink2 });
+      by = para(ctx, found ? "Grain indexed from its diffraction spots." : "Not indexed yet. Continue rotating.", bx, by, maxW, yMax, { color: TOKENS.ink2 });
+      by = para(ctx, sim.eps > 0 ? `Atoms ${(ez * 100).toFixed(2)} % farther apart along the load axis.` : "No tensile load yet.", bx, by, maxW, yMax, { color: TOKENS.ink2 });
       para(ctx, `Stiffness along the pull: ${P.youngDir(sim.el, [U[6], U[7], U[8]]).toFixed(0)} GPa.`, bx, by, maxW, yMax, { color: TOKENS.ink3 });
       return;
     }
     para(
       ctx,
-      'Far field gives each grain’s centre, orientation and full strain, but not its shape. Tap a dot to follow one.',
+      "Grain centre, orientation and full strain are reconstructed from far-field diffraction. Shape requires near-field measurements. Tap a dot to follow a grain.",
       bx,
       by,
       maxW,
@@ -1600,12 +1600,12 @@ export class AnswerView {
     txt(ctx, '101', lx + kw + 6, by + kh + 11, { size: 9, align: 'right', color: TOKENS.ink2, mono: true });
     txt(ctx, '111', lx + kw + 8, by + 6, { size: 9, color: TOKENS.ink2, mono: true });
     by += kh + 28;
-    by = para(ctx, 'bright = sure, dark = unsure', lx, by, maxW, yMax, { color: TOKENS.ink2 }) + 3;
+    by = para(ctx, "bright = high confidence, dark = low confidence", lx, by, maxW, yMax, { color: TOKENS.ink2 }) + 3;
     if (vs.selected >= 0) {
       by = this.grainHead(lx, by + 4);
       para(ctx, 'Dashed line: its true outline, for comparison.', lx, by, maxW, yMax, { color: TOKENS.ink2 });
       return;
     }
-    para(ctx, 'Near field maps each grain’s shape and orientation; strain needs the far field.', lx, by, maxW, yMax);
+    para(ctx, "Grain shape and orientation are reconstructed from near-field diffraction. Strain requires far-field measurements.", lx, by, maxW, yMax);
   }
 }

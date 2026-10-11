@@ -1,6 +1,6 @@
 /**
  * Energy chart for the coherence station: coherent fraction f_x·f_y vs photon energy for the old APS and APS-U,
- * the APS-U/APS gain, and — when the canvas is tall enough (EMIT_MIN_H) — the electron emittances against the photon
+ * the APS-U/APS gain, and. When the canvas is tall enough (EMIT_MIN_H). The electron emittances against the photon
  * diffraction limit λ/4π.
  * Log–log axes, shared energy axis; pointer drag on the chart picks the energy.
  */
@@ -115,7 +115,7 @@ export class EnergyChart {
       this.onPick(E_MIN * Math.pow(E_MAX / E_MIN, t));
     };
     // Mouse/pen: pick on press and drag. Touch (canvas has touch-action: pan-y so the page can still scroll):
-    // pick only once the finger moves sideways, or on a tap — a vertical swipe scrolls without changing E.
+    // pick only once the finger moves sideways, or on a tap. A vertical swipe scrolls without changing E.
     let touch: { id: number; x: number; y: number } | null = null;
     cv.addEventListener('pointerdown', (ev) => {
       if (ev.pointerType === 'touch') {
@@ -227,12 +227,12 @@ export class EnergyChart {
     {
       const items: [string, string][] = legendTop
         ? [
-            [w < 400 ? 'APS (before)' : 'APS before (7 GeV)', OLD],
-            [w < 400 ? `APS-U (${s.mode})` : `APS-U after (6 GeV, ${s.mode})`, this.accent],
+            [w < 400 ? "APS before upgrade" : "APS before upgrade · 7 GeV", OLD],
+            [w < 400 ? `APS-U · ${s.mode}` : `APS-U · 6 GeV, ${s.mode}`, this.accent],
           ]
         : [
-            ['APS before the upgrade (7 GeV)', OLD],
-            [`APS-U after the upgrade (6 GeV, ${s.mode} beam)`, this.accent],
+            ["APS before upgrade · 7 GeV", OLD],
+            [`APS-U after upgrade · 6 GeV, ${s.mode} beam`, this.accent],
           ];
       const sw = (lx: number, ly: number, col: string) => {
         ctx.save();
@@ -283,8 +283,8 @@ export class EnergyChart {
     const gOther = s.mode === 'round' ? this.gFlat : this.gRound;
     this.curve(r2, px, py2, gOther, this.accent, 1.3, [5, 4], 0.55);
     this.curve(r2, px, py2, gSel, this.accent, 2.6);
-    // the ratio of in-step *shares*; in-step photons per second gain more (2× current, new undulators): see Numbers
-    this.title(r2, w < 480 ? 'In-step share, APS-U ÷ APS' : 'How many times bigger the in-step share is: APS-U ÷ APS');
+    // the ratio of coherent fractions; coherent photon flux increases further (2× current, new undulators): see Numbers
+    this.title(r2, w < 480 ? "Coherent-fraction ratio · APS-U ÷ APS" : "Coherent-fraction ratio · APS-U ÷ APS");
     txt(ctx, s.mode === 'round' ? 'flat' : 'round', x1 - 3, py2(gOther[NE - 1]) + (s.mode === 'round' ? -5 : 12), { color: this.accent, align: 'right', size: 10, alpha: 0.75 });
 
     // ---------------------------------------------------------------- subplot 3: emittance vs λ/4π
@@ -325,15 +325,15 @@ export class EnergyChart {
       if (ring.y.emit !== ring.x.emit) hline(ring.y.emit * 1e12, this.accent, [6, 4]);
       const lab = (t: string, v: number, col: string, right: boolean, below = false) =>
         txt(ctx, t, right ? r3.x1 - 4 : r3.x0 + 5, py3(v) + (below ? 12 : -4), { color: col, size: 10, align: right ? 'right' : 'left', halo: true });
-      lab(`APS sideways ${fmtPm(P.APS_2019.x.emit * 1e12)} pm`, P.APS_2019.x.emit * 1e12, OLD, false, true);
-      lab(`APS up–down ${fmtPm(P.APS_2019.y.emit * 1e12)} pm (dashed)`, P.APS_2019.y.emit * 1e12, OLD, false);
-      if (ring.y.emit === ring.x.emit) lab(`APS-U ${fmtPm(ring.x.emit * 1e12)} pm, both ways`, ring.x.emit * 1e12, this.accent, true, true);
+      lab(`APS horizontal ${fmtPm(P.APS_2019.x.emit * 1e12)} pm`, P.APS_2019.x.emit * 1e12, OLD, false, true);
+      lab(`APS vertical ${fmtPm(P.APS_2019.y.emit * 1e12)} pm · dashed`, P.APS_2019.y.emit * 1e12, OLD, false);
+      if (ring.y.emit === ring.x.emit) lab(`APS-U ${fmtPm(ring.x.emit * 1e12)} pm · both planes`, ring.x.emit * 1e12, this.accent, true, true);
       else {
-        lab(`APS-U sideways ${fmtPm(ring.x.emit * 1e12)} pm`, ring.x.emit * 1e12, this.accent, true, true);
-        lab(`APS-U up–down ${fmtPm(ring.y.emit * 1e12)} pm`, ring.y.emit * 1e12, this.accent, true, true);
+        lab(`APS-U horizontal ${fmtPm(ring.x.emit * 1e12)} pm`, ring.x.emit * 1e12, this.accent, true, true);
+        lab(`APS-U vertical ${fmtPm(ring.y.emit * 1e12)} pm`, ring.y.emit * 1e12, this.accent, true, true);
       }
-      txt(ctx, 'shaded: below λ/4π (diffraction-limited)', r3.x0 + 5, r3.y1 - 5, { color: TOKENS.ink3, size: 10 });
-      this.title(r3, w < 480 ? 'Emittance vs the light’s limit λ/4π, pm·rad' : 'Electron-beam emittance vs the light’s own limit λ/4π (pm·rad)');
+      txt(ctx, "shaded · below diffraction limit λ/4π", r3.x0 + 5, r3.y1 - 5, { color: TOKENS.ink3, size: 10 });
+      this.title(r3, w < 480 ? "Emittance and diffraction limit λ/4π (pm·rad)" : "Electron emittance and diffraction limit λ/4π (pm·rad)");
     }
 
     // ---------------------------------------------------------------- x axis (bottom subplot only)
@@ -346,7 +346,7 @@ export class EnergyChart {
     for (const t of [5, 10, 20, 50, 100]) ctx.fillText(String(t), px(t), rb.y1 + 4);
     ctx.fillStyle = TOKENS.ink2;
     ctx.textBaseline = 'bottom';
-    ctx.fillText('X-ray photon energy (keV)  →  shorter waves', (x0 + x1) / 2, h - 2);
+    ctx.fillText("X-ray photon energy (keV) → shorter wavelength", (x0 + x1) / 2, h - 2);
     ctx.restore();
 
     ctx.restore();

@@ -1,16 +1,16 @@
 /**
- * Station "undulator" — "How an undulator makes X-rays".
+ * Station "undulator". "Undulator radiation".
  *
- * One idea: an electron wiggling through N alternating magnets emits a flash per wiggle; because it runs almost as
- * fast as its own light, it slips back by exactly one X-ray wavelength per period, so the N flashes add up in step
- * → sharp, tunable colours (odd harmonics), ~N² brighter on axis than a single bend. Close the gap → stronger field
- * → bigger K → more slippage → longer wavelength → lower photon energy.
+ * Electrons oscillate in a periodic magnetic field and emit radiation along their trajectory. Light advances
+ * by one first-harmonic wavelength per magnetic period. Radiation from N periods interferes constructively
+ * at odd harmonics, with on-axis peak intensity proportional to N² relative to a single bend.
+ * A smaller gap increases field and K. Slippage and wavelength increase, while photon energy decreases.
  *
  * Panels
- *   1. ./undulator/scene.ts    — the magnet array from above, trajectory, 1/γ cone, slipping wave crests, end view.
- *   2. ./undulator/wave.ts     — on-axis field E_x(t) (Liénard–Wiechert), its harmonic content F_n(K) and a zoom on
+ *   1. ./undulator/scene.ts. The magnet array from above, trajectory, 1/γ cone, slipping wave crests, end view.
+ *   2. ./undulator/wave.ts. On-axis field E_x(t) (Liénard–Wiechert), its harmonic content F_n(K) and a zoom on
  *                                one line: sinc² of width 0.886/(nN) (+ energy-spread broadening, dashed).
- *   3. ./undulator/spectrum.ts — on-axis spectrum (ph/s/mrad²/0.1 % BW) with tuning bands, BM and wiggler.
+ *   3. ./undulator/spectrum.ts. On-axis spectrum (ph/s/mrad²/0.1 % BW) with tuning bands, BM and wiggler.
  *
  * Physics, equations, approximations and sources: ./undulator/physics.ts (header comment). In short:
  *   K = 0.934 λu[cm] B₀[T];  E_n = n·0.9496 E²[GeV] / (λu[cm](1 + K²/2)) keV;  d²F/dΩ = 1.744×10¹⁴ N²E²I F_n(K);
@@ -67,8 +67,8 @@ const CSS = `
 `;
 
 const mod: ExplainerModule = {
-  title: 'How an undulator makes X-rays',
-  subtitle: 'Squeeze the magnets together and watch the wiggle, the light and the X-ray colours change.',
+  title: "Undulator radiation",
+  subtitle: "Change the magnetic gap to compare electron trajectories, photon energies and harmonic intensities.",
   mount(host, ctx) {
     const accent = ctx.color || '#5cd3ff';
     const station = createStation(host, { color: accent, layout: 'side' });
@@ -85,10 +85,10 @@ const mod: ExplainerModule = {
     const ring = () => P.RINGS[st.ring];
 
     // ------------------------------------------------------------ canvases
-    const cScene = canvas2d(visual, { label: '1 · Inside the undulator, seen from above' });
-    const cSpec = canvas2d(visual, { label: '3 · Spectrum straight ahead (approx.)' });
-    const cWave = canvas2d(visual, { label: '2 · The X-ray wave reaching the beamline' });
-    cScene.canvas.setAttribute('aria-label', 'Animated top view of an undulator: an electron wiggles between alternating magnets and emits X-ray wave crests. Drag up or down to change the gap.');
+    const cScene = canvas2d(visual, { label: "1 · Electron trajectory · top view" });
+    const cSpec = canvas2d(visual, { label: "3 · On-axis spectrum · approximate" });
+    const cWave = canvas2d(visual, { label: "2 · On-axis X-ray electric field" });
+    cScene.canvas.setAttribute('aria-label', "Top view of an electron oscillating through an alternating magnetic field and emitting X-rays. Drag up or down to change the gap.");
     cWave.canvas.setAttribute('aria-label', 'The electric field of the X-rays arriving on axis, its harmonic content, and a zoom on one harmonic line showing how narrow it is.');
     cSpec.canvas.setAttribute('aria-label', 'Spectrum of the undulator on axis, compared with a bending magnet and a wiggler. Click to tune to an energy.');
     const visual2 = document.createElement('div');
@@ -112,15 +112,15 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      '**Close the gap** with the slider (or drag up/down on the magnets): stronger field, bigger wiggle — and *lower*-energy X-rays. **Click the spectrum** or a preset to ask for any energy: like a beamline’s energy scan, the station then picks the gap and the lowest odd harmonic that gives at least 80 % of the best flux straight ahead.',
+      "Reduce the gap with the slider or by dragging the magnets vertically. The field becomes stronger, electron deflection increases and photon energy falls. Click a spectrum energy or preset. The software then selects the gap and lowest odd harmonic with at least 80 % of the maximum on-axis flux.",
     );
     const guideEl = controls.lastElementChild as HTMLElement;
 
     const gDev = group(controls, 'Undulator');
-    const optsPM = P.PM_IDS.map((id) => ({ value: id as Dev, label: P.DEVICES[id].short, title: `${P.DEVICES[id].name}: ${P.DEVICES[id].periodMm} mm period, ${P.DEVICES[id].N} periods — ${P.DEVICES[id].status}` }));
-    const optsSC = P.SCU_IDS.map((id) => ({ value: id as Dev, label: P.DEVICES[id].short, title: `${P.DEVICES[id].name}: ${P.DEVICES[id].periodMm} mm period, ${P.DEVICES[id].N} periods — ${P.DEVICES[id].status}` }));
-    const tPM = toggle<Dev>(gDev, { label: 'Magnet period λu (mm) · permanent magnets', options: optsPM, value: st.dev, onChange: (v) => v && pickDevice(v) });
-    const tSC = toggle<Dev>(gDev, { label: '…or superconducting (planned)', options: optsSC, value: '', onChange: (v) => v && pickDevice(v) });
+    const optsPM = P.PM_IDS.map((id) => ({ value: id as Dev, label: P.DEVICES[id].short, title: `${P.DEVICES[id].name}: period ${P.DEVICES[id].periodMm} mm, ${P.DEVICES[id].N} periods. ${P.DEVICES[id].status}.` }));
+    const optsSC = P.SCU_IDS.map((id) => ({ value: id as Dev, label: P.DEVICES[id].short, title: `${P.DEVICES[id].name}: period ${P.DEVICES[id].periodMm} mm, ${P.DEVICES[id].N} periods. ${P.DEVICES[id].status}.` }));
+    const tPM = toggle<Dev>(gDev, { label: "Permanent-magnet period λu · mm", options: optsPM, value: st.dev, onChange: (v) => v && pickDevice(v) });
+    const tSC = toggle<Dev>(gDev, { label: "Superconducting devices · planned", options: optsSC, value: '', onChange: (v) => v && pickDevice(v) });
     const sSet = slider(gDev, {
       label: 'Magnetic gap',
       min: device().gapMinMm,
@@ -138,14 +138,14 @@ const mod: ExplainerModule = {
     setHint.className = 'stn-hint';
     gDev.appendChild(setHint);
     // reduced motion: panels 1 and 3 show still pictures (re-made on every change) until Play is pressed
-    const motion = motionGate(station, gDev, { title: 'Your device asks for reduced motion, so the electron and the wave hold still. Press to set them moving.' });
+    const motion = motionGate(station, gDev, { title: "Reduced motion is enabled on your device. Electron and wave positions remain static. Press to animate them." });
 
     const gRing = group(controls, 'Electron beam');
     const tRing = toggle<P.RingId>(gRing, {
       label: 'Electron energy',
       options: [
-        { value: 'aps', label: '7 GeV (old APS)', title: 'APS 1995–2023: 7 GeV, 100 mA' },
-        { value: 'apsu', label: '6 GeV (APS-U)', title: 'APS Upgrade 2024–: 6 GeV, 200 mA' },
+        { value: 'aps', label: "7 GeV · old APS", title: "APS from 1995 to 2023: 7 GeV, 100 mA" },
+        { value: 'apsu', label: "6 GeV · APS-U", title: "APS-U since 2024: 6 GeV, 200 mA" },
       ],
       value: st.ring,
       onChange: (v) => {
@@ -158,13 +158,13 @@ const mod: ExplainerModule = {
     ringHint.className = 'stn-hint';
     gRing.appendChild(ringHint);
 
-    const gOut = group(controls, 'What comes out');
+    const gOut = group(controls, "Radiation parameters");
     const rE1 = cachedSet(readout(gOut, '1st harmonic', { big: true, color: accent }));
-    const rLam = cachedSet(readout(gOut, '…its wavelength λ₁'));
+    const rLam = cachedSet(readout(gOut, "Wavelength λ₁"));
     const rB = cachedSet(readout(gOut, 'Peak magnetic field B₀'));
-    const rK = cachedSet(readout(gOut, 'Wiggle strength K'));
-    const rAmp = cachedSet(readout(gOut, 'Real wiggle size'));
-    const rGain = cachedSet(readout(gOut, 'On-axis flux vs a bending magnet'));
+    const rK = cachedSet(readout(gOut, "Deflection parameter K"));
+    const rAmp = cachedSet(readout(gOut, "Electron trajectory amplitude"));
+    const rGain = cachedSet(readout(gOut, "On-axis flux ÷ bending-magnet flux"));
     const rGam = cachedSet(readout(gOut, 'Light cone half-angle 1/γ'));
     const rW = cachedSet(readout(gOut, 'Line width, 1st harmonic'));
     const rPM = cachedSet(readout(gOut, 'Magnets at the same period & gap'));
@@ -174,7 +174,7 @@ const mod: ExplainerModule = {
     // long label + value pairs take a full row when the read-outs flow into a grid (stacked layouts)
     for (const r of [rGain, rW]) r.el.style.gridColumn = '1 / -1';
 
-    const gAsk = group(controls, 'Ask for an X-ray energy');
+    const gAsk = group(controls, "Select photon energy");
     const presetWrap = document.createElement('div');
     presetWrap.className = 'und-presets-wrap';
     const presetRow = document.createElement('div');
@@ -208,12 +208,12 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      '**Three ways to make X-rays.** A *bending magnet* curves the beam once: one sweep of light, a broad spectrum. A *wiggler* bends it hard back and forth (K ≫ 1): 2N separate flashes that add up in intensity — broad again, but 2N times stronger. An *undulator* wiggles it gently (K up to a few): the light from all N periods arrives as one wave train and adds **in step**, piling into narrow lines (width ∝ 1/nN for harmonic n) whose peak straight ahead grows as N² — thousands of times a bending magnet’s. The wiggler curve is an illustrative example (15-cm period, 1.6 T, 16 periods), not an APS device.',
+      "In a bending magnet, electrons follow one curved segment and emit a broad spectrum. In a wiggler, strong alternating bends with K ≫ 1 produce 2N radiation pulses whose intensities add, giving about 2N times the bending-magnet intensity. In an undulator, K is up to a few. Radiation from N periods interferes constructively at narrow harmonic energies. The line width scales as 1/nN for harmonic n, and the on-axis peak scales as N², thousands of times a bending-magnet value. The illustrated wiggler has a 15 cm period, 1.6 T field and 16 periods. It is not an APS device.",
     );
     note(
       controls,
       station,
-      '**Superconducting undulators** (SCUs) use coils of niobium-titanium wire cooled to 4.2 K (−269 °C) instead of permanent magnets, at a fixed 8.0-mm gap. A permanent-magnet field falls off steeply as the gap grows relative to the period, so at a short period it is weak; an SCU makes about twice the field — 1.06 T against ≈ 0.52 T at a 16.5-mm period (K = 1.63 against ≈ 0.8) — and keeps its harmonics strong above ~50 keV, about 3× brighter there. Eight were planned for APS-U, in pairs at sectors 1, 11, 20 (HEXM) and 28 (CHEX); as of September 2026 none has been installed (problems with core reliability), and those beamlines run on stand-in permanent-magnet undulators.',
+      "Superconducting undulator fields come from niobium-titanium coils cooled to 4.2 K, or −269 °C, with a fixed 8.0 mm gap. Permanent-magnet field decreases rapidly as gap grows relative to period. At a 16.5 mm period, the superconducting field is 1.06 T, compared with ≈0.52 T for permanent magnets; K is 1.63 versus ≈0.8. Stronger fields retain higher harmonic intensity above ~50 keV, with about 3× higher brightness there. Eight superconducting undulators were planned for APS-U, in pairs at sectors 1, 11, 20 for HEXM and 28 for CHEX. None was installed as of September 2026 because of core reliability problems. Interim permanent-magnet undulators are in use.",
     );
     const noteEls = [...controls.querySelectorAll<HTMLElement>('.stn-note')];
 
@@ -278,10 +278,10 @@ const mod: ExplainerModule = {
         if (alt && alt.id !== d.id && alt.tune.flux > 2 * t.flux) {
           const ad = P.DEVICES[alt.id];
           const x = fmtX(alt.tune.flux / t.flux);
-          tip = ` The ${ad.short}-mm${ad.kind === 'scu' ? ' superconducting' : ''} undulator (${P.ordinal(alt.tune.n)} harmonic) would give about ${x}× more.`;
+          tip = ` About ${x}× more flux is calculated for the ${ad.short} mm${ad.kind === 'scu' ? ' superconducting' : ''} undulator at its ${P.ordinal(alt.tune.n)} harmonic.`;
         }
         msg = {
-          text: `**${P.fmtKeV(E)} keV:** use the **${P.ordinal(t.n)} harmonic** — ${where}, K = ${t.K.toFixed(2)}: ${P.fmtSci(t.flux)} photons/s/mrad² in 0.1 % bandwidth on axis.${tip}`,
+          text: `At ${P.fmtKeV(E)} keV, use the ${P.ordinal(t.n)} harmonic with ${where} and K = ${t.K.toFixed(2)}. Calculated on-axis flux is ${P.fmtSci(t.flux)} photons/s/mrad² in 0.1 % bandwidth.${tip}`,
           bad: false,
         };
         sSet.set(d.kind === 'pm' ? st.setting : st.setting * 100);
@@ -294,17 +294,17 @@ const mod: ExplainerModule = {
       const r = ring();
       const alt = P.bestDevice(r, E);
       const altTxt = alt
-        ? ` Try the **${P.DEVICES[alt.id].short} mm**${P.DEVICES[alt.id].kind === 'scu' ? ' superconducting' : ''} undulator (${P.ordinal(alt.tune.n)} harmonic).`
-        : ' None of these undulators reaches it.';
+        ? ` Try the ${P.DEVICES[alt.id].short} mm${P.DEVICES[alt.id].kind === 'scu' ? ' superconducting' : ''} undulator at its ${P.ordinal(alt.tune.n)} harmonic.`
+        : " No modeled undulator has an accessible harmonic at this energy.";
       const [lo1] = P.harmonicRange(1, d, r);
-      if (E < lo1) return `**${P.fmtKeV(E)} keV is too low** for this undulator: its 1st harmonic goes down only to ${P.fmtKeV(lo1)} keV.${altTxt}`;
+      if (E < lo1) return `${P.fmtKeV(E)} keV is below this undulator's minimum first-harmonic energy of ${P.fmtKeV(lo1)} keV.${altTxt}`;
       for (let n = 1; n < 41; n += 2) {
         const [, hiN] = P.harmonicRange(n, d, r);
         const [loM] = P.harmonicRange(n + 2, d, r);
         if (E > hiN && E < loM)
-          return `**${P.fmtKeV(E)} keV falls in a gap:** the ${P.ordinal(n)} harmonic only reaches ${P.fmtKeV(hiN)} keV and the ${P.ordinal(n + 2)} starts at ${P.fmtKeV(loM)} keV.${altTxt}`;
+          return `${P.fmtKeV(E)} keV lies between tuning bands. The ${P.ordinal(n)} harmonic extends to ${P.fmtKeV(hiN)} keV, and the ${P.ordinal(n + 2)} harmonic starts at ${P.fmtKeV(loM)} keV.${altTxt}`;
       }
-      return `**${P.fmtKeV(E)} keV** is out of reach for this device.${altTxt}`;
+      return `No accessible harmonic for this device at ${P.fmtKeV(E)} keV.${altTxt}`;
     }
 
     scene.onDrag = (dy) => {
@@ -321,9 +321,9 @@ const mod: ExplainerModule = {
     /** labels that depend on the device kind (permanent magnets: gap; superconducting: coil current) */
     function applyLabels(): void {
       const d = device();
-      setSliderLabel(sSet.input, d.kind === 'pm' ? 'Magnetic gap' : 'Coil current (% of full)');
+      setSliderLabel(sSet.input, d.kind === 'pm' ? 'Magnetic gap' : "Coil current · % of full");
       rPM.el.style.display = d.kind === 'scu' ? '' : 'none';
-      presetBtns.forEach((b, i) => (b.title = `Tune to ${PRESETS[i]} keV: the odd harmonic and ${d.kind === 'pm' ? 'gap' : 'current'} with the most flux straight ahead`));
+      presetBtns.forEach((b, i) => (b.title = `Tune to ${PRESETS[i]} keV using the odd harmonic and ${d.kind === 'pm' ? 'gap' : 'current'} with maximum on-axis flux`));
     }
 
     function caption(): string {
@@ -336,17 +336,17 @@ const mod: ExplainerModule = {
       const pm = d.kind === 'pm';
       const eV = (rel: number) => Math.round(rel * e1 * 1000);
       const lead = pm
-        ? `**Gap ${st.setting.toFixed(1)} mm → peak field ${B0.toFixed(2)} T → wiggle strength K = ${K.toFixed(2)}.**`
-        : `**Coil current ${Math.round(st.setting * 100)} % → peak field ${B0.toFixed(2)} T → wiggle strength K = ${K.toFixed(2)}.**`;
-      let v = `${lead} At every wiggle the electron sends out a flash of light. It runs almost as fast as its own light, so by the next wiggle it has fallen behind by exactly one wavelength (the *slippage*), and the flashes from all ${d.N} periods add up *in step* into one sharp line: **${P.fmtKeV(e1)} keV** (wavelength ${lam1 < 1 ? lam1.toFixed(3) : lam1.toFixed(2)} Å), just ${eV(P.naturalWidth(1, d.N))} eV wide (${eV(P.spreadFwhm(1, d.N, r.sigmaE))} eV with the electrons’ energy spread; see the zoom), plus odd harmonics at 3× and 5× (${P.fmtKeV(3 * e1)} and ${P.fmtKeV(5 * e1)} keV).`;
-      if (K < 0.8) v += ' The wiggle is gentle (K < 1), so the wave is an almost pure ripple: nearly all the light is in the 1st harmonic.';
-      else if (K > 1.6) v += ' The wiggle is strong (K > 1): the light cone (half-angle 1/γ) sweeps across the axis in sharp flashes, so the higher harmonics are bright too.';
-      v += pm ? ' **Close the gap** and the energy drops; open it and it rises.' : ' Superconducting coils reach a stronger field than magnets could at this short period.';
+        ? `Gap is ${st.setting.toFixed(1)} mm, peak field is ${B0.toFixed(2)} T and deflection parameter K = ${K.toFixed(2)}.`
+        : `Coil current is ${Math.round(st.setting * 100)} %, peak field is ${B0.toFixed(2)} T and deflection parameter K = ${K.toFixed(2)}.`;
+      let v = `${lead} Electrons emit radiation along the oscillating trajectory. Their average forward speed is below the speed of light, so light advances by one first-harmonic wavelength per period. This is called slippage. Radiation from ${d.N} periods interferes constructively at ${P.fmtKeV(e1)} keV, with wavelength ${lam1 < 1 ? lam1.toFixed(3) : lam1.toFixed(2)} Å. Natural line width is ${eV(P.naturalWidth(1, d.N))} eV, increasing to ${eV(P.spreadFwhm(1, d.N, r.sigmaE))} eV with electron energy spread, as shown in the enlarged plot. Odd harmonics occur at 3× and 5× the energy, ${P.fmtKeV(3 * e1)} and ${P.fmtKeV(5 * e1)} keV.`;
+      if (K < 0.8) v += " At K < 1, the electric field is nearly sinusoidal and most radiation is in the first harmonic.";
+      else if (K > 1.6) v += " At K > 1, the emission cone with half-angle 1/γ crosses the axis in short pulses, increasing higher-harmonic intensity.";
+      v += pm ? " Reducing the gap lowers photon energy; increasing it raises the energy." : " At this short period, superconducting coils provide a stronger field than permanent magnets.";
       if (st.ring === 'aps') {
         const worse = P.peakFlux(1, K, d, P.RINGS.apsu) / P.peakFlux(1, K, d, r);
-        v += ` *Old APS (7 GeV, 100 mA): every harmonic sits 36 % higher in energy, but with half the current and a far more spread-out beam${worse >= 1.5 ? `, about ${fmtX(worse)}× less` : ', less'} light went straight ahead. This keeps today’s undulator and gap; the old ring’s chambers allowed gaps only down to ~10.5 mm. APS-U went to 6 GeV for a much smaller beam and makes up the energy with shorter periods and smaller gaps.*`;
+        v += ` At the old APS energy of 7 GeV, every harmonic is 36 % higher in energy. Current was 100 mA and electron angular spread was larger${worse >= 1.5 ? `, giving about ${fmtX(worse)}× less` : ', giving less'} on-axis flux. This comparison retains the selected undulator and gap. The old vacuum chambers required gaps of at least ~10.5 mm. The 6 GeV APS-U beam has lower emittance. Shorter periods and smaller gaps compensate for the lower photon energies.`;
       }
-      if (st.tunedN && msg && !msg.bad) v += ` *Tuned with the ${P.ordinal(st.tunedN)} harmonic.*`;
+      if (st.tunedN && msg && !msg.bad) v += ` The selected energy uses the ${P.ordinal(st.tunedN)} harmonic.`;
       return v;
     }
 
@@ -414,7 +414,7 @@ const mod: ExplainerModule = {
       put(
         outHint,
         md(
-          `**×${P.fmtRound(gain)}**: at the 1st harmonic, that many times more X-rays per second straight ahead (per unit solid angle) than one bending magnet gives — ${P.fmtSci(flux)} photons/s/mrad² in 0.1 % bandwidth, including the electrons’ energy and angle spreads and small magnet errors. Not modelled: line broadening by the beam’s angle spread, the source size, and the even harmonics that appear off axis. N = ${d.N} is one ${d.lengthM}-m device; two in-line devices phased together act like 2N. The real wiggle (±${amp < 0.1 ? amp.toFixed(3) : amp.toFixed(2)} µm) is about 1/${P.fmtRound(HAIR_UM / amp)} of a hair’s width — panel 1 magnifies it.`,
+          `First-harmonic on-axis flux is ${P.fmtRound(gain)}× the bending-magnet value, or ${P.fmtSci(flux)} photons/s/mrad² in 0.1 % bandwidth. The estimate includes electron energy and angular spread and small magnet errors. It omits angular-spread broadening of the lines, source size and off-axis even harmonics. One ${d.lengthM} m device has N = ${d.N}; two inline devices phased together correspond to 2N. The electron trajectory amplitude is ±${amp < 0.1 ? amp.toFixed(3) : amp.toFixed(2)} µm, about 1/${P.fmtRound(HAIR_UM / amp)} of the reference hair diameter. The trajectory is magnified in panel 1.`,
         ),
       );
       const [lo1, hi1] = P.harmonicRange(1, d, r);
@@ -422,14 +422,14 @@ const mod: ExplainerModule = {
         put(
           setHint,
           md(
-            `Gap ${d.gapMinMm}–${d.gapMaxMm} mm (the beam’s vacuum chamber sits in between): K from ${d.kRef.toFixed(2)} down to ${P.kAt(d, d.gapMaxMm).toFixed(2)}, so the 1st harmonic tunes from ${P.fmtKeV(lo1)} to ${P.fmtKeV(hi1)} keV. ${d.name}, N = ${d.N}: ${d.status}.`,
+            `The vacuum chamber lies within the ${d.gapMinMm} to ${d.gapMaxMm} mm magnetic gap. Over that range, K decreases from ${d.kRef.toFixed(2)} to ${P.kAt(d, d.gapMaxMm).toFixed(2)}, giving first-harmonic energies from ${P.fmtKeV(lo1)} to ${P.fmtKeV(hi1)} keV. ${d.name}, N = ${d.N}. ${d.status}.`,
           ),
         );
       } else {
         put(
           setHint,
           md(
-            `The gap is fixed at 8.0 mm; the field follows the coil current (in simple proportion here, ignoring iron saturation): K up to ${d.kRef} (${P.fieldAt(d, 1).toFixed(2)} T), 1st harmonic ${P.fmtKeV(lo1)}–${P.fmtKeV(hi1)} keV. ${d.name}, N = ${d.N}: **${d.status}.**`,
+            `The gap is fixed at 8.0 mm. Field is proportional to coil current in this model, which omits iron saturation. Maximum K is ${d.kRef} at ${P.fieldAt(d, 1).toFixed(2)} T. First-harmonic energy extends from ${P.fmtKeV(lo1)} to ${P.fmtKeV(hi1)} keV. ${d.name}, N = ${d.N}. ${d.status}.`,
           ),
         );
       }
@@ -438,12 +438,12 @@ const mod: ExplainerModule = {
         ringHint,
         md(
           st.ring === 'apsu'
-            ? `6.0 GeV electrons (γ = ${gTxt}: energy ÷ rest energy), 200 mA. The new ring squeezes the beam to about 42 pm·rad (angle spread ${r.divX} × ${r.divY} µrad, flat-beam values), but harmonic energies scale with the electron energy squared: (6/7)² = 0.73 of the 7-GeV values. Energy spread ${(r.sigmaE * 100).toFixed(3)} %.`
-            : `7.0 GeV electrons (γ = ${gTxt}), 100 mA, emittance 3.1 nm·rad (angle spread ${r.divX} × ${r.divY} µrad), energy spread ${(r.sigmaE * 100).toFixed(3)} %: higher harmonic energies, but a far more spread-out beam, so less light straight ahead. Same undulator and gap as selected.`,
+            ? `Electron energy is 6.0 GeV and current is 200 mA. The relativistic factor γ = ${gTxt} is energy divided by rest energy. Flat-beam emittance is about 42 pm·rad, with angular spread ${r.divX} × ${r.divY} µrad. Harmonic energies scale with squared electron energy: (6/7)² = 0.73 of the 7 GeV values. Relative energy spread is ${(r.sigmaE * 100).toFixed(3)} %.`
+            : `Electron energy is 7.0 GeV, γ = ${gTxt}, current is 100 mA and emittance is 3.1 nm·rad. Angular spread is ${r.divX} × ${r.divY} µrad, and relative energy spread is ${(r.sigmaE * 100).toFixed(3)} %. Higher energy raises harmonic energies, but greater angular spread lowers on-axis flux. The selected undulator and gap are unchanged.`,
         ),
       );
       presetBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(st.preset === PRESETS[i] && st.tunedN !== null)));
-      put(msgEl, msg ? md(msg.text) : md('…or click anywhere on the spectrum.'));
+      put(msgEl, msg ? md(msg.text) : md("Click a spectrum energy to tune."));
       msgEl.classList.toggle('is-bad', !!msg?.bad);
       const v = caption();
       // only touch the DOM when the text changed (every write forces a style/layout pass)

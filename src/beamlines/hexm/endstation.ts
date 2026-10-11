@@ -16,18 +16,6 @@ const AX = MONO_OFFSET;
 
 // ------------------------------------------------------------------ the stepped hutch (absolute frame)
 
-let glass: THREE.Material | null = null;
-/** Hutch glass seen from the inside only (the engine's cut-away convention): near walls vanish from outside viewpoints. */
-function cutawayGlass(): THREE.Material {
-  if (!glass) {
-    const m = (mats.hutchGlass() as THREE.MeshStandardMaterial).clone();
-    m.side = THREE.BackSide;
-    m.opacity = 0.2;
-    glass = m;
-  }
-  return glass;
-}
-
 /** Reverse the winding (and normals) of a flat geometry so its front face points the other way. */
 function flipFaces(geo: THREE.BufferGeometry): void {
   const idx = geo.getIndex();
@@ -52,7 +40,7 @@ function flipFaces(geo: THREE.BufferGeometry): void {
  */
 function wallPanel(shape: THREE.Shape, place: (m: THREE.Object3D) => void, g: THREE.Group, outward: THREE.Vector3): void {
   const geo = new THREE.ShapeGeometry(shape);
-  const mesh = new THREE.Mesh(geo, cutawayGlass());
+  const mesh = new THREE.Mesh(geo, mats.hutchWall());
   mesh.renderOrder = 2;
   const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geo), mats.hutchEdge());
   place(mesh);

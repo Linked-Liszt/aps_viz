@@ -5,7 +5,7 @@ import type { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 import type { Stage } from '../Stage';
 import { SITE, sectorFrame, alongBeam, toWorld, sectorAngle } from '../../data/site';
 import { FEATURE_META } from '../../data/meta';
-import { COLORS, glowMaterial, groundMaterial, mats, setFaded } from '../palette';
+import { COLORS, glowMaterial, groundMaterial, mats, setFaded, configureHutchMaterial } from '../palette';
 import { fatLine, circlePoints, fatSegments, type FatSegments } from '../lines';
 import { SECTOR_INFO, enhancedSectors } from '../../data/sectors';
 import { buildLattice } from './lattice';
@@ -20,13 +20,13 @@ import { MotionClock, motionReduced } from '../beamline/motion';
 const BEAM_Y = SITE.beamHeightM;
 const genericEdgeMat = new THREE.LineBasicMaterial({ color: 0x8796a8, transparent: true, opacity: 0.35 });
 // overview footprints of feature beamlines (faded when another beamline is in focus)
-const overviewHutchMat = new THREE.MeshStandardMaterial({ color: 0xd6d2c9, roughness: 0.92, metalness: 0 });
-const overviewRoomMat = new THREE.MeshStandardMaterial({ color: 0x5d6673, roughness: 0.95, metalness: 0 });
+const overviewHutchMat = configureHutchMaterial(new THREE.MeshStandardMaterial({ color: 0xd6d2c9, roughness: 0.92, metalness: 0 }));
+const overviewRoomMat = configureHutchMaterial(new THREE.MeshStandardMaterial({ color: 0x5d6673, roughness: 0.95, metalness: 0 }));
 export const USER_SECTORS = 35;
 
 /**
- * Overview label priorities for screen-space decluttering (feature pins always win). A label that would overlap a
- * pin or a higher-priority label, or sit under UI chrome, is hidden until the view changes.
+ * Priorities for label placement. Feature pins have the highest priority. Hide labels that overlap pins,
+ * higher-priority labels or interface panels until the view changes.
  */
 const PRI = { injectorTour: 9, landmark: 5, sector: 4, building: 3, machineSector: 2.5, caption: 2, lom: 1 } as const;
 
@@ -255,17 +255,18 @@ export class Site {
       if (segs.length) this.group.add(fatSegments(segs, cols, { width: 2, opacity: 0.9 }).object);
     }
     const bo = inj.booster;
-    if (bo.outline && bo.outline.length > 8) {
-      const pts = [...bo.outline, bo.outline[0]].map(([x, y]) => toWorld(x, y, 2.4));
-      this.group.add(fatLine(pts, { color: COLORS.electron, intensity: 2.6, width: 1.8 }));
-    }
-    const boosterHouse = new THREE.Mesh(new THREE.TorusGeometry(bo.radiusM, 2.2, 8, 160), mats.modelShade());
-    boosterHouse.rotation.x = Math.PI / 2;
-    boosterHouse.position.copy(toWorld(bo.center[0], bo.center[1], 1.0));
-    boosterHouse.scale.set(1, 1, 0.8);
+    const boosterOutline = bo.outline && bo.outline.length > 8
+      ? bo.outline.map(([x, y]) => toWorld(x, y))
+      : circlePoints(bo.center[0], -bo.center[1], bo.radiusM, 0, 160).slice(0, -1);
+    const boosterPath = new THREE.CatmullRomCurve3(boosterOutline, true);
+    const boosterBeam = fatLine(boosterPath.getSpacedPoints(160).map((p) => p.setY(2.4)), { color: COLORS.electron, intensity: 2.6, width: 1.8 });
+    boosterBeam.name = 'booster-orbit';
+    const boosterMat = mats.modelShade().clone();
+    boosterMat.side = THREE.DoubleSide;
+    const boosterHouse = new THREE.Mesh(boosterHousing(boosterPath), boosterMat);
+    boosterHouse.name = 'booster-housing';
     boosterHouse.castShadow = true;
-    this.group.add(boosterHouse);
-    if (!(bo.outline && bo.outline.length > 8)) this.group.add(fatLine(circlePoints(bo.center[0], -bo.center[1], bo.radiusM, 2.4, 240), { color: COLORS.electron, intensity: 2.6, width: 1.8 }));
+    this.group.add(boosterHouse, boosterBeam);
     if (inj.bts.length >= 2) {
       this.group.add(fatLine(inj.bts.map(([x, z]) => toWorld(x, z, 2.0)), { color: COLORS.electron, intensity: 2.2, width: 1.6 }));
     }
@@ -507,13 +508,13 @@ export class Site {
     );
     const par = SITE.injector.par;
     const parAt = (dy: number) => toWorld(par.center[0], par.center[1] + dy, 3);
-    this.injectorLabels.add(place('Accumulator ring (PAR)', [parAt(par.radiusM + 5), parAt(-par.radiusM - 5)], PRI.building));
+    this.injectorLabels.add(place('Particle accumulator ring, PAR', [parAt(par.radiusM + 5), parAt(-par.radiusM - 5)], PRI.building));
     const lin = SITE.injector.linac;
     if (lin.length >= 2) {
       const a = lin[0];
       const z = lin[lin.length - 1];
       const linAt = (dy: number) => toWorld((a[0] + z[0]) / 2, (a[1] + z[1]) / 2 + dy, 4);
-      this.injectorLabels.add(place('Linac', [linAt(10), linAt(-10)], PRI.landmark));
+      this.injectorLabels.add(place('Linear accelerator', [linAt(10), linAt(-10)], PRI.landmark));
     }
     place('Storage ring · 1,103.6 m', toWorld(0, -SITE.orbitRadiusM + 18, 4), PRI.landmark, 'lbl-place-ring');
     {
@@ -523,7 +524,7 @@ export class Site {
       place('Sectors 36–40: RF cavities · injection · bunch lengthening', toWorld(r * Math.cos(a), r * Math.sin(a), 1), PRI.caption, 'lbl-place-small lbl-place-machine');
     }
     const NAMES: Record<string, string> = {
-      '401': 'Central Lab/Office Bldg',
+      '401': 'Central lab/office building',
       '444': 'Long Beamline Building',
       '440': 'Center for Nanoscale Materials',
     };
@@ -533,7 +534,7 @@ export class Site {
       if (!name) continue;
       const c = b.polygon.reduce((acc, [x, y]) => [acc[0] + x / b.polygon.length, acc[1] + y / b.polygon.length], [0, 0]);
       if (lom) {
-        // Lab/office modules hug the hall wall, right where the sector numbers sit: label them radially outboard
+        // Lab/office modules are beside the hall wall and sector numbers. Place their labels radially outboard.
         const r0 = Math.hypot(c[0], c[1]);
         const r = Math.max(SITE.hallOuterM + 36, r0 + 18);
         place(name, toWorld((c[0] / r0) * r, (c[1] / r0) * r, b.heightM + 2), PRI.lom, 'lbl-place-small');
@@ -794,7 +795,7 @@ export class Site {
 
   private hotSector: number | null = null;
 
-  /** In beamline mode everything but the focus fades back so the exhibit reads clearly. */
+  /** In beamline mode, fade everything outside the selected beamline. */
   setFocus(id: string | null, sector: number | null): void {
     this.focusId = id;
     {
@@ -879,7 +880,7 @@ export class Site {
     this.tourUndSector = und;
     this.applyUndulatorMatrices();
     this.pinsAllowed = opts.pins !== false;
-    if (this.focusId) return; // a focused beamline owns walls/pins visibility
+    if (this.focusId) return; // Wall and pin visibility are controlled by the focused beamline view.
     for (const obj of this.featureLabels.values()) showLabel(obj, this.pinsAllowed, obj.element.firstElementChild as HTMLElement);
     this.setWallsFaded(!!opts.walls);
   }
@@ -911,6 +912,27 @@ export class Site {
     this.bunches.geometry.getAttribute('position').needsUpdate = true;
     this.bunchesPlaced = true;
   }
+}
+
+/** Follow the booster outline with a housing whose open top exposes the electron path. */
+function boosterHousing(path: THREE.Curve<THREE.Vector3>): THREE.BufferGeometry {
+  const radius = 2.2;
+  const geo = new THREE.TubeGeometry(path, 160, radius, 8, true);
+  const positions = geo.getAttribute('position');
+  const indices = geo.getIndex()!;
+  const kept: number[] = [];
+  const rimHeight = radius * Math.SQRT1_2 + 1e-5;
+  // Remove the upper quarter of the tube, including every triangle above either rim.
+  for (let i = 0; i < indices.count; i += 3) {
+    const a = indices.getX(i);
+    const b = indices.getX(i + 1);
+    const c = indices.getX(i + 2);
+    if (Math.max(positions.getY(a), positions.getY(b), positions.getY(c)) <= rimHeight) kept.push(a, b, c);
+  }
+  geo.setIndex(kept);
+  geo.scale(1, 0.8, 1);
+  geo.translate(0, 1, 0);
+  return geo;
 }
 
 /** Per-mesh clone so walls can fade independently of other users of the shared material. */

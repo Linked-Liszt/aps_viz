@@ -146,7 +146,7 @@ export function energyColor(E: number, out = new THREE.Color()): THREE.Color {
 // ------------------------------------------------------------------ ray fan with wire occlusion
 
 export interface WireState {
-  /** wire axis position (relative to the sample) at time t — the wire runs along Z */
+  /** Wire-axis position relative to the sample at time t. The wire is parallel to Z. */
   at: (t: number) => THREE.Vector3;
   r: number;
 }

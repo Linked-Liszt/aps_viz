@@ -1,12 +1,12 @@
 /**
- * Panel 1 of the brightness station: "same photons, brighter beam".
+ * Panel 1 of the brightness station: source size and angular spread at fixed photon flux.
  *
  * Side (top-down) view of one transverse plane, ANAMORPHIC and to scale on both axes: sideways positions in µm,
  * distance along the beam in m, so a ray x(z) = x₀ + θz [µm = µm + µrad·m] is a straight line. Photons are drawn
  * one by one from a Gaussian source (x₀ ~ N(0, Σ_x²), θ ~ N(0, Σ′_x²)) at a fixed emission rate (same flux). A
  * thin lens with a soft (Gaussian) aperture at 15 m images the source 1:1 onto a soft slit at 30 m
  * (physics.SLITS): a photon at x passes an aperture with probability e^{−x²/2s²}, then gets a diffraction kick
- * θ += N(0, (λ/4πs)²) and, at the lens, θ −= x/f — an exact Monte Carlo of the wave intensity for Gaussian beams
+ * θ += N(0, (λ/4πs)²) and, at the lens, θ −= x/f. An exact Monte Carlo of the wave intensity for Gaussian beams
  * (see physics.ts). The pass rate shown is the analytic probability (physics.passFraction); the animation samples
  * it. Below: B = F ÷ (2πΣ_xΣ_y) ÷ (2πΣ′_xΣ′_y) with end-on pictures of the source
  * (µm) and of the angular spread (µrad), to scale, and a log brightness meter with the old-APS / APS-U values at
@@ -315,7 +315,7 @@ export class SourceView {
     g.rect(G.xs - 30, G.rayTop, G.xr - G.xs + 30, G.rayBot - G.rayTop);
     g.clip();
 
-    // beam envelopes ±2σ(z): the free beam up to the lens, then the photons the lens aperture lets through
+    // beam envelopes ±2σ(z): the free beam up to the lens, then the photons transmitted through the lens aperture
     // (converging to the image of the source at the slit when the source is small)
     const env = (z: number) => 2 * Math.sqrt(s.ph.sx * s.ph.sx + z * z * s.ph.sxp * s.ph.sxp);
     const al = this.al;
@@ -464,7 +464,7 @@ export class SourceView {
       g.fillText(t, x, y);
     };
     const yl = G.rayTop + 10;
-    // lens: focal length and soft aperture (rms); slit: rms width — left of each, the distance right of it
+    // lens: focal length and soft aperture (rms); slit: rms width. Left of each, the distance right of it
     const room = X(z1) - 18;
     g.font = `600 10.5px ${TOKENS.font}`;
     const lensTxt = [`lens, focal length ${SLITS.f} m, aperture ${s1} µm`, `lens, aperture ${s1} µm`, 'lens'].find((t) => g.measureText(t).width <= room) ?? 'lens';
@@ -474,8 +474,8 @@ export class SourceView {
     lab(`${z2} m`, X(z2) + 6, yl, { align: 'left', color: TOKENS.ink2 });
 
     // source size (left) and pass rate (right) above the axis: the fullest wordings that do not collide
-    const srcOpts = [`source ${fmtSmall(s.ph.sx)} µm (rms)`, `source ${fmtSmall(s.ph.sx)} µm`];
-    const passOpts = [`${fmtOneIn(s.pass)} get through (${pct(s.pass)})`, `${fmtOneIn(s.pass)} get through`];
+    const srcOpts = [`source width ${fmtSmall(s.ph.sx)} µm · rms`, `source ${fmtSmall(s.ph.sx)} µm`];
+    const passOpts = [`transmission ${pct(s.pass)} · ${fmtOneIn(s.pass)} photons`, `${fmtOneIn(s.pass)} photons transmitted`];
     const tw = (t: string, size: number, weight: number) => {
       g.font = `${weight} ${size}px ${TOKENS.font}`;
       return g.measureText(t).width;
@@ -568,7 +568,7 @@ export class SourceView {
     g.textAlign = 'left';
     g.font = `600 12px ${TOKENS.font}`;
     g.fillStyle = TOKENS.ink;
-    const head = G.narrow ? 'Brightness = photons ÷ area ÷ spread' : 'Brightness = photons per second ÷ source area ÷ angular spread';
+    const head = G.narrow ? "Brightness = photon rate ÷ area ÷ angular spread" : "Brightness = photons per second ÷ source area ÷ angular spread";
     g.fillText(head, left, top + 8);
     g.restore();
 
@@ -599,10 +599,10 @@ export class SourceView {
 
     // flux block
     const fx = xsB[0] + fluxW / 2;
-    txt('PHOTONS / s', fx, tileTop - 10, { size: 10, weight: 700 });
+    txt("Photons / s", fx, tileTop - 10, { size: 10, weight: 700 });
     txt(sci(s.F, 1), fx, cy - 6, { size: G.narrow ? 17 : 20, weight: 700, color: TOKENS.ink });
     txt('same for all', fx, cy + 16, { size: 10, weight: 600, color: TOKENS.ink2 });
-    txt('in 0.1 % bandwidth', fx, cy + 29, { size: 9.5, weight: 500, color: TOKENS.ink3 });
+    txt("0.1 % bandwidth", fx, cy + 29, { size: 9.5, weight: 500, color: TOKENS.ink3 });
 
     // tiles
     const tile = (x0: number, title: string, value: string, unitScale: number, wx: number, wy: number, color: string, scaleTxt: string, scaleLen: number) => {
@@ -660,8 +660,8 @@ export class SourceView {
     const sDiv = T / 2 / 26;
     const area = 2 * Math.PI * s.ph.sx * s.ph.sy * 1e-6;
     const solid = 2 * Math.PI * s.ph.sxp * s.ph.syp * 1e-6;
-    tile(xsB[1], 'SOURCE AREA', `${fmtTiny(area)} mm²`, sSrc, s.ph.sx, s.ph.sy, this.accent, '100 µm', 100);
-    tile(xsB[2], 'ANGULAR SPREAD', `${fmtTiny(solid)} mrad²`, sDiv, s.ph.sxp, s.ph.syp, '#9fe3ff', '10 µrad', 10);
+    tile(xsB[1], 'Source area', `${fmtTiny(area)} mm²`, sSrc, s.ph.sx, s.ph.sy, this.accent, '100 µm', 100);
+    tile(xsB[2], 'Angular spread', `${fmtTiny(solid)} mrad²`, sDiv, s.ph.sxp, s.ph.syp, '#9fe3ff', '10 µrad', 10);
     // rms width × height of the X-ray source and of its angular spread (end-on views above)
     txt(`${fmtSmall(s.ph.sx)} × ${fmtSmall(s.ph.sy)} µm rms`, xsB[1] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });
     txt(`${fmtSmall(s.ph.sxp)} × ${fmtSmall(s.ph.syp)} µrad rms`, xsB[2] + T / 2, tileTop + T + 24, { size: 9.5, weight: 500 });

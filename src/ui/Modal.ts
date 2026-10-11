@@ -6,12 +6,12 @@ import { FEATURE_META, metaById } from '../data/meta';
 // ------------------------------------------------------------------ exclusive overlays
 
 /**
- * While a dialog-like overlay (modal, search, intro) is open, everything else — the 3D stage, its labels and the
- * other #ui children — is made `inert`, so Tab stays inside the overlay and nothing behind it can be clicked or read.
- * Overlays stack: the most recently opened one is the active one.
+ * An open modal, search panel or intro makes the 3D stage, labels and other #ui children `inert`.
+ * Keyboard focus stays inside the active overlay, and background elements cannot receive clicks or focus.
+ * The most recently opened overlay is active.
  *
  * Other components also use `inert` for their own closed state. While an element is held here, a change made by its
- * owner is remembered (not lost) and applied when the hold ends.
+ * owner is recorded and applied when the hold ends.
  */
 const owners: HTMLElement[] = [];
 const held = new Map<HTMLElement, boolean>(); // element → the inert state to restore
@@ -23,7 +23,7 @@ function backgroundRoots(): HTMLElement[] {
   return roots.filter((e): e is HTMLElement => e instanceof HTMLElement);
 }
 
-/** Record changes other code made to held elements, then re-assert our hold. */
+/** Record changes to background elements, then restore their temporary inert state. */
 function absorb(records: MutationRecord[]): void {
   for (const r of records) {
     const el = r.target as HTMLElement;
@@ -193,7 +193,6 @@ export class Modal {
     this.el.classList.remove('is-open');
     const cb = this.onCloseCb;
     this.onCloseCb = null;
-    cb?.();
     this.release?.();
     this.release = null;
     openModals.delete(this);
@@ -202,6 +201,8 @@ export class Modal {
     const f = this.lastFocus;
     this.lastFocus = null;
     restoreFocus(f);
+    // A close callback may reopen this modal. Finish closing before it opens the next content.
+    cb?.();
   }
 }
 
@@ -218,13 +219,13 @@ export function loadErrorNotice(onRetry: () => void): HTMLElement {
   );
 }
 
-/** Kicker label for a feature beamline: 'POLAR (4-ID)'; shared sectors name the station ('3DMN (34-ID-E)'). */
+/** Beamline label with its sector or, in shared sectors, its station. */
 export function beamlineTag(beamlineId: string | undefined): { label: string; color: string } | null {
   const m = beamlineId ? metaById(beamlineId) : undefined;
   if (!m) return null;
   const shared = FEATURE_META.some((o) => o.id !== m.id && o.sectorNumber === m.sectorNumber);
   const where = shared && !m.stations.includes(',') ? m.stations : `${m.sectorNumber}-ID`;
-  return { label: `${BEAMLINES[m.id]?.acronym ?? m.id.toUpperCase()} (${where})`, color: m.color };
+  return { label: `${BEAMLINES[m.id]?.acronym ?? m.id.toUpperCase()}, ${where}`, color: m.color };
 }
 
 /** Mount a station module into `host`. Returns a destroy function. */

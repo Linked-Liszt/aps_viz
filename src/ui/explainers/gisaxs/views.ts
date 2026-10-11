@@ -1,5 +1,5 @@
 /**
- * Canvas renderers for the four panels of the "Skimming the surface" station.
+ * Canvas renderers for the four panels of the "Grazing-incidence surface scattering" station.
  * All drawing is 2D canvas, CSS-pixel coordinates (kit canvas2d applies the DPR transform).
  */
 import { TOKENS, label, lut, plotFrame, line } from '../kit';
@@ -410,9 +410,9 @@ export function drawSide(c: Canvas2D, d: Derived, f: ViewFlags, prof: Float64Arr
   if (aC < aDispMax && w >= 520) {
     const rY = Math.round(det.rowOf(aC));
     const pk = prof[Math.max(0, Math.min(prof.length - 1, rY))] || 0;
-    // below the Yoneda ray unless the specular beam runs there (α_i < α_c) — then above it
+    // below the Yoneda ray unless the specular beam runs there (α_i < α_c). Then above it
     const yY = d.aI < aC ? yDet(aC) - 6 : yDet(aC) + 14;
-    haloText(ctx, 'Yoneda glow (α_{f} = α_{c})', xd - 4 - pk * pw - 4, yY, { size: lblSize - 0.5, align: 'right', color: accent });
+    haloText(ctx, "Yoneda band · α_{f} = α_{c}", xd - 4 - pk * pw - 4, yY, { size: lblSize - 0.5, align: 'right', color: accent });
   }
   haloText(ctx, 'silicon wafer with polymer islands', 8, h - 8, { size: lblSize - 0.5, color: TOKENS.ink3, weight: 500 });
 
@@ -436,7 +436,7 @@ export function drawSide(c: Canvas2D, d: Derived, f: ViewFlags, prof: Float64Arr
     const txt = `beam footprint ${fmtLen(d.foot * 1000)}`;
     haloText(ctx, txt, Math.min(Math.max((l + r) / 2, 70), xw - 60), yy + 15, { size: lblSize, align: 'center', color: TOKENS.ink });
     if (belowC) {
-      const evTxt = `evanescent: skims the top ${fmtLen(d.penSi)}`;
+      const evTxt = `evanescent-field depth ${fmtLen(d.penSi)}`;
       ctx.font = `600 ${lblSize - 1}px ${TOKENS.font}`;
       const evW = ctx.measureText(evTxt).width;
       const fitsRight = fpR + 34 + evW <= xw - 4;
@@ -574,7 +574,7 @@ export function drawDetector(c: Canvas2D, d: Derived, f: ViewFlags, det: Detecto
       ctx.stroke();
       ctx.fillRect(sx - 1.5, sy + 6, 3, y1 - sy - 6);
       ctx.restore();
-      haloText(ctx, 'beamstop (mirror beam)', sx + 9, sy + 4, { size: small, color: TOKENS.ink2 });
+      haloText(ctx, "beamstop · reflected beam", sx + 9, sy + 4, { size: small, color: TOKENS.ink2 });
     } else {
       ctx.save();
       ctx.fillStyle = '#fff';
@@ -584,7 +584,7 @@ export function drawDetector(c: Canvas2D, d: Derived, f: ViewFlags, det: Detecto
       ctx.arc(sx, sy, 2.2 + 2.5 * Math.pow(R, 0.3), 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
-      haloText(ctx, `mirror reflection, ${(R * 100).toPrecision(2)}%`, sx + 9, sy + 4, { size: small, color: '#fff7c2' });
+      haloText(ctx, `specular reflection, ${(R * 100).toPrecision(2)}%`, sx + 9, sy + 4, { size: small, color: '#fff7c2' });
     }
   }
   // horizon / shadow label: drawn after the beamstop so its halo stays legible across the beamstop stem
@@ -719,7 +719,7 @@ export function drawDetector(c: Canvas2D, d: Derived, f: ViewFlags, det: Detecto
   if (f.mix > 0.02) drawH(dd.cutHAvg, 'rgba(233,238,245,0.45)', 1, [3, 3]);
   drawH(dd.cutH, accent, 1.4, []);
   ctx.restore();
-  label(ctx, 'brightness along the Yoneda band (log)', x0 + 4, cutY0 + 11, { size: 10, color: TOKENS.ink3 });
+  label(ctx, "Intensity along the Yoneda band · log scale", x0 + 4, cutY0 + 11, { size: 10, color: TOKENS.ink3 });
 
   // photons readout
   if (dd.photons !== null) {
@@ -778,7 +778,7 @@ export interface DepthLayout {
 }
 
 /**
- * Top: nanoscale cross-section — standing wave above the surface (|1 + r e^{2ipz}|²), transmitted/evanescent
+ * Top: nanoscale cross-section. Standing wave above the surface (|1 + r e^{2ipz}|²), transmitted/evanescent
  * intensity |t|² e^{−z/Λ} below, islands drawn at true lateral/vertical ratio ×~3.
  * Bottom: 1/e penetration depth vs α_i (log) for Si and polystyrene.
  */
@@ -848,16 +848,16 @@ export function drawDepth(c: Canvas2D, d: Derived, f: ViewFlags, row: Float64Arr
     ctx.lineTo(w, y);
     ctx.stroke();
     ctx.restore();
-    haloText(ctx, `X-rays fade to 1/e by here: ${fmtLen(d.penSi)}`, w - 6, y + 12, { size: sm, align: 'right' });
+    haloText(ctx, `Intensity falls to 1/e at ${fmtLen(d.penSi)}`, w - 6, y + 12, { size: sm, align: 'right' });
   } else {
-    haloText(ctx, `↓ reaches ${fmtLen(d.penSi)} into Si (1/e)`, w - 6, top + csH - 6, { size: sm, align: 'right' });
+    haloText(ctx, `↓ depth ${fmtLen(d.penSi)} in Si · 1/e intensity`, w - 6, top + csH - 6, { size: sm, align: 'right' });
   }
   // standing-wave period (above surface)
   const period = d.lambda / (2 * Math.sin(d.aI));
   // above the surface: incoming + reflected waves form a standing wave of period λ/(2 sin α_i)
   if (narrow) haloText(ctx, `standing wave, period ${fmtLen(period)}`, 6, top + 12, { size: sm, color: TOKENS.ink });
   else {
-    haloText(ctx, compact ? 'incoming + reflected waves:' : 'incoming + reflected waves interfere:', 6, top + 12, { size: sm, color: TOKENS.ink });
+    haloText(ctx, compact ? "incident + reflected waves" : "incident + reflected wave interference", 6, top + 12, { size: sm, color: TOKENS.ink });
     haloText(ctx, `standing wave, period ${fmtLen(period)}`, 6, top + 12 + sm + 3, { size: sm, color: TOKENS.ink });
   }
   haloText(ctx, 'Si', 6, top + csH - 6, { size: sm, color: TOKENS.ink2 });
@@ -903,7 +903,7 @@ export function drawDepth(c: Canvas2D, d: Derived, f: ViewFlags, row: Float64Arr
   ctx.save();
   ctx.translate(rect.x + 11, (fr.y0 + fr.y1) / 2);
   ctx.rotate(-Math.PI / 2);
-  haloText(ctx, 'how deep (1/e)', 0, 4, { size: 11, align: 'center', color: TOKENS.ink2, weight: 500, halo: false });
+  haloText(ctx, "penetration depth · 1/e", 0, 4, { size: 11, align: 'center', color: TOKENS.ink2, weight: 500, halo: false });
   ctx.restore();
   // minor decade grid
   ctx.save();
@@ -1057,7 +1057,7 @@ export function drawTop(
     ctx.closePath();
     ctx.fill();
     ctx.restore();
-    haloText(ctx, f.coherent ? 'coherent beam, 1 µm wide' : 'beam covers it all', T.x + 6, y - 8, { size: 10, color: TOKENS.xray });
+    haloText(ctx, f.coherent ? 'coherent beam, 1 µm wide' : "beam over entire patch", T.x + 6, y - 8, { size: 10, color: TOKENS.xray });
   }
   // scale bar 1 µm
   {
@@ -1150,7 +1150,7 @@ export function drawTop(
     }
     ctx.stroke();
     ctx.restore();
-    label(ctx, 'spacing vs time (log)', ix + 6, iy + 11, { size: 9, color: TOKENS.ink2 });
+    label(ctx, "Island spacing vs time · log scale", ix + 6, iy + 11, { size: 9, color: TOKENS.ink2 });
     haloText(ctx, '--- ∝ t^{1/3}', ix + iw - 6, iy + ih - 4, { size: 9, color: TOKENS.ink3, align: 'right', halo: false });
   }
   return T;

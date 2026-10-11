@@ -15,8 +15,8 @@
  *   G[g, lag]    Σ_p∈g Σ_t I_p(t) I_p(t−k)
  *   S[l, g]      Σ_p∈g Σ_t I_p(t)          (all values seen at level l)
  *   FIRST[l,i,g] Σ_p∈g I_p(i)              (the first 7 values at level l)
- * The “past” and “future” means needed for symmetric normalisation follow exactly from S minus the first /
- * last k values (the last values are still in the per-pixel ring buffers), so the hot loop does a single
+ * The "past" and "future" means needed for symmetric normalisation follow exactly from S minus the first /
+ * last k values (the last values are still in the per-pixel ring buffers), so the frequently executed loop does a single
  * multiply-add per lag and skips pixels that recorded zero photons (sparse XPCS data).
  */
 export const MT_M = 8;

@@ -190,8 +190,8 @@ export function hexapod(graniteTop: number): THREE.Group {
 }
 
 /**
- * GIXS diffractometer (legacy 8-ID-E): horizontal-sample GISAXS/GIWAXS instrument on the translating granite — tilt
- * (α) cradle and height stage carrying a small multi-port vacuum/environment chamber with the film lying flat.
+ * The legacy 8-ID-E GIXS diffractometer is a horizontal-sample GISAXS/GIWAXS instrument on translating granite.
+ * Its tilt cradle, at angle α, and height stage support a multi-port environment chamber with the film lying flat.
  */
 export function gixsDiffractometer(graniteTop: number): THREE.Group {
   const g = new THREE.Group();

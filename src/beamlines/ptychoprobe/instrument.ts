@@ -21,7 +21,7 @@ export function endstation(): THREE.Group {
   for (const x of [INST.x0 + 0.08, INST.x1 - 0.08]) for (const z of [INST.z0 + 0.08, INST.z1 - 0.08]) g.add(cyl(0.045, 0.04, M.steel(), 16).translateX(x).translateY(INST.couplingTop - 0.02).translateZ(z));
   // ---- granite base
   g.add(boxSpan(INST.x0, INST.x1, INST.couplingTop, INST.baseTop, INST.z0, INST.z1, M.granite(), 0.012));
-  // ---- coarse Y: a pair of granite wedges (5.5°) — sliding the lower wedge in X lifts the upper one
+  // ---- Coarse Y positioning uses two granite wedges at 5.5°. Moving the lower wedge along X raises the upper one.
   const t = Math.tan(THREE.MathUtils.degToRad(WEDGE_DEG));
   const wx0 = INST.x0 + 0.03;
   const wx1 = INST.x1 - 0.03;

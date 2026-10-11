@@ -521,7 +521,7 @@ export function mbeChamber(beamY: number): THREE.Group {
   return shadowed(g);
 }
 
-/** G/2: open rear position — heavy table with a sample stage, ready for large partner instruments. */
+/** The open rear position G/2 has a heavy table and sample stage for large partner instruments. */
 export function openPosition(beamY: number): THREE.Group {
   const g = new THREE.Group();
   const y0 = -beamY;
@@ -537,7 +537,7 @@ export function openPosition(beamY: number): THREE.Group {
   return shadowed(g);
 }
 
-/** Transfocator (UHV, lens cartridges on pneumatic actuators) — used for the B/C transfocators. */
+/** Model the B/C transfocators as lens cartridges on pneumatic actuators inside an ultra-high-vacuum vessel. */
 export function transfocator(beamY: number, n: number): THREE.Group {
   const g = new THREE.Group();
   const L = 0.12 + n * 0.045;

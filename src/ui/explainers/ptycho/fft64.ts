@@ -5,7 +5,7 @@
  * Each 1-D pass is done "vectorised over rows": every butterfly between rows is applied to all columns at once, so
  * the inner loop walks contiguous memory; pairs of radix-2 stages are fused into radix-4 butterflies to halve the
  * memory sweeps. A transpose between the two passes turns the column transform into the row transform.
- * Float64 storage (no float↔double conversions in the hot loop) measured ~2.5× faster than Float32 in V8.
+ * Float64 storage (no float↔double conversions in the frequently executed loop) measured ~2.5× faster than Float32 in V8.
  * Conventions match src/lib/fft.ts: forward uses e^{−i…}, unnormalised; inverse uses e^{+i…} and scales by 1/n².
  */
 
@@ -163,7 +163,7 @@ export function fft2(re: Float64Array, im: Float64Array, n: number, inverse = fa
 }
 
 /**
- * Forward 2-D FFT whose output is left TRANSPOSED (element [kx·n + ky]) — saves two transposes when the spectrum is
+ * Forward 2-D FFT whose output is left TRANSPOSED (element [kx·n + ky]). Saves two transposes when the spectrum is
  * only multiplied point-wise (modulus constraint) and transformed back with fft2InvT.
  */
 export function fft2FwdT(re: Float64Array, im: Float64Array, n: number): void {

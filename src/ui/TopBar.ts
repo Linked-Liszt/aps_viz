@@ -28,7 +28,7 @@ function settingsControls(): HTMLElement[] {
   return [
     h('div', { class: 'kicker' }, 'Rendering'),
     q,
-    h('p', { class: 'small muted' }, 'Use “Light” on laptops with integrated graphics.'),
+    h('p', { class: 'small muted' }, 'Use the Light setting on laptops with integrated graphics.'),
   ];
 }
 
@@ -87,13 +87,13 @@ export class TopBar {
       { class: 'popover tb-menu glass', id: 'tb-menu', role: 'group', 'aria-label': 'More' },
       item('bolt', 'The upgrade', () => this.onStory()),
       item('tour', 'Guided tour', () => this.onTour()),
-      item('pen', 'Author’s note', () => this.onAuthor()),
+      item('pen', "Author's note", () => this.onAuthor()),
       item('keyboard', 'Help', () => this.onHelp()),
       ...settingsControls(),
     );
     this.menuBtn = h(
       'button',
-      { class: 'btn btn-icon btn-ghost tb-more', 'aria-label': 'More: the upgrade, tour, author’s note, help, settings', title: 'More', 'aria-expanded': 'false', 'aria-controls': 'tb-menu', onclick: (e: Event) => this.toggle(this.menu, e.currentTarget as HTMLElement) },
+      { class: 'btn btn-icon btn-ghost tb-more', 'aria-label': "More. The upgrade, tour, author's note, help and settings.", title: 'More', 'aria-expanded': 'false', 'aria-controls': 'tb-menu', onclick: (e: Event) => this.toggle(this.menu, e.currentTarget as HTMLElement) },
       moreIcon(),
     );
 
@@ -131,9 +131,10 @@ export class TopBar {
         'div',
         { class: 'topbar-tools glass' },
         h('button', { class: 'btn btn-ghost btn-icon', onclick: () => this.onSearch(), title: 'Search (/ or Ctrl+K)', 'aria-label': 'Search' }, icon('search', 17)),
-        h('button', { class: 'btn btn-ghost tb-wide', onclick: () => this.onStory(), 'aria-label': 'The upgrade', title: 'Why the upgrade? Interactive stations about the new storage ring' }, icon('bolt', 16), h('span', { class: 'tb-label' }, 'The upgrade')),
+        h('button', { class: 'btn btn-ghost tb-wide', onclick: () => this.onStory(), 'aria-label': 'The upgrade', title: 'Interactive stations about the upgraded storage ring' }, icon('bolt', 16), h('span', { class: 'tb-label' }, 'The upgrade')),
         h('button', { class: 'btn btn-ghost tb-wide', onclick: () => this.onTour(), 'aria-label': 'Guided tour', title: 'Guided tour (T)' }, icon('tour', 16), h('span', { class: 'tb-label' }, 'Guided tour')),
-        h('button', { class: 'btn btn-ghost btn-icon tb-wide', onclick: () => this.onAuthor(), 'aria-label': 'Author’s note', title: 'Author’s note' }, icon('pen', 17)),
+        h('button', { class: 'btn btn-ghost tb-wide', onclick: () => this.onAuthor(), 'aria-label': "Author's note", title: "Author's note" }, icon('pen', 16), h('span', null, "Author's note")),
+        h('a', { class: 'btn btn-ghost tb-github', href: 'https://github.com/Linked-Liszt/aps_viz', target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'GitHub repository', title: 'View the project on GitHub' }, icon('github', 17), h('span', { class: 'tb-label' }, 'GitHub')),
         this.settingsBtn,
         h('button', { class: 'btn btn-icon btn-ghost tb-wide', 'aria-label': 'Help and keyboard shortcuts', title: 'Help (?)', onclick: () => this.onHelp() }, icon('keyboard', 17)),
         this.menuBtn,

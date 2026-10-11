@@ -53,8 +53,31 @@ function cached<T extends THREE.Material>(key: string, make: () => T): T {
   return m;
 }
 
+let hutchPostprocessing = true;
+const hutchOpacities = new Map<THREE.Material, number | null>();
+
+/** Register hutch walls so their transparency stays similar in the two rendering paths. */
+export function configureHutchMaterial<T extends THREE.Material>(m: T): T {
+  const opacity = m.transparent ? m.opacity : null;
+  hutchOpacities.set(m, opacity);
+  m.opacity = hutchOpacity(opacity);
+  return m;
+}
+
+function hutchOpacity(opacity: number | null): number {
+  // High and Balanced blend in linear HDR before tone mapping. The same alpha makes walls much paler
+  // than Light, which blends after tone mapping. Reduce only the translucent hutch fill in the HDR path.
+  return opacity === null ? 1 : opacity * (hutchPostprocessing ? 0.4 : 1);
+}
+
+/** Update existing and cached hutch materials when the renderer switches quality. */
+export function setHutchPostprocessing(enabled: boolean): void {
+  hutchPostprocessing = enabled;
+  for (const [m, opacity] of hutchOpacities) m.opacity = hutchOpacity(opacity);
+}
+
 export const mats = {
-  genericHutch: () => cached('genericHutch', () => new THREE.MeshStandardMaterial({ color: 0x5d6673, roughness: 0.95, metalness: 0 })),
+  genericHutch: () => cached('genericHutch', () => configureHutchMaterial(new THREE.MeshStandardMaterial({ color: 0x5d6673, roughness: 0.95, metalness: 0 }))),
   model: () => cached('model', () => new THREE.MeshStandardMaterial({ color: COLORS.model, roughness: 0.92, metalness: 0 })),
   modelShade: () => cached('modelShade', () => new THREE.MeshStandardMaterial({ color: COLORS.modelShade, roughness: 0.95 })),
   concrete: () => cached('concrete', () => new THREE.MeshStandardMaterial({ color: COLORS.concrete, roughness: 0.97 })),
@@ -66,9 +89,9 @@ export const mats = {
   mirror: () => cached('mirror', () => new THREE.MeshStandardMaterial({ color: 0xdfe8f5, roughness: 0.04, metalness: 1.0 })),
   detector: () => cached('detector', () => new THREE.MeshStandardMaterial({ color: COLORS.detector, roughness: 0.6, metalness: 0.3 })),
   granite: () => cached('granite', () => new THREE.MeshStandardMaterial({ color: 0x2b2f36, roughness: 0.75 })),
-  hutchGlass: () =>
-    cached('hutchGlass', () =>
-      new THREE.MeshStandardMaterial({ color: COLORS.hutch, roughness: 0.6, transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide, forceSinglePass: true }),
+  hutchWall: () =>
+    cached('hutchWall', () =>
+      configureHutchMaterial(new THREE.MeshStandardMaterial({ color: COLORS.hutch, roughness: 0.6, transparent: true, opacity: 0.2, depthWrite: false, side: THREE.BackSide, forceSinglePass: true })),
     ),
   hutchEdge: () => cached('hutchEdge', () => new THREE.LineBasicMaterial({ color: 0xc9d6e6, transparent: true, opacity: 0.55 })),
   magnetDipole: () => cached('magDip', () => new THREE.MeshStandardMaterial({ color: 0x3f7fd6, roughness: 0.5, metalness: 0.2 })),
@@ -119,6 +142,9 @@ export function setFaded(m: THREE.Material, opacity: number | null): void {
   const on = opacity !== null;
   if (m.transparent !== on) m.needsUpdate = true;
   m.transparent = on;
-  m.opacity = opacity ?? 1;
+  if (hutchOpacities.has(m)) {
+    hutchOpacities.set(m, opacity);
+    m.opacity = hutchOpacity(opacity);
+  } else m.opacity = opacity ?? 1;
   m.depthWrite = !on;
 }

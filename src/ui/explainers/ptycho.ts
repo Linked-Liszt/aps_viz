@@ -1,5 +1,5 @@
 /**
- * Station "The lens is a computer" — ptychography with live reconstruction (PtychoProbe, 33-ID).
+ * Station "Ptychographic image reconstruction". Ptychography with live reconstruction (PtychoProbe, 33-ID).
  *
  * A focused-but-defocused X-ray beam (46 nm) is stepped across an illustrative test chip; at every stop the
  * far-field diffraction pattern is recorded with Poisson photon noise; ePIE then recovers the complex object AND the
@@ -60,8 +60,8 @@ interface Run {
 }
 
 const mod: ExplainerModule = {
-  title: 'The lens is a computer',
-  subtitle: 'Change the scan step and the X-ray source, then watch a computer turn X-ray speckle into a sharp picture.',
+  title: "Ptychographic image reconstruction",
+  subtitle: "Change the scan step and X-ray source to see how a computer reconstructs an image from overlapping diffraction measurements.",
   mount(host, ctx) {
     const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = /^#[0-9a-f]{6}$/i.test(ctx.color) ? ctx.color : '#60a5fa';
@@ -141,9 +141,9 @@ const mod: ExplainerModule = {
 
     // ------------------------------------------------------------------ canvases
     const smpC = canvas2d(station.visual, { label: '1 · Sample + beam' });
-    const detC = canvas2d(station.visual, { label: '2 · Camera (log scale)' });
-    const recC = canvas2d(station.visual, { label: "3 · Computer's image" });
-    const errC = canvas2d(station.visual, { label: '4 · How far off?' });
+    const detC = canvas2d(station.visual, { label: "2 · Detector counts · log scale" });
+    const recC = canvas2d(station.visual, { label: "3 · Reconstructed image" });
+    const errC = canvas2d(station.visual, { label: "4 · Reconstruction error" });
     const wraps = { smp: smpC.canvas.parentElement!, det: detC.canvas.parentElement!, rec: recC.canvas.parentElement!, err: errC.canvas.parentElement! };
     {
       smpC.canvas.setAttribute('aria-label', 'Test chip with the scan positions of the X-ray beam. Drag, or focus and use the arrow keys, to aim the beam and see its diffraction pattern.');
@@ -228,20 +228,20 @@ const mod: ExplainerModule = {
     }, 'is-primary');
     bRun.style.flex = '1 1 auto';
     const bRestart = button(btnRow, 'Restart', () => restartSolver());
-    bRestart.title = 'Solve again from a blank guess, with the same recorded data';
+    bRestart.title = "Reconstruct again from a blank initial image, using the same recorded data";
     const bDefaults = button(btnRow, 'Reset', () => setDefaults());
     bDefaults.title = 'Restore the default source, exposure and scan step';
     // reduced motion: the scan and the solver still run, but the panels show their result instead of every step
     const motion = motionGate(station, btnRow, {
-      play: '▶ Show it live',
+      play: "▶ Animate reconstruction",
       pause: '❚❚ Results only',
-      title: 'Your device asks for reduced motion: the panels show each result rather than every step. Press to watch the scan and the solver live.',
+      title: "Reduced motion is enabled on your device. The panels display results rather than each step. Press to animate the scan and reconstruction.",
       onChange: () => dirtyAll(),
     });
     const rRes = readout(gRun, 'Finest detail', { big: true, color: accent });
-    rRes.el.title = 'Half-period of the finest detail that matches the true chip (Fourier ring correlation at 0.5)';
+    rRes.el.title = "Half-period of the finest detail that agrees with the true chip, measured by Fourier ring correlation at 0.5";
     const rRF = readout(gRun, 'Data misfit');
-    rRF.el.title = 'R_F: how far the patterns predicted by the current picture and beam are from the recorded ones, compared with the level that photon noise alone would give';
+    rRF.el.title = "R_F measures the difference between predicted and recorded diffraction patterns, compared with the difference expected from photon noise alone.";
     const syncRunButton = () => {
       bRun.textContent = running ? 'Pause' : stage === 'done' ? 'Resume' : 'Run';
       bRun.setAttribute('aria-pressed', String(running));
@@ -251,8 +251,8 @@ const mod: ExplainerModule = {
     const gSrc = group(station.controls, 'X-ray source');
     const tSrc = toggle<Source>(gSrc, {
       options: [
-        { value: 'aps', label: 'APS (before)', title: 'The original APS storage ring (1996–2023): ~100× less coherent flux' },
-        { value: 'apsu', label: 'APS-U', title: 'The upgraded multi-bend-achromat ring (2024–)' },
+        { value: 'aps', label: "APS before upgrade", title: "The original APS storage ring operated from 1996 to 2023. This model uses ~100× less coherent flux." },
+        { value: 'apsu', label: 'APS-U', title: "The upgraded multi-bend-achromat ring has operated since 2024." },
       ],
       value: par.src,
       onChange: (v) => {
@@ -278,7 +278,7 @@ const mod: ExplainerModule = {
     note(
       gSrc,
       station,
-      'Ptychography needs **coherent** X-rays, waves marching in step. Coherent flux grows with the source’s brightness, so APS-U delivers **over 100× more**: 3.1×10^{10} photons/s at 10 keV into this lens’s focus (a design value; see below). The “before” source here is simply 100× weaker, for illustration.',
+      "Ptychography uses coherent X-rays, whose waves have a stable phase relationship. Coherent flux grows with source brightness. The design coherent flux in this focus is 3.1×10^{10} photons/s at 10 keV, over 100× the pre-upgrade estimate. This value depends on the design assumptions described below. The pre-upgrade source in this model is 100× weaker for illustration.",
     );
 
     // scan
@@ -298,8 +298,8 @@ const mod: ExplainerModule = {
     const tPat = toggle<ScanPattern>(gScan, {
       label: 'Pattern',
       options: [
-        { value: 'raster', label: 'Grid', title: 'Raster grid (snake order, ±1 px jitter)' },
-        { value: 'spiral', label: 'Spiral', title: 'Fermat spiral (no periodicity)' },
+        { value: 'raster', label: 'Grid', title: "Raster grid in snake order, with ±1 px jitter" },
+        { value: 'spiral', label: 'Spiral', title: "Fermat spiral without periodic spacing" },
       ],
       value: par.pattern,
       onChange: (v) => {
@@ -310,7 +310,7 @@ const mod: ExplainerModule = {
     note(
       gScan,
       station,
-      `Each ring is one shot of the ${D_TXT} nm beam; overlap = 1 − step ÷ ${D_TXT} nm. Neighbours must **overlap** by about 60 % or more, so the computer can tell the beam apart from the sample. The grid is jittered by ±1 pixel, because a perfectly regular grid creates artefacts of its own; the Fermat spiral has no regularity at all.`,
+      `Each ring marks one exposure with the ${D_TXT} nm beam. Overlap = 1 − step ÷ ${D_TXT} nm. Adjacent exposures need about 60 % overlap or more to distinguish the beam profile from the sample. The grid positions vary by ±1 pixel because a perfectly regular grid can introduce reconstruction artefacts. The Fermat spiral avoids periodic spacing.`,
     );
 
     // model caveats: the fine print, in smaller type
@@ -318,7 +318,7 @@ const mod: ExplainerModule = {
     note(
       gModel,
       station,
-      'A simulation, not data. The test chip is illustrative: gold 150 nm, tungsten and copper 120 nm thick, thinner than the ≈170 nm depth of field, so a single-layer model holds. One fully coherent beam mode, exact positions and photon noise only (no detector noise or count-rate limit). The solver is plain ePIE, not the best at low dose, but APS and APS-U get the same one. The error and the finest detail are measured against the known chip, over the same area for every scan. The design flux assumes a Si(311) monochromator (the lens’s 11,250 zones need a bandwidth below ≈9×10^{−5}; the installed Si(111) passes 1.4×10^{−4}) and 4.6 m of undulator (as built ≈2.35 m: ~3× less coherent flux).',
+      "This is a simulation of an illustrative chip. The gold is 150 nm thick, and the tungsten and copper are 120 nm thick. These layers are thinner than the ≈170 nm depth of field, so a single-layer model applies. The model uses one fully coherent beam mode, exact positions and photon noise. It does not include detector noise or a count-rate limit. Both sources use plain ePIE, which performs poorly at low dose compared with more advanced solvers. Error and finest detail are measured against the known chip over the same area for every scan. The design flux assumes a Si(311) monochromator. For 11,250 zones, the required bandwidth is below ≈9×10^{−5}. The installed Si(111) bandwidth is 1.4×10^{−4}. The design also assumes 4.6 m of undulator. The installed length is ≈2.35 m, with ~3× less coherent flux.",
     );
     (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
 
@@ -661,13 +661,13 @@ const mod: ExplainerModule = {
         g.stroke();
       }
       g.restore();
-      haloText(g, fitText(g, ["lens's own cone (bright field)", "lens's own cone"], r.w - 6, f, 600), cx, cy - PUPIL_R_PX * sc - 4, { size: f, align: 'center', color: TOKENS.ink });
+      haloText(g, fitText(g, ["lens cone · bright field", "lens cone"], r.w - 6, f, 600), cx, cy - PUPIL_R_PX * sc - 4, { size: f, align: 'center', color: TOKENS.ink });
       if (meas && meas.done) {
         const reach = Number.isFinite(r1) ? r1 : M / 2;
         const t = fitText(
           g,
           Number.isFinite(r1)
-            ? [`outside: < 1 photon per pixel (detail < ${halfPeriodNm(r1).toFixed(1)} nm)`, 'outside: < 1 photon per pixel', 'outside: < 1 photon/pixel', '< 1 photon/pixel']
+            ? [`outside: <1 photon/pixel · detail <${halfPeriodNm(r1).toFixed(1)} nm`, 'outside: < 1 photon per pixel', 'outside: < 1 photon/pixel', '< 1 photon/pixel']
             : ['≥ 1 photon per pixel to the edge', '≥ 1 photon/pixel'],
           r.w - 6,
           f,
@@ -862,29 +862,29 @@ const mod: ExplainerModule = {
       const r1 = meas && meas.done ? meas.data.r1 : NaN;
       let v = '';
       const err = (lastErr * 100).toFixed(0);
-      const misfit = solver && solver.errF.length && meas ? ` (misfit to the patterns ${eNum(solver.errF[solver.errF.length - 1])}, photon-noise floor ${eNum(noiseFloor(meas.data))})` : '';
+      const misfit = solver && solver.errF.length && meas ? `. The pattern misfit is ${eNum(solver.errF[solver.errF.length - 1])}, compared with a photon-noise floor of ${eNum(noiseFloor(meas.data))}` : '';
       switch (key) {
         case 'manual':
-          v = `**You are aiming the beam.** The camera shows this spot's speckle pattern: the bright disc is light that went straight through the lens's cone (the *bright field*, which carries a blurred shadow image); the faint speckles outside it were bent by the chip's tiny structures. The finer the structure, the wider the angle: the camera's edge, ${angleMrad(M / 2).toFixed(0)} mrad out, stands for 2 nm detail.`;
+          v = `You are aiming the beam. The speckle pattern is shown for this beam position. The bright disc is the bright field: X-rays transmitted within the lens's cone, which form a blurred shadow image. Fine structures in the chip scatter X-rays outside this disc. Finer structures scatter to wider angles. The detector's edge is ${angleMrad(M / 2).toFixed(0)} mrad from the centre and corresponds to 2 nm detail.`;
           break;
         case 'measure':
-          v = `**Recording.** The glowing ring is the X-ray beam, left ${d} nm wide on purpose by putting the chip 1.5 µm past the focus of a zone-plate lens with 4 nm outer rings. It hops across the chip, and at each of ${scan.count} stops the camera records a speckle pattern of ~${sci(ph)} photons: not a picture, just scattered X-rays. No X-ray lens can focus to a perfect point, so a computer will make the picture.`;
+          v = `The X-ray beam is ${d} nm wide because the chip is 1.5 µm beyond the focus of a zone-plate lens with 4 nm outer rings. At each of ${scan.count} positions, a diffraction pattern of ~${sci(ph)} photons is recorded. These measurements record scattered intensity rather than a focused image. A computer reconstructs the image from the overlapping measurements.`;
           break;
         case 'early':
         case 'solving':
-          v = `**The computer is the lens.** Starting from a blank guess, it keeps adjusting its picture, and its idea of the beam, until both reproduce every recorded pattern; the method, ePIE (extended ptychographic iterative engine), updates one shot at a time. Watch the letters sharpen: the beam is ${d} nm wide, but the finest detail is set by the widest angle at which the camera still catches X-rays. Iteration ${it}: error ${err} %.`;
+          v = `The solver starts from a blank image and adjusts its estimates of the image and beam until their predicted patterns agree with the recorded patterns. The method is ePIE, the extended ptychographic iterative engine. It updates one exposure at a time. The beam is ${d} nm wide, but the widest scattering angle with enough recorded photons determines the finest detail. At iteration ${it}, the error is ${err} %.`;
           break;
         case 'overlap':
-          v = `**Not enough overlap.** At ${ovPct} % neighbouring shots share too little, so the computer can't tell which wiggles belong to the beam and which to the chip: stripes and smears appear and the picture won't come right. Yet it fits the recorded patterns about as well as a good run${misfit}, while the error stays near ${err} %: a wrong answer that explains the data. Make the step smaller, until neighbouring rings overlap by about 60 % or more.`;
+          v = `At ${ovPct} % overlap, adjacent exposures share too little information to distinguish the beam profile from the chip. Stripes and blurring appear in the reconstructed image. The recorded patterns fit about as well as in a successful reconstruction${misfit}, while the image error stays near ${err} %. Agreement with the measurements alone does not guarantee the correct image. Reduce the step until adjacent exposures overlap by about 60 % or more.`;
           break;
         case 'dose':
-          v = `**Starved of photons.** ${par.src === 'aps' ? 'The pre-upgrade APS delivers ~100× fewer coherent X-rays' : 'This exposure is very short'}: about ${sci(ph)} photons per shot. The outer camera pixels, where the finest details are written, stay almost empty${Number.isFinite(r1) ? ` (below 1 photon per pixel beyond ${halfPeriodNm(r1).toFixed(1)} nm detail; overlapping shots add up, so this is not a hard cut-off)` : ''}, so the picture comes out grainy and blurred.${lastErr > 1 ? ' Here the noise even outweighs the chip’s faint contrast, and the error rises above the blank start.' : ''} Scattering typically fades as the fourth power of the angle, so 10× finer detail needs ~10^{4}× more photons. ${par.src === 'aps' ? 'Switch to **APS-U**.' : 'Expose longer.'}`;
+          v = `${par.src === 'aps' ? 'Pre-upgrade coherent flux is ~100× lower' : 'This exposure is very short'}, with about ${sci(ph)} photons per exposure. At outer detector pixels, few photons are recorded from the finest structures${Number.isFinite(r1) ? `. Beyond ${halfPeriodNm(r1).toFixed(1)} nm detail, the mean count is below 1 photon per pixel. Counts from overlapping exposures add together, so this is not a hard cutoff` : ''}. The reconstructed image is noisy and blurred.${lastErr > 1 ? ' Here the noise exceeds the chip\'s faint contrast, and the error is greater than for the blank initial image.' : ''} Scattering typically falls as the fourth power of the angle, so 10× finer detail needs ~10^{4}× more photons. ${par.src === 'aps' ? 'Switch to APS-U.' : 'Increase the exposure.'}`;
           break;
         default:
           v =
             par.src === 'apsu'
-              ? `**Solved: ${res || 'nm-scale'} detail from a ${d} nm beam** (error ${err} %; the camera's pixels allow 2 nm). The camera, not the lens, set the sharpness: wide-angle X-rays carry the fine detail, and APS-U's coherent flux puts enough photons there. The lens alone would manage ≈5 nm even in focus; PtychoProbe aims at ~1 nm on samples that tolerate the dose.${lowOv ? ' With this little overlap it got there only slowly.' : ''} Now try **APS (before)**, or a bigger step.`
-              : `**Solved, but slowly** (error ${err} %, detail ${res || 'coarse'}). The pre-upgrade APS needed ${fmtDwell(par.dwellUs)} per shot to collect what APS-U gathers in ${fmtDwell(par.dwellUs / 100)}: a chip-sized scan that takes APS-U a minute would have taken well over an hour.`;
+              ? `The reconstruction resolves ${res || 'nanometre-scale'} detail with a ${d} nm beam. The error is ${err} %, and the detector pixels allow 2 nm detail. Wide-angle scattering determines the resolution, and With APS-U, enough photons are recorded at those angles. The focused lens resolution is ≈5 nm. PtychoProbe aims for ~1 nm on samples that tolerate the dose.${lowOv ? ' The low overlap made this reconstruction slow.' : ''} Try APS before upgrade or a larger step.`
+              : `The reconstruction has error ${err} % and detail ${res || 'coarse'}. Equal photon counts required ${fmtDwell(par.dwellUs)} per exposure before the upgrade and ${fmtDwell(par.dwellUs / 100)} with APS-U. A chip-sized scan that takes APS-U a minute would have taken well over an hour.`;
       }
       station.setCaption(v);
     }
@@ -897,7 +897,7 @@ const mod: ExplainerModule = {
         const rf = solver.errF[solver.errF.length - 1];
         const fl = noiseFloor(meas.data);
         rRF.set(fl > 0 ? `${(rf / fl).toFixed(1)}× noise floor` : eNum(rf));
-        rRF.el.title = `R_F = ${eNum(rf)}: how far the patterns predicted by the current picture and beam are from the recorded ones; photon noise alone would give ${eNum(fl)}`;
+        rRF.el.title = `R_F = ${eNum(rf)} measures the difference between predicted and recorded diffraction patterns. Photon noise alone would give ${eNum(fl)}.`;
       } else rRF.set('…');
     };
 

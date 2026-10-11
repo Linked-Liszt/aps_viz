@@ -1,5 +1,6 @@
-"""Shrink design-record figures in public/figures: cap width at 1600 px and quantise to a 256-colour palette
-(line drawings and plots survive this visually lossless at screen size). Usage:
+"""Resize design-record figures to at most 1600 pixels wide and quantise their colours to a 256-colour palette.
+Write compressed PNGs in public/figures. With --dry, remove temporary output after measuring its size.
+Usage:
   python3 scripts/compress-figures.py public/figures [--dry]
 """
 import os, sys
@@ -30,4 +31,4 @@ for dirpath, _, files in os.walk(root):
             os.remove(out)
         before += b
         after += min(a, b)
-print(f'{before/1e6:.1f} MB -> {after/1e6:.1f} MB')
+print(f'Total size before compression is {before/1e6:.1f} MB. Estimated size after compression is {after/1e6:.1f} MB.')

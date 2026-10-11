@@ -1,27 +1,28 @@
 /**
- * Physics and data for the "brightness" station. Pure functions only (unit-tested in tests/brightness.test.ts).
+ * Physics and data for the "brightness" station. Pure functions only covered by tests/brightness.test.ts.
  *
- * DEFINITION (spectral brightness, a.k.a. brilliance; Kim 1989, X-ray Data Booklet §2.1)
+ * Definition of spectral brightness, also called brilliance. Sources are Kim 1989 and X-ray Data Booklet §2.1.
  *   B = F / (4π² Σ_x Σ′_x Σ_y Σ′_y)            [ph / s / mm² / mrad² / 0.1 % BW]
  *   F = spectral flux in a 0.1 % bandwidth; Σ, Σ′ = rms photon source size and divergence (Gaussian beams, waist
  *   at the source point, no x–x′ correlation). Equivalent: F / (2πΣ_xΣ_y · 2πΣ′_xΣ′_y) = flux / (source area ×
  *   solid angle), with "area" and "solid angle" the Gaussian effective values 2πΣ_xΣ_y and 2πΣ′_xΣ′_y.
  *
- * PHOTON SOURCE = electron beam ⊗ single-electron undulator radiation (Kim 1989, Gaussian approximation):
+ * Photon source = electron beam ⊗ single-electron undulator radiation (Kim 1989, Gaussian approximation):
  *   Σ² = σ_e² + σ_r²,  Σ′² = σ_e′² + σ_r′²,   σ_r = √(2λL)/4π,  σ_r′ = √(λ/2L)   ⇒  σ_r σ_r′ = λ/4π
  *   L = 2.4 m (a full-length APS undulator; the same convention as the facility dossier's coherence estimates).
  *   Caveats (the station's notes name the main simplifications): Tanaka & Kitamura (2009) give σ_r ≈ 2× Kim's
  *   and an energy-spread broadening of σ_r′ (σ_δ = 0.136 % at APS-U) that matters for high harmonics;
  *   zero-current electron beams; β-mismatch between electron and photon beams is ignored.
- * DIFFRACTION LIMIT: a perfect (zero-emittance) electron beam gives Σ_iΣ′_i = λ/4π per plane, so
+ * Diffraction limit: for an ideal electron beam with zero emittance, Σ_iΣ′_i = λ/4π per plane, so
  *   B_max = F / (4π² (λ/4π)²) = 4F/λ²  (fully coherent beam; Kim 1989).
  *
- * LENS + SLIT ACCEPTANCE (panel 1) — wave-optics exact. A thin lens (f = 7.5 m) with a soft aperture at z₁ = 15 m
- *   images the source 1:1 onto a soft slit at z₂ = 30 m: the slit selects source POSITION, the lens aperture
- *   selects emission ANGLE, so the count measures photons per (size × angle), i.e. brightness. (Two bare slits far
- *   from the source cannot do this: their acceptance at the source has β = (z₁² + z₂²)/Δz ≥ 72 m for z₁ ≥ 15 m,
- *   badly mismatched to an APS-U photon beam with β = Σ/Σ′ ≈ 1.5–3 m, so every source below ~30 µm looks like a
- *   point to them and the count saturates far below the brightness gain. The lens makes β_acc ≈ s₂z₁/s₁ = 2 m.)
+ * Lens and slit acceptance in panel 1 follows exact Gaussian wave optics.
+ *   A thin lens has f = 7.5 m and a soft aperture at z₁ = 15 m. Its 1:1 source image forms at a soft slit
+ *   at z₂ = 30 m. Transmission depends on source position at the slit and emission angle at the lens aperture.
+ *   Counts therefore measure photons per size × angle, the horizontal brightness factor.
+ *   For two bare slits, source acceptance has β = (z₁² + z₂²)/Δz ≥ 72 m for z₁ ≥ 15 m. This differs greatly
+ *   from the APS-U photon-beam β = Σ/Σ′ ≈ 1.5 to 3 m. For source widths below ~30 µm, the count saturates
+ *   below the brightness gain. With the lens, β_acc ≈ s₂z₁/s₁ = 2 m.
  *   Both apertures are tall GAUSSIAN (apodized) slits, amplitude transmission t(x) = exp(−x²/4s²), intensity
  *   exp(−x²/2s²) (a parabolic CRL's absorption aperture is Gaussian too). For a Gaussian Schell-model beam (Kim's
  *   Gaussian photon source is one) the Wigner function W(x, θ) is a positive Gaussian and is transformed EXACTLY by
@@ -33,23 +34,23 @@
  *   exact Monte Carlo of the wave intensity. The pass probability is analytic (Gaussian conditioning,
  *   passFraction). Effective acceptance A = ∫∫ (pass probability) dx dθ = 2π s₁s₂/(z₂ − z₁) (∂(x₁,x₂)/∂(x₀,θ) = Δz
  *   with or without the lens; the kick conserves it), and P ≤ A/(2πΣΣ′) (peak phase-space density × acceptance)
- *   with equality when the beam overfills it (Liouville) — the photon rate through a small acceptance is set by
- *   brightness, not by total flux. s₁ = 30 µm ≙ 75 µm hard, s₂ = 4 µm ≙ 10 µm hard (width √(2π)s). Diffraction
+ *   with equality when the beam overfills it (Liouville). The photon rate through a small acceptance is set by
+ *   brightness, not by total flux. S₁ = 30 µm ≙ 75 µm hard, s₂ = 4 µm ≙ 10 µm hard (width √(2π)s). Diffraction
  *   (λ/4πs₁ = 3.3 µrad at 1 keV, 0.16 µrad at 20 keV, i.e. a diffraction-limited focus of rms Δz·λ/4πs₁) lowers P
  *   at low E. Only the horizontal plane is tested (tall slits), so the count ignores the vertical factor of B.
  *
- * ELECTRON BEAMS at the ID source point (rms, zero current):
- *   APS 2019 (7 GeV, 100 mA, ε_x 3.1 nm): σ_x 275 µm, σ_x′ 11 µrad, σ_y 10 µm, σ_y′ 3.5 µrad — FDR 2019 Table 2.1.
- *   APS-U (6 GeV, 200 mA) round, κ = 1 (user mode): 12.3 µm, 2.34 µrad, 8.3 µm, 3.47 µrad — APS Storage Ring
- *   Parameters 2024 (Borland), Table 5.  Flat, κ = 0.1: 14.5 µm, 2.75 µrad, 3.1 µm, 1.29 µrad — same table.
+ * Electron beams at the ID source point (rms, zero current):
+ *   APS 2019 (7 GeV, 100 mA, ε_x 3.1 nm): σ_x 275 µm, σ_x′ 11 µrad, σ_y 10 µm, σ_y′ 3.5 µrad. FDR 2019 Table 2.1.
+ *   APS-U (6 GeV, 200 mA) round, κ = 1 (user mode): 12.3 µm, 2.34 µrad, 8.3 µm, 3.47 µrad. APS Storage Ring
+ *   Parameters 2024 (Borland), Table 5.  Flat, κ = 0.1: 14.5 µm, 2.75 µrad, 3.1 µm, 1.29 µrad. Same table.
  *
- * DESIGN BRILLIANCE CURVES (panel 2) — all are design calculations; no measured APS-U brightness curve has been
+ * Design brightness curves in panel 2. All are design calculations; no measured APS-U brightness curve has been
  * published (facility dossier, Oct. 2026):
- *   ENVELOPE: IPAC'21 MOXA02 (R. Hettel, "Status of the APS-U Project") Fig. 1, upper envelope over all candidate
+ *   Envelope: IPAC'21 MOXA02 (R. Hettel, "Status of the APS-U Project") Fig. 1, upper envelope over all candidate
  *     undulators, APS vs APS-U, digitized by the facility dossier (±20 % in value, ±3 % in energy).
- *   DEVICES: APS-U FDR 2019 Fig. 2.1 (vector paths, exact) — APS: HPM 3.3 & 2.7 cm × 4.8 m at 10.75 mm gap;
+ *   Devices: APS-U FDR 2019 Fig. 2.1 (vector paths, exact). APS: HPM 3.3 & 2.7 cm × 4.8 m at 10.75 mm gap;
  *     APS-U: HPMU 2.8 & 2.5 cm × 4.6 m at 8.5 mm; SCU 2.05 & 1.55 cm × 3.5 m at 8.0 mm (FDR Table 2.2).
- *   ANCHOR: FDR 2019 Table 1.1 at 20 keV (undulator optimized for 20 keV): APS 6×10¹⁹, APS-U brightness mode
+ *   Reference point: FDR 2019 Table 1.1 at 20 keV (undulator optimized for 20 keV): APS 6×10¹⁹, APS-U brightness mode
  *     (324 bunches) 3.25×10²² → ×540; the facility's "up to 500× brighter" headline.
  *   Curves between digitized points: monotone cubic (Fritsch–Carlson) in log B vs log E (no overshoot).
  */
@@ -231,7 +232,7 @@ export function widthAfterLens(a: AfterLens, z: number, sl: Slits = SLITS): numb
 
 /**
  * Exact probability that a photon passes the lens aperture and then the slit at z₂ (wave optics for Gaussian
- * beams: see the header). diffraction = false gives geometric rays only.
+ * beams: see the header). Diffraction = false gives geometric rays only.
  */
 export function passFraction(S: number, Sp: number, EkeV: number, sl: Slits = SLITS, diffraction = true): number {
   const a = afterLens(S, Sp, EkeV, sl, diffraction);
@@ -265,11 +266,11 @@ export interface DataSet {
 const E_ENV = [1, 2, 3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 60, 80, 100];
 export const ENVELOPE: DataSet = {
   id: 'envelope',
-  label: "Design envelope, all candidate undulators (IPAC'21 Fig. 1, digitized ±20 %)",
+  label: "Design envelope of candidate undulators · IPAC'21 Fig. 1 · digitized ±20 %",
   source: "R. Hettel, Proc. IPAC'21 MOXA02, Fig. 1 (digitized by the facility dossier)",
   old: {
     id: 'aps',
-    label: 'APS (pre-2023)',
+    label: 'APS before upgrade',
     E: E_ENV,
     B: [1.3e19, 1.6e19, 3e19, 1.3e20, 1.7e20, 1.6e20, 7.7e19, 6.4e19, 1e20, 4.5e19, 2.6e19, 1.2e19, 8.3e18, 2.7e18, 1.4e18],
   },
@@ -286,7 +287,7 @@ export const ENVELOPE: DataSet = {
 const E_DEV = [5, 8, 10, 12, 15, 20, 25, 30, 40, 50, 60, 70, 80, 85, 90, 100, 110, 120];
 export const DEVICES: DataSet = {
   id: 'devices',
-  label: 'Specific undulators (APS-U FDR 2019 Fig. 2.1)',
+  label: 'Specific undulators · APS-U FDR 2019 Fig. 2.1',
   source: 'APS-U Final Design Report (2019) Fig. 2.1 and Table 2.2',
   old: {
     id: 'aps',

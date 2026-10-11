@@ -1,5 +1,5 @@
 /**
- * Raster-scan engine (no DOM): the probe-weighted areal mass at each scan position, Poisson counting statistics,
+ * Raster-scan engine without DOM access: the probe-weighted areal mass at each scan position, Poisson counting statistics,
  * and the summed / per-pixel XRF spectra.
  *
  * Probe: Gaussian with the delivered FWHM (a diffraction-limited KB focus is closer to sinc² with weak side lobes;

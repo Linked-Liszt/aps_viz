@@ -646,7 +646,7 @@ export function bcdiDetector(): THREE.Group {
 /**
  * Converging/diverging beam envelope of the two-stage zoom KB (schematic: lateral size ×~30, one round envelope for both
  * planes, V-mirror distances). KB1 focuses to an intermediate focus that slides between q1 = 1.25 and 13.2 m; KB2 re-images
- * it onto the fixed focus. The footprint on KB2 — hence the numerical aperture and the final spot — is largest when the
+ * it onto the fixed focus. The footprint on KB2, and therefore the numerical aperture and final spot, is largest when the
  * intermediate focus is close to KB1 (≈50 nm mode, KB2 aperture fully filled: drawn clamped) and smallest when it sits near
  * KB2 (≈2 µm mode). The final cone (KB2 → sample) is drawn a further 5× thinner.
  */

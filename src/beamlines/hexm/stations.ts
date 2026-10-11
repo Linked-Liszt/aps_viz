@@ -42,7 +42,7 @@ export function htHedm(o: { idle?: boolean } = {}): THREE.Group {
   g.add(rot, ring);
   // hexapod above the rotation
   g.add(hexapod(0.15, 0.09, FLOOR + 0.78, -0.16));
-  // sample mount (pin) — with a sample at the beam, or empty and below the beam when the station is idle
+  // The sample-mount pin is at beam height during use, or empty and below the beam when idle.
   if (o.idle) g.add(cyl(0.006, 0.07, M.steel(), 10).translateY(-0.115));
   else {
     g.add(cyl(0.006, 0.12, M.steel(), 10).translateY(-0.09));

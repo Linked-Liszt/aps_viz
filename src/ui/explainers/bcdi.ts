@@ -1,14 +1,14 @@
 /**
- * Station "Strain inside a nanocrystal" — Bragg coherent diffraction imaging (BCDI) at ATOMIC (34-ID-F).
+ * Station "Strain inside a nanocrystal". Bragg coherent diffraction imaging (BCDI) at ATOMIC (34-ID-F).
  *
  * Three linked views of one experiment:
- *   1. the crystal: a faceted Au nanocrystal whose atoms are displaced by u(r) (choose the cause and its strength);
+ *   1. The crystal: a faceted Au nanocrystal whose atoms are displaced by u(r) (choose the cause and its strength);
  *      colour = φ = G·u, the projection of the displacement on the Bragg vector G, and the lattice planes that this
  *      reflection sees drawn with spacing and displacement magnified ×PLANE_MAG;
- *   2. the detector: |A(Δq)|² around the Bragg peak with Poisson noise for the chosen source (APS vs APS-U) and
- *      exposure — centro-symmetric for any unstrained crystal (Friedel), lopsided once strain varies inside;
- *   3. the computer: live HIO/ER + shrink-wrap phase retrieval from the noisy intensities alone, budgeted a few
- *      iterations per frame, with a data-only "stuck → new random start" rule and a convergence plot.
+ *   2. The detector: |A(Δq)|² around the Bragg peak with Poisson noise for the chosen source (APS vs APS-U) and
+ *      exposure. Centro-symmetric for any unstrained crystal (Friedel), asymmetric once strain varies inside;
+ *   3. The computer: live HIO/ER + shrink-wrap phase retrieval from the noisy intensities alone, budgeted a few
+ *      iterations per frame, with a data-only restart from a random estimate when the misfit is too large rule and a convergence plot.
  *
  * All physics, equations, parameter values and sources are documented in ./bcdi/physics.ts (forward model, fields,
  * coherent-flux estimate, ATOMIC specs) and ./bcdi/phasing.ts (algorithms). Illustrative elements (photon scale,
@@ -105,28 +105,28 @@ const MODES: { id: Mode; name: string }[] = [
 /** `lead`: the one-sentence opener of the live caption; `note`: the fuller text beside the controls */
 const MODE_TEXT: Record<Mode, { lead: string; note: string }> = {
   perfect: {
-    lead: '**A flawless crystal.** Every row of atoms sits exactly where it belongs: the colour is even and the planes are straight.',
-    note: '**A flawless crystal.** Every row of atoms sits exactly where it belongs: the colour is even and the planes are straight. Its X-ray pattern is then perfectly symmetric (turned half a turn it looks the same) whatever the crystal’s shape, a rule known as Friedel’s law. The streaks run square to each flat face, and the fringe spacing is set by the crystal’s size.',
+    lead: "The crystal is unstrained. Atomic planes are evenly spaced and the displacement colour is uniform.",
+    note: "The crystal is unstrained, with evenly spaced atomic planes and uniform displacement colour. Its diffraction pattern has half-turn symmetry regardless of crystal shape, as required by Friedel's law. Streaks run perpendicular to flat faces. Fringe spacing depends on crystal size.",
   },
   expanded: {
-    lead: '**Heated or cooled.** Every row of atoms moves apart (or together) by the same tiny amount, so the planes simply spread evenly.',
-    note: '**Heated or cooled.** Every row of atoms moves apart (or together) by the same tiny amount, so the planes simply spread evenly. The colours repeat because X-rays cannot tell a shift of exactly one row from no shift at all. The whole pattern slides but stays symmetric: a uniform strain only changes the average spacing of the planes, which ordinary diffraction measures too.',
+    lead: "Uniform expansion or contraction changes every plane spacing by the same fraction.",
+    note: "Uniform expansion or contraction changes every plane spacing by the same fraction. The colour repeats after an atomic displacement of one plane spacing. The diffraction peak shifts but retains half-turn symmetry. Ordinary diffraction measures the resulting change in average plane spacing.",
   },
   bent: {
-    lead: '**Bent like a bow.** One side is stretched, the other squeezed, so the rows of atoms curve.',
-    note: '**Bent like a bow.** One side is stretched, the other squeezed, so the rows of atoms curve. A bend shifts atoms alike on opposite sides of the centre, so on a crystal symmetric about its centre the pattern would spread and split yet stay symmetric; the weak lopsidedness here comes from the crystal’s flat base on the substrate. Shifts that differ on opposite sides (core–shell, surface, an off-centre dislocation) make patterns strongly lopsided. The bend stops at a radius of 200 µm: tighter bends defeat this rebuild method.',
+    lead: "Bending stretches one side and compresses the other, curving the atomic planes.",
+    note: "Bending stretches one side and compresses the other, curving the atomic planes. On a crystal symmetric about its centre, this displacement would broaden and split the pattern while preserving symmetry. The weak asymmetry here comes from the flat base on the substrate. Core–shell mismatch, surface strain and an off-centre dislocation produce different shifts on opposite sides and stronger asymmetry. Bend radius is limited to 200 µm because the reconstruction method fails at tighter bends.",
   },
   coreshell: {
-    lead: '**A core of slightly different atoms**, like silver inside a gold shell. The core pushes (or pulls) on its shell.',
-    note: '**A core of slightly different atoms**, like silver inside a gold shell, whose atoms sit about 0.18 % farther apart. The core pushes (or pulls) on its shell: the strain is uniform inside the core and fades outward through the shell (the textbook Lamé solution, mapped onto the facets: illustrative). Averaged over the whole crystal the strain equals the core’s mismatch spread over the volume, so the peak also shifts a little.',
+    lead: "A core with different atomic spacing strains the surrounding shell, as for silver inside gold.",
+    note: "Silver atomic spacing is about 0.18 % larger than gold spacing. A silver core therefore strains a surrounding gold shell. Strain is uniform inside the core and decreases through the shell. This is an illustrative Lamé solution mapped onto the facets. Average strain is the core mismatch weighted by its volume fraction, so the peak also shifts.",
   },
   dislocation: {
-    lead: '**An extra half-plane of atoms** (the ⊥), the defect that lets metals bend without breaking.',
-    note: `**An extra half-plane of atoms** (the ⊥), the defect that lets metals bend without breaking. Drag it around inside the crystal. Circling its core, atoms shift by one slip step (the Burgers vector b = ½[110]), so the colours swirl through one full cycle for the 111 and ${REFLECTIONS['-1-11'].label} planes. Pick **002**: these planes don’t feel that slip (G·b = 0, with G the arrow in panel 1) and the swirl vanishes, yet the squeeze around the extra half-plane still shows: for this edge dislocation, G·b = 0 alone does not make it invisible.`,
+    lead: "An edge dislocation contains an extra half-plane of atoms, marked ⊥. Dislocation motion allows plastic deformation.",
+    note: `An edge dislocation contains an extra half-plane of atoms, marked ⊥. Drag it within the crystal. Displacement around the core changes by one Burgers vector, b = ½[110]. The colour therefore completes a full cycle around the core for the 111 and ${REFLECTIONS['-1-11'].label} reflections. For 002, G·b = 0, where G is the normal to the planes shown by the arrow in panel 1. The phase cycle disappears, but the strain around the extra half-plane remains visible. G·b = 0 alone does not make an edge dislocation invisible.`,
   },
   surface: {
-    lead: '**Molecules stuck to the surface** (as in catalysis or sensing) tug on the outer atoms; the strain gathers at edges and corners.',
-    note: '**Molecules stuck to the surface** (as in catalysis or sensing) tug on the outer atoms; the strain gathers at edges and corners. Here the tug fades over ~15 nm from each face and the base is held by the substrate, a simple illustrative model. Thiol molecules cause this kind of edge strain in gold crystals (Watari et al., Nature Materials 2011, measured at APS 34-ID-C).',
+    lead: "Adsorbed molecules strain the surface atoms, with larger shifts near edges and corners.",
+    note: "Adsorbed molecules strain the surface atoms, with larger shifts near edges and corners. In this illustrative model, the displacement decreases over ~15 nm from each face and the base is fixed to the substrate. Thiol-induced edge strain in gold was measured at APS 34-ID-C by Watari et al., Nature Materials 2011.",
   },
 };
 
@@ -144,7 +144,7 @@ function mantExp(v: number): [string, number] {
   return [m, e];
 }
 function sci(v: number): string {
-  if (!Number.isFinite(v)) return '—';
+  if (!Number.isFinite(v)) return "Unknown";
   if (Math.abs(v) < 1000) return v >= 100 ? v.toFixed(0) : +v.toPrecision(2) + '';
   const [m, e] = mantExp(v);
   return `${m}×10${String(e).split('').map((c) => SUPS[c] ?? c).join('')}`;
@@ -162,7 +162,7 @@ function fmtTime(s: number): string {
   return `${(s / 3600).toFixed(1)} h`;
 }
 function fmtNm(v: number): string {
-  if (!Number.isFinite(v)) return '—';
+  if (!Number.isFinite(v)) return "Unknown";
   return v < 10 ? `${v.toFixed(1)} nm` : `${v.toFixed(0)} nm`;
 }
 /** keep numbers and their units on one line in flowing text */
@@ -199,7 +199,7 @@ const CSS = `
 
 const mod: ExplainerModule = {
   title: 'Strain inside a nanocrystal',
-  subtitle: 'Bend, squeeze or break a gold nanocrystal, watch its X-ray pattern change — then let the computer rebuild the crystal from the pattern alone.',
+  subtitle: "Deform a gold nanocrystal and compare its diffraction pattern with a computer reconstruction from the recorded intensity.",
   mount(host, ctx) {
     const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = ctx.color || TOKENS.xray;
@@ -251,7 +251,7 @@ const mod: ExplainerModule = {
       everStuck: false,
       lastCaption: 0,
     };
-    /** reduced motion: draw the first frame of a rebuild (its "rebuilding…" state), then hold until it is done */
+    /** reduced motion: draw the first frame of a rebuild (its reconstruction-in-progress state), then hold until it is done */
     let showRun = false;
 
     // ── visual panels
@@ -321,7 +321,7 @@ const mod: ExplainerModule = {
      * Side by side, neither column may set the row height. In the full-screen dialog the host grows with its content
      * (`flex: 1 0 auto`), so a 1500 px controls column, or panel rows fitted to an earlier, taller measurement (e.g.
      * before the caption was written, or before it grew by a line), would stretch the station past the dialog and
-     * push the caption out of view. height 0 + min-height 100% fills the row the host leaves above the caption,
+     * push the caption out of view. Height 0 + min-height 100% fills the row the host leaves above the caption,
      * whatever the column holds (the controls scroll within it; the panel rows are fitted to it in relayout).
      */
     const fillRow = (e: HTMLElement, side: boolean) => {
@@ -392,7 +392,7 @@ const mod: ExplainerModule = {
           vis.style.gridTemplateRows = `${top}px ${ch}px`;
         }
       } else if (vw < 400) {
-        // phone width: crystal and pattern side by side, the rebuilt crystal (the pay-off) and the chart full width
+        // phone width: crystal and pattern side by side, the rebuilt crystal  and the chart full width
         vis.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
         place(cvT, '1', '1');
         place(cvD, '2', '1');
@@ -421,7 +421,7 @@ const mod: ExplainerModule = {
     ro.observe(host);
     // the visual area also shrinks when the caption grows by a line or two (a fixed-height host gives the caption's
     // extra lines to it): re-fit the panel rows then, or the chart would spill under the caption. Converges in one
-    // pass — relayout only rewrites rows that depend on the visual's size, not the other way round.
+    // pass. Relayout only rewrites rows that depend on the visual's size, not the other way round.
     ro.observe(station.visual);
     // a stacked station in the full-screen dialog is as tall as its content, so its host does not resize when the
     // window grows taller: re-check then whether it fits side by side again
@@ -473,7 +473,7 @@ const mod: ExplainerModule = {
         edit();
       },
     });
-    mkSlider('bent', 'Bend (radius R)', {
+    mkSlider('bent', "Bend radius R", {
       min: -1,
       max: 1,
       step: 0.01,
@@ -482,7 +482,7 @@ const mod: ExplainerModule = {
         const k = f * LIM.kappa;
         if (Math.abs(k) < 1e-9) return 'flat';
         const R = 1 / Math.abs(k) / 1000; // µm
-        return `R = ${R.toFixed(0)} µm${k < 0 ? ' (down)' : ''}`;
+        return `R = ${R.toFixed(0)} µm${k < 0 ? ', downward' : ''}`;
       },
       onInput: (f) => {
         st.kappa = f * LIM.kappa;
@@ -521,7 +521,7 @@ const mod: ExplainerModule = {
         edit();
       },
     });
-    mkSlider('surface', 'Surface tug', {
+    mkSlider('surface', "Surface displacement", {
       min: -LIM.u0,
       max: LIM.u0,
       step: 0.01,
@@ -545,7 +545,7 @@ const mod: ExplainerModule = {
       },
     });
     const planesToggle = toggle<'on' | 'off'>(g1, {
-      label: `Rows of atoms (spacing and shifts drawn ×${PLANE_MAG})`,
+      label: `Atomic planes · spacing and shifts magnified ×${PLANE_MAG}`,
       options: [
         { value: 'on', label: 'Show planes' },
         { value: 'off', label: 'Colour only' },
@@ -561,12 +561,12 @@ const mod: ExplainerModule = {
     const modeNote = note(g1, station, '');
 
     // 2 · source
-    const g2 = group(station.controls, '2 · Shine X-rays on it');
+    const g2 = group(station.controls, "2 · X-ray exposure");
     const srcToggle = toggle<Src>(g2, {
       label: 'X-ray source',
       options: [
-        { value: 'aps', label: 'Original APS', title: 'APS before the 2023–24 upgrade (3.1 nm·rad emittance, 100 mA)' },
-        { value: 'apsu', label: 'APS-U', title: 'Upgraded APS (42 pm·rad emittance, 200 mA)' },
+        { value: 'aps', label: 'Original APS', title: "APS before the 2023 to 2024 upgrade: emittance 3.1 nm·rad and current 100 mA" },
+        { value: 'apsu', label: 'APS-U', title: "Upgraded APS: emittance 42 pm·rad and current 200 mA" },
       ],
       value: st.src,
       onChange: (v) => {
@@ -591,8 +591,8 @@ const mod: ExplainerModule = {
     const viewToggle = toggle<DetView>(g2, {
       label: 'Detector view',
       options: [
-        { value: 'intensity', label: 'Brightness' },
-        { value: 'asym', label: 'Lopsidedness' },
+        { value: 'intensity', label: "Photon counts" },
+        { value: 'asym', label: "Asymmetry" },
       ],
       value: st.view,
       onChange: (v) => {
@@ -606,21 +606,21 @@ const mod: ExplainerModule = {
     const roPhot = readout(g2, 'X-rays collected');
     const roRes = readout(g2, 'Finest detail');
     roRes.el.classList.add('bcdi-resolution');
-    roRes.el.title = 'Half-period of the finest fringes that still collect at least one X-ray per pixel on average';
+    roRes.el.title = "Half-period of the finest fringes with a mean recorded count of at least one photon per pixel";
     const roSym = readout(g2, 'Symmetry');
-    roSym.el.title = 'Friedel asymmetry: how much the pattern differs from its own half-turn copy (noise-free pattern)';
+    roSym.el.title = "Difference between the noise-free pattern and its half-turn copy, called Friedel asymmetry";
     const roOther = readout(g2, 'Same data at the old APS');
     const roRate = readout(g2, 'Brightest pixel');
-    roRate.el.title = 'X-rays per second on the brightest detector pixel; above ~10⁶–10⁷ per second a photon-counting detector stops counting linearly';
+    roRate.el.title = "Photons per second at the brightest pixel. Above ~10⁶ to 10⁷ per second, a photon-counting detector response becomes nonlinear.";
     const roLbl = (r: { el: HTMLElement }) => r.el.querySelector('.stn-readout-label') as HTMLElement;
     note(
       g2,
       station,
-      `**Why APS-U matters:** its beam carries about **${Math.round(COHERENT_GAIN / 10) * 10}× more coherent X-rays**, waves marching in step, which is what makes the speckled pattern. (An estimate at 9 keV: the coherent share of the beam grows from 0.049 % to 5.8 %, and the current doubles.) More X-rays in the faint outer fringes mean finer detail, or the same data about ${Math.round(COHERENT_GAIN / 10) * 10}× faster: fast enough to watch a crystal while it reacts. Detail improves only slowly with flux, though: in 3-D as its fourth root, about 4× finer. The brightest pixels can then outrun what a photon-counting detector counts faithfully (~10^{6}–10^{7} per second), a known ATOMIC challenge.`,
+      `Coherent photon flux at APS-U is about ${Math.round(COHERENT_GAIN / 10) * 10}× greater, whose stable phase relationship produces speckle. At 9 keV, the estimated coherent fraction increases from 0.049 % to 5.8 %, and current doubles. More photons in faint outer fringes allow finer detail or equal-quality measurements about ${Math.round(COHERENT_GAIN / 10) * 10}× faster. This could resolve changes during reactions. In 3-D, resolution improves only as the fourth root of flux, giving about 4× finer detail here. Rates at the brightest pixels may exceed the linear counting range of ~10^{6} to 10^{7} photons/s, a known issue at ATOMIC.`,
     );
 
     // 3 · reconstruction
-    const g3 = group(station.controls, '3 · Rebuild the crystal');
+    const g3 = group(station.controls, "3 · Crystal reconstruction");
     const row = document.createElement('div');
     row.className = 'bcdi-row';
     g3.appendChild(row);
@@ -632,9 +632,9 @@ const mod: ExplainerModule = {
     });
     // reduced motion: the computer still rebuilds, but panels 3 and 4 show the result instead of every iteration
     const motion = motionGate(station, row, {
-      play: '▶ Show it live',
+      play: "▶ Animate reconstruction",
       pause: '❚❚ Results only',
-      title: 'Your device asks for reduced motion: the rebuilt crystal appears when the computer is done. Press to watch every iteration.',
+      title: "Reduced motion is enabled on your device. The reconstructed crystal appears after calculation. Press to display each iteration.",
       onChange: () => markAll(),
     });
     const syncPause = () => {
@@ -643,9 +643,9 @@ const mod: ExplainerModule = {
       btnPause.style.opacity = btnPause.disabled ? '0.5' : '';
     };
     const supToggle = toggle<SupportMode>(g3, {
-      label: 'Does the computer know the outline?',
+      label: "Crystal outline constraint",
       options: [
-        { value: 'shrink', label: 'Shape unknown', title: 'Shrink-wrap: the algorithm finds the crystal outline itself' },
+        { value: 'shrink', label: 'Shape unknown', title: "Shrink-wrap estimates and updates the crystal outline" },
         { value: 'known', label: 'Shape known', title: 'Use the true crystal outline as the support constraint' },
       ],
       value: st.support,
@@ -658,11 +658,11 @@ const mod: ExplainerModule = {
     const roMatch = readout(g3, 'Match to the real crystal', { big: true, color: accent });
     roMatch.el.title = 'Overlap of the rebuilt crystal with the true one: possible only because this is a simulation';
     const roErr = readout(g3, 'Misfit ÷ noise floor');
-    roErr.el.title = 'How far the pattern predicted by the current guess is from the recorded one (Fourier error), divided by the level photon noise alone would give';
+    roErr.el.title = "Difference between predicted and recorded diffraction patterns, called Fourier error, divided by the difference expected from photon noise alone";
     note(
       g3,
       station,
-      `The detector counts X-rays but cannot record their **phase**, and the phase is exactly where the atom shifts are hidden. The computer guesses the phase, checks the guess against the pattern and against the crystal’s outline (the “support”, which it tightens as it goes unless the shape is given: shrink-wrap), and repeats ${PR_ITERS} times, alternating an exploring method (hybrid input–output, HIO) with a settling one (error reduction, ER). This works because the pattern is sampled finely: ${OVERSAMPLING.toFixed(1)}× per axis, where 2 is the usual minimum. If the misfit is still above ${STUCK_RATIO}× the photon-noise floor at iteration ${DECIDE_AT}, the computer starts over from a fresh random guess: a test that needs only the data.`,
+      `Recorded photon counts contain intensity but not phase. Atomic displacements affect phase. The computer estimates phase using the measured pattern and an outline constraint called the support. Unless the true outline is supplied, shrink-wrap updates that constraint during reconstruction. The ${PR_ITERS} iterations alternate hybrid input–output, or HIO, with error reduction, or ER. Each axis is sampled at ${OVERSAMPLING.toFixed(1)}× the required rate; 2 is the usual minimum. If misfit exceeds ${STUCK_RATIO}× the photon-noise floor at iteration ${DECIDE_AT}, reconstruction restarts from a random initial estimate. That decision uses only the measurements.`,
     );
 
     // 4 · about
@@ -670,7 +670,7 @@ const mod: ExplainerModule = {
     note(
       g4,
       station,
-      '**ATOMIC** is a beamline built just for this kind of imaging. Its bendable “zoom” mirrors are designed to set the X-ray spot anywhere from 2 µm down to 50 nm to fit each crystal (design: ~3×10^{12} photons/s into 50 nm at 8.7 keV), leaving ~50 mm around the sample for heaters, gases and liquids, so crystals can be watched *while* they work, in batteries, catalysts and under stress. A rainbow (“pink”) beam can first find a crystal’s orientation from its Laue pattern before one reflection is measured at a single energy. The goals: sub-10 nm imaging in tens of seconds and ≤ 1 nm design resolution (10–30 nm was typical before). Status, October 2026: scientific commissioning.',
+      "Bragg coherent diffraction imaging is the main method at ATOMIC. Its design uses bendable mirrors for a variable spot from 2 µm to 50 nm. The design flux is ~3×10^{12} photons/s in 50 nm at 8.7 keV, with ~50 mm of clearance for heaters, gases and liquids. Crystals can be measured during battery reactions, catalysis or loading. A broad-spectrum pink beam determines orientation from a Laue pattern before a single-energy reflection is measured. The goals are sub-10 nm imaging in tens of seconds and ≤1 nm design resolution, compared with typical pre-upgrade values of 10 to 30 nm. ATOMIC is in scientific commissioning as of October 2026.",
     );
     const resetRow = document.createElement('div');
     resetRow.className = 'bcdi-row';
@@ -682,8 +682,8 @@ const mod: ExplainerModule = {
     note(
       gModel,
       station,
-      'A 2-D simulation, not data. The crystal is a slice through a faceted gold nanocrystal (seen along [1̅ 10]) and the pattern is the matching central slice through its Bragg peak, which a real measurement assembles in 3-D from a ~±0.3° rocking scan. Simple far-field (kinematic) optics, gold, 9 keV; ' +
-        `one pixel spans Δq = ${(DQ * 1000).toFixed(1)}×10^{−3} nm^{−1} (55 µm pixels at ${DET_DIST.toFixed(2)} m, i.e. 4 × 4-binned at ~${(DET_DIST * 4).toFixed(1)} m). Photon numbers are illustrative for a ~300 nm crystal. In 2-D the signal falls as q^{−3}, so detail improves as the cube root of the flux here, not the fourth root as in 3-D. The dislocation is an edge type (b = ½[110], line along [1̅ 10], glide plane (001): Lomer-type) with the textbook isotropic field (Hirth & Lothe); the core–shell and surface fields (decay length 15 nm) are illustrative. Phasing: HIO (β = 0.9) and ER with shrink-wrap (blur 2.5 → 0.9 pixels, 12 % threshold), a shortened version of the 34-ID-C recipe in the ATOMIC design report (90–100 HIO + 10–20 ER, ×3–4, shrink-wrap every 5 iterations, 5–50 random starts). A total sampling ratio above 2 already suffices in principle (Miao, Sayre & Chapman, 1998). The answer is fixed only up to a shift, an overall phase and its “twin” (the crystal turned half a turn with its shifts reversed); the twin is flipped back here by comparison with the true crystal, in practice from what is known about the sample, such as which face sits on the substrate. ATOMIC’s optics: slits at 26.8 m and 50.3 m that define the coherent beam, a silicon (111) monochromator (5.3–30 keV), and two bendable mirror pairs at ~54 m (in 34-ID-C) and ~69 m (in 34-ID-F). Ultimately the design report foresees atomic resolution on a ~20 nm gold crystal from ~1,000 s of exposure: an aspiration, not yet demonstrated.`,
+      "This 2-D simulation represents a slice through a faceted gold nanocrystal along [1̅ 10]. The diffraction pattern is a central slice through its Bragg peak. An actual 3-D pattern is assembled from a rocking scan of ~±0.3°. The model uses kinematic far-field diffraction for gold at 9 keV. " +
+        `Each pixel spans Δq = ${(DQ * 1000).toFixed(1)}×10^{−3} nm^{−1}. This corresponds to 55 µm pixels at ${DET_DIST.toFixed(2)} m, or 4 × 4 binning at ~${(DET_DIST * 4).toFixed(1)} m. Photon counts are illustrative for a ~300 nm crystal. Signal falls as q^{−3} in 2-D, so detail improves as the cube root of flux here rather than the fourth root in 3-D. The edge dislocation is Lomer-type, with b = ½[110], line direction [1̅ 10] and glide plane (001), using the isotropic field of Hirth & Lothe. Core–shell and surface fields are illustrative; surface decay length is 15 nm. Phasing uses HIO with β = 0.9 and ER with shrink-wrap. Blur decreases from 2.5 to 0.9 pixels at a 12 % threshold. This is a shortened 34-ID-C design-report procedure: 90 to 100 HIO plus 10 to 20 ER iterations, repeated 3 to 4 times, shrink-wrap every 5 iterations and 5 to 50 random starts. A total sampling ratio above 2 suffices in principle, as described by Miao, Sayre & Chapman in 1998. Reconstruction is ambiguous up to translation, overall phase and a twin solution: a half-turn of the crystal with reversed displacement. The twin is reversed here by comparison with the known crystal. Actual experiments use sample information such as its substrate-facing side. ATOMIC has coherent-beam slits at 26.8 and 50.3 m, a Si(111) monochromator for 5.3 to 30 keV, and bendable mirror pairs at ~54 m in 34-ID-C and ~69 m in 34-ID-F. The design report proposes atomic resolution for a ~20 nm gold crystal with ~1,000 s exposure. This has not been demonstrated.`,
     );
     (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
 
@@ -884,8 +884,8 @@ const mod: ExplainerModule = {
     function updateReadouts(): void {
       const s = sim.stats;
       roPhot.set(sci(s.counted));
-      roRes.set(s.kmax >= N / 2 ? `${fmtNm(s.resolution)} (detector edge)` : s.kmax > 0 ? fmtNm(s.resolution) : `> ${CRYSTAL_WIDTH} nm`);
-      roSym.set(s.asym < 0.01 ? 'symmetric' : `lopsided ${(s.asym * 100).toFixed(0)} %`);
+      roRes.set(s.kmax >= N / 2 ? `${fmtNm(s.resolution)} · detector limit` : s.kmax > 0 ? fmtNm(s.resolution) : `> ${CRYSTAL_WIDTH} nm`);
+      roSym.set(s.asym < 0.01 ? 'symmetric' : `asymmetric ${(s.asym * 100).toFixed(0)} %`);
       const other = st.src === 'apsu' ? st.exposure * COHERENT_GAIN : st.exposure / COHERENT_GAIN;
       roLbl(roOther).textContent = st.src === 'apsu' ? 'Same data at the old APS' : 'Same data at APS-U';
       roOther.set(fmtTime(other));
@@ -904,9 +904,9 @@ const mod: ExplainerModule = {
       const it = pr.iter;
       const algo = it >= PR_ITERS ? 'done' : algoAt(it);
       put(roIter, `${it} / ${PR_ITERS} · ${algo}${rc.attempt > 1 ? ` · start ${rc.attempt}` : ''}`);
-      put(roMatch, it === 0 || rc.phase === 'waiting' ? '—' : `${(al.match * 100).toFixed(1)} %`);
+      put(roMatch, it === 0 || rc.phase === 'waiting' ? "Pending" : `${(al.match * 100).toFixed(1)} %`);
       const e = it > 0 ? pr.err[Math.min(it, PR_ITERS) - 1] : NaN;
-      put(roErr, Number.isFinite(e) ? `${(e / floor).toFixed(2)}×` : '—');
+      put(roErr, Number.isFinite(e) ? `${(e / floor).toFixed(2)}×` : "Unknown");
     }
 
     function updateCaption(force = false): void {
@@ -918,7 +918,7 @@ const mod: ExplainerModule = {
       // lead sentence: the mode (its fuller text is in the controls note), replaced by the G·b = 0 lesson when that applies
       let lead = MODE_TEXT[st.mode].lead;
       if (st.mode === 'dislocation' && R.n === 0)
-        lead = `With the ${R.label} planes the swirl around the ⊥ **vanishes**: this defect slips atoms *along* these planes, and X-rays bouncing off them only sense shifts *across* them. Only the gentler squeeze around the extra half-plane still shows.`;
+        lead = `For the ${R.label} reflection, G·b = 0 and the colour cycle around ⊥ disappears. The Burgers vector lies within these planes, while the measured displacement is normal to them. Strain around the extra half-plane remains visible.`;
       let pv: string;
       const shift = Math.hypot(s.comX, s.comY);
       // the symmetry verdict is a property of the noise-free pattern; say so when the counts are too few to show it
@@ -926,19 +926,19 @@ const mod: ExplainerModule = {
       if (s.asym < 0.01) {
         pv =
           shift > 1.5
-            ? `Its X-ray pattern **slides** ${shift.toFixed(0)} pixels but stays perfectly **symmetric**: turned half a turn, it looks the same.`
-            : 'Its X-ray pattern is perfectly **symmetric**: turned half a turn, it looks the same.';
-      } else if (noisy) pv = `Its X-ray pattern should be **lopsided** (${(s.asym * 100).toFixed(0)} %), but with so few X-rays the noise hides most of it.`;
-      else pv = `Its X-ray pattern is **lopsided** (${(s.asym * 100).toFixed(0)} %), the tell-tale sign that strain varies inside.`;
+            ? `The diffraction peak shifts ${shift.toFixed(0)} pixels and retains half-turn symmetry.`
+            : "The diffraction pattern has half-turn symmetry.";
+      } else if (noisy) pv = `The noise-free diffraction pattern has ${(s.asym * 100).toFixed(0)} % asymmetry, but low photon counts make it difficult to distinguish from noise.`;
+      else pv = `The diffraction pattern has ${(s.asym * 100).toFixed(0)} % asymmetry, indicating nonuniform strain.`;
       if (st.mode === 'expanded' && Math.abs(st.eps) > 1e-5)
-        pv = `${st.eps > 0 ? 'Stretching' : 'Squeezing'} it by ${(Math.abs(st.eps) * 100).toFixed(2)} % is like ${st.eps > 0 ? 'heating' : 'cooling'} gold by about ${Math.abs(st.eps / ALPHA_AU).toFixed(0)} °C. ${pv}`;
-      if (st.view === 'asym') pv += ' **Red**: brighter than the matching spot across the centre; **blue**: dimmer; white: balanced (any plain slide of the peak is taken out first).';
+        pv = `${st.eps > 0 ? 'Expansion' : 'Contraction'} of ${(Math.abs(st.eps) * 100).toFixed(2)} % corresponds to ${st.eps > 0 ? 'heating' : 'cooling'} gold by about ${Math.abs(st.eps / ALPHA_AU).toFixed(0)} °C. ${pv}`;
+      if (st.view === 'asym') pv += " Red is brighter than the opposite point across the centre; blue is dimmer; white is equal. A uniform peak shift is removed before this comparison.";
       // source
       const tStr = fmtTime(st.exposure);
       const sv =
         st.src === 'apsu'
-          ? `**APS-U** collects ${sciMd(s.counted)} X-rays in ${tStr}: enough to see details down to ~${fmtNm(s.resolution)}.`
-          : `The **original APS** collects only ${sciMd(s.counted)} X-rays in ${tStr}; details finer than ~${s.kmax > 0 ? fmtNm(s.resolution) : `${CRYSTAL_WIDTH} nm`} drown in the noise.`;
+          ? `With APS-U, ${sciMd(s.counted)} photons are recorded in ${tStr}, resolving details down to ~${fmtNm(s.resolution)}.`
+          : `With the original APS, ${sciMd(s.counted)} photons are recorded in ${tStr}. Details finer than ~${s.kmax > 0 ? fmtNm(s.resolution) : `${CRYSTAL_WIDTH} nm`} are below the noise level.`;
       // reconstruction
       let rv = '';
       const pct = `${(al.match * 100).toFixed(0)} %`;
@@ -947,12 +947,12 @@ const mod: ExplainerModule = {
       } else if (rc.phase === 'done') {
         const good = al.match > 0.9;
         const fit = `misfit ${(pr.err[PR_ITERS - 1] / floor).toFixed(2)}× the photon-noise floor`;
-        rv = good ? `**Rebuilt.** The computer’s crystal is ${pct} similar to the real one (${fit})` : `The rebuild is only ${pct} similar to the real crystal (${fit}): with this few X-rays (or this much strain) many different crystals fit the pattern`;
-        rv += al.twin ? '. It found the crystal’s **twin** (turned half a turn with its colours reversed, it gives the same pattern), which we flipped back.' : '.';
-        if (rc.everStuck) rv += ' It got stuck once and started over from a fresh random guess, just as scientists do.';
+        rv = good ? `The reconstructed crystal has ${pct} similarity to the true crystal, with ${fit}.` : `The reconstructed crystal has only ${pct} similarity to the true crystal, with ${fit}. At this photon count or strain, many different crystals agree with the recorded pattern`;
+        rv += al.twin ? ". Reconstruction produced the twin solution, a half-turn of the crystal with reversed displacement. It gives the same intensity pattern and is reversed here for comparison." : '.';
+        if (rc.everStuck) rv += " Reconstruction restarted from a random initial estimate because the misfit remained too large.";
       } else {
-        rv = `The computer is rebuilding the crystal from the pattern alone…${pr.iter > 20 ? ` (${pct} similar so far)` : ''}`;
-        if (rc.attempt > 1) rv += ' It got stuck, so it is trying a fresh random guess.';
+        rv = `Reconstruction is in progress.${pr.iter > 20 ? ` Current similarity to the true crystal is ${pct}.` : ''}`;
+        if (rc.attempt > 1) rv += " The current misfit is too large, so reconstruction is restarting from a random initial estimate.";
       }
       station.setCaption(nbsp(`${lead} ${pv} ${sv} ${rv}`));
     }
@@ -1152,7 +1152,7 @@ const mod: ExplainerModule = {
       if (g.y + g.s - pySub > 30) {
         // keep clear of the scale-bar text on the left
         const room = g.s - 8 - (10 + (100 / FOV) * g.s / 2 + 26);
-        let t = 'substrate (sends no signal here)';
+        let t = 'substrate · no diffraction here';
         c.save();
         c.font = `500 10px ${FONT}`;
         if (c.measureText(t).width > room) t = 'substrate';
@@ -1230,7 +1230,7 @@ const mod: ExplainerModule = {
             cvT.h,
             hover.x,
             hover.y,
-            [`atoms shifted ${signed(uA / 10, 3)} nm along G`, `(${signed(uA / R.d, 2)} of a row spacing)`],
+            [`atoms shifted ${signed(uA / 10, 3)} nm along G`, `${signed(uA / R.d, 2)} plane spacings`],
           );
         }
       }
@@ -1392,8 +1392,8 @@ const mod: ExplainerModule = {
           const a = -Math.PI / 4;
           c.font = `600 10px ${FONT}`;
           // where the fringes fall to about one X-ray per pixel (the long form only where it fits)
-          const long = 'signal fades into noise (~1 X-ray/pixel)';
-          const txt = c.measureText(long).width <= g.s - 12 ? long : 'signal fades into noise';
+          const long = 'mean count ≈1 photon/pixel';
+          const txt = c.measureText(long).width <= g.s - 12 ? long : 'photon-count limit';
           const tw = c.measureText(txt).width;
           const lx = Math.max(g.x + 4, Math.min(cx + Math.cos(a) * r + 4, g.x + g.s - tw - 6));
           const ly = Math.max(g.y + 14, cy + Math.sin(a) * r - 4);
@@ -1434,7 +1434,7 @@ const mod: ExplainerModule = {
         label(c, 'dimmer', g.x, y + 17, { color: TOKENS.ink3, size: 10 });
         label(c, '0', g.x + barW / 2, y + 17, { color: TOKENS.ink3, size: 10, align: 'center' });
         label(c, 'brighter', g.x + barW, y + 17, { color: TOKENS.ink3, size: 10, align: 'right' });
-        const title = 'than its mirror point';
+        const title = 'than the opposite point';
         if (fits(c, title, g.x + barW + 10, cvD.w)) label(c, title, g.x + barW + 10, y + 7, { color: TOKENS.ink2, size: 10.5 });
         if (s.asym < 0.01) label(c, 'perfectly symmetric', cx, g.y + 18, { color: TOKENS.good, size: 11, weight: 600, align: 'center' });
       }
@@ -1449,7 +1449,7 @@ const mod: ExplainerModule = {
           const cnt = sim.counts[k];
           const lines =
             st.view === 'asym'
-              ? [Number.isFinite(sim.asymMap[k]) ? `lopsidedness ${signed(sim.asymMap[k], 2)}` : 'too faint to tell (under 1 X-ray)']
+              ? [Number.isFinite(sim.asymMap[k]) ? `asymmetry ${signed(sim.asymMap[k], 2)}` : 'mean count below 1 photon']
               : [`${sci(cnt)} X-ray${cnt === 1 ? '' : 's'} in this pixel`, `${qx.toFixed(3)}, ${qy.toFixed(3)} nm⁻¹ from the peak`];
           tooltip(c, cvD.w, cvD.h, hover.x, hover.y, lines);
           c.save();
@@ -1562,7 +1562,7 @@ const mod: ExplainerModule = {
       else if (!motion.on) badge = 'rebuilding…';
       else badge = `${algoAt(pr.iter)} ${pr.iter}`;
       if (performance.now() - rc.stuckFlash < 2200) {
-        badge = 'stuck → new guess';
+        badge = 'restarting estimate';
         col = TOKENS.warn;
       }
       c.save();
@@ -1600,7 +1600,7 @@ const mod: ExplainerModule = {
             const Rf = REFLECTIONS[st.refl];
             const uA = p / Rf.gMag;
             // the rebuilt phase is only known modulo 2π: the shift modulo one row spacing
-            tooltip(c, cvR.w, cvR.h, hover.x, hover.y, [`atoms shifted ${signed(uA / 10, 3)} nm (as rebuilt)`, 'known only up to whole rows']);
+            tooltip(c, cvR.w, cvR.h, hover.x, hover.y, [`reconstructed shift ${signed(uA / 10, 3)} nm`, 'known only up to whole rows']);
           }
         }
       }
@@ -1627,7 +1627,7 @@ const mod: ExplainerModule = {
           label(c, 'HIO', f.px(20), f.y1 + 11, { color: TOKENS.ink3, size: 9.5, align: 'center' });
           label(c, 'ER', f.px(45), f.y1 + 11, { color: TOKENS.ink3, size: 9.5, align: 'center' });
         }
-        label(c, 'ER polish', f.px(550), f.y1 + 11, { color: TOKENS.ink3, size: 9.5, align: 'center' });
+        label(c, 'ER refinement', f.px(550), f.y1 + 11, { color: TOKENS.ink3, size: 9.5, align: 'center' });
       }
       // decision point
       c.save();
@@ -1641,7 +1641,7 @@ const mod: ExplainerModule = {
       // noise floor
       const fl = clamp(floor, yMin, 1);
       line(c, f, [0, PR_ITERS], [fl, fl], 'rgba(183,195,210,0.55)', 1, [5, 4]);
-      // above the dashed line, or below it when that would collide with the HIO/ER/ER-polish labels at the top
+      // above the dashed line, or below it when that would collide with the HIO/ER/refinement labels at the top
       const fy = f.py(fl) - 4 < f.y1 + 24 ? f.py(fl) + 13 : f.py(fl) - 4;
       const ft = 'photon-noise floor';
       c.save();
@@ -1651,7 +1651,7 @@ const mod: ExplainerModule = {
       c.fillRect(f.x1 - fw - 7, fy - 10, fw + 6, 13);
       c.restore();
       label(c, ft, f.x1 - 4, fy, { color: TOKENS.ink3, size: 10, align: 'right' });
-      // ghosts of stuck attempts
+      // previous failed reconstruction attempts
       for (const gh of rc.ghosts) line(c, f, xs300, clampArr(gh, yMin), 'rgba(154,166,184,0.35)', 1.2);
       // current error, HIO faint / ER bright
       const it = Math.min(pr.iter, PR_ITERS);

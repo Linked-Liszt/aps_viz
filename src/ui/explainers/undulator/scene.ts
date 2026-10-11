@@ -1,22 +1,22 @@
 /**
- * Panel 1 — the undulator seen from above (top magnet row lifted away), plus an end-on cross-section inset.
+ * Panel 1. The undulator seen from above (top magnet row lifted away), plus an end-on cross-section inset.
  *
- * What is drawn (and how it is exaggerated — all labelled on the canvas):
+ * What is drawn (and how it is exaggerated. All labelled on the canvas):
  *   • Bottom jaw of a planar hybrid undulator: vanadium-permendur poles (red = N, field up ⊙; blue = S, field down ⊗)
  *     between longitudinally magnetised NdFeB blocks (arrows point to the N poles). SCUs: iron poles with NbTi coil
  *     packs. The end poles are drawn at half strength (end-field termination). Pole colour strength ∝ B₀.
  *   • Electron path x(z) = −(K/γ)(λu/2π)cos(k_u z) (B_y = B₀cos k_u z, F = −e v×B pushes the electron towards +x at N
  *     poles). Sideways displacement and all angles are magnified by the same factor γ·CONE (≈4,900×), so the ratio
- *     "wiggle angle K/γ : cone 1/γ" = K is faithful. The longitudinal scale is the real period, but only a few of the
+ *     "oscillation angle K/γ : cone 1/γ" = K is faithful. The longitudinal scale is the real period, but only a few of the
  *     N periods are shown (number chosen per device so magnets stay legible).
  *   • Emission cone: half-angle 1/γ around the instantaneous velocity.
  *   • Wave crests: one per period, emitted where the electron points along the axis (strongest on-axis emission).
  *     Light outruns the electron; the drawn electron's mean speed is β̄ = 1/(1 + r(1 + K²/2)) of the drawn light
- *     speed, so successive crests are spaced λu·r·(1 + K²/2) — the undulator equation with the slippage factor
+ *     speed, so successive crests are spaced λu·r·(1 + K²/2). The undulator equation with the slippage factor
  *     r = 1/(2γ²) magnified to SLIP (5.5×10⁷×). Circles from successive emission points also reproduce the off-axis
  *     red shift qualitatively.
- *   • Inset: end view to scale — jaws, gap and the APS-U ID vacuum chamber (16 × 6.3 mm aperture, 0.6 mm wall;
- *     IPAC'24 TUPG56); the electron's (exaggerated) sideways wiggle shows that it moves *between* the jaws, in the
+ *   • Inset: end view to scale. Jaws, gap and the APS-U ID vacuum chamber (16 × 6.3 mm aperture, 0.6 mm wall;
+ *     IPAC'24 TUPG56); the electron's (exaggerated) sideways oscillation shows that it moves *between* the jaws, in the
  *     horizontal plane, not towards them.
  */
 import { TOKENS, type Canvas2D } from '../kit';
@@ -214,7 +214,7 @@ export class UndulatorScene {
     const inp = this.inp!;
     const left = `10 mm · period λu = ${inp.dev.periodMm} mm · ${this.nVis} of its N = ${inp.dev.N} periods shown`;
     const mag = Math.round(this.magnification() / 100) * 100;
-    const right = `wiggle and angles ×${mag.toLocaleString('en-US')} · slippage ×${P.fmtSci(this.slipR * 2 * P.gammaOf(inp.ring.E) ** 2, 1)}`;
+    const right = `oscillation and angles ×${mag.toLocaleString('en-US')} · slippage ×${P.fmtSci(this.slipR * 2 * P.gammaOf(inp.ring.E) ** 2, 1)}`;
     return [left, right];
   }
 
@@ -562,7 +562,7 @@ export class UndulatorScene {
         const lam1 = P.lambdaN(1, inp.ring.E, inp.dev.periodMm, this.K);
         const v = `${lam1 < 1 ? lam1.toFixed(3) : lam1.toFixed(2)} Å`;
         ctx.font = `600 10.5px ${TOKENS.font}`;
-        this.lamTxt = [`one wavelength λ₁ = ${v}`, `one wave: ${v}`, `λ₁ = ${v}`].find((t) => bx + ctx.measureText(t).width <= this.w - 4) ?? `λ₁ = ${v}`;
+        this.lamTxt = [`one wavelength λ₁ = ${v}`, `one wavelength: ${v}`, `λ₁ = ${v}`].find((t) => bx + ctx.measureText(t).width <= this.w - 4) ?? `λ₁ = ${v}`;
       }
       label(ctx, this.lamTxt, bx, by + 15, this.accent, 10.5, 'left', 600);
     }
@@ -689,7 +689,7 @@ export class UndulatorScene {
     roundRect(ctx, ix, iy, iw, ih, 7);
     ctx.fill();
     ctx.stroke();
-    label(ctx, 'END VIEW', ix + 7, iy + 13, TOKENS.ink3, 9, 'left', 700);
+    label(ctx, "End view", ix + 7, iy + 13, TOKENS.ink3, 9, 'left', 700);
     label(ctx, scu ? '4 K' : 'to scale', ix + iw - 7, iy + 13, scu ? '#9fd3ff' : TOKENS.ink3, 9, 'right', 600);
     const s = (ih - 38) / (33 + 2 * 8); // px per mm, same for every device
     const gap = scu ? inp.dev.gapMinMm : this.inp!.setting;
@@ -725,7 +725,7 @@ export class UndulatorScene {
     ctx.beginPath();
     ctx.ellipse(cx, cy, 8.3 * s, 3.45 * s, 0, 0, Math.PI * 2);
     ctx.stroke();
-    // electron: wiggles sideways (between the jaws), magnified like panel 1
+    // electron: oscillates sideways (between the jaws), magnified like panel 1
     const ze = this.ze;
     const ex = Math.max(-7 * s, Math.min(7 * s, this.disp(ze) * 0.45));
     if (ze > -10 && ze < this.w) {
@@ -748,7 +748,7 @@ export class UndulatorScene {
     ctx.lineTo(dx + 3, cy + gy);
     ctx.stroke();
     ctx.font = `600 10px ${TOKENS.mono}`;
-    let gtxt = scu ? `gap ${gap.toFixed(1)} mm (fixed)` : `gap ${gap.toFixed(1)} mm`;
+    let gtxt = scu ? `fixed gap ${gap.toFixed(1)} mm` : `gap ${gap.toFixed(1)} mm`;
     if (ctx.measureText(gtxt).width > iw - 8) gtxt = scu ? `${gap.toFixed(1)} mm, fixed` : `${gap.toFixed(1)} mm`;
     label(ctx, gtxt, ix + iw / 2, iy + ih - 7, this.accent, 10, 'center', 600, true);
   }

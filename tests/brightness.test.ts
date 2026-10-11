@@ -240,7 +240,7 @@ describe('formatting', () => {
     expect(approxGain(75)).toBe('80');
     expect(approxGain(3.4)).toBe('3');
     expect(approxGain(1.2)).toBe('1');
-    expect(approxGain(NaN)).toBe('—');
+    expect(approxGain(NaN)).toBe('Unknown');
   });
   it('default view (envelope, 20 keV) is consistent with the FDR headline within the ±30 % digitizing error', () => {
     const g = P.seriesCurve(P.ENVELOPE.neu[0])(20) / P.seriesCurve(P.ENVELOPE.old)(20);

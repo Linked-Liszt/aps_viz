@@ -91,9 +91,9 @@ export function faceMaterial(kind: FaceKind): THREE.MeshStandardMaterial {
 }
 
 /**
- * Floating magnifier above the CSSI chamber: the chip on edge, enlarged ×MAG, with the angles exaggerated ×EXAG so the
- * grazing geometry becomes visible — incoming beam, its long footprint on the surface, the specular reflection at 2α and
- * the faint speckle fan around it, all in the true (horizontal) scattering plane. Local origin = impact point.
+ * The magnified view above the CSSI chamber shows the chip on edge at ×MAG size and the angles at ×EXAG.
+ * It includes the incident beam, its footprint on the surface, the specular reflection at 2α and the surrounding
+ * speckle fan. The scattering plane is horizontal, as in the instrument. The local origin is the impact point.
  */
 export const MAG = 8;
 export const EXAG = 24;
@@ -185,13 +185,13 @@ export function magnifierCaption(color: string): THREE.Sprite {
       ctx.stroke();
       ctx.fillStyle = color;
       ctx.font = '600 13px Inter, system-ui, sans-serif';
-      ctx.fillText('MAGNIFIED: THE CHIP STANDS ON EDGE', 16, 26);
+      ctx.fillText('Magnified sample, viewed from above', 16, 26);
       ctx.fillStyle = '#e6edf5';
       ctx.font = '13px Inter, system-ui, sans-serif';
       const lines = [
-        'X-rays graze its surface at ~0.5°, bounce',
-        'sideways and scatter a faint speckle fan.',
-        `Drawn ×${MAG} larger, angles ×${EXAG} steeper (top view).`,
+        'At about 0.5° incidence, X-rays reflect',
+        'sideways and form a faint speckle pattern.',
+        `Drawn size is ×${MAG}. Angles are ×${EXAG}.`,
       ];
       lines.forEach((l, i) => ctx.fillText(l, 16, 52 + i * 22));
       void H;

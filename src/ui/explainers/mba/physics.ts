@@ -1,5 +1,5 @@
 /**
- * Physics + data for the "mba" station (multi-bend achromat lattice). Pure functions, no DOM — unit-tested in
+ * Physics + data for the "mba" station (multi-bend achromat lattice). Pure functions, no DOM. Unit-tested in
  * tests/mba.test.ts.
  *
  * ── Emittance scaling ───────────────────────────────────────────────────────────────────────────────────────
@@ -10,7 +10,7 @@
  *  The station anchors that law at the old APS: ε(M = 2, 7 GeV) = 3100 pm·rad (FDR 2019 Table 2.1, the
  *  EFFECTIVE emittance of the last APS operating lattice), so ε(M, E) = 3100 pm · (2/M)³ · (E / 7 GeV)².
  *  At M = 7, 6 GeV the law gives 53 pm·rad; the real APS-U design is 41.7 pm·rad (FDR Table 2.3). Most of that
- *  gap is the anchor, not the tricks: the old optics deliberately leaked η_x ≈ 0.17 m into the straights, so
+ *  comparison uses the measured emittance: the old optics deliberately leaked η_x ≈ 0.17 m into the straights, so
  *  its NATURAL emittance was 2.5 nm·rad (Sajaev & Emery, PAC 2005 MPPE064) and ε_eff = 3.1 nm·rad. Anchored at
  *  2.5 nm the same law gives 43 pm·rad. Writing ε = F·C_q γ² θ³ / J_x, both rings have nearly the same F/J_x
  *  (3.3 and 3.2 × the TME value 1/(12√15)), but reach it differently: the APS DBA has F ≈ 3.3 × TME, J_x ≈ 1;
@@ -39,7 +39,7 @@
  *  (focal length f) kinks it: Δη' = −η/f.
  *  • APS-U (M = 7): digitised from the 42-pm lattice-function plot (FDR 2019 Fig. 2.2 / M. Borland 2024),
  *    symmetrised, ±2 mm; η_max = 88 mm (FDR Table 2.3: 0.090 m), 0.39 mm in the straights.
- *  • APS (M = 2) and all other M: thin-lens achromat MODEL (illustrative) — equal dipoles, ρ from θ and L, lenses
+ *  • APS (M = 2) and all other M: thin-lens achromat MODEL (illustrative). Equal dipoles, ρ from θ and L, lenses
  *    whose focal lengths are solved so that η = η' = 0 at both straights (the achromat condition). Inner dipoles
  *    are TME-like (η' = 0 at their centre). APS geometry: 3.06-m, 0.599-T dipoles (dossier: pac95), magnet
  *    positions schematic.
@@ -301,7 +301,7 @@ function thinLensDispersion(C: number, elements: Element[], lensPlan: { s: numbe
   return { eta, lenses };
 }
 
-/** Old APS double-bend achromat — schematic magnet positions, real dipole length/angle; thin-lens η model. */
+/** Old APS double-bend achromat. Schematic magnet positions, real dipole length/angle; thin-lens η model. */
 function apsLattice(): Lattice {
   const C = C_SECTOR;
   const th = (SECTOR_BEND_DEG / 2) * DEG;
@@ -385,7 +385,7 @@ const APSU_ETA_HALF_MM = [
   8.1, 7.4, 6.5, 5.2, 4.3, 4.2, 4.2, 4.2,
 ];
 
-/** FDR 2019 Table 2.4 — segment lengths (m) and angles (deg) of the longitudinal-gradient dipoles, upstream→centre. */
+/** FDR 2019 Table 2.4. Segment lengths (m) and angles (deg) of the longitudinal-gradient dipoles, upstream→centre. */
 export const M1_SEG = { L: [0.192, 0.233, 0.493, 0.671, 0.636], deg: [0.357, 0.267, 0.381, 0.375, 0.257] };
 export const M2_SEG = { L: [0.292, 0.359, 0.487, 0.308, 0.54], deg: [0.135, 0.187, 0.297, 0.222, 0.495] };
 export const APSU_BENDS_DEG = { M3: 1.437, M4: 1.125, Q4: -0.098, Q5: -0.066, Q8: -0.307 };

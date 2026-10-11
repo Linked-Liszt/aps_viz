@@ -1,5 +1,5 @@
 /**
- * XPCS station — simulation core (DOM-free, so the unit tests can run it headless).
+ * XPCS station. Simulation core without DOM access for headless unit testing.
  *
  * Model (all approximations deliberate and listed):
  *  1. N identical spheres (radius a) in water, dilute and non-interacting (S(q) = 1), undergoing free
@@ -21,7 +21,7 @@
  *     intensity for both sources; the APS counts are a random 1/500 subset of the APS-U photons (Poisson
  *     thinning), so each source's counts are exactly Poisson with its own mean, though the two are not
  *     independent of each other → an apples-to-apples comparison in the same time.
- *     Frame time 50 µs (20 kHz). Each frame is an instantaneous snapshot (exposure blurring neglected — it
+ *     Frame time 50 µs (20 kHz). Each frame is an instantaneous snapshot (exposure blurring neglected. It
  *     only matters where τ ≲ 3 frames, which the UI flags).
  *  5. Normalisation uses the *expected* number of illuminated particles, so the slow number fluctuations in
  *     the 3 µm spot (a real small-beam XPCS effect) are kept: the total scattered intensity varies by
@@ -196,7 +196,7 @@ export class XpcsSim {
     return this.D * q * q;
   }
 
-  /** Change particle radius / temperature (does not reset the correlators — the caller decides). */
+  /** Change particle radius / temperature (does not reset the correlators. The caller decides). */
   setSample(radiusNm: number, tempC: number): void {
     this.radiusNm = radiusNm;
     this.tempC = tempC;
@@ -287,7 +287,7 @@ export class XpcsSim {
       px[j] = x;
       py[j] = y;
     }
-    // 2. deposit both (real) mode fields: re ← ρ0 (HG00), im ← ρ1 (HG10)
+    // 2. Deposit both (real) mode fields: re ← ρ0 (HG00), im ← ρ1 (HG10)
     const re = this.re;
     const im = this.im;
     re.fill(0);
@@ -340,9 +340,9 @@ export class XpcsSim {
         }
       }
     }
-    // 3. far field
+    // 3. Far field
     this.fft.forward(re, im, 0, n - 1, this.cols);
-    // 4. intensities, photons, display buffers
+    // 4. Intensities, photons, display buffers
     const W0 = GEOM.modeWeights[0];
     const W1 = GEOM.modeWeights[1];
     const fac = this.fac;
@@ -395,7 +395,7 @@ export class XpcsSim {
       }
     }
     this.ringSlot = (slot + 1) % DISP_FRAMES;
-    // 5. correlators
+    // 5. Correlators
     const ana = this.anaIdx;
     const vA = this.anaVals[0];
     const vU = this.anaVals[1];
@@ -405,7 +405,7 @@ export class XpcsSim {
     }
     this.corr[0].push(vA);
     this.corr[1].push(vU);
-    // 6. single-pixel trace
+    // 6. Single-pixel trace
     const h = this.traceHead;
     this.traceIdeal[h] = ideal[this.probe];
     this.traceCounts[0][h] = cA[this.probe];

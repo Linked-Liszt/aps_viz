@@ -1,14 +1,14 @@
 /**
  * Pure physics for the "laue" station: polychromatic (pink-beam) Laue micro-diffraction and
  * differential-aperture X-ray microscopy (DAXM, "wire scan") as done at APS 34-ID-E / 3DMN.
- * No DOM here — everything is exported so it can be unit-tested (tests/laue.test.ts).
+ * No DOM here. Exports are covered by tests/laue.test.ts.
  *
  * ─── Conventions (34-ID-E beam-line frame, LaueGo/lauelab style) ───────────────────────────────
  *   X horizontal, outboard;  Y vertical, up;  Z along the incident beam (downstream).
  *   Incident beam k̂_in = +Z, linearly polarised along X (planar undulator, horizontal orbit).
  *   Sample surface inclined 45° to the beam; outward surface normal n̂ = (0, 1, −1)/√2 (up & upstream).
  *   Main area detector: plane Y = L directly above the sample, L = 510.9 mm, 409.6 mm square
- *   (PerkinElmer XRD1621, 2048² × 200 µm) — pre-upgrade 34-ID-E geometry (Gürsoy et al. 2022;
+ *   (PerkinElmer XRD1621, 2048² × 200 µm). Pre-upgrade 34-ID-E geometry (Gürsoy et al. 2022;
  *   lauelab geometry files). Idealised: centred, untilted (real geometry files carry small offsets
  *   and tilts calibrated on a Si reference). 2θ = 90° at the detector centre.
  *   Reciprocal vectors use the physics convention |G| = 2π/d, k = 2π/λ, E = ħc·k.
@@ -16,16 +16,16 @@
  * ─── Laue diffraction ─────────────────────────────────────────────────────────────────────────
  *   Laue condition    k_out = k_in + G_hkl,  |k_out| = |k_in| = k
  *                  ⇒  k = −|G|² / (2 k̂_in·G) = |G| / (2 sinθ),   sinθ = −k̂_in·Ĝ      (Bragg: λ = 2d sinθ)
- *   Spot direction    k̂_out = k̂_in + 2 sinθ Ĝ   — depends on Ĝ only ⇒ harmonics n·(hkl) land on the same
+ *   Spot direction    k̂_out = k̂_in + 2 sinθ Ĝ. Depends on Ĝ only ⇒ harmonics n·(hkl) land on the same
  *                     pixel, and a pure dilatation (hydrostatic strain) does not move any spot.
  *   Energy            E[keV] = ħc·k = 12.3984/λ[Å];  harmonic n has E_n = n·E_1.
  *   Lattice           A = (I+ε)·U·a  (columns = real-space cell vectors in the lab frame),
  *                     G_hkl = 2π (A⁻¹)ᵀ (h,k,l)ᵀ = (I+ε)⁻ᵀ · U · (2π/a) (h,k,l)ᵀ.
  *   Extinction        fcc: h,k,l unmixed (|F|² = 16 f²);  diamond: all odd (32 f²) or all even with
- *                     h+k+l = 4n (64 f²), otherwise 0 (e.g. Si 200, 222 forbidden — kinematically).
+ *                     h+k+l = 4n (64 f²), otherwise 0 (e.g. Si 200, 222 forbidden. Kinematically).
  *   Form factor       Cromer–Mann 4-Gaussian fit, International Tables Vol. C Table 6.1.1.4 (no f′, f″).
  *   Debye–Waller      exp(−2B s²), s = sinθ/λ = |G|/4π; B(Ni) ≈ 0.37 Å², B(Si) ≈ 0.46 Å² at room
- *                     temperature (Peng et al., Acta Cryst. A52, 456 (1996)) — approximate.
+ *                     temperature (Peng et al., Acta Cryst. A52, 456 (1996)). Approximate.
  *   Spot intensity    kinematic integrated Laue intensity of a thick (semi-infinite) single crystal:
  *                       I ∝ i(λ) · λ⁴ · |F|² e^{−2Bs²} · P / (2 sin²θ) · A(E),   P = 1 − (ε̂·k̂_out)², ε̂ = X̂
  *                     with i(λ) the incident spectrum PER UNIT WAVELENGTH (Lorentz factor 1/(2 sin²θ) for a
@@ -34,20 +34,20 @@
  *                       I ∝ S(E) · λ² · |F|² e^{−2Bs²} · P / sin²θ · A(E).            Absorption-limited diffracting
  *                     volume A = 1 / [μ(E)·(1 + sinα_in / sinα_out)], α = angles to the surface
  *                     (sinα_in = 1/√2, sinα_out = k̂_out·n̂); μ(E) from NIST XCOM (Hubbell & Seltzer) table
- *                     values, log–log interpolated, incl. the Ni K edge at 8.333 keV. Ignored: air and
- *                     detector efficiency, finite sample thickness, and extinction — a perfect Si wafer
+ *                     values, log–log interpolated, incl. The Ni K edge at 8.333 keV. Ignored: air and
+ *                     detector efficiency, finite sample thickness, and extinction. A perfect Si wafer
  *                     really diffracts dynamically (integrated intensity ∝ |F|, not |F|²). Brightness is
  *                     therefore indicative only. S(E) is an ILLUSTRATIVE smooth pink-beam spectrum.
  *   Monochromatic     Si(111) double-crystal mono, ΔE/E ≈ 1.3×10⁻⁴; a reflection is seen over
  *                     ΔE/E ≈ Δθ·cotθ (⊕ mono bandwidth) where Δθ ≈ 1 mrad stands for focusing convergence
- *                     plus mosaic spread — ILLUSTRATIVE value.
+ *                     plus mosaic spread. ILLUSTRATIVE value.
  *   Band              5.3–30 keV (APS-U FDR beam-delivery spec for 3DMN; pre-upgrade 34-ID-E 7–30 keV).
  *                     Upper limit: Pt-coated KB mirrors at 3 mrad, θc ≈ 84 mrad·keV / E ⇒ ≈ 28 keV.
  *
  * ─── Strain ───────────────────────────────────────────────────────────────────────────────────
  *   Spot positions fix Ĝ for every reflection ⇒ the orientation U and the DEVIATORIC strain (5 of 6
- *   components) — Chung & Ice, J. Appl. Phys. 86, 5249 (1999). The 6th (dilatation, tr ε) needs one
- *   absolute |G|, i.e. one energy from a monochromatic energy scan — Ice et al., J. Appl. Cryst. (2005).
+ *   components). Chung & Ice, J. Appl. Phys. 86, 5249 (1999). The 6th (dilatation, tr ε) needs one
+ *   absolute |G|, i.e. one energy from a monochromatic energy scan. Ice et al., J. Appl. Cryst. (2005).
  *   Here "stretch" = exactly volume-conserving uniaxial strain along X: diag(e, (1+e)^{−½}−1, (1+e)^{−½}−1);
  *   "swell" = hydrostatic diag(e, e, e).
  *
@@ -211,7 +211,7 @@ export function muLinear(m: Material, E: number): number {
   return (mr * m.rho) / 1e4;
 }
 
-/** Tabulated smooth function on [lo, hi] with linear interpolation (clamped outside) — for per-frame loops. */
+/** Tabulated smooth function on [lo, hi] with linear interpolation (clamped outside). For per-frame loops. */
 export function tabulate(fn: (x: number) => number, lo: number, hi: number, step: number): (x: number) => number {
   const n = Math.ceil((hi - lo) / step) + 1;
   const v = new Float64Array(n);
@@ -369,7 +369,7 @@ export function randomU(r: () => number): Mat3 {
 
 export type StrainKind = 'deviatoric' | 'hydrostatic';
 
-/** Lab-frame strain tensor. deviatoric: exactly volume-conserving uniaxial stretch e along X. */
+/** Lab-frame strain tensor. Deviatoric: exactly volume-conserving uniaxial stretch e along X. */
 export function strainTensor(kind: StrainKind, e: number): Mat3 {
   if (kind === 'hydrostatic') return mat3(e, 0, 0, 0, e, 0, 0, 0, e);
   const t = 1 / Math.sqrt(1 + e) - 1;
@@ -465,7 +465,7 @@ export interface LaueResult {
 
 /**
  * Laue pattern on the top detector for reciprocal matrix T (hkl → G_lab).
- * `dirs` (optional) restricts the calculation to these direction indices — e.g. the unstrained twins of the
+ * `dirs` (optional) restricts the calculation to these direction indices. E.g. The unstrained twins of the
  * spots of a strained pattern, instead of the whole table.
  */
 export function computeLaue(tab: DirTable, T: Mat3, o: LaueOpts, minI = 0, dirs?: ArrayLike<number>): LaueResult {
@@ -512,7 +512,7 @@ export function computeLaue(tab: DirTable, T: Mat3, o: LaueOpts, minI = 0, dirs?
       const lam = HC / E;
       const mu = muFast(tab.material, E);
       const A = o.absorption ? thickVolume(mu, sinOut) : 1;
-      // λ² (not λ⁴): S(E) is per unit energy, i(λ) = S(E)·hc/λ² — see the header
+      // λ² (not λ⁴): S(E) is per unit energy, i(λ) = S(E)·hc/λ². See the header
       const w = lam * lam * hw[j] * P * lor * A;
       const Ih = o.spectrum(E) * w;
       harm.push({ n, h: n * h, k: n * k, l: n * l, E, I: Ih, w, mu });

@@ -68,7 +68,7 @@ export class EmittanceChart {
       { x: 4, y: 2, w: w - 8, h: h - 4 },
       { min: 2, max: 10, ticks: [2, 3, 4, 5, 6, 7, 8, 9, 10], label: 'bends per sector, M' },
       { min: Y_MIN, max: Y_MAX, log: true, ticks: yTicks, format: (v) => (v >= 1000 ? `${v / 1000} nm` : `${v} pm`) },
-      w < 400 ? 'Emittance (log scale) vs bends' : 'Emittance εₓ (pm·rad, log scale) vs bends per sector',
+      w < 400 ? "Emittance vs bends · log scale" : "Emittance εₓ (pm·rad) vs bends per sector · log scale",
     );
     this.frame = f;
     const otherE = this.E === 6 ? 7 : 6;
@@ -170,7 +170,7 @@ export class EmittanceChart {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = TOKENS.ink2;
     ctx.textAlign = 'left';
-    ctx.fillText('old APS: 3.1 nm·rad (7 GeV)', f.px(2) + 9, f.py(P.APS.epsX) + 1);
+    ctx.fillText("APS before upgrade · 3.1 nm·rad at 7 GeV", f.px(2) + 9, f.py(P.APS.epsX) + 1);
     ctx.fillStyle = TOKENS.ink;
     ctx.textAlign = 'right';
     const apsuTxt = 'APS-U design: 41.7 pm·rad';

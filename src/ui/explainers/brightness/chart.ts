@@ -3,7 +3,7 @@
  * the APS-U ÷ APS gain below. Data: physics.ENVELOPE (IPAC'21 Fig. 1, digitized) or physics.DEVICES (FDR 2019
  * Fig. 2.1). Monotone-cubic curves through the digitized points (dots). Dashed gain curve = the source-size /
  * divergence term alone for panel 1's source vs the APS-2019 electron beam (same flux, L = 2.4 m, Kim's photon
- * beam) — the "brighter" part; the gap up to the design curve is "more" photons (2× current, new undulators).
+ * beam). The "brighter" part; the gap up to the design curve is "more" photons (2× current, new undulators).
  * Mouse hover reads values; click/drag (or arrow keys when focused) picks the energy.
  */
 import { TOKENS, type Canvas2D } from '../kit';
@@ -20,7 +20,7 @@ const G_LO = 0; // ×1
 const G_HI = Math.log10(3000);
 /** gain at or above which the "≈500×" zone is shaded (digitized data are ±20 % each, so ±30 % on the ratio) */
 export const ZONE_GAIN = 450;
-const GAIN_TITLE = 'How many times brighter: APS-U ÷ APS';
+const GAIN_TITLE = "Brightness ratio · APS-U ÷ APS";
 
 export interface ChartState {
   E: number;
@@ -200,8 +200,8 @@ export class BrillianceChart {
     const items: { label: string; color: string; dash?: number[] }[] =
       this.st.ds === 'envelope'
         ? [
-            { label: 'APS before the upgrade (7 GeV, 100 mA)', color: TOKENS.old },
-            { label: 'APS-U (6 GeV, 200 mA)', color: this.accent },
+            { label: "APS before upgrade · 7 GeV, 100 mA", color: TOKENS.old },
+            { label: "APS-U · 6 GeV, 200 mA", color: this.accent },
           ]
         : [
             { label: 'APS: 3.3 & 2.7 cm periods', color: TOKENS.old },
@@ -338,7 +338,7 @@ export class BrillianceChart {
     for (let e = B_LO; e <= B_HI; e++) txt(`10${sup(e)}`, L.x0 - 6, pyM(Math.pow(10, e)), { align: 'right', size: 10.5 });
     for (const G of [1, 10, 100, 1000]) txt(`×${G.toLocaleString('en-US')}`, L.x0 - 6, pyG(G), { align: 'right', size: 10.5 });
     for (const E of xTicks) txt(`${E}`, px(E), L.gBot + 15, { align: 'center', size: 10.5 });
-    txt('X-ray photon energy (keV)  →  shorter waves', (L.x0 + L.x1) / 2, L.H - 10, { align: 'center', size: 11, color: TOKENS.ink2 });
+    txt("X-ray photon energy (keV) → shorter wavelength", (L.x0 + L.x1) / 2, L.H - 10, { align: 'center', size: 11, color: TOKENS.ink2 });
     // y-axis title (main)
     g.save();
     g.translate(11, (L.mTop + L.mBot) / 2);
@@ -426,7 +426,7 @@ export class BrillianceChart {
     }
     // gain legend (top-right of the gain plot title row)
     {
-      let lab = 'panel 1’s source alone, same photons';
+      let lab = "Panel 1 source · equal photon flux";
       g.font = `500 10.5px ${TOKENS.font}`;
       let w = g.measureText(lab).width;
       const xr = L.x1;
@@ -533,7 +533,7 @@ export class BrillianceChart {
 
     // ≈500× zone label: first free spot (top, then bottom of the gain plot) that avoids pills, legend and cursor
     if (p.zones.length) {
-      const label = '≈ 500× and more';
+      const label = "≈500× or greater";
       g.font = `700 10.5px ${TOKENS.font}`;
       const w = g.measureText(label).width;
       const zs = [...p.zones].sort((a, b) => px(b[1]) - px(b[0]) - (px(a[1]) - px(a[0])));

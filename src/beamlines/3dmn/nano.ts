@@ -9,7 +9,7 @@ import { detectorFace, facingQuaternion, grainOrientation, laueSpots, rayFan, sp
  * 3DMN nano-diffraction instrument (34ID-BI-2), after FDR Fig. 4.67: ultra-stability optical table inside a ~3 m
  * thermal enclosure (≤ 0.02 °C), KB-mirror positioner upstream, interferometric nano-positioners, precision knife-edge
  * scanner and flat-panel detectors above. Station frame: origin = nano focus/sample (65.6 m), +X downstream, +Y up, +Z out.
- * Design only — its 2026 build status is not public. Detector layout mirrors the micro station (design: one large
+ * This model follows the design. Its 2026 construction status is not public. Detector layout mirrors the micro station (design: one large
  * low-noise detector above plus side detectors); short-focus KB: f_v ≈ 120 mm, f_h ≈ 55 mm, ~30 mm working distance (PDR).
  */
 

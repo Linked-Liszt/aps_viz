@@ -1,5 +1,5 @@
 /**
- * Undulator physics for the "undulator" station — pure functions, no DOM, so they can be unit-tested.
+ * Undulator physics for the "undulator" station. Pure functions, no DOM, so they can be unit-tested.
  *
  * Planar undulator, ultra-relativistic electrons, small angles (K.-J. Kim, AIP Conf. Proc. 184 (1989) 565;
  * X-ray Data Booklet, LBNL 2009, §2.1 "Characteristics of synchrotron radiation"; Clarke, "The Science and
@@ -22,7 +22,7 @@
  *       beam divergence: σ_r′ = √(λ/2L), Σ′ = √(σ_r′² + σ′²) ⇒ on-axis density × σ_r′² / (Σ_x′ Σ_y′)
  *         (Gaussian approximation; exact in both limits σ′ ≪ σ_r′ and σ′ ≫ σ_r′ for the pattern at E = E_n);
  *       random magnetic phase errors σ_φ (rms, at the fundamental): × exp(−n²σ_φ²).
- *   on-axis far field (Liénard–Wiechert, Jackson 3rd ed. eqs. 14.14 & 14.67): E_x ∝ −d/dt_obs [β_x / (1 − β_z)].
+ *   on-axis far field (Liénard–Wiechert, Jackson 3rd ed. Eqs. 14.14 & 14.67): E_x ∝ −d/dt_obs [β_x / (1 − β_z)].
  *       With u = k_u β̄_z c t:  β_x/(1 − β_z) = 2γ · K cos u / (1 + K² cos²u),
  *       observer phase ψ = 2π t_obs / T₁ = u + ξ₁ sin 2u   (ξ₁ = K²/(4(1 + K²/2))).
  *       Its Fourier coefficients reproduce F_n(K) = 4|c_n|² (checked in tests/undulator.test.ts).
@@ -38,10 +38,10 @@
  *       (P. Elleaume, J. Chavanne, B. Faatz, NIM A 455 (2000) 503).
  *     APS-U devices are stronger than this generic fit (better magnets / optimised poles), so each device's curve is
  *     scaled by a constant s so that K at the device minimum gap equals the APS value (R. Dejus et al., IPAC'24
- *     TUPG56 Table 1; APS "Insertion Devices by Sector" table, 22 Sep 2026). s = 1.02 (33 mm) … 1.17 (13.5 mm).
+ *     TUPG56 Table 1; APS "Insertion Devices by Sector" table, 22 Sep 2026). S = 1.02 (33 mm) … 1.17 (13.5 mm).
  *     The slider stops at g = λu (edge of the fit's validity); beyond it K is already ≲ 0.3.
  *   Superconducting undulator (NbTi, 4.2 K): fixed 8.0 mm magnetic gap (6.3 mm chamber aperture); tuned by the coil
- *     current, B₀ ∝ I (iron saturation near full current neglected — illustrative). B₀,max from the design K values:
+ *     current, B₀ ∝ I (iron saturation near full current neglected. Illustrative). B₀,max from the design K values:
  *     16.5 mm: K_max 1.63 (B₀ = 1.06 T, APS-U FDR ch. 4 / HEXM); 18.5 mm: K_y 2.291 (FDR Table 4.13 / CHEX).
  *
  * Machine numbers (facility research dossier, sources therein):
@@ -84,10 +84,10 @@ export interface Ring {
   label: string;
 }
 export const RINGS: Record<RingId, Ring> = {
-  aps: { id: 'aps', E: 7.0, I: 0.1, sigmaE: 0.00095, bmB: 0.599, divX: 11, divY: 3.5, emitPm: 3100, label: 'APS (1995–2023)' },
-  apsu: { id: 'apsu', E: 6.0, I: 0.2, sigmaE: 0.00136, bmB: 0.653, divX: 2.75, divY: 1.29, emitPm: 42, label: 'APS-U (2024–)' },
+  aps: { id: 'aps', E: 7.0, I: 0.1, sigmaE: 0.00095, bmB: 0.599, divX: 11, divY: 3.5, emitPm: 3100, label: "APS · 1995 to 2023" },
+  apsu: { id: 'apsu', E: 6.0, I: 0.2, sigmaE: 0.00136, bmB: 0.653, divX: 2.75, divY: 1.29, emitPm: 42, label: "APS-U · since 2024" },
 };
-/** rms magnetic phase error (degrees) — APS-U HPMU typical (ipac24und Table 2) */
+/** rms magnetic phase error (degrees). APS-U HPMU typical (ipac24und Table 2) */
 export const PHASE_ERR_DEG = 2.5;
 
 export type DeviceId = 'u33' | 'u28' | 'u25' | 'u21' | 'u13' | 'scu18' | 'scu16';
@@ -112,20 +112,20 @@ export interface Device {
 }
 
 export const DEVICES: Record<DeviceId, Device> = {
-  u33: { id: 'u33', kind: 'pm', periodMm: 33, N: 72, lengthM: 2.38, gapMinMm: 10.0, gapMaxMm: 33, kRef: 2.86, short: '33', name: 'U33 “Undulator A”', status: 'reused from the old APS (3 full + 7 canted)' },
-  u28: { id: 'u28', kind: 'pm', periodMm: 28, N: 84, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 28, kRef: 2.48, short: '28', name: 'U28', status: 'new for APS-U (3 full + 10 canted)' },
-  u25: { id: 'u25', kind: 'pm', periodMm: 25, N: 94, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 25, kRef: 1.98, short: '25', name: 'U25', status: 'new for APS-U (9 + 3 canted, mostly in revolvers)' },
-  u21: { id: 'u21', kind: 'pm', periodMm: 21, N: 112, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 21, kRef: 1.37, short: '21', name: 'U21', status: 'new for APS-U (11 + 5 canted)' },
-  u13: { id: 'u13', kind: 'pm', periodMm: 13.5, N: 175, lengthM: 2.36, gapMinMm: 8.5, gapMaxMm: 13.5, kRef: 0.41, short: '13.5', name: 'U13.5', status: 'new for APS-U (2 full + 1 canted)' },
-  scu18: { id: 'scu18', kind: 'scu', periodMm: 18.5, N: 70, lengthM: 1.3, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 2.291, short: '18.5', name: 'SCU18.5', status: 'planned canted pair for 28-ID (CHEX); not installed as of September 2026' },
-  scu16: { id: 'scu16', kind: 'scu', periodMm: 16.5, N: 115, lengthM: 1.9, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 1.63, short: '16.5', name: 'SCU16.5', status: 'planned in-line pairs for 1-ID and 20-ID (HEXM), and a 1.5 m canted pair for 11-ID; not installed as of September 2026' },
+  u33: { id: 'u33', kind: 'pm', periodMm: 33, N: 72, lengthM: 2.38, gapMinMm: 10.0, gapMaxMm: 33, kRef: 2.86, short: '33', name: 'U33 "Undulator A"', status: 'reused from the old APS · 3 full + 7 canted' },
+  u28: { id: 'u28', kind: 'pm', periodMm: 28, N: 84, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 28, kRef: 2.48, short: '28', name: 'U28', status: "new for APS-U · 3 full + 10 canted" },
+  u25: { id: 'u25', kind: 'pm', periodMm: 25, N: 94, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 25, kRef: 1.98, short: '25', name: 'U25', status: "new for APS-U · 9 + 3 canted, mostly in revolvers" },
+  u21: { id: 'u21', kind: 'pm', periodMm: 21, N: 112, lengthM: 2.35, gapMinMm: 8.5, gapMaxMm: 21, kRef: 1.37, short: '21', name: 'U21', status: "new for APS-U · 11 + 5 canted" },
+  u13: { id: 'u13', kind: 'pm', periodMm: 13.5, N: 175, lengthM: 2.36, gapMinMm: 8.5, gapMaxMm: 13.5, kRef: 0.41, short: '13.5', name: 'U13.5', status: "new for APS-U · 2 full + 1 canted" },
+  scu18: { id: 'scu18', kind: 'scu', periodMm: 18.5, N: 70, lengthM: 1.3, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 2.291, short: '18.5', name: 'SCU18.5', status: "planned canted pair for 28-ID CHEX; not installed as of September 2026" },
+  scu16: { id: 'scu16', kind: 'scu', periodMm: 16.5, N: 115, lengthM: 1.9, gapMinMm: 8.0, gapMaxMm: 8.0, kRef: 1.63, short: '16.5', name: 'SCU16.5', status: "planned in-line pairs for 1-ID and 20-ID HEXM, and a 1.5 m canted pair for 11-ID; not installed as of September 2026" },
 };
 export const PM_IDS: DeviceId[] = ['u33', 'u28', 'u25', 'u21', 'u13'];
 export const SCU_IDS: DeviceId[] = ['scu18', 'scu16'];
 /** lowest SCU current offered (fraction of full current) */
 export const SCU_FRAC_MIN = 0.05;
 
-/** Illustrative wiggler for the comparison curve — NOT an APS device (APS-U has none). */
+/** Illustrative wiggler for the comparison curve. NOT an APS device (APS-U has none). */
 export const WIGGLER = { periodMm: 150, B0: 1.6, N: 16 };
 
 // ------------------------------------------------------------------ kinematics
@@ -146,7 +146,7 @@ export const slip = (EGeV: number, K: number): number => (1 + (K * K) / 2) / (2 
 
 // ------------------------------------------------------------------ magnets
 
-/** Generic hybrid-PM peak field (T) — Elleaume, Chavanne & Faatz (2000). */
+/** Generic hybrid-PM peak field (T). Elleaume, Chavanne & Faatz (2000). */
 export function hybridField(gapMm: number, periodMm: number): number {
   const r = gapMm / periodMm;
   return HYBRID.a * Math.exp(HYBRID.b * r + HYBRID.c * r * r);
@@ -197,7 +197,7 @@ export function kRange(dev: Device): [number, number] {
   const b = kAt(dev, hi);
   return [Math.min(a, b), Math.max(a, b)];
 }
-/** Inverse of kAt (bisection for PM — K falls monotonically with gap for r < 1.67; linear for SCU). */
+/** Inverse of kAt (bisection for PM. K falls monotonically with gap for r < 1.67; linear for SCU). */
 export function settingForK(dev: Device, K: number): number {
   const [lo, hi] = settingRange(dev);
   if (dev.kind === 'scu') return Math.max(lo, Math.min(hi, K / dev.kRef));
@@ -217,7 +217,7 @@ export function settingForK(dev: Device, K: number): number {
 
 /**
  * Bessel J_n(x), integer n ≥ 0, via the periodic trapezoid rule on Bessel's integral. With M points the only error
- * is aliasing, Σ_k J_{kM±n}(x), which is negligible (< 1e-15) once M − n exceeds |x| by ~30 — so M adapts to n + |x|.
+ * is aliasing, Σ_k J_{kM±n}(x), which is negligible (< 1e-15) once M − n exceeds |x| by ~30. So M adapts to n + |x|.
  */
 export function besselJ(n: number, x: number): number {
   const M = Math.min(1024, 32 + 2 * Math.ceil((n + Math.abs(x)) / 2) + 16);
@@ -308,7 +308,7 @@ export function spreadFwhm(n: number, N: number, sigmaE: number): number {
     return fwhmSampled(v, span);
   });
 }
-/** Combined relative FWHM of harmonic n (natural ⊕ energy spread, quadrature) — the textbook estimate. */
+/** Combined relative FWHM of harmonic n (natural ⊕ energy spread, quadrature). The textbook estimate. */
 export const lineWidth = (n: number, N: number, sigmaE: number): number => Math.hypot(naturalWidth(n, N), spreadWidth(sigmaE));
 
 /** Reduction of the on-axis intensity of harmonic n by random phase errors σ_φ (Walker 1993): exp(−n²σ_φ²). */
@@ -406,8 +406,8 @@ export interface Tune {
 export const TUNE_PREFER_LOW = 0.8;
 
 /**
- * Odd harmonics whose tuning range contains target (keV), with their real-beam on-axis peak flux. tuneTo returns the
- * LOWEST harmonic within 80 % of the best one — beamline practice: at high n the attainable flux is nearly flat in n,
+ * Odd harmonics whose tuning range contains target (keV), with their real-beam on-axis peak flux. TuneTo returns the
+ * LOWEST harmonic within 80 % of the best one. Beamline practice: at high n the attainable flux is nearly flat in n,
  * while gap jitter, heat load and the effects left out here (correlated phase errors, divergence broadening) all
  * grow with n. Returns null if no odd harmonic reaches the target.
  */

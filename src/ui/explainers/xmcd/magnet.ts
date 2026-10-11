@@ -1,5 +1,5 @@
 /**
- * View 3 — the magnet's state: hysteresis loop M(H) at the current temperature (major loop of the grain ensemble
+ * View 3. The magnet's state: hysteresis loop M(H) at the current temperature (major loop of the grain ensemble
  * plus the path actually travelled) and the Weiss mean-field M(T) curve with T_C. Both plots are draggable:
  * horizontal drag on the loop sets the field, on M(T) the temperature.
  */
@@ -207,7 +207,7 @@ export class MagnetPlot {
     ctx.fill();
     ctx.stroke();
     // titles
-    txt(ctx, `Flip it with a magnetic field: M(H) at ${Math.round(s.T)} K`, r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
+    txt(ctx, `Magnetization vs field · M(H) at ${Math.round(s.T)} K`, r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
     txt(ctx, 'field μ₀H (tesla)', r.x + r.w, r.y + r.h + 27, { size: 10.5, color: TOKENS.ink2, align: 'right' });
     this.yLabel(['magnetization M·k̂/M_{s}', 'magnetization'], r);
     if (this.hover === 'loop') txt(ctx, '⇠ drag ⇢', r.x + r.w - 6, r.y + 14, { size: 10.5, color: TOKENS.ink3, align: 'right' });
@@ -326,7 +326,7 @@ export class MagnetPlot {
     ctx.arc(x, ym(Math.abs(s.M)), 5.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
-    txt(ctx, 'Heat it: magnetism vs temperature (mean field)', r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
+    txt(ctx, "Magnetization vs temperature · mean-field model", r.x, r.y - 8, { size: 11.5, weight: 650, color: TOKENS.ink });
     txt(ctx, 'temperature T (kelvin)', r.x + r.w, r.y + r.h + 27, { size: 10.5, color: TOKENS.ink2, align: 'right' });
     this.yLabel(['strength |M|/M_{s}', 'strength'], r);
     if (this.hover === 'temp') txt(ctx, '⇠ drag ⇢', r.x + r.w - 6, r.y + 28, { size: 10.5, color: TOKENS.ink3, align: 'right' });

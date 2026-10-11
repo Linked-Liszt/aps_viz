@@ -96,7 +96,7 @@ export function hdcm(beamY: number): THREE.Group {
   return shadowed(g);
 }
 
-/** Double multilayer monochromator — drawn as a ghost because its installation is unconfirmed. */
+/** Draw the double multilayer monochromator as a translucent model because its installation is unconfirmed. */
 export function dmmGhost(beamY: number): THREE.Group {
   const g = new THREE.Group();
   g.add(vesselBox(1.0, 0.42, 0.5, true));

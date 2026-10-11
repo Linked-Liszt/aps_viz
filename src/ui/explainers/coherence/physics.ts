@@ -2,7 +2,7 @@
  * Physics for the "coherence" station (CHEX 28-ID + facility story): transverse coherence of undulator
  * radiation on the pre-upgrade APS vs APS-U, and a Young's double-slit test of it.
  *
- * MODEL (Gaussian approximation; K.-J. Kim, AIP Conf. Proc. 184, 565 (1989); also X-ray Data Booklet §2.1):
+ * Model in the Gaussian approximation. Sources are K.-J. Kim, AIP Conf. Proc. 184, 565 (1989) and X-ray Data Booklet §2.1:
  *   λ [m]          = 12.398 419 843 keV·Å / E                       (hc)
  *   single electron σ_r = √(2λL) / 4π ,  σ_r' = √(λ / 2L)            (σ_r σ_r' = λ/4π, the photon "emittance")
  *   photon source   Σ² = σ_e² + σ_r² ,   Σ'² = σ_e'² + σ_r'²          (per plane, electron ⊕ single-electron mode)
@@ -11,7 +11,7 @@
  *   the APS-U / APS gain f_new/f_old ≈ Π ε_old/(ε_new + λ/4π)-ish, i.e. it GROWS with energy toward the
  *   emittance ratio because at low energy APS-U is already close to the diffraction limit λ/4π.
  *
- * TRANSVERSE COHERENCE LENGTH at distance Z — Gaussian Schell model (GSM) of the photon source with rms size Σ and
+ * Transverse coherence length at distance Z. Gaussian Schell model (GSM) of the photon source with rms size Σ and
  * divergence Σ' (Vartanyants & Singer, New J. Phys. 12, 035004 (2010); Mandel & Wolf §5.6.4):
  *   |μ₁₂(d)| = exp(−d² / 2ξ²)                                             (rms convention; others differ by ~π/√2)
  *   GSM source: Σ'² = (1/k²)(1/4Σ² + 1/ξ₀²)  ⇒  f = (λ/4π)/(ΣΣ') = q/√(q² + 4)  with q = ξ₀/Σ, i.e. the
@@ -21,33 +21,33 @@
  *   The far-field form is NOT used: at Z = 20–45 m it underestimates ξ of the old APS horizontally by 56–13 %
  *   (Σ/Σ' = 25 m there) and of the APS-U flat-beam vertical plane by up to 32 % at 5 keV (f_y ≈ 0.66).
  *
- * YOUNG'S DOUBLE SLIT (quasi-homogeneous field, Fraunhofer, uniform illumination of both slits):
+ * Young's double-slit test uses a quasi-homogeneous field, Fraunhofer diffraction and uniform illumination of both slits:
  *   I(θ) ∝ ∫ C(s) μ(s) cos(k θ s) ds ,  C = aperture autocorrelation of two slits (width a, centres ±d/2)
  *        = 2Λ(s) + Λ(s−d) + Λ(s+d) ,  Λ(t) = max(0, a − |t|)
  *   In fringe-order units u = θ d / λ the pattern depends only on ξ/d and a/d. For a ≪ ξ:
  *   I ∝ sinc²(π a θ/λ)·[1 + |μ₁₂| cos(2π d θ/λ)] and the fringe visibility V = |μ₁₂(d)|.
  *   The station uses a = d/4 (stated in the UI) and evaluates the integral numerically (no a ≪ ξ assumption).
  *
- * SOURCE PARAMETERS (research dossier facility.json; rms values at the ID source point, zero current):
+ * Source parameters from research dossier facility.json. Values are rms at the ID source point and zero current:
  *   APS 2019 (7 GeV, ε_x 3.1 nm·rad, ε_y 40 pm, ~1.3 % coupling): σ_x 275 µm, σ_x' 11 µrad, σ_y 10 µm, σ_y' 3.5 µrad
- *     — APS-U FDR (2019) Table 2.1 (Table 1.1 gives 280 µm / 11.6 µrad).
+ *. APS-U FDR (2019) Table 2.1 (Table 1.1 gives 280 µm / 11.6 µrad).
  *   APS-U round beam (κ = 1, the user-operation mode since 2025): σ_x 12.3 µm, σ_x' 2.34 µrad, σ_y 8.26 µm,
- *     σ_y' 3.47 µrad, ε_x = ε_y = 28.7 pm — APS-U storage-ring parameters 2024, Table 5.
- *   APS-U flat beam (κ = 0.1): σ_x 14.5 µm, σ_x' 2.75 µrad, σ_y 3.08 µm, σ_y' 1.29 µrad, ε 39.7 / 3.98 pm — same table.
+ *     σ_y' 3.47 µrad, ε_x = ε_y = 28.7 pm. APS-U storage-ring parameters 2024, Table 5.
+ *   APS-U flat beam (κ = 0.1): σ_x 14.5 µm, σ_x' 2.75 µrad, σ_y 3.08 µm, σ_y' 1.29 µrad, ε 39.7 / 3.98 pm. Same table.
  *   Undulator length L = 2.4 m for both rings (APS standard device length; the facility dossier's
  *   "coherentFractionEstimate" uses the same model and reproduces: 10 keV → 0.046 % APS, 2.7 % round, 6.0 % flat).
- *   CHEX (28-ID) energies and distances: chex.json — fixed branches 15 keV (D/E), 25/35 keV (F), 75/105 keV (G);
+ *   CHEX (28-ID) energies and distances: chex.json. Fixed branches 15 keV (D/E), 25/35 keV (F), 75/105 keV (G);
  *   instrument positions D 35.5 m, F/1 45.5 m, G/1 52.0 m, B 64.5 m, C 72.0 m (FDR Table 4.5); its interim
- *   canted HPMUs are 2.07 m long (APS-U f lower by 4–11 % than with 2.4 m over 5–105 keV — stated, not plotted).
+ *   canted HPMUs are 2.07 m long (APS-U f lower by 4–11 % than with 2.4 m over 5–105 keV. Stated, not plotted).
  *
- * APPROXIMATIONS (stated in the station's notes): Gaussian beams; zero current; NO energy spread. σ_δ = 0.136 %
+ * Approximations stated in the station's notes: Gaussian beams, zero current and omitted energy spread. σ_δ = 0.136 %
  * (APS-U), 0.095 % (APS) inflates σ_r' by Q_a(x), x = 2πnNσ_δ (Tanaka & Kitamura, JSR 16, 380 (2009),
  * Q_a(x) = [2x² / (−1 + e^{−2x²} + √(2π)·x·erf(√2·x))]^{1/2}): Q_a ≈ 1.7 for APS-U at n = 5, N = 74 (CHEX 25 keV),
- * ≈ 1.2 for APS at n = 3, N = 72 — so f falls below the curves from the 3rd–5th harmonic up, more for APS-U.
+ * ≈ 1.2 for APS at n = 3, N = 72. So f falls below the curves from the 3rd–5th harmonic up, more for APS-U.
  * Kim's σ_r (Onuki–Elleaume / Tanaka–Kitamura fits give a ~2× larger σ_r, lowering f near the diffraction limit).
  * Reality check: SRW wave-optics design studies for two APS-U feature beamlines (FDR Ch. 4, Tables 4.41 / 4.51,
- * design source incl. energy spread) give 4.2–5.6 % at 10 keV and 0.54–0.94 % at 25 keV, vs 2.7 / 6.0 % and
- * 0.80 / 2.2 % (round / flat) here — read the APS-U curves as an idealised upper bound at high energy.
+ * design source incl. Energy spread) give 4.2–5.6 % at 10 keV and 0.54–0.94 % at 25 keV, vs 2.7 / 6.0 % and
+ * 0.80 / 2.2 % (round / flat) here. Read the APS-U curves as an idealised upper bound at high energy.
  * Unfocused beam (ideal optics preserve f and ξ/Σ_Z).
  */
 
@@ -59,7 +59,7 @@ export function wavelength(EkeV: number): number {
   return HC_KEV_M / EkeV;
 }
 
-/** Photon "emittance" λ/4π (m·rad) — the diffraction limit of a single transverse mode. */
+/** Photon "emittance" λ/4π (m·rad). The diffraction limit of a single transverse mode. */
 export function diffractionLimit(EkeV: number): number {
   return wavelength(EkeV) / (4 * Math.PI);
 }
@@ -87,7 +87,7 @@ export interface Ring {
 
 export const APS_2019: Ring = {
   id: 'aps',
-  name: 'APS (before upgrade)',
+  name: 'APS before upgrade',
   energyGeV: 7,
   x: { size: 275e-6, div: 11e-6, emit: 3100e-12 },
   y: { size: 10e-6, div: 3.5e-6, emit: 40e-12 },

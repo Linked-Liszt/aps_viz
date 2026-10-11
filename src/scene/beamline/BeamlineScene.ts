@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
-import type { Stage } from '../Stage';
+import type { Stage, Pickable } from '../Stage';
 import type { Beamline, BeamlineComponent, BeamlineMeta, Enclosure } from '../../data/types';
 import { sectorFrame, SITE, type SectorFrame } from '../../data/site';
 import { buildPart, scalePerson } from './parts';
@@ -81,6 +81,10 @@ export class BeamlineScene {
   private readonly noBatch = typeof location !== 'undefined' && /[?&]nobatch\b/.test(location.search);
   readonly beamY = SITE.beamHeightM;
   private prepared: Promise<void> | null = null;
+  private built = false;
+  private disposed = false;
+  private pickables = new Set<THREE.Object3D>();
+  private pickablesRegistered = true;
 
   constructor(
     private stage: Stage,
@@ -88,6 +92,7 @@ export class BeamlineScene {
     readonly meta: BeamlineMeta,
     readonly layout: BeamlineLayout,
     private onPinClick: (componentId: string) => void,
+    deferBuild = false,
   ) {
     this.frame = sectorFrame(meta.sectorNumber, layout.cantMrad ?? 0, layout.sourceShiftM ?? 0);
     this.group.name = `beamline-${data.id}`;
@@ -106,15 +111,54 @@ export class BeamlineScene {
       ...data.components.map((c) => c.distanceM ?? 0),
     );
     this.group.add(this.labels);
-    this.build();
-    this.stripTransmission();
+    this.group.visible = !deferBuild;
+    if (!deferBuild) {
+      for (const _ of this.build()) { /* Complete synchronous construction. */ }
+      this.stripTransmission();
+      this.built = true;
+    }
     stage.scene.add(this.group);
+  }
+
+  /** Build a few components per task so input and camera animation continue during the first visit. */
+  async buildAsync(signal: AbortSignal): Promise<void> {
+    const job = this.build();
+    for (;;) {
+      signal.throwIfAborted();
+      const end = performance.now() + 6;
+      let done = false;
+      do {
+        done = !!job.next().done;
+      } while (!done && performance.now() < end);
+      if (done) break;
+      await yieldTask();
+    }
+    signal.throwIfAborted();
+    this.stripTransmission();
+    this.built = true;
+  }
+
+  /** Hide cached models and their labels immediately. Their geometry remains available for the next visit. */
+  hide(): void {
+    this.group.visible = false;
+    this.stage.removePickables((_, obj) => this.pickables.has(obj));
+    this.pickablesRegistered = false;
+    this.group.traverse((o) => {
+      if (o instanceof CSS2DObject) o.element.style.display = 'none';
+    });
+  }
+
+  show(): void {
+    if (!this.pickablesRegistered) {
+      for (const obj of this.pickables) this.stage.addPickable(obj, obj.userData.pick as Pickable);
+      this.pickablesRegistered = true;
+    }
+    this.group.visible = true;
   }
 
   /**
    * Compile every shader this scene needs ahead of its first render (in parallel where the GPU driver supports
-   * KHR_parallel_shader_compile); resolves when they are ready. Await it before the entry flight so the first frames
-   * of the flight do not stall on shader compilation.
+   * KHR_parallel_shader_compile). Reveal the detailed model once they are ready. The camera can move meanwhile.
    */
   prepare(): Promise<void> {
     return (this.prepared ??= this.stage.renderer.compileAsync(this.group, this.stage.camera, this.stage.scene).then(
@@ -152,7 +196,7 @@ export class BeamlineScene {
   }
   private customLabels: CSS2DObject[] = [];
 
-  private build(): void {
+  private *build(): Generator<void> {
     const ctx: BuildCtx = (this.ctx = {
       group: this.group,
       data: this.data,
@@ -160,7 +204,7 @@ export class BeamlineScene {
       beamY: this.beamY,
       at: (x, s, u) => this.at(x, s, u),
       sideAt: (b, x) => this.sideAt(b, x),
-      addPickable: (obj, id) => this.stage.addPickable(obj, { kind: 'component', id, hint: id }),
+      addPickable: (obj, id) => this.addPickable(obj, id, id),
       onFrame: (fn) => {
         this.frameFns.push(fn);
       },
@@ -191,14 +235,17 @@ export class BeamlineScene {
         return line;
       },
     });
-    this.buildEnclosures();
-    this.buildComponents();
+    yield* this.buildEnclosures();
+    yield* this.buildComponents();
     this.buildBeams();
+    yield;
     this.buildRuler();
     this.buildPeople();
+    yield;
     this.layout.custom?.(ctx);
+    yield;
     this.syncPulseMesh();
-    // a layout that hid (visible = false) or detached an engine label while building owns it from then on: the
+    // If a layout hides or detaches an engine label during construction, it controls that label afterward. The
     // distance and declutter passes below must never bring it back (e.g. HEXM's redrawn transport enclosures)
     const managed = (l: CSS2DObject) => l.visible && !!l.parent;
     this.enclosureLabels = this.enclosureLabels.filter(managed);
@@ -235,7 +282,7 @@ export class BeamlineScene {
 
   // ---------------------------------------------------------------- enclosures
 
-  private buildEnclosures(): void {
+  private *buildEnclosures(): Generator<void> {
     const defaults = this.layout.enclosureDefaults ?? {};
     for (const e of this.data.enclosures) {
       const o = this.layout.enclosure?.[e.name] ?? {};
@@ -251,6 +298,7 @@ export class BeamlineScene {
       const style = o.style ?? (TRANSPORT_RE.test(`${e.name} ${e.role}`) ? 'transport' : 'hutch');
       if (o.outline && o.outline.length > 2) this.addOutlineEnclosure(e, o.outline, height, style);
       else this.addEnclosure(e, start, end, width, height, side, style);
+      yield;
     }
   }
 
@@ -281,7 +329,7 @@ export class BeamlineScene {
       const len = Math.hypot(x1 - x0, z1 - z0);
       if (len < 1e-3) continue;
       if (style === 'hutch') {
-        const wall = new THREE.Mesh(new THREE.PlaneGeometry(len, h), cutawayGlass());
+        const wall = new THREE.Mesh(new THREE.PlaneGeometry(len, h), mats.hutchWall());
         wall.position.set((x0 + x1) / 2, -this.beamY + h / 2, (z0 + z1) / 2);
         wall.rotation.y = -Math.atan2(z1 - z0, x1 - x0);
         wall.renderOrder = 2;
@@ -361,7 +409,7 @@ export class BeamlineScene {
       // lead-lined walls drawn as a translucent cut-away shell: back faces only, so the near wall and the
       // roof vanish from any outside viewpoint while far walls, skirts and edges stay readable
       const wallGeo = new THREE.BoxGeometry(len, height, width);
-      const shell = new THREE.Mesh(wallGeo, cutawayGlass());
+      const shell = new THREE.Mesh(wallGeo, mats.hutchWall());
       shell.position.y = height / 2;
       shell.renderOrder = 2;
       const edges = new THREE.LineSegments(new THREE.EdgesGeometry(wallGeo), mats.hutchEdge());
@@ -392,7 +440,7 @@ export class BeamlineScene {
 
   // ---------------------------------------------------------------- components
 
-  private buildComponents(): void {
+  private *buildComponents(): Generator<void> {
     let idx = 0;
     for (const c of this.data.components) {
       const o = this.layout.comp?.[c.id] ?? {};
@@ -437,8 +485,14 @@ export class BeamlineScene {
         width: 34 + Math.min(34, shortName(c.name).length) * 6.6,
         home: pin.position.clone(),
       });
-      this.stage.addPickable(obj, { kind: 'component', id: c.id, hint: c.name });
+      this.addPickable(obj, c.id, c.name);
+      yield;
     }
+  }
+
+  private addPickable(obj: THREE.Object3D, id: string, hint: string): void {
+    this.pickables.add(obj);
+    if (this.pickablesRegistered) this.stage.addPickable(obj, { kind: 'component', id, hint });
   }
 
   private makePin(c: BeamlineComponent, idx: number): CSS2DObject {
@@ -713,6 +767,7 @@ export class BeamlineScene {
    * component's pin is kept inside the visible frame (with a leader line to the component when it has to move).
    */
   updatePinDensity(camera: THREE.Camera, width: number, height: number, safe?: Partial<SafeInsets>): void {
+    if (!this.built || this.disposed) return;
     // without explicit insets, keep clear of whatever the stage currently reserves for UI chrome
     const frame = safeRect(width, height, safe ?? stageInsets(this.stage));
     frame.x0 += SAFE_PAD;
@@ -1020,6 +1075,7 @@ export class BeamlineScene {
   onBatched: (() => void) | null = null;
 
   update(dt: number): void {
+    if (!this.built || this.disposed) return;
     const t = this.stage.time;
     for (const fn of this.frameFns) fn(dt, t);
     if (!this.batched && !this.noBatch) this.stepBatching(t, dt);
@@ -1029,10 +1085,9 @@ export class BeamlineScene {
   }
 
   /**
-   * Static batching, spread over frames: snapshot every mesh's pose shortly after opening, then — once the opening
-   * flight has settled (camera still), or after 8 s regardless — merge whatever did not move. The work runs in slices
-   * of a few milliseconds per frame and the merged meshes replace the originals in one step, so neither a long frame
-   * nor a half-merged scene is ever shown.
+   * Record each mesh's pose shortly after opening. Once the camera stops moving, or after 8 s, merge meshes
+   * whose poses have not changed. Process a few milliseconds of work per frame. Replace the original meshes
+   * in one step after the merge completes, so the scene does not show partial results.
    */
   private stepBatching(t: number, dt: number): void {
     if (this.bornAt < 0) this.bornAt = t;
@@ -1075,11 +1130,29 @@ export class BeamlineScene {
 
   private camLocal = new THREE.Vector3();
 
-  dispose(): void {
+  dispose(retained: Iterable<BeamlineScene> = []): void {
+    if (this.disposed) return;
+    this.disposed = true;
     this.batchJob = null;
     this.snapJob = null;
-    this.stage.removePickables((i) => i.kind === 'component');
-    // free GPU resources this scene owns: geometries, materials and their textures (palette / engine singletons that
+    this.stage.removePickables((_, obj) => this.pickables.has(obj));
+    this.pickables.clear();
+    // Layout modules may share geometry and materials between cached models. Free them after the last owner leaves.
+    const keptGeos = new Set<THREE.BufferGeometry>();
+    const keptMaterials = new Set<THREE.Material>();
+    const keptTextures = new Set<THREE.Texture>();
+    for (const scene of retained) {
+      if (scene === this) continue;
+      scene.group.traverse((o) => {
+        const m = o as THREE.Mesh;
+        if (m.geometry) keptGeos.add(m.geometry);
+        for (const mat of materialsOf(o)) {
+          keptMaterials.add(mat);
+          for (const tex of texturesOf(mat)) keptTextures.add(tex);
+        }
+      });
+    }
+    // Free GPU resources created by this scene, geometries, materials and their textures (palette / engine singletons that
     // the site shares are kept; module-cached beamline resources simply re-upload on a later visit)
     const geos = new Set<THREE.BufferGeometry>();
     const materials = new Set<THREE.Material>();
@@ -1089,15 +1162,15 @@ export class BeamlineScene {
       for (const mat of materialsOf(o)) materials.add(mat);
       if ((o as THREE.InstancedMesh).isInstancedMesh) (o as THREE.InstancedMesh).dispose();
     });
-    for (const g of geos) g.dispose();
+    for (const g of geos) if (!keptGeos.has(g)) g.dispose();
     releaseLines(this.group);
     const textures = new Set<THREE.Texture>();
     for (const mat of materials) {
-      if (isShared(mat)) continue;
+      if (isShared(mat) || keptMaterials.has(mat)) continue;
       for (const tex of texturesOf(mat)) if (!isShared(tex)) textures.add(tex);
       mat.dispose();
     }
-    for (const tex of textures) tex.dispose();
+    for (const tex of textures) if (!keptTextures.has(tex)) tex.dispose();
     // remove every DOM label in the tree (including ones layouts added directly to ctx.group)
     this.group.traverse((o) => {
       if (o instanceof CSS2DObject) {
@@ -1111,6 +1184,12 @@ export class BeamlineScene {
     this.pinView = null;
     this.group.removeFromParent();
   }
+}
+
+/** Yield to pending input and rendering between construction tasks. */
+function yieldTask(): Promise<void> {
+  const scheduler = (globalThis as unknown as { scheduler?: { yield(): Promise<void> } }).scheduler;
+  return scheduler?.yield ? scheduler.yield() : new Promise((resolve) => setTimeout(resolve, 0));
 }
 
 /** Time budget per frame for the static-batching work (ms). */
@@ -1207,14 +1286,3 @@ function pulseMat(): THREE.Material {
 }
 
 const ghostEdge = markShared(new THREE.LineBasicMaterial({ color: 0x8796a8, transparent: true, opacity: 0.35 }));
-let glassCache: THREE.Material | null = null;
-/** Translucent hutch wall rendered from the inside only (cut-away diorama convention). */
-function cutawayGlass(): THREE.Material {
-  if (!glassCache) {
-    const m = (mats.hutchGlass() as THREE.MeshStandardMaterial).clone();
-    m.side = THREE.BackSide;
-    m.opacity = 0.2;
-    glassCache = markShared(m);
-  }
-  return glassCache;
-}

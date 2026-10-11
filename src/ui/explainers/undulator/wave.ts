@@ -1,5 +1,5 @@
 /**
- * Panel 2 — what an observer straight ahead receives.
+ * Panel 2. What an observer straight ahead receives.
  *   • top: the on-axis far-field E_x(t) of one electron (Liénard–Wiechert, see physics.ts `waveform`), normalised,
  *     scrolling like an oscilloscope. Small K → a pure sine; large K → the cone sweeps past the observer twice per
  *     period and the wave turns into sharp alternating spikes → strong odd harmonics. Even harmonics stay zero on
@@ -8,7 +8,7 @@
  *     normalised to the strongest.
  *   • bottom right: zoom on one harmonic line (the 1st, or the one the station tuned to). The wave train is N periods
  *     long, so its spectrum is sinc²(πnN(E/E_n − 1)): FWHM ΔE/E = 0.886/(nN), zeros at ±1/(nN). Dashed: the
- *     same line convolved with the energy-spread Gaussian (rms 2σ_E in E/E_n, since E_n ∝ γ²) — numerically, so
+ *     same line convolved with the energy-spread Gaussian (rms 2σ_E in E/E_n, since E_n ∝ γ²). Numerically, so
  *     its FWHM and peak are exact for a Gaussian spread; the spectrum heights and captions use the same cached numbers
  *     (physics.ts `spreadFactor`, `spreadFwhm`). Beam divergence is not included in this line shape.
  */
@@ -72,7 +72,7 @@ export class WaveView {
     for (let n = 1; n <= NB; n++) this.bars[n] /= mx || 1;
     const prev = this.line;
     this.line = line;
-    // the line shape (relative units) depends only on n, N and σ_E — not on K
+    // the line shape (relative units) depends only on n, N and σ_E. Not on K
     if (prev.n !== line.n || prev.N !== line.N || prev.sigmaE !== line.sigmaE || this.zFwNat === 0) this.computeLine();
   }
 
@@ -196,15 +196,15 @@ export class WaveView {
     ctx.font = `500 10.5px ${TOKENS.font}`;
     const room = wx1 - (wx0 + cyc + 6);
     const opts = [
-      `1 wave passes in ${asTxt} attoseconds; the train of all ${N} in ${trTxt} attoseconds`,
-      `1 wave passes in ${asTxt} attoseconds, all ${N} in ${trTxt}`,
-      `1 wave passes in ${asTxt} attoseconds`,
-      `1 wave: ${asTxt} attoseconds`,
+      `One wavelength passes in ${asTxt} attoseconds; all ${N} pass in ${trTxt} attoseconds`,
+      `One wavelength: ${asTxt} attoseconds · all ${N}: ${trTxt}`,
+      `One wavelength passes in ${asTxt} attoseconds`,
+      `One wavelength: ${asTxt} attoseconds`,
     ];
     const tTxt = opts.find((t) => ctx.measureText(t).width <= room) ?? opts[opts.length - 1];
     label(ctx, tTxt, wx0 + cyc + 6, yb + 4, TOKENS.ink3, 10.5, 'left', 500);
     // shape descriptor, top-right of the canvas, unless the DOM panel title already reaches there
-    const kTxt = `K = ${this.K.toFixed(2)}: ${this.K < 0.8 ? 'smooth wave' : this.K < 1.6 ? 'getting peaky' : 'sharp flashes'}`;
+    const kTxt = `K = ${this.K.toFixed(2)}: ${this.K < 0.8 ? 'near-sinusoidal field' : this.K < 1.6 ? 'narrower peaks' : 'narrow field peaks'}`;
     ctx.font = `600 10.5px ${TOKENS.font}`;
     const kx = showBars && !stacked ? w - 12 : wx1;
     if (kx - ctx.measureText(kTxt).width > this.titleRight() + 10) label(ctx, kTxt, kx, 16, this.K < 0.8 ? TOKENS.ink2 : this.accent, 10.5, 'right', 600);

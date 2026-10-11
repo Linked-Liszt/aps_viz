@@ -1,7 +1,7 @@
 /**
- * HEDM station — pure physics (no DOM). Everything here is unit-tested in tests/hedm.test.ts.
+ * HEDM station. Pure physics without DOM access. Everything here is unit-tested in tests/hedm.test.ts.
  *
- * GEOMETRY (lab frame): beam along +x, rotation axis ω = +z (vertical, also the tensile-load axis),
+ * Geometry in the lab frame: beam along +x, rotation axis ω = +z (vertical, also the tensile-load axis),
  * y horizontal. R_z(ω) turns the sample counter-clockwise seen from +z. The sample is a vertical cylinder;
  * we follow one horizontal slice (the plane z = 0, the plane a line-focused beam illuminates).
  *
@@ -22,7 +22,7 @@
  *    (Poisson contraction) → rings become slightly squashed ellipses.
  * 4. Grain stresses: uniaxial macroscopic stress σ along z. Each grain's strain is the mean of the Reuss
  *    (iso-stress, ε = S_grain : σ, anisotropic single-crystal compliances) and Voigt (iso-strain,
- *    Voigt-averaged isotropic moduli) bounds — a Hill-type stand-in for a self-consistent model.
+ *    Voigt-averaged isotropic moduli) bounds. A Hill-type stand-in for a self-consistent model.
  *    Cubic compliance tensor: S_ijkl = S12 δij δkl + (S44/4)(δik δjl + δil δjk) + (S11 − S12 − S44/2) Σ_p δip δjp δkp δlp.
  *    Ni single-crystal constants (room temperature): C11 = 246.5, C12 = 147.3, C44 = 124.7 GPa
  *    (Alers, Neighbours & Sato, J. Phys. Chem. Solids 13, 40 (1960)) → E<100> = 136 GPa, E<111> = 304 GPa.
@@ -45,7 +45,7 @@
  *    10–200 keV, interpolated log–log (no absorption edges in this range for Al, Ti, Fe, Ni). "Steel" = Fe.
  *    Check: Fe 1/μ = 0.35 mm at 40 keV, 1.5 mm at 70 keV, 3.4 mm at 100 keV (HEXM dossier, r52).
  * 8. Orientation colour: inverse pole figure of the sample z (load) axis, cubic m-3m, RGB = (c−b, b−a, √2·a)
- *    of the sorted |components| a ≤ b ≤ c, normalised — red [001], green [101], blue [111].
+ *    of the sorted |components| a ≤ b ≤ c, normalised. Red [001], green [101], blue [111].
  */
 import { gauss, rng } from '../../../lib/fft';
 
@@ -98,7 +98,7 @@ export interface Material {
 export const MATERIALS: Record<MatId, Material> = {
   al: { id: 'al', name: 'Aluminium', rho: 2.699, muRho: [26.23, 7.955, 3.441, 1.128, 0.5685, 0.3681, 0.2778, 0.2018, 0.1704, 0.1378, 0.1223] },
   ti: { id: 'ti', name: 'Titanium', rho: 4.54, muRho: [110.7, 35.87, 15.85, 4.972, 2.214, 1.213, 0.7661, 0.4052, 0.2721, 0.1649, 0.1314] },
-  fe: { id: 'fe', name: 'Steel (Fe)', rho: 7.874, muRho: [170.6, 57.08, 25.68, 8.176, 3.629, 1.958, 1.205, 0.5952, 0.3717, 0.1964, 0.146] },
+  fe: { id: 'fe', name: "Steel · Fe", rho: 7.874, muRho: [170.6, 57.08, 25.68, 8.176, 3.629, 1.958, 1.205, 0.5952, 0.3717, 0.1964, 0.146] },
   ni: { id: 'ni', name: 'Nickel', rho: 8.902, muRho: [209.0, 70.81, 32.2, 10.34, 4.597, 2.474, 1.512, 0.7306, 0.444, 0.2208, 0.1582] },
 };
 
@@ -238,7 +238,7 @@ export function entryPath(px: number, py: number, R: number): number {
   return h <= 0 ? 0 : Math.max(0, px + Math.sqrt(h));
 }
 
-/** f(s)² e^{−2Bs²} of a reflection with spacing d (Å) — the structure-factor part of the spot intensity */
+/** f(s)² e^{−2Bs²} of a reflection with spacing d (Å). The structure-factor part of the spot intensity */
 export function fDW(d: number): number {
   const s = 1 / (2 * d);
   const f = formFactorNi(s);

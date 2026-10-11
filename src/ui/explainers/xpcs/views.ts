@@ -1,5 +1,5 @@
 /**
- * XPCS station — canvas renderers (detector, sample, correlation plot). Pure drawing: no state changes.
+ * XPCS station. Canvas renderers (detector, sample, correlation plot). Pure drawing: no state changes.
  */
 import { TOKENS, lut, plotFrame, type Canvas2D, type PlotFrame } from '../kit';
 import { DISP_FRAMES, TRACE_LEN, type G2Series, type SourceIx, type XpcsSim } from './sim';
@@ -276,7 +276,7 @@ export class DetectorView {
 
     // ring label (placed outward of the handle, kept inside the canvas)
     const q = sim.qOf(s.ringR);
-    const ringTxt = `details ≈ ${fmtLen((2 * Math.PI) / (q * 1e10))} · q = ${sci(q)} Å⁻¹`;
+    const ringTxt = `length scale ≈ ${fmtLen((2 * Math.PI) / (q * 1e10))} · q = ${sci(q)} Å⁻¹`;
     ctx.font = `600 11px ${FONT}`;
     const tw = ctx.measureText(ringTxt).width + 12;
     let lx = hx + 14 * Math.cos(s.theta) + (Math.cos(s.theta) >= 0 ? 6 : -6 - tw);
@@ -286,7 +286,7 @@ export class DetectorView {
     pill(ctx, ringTxt, lx, ly, { color: '#fff', border: rgba(s.accent, 0.7) });
 
     // header: source badge + view description (top-right)
-    const srcName = s.src === 1 ? 'APS-U' : 'APS (pre-2023)';
+    const srcName = s.src === 1 ? 'APS-U' : "APS before upgrade";
     const srcCol = s.src === 1 ? s.accent : TOKENS.old;
     const viewTxt =
       s.view === 'photons'
@@ -310,7 +310,7 @@ export class DetectorView {
 
     // too-fast warning
     if (info.tauFrames < 2.5) {
-      pill(ctx, 'Too fast for the 50 µs frames (τ < 2.5 frames)', g.cx, g.y0 + g.side - 14, {
+      pill(ctx, "50 µs frames · too fast: τ < 2.5 frames", g.cx, g.y0 + g.side - 14, {
         align: 'center',
         size: 10.5,
         color: '#fff',
@@ -627,7 +627,7 @@ export class SampleView {
         ctx.lineTo(px0 - dir * 5 * ux + 3 * uy, py0 - dir * 5 * uy - 3 * ux);
         ctx.stroke();
       }
-      const lab = `ring detail 2π/q ≈ ${fmtLen(lamUm * 1e-6)}`;
+      const lab = `length scale 2π/q ≈ ${fmtLen(lamUm * 1e-6)}`;
       ctx.font = `600 10.5px ${FONT}`;
       const tw = ctx.measureText(lab).width + 12;
       let lx = (bx + ex) / 2 - uy * 14 - tw / 2;
@@ -774,7 +774,7 @@ export class G2View {
     const f = plotFrame(
       ctx,
       rect,
-      { min: Q0, max: Q1, log: true, ticks: [3e-4, 5e-4, 1e-3, 2e-3, 3e-3], format: fq, label: 'ring q (Å⁻¹) · finer details →' },
+      { min: Q0, max: Q1, log: true, ticks: [3e-4, 5e-4, 1e-3, 2e-3, 3e-3], format: fq, label: "ring q (Å⁻¹) · finer spatial scale →" },
       { min: G0, max: G1, log: true, ticks: [1, 10, 100, 1e3, 1e4, 1e5], format: fG, label: 'rate Γ = 1/τ (s⁻¹)' },
     );
     this.frame = f;
@@ -849,13 +849,13 @@ export class G2View {
     ctx.globalAlpha = 1;
     ctx.restore();
     // region labels
-    if (yFast - f.y1 > 14) txt(ctx, 'too fast for the detector (τ < 2 frames, 100 µs)', f.x0 + 6, f.y1 + 12, { size: 10, color: '#fca5a5' });
+    if (yFast - f.y1 > 14) txt(ctx, "too fast · τ < 2 frames = 100 µs", f.x0 + 6, f.y1 + 12, { size: 10, color: '#fca5a5' });
     if (f.y0 - ySlow > 14) txt(ctx, `too slow so far: τ > T/3, measuring time T = ${fmtTime(m.T)}`, f.x0 + 6, f.y0 - 6, { size: 10, color: TOKENS.ink3 });
     // slope annotation
     const qa = 1.5e-3;
     const Ga = m.D * (qa * 1e10) ** 2;
     if (Ga > G0 * 3 && Ga < G1 / 3) {
-      const lab = 'Γ = Dq²: half the size → 4× faster';
+      const lab = "Γ = Dq² · half the length scale → 4× faster decay";
       ctx.font = `600 10.5px ${FONT}`;
       const tw = ctx.measureText(lab).width;
       pill(ctx, lab, Math.min(f.x1 - tw - 14, f.px(qa) + 10), f.py(Ga) + 16, { size: 10.5, color: TOKENS.ink, border: 'rgba(233,238,245,0.35)' });
@@ -869,7 +869,7 @@ export class G2View {
     let ly = f.y0 - (spec ? 50 : 36) - (f.y0 - ySlow > 14 ? 0 : 0);
     const items: [string, string, boolean][] = [
       ['APS-U', s.accent, true],
-      ['APS (pre-2023)', TOKENS.old, false],
+      ["APS before upgrade", TOKENS.old, false],
     ];
     for (const [lab, col, filled] of items) {
       ctx.beginPath();
@@ -912,7 +912,7 @@ export class G2View {
     ctx.moveTo(x0, yb + 0.5);
     ctx.lineTo(x1, yb + 0.5);
     ctx.stroke();
-    txt(ctx, 'one speckle pixel, live: intensity I(t)', x0, y0 + 2, { size: 10.5, color: TOKENS.ink2, base: 'top', weight: 600 });
+    txt(ctx, "Intensity I(t) at one speckle pixel", x0, y0 + 2, { size: 10.5, color: TOKENS.ink2, base: 'top', weight: 600 });
     txt(ctx, `last ${fmtTime(TRACE_LEN * GEOM.frameS)} → now`, x1, y0 + 2, { size: 10, color: TOKENS.ink3, base: 'top', align: 'right' });
     txt(ctx, '0', x0 - 5, yb, { size: 10, color: TOKENS.ink3, align: 'right', base: 'middle' });
     txt(ctx, String(ymax), x0 - 5, yt, { size: 10, color: TOKENS.ink3, align: 'right', base: 'middle' });
@@ -947,7 +947,7 @@ export class G2View {
     const mean = d.ringMean;
     if (mean > 0 && mean < 0.05) {
       const every = Math.round(1 / mean).toLocaleString('en-US');
-      const t = `almost dark: ⟨n⟩ ≈ ${sci(mean, 2)} per frame, ~1 photon every ${every} frames`;
+      const t = `low counts: ⟨n⟩ ≈ ${sci(mean, 2)} per frame · ~1 photon every ${every} frames`;
       pill(ctx, t, (x0 + x1) / 2, (yt + yb) / 2, { size: 10.5, color: TOKENS.ink2, align: 'center' });
     }
   }
@@ -974,7 +974,7 @@ export class G2View {
     ctx.stroke();
     ctx.restore();
 
-    txt(ctx, 'fully scrambled: g₂ = 1', f.x1 - 4, f.py(1) + 12, { size: 10, color: TOKENS.ink3, align: 'right' });
+    txt(ctx, "uncorrelated intensities: g₂ = 1", f.x1 - 4, f.py(1) + 12, { size: 10, color: TOKENS.ink3, align: 'right' });
     txt(ctx, 'same pattern: 1 + β', f.x0 + 6, f.py(1 + d.beta) - 9, { size: 10, color: TOKENS.ink3 });
     // theory
     const xs = this.xs;
@@ -1061,12 +1061,12 @@ export class G2View {
       ly += 15;
     };
     item('APS-U', s.accent, 'dot', s.src === 1 ? 1 : 0.55);
-    item('APS (pre-2023)', TOKENS.old, 'dot', s.src === 0 ? 1 : 0.55);
+    item("APS before upgrade", TOKENS.old, 'dot', s.src === 0 ? 1 : 0.55);
     item('theory: 1 + β·exp(−2Dq²τ)', 'rgba(233,238,245,0.85)', 'dash', 1);
     if (anyFit) item('fit to the data', rgba(s.accent, 0.9), 'line', 1);
 
     if (d.series[0].n === 0 && d.series[1].n === 0) {
-      txt(ctx, 'collecting photons…', (f.x0 + f.x1) / 2, (f.y0 + f.y1) / 2, { size: 12, color: TOKENS.ink3, align: 'center', base: 'middle' });
+      txt(ctx, "collecting photon counts…", (f.x0 + f.x1) / 2, (f.y0 + f.y1) / 2, { size: 12, color: TOKENS.ink3, align: 'center', base: 'middle' });
     }
   }
 

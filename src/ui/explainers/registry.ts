@@ -1,6 +1,6 @@
 /**
- * Interactive "exhibit stations". Each explainer is a self-contained module that renders into a host element
- * (canvas/SVG/DOM), runs its own small simulation, and cleans up after itself.
+ * Interactive stations. Each module renders a simulation in a host element using canvas, SVG or DOM elements.
+ * Its destroy function removes the station and releases its resources.
  */
 export interface ExplainerContext {
   /** beamline accent colour */
@@ -22,7 +22,7 @@ export interface ExplainerModule {
 
 type Loader = () => Promise<{ default: ExplainerModule }>;
 
-/** Lazy-loaded so each station's code ships only when opened. */
+/** Load each station module when it is opened. */
 export const EXPLAINERS: Record<string, Loader> = {
   xpcs: () => import('./xpcs'),
   ptycho: () => import('./ptycho'),

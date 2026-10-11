@@ -1,5 +1,5 @@
 /**
- * Station "Skimming the surface" — grazing-incidence (coherent) small-angle X-ray scattering for CSSI, APS 9-ID.
+ * Station "Grazing-incidence surface scattering". Grazing-incidence (coherent) small-angle X-ray scattering for CSSI, APS 9-ID.
  *
  * Four linked panels:
  *   1 · Side view     beam at α_i (0.02–0.6°), footprint h/sin α_i, specular reflection |R|², refracted beam or
@@ -34,7 +34,7 @@
  *   GI-XPCS: XPCS SNR ≈ β·I·√(T·τ·N_pix) in the low-count limit (I = count rate per pixel), so at fixed SNR the
  *   shortest accessible τ ∝ 1/I² (~200× flux → ~4×10⁴× faster dynamics; detector frame rate ~1 ms is the real limit).
  *   Geometry is drawn in the classic horizontal-sample GISAXS frame; the CSSI station mounts the surface vertically
- *   (α_f then spreads horizontally in the tube) — physics identical, stated in the Numbers note.
+ *   (α_f then spreads horizontally in the tube). Physics identical, stated in the Numbers note.
  * Illustrative (labelled in the UI): CH time units, photon-count scale (absolute rates depend strongly on the sample;
  *   only the APS : APS-U ratio is meaningful), 2.56 µm simulated patch, full transverse coherence.
  */
@@ -58,7 +58,7 @@ const STEPS_PER_SEC = 10;
  * weakly scattering sample: ≈ 40 counts per bin in the GI-XPCS region of interest with APS-U, ≈ 0.2 with the old APS)
  */
 const COUNTS_APSU = 500;
-/** coherent flux [ph/s]: APS-U 9-ID (~10¹², see header) vs pre-upgrade APS 8-ID (~5×10⁹) — ratio ≈ 200 */
+/** coherent flux [ph/s]: APS-U 9-ID (~10¹², see header) vs pre-upgrade APS 8-ID (~5×10⁹). Ratio ≈ 200 */
 const FLUX_APSU = 1e12;
 const FLUX_APS = 5e9;
 /** initial island spacing of a fresh film [px] (≈ 260 nm) and the spacing at which a new film is started [nm] */
@@ -74,8 +74,8 @@ const PIXEL_EIGER = 75e-6; // m
 type Source = 'apsu' | 'aps';
 
 const mod: ExplainerModule = {
-  title: 'Skimming the surface',
-  subtitle: 'Tilt the X-rays to a whisper-thin angle, watch the surface glow on the detector — then switch on APS-U coherence.',
+  title: "Grazing-incidence surface scattering",
+  subtitle: "Change the X-ray incidence angle to measure surface structure, then compare ordinary and coherent scattering patterns.",
   mount(host, ctx) {
     const accent = ctx.color || '#34d399';
     const station = createStation(host, { color: accent, layout: host.clientWidth < 760 ? 'stack' : 'side' });
@@ -83,8 +83,8 @@ const mod: ExplainerModule = {
 
     // ------------------------------------------------------------ canvases
     const cSide = canvas2d(visual, { label: '1 · Side view' });
-    const cDet = canvas2d(visual, { label: '2 · What the detector sees' });
-    const cDepth = canvas2d(visual, { label: '3 · How deep the X-rays go' });
+    const cDet = canvas2d(visual, { label: "2 · Detector pattern" });
+    const cDepth = canvas2d(visual, { label: "3 · X-ray penetration depth" });
     const cTop = canvas2d(visual, { label: '4 · The surface from above' });
     const wrapOf = (c: Canvas2D) => c.canvas.parentElement as HTMLElement;
     wrapOf(cSide).style.gridArea = 'side';
@@ -378,7 +378,7 @@ const mod: ExplainerModule = {
       step: 0.1,
       value: st.E,
       format: (v) => `${v.toFixed(1)} keV`,
-      hint: '9-ID range 6–25 keV · higher energy → smaller critical angle',
+      hint: "9-ID energies: 6 to 25 keV. Critical angle decreases with energy.",
       onInput: (v) => {
         st.E = v;
         updateCurvesNeeded = true;
@@ -388,8 +388,8 @@ const mod: ExplainerModule = {
     const tBeam = toggle(gBeam, {
       label: 'Beam',
       options: [
-        { value: 'ord', label: 'Ordinary', title: 'Large, mostly incoherent beam: smooth, averaged GISAXS pattern' },
-        { value: 'coh', label: 'Coherent', title: 'Focused coherent beam: speckle from the exact islands under the beam' },
+        { value: 'ord', label: 'Ordinary', title: "The GISAXS pattern is smooth and averaged with a large, mostly incoherent beam" },
+        { value: 'coh', label: 'Coherent', title: "Speckles depend on the illuminated island arrangement with a focused coherent beam" },
       ],
       value: 'ord',
       onChange: (v) => {
@@ -412,14 +412,14 @@ const mod: ExplainerModule = {
     const bPlay = button(btnRow, '❚❚ Pause', () => setPlaying(!st.playing), 'is-primary');
     setPlaying(st.playing);
     onReducedMotionChange(station, (reduced) => setPlaying(!reduced));
-    bPlay.title = 'Heat the sample: the islands ripen and merge (time-lapse)';
+    bPlay.title = "Heat the sample to increase island size and spacing. Time is accelerated.";
     const bIsland = button(btnRow, '+ Island', () => {
       const r = rng(Math.floor(performance.now()));
       const x = r() * N;
       const y = N / 2 + (r() - 0.5) * 30;
       pokeAt(x, y, true);
     });
-    bIsland.title = 'Drop a new island inside the beam (or tap the surface map)';
+    bIsland.title = "Add an island within the beam or tap the surface map";
     button(btnRow, '↺ Reset', () => resetAll());
     const rL = readout(gSample, 'Island spacing', { color: accent });
 
@@ -427,10 +427,10 @@ const mod: ExplainerModule = {
     const gCoh = group(controls, 'Coherent beam');
     gCoh.style.display = 'none';
     const tSource = toggle(gCoh, {
-      label: 'Coherent photons from…',
+      label: "Coherent X-ray source",
       options: [
         { value: 'apsu', label: 'APS-U', title: '9-ID today: ~10¹² coherent photons/s in a ~1 µm focus' },
-        { value: 'aps', label: 'old APS', title: 'Before the upgrade: ~5×10⁹ coherent photons/s (about 200× fewer)' },
+        { value: 'aps', label: 'old APS', title: "Before the upgrade: ~5×10⁹ coherent photons/s, about 200× fewer" },
       ],
       value: 'apsu',
       onChange: (v) => {
@@ -442,7 +442,7 @@ const mod: ExplainerModule = {
     });
     const xpcsHead = document.createElement('div');
     xpcsHead.className = 'stn-slider-label';
-    xpcsHead.textContent = 'Speckle memory';
+    xpcsHead.textContent = "Speckle correlation";
     gCoh.appendChild(xpcsHead);
     const cX = canvas2d(gCoh, { label: 'GI-XPCS' });
     const xWrap = cX.canvas.parentElement as HTMLElement;
@@ -452,13 +452,13 @@ const mod: ExplainerModule = {
     note(
       gCoh,
       station,
-      'How alike is the speckle now and *τ* seconds ago? This **memory** fades as the islands move, and its fading time is what **GI-XPCS** (grazing-incidence X-ray photon correlation spectroscopy) measures. As the film ages, ripening slows and the memory lengthens (dashed: ~10 s earlier). Photon noise scatters the curve (grey band) but does not bias it. Tap the surface map and watch the memory drop.',
+      "GI-XPCS, or grazing-incidence X-ray photon correlation spectroscopy, measures how similar the speckle pattern remains after a delay τ. Correlation decreases as islands move. Island growth slows as the film ages, so correlation decays over longer delays. The dashed curve is from ~10 s earlier. Photon noise broadens the grey uncertainty band but does not bias the curve. Tap the surface map to change the island arrangement and reduce correlation.",
     );
     const memory = new SpeckleMemory(64, 3200);
     note(
       controls,
       station,
-      'Drag the angle below silicon’s **critical angle** (the grey dashed line in panel 3): the X-rays stop going in and just skim the top few nanometres. The pattern includes the paths that bounce off the wafer before or after scattering (the distorted-wave Born approximation); they make the scattered light peak as it leaves at the critical angle, the **Yoneda** band. Then switch to the **coherent** beam.',
+      "Set the incidence angle below the silicon critical angle, marked by the grey dashed line. Total external reflection then limits penetration to the top few nanometres. The scattering calculation includes reflection from the wafer before and after scattering, using the distorted-wave Born approximation. Intensity peaks at an exit angle equal to the critical angle, forming the Yoneda band. Select the coherent beam to add speckle.",
     );
 
     const gNum = group(controls, 'Numbers');
@@ -470,14 +470,14 @@ const mod: ExplainerModule = {
     note(
       gNum,
       station,
-      'Coherent photons per second: **APS-U (9-ID): about 10^{12}**, roughly **200 times more** than the old APS (realistic with one 2.35 m undulator: ~100–200×). The detector sits up to **21.8 m** away inside a walk-in vacuum tube, so each speckle, of size λD/W (D the distance, W the beam width), spans the two or more pixels needed to decode it, even at 25 keV. (The 2012 proof of principle at the old APS, 0.7 m away, needed hours per pattern.) Drawn as a horizontal sample; at 9-ID the surface stands vertical (same physics). *Illustrative:* the 2.56 µm patch (real speckle is finer along the upward angle), the time units and the photon-count scale; only the APS : APS-U ratio is meaningful.',
+      "The coherent flux at APS-U 9-ID is about 10^{12} photons/s, roughly 200× the old APS value. A realistic flux gain with a single 2.35 m undulator is ~100 to 200×. The sample-to-detector distance extends to 21.8 m within the vacuum tube. Speckle size is λD/W, where λ is wavelength, D is distance and W is beam width. At this distance, each speckle spans at least two pixels, as required for reconstruction, even at 25 keV. The 2012 proof of principle at the old APS used 0.7 m and took hours per pattern. The drawing uses a horizontal surface; the actual 9-ID surface is vertical, with the same physics. The 2.56 µm patch, time units and absolute photon-count scale are illustrative. Actual speckle is finer along the exit-angle direction. Only the APS : APS-U photon ratio is meaningful here.",
     );
     // readout labels with symbols (the kit's mini-markdown: α_{c} → α with a subscript c)
     for (const [r, t] of [
       [rL, 'Island spacing L = 2π/q*'],
       [rAc, 'Critical angle α_{c}, silicon'],
       [rAcPs, 'Critical angle α_{c}, polymer'],
-      [rPen, 'Reach into silicon (1/e)'],
+      [rPen, "Silicon penetration depth · 1/e"],
     ] as const)
       (r.el.querySelector('.stn-readout-label') as HTMLElement).innerHTML = md(t);
 
@@ -490,31 +490,31 @@ const mod: ExplainerModule = {
       rAcPs.set(fmtDeg(aCp, 3));
       rPen.set(fmtLen(D.penSi));
       rFoot.set(fmtLen(D.foot * 1000));
-      rFoot.el.title = `beam size normal to the surface h = ${D.beamH} µm (${st.coherent ? 'CSSI coherent focus, horizontal size on the vertical surface' : 'ordinary GISAXS, CRL-1 full beam'}), spread over h/sin αᵢ`;
+      rFoot.el.title = `Beam size normal to the surface is h = ${D.beamH} µm, for ${st.coherent ? 'the CSSI coherent focus measured horizontally on its vertical surface' : 'ordinary GISAXS with the CRL-1 full beam'}. The footprint length is h/sin αᵢ.`;
       const s = speckleSize(D.lambda * 1e-9, DETECTOR_DISTANCE, BEAM_FWHM_NM * 1e-9);
       rSpk.set(`${(s * 1e3).toFixed(1)} mm`);
-      rSpk.el.title = `λD/W ≈ ${Math.round(s / PIXEL_EIGER)} Eiger pixels (75 µm) for a 1 µm wide coherent beam`;
+      rSpk.el.title = `λD/W ≈ ${Math.round(s / PIXEL_EIGER)} Eiger pixels of 75 µm for a coherent beam 1 µm wide`;
       // caption
       const a = st.aIdeg;
       let v: string;
       const Rpct = fmtPct(D.fSi.R).replace('%', '');
       const E = `${st.E.toFixed(1)} keV`;
       if (D.aI < aCp) {
-        v = `**Below the critical angle: total reflection.** At ${a.toFixed(2)}° the X-rays can’t get in. They bounce off like a stone skipping on water (${Rpct}% reflected), and only a faint *evanescent* wave reaches about **${fmtLen(D.penSi)}** into the surface. Everything the detector sees comes from the very top. (Critical angles at ${E}: silicon ${fmtDeg(aC, 3)}, polymer ${fmtDeg(aCp, 3)}.)`;
+        v = `At ${a.toFixed(2)}°, below the critical angle, ${Rpct}% of the intensity is reflected. An evanescent field extends about ${fmtLen(D.penSi)} into the surface, so scattering comes from the shallowest region. At ${E}, the critical angles are ${fmtDeg(aC, 3)} for silicon and ${fmtDeg(aCp, 3)} for polymer.`;
       } else if (D.aI < aC) {
-        v = `**Between two critical angles.** At ${a.toFixed(2)}° the beam can enter the polymer islands (critical angle ${fmtDeg(aCp, 3)}), but the silicon underneath (${fmtDeg(aC, 3)}) still reflects almost all of it (${Rpct}%). Incoming and reflected waves overlap into a bright *standing wave* (panel 3), ${D.fSi.T2.toFixed(1)}× the incoming intensity at the surface, which is why grazing incidence is so good at seeing very thin layers.`;
+        v = `At ${a.toFixed(2)}°, above the polymer critical angle of ${fmtDeg(aCp, 3)}, X-rays penetrate the islands. The silicon critical angle is ${fmtDeg(aC, 3)}, and ${Rpct}% of the intensity is reflected from the substrate. Interference between incident and reflected waves forms the standing wave in panel 3. Surface intensity is ${D.fSi.T2.toFixed(1)}× the incident intensity, increasing sensitivity to thin layers.`;
       } else {
-        v = `**Above the critical angle.** At ${a.toFixed(2)}° the X-rays dive about **${fmtLen(D.penSi)}** into the silicon (bending to ${fmtDeg(D.aT, 3)} inside) and the mirror reflection fades to ${Rpct}%. The **Yoneda band** on the detector does not move when you tilt: it always sits at silicon’s critical angle, ${fmtDeg(aC, 3)} at ${E}, a built-in fingerprint of the material.`;
+        v = `At ${a.toFixed(2)}°, above the silicon critical angle, the penetration depth is ${fmtLen(D.penSi)}. Refraction changes the angle inside silicon to ${fmtDeg(D.aT, 3)}, and reflected intensity falls to ${Rpct}%. The Yoneda band remains at the silicon critical angle of ${fmtDeg(aC, 3)} at ${E}, independent of incidence angle. Its position identifies the material.`;
       }
       if (!st.coherent) {
-        v += ` The two bright stripes are the islands’ **spacing fingerprint**: they sit at ±q* = 2π/L, for a spacing L of about ${fmtLen(Lnm)}. As the islands ripen and grow apart, the stripes slide toward the centre.`;
+        v += ` The two bright stripes are at ±q* = 2π/L, corresponding to island spacing L ≈ ${fmtLen(Lnm)}. As island spacing increases during growth, the stripes move toward the centre.`;
       } else if (st.source === 'apsu') {
-        v += ` **Coherent beam (APS-U):** the smooth stripes break into **speckle**, a barcode of exactly which islands sit under the 1 µm beam (dashed in the cuts: the ordinary average). As the islands move, the barcode flickers. Timing that flicker is **GI-XPCS**; decoding the barcode into a 3D picture of the surface is **coherent surface scattering imaging (CSSI)**.`;
+        v += ` With the APS-U coherent beam, speckles within the stripes depend on the island arrangement beneath the 1 µm beam. Dashed profiles mark the ordinary average. Island motion changes the speckles. GI-XPCS measures the rate of those changes. Coherent surface scattering imaging, or CSSI, reconstructs a 3-D surface structure from the diffraction patterns.`;
       } else {
-        v += ` **The same experiment with the old APS:** about 200 times fewer coherent photons, so each 1-second frame catches only a sprinkle of photons (${photons !== null ? fmtCount(photons) : '…'} here). The barcode is still there, but buried in noise. At low counts the signal-to-noise grows with the count rate but only with the square root of the delay, so at equal quality the old APS could follow only ~200² ≈ 40,000× slower changes: far too slow for a surface that changes in seconds.`;
+        v += ` With the old APS, the coherent flux is about 200× lower. Each 1-second frame contains ${photons !== null ? fmtCount(photons) : 'an undetermined number of'} photons here, leaving the speckles difficult to distinguish from noise. At low counts, signal-to-noise is proportional to count rate and to the square root of delay. At equal quality, the old APS could therefore measure changes only at delays ~200² ≈ 40,000× longer. This is too slow for a surface changing within seconds.`;
       }
       if (restartNotice > 0) {
-        v = `**A fresh film!** The islands had fully ripened (spacing above ${RESTART_L_NM} nm, only ~5 islands across the 2.56 µm patch), so the exhibit started a new one. ` + v;
+        v = `The model started a new film because spacing exceeded ${RESTART_L_NM} nm, leaving only ~5 islands across the 2.56 µm patch. ` + v;
       }
       station.setCaption(v);
     }
@@ -678,7 +678,7 @@ const mod: ExplainerModule = {
     const setupRoi = () => {
       const cells: number[] = [];
       // ROI: speckle region from just below the Yoneda band up to α_c + 0.5°, |q_y| = 0.5–2 q* (≈ 40 independent
-      // speckles in this simulation — a 0.7–1.3 q* strip on the Yoneda row alone holds only ~5, too noisy for C(τ))
+      // speckles in this simulation. A 0.7–1.3 q* strip on the Yoneda row alone holds only ~5, too noisy for C(τ))
       const r0 = Math.max(0, Math.round(det.rowOf(Math.min(det.alphaC + 0.5 * DEG, 0.95 * DEG))));
       const r1 = Math.min(det.rows - 1, Math.round(det.rowOf(Math.max(det.alphaC - 0.02 * DEG, 0.01 * DEG))));
       const pk = det.peakBin;
@@ -701,7 +701,7 @@ const mod: ExplainerModule = {
      * Frame budget. The simulation work per detector refresh (height map ≈ 2 ms, slice FFTs ≈ 6 ms, DWBA ≈ 3 ms,
      * Poisson frame ≈ 2 ms, CH step ≈ 2 ms each on an i5-6300U) would land in one ~15–20 ms frame and stutter.
      * Instead each stage runs only if it fits the remaining budget of this frame (the first stage of a frame always
-     * runs), using running cost estimates — fast machines do everything at once, slow ones spread it over frames.
+     * runs), using running cost estimates. Fast machines do everything at once, slow ones spread it over frames.
      */
     const BUDGET_MS = 7;
     const cost = { ch: 2, height: 2, spectra: 6, det: 3, compose: 2.5 };
@@ -775,7 +775,7 @@ const mod: ExplainerModule = {
       // slider changes (angle, energy, beam) → detector only
       if (pipe === 0 && detDirty && fits('det')) run('det', recomputeDetector);
       noiseClock += dt;
-      // fresh shot noise on the coherent speckle (it twinkles), unless everything holds still
+      // fresh shot noise on the coherent speckle , unless everything holds still
       if (st.coherent && st.mix >= 0.999 && !hold && noiseClock >= (st.playing ? REFRESH_DT : 0.25)) {
         noiseClock = 0;
         noiseDirty = true;

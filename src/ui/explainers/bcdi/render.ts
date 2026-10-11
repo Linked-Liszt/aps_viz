@@ -1,13 +1,13 @@
 /**
- * Rendering helpers for the BCDI station (no physics here).
+ * Rendering helpers for the BCDI station without physics calculations.
  *
  * Phase colour map: a cyclic, diverging map (white at φ = 0, warm for +φ, cool for −φ, purple at ±π) because the
- * retrieved phase is only known modulo 2π — a cyclic map shows wraps as smooth colour cycles rather than false edges.
+ * retrieved phase is only known modulo 2π. A cyclic map shows wraps as smooth colour cycles rather than false edges.
  *
- * Lattice planes: the Bragg reflection G "sees" one family of planes — the loci G·(r − u) = 2πm. We draw the
+ * Lattice planes: the selected Bragg reflection corresponds to one family of planes. The loci G·(r − u) = 2πm. We draw the
  * contours of G_draw·r − φ(r) = 2πm with |G_draw| = |G|/M (M = PLANE_MAG), i.e. the real planes with their spacing
  * AND their displacement along G magnified M×. A phase vortex of charge n therefore appears as exactly n extra
- * half-planes — the textbook picture of a dislocation.
+ * half-planes. The textbook picture of a dislocation.
  */
 import { lut } from '../kit';
 

@@ -1,17 +1,17 @@
 /**
- * Station "brightness" — facility story: "Brighter, not just more".
+ * Station "brightness". Facility story: "X-ray brightness".
  *
- * Panel 1 (./brightness/source.ts): the flashlight-vs-laser-pointer idea made quantitative. A Gaussian X-ray
+ * Panel 1 (./brightness/source.ts): source-size and divergence dependence of brightness. A Gaussian X-ray
  *   source with a FIXED photon rate F = 10¹⁵ ph/s/0.1%BW; sliders set the horizontal electron-beam size σ_x and
  *   divergence σ′_x (vertical plane from the preset). Photons are drawn from the photon source; a thin lens
  *   (f = 7.5 m) with a soft Gaussian aperture (rms 30 µm) at 15 m images the source 1:1 onto a soft slit (rms 4 µm)
- *   at 30 m, with the diffraction kick λ/4πs at each aperture — exact wave optics for Gaussian beams. The slit picks
+ *   at 30 m, with the diffraction kick λ/4πs at each aperture. Exact wave optics for Gaussian beams. The slit picks
  *   source position, the aperture picks angle, so the rate through both is set by brightness, not by flux
  *   (Liouville; two bare far slits would be mismatched to the APS-U beam and saturate). Below: the
  *   definition B = F ÷ (2πΣ_xΣ_y) ÷ (2πΣ′_xΣ′_y) with to-scale end-on views and a log meter (old APS, APS-U,
  *   diffraction-limited ceiling 4F/λ² at the same F).
- * Panel 2 (./brightness/chart.ts): design brilliance vs photon energy for APS (pre-2023) and APS-U — IPAC'21
- *   Fig. 1 envelope (digitized) or FDR 2019 Fig. 2.1 specific undulators — with the APS-U ÷ APS gain, the ≈500×
+ * Panel 2 (./brightness/chart.ts): design brilliance vs photon energy for APS (pre-2023) and APS-U. IPAC'21
+ *   Fig. 1 envelope (digitized) or FDR 2019 Fig. 2.1 specific undulators. With the APS-U ÷ APS gain, the ≈500×
  *   zones and the source-term-only gain of panel 1's source (dashed). Hover reads values; drag picks E.
  *
  * Equations (sources and caveats in ./brightness/physics.ts):
@@ -51,8 +51,8 @@ const CSS = `
 `;
 
 const mod: ExplainerModule = {
-  title: 'Brighter, not just more',
-  subtitle: 'Squeeze the X-ray source and count the photons a lens can focus through a tiny slit — then see how much brighter the upgraded APS really is.',
+  title: "X-ray brightness",
+  subtitle: "Change source size and angular spread at fixed photon rate. Compare flux through an aperture and slit with APS-U design brightness.",
   mount(host, ctx) {
     const accent = ctx.color || '#5cd3ff';
     const station = createStation(host, { color: accent, layout: 'side' });
@@ -73,10 +73,10 @@ const mod: ExplainerModule = {
     };
 
     // ------------------------------------------------------------ canvases
-    const titles = { p1: '1 · Same photons, brighter beam', p2: '2 · The real machines: design brightness' };
+    const titles = { p1: "1 · Source size and angular spread", p2: "2 · Design brightness" };
     const c1 = canvas2d(visual, { label: titles.p1 });
     const c2 = canvas2d(visual, { label: titles.p2 });
-    c1.canvas.setAttribute('aria-label', `${titles.p1}: a lens focuses photons from the source through a slit; brightness meter below`);
+    c1.canvas.setAttribute('aria-label', `${titles.p1}: photons from the source are focused through a slit. Brightness is displayed below.`);
     c2.canvas.setAttribute('aria-label', `${titles.p2}: log–log chart of brightness versus X-ray energy; use left and right arrow keys to change the energy`);
     const visual2 = document.createElement('div');
     visual2.className = 'stn-visual';
@@ -90,22 +90,22 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      '**Flashlight vs laser pointer.** Both can send out the same number of photons, but the laser’s come from a tiny spot and head one way, so a lens can focus them to a tiny dot: it is *brighter*. Here the photon rate is fixed. **Squeeze the source** — the sliders set the electron beam’s sideways width and angle spread (rms) — and count how many photons the lens can focus through the slit. The slit picks position and the lens aperture picks angle, so the count follows brightness, not the photon total. The slit is tall, so only the sideways squeeze counts there; the meter includes both directions. Panel 2: hover, drag or use the arrow keys.',
+      "Brightness is photon rate per source area and solid angle. Here the total photon rate is fixed. Change the horizontal electron beam width and angular spread with the sliders. A smaller source and lower angular spread give a smaller focal spot and more photons through the slit. The slit limits position, while the lens aperture limits angle. The transmitted count therefore depends on brightness. The tall slit limits only the horizontal direction; the brightness calculation includes both directions. Hover, drag or use arrow keys in panel 2.",
     );
     const guideEl = controls.lastElementChild as HTMLElement;
 
-    const g1 = group(controls, '1 · The X-ray source (sideways)');
+    const g1 = group(controls, "1 · Horizontal source parameters");
     const tPreset = toggle<Preset>(g1, {
       options: [
-        { value: 'aps', label: 'Old APS', title: 'APS before the upgrade (2019): σx 275 µm, σx′ 11 µrad, σy 10 µm, σy′ 3.5 µrad (FDR 2019 Table 2.1)' },
-        { value: 'round', label: 'APS-U', title: 'APS-U round beam (κ = 1, how it runs for users): σx 12.3 µm, σx′ 2.34 µrad, σy 8.3 µm, σy′ 3.47 µrad (Storage Ring Parameters 2024)' },
-        { value: 'flat', label: 'APS-U flat', title: 'APS-U flat beam (κ = 0.1): σx 14.5 µm, σx′ 2.75 µrad, σy 3.1 µm, σy′ 1.29 µrad (Storage Ring Parameters 2024)' },
+        { value: 'aps', label: 'Old APS', title: "APS before upgrade, FDR 2019 Table 2.1: σx 275 µm, σx′ 11 µrad, σy 10 µm, σy′ 3.5 µrad" },
+        { value: 'round', label: 'APS-U', title: "APS-U round user beam, κ = 1: σx 12.3 µm, σx′ 2.34 µrad, σy 8.3 µm, σy′ 3.47 µrad. Storage Ring Parameters 2024." },
+        { value: 'flat', label: 'APS-U flat', title: "APS-U flat beam, κ = 0.1: σx 14.5 µm, σx′ 2.75 µrad, σy 3.1 µm, σy′ 1.29 µrad. Storage Ring Parameters 2024." },
       ],
       value: st.preset,
       onChange: (v) => applyPreset(v),
     });
     // reduced motion: panel 1 shows a still picture of the photons (redrawn when the source changes)
-    const motion = motionGate(station, g1, { title: 'Your device asks for reduced motion, so the photons in panel 1 hold still. Press to let them fly.' });
+    const motion = motionGate(station, g1, { title: "Reduced motion is enabled on your device. Photon positions in panel 1 remain static. Press to animate them." });
     const sW = slider(g1, {
       label: 'Electron beam width',
       min: SX.min,
@@ -131,7 +131,7 @@ const mod: ExplainerModule = {
       },
     });
 
-    const g2 = group(controls, '2 · X-ray energy & design data');
+    const g2 = group(controls, "2 · Energy and design data");
     const sE = slider(g2, {
       label: 'X-ray energy',
       min: E_MIN,
@@ -144,8 +144,8 @@ const mod: ExplainerModule = {
     const tDs = toggle<Ds>(g2, {
       label: 'Undulators compared',
       options: [
-        { value: 'envelope', label: 'Best of all', title: "Upper envelope over all candidate undulators (IPAC'21 MOXA02 Fig. 1, digitized)" },
-        { value: 'devices', label: 'Examples', title: 'Specific devices: APS 3.3 & 2.7 cm × 4.8 m vs APS-U 2.8 & 2.5 cm × 4.6 m and superconducting 2.05 & 1.55 cm × 3.5 m (FDR 2019 Fig. 2.1)' },
+        { value: 'envelope', label: "Best device at each energy", title: "Upper envelope of candidate undulators from IPAC'21 MOXA02 Fig. 1; values are digitized" },
+        { value: 'devices', label: 'Examples', title: "Specific devices from FDR 2019 Fig. 2.1. APS: periods 3.3 and 2.7 cm, length 4.8 m. APS-U: periods 2.8 and 2.5 cm, length 4.6 m; superconducting periods 2.05 and 1.55 cm, length 3.5 m." },
       ],
       value: st.ds,
       onChange: (v) => {
@@ -185,12 +185,12 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      '**Why is the gain biggest for high-energy X-rays?** Light is a wave, so even a perfect electron beam gives an X-ray source with a built-in size and angle spread, whose product is λ/4π: 9.9 pm·rad at 10 keV, less for shorter waves. The old beam (3.1 nm·rad sideways) was so wide that this never mattered. The new one (29–42 pm·rad) is so small that at low energy the light’s own blur sets the limit, while at high energy the squeeze pays off in full: from the source alone, ×27 at 1 keV rising to ×106 at 100 keV (round beam). Panel 1 includes this blur, and its meter’s *diffraction limit* is what a perfect electron beam would give. The rest of the design gain is *more* photons: twice the current (200 mA) and new, shorter-period undulators.',
+      "Diffraction gives X-ray radiation a minimum size × angular spread of λ/4π, even for an ideal electron beam. At 10 keV, this is 9.9 pm·rad. The old horizontal emittance of 3.1 nm·rad was much larger. For the new 29 to 42 pm·rad beam, diffraction is significant at low photon energy and less significant at high energy. With fixed photon rate, round-beam brightness gain rises from 27× at 1 keV to 106× at 100 keV. Panel 1 includes diffraction, and its limit represents an ideal electron beam. The remaining design gain comes from twice the current, 200 mA, and shorter-period undulators.",
     );
     note(
       controls,
       station,
-      '**The curves in panel 2 are design calculations:** no measured APS-U brightness curve had been published as of October 2026. They are digitized from a 2021 conference paper (IPAC’21; about ±20 % per point, ±30 % on a ratio); the headline “up to 500×” matches the design report’s ×540 at 20 keV. Panel 1 is a simplified model: a fixed photon rate (10¹⁵ per second in 0.1 % bandwidth, roughly one APS-U undulator at 20 keV), a soft-edged (Gaussian) lens aperture and slit, and an idealised photon beam from a 2.4-m undulator with no electron energy spread, which in reality weakens the higher harmonics.',
+      "Panel 2 contains design calculations. No measured APS-U brightness curve was published as of October 2026. Values are digitized from IPAC'21, with about ±20 % uncertainty per point and ±30 % per ratio. The facility's up-to-500× figure is consistent with the design report's 540× at 20 keV. Panel 1 uses a simplified model with 10¹⁵ photons/s in 0.1 % bandwidth, roughly one APS-U undulator at 20 keV. The lens aperture and slit have Gaussian profiles. Radiation is modeled for a 2.4 m undulator without electron energy spread, which reduces higher-harmonic intensity in actual beams.",
     );
 
     // ------------------------------------------------------------ state changes
@@ -316,18 +316,18 @@ const mod: ExplainerModule = {
 
       let t = '';
       if (st.preset === 'aps') {
-        t = `**This is the old APS source.** Its X-rays come from a spot about ${((m.ph.sx * 4) / 1000).toFixed(1)} mm wide and fan out widely, so the lens can only focus them to a broad blur and just **${fmtOneIn(m.pass)}** photons (${pct(m.pass)}) make it through the slit. Press **APS-U**, or drag the sliders, to squeeze it.`;
+        t = `The old APS source is about ${((m.ph.sx * 4) / 1000).toFixed(1)} mm wide with a large angular spread. Its broad focal spot transmits ${fmtOneIn(m.pass)} photons, or ${pct(m.pass)}, through the slit. Select APS-U or use the sliders to reduce source width and angular spread.`;
       } else {
         const who = st.preset === 'custom' ? 'Your source' : st.preset === 'flat' ? 'The APS-U flat-beam source' : 'The APS-U source';
-        const head = gain >= 1.05 ? `**Same number of photons — ${fmtGain(gain).slice(1)} times brighter than the old APS.**` : gain <= 0.95 ? `**Same number of photons — but dimmer than the old APS** (${fmtGain(gain)}).` : '**About as bright as the old APS.**';
+        const head = gain >= 1.05 ? `Photon rate is unchanged, and brightness is ${fmtGain(gain).slice(1)}× the old APS value.` : gain <= 0.95 ? `Photon rate is unchanged, and brightness is ${fmtGain(gain)} the old APS value.` : "Photon rate is unchanged, with brightness about equal to the old APS value.";
         const spot = m.focus * 4;
         const spotTxt = spot < 1000 ? `${spot < 10 ? spot.toFixed(1) : Number(spot.toPrecision(2))} µm` : `${(spot / 1000).toFixed(1)} mm`;
-        t = `${head} ${who} is ${fmtRatio(wRatio)} than the old one and its X-rays fan out ${fmtRatio(dRatio, 'less')}, so the lens focuses them to a spot about ${spotTxt} across and **${fmtOneIn(m.pass)}** photons make it through the slit (old APS: ${fmtOneIn(m.passAps)}).`;
+        t = `${head} ${who} is ${fmtRatio(wRatio)} and its angular spread is ${fmtRatio(dRatio, 'less')} than the old APS. The focal spot is about ${spotTxt} across. Transmission is ${fmtOneIn(m.pass)} photons, compared with ${fmtOneIn(m.passAps)} for the old APS.`;
         if (m.pass < 0.8 * m.passRay)
-          t += ` Why is the focus blurred? Light is a wave: passing the lens’s ${P.SLITS.s1}-µm aperture spreads it by about ${fmtSmall(P.diffractionKick(st.E, P.SLITS.s1))} µrad — more at low energy (longer waves) — so fewer photons fit through the slit.`;
-        if (m.pass > 0.25 && gain > 100) t += ' That’s close to the limit: the count can’t rise past “all of them”, even though brightness keeps climbing.';
+          t += ` Diffraction at the ${P.SLITS.s1} µm aperture adds about ${fmtSmall(P.diffractionKick(st.E, P.SLITS.s1))} µrad of angular spread. This is larger at lower photon energy, reducing transmission through the slit.`;
+        if (m.pass > 0.25 && gain > 100) t += " Transmission is close to 100 %. Further brightness increases cannot raise it above that limit.";
         if (atFloor)
-          t += ` You’ve hit the floor: light is a wave, so even a perfect electron beam makes a source about ${fmtSmall(m.r.size)} µm wide (rms) that spreads ${fmtSmall(m.r.div)} µrad at ${Et}. Shorter waves (higher energy) lower the floor.`;
+          t += ` At ${Et}, diffraction sets an rms radiation size of ${fmtSmall(m.r.size)} µm and angular spread of ${fmtSmall(m.r.div)} µrad even for an ideal electron beam. Higher energy and shorter wavelength reduce this limit.`;
       }
       if (Number.isFinite(v.gain)) {
         // design curves are good to ~±30 % on the ratio: one significant figure, and the headline figure readers will
@@ -336,13 +336,13 @@ const mod: ExplainerModule = {
         const which = st.ds === 'envelope' ? 'each with its best undulator' : 'with these example undulators';
         t +=
           v.gain / m.srcU >= 1.5
-            ? ` In panel 2, the real machines at ${Et}, ${which}: APS-U’s design brightness is **about ${g} times** the old one — ${fmtGain(m.srcU)} from its smaller, tighter ${st.ring === 'flat' ? 'flat-beam ' : ''}source alone, the rest from *more* photons (twice the current, better undulators).`
-            : ` In panel 2, the real machines at ${Et}, ${which}: APS-U’s design brightness is **about ${g} times** the old one — at this energy almost all of it from the smaller, tighter source.`;
+            ? ` In panel 2 at ${Et}, ${which}, APS-U design brightness is about ${g}× the old APS value. Lower ${st.ring === 'flat' ? 'flat-beam ' : ''}source size and angular spread give ${fmtGain(m.srcU)} of this gain. The remainder comes from greater photon rate, twice the current and upgraded undulators.`
+            : ` In panel 2 at ${Et}, ${which}, APS-U design brightness is about ${g}× the old APS value. At this energy, nearly all the gain comes from lower source size and angular spread.`;
         t +=
           st.ds === 'envelope'
-            ? ' These are design estimates (±30 %), and the gain depends on the energy, from about 20 times for the softest X-rays to several hundred times at higher energies. The facility quotes one round figure, “up to 500 times brighter” (540× at 20 keV in its design report).'
-            : ' Other undulators do better at some energies: “Best of all” shows the best one at each energy.';
-      } else t += ` (No design data at ${Et} for this comparison.)`;
+            ? " These design ratios have ±30 % uncertainty and vary with energy, from about 20× for the lowest-energy X-rays to several hundred times at higher energies. The facility uses a rounded figure of up to 500×, with 540× at 20 keV in its design report."
+            : " Flux is higher with other undulators at some energies. Select Best device at each energy to display the upper envelope.";
+      } else t += ` No design data are available at ${Et} for this comparison.`;
       return t;
     }
 
@@ -373,8 +373,8 @@ const mod: ExplainerModule = {
     //   side   (≥ SIDE_MIN_W): panels 1 | 2 side by side, the controls in a column at the right (it scrolls within
     //          the row), caption below. The visual row only claims what panel 1 needs (sourceMinHeight) and
     //          grows into a taller host, so the station fits a short dialog (story dialog at 1440×900: 1030×657).
-    //   mid    (780 – SIDE_MIN_W): panels 1 | 2 on top, the controls as a grid below, caption — the station scrolls.
-    //   narrow (< 780): panel 1, its controls, panel 2, the other controls, caption — the station scrolls.
+    //   mid    (780 – SIDE_MIN_W): panels 1 | 2 on top, the controls as a grid below, caption. The station scrolls.
+    //   narrow (< 780): panel 1, its controls, panel 2, the other controls, caption. The station scrolls.
     const ctlA = document.createElement('div');
     ctlA.className = 'stn-controls';
     ctlA.style.gridTemplateColumns = 'minmax(0,1fr)';

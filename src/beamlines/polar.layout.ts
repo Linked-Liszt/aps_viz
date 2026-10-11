@@ -212,19 +212,18 @@ const layout: BeamlineLayout = {
   ],
   // Whole-line shot from the infield side, looking outward over the storage-ring tunnel: nothing stands between the camera
   // and the hutches (the outboard view puts the lab/office wing in front), and the beam runs left→right like the path strip.
-  // The engine centres the target on the full canvas (half of which the side panel covers) and sizes the distance with a
-  // 0.82 crop, so the target is pushed downstream (along 0.66) and the camera pulled back sideways (side −1.35): the whole
-  // 78 m line, from the undulators to the 4-ID-H beam stop, then fits in the visible area left of the panel at 1440×900.
+  // The engine centres the target on the full canvas and applies a 0.82 crop factor to the camera distance.
+  // The side panel covers half the canvas. With along 0.66 and side −1.35, the full 78 m beamline fits
+  // in the visible area left of the panel at 1440×900.
   camera: { along: 0.66, side: -1.35, up: 0.66 },
   custom: (ctx: BuildCtx) => {
     buildContext(ctx);
-    // The engine draws transport enclosures as a polished steel pipe; this one is a lead-shielded line, so give it a lead
-    // finish (the polished pipe also blooms in close-ups).
+    // Use a lead finish for this shielded pipe. The default polished steel material produces excessive bloom in close views.
     ctx.group.getObjectByName('enclosure-Shielded transport')?.traverse((o) => {
       const m = o as THREE.Mesh;
       if (m.isMesh && m.geometry?.type === 'CylinderGeometry') m.material = pm.lead();
     });
-    // POLAR's signature: linear-H light before the first diamond plate, a flipping corkscrew after it
+    // Draw horizontal polarization before the diamond plate and circular polarization with alternating rotation after it.
     polarizationWaves(ctx, {
       linear: [32.5, 33.24],
       circular: [33.27, 36.05],

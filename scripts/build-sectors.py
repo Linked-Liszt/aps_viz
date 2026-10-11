@@ -115,4 +115,4 @@ check_text(shown)
 
 summary = d.get('summary') or {}
 json.dump({'sectors': sectors, 'summary': {'headline': clean(summary.get('headline', '')) if isinstance(summary, dict) else ''}, 'references': d.get('references', [])}, open(out, 'w'), indent=1)
-print('sectors', len(sectors), 'enhanced', sum(b['enhanced'] for s in sectors.values() for b in s['beamlines']))
+print(f"Wrote {len(sectors)} sectors with {sum(b['enhanced'] for s in sectors.values() for b in s['beamlines'])} enhanced beamlines.")

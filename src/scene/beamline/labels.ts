@@ -6,14 +6,14 @@ const FADE_MS = 360;
 let epoch = 0;
 
 /**
- * Changes whenever a scene label is shown, hidden or moved by the engine. Together with the camera matrices and the
- * canvas size it tells the frame loop whether the CSS2D label layer needs re-rendering at all.
+ * Return a counter incremented when the engine shows, hides or moves a label. The frame loop compares this counter,
+ * camera matrices and canvas size with their previous values before rendering the CSS2D label layer.
  */
 export function labelEpoch(): number {
   return epoch;
 }
 
-/** Record a label change the CSS2D layer must pick up (e.g. a label moved to a new anchor). */
+/** Increment the counter after changing a label, such as moving it to another anchor. */
 export function touchLabels(): void {
   epoch++;
 }
@@ -24,13 +24,11 @@ interface LabelState {
 }
 
 /**
- * Show or hide a CSS2D label (pin, place name, ruler mark…).
+ * Show or hide a CSS2D pin, place name or ruler label.
  *
- * A hidden label first fades out through the `.is-hidden` class, then drops out of the CSS2D render list
- * (`visible = false`, which CSS2DRenderer turns into `display: none`). Hidden labels are then neither focusable nor
- * hit-testable, and cost the label renderer nothing per frame. Showing reverses this; the class is dropped two frames
- * after the element is displayed again so the fade-in still runs. `el` is the element carrying the `.lbl` class (pins
- * wrap it in an anchor element).
+ * Apply `.is-hidden` for the opacity fade, then set `visible = false`. CSS2DRenderer applies `display: none`, so the
+ * label is excluded from rendering, keyboard focus and hit testing. To show it, restore visibility and remove the
+ * class two frames later for the fade-in. `el` is the element with the `.lbl` class. Pins have an anchor around it.
  */
 export function showLabel(obj: CSS2DObject, shown: boolean, el: HTMLElement = obj.element): void {
   const st = obj.userData as LabelState;
@@ -65,7 +63,7 @@ export function showLabel(obj: CSS2DObject, shown: boolean, el: HTMLElement = ob
   }, FADE_MS);
 }
 
-/** Hide immediately, without the fade (labels that must vanish at once, e.g. when a scene is torn down). */
+/** Hide immediately without a fade, such as when disposing of a scene. */
 export function hideLabelNow(obj: CSS2DObject, el: HTMLElement = obj.element): void {
   const st = obj.userData as LabelState;
   if (st.hideTimer) clearTimeout(st.hideTimer);
@@ -76,7 +74,7 @@ export function hideLabelNow(obj: CSS2DObject, el: HTMLElement = obj.element): v
   epoch++;
 }
 
-/** Whether the label is meant to be visible (its fade may still be running). */
+/** Return the requested visibility. The fade may still be running. */
 export function labelShown(obj: CSS2DObject): boolean {
   return (obj.userData as LabelState).shown !== false;
 }
@@ -92,7 +90,7 @@ export interface Rect {
 export const overlaps = (a: Rect, b: Rect, pad = 0): boolean =>
   a.x0 < b.x1 + pad && a.x1 > b.x0 - pad && a.y0 < b.y1 + pad && a.y1 > b.y0 - pad;
 
-/** Pixels of the canvas covered by UI chrome on each side (top bar and crumbs, side panel, path strip…). */
+/** Widths of canvas areas covered by the top bar, breadcrumbs, side panel and path strip, in pixels. */
 export interface SafeInsets {
   left: number;
   right: number;
@@ -101,8 +99,8 @@ export interface SafeInsets {
 }
 
 /**
- * The UI insets the stage currently keeps clear (the last Stage.setInsets), for layout passes whose caller passes none:
- * pins and place labels then still avoid the top bar, side panel and path strip.
+ * Return the insets from the last Stage.setInsets call. Layout functions use these when their caller supplies none,
+ * placing pins and place labels clear of the top bar, side panel and path strip.
  */
 export function stageInsets(stage: object): Partial<SafeInsets> | undefined {
   const i = (stage as { insets?: Partial<SafeInsets> }).insets;

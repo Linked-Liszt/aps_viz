@@ -66,8 +66,9 @@ export const OUTLINE_E: [number, number][] = [
 ];
 
 /**
- * 34-ID-F (ATOMIC, partner): the trapezoidal hutch of FDR Fig. 4.58 (±0.2 m) — wide upstream wall at 67.5 m reaching ~5.2 m
- * outboard, a stepped diagonal outboard wall closing to the 79.8 m end wall, straight inboard wall. The vertices are the ATOMIC
+ * The partner ATOMIC hutch at 34-ID-F follows the trapezoidal plan in FDR Fig. 4.58, to ±0.2 m.
+ * Its upstream wall at 67.5 m extends about 5.2 m outboard. The stepped diagonal outboard wall ends at 79.8 m,
+ * and the inboard wall is straight. The vertices are the ATOMIC
  * exhibit's (its frame is rotated 1 mrad from this one: z = z_atomic − 1 mrad·x) so that both exhibits draw the same hutch.
  */
 const F_ATOMIC_FRAME: [number, number][] = [
@@ -116,7 +117,7 @@ export const SIDE_DET = {
 export const SDD = { dir: new THREE.Vector3(-0.55, 0.12, 0.83).normalize(), tip: 0.028, bodyAt: 0.2 };
 /**
  * Pt wire: real ~50–100 µm diameter, ~0.2–1 mm above the surface. The model enlarges the whole wire neighbourhood
- * ×12 (r = 0.6 mm, height 6 mm) so that it is visible; ratios — and so the blocked angular band — are preserved.
+ * by a factor of 12, to r = 0.6 mm and height 6 mm, for visibility. The geometric ratios and blocked angular band are preserved.
  */
 export const WIRE = { h: 0.006, r: 0.0006, half: 0.02, scale: 12 };
 /** Optical microscope looks along the sample normal (34-ID-E "F = (−Y+Z)/√2"); long-working-distance objective. */

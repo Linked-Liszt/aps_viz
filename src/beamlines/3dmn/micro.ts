@@ -163,7 +163,7 @@ export function sampleTower(): THREE.Group {
   });
 }
 
-// ------------------------------------------------------------------ Pt wire scanner (origin = sample) — animated
+// ------------------------------------------------------------------ Animated Pt wire scanner. The origin is the sample.
 
 /** Carrier geometry at u = 0; the group is slid along H by wireU(t). */
 function wireCarrier(withWire: boolean): THREE.Group {

@@ -100,7 +100,7 @@ describe('gisaxs optics', () => {
 
   it('refraction angle is zero (evanescent) below α_c and → √(α²−α_c²) above', () => {
     const o = optics(SILICON, 8);
-    // below α_c only absorption gives Re(k_z) ≈ k β/√(α_c²−α²) ≠ 0 — tiny
+    // Below α_c, absorption gives the small nonzero value Re(k_z) ≈ k β/√(α_c²−α²).
     expect(refractedAngle(0.5 * o.alphaC, o)).toBeLessThan(0.02 * o.alphaC);
     const a = 2 * o.alphaC;
     expect(refractedAngle(a, o) / Math.sqrt(a * a - o.alphaC * o.alphaC)).toBeCloseTo(1, 3);

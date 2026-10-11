@@ -5,10 +5,10 @@
  *   incoherent:  I(q_y, α_f) = Σ_{l,l'} c_l c_l'* C_{ll'}(|q_y|) / Σw²     (ring-averaged cross spectra = ensemble)
  *
  * M̃_l = FT[w(y)·(m_l − ⟨m_l⟩)] is the windowed slice spectrum (mean removed: the q∥ = 0 part is the specular
- * reflection, drawn separately). c_l(α_f) = DWBA vertical factors incl. Fresnel coefficients of Si.
- * q_y = j·Δq with Δq = 2π/(N a) (the FFT grid). q_x = k(cos α_f − cos α_i) is tiny (≲ 1 bin of the 2.56 µm patch)
+ * reflection, drawn separately). C_l(α_f) = DWBA vertical factors incl. Fresnel coefficients of Si.
+ * q_y = j·Δq with Δq = 2π/(N a) (the FFT grid). Q_x = k(cos α_f − cos α_i) is tiny (≲ 1 bin of the 2.56 µm patch)
  * and is included by power-preserving interpolation between FFT rows. The real CSSI footprint (tens of µm) makes speckle
- * ≈ footprint/patch times finer along α_f than shown here — stated in the station's Numbers note.
+ * ≈ footprint/patch times finer along α_f than shown here. Stated in the station's Numbers note.
  * E[I_coherent] = I_incoherent by construction, so the two modes cross-fade consistently.
  */
 import { DEG, SILICON, dwbaSliceCoeffs, fresnel, optics, waveNumber, type Fresnel } from './physics';

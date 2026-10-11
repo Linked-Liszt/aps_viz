@@ -10,6 +10,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { Tweens, ease, lerp } from '../lib/tween';
 import { prefersReducedMotion } from '../lib/dom';
 import { labelEpoch } from './beamline/labels';
+import { setHutchPostprocessing } from './palette';
 import type { Quality } from '../app/store';
 
 CameraControls.install({ THREE });
@@ -189,6 +190,7 @@ export class Stage {
 
   setQuality(q: Quality): void {
     this.quality = q;
+    setHutchPostprocessing(q !== 'low');
     const dpr = window.devicePixelRatio;
     this.renderer.setPixelRatio(q === 'high' ? Math.min(dpr, 2) : q === 'balanced' ? Math.min(dpr, 1.25) : 0.85);
     this.renderer.shadowMap.enabled = q !== 'low';
@@ -318,9 +320,9 @@ export class Stage {
     this.pickables.push(obj);
   }
 
-  removePickables(pred: (info: Pickable) => boolean): void {
+  removePickables(pred: (info: Pickable, obj: THREE.Object3D) => boolean): void {
     this.pickables = this.pickables.filter((o) => {
-      const gone = pred(o.userData.pick as Pickable);
+      const gone = pred(o.userData.pick as Pickable, o);
       if (gone) this.pickBoxes.delete(o);
       return !gone;
     });
@@ -358,15 +360,15 @@ export class Stage {
   }
 
   /**
-   * The pickable under the pointer. Broad phase: the ray against each active pickable's bounding box; narrow phase:
-   * exact raycasts of the candidates, nearest box first, stopping once no remaining box can hold a nearer hit.
-   * `fresh` re-measures the boxes first (clicks); hover uses boxes up to PICK_BOX_MS old.
+   * Return the pickable under the pointer. First test the ray against each active object's bounding box.
+   * Then raycast candidate objects, starting with the nearest box. Stop when all remaining boxes are beyond the nearest hit.
+   * With `fresh`, recompute the boxes for a click. Hover checks use boxes up to PICK_BOX_MS old.
    */
   private pick(fresh = false): { obj: THREE.Object3D; info: Pickable } | null {
     if (this.pointer.x < -2) return null;
     this.raycaster.setFromCamera(this.pointer, this.camera);
-    // Thin lines (edge outlines) and points count as hit within ~4 px at the distance the camera looks at, not three's
-    // default of 1 m, which from across a beamline lets a neighbour's outline win over the part under the pointer.
+    // Use a hit tolerance of about 4 px at the camera's target distance for lines and points.
+    // With Three.js's default tolerance of 1 m, raycasts can select a neighbouring outline instead of the part under the pointer.
     const el = this.renderer.domElement;
     const tol = (4 * 2 * Math.tan(THREE.MathUtils.degToRad(this.camera.fov) / 2) * this.controls.distance) / (el.clientHeight || 1);
     this.raycaster.params.Line.threshold = tol;
@@ -536,8 +538,8 @@ export class Stage {
     };
     let D = 1;
     for (const p of points) D = Math.max(D, need(p, 0, 0));
-    // label room is best effort: it may pull the camera back by a quarter at most (on a phone a wide label would
-    // otherwise shrink the whole scene to make room for itself)
+    // Increase camera distance by at most 25% to fit labels. Larger adjustments for wide phone labels would make
+    // the scene too small.
     let DL = D;
     for (const l of labels) DL = Math.max(DL, need(l.at, l.w / 2, l.h / 2));
     D = Math.min(DL, D * 1.25);
@@ -560,9 +562,8 @@ export class Stage {
   private labelProj = new THREE.Matrix4();
 
   /**
-   * The CSS2D layer only needs a pass when something it shows changed: the camera (view or projection, which includes
-   * the inset offset and canvas size), a label shown, hidden or moved (labelEpoch), or an explicit invalidation.
-   * A slow periodic pass catches anything untracked.
+   * Render the CSS2D layer after a change to the camera view, projection, canvas size or labels, or after explicit
+   * invalidation. Also render periodically to include changes that were not recorded.
    */
   private renderLabels(): void {
     const cam = this.camera;

@@ -7,18 +7,18 @@ import type { BuildCtx } from '../../scene/beamline/layout';
 import { reducedMotion } from './kit';
 
 /**
- * POLAR's signature, made visible: the X-ray electric field drawn as arrows along the beam.
- * Upstream of the first diamond plate the field oscillates side to side (linear-horizontal, as the planar undulators
- * make it); downstream it rotates as a corkscrew (circular), and the handedness flips periodically like the piezo-driven
- * helicity switching (really ~15 Hz; slowed here, and the wave is drawn 0.32 m long instead of ~1 Å).
+ * Draw the X-ray electric field as arrows along the beam. Before the first diamond plate, the field oscillates
+ * horizontally. After the plate, it rotates around the beam axis. The direction of rotation reverses periodically
+ * to represent piezoelectric helicity switching. The actual switching rate is about 15 Hz; the animation is slower.
+ * The drawn wavelength is 0.32 m rather than the physical wavelength of about 1 Å.
  */
 export interface WaveOpts {
   linear: [number, number];
   circular: [number, number];
-  /** amplitude (m), wavelength (m) of the drawing */
+  /** Amplitude and wavelength of the drawing, in metres. */
   amp?: number;
   lambda?: number;
-  /** seconds between helicity flips (visual) */
+  /** Seconds between reversals of rotation in the animation. */
   flipEvery?: number;
   onFlip?: (helicity: 1 | -1, strength: number) => void;
 }
@@ -73,7 +73,7 @@ export function polarizationWaves(ctx: BuildCtx, o: WaveOpts): THREE.Group {
     const cycle = t / flipEvery;
     const hel: 1 | -1 = Math.floor(cycle) % 2 === 0 ? 1 : -1;
     const ph = cycle - Math.floor(cycle);
-    // brief fade through each flip so the reversal of the twist reads clearly
+    // Reduce opacity briefly at each reversal to distinguish the two rotation directions.
     const fade = Math.min(1, Math.min(ph, 1 - ph) / 0.06);
     if (hel !== lastHel) lastHel = hel;
     o.onFlip?.(hel, 1 - fade);

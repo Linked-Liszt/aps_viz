@@ -1,4 +1,4 @@
-/** Number formatting shared by the brightness station views (pure; tested). */
+/** Number formatting shared by the brightness station views pure functions covered by tests. */
 
 const SUP: Record<string, string> = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
 
@@ -11,7 +11,7 @@ export function sup(n: number | string): string {
 
 /** 1.1 × 10²² (mantissa with `digits` significant figures; "10²²" when the mantissa rounds to 1). */
 export function sci(v: number, digits = 2): string {
-  if (!Number.isFinite(v) || v <= 0) return '—';
+  if (!Number.isFinite(v) || v <= 0) return "Unknown";
   let e = Math.floor(Math.log10(v));
   let m = v / Math.pow(10, e);
   let ms = m.toPrecision(digits);
@@ -29,7 +29,7 @@ export function sci(v: number, digits = 2): string {
  * ratio): one significant figure. 688 → "700", 545 → "500", 75 → "80", 3.4 → "3". For the station text and readouts.
  */
 export function approxGain(g: number): string {
-  if (!Number.isFinite(g) || g <= 0) return '—';
+  if (!Number.isFinite(g) || g <= 0) return "Unknown";
   if (g < 1.5) return '1';
   const m = Math.pow(10, Math.floor(Math.log10(g)));
   return (Math.round(g / m) * m).toLocaleString('en-US');
@@ -37,7 +37,7 @@ export function approxGain(g: number): string {
 
 /** ×72, ×540, ×3.4, ×1,883 */
 export function fmtGain(g: number): string {
-  if (!Number.isFinite(g)) return '—';
+  if (!Number.isFinite(g)) return "Unknown";
   if (g >= 999.5) return `×${Math.round(g).toLocaleString('en-US')}`;
   if (g >= 9.95) return `×${Math.round(g)}`;
   return `×${g.toFixed(1)}`;

@@ -83,7 +83,7 @@ export const STATION = {
 
 // ------------------------------------------------------------------ hutch outlines (plan polygons in x,z)
 
-/** Outboard wall of 28-ID-A (z) — digitised; D and F sit directly against it. */
+/** Digitised z position of the outboard wall of 28-ID-A. Branches D and F are directly beside it. */
 export const A_OUT = 1.8;
 const GAP = 0.05; // keeps neighbouring translucent walls from z-fighting
 

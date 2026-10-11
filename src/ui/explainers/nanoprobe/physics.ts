@@ -18,7 +18,7 @@
  *    differential cross sections at 90° in the storage-ring plane (xraylib DCSP_*), sample + 10 µm of
  *    carbonate electrolyte as the in situ cell (illustrative).
  *    Throughput: total input rate kept ≤ 3×10⁷ cps (7 channels × ~4 Mcps, Xspress3; illustrative); above it
- *    the station "inserts attenuators" (Φ_eff = Φ·R_max/R), as a beamline would.
+ *    the station "inserts attenuators" (Φ_eff = Φ·R_max/R), as in a beamline measurement.
  * 3. Focused flux (photons/s into the spot):
  *    APS-U = FDR (2019) Table 4.52 design values for ISN (DCM, Si(111)):
  *      coherent (BDAs closed): 3.5×10¹² ph/s in 39×39 nm² at 10 keV; 3.4×10¹¹ ph/s in 16×16 nm² at 25 keV
@@ -318,7 +318,7 @@ export function bdaCoherentUm(E: number, z: number, L: number, theta = KB.theta)
   return ((0.44 * lambdaM(E) * z) / (L * Math.sin(theta))) * 1e6;
 }
 
-/** smallest (coherent, diffraction-limited) ISN spot, nm FWHM — FDR: 39 nm @10 keV, 16 nm @25 keV */
+/** smallest (coherent, diffraction-limited) ISN spot, nm FWHM. FDR: 39 nm @10 keV, 16 nm @25 keV */
 export function spotMinNm(E: number): number {
   return 390 / E;
 }

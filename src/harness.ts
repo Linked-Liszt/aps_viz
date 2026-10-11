@@ -10,10 +10,10 @@ const host = document.getElementById('host')!;
 document.body.style.overflow = 'auto';
 void loadExplainer(id).then((mod) => {
   if (!mod) {
-    host.textContent = `unknown station ${id}`;
+    host.textContent = `Unknown station: ${id}.`;
     return;
   }
-  document.getElementById('hh')!.textContent = `${mod.title} — ${mod.subtitle}`;
+  document.getElementById('hh')!.textContent = `${mod.title}. ${mod.subtitle}`;
   const inst = mod.mount(host, { color: q.get('color') ?? '#5cd3ff', beamlineId: q.get('bl') ?? undefined });
   (window as unknown as { __station: unknown }).__station = inst;
 });

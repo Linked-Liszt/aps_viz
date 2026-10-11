@@ -14,7 +14,7 @@ import {
 import { dDetector, htHedm } from './hexm/stations';
 
 /**
- * HEXM — High-Energy X-ray Microscope, 20-ID (single straight branch, ~197 m to the final stop).
+ * HEXM, the High-Energy X-ray Microscope at 20-ID, has one straight branch ending about 197 m from the source.
  *
  * Geometry (sources in ./hexm/geom.ts):
  * • No canting and no net deflection. The bent double-Laue monochromator M1 (29.5 m) shifts the monochromatic beam

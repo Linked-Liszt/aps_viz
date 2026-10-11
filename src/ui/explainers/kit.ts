@@ -1,6 +1,5 @@
 /**
- * Station kit: shared building blocks for the interactive "exhibit stations" so every station looks and
- * behaves the same (layout, controls, canvases, plots, colormaps, animation loop lifecycle).
+ * Shared layouts, controls, canvases, plots, colormaps and animation lifecycle functions for interactive stations.
  *
  * Layout produced by createStation():
  *   ┌───────────────────────────────┬──────────────┐
@@ -38,7 +37,7 @@ export interface Station {
   /** Register a cleanup function. */
   onDestroy(fn: () => void): void;
   destroy(): void;
-  /** Set the caption ("what you're seeing"). Supports **bold**, *italic*, `code`, _{sub} and ^{sup}. */
+  /** Set the explanatory caption. Supports **bold**, *italic*, `code`, _{sub} and ^{sup}. */
   setCaption(text: string): void;
 }
 
@@ -57,7 +56,7 @@ export function createStation(host: HTMLElement, opts: { color?: string; layout?
     visual,
     controls,
     caption,
-    // registered after teardown (e.g. by a deferred lookup): run at once
+    // Run cleanup immediately if it is registered after teardown, for example by a deferred lookup.
     onDestroy: (fn) => (destroyed ? fn() : void cleanups.push(fn)),
     destroy: () => {
       destroyed = true;
@@ -176,8 +175,8 @@ export function canvas2d(parent: HTMLElement, opts: { aspect?: number; minHeight
 }
 
 /**
- * `el` cannot be seen because of a dialog: an open one (`.modal.is-open`) that does not contain it covers it, or `el`
- * sits in a closed one (faded out to opacity 0 but still laid out, so the IntersectionObserver reports it visible).
+ * Return whether `el` is covered by another open dialog or belongs to a closed dialog. A closed dialog
+ * retains its layout at zero opacity, so IntersectionObserver can still report its contents as visible.
  */
 function hiddenByDialog(el: HTMLElement): boolean {
   const own = el.closest('.modal');
@@ -187,12 +186,12 @@ function hiddenByDialog(el: HTMLElement): boolean {
 }
 
 /**
- * requestAnimationFrame loop. Returns stop(); it also stops with the station.
- * - Pauses while the station is off-screen (IntersectionObserver) or the tab is hidden.
- * - Pauses while a dialog hides it (another dialog on top, e.g. the same station opened full screen or the story; or
- *   its own dialog has closed), polling a few times a second to resume; nothing runs and `t` stands still meanwhile.
- * - If the station's DOM is removed without destroy() (e.g. its host was replaced while it was loading), the station
- *   is destroyed on the next check, so its loop, observers and timers cannot outlive it.
+ * requestAnimationFrame loop. Returns stop() and stops when the station is destroyed.
+ * - Pause when IntersectionObserver reports the station off screen, or the browser tab is hidden.
+ * - Pause when a dialog covers the station or its own dialog closes. Poll a few times per second to resume.
+ *   Simulation time `t` does not advance while paused.
+ * - Destroy the station on the next check if its DOM was removed without destroy(), for example when its host
+ *   was replaced during loading. This releases the loop, observers and timers.
  */
 export function loop(station: Station, fn: (dt: number, t: number) => void): () => void {
   let raf = 0;
@@ -264,10 +263,9 @@ export function loop(station: Station, fn: (dt: number, t: number) => void): () 
 
 let rmQuery: MediaQueryList | null | undefined;
 /**
- * Last known preference: read from the query once, then kept up to date by its change events only. Stations call
- * prefersReducedMotion() every frame, and reading `.matches` that often can swallow the change event (Chrome updates
- * the query's state on read, so when it later re-evaluates the query it sees no change and fires nothing), after
- * which no listener would ever hear of the next switch.
+ * Read the preference once, then update the cached value through change events. Stations call
+ * prefersReducedMotion() every frame. Reading `.matches` on each frame can suppress change events in Chrome:
+ * the read updates the query's cached state, so a later query evaluation finds no change and emits no event.
  */
 let rmReduced = false;
 const rmListeners = new Set<(reduced: boolean) => void>();
@@ -290,7 +288,7 @@ function rmq(): MediaQueryList | null {
   return rmQuery;
 }
 
-/** The visitor asks for reduced motion (live: follows changes to the OS / browser setting). */
+/** Current reduced-motion preference, updated when the operating-system or browser setting changes. */
 export function prefersReducedMotion(): boolean {
   rmq();
   return rmReduced;
@@ -329,7 +327,7 @@ export function motionGate(
   let on = !reduced;
   const b = button(parent, play, () => set(!on), 'stn-motion');
   if (opts.before) parent.insertBefore(b, opts.before);
-  b.title = opts.title ?? 'Your device asks for reduced motion, so this animation starts paused';
+  b.title = opts.title ?? 'Reduced motion is enabled on your device. This animation starts paused.';
   const sync = () => {
     b.hidden = !reduced;
     b.textContent = on ? pause : play;
@@ -501,9 +499,9 @@ export function readout(parent: HTMLElement, label: string, opts: { big?: boolea
 }
 
 /**
- * The station's one screen-reader announcer: a visually hidden role=status element. Live readouts are deliberately
- * not live regions (they would chatter on every slider step); a station says() what matters after a discrete user
- * action. Debounced: rapid input announces only the last state. A function argument is read when the message fires.
+ * A visually hidden role=status element for screen-reader announcements. Readout elements are not live regions,
+ * which would announce every slider step. Call say() after a discrete user action. Rapid input announces only
+ * the last state. A function argument is evaluated when the announcement is displayed.
  */
 export function announcer(station: Station): { say(text: string | (() => string), delayMs?: number): void } {
   let el = station.root.querySelector<HTMLElement>(':scope > .stn-sr-status');

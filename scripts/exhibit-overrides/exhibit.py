@@ -7,10 +7,10 @@ files next to this module and is applied by the build scripts, so src/data/*.jso
     python3 scripts/build-facility.py research/facility.json src/data/facility.json
     python3 scripts/build-sectors.py  research/sectors.json  src/data/sectors.json
 
-Every text exists once, in one voice for every reader (no plain/expert variants): a lead in everyday words, the
-mechanism with any technical term defined in passing, then one or two telling numbers and the caveat a specialist
-would look for. `no_variants` rejects plain/expert keys in an override and `check_text` lints everything the
-exhibit displays (ASCII research notation, sentence shape, leftover mode wording); both raise OverrideError.
+Every field has one text for all readers. Explain the subject in everyday words and define technical terms
+where they appear. Preserve useful numbers, units and qualifications. `no_variants` rejects plain/expert
+keys in an override. `check_text` checks displayed text for ASCII research notation, incomplete sentences
+and references to the retired reading modes. Both functions raise OverrideError.
 
 Every override key must match something in the research data; a stale key is an error, not a silent no-op.
 """
@@ -79,7 +79,7 @@ def typo(s):
         return f"\x00{len(kept) - 1}\x00"
 
     s = _PROTECTED.sub(keep, s)
-    s = s.replace('+/-', '±').replace('->', '→').replace(' - ', ' – ')
+    s = s.replace('+/-', '±').replace('->', '→')
     s = re.sub(r'(?<![\w.])(\d+(?:\.\d+)?)e([+-]?\d+)\b', _sci, s)  # 5.1e12 -> 5.1 × 10¹²
     s = re.sub(r'(?<=\d)-(?=\d)', '–', s)  # numeric ranges 40-140 -> 40–140
     s = re.sub(r'\b(pm|nm)\.rad\b', '\\1·rad', s)
@@ -95,8 +95,7 @@ def typo(s):
     s = re.sub(r'(\d)x\b', '\\1×', s)  # 10x, 2.5x
     s = re.sub(r'(?<![\w])x(?=\d)', '×', s)  # x540
     s = re.sub(r'\b(\d{1,3})(Fe|Kr|Eu|Dy|Sn)\b', lambda m: _sup(m.group(1)) + m.group(2), s)  # 57Fe -> ⁵⁷Fe
-    s = re.sub(r"(^|[\s(\[“–—/])'", '\\1‘', s).replace("'", '’')  # 'reverse' -> ‘reverse’, Borland's -> Borland’s
-    s = re.sub(r'(^|[\s(\[‘–—/])"', '\\1“', s).replace('"', '”')
+    s = s.translate(str.maketrans({'‘': "'", '’': "'", '“': '"', '”': '"'}))
     return re.sub(r'\x00(\d+)\x00', lambda m: kept[int(m.group(1))], s)
 
 
@@ -120,7 +119,7 @@ def no_variants(patch, where):
     if isinstance(patch, dict):
         bad = [k for k in patch if k in VARIANT_KEYS]
         if bad:
-            raise OverrideError(f'{where}: {bad} – write one unified text instead of plain/expert variants')
+            raise OverrideError(f'{where} contains {bad}. Write one text for all readers.')
         for k, v in patch.items():
             no_variants(v, f'{where}.{k}')
 

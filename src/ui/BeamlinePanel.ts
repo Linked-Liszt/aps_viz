@@ -39,6 +39,7 @@ type FocusIntent = { kind: 'title' } | { kind: 'stop'; id: string } | { kind: 't
 export class BeamlinePanel {
   readonly el: HTMLElement;
   private head: HTMLElement;
+  private tourReturnBtn: HTMLButtonElement;
   private tabRow: HTMLElement;
   private tabBtns = new Map<PanelTab, HTMLButtonElement>();
   private body: HTMLElement;
@@ -57,6 +58,7 @@ export class BeamlinePanel {
   /** component ids the 3D layout does not draw (kept out of numbered lists so numbers match the pins) */
   hiddenIds = new Set<string>();
   onClose: () => void = () => {};
+  onReturnToTour: () => void = () => {};
   onExpandExplainer: (id: string) => void = () => {};
   /**
    * Show a design-record figure large (the app passes these nodes to its Modal). Until that is wired, the
@@ -67,6 +69,9 @@ export class BeamlinePanel {
   };
 
   constructor() {
+    this.tourReturnBtn = h('button', {
+      class: 'btn btn-ghost bl-tour-return', type: 'button', hidden: true, onclick: () => this.onReturnToTour(),
+    }, icon('back', 15), 'Return to tour') as HTMLButtonElement;
     this.head = h('div', { class: 'bl-head-host' });
     this.tabRow = h('div', { class: 'tab-row', role: 'tablist', 'aria-label': 'Beamline sections' });
     TABS.forEach((t, i) => {
@@ -162,6 +167,11 @@ export class BeamlinePanel {
     this.announced = '';
   }
 
+  setTourReturn(step: number | null): void {
+    this.tourReturnBtn.hidden = step === null;
+    this.tourReturnBtn.title = step === null ? '' : `Return to guided tour stop ${step + 1}`;
+  }
+
   setTab(t: PanelTab): void {
     this.tab = t;
     if (t !== 'inside') this.componentId = null;
@@ -224,7 +234,10 @@ export class BeamlinePanel {
           ),
           h('button', { class: 'btn btn-ghost btn-icon bl-close', type: 'button', 'aria-label': 'Close beamline and return to the APS', title: 'Back to the whole APS (Esc)', onclick: () => this.onClose() }, icon('close')),
         ),
-        h('h2', { class: 'bl-title', id: TITLE_ID, tabindex: '-1' }, b.acronym),
+        h('div', { class: 'bl-title-row' },
+          h('h2', { class: 'bl-title', id: TITLE_ID, tabindex: '-1' }, b.acronym),
+          this.tourReturnBtn,
+        ),
         h('div', { class: 'bl-fullname' }, meta.displayName),
       ),
     );
@@ -253,7 +266,7 @@ export class BeamlinePanel {
     clear(this.body);
     switch (this.tab) {
       case 'overview':
-        this.renderOverview(b);
+        this.renderOverview(b, meta);
         break;
       case 'how':
         this.renderHow(b, meta);
@@ -290,21 +303,21 @@ export class BeamlinePanel {
 
   // ---------------------------------------------------------------- tabs
 
-  private renderOverview(b: Beamline): void {
+  private renderOverview(b: Beamline, meta: BeamlineMeta): void {
     const body = this.body;
     body.append(
       h('p', { class: 'lede' }, rich(b.tagline)),
       h(
         'div',
         { class: 'cta-row' },
-        h('button', { class: 'btn btn-primary', type: 'button', onclick: () => this.openTab('how') }, icon('play', 15), 'Try the interactive station'),
-        h('button', { class: 'btn', type: 'button', onclick: () => this.openTab('inside') }, icon('layers', 15), 'Walk the beamline'),
+        h('button', { class: 'btn btn-primary', type: 'button', 'aria-haspopup': 'dialog', onclick: () => this.onExpandExplainer(meta.explainers[0]) }, icon('play', 15), 'Try the interactive station'),
+        h('button', { class: 'btn', type: 'button', onclick: () => this.openTab('inside') }, icon('layers', 15), 'Explore components'),
       ),
       p(b.summary),
     );
     const w = b.whatAPSUEnables;
     if (w?.text) {
-      body.appendChild(h('section', { class: 'callout' }, h('div', { class: 'kicker' }, icon('sparkles', 14), ' What the upgrade makes possible'), p(w.text)));
+      body.appendChild(h('section', { class: 'callout' }, h('div', { class: 'kicker' }, icon('sparkles', 14), ' Capabilities after the upgrade'), p(w.text)));
     }
     const params = b.keyParameters?.slice(0, 6) ?? [];
     if (params.length) {
@@ -317,7 +330,7 @@ export class BeamlinePanel {
       );
     }
     if (b.funFacts?.length) {
-      body.appendChild(h('section', { class: 'facts' }, h('div', { class: 'kicker' }, 'Did you know?'), ...b.funFacts.slice(0, 3).map((f) => p(stripRefs(f)))));
+      body.appendChild(h('section', { class: 'facts' }, h('div', { class: 'kicker' }, 'More about this beamline'), ...b.funFacts.slice(0, 3).map((f) => p(stripRefs(f)))));
     }
     // the evidence behind the upgrade paragraph, as the label's fine print: last, so it never buries the story above
     if (w?.quantitative?.length) {
@@ -384,7 +397,7 @@ export class BeamlinePanel {
       h(
         'p',
         { class: 'muted' },
-        'Follow the X-rays from the undulator source to the detector. Pick any stop to fly the camera there; distances are measured from the source point.',
+        'Explore the components along the X-ray path from the undulator to the detector. Select a component to centre it in the view. Distances are measured from the source point.',
       ),
     );
     const list = h('ol', { class: 'stop-list' });
@@ -427,7 +440,7 @@ export class BeamlinePanel {
               { class: 'stop-btn', type: 'button', dataset: { id: c.id }, onclick: () => this.go(c.id, { kind: 'title' }) },
               h('span', { class: 'stop-num' }, String(i + 1)),
               h('span', { class: 'stop-ico' }, categoryIcon(componentKindKey(c))),
-              h('span', { class: 'stop-name' }, c.name, feeds ? h('span', { class: 'stop-feeds' }, `feeds ${feeds}`) : null),
+              h('span', { class: 'stop-name' }, c.name, feeds ? h('span', { class: 'stop-feeds' }, `Beam to ${feeds}`) : null),
               h('span', { class: 'stop-dist mono' }, formatDist(c.distanceM)),
             ),
           ),
@@ -488,7 +501,7 @@ export class BeamlinePanel {
       specs.length
         ? h('table', { class: 'specs' }, h('tbody', null, ...specs.map(([k, v]) => h('tr', null, h('th', { scope: 'row' }, specLabelNode(k)), h('td', { class: 'mono' }, String(v))))))
         : null,
-      c.distanceNote ? p(`**Position:** ${c.distanceNote}`, 'fine') : null,
+      c.distanceNote ? p(`Position. ${c.distanceNote}`, 'fine') : null,
       ref ? h('div', { class: 'src small' }, icon('doc', 13), ' Source: ', refLink(ref)) : null,
     );
   }
@@ -513,7 +526,7 @@ export class BeamlinePanel {
 
   private renderSpecs(b: Beamline, meta: BeamlineMeta): void {
     const body = this.body;
-    body.appendChild(p('The engineering numbers behind the exhibit, and the documents they come from.', 'muted small'));
+    body.appendChild(p('Technical parameters and the documents cited for them.', 'muted small'));
     body.appendChild(h('h4', { class: 'sub' }, 'Key parameters'));
     const row = (label: string, value: string, note?: string, prose = false) =>
       h('tr', null, h('th', { scope: 'row' }, label), h('td', { class: prose ? undefined : 'mono' }, value, note ? h('div', { class: 'small muted spec-note' }, note) : null));
@@ -551,9 +564,9 @@ export class BeamlinePanel {
           ),
         );
       }
-      if (b.source.canting) body.appendChild(p(`**Canting:** ${b.source.canting}`, 'fine'));
-      if (b.source.frontEnd) body.appendChild(p(`**Front end:** ${b.source.frontEnd}`, 'fine'));
-      if (b.source.sourceSizeAndDivergence) body.appendChild(p(`**Source size:** ${b.source.sourceSizeAndDivergence}`, 'fine'));
+      if (b.source.canting) body.appendChild(p(`Canting. ${b.source.canting}`, 'fine'));
+      if (b.source.frontEnd) body.appendChild(p(`Front end. ${b.source.frontEnd}`, 'fine'));
+      if (b.source.sourceSizeAndDivergence) body.appendChild(p(`Source size. ${b.source.sourceSizeAndDivergence}`, 'fine'));
     }
     if (b.enclosures?.length) {
       body.appendChild(h('h4', { class: 'sub' }, 'Enclosures'));
@@ -595,11 +608,11 @@ export class BeamlinePanel {
     }
     if (b.openQuestions?.length) {
       body.appendChild(h('h4', { class: 'sub' }, 'Caveats & open questions'));
-      body.appendChild(p('What the public record leaves unsettled, and what this exhibit had to assume.', 'muted small'));
+      body.appendChild(p('Unresolved details in the public sources and assumptions used in this exhibit.', 'muted small'));
       body.appendChild(fineList(b.openQuestions));
     }
     body.appendChild(h('h4', { class: 'sub' }, 'References'));
-    body.appendChild(h('ol', { class: 'refs small' }, ...b.references.map((r) => h('li', { id: `ref-${b.id}-${r.id}` }, refLink(r), r.venue ? h('span', { class: 'muted' }, ` — ${r.venue}${r.year ? `, ${r.year}` : ''}`) : null))));
+    body.appendChild(h('ol', { class: 'refs small' }, ...b.references.map((r) => h('li', { id: `ref-${b.id}-${r.id}` }, refLink(r), r.venue ? h('span', { class: 'muted' }, `, ${r.venue}${r.year ? `, ${r.year}` : ''}`) : null))));
   }
 
   private openFigure(f: Figure, src: string, short: string, ref: Reference | undefined): void {
@@ -639,7 +652,7 @@ export function refLink(r: Reference): HTMLElement {
 }
 
 export function formatDist(d: number | null | undefined): string {
-  if (d === null || d === undefined) return '—';
+  if (d === null || d === undefined) return 'Unknown';
   return d < 10 ? `${d.toFixed(1)} m` : `${d.toFixed(1).replace(/\.0$/, '')} m`;
 }
 

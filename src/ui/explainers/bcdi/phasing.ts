@@ -299,7 +299,7 @@ const G_TABLE = (() => {
 })();
 
 /**
- * Expected Fourier error ε_F of the TRUE object for Poisson counts c (unshifted or not — order is irrelevant):
+ * Expected Fourier error ε_F of the TRUE object for Poisson counts c (unshifted or not. Order is irrelevant):
  * ε² ≈ Σ g(c) / Σ c, with λ estimated by c (zero-count pixels cannot be estimated and are skipped, so this is a
  * slight underestimate). Converged reconstructions typically reach ≈1.3–1.5× this value; stagnated ones stay ≳2×.
  */
@@ -315,7 +315,7 @@ export function noiseFloor(counts: ArrayLike<number>): number {
   return den > 0 ? Math.sqrt(num / den) : 1;
 }
 
-/** Ratio ε_F / floor above which an ER-phase error at the decision point means "stuck in a false solution". */
+/** Ratio ε_F / floor above which an ER-phase error at the decision point means an incorrect local solution. */
 export const STUCK_RATIO = 1.7;
 /** Iteration (end of an ER block) at which the stagnation test is made. */
 export const DECIDE_AT = 300;
@@ -443,7 +443,7 @@ export function align(eRe: Float64Array, eIm: Float64Array, n: number, T: Truth,
 
 /**
  * Apply an alignment for display: dst(r) = E(r − s)·e^{iφ}, or for a twin dst(r) = conj(E(s − r))·e^{iφ}
- * (i.e. the twin is flipped back — the choice a scientist makes from prior knowledge such as the substrate side).
+ * (i.e. the twin is flipped back. The choice a scientist makes from prior knowledge such as the substrate side).
  */
 export function applyAlignment(eRe: Float64Array, eIm: Float64Array, n: number, a: Alignment, dstRe: Float64Array, dstIm: Float64Array): void {
   const c = Math.cos(a.phase);

@@ -1,6 +1,6 @@
 /**
  * Synthetic sample: a 100 nm-thin slice through W-doped Ni-rich NMC cathode particles (LiNi0.8Mn0.1Co0.1O2),
- * the kind of battery material ISN images in operating cells. Pure data, no DOM.
+ * a battery material imaged in operating cells at ISN. Pure data, no DOM.
  *
  * - ~50 primary grains (~300 nm) per 2.5 µm secondary particle: Voronoi tessellation of relaxed random seeds.
  *   Grain-to-grain composition scatter ±2 % (Ni) / ±1 % (Mn, Co).
@@ -56,7 +56,7 @@ export interface Geometry {
   wcov: Float32Array;
   /** crack susceptibility of the nearest boundary at this radius (static) */
   sus: Float32Array;
-  /** a showcase point (nm) on a W-rich triple junction near the main particle's centre */
+  /** a representative position in nm on a W-rich triple junction near the main particle's centre */
   showcase: { x: number; y: number };
 }
 
@@ -78,17 +78,17 @@ export interface CellState {
 
 /** The in situ ladder: one snapshot per scan. Crack widths and leaching are illustrative (and accelerated). */
 export const CELL_STATES: CellState[] = [
-  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 0, thr: 1, leach: 0, text: 'Fresh battery, fully discharged. Every crystal grain is intact, and tungsten decorates the boundaries between them.' },
-  { volts: 3.8, soc: 0.3, dir: 'charging', cycle: 1, crackW: 0, thr: 1, leach: 0, text: 'Charging: lithium is leaving the crystals. Their lattice changes too little to open the boundaries, so nothing visible happens yet.' },
-  { volts: 4.1, soc: 0.6, dir: 'charging', cycle: 1, crackW: 7, thr: 0.62, leach: 0, text: 'Charging: the first hairline cracks, about 7 nm wide, open between grains in the middle of the particle.' },
-  { volts: 4.2, soc: 0.75, dir: 'charging', cycle: 1, crackW: 22, thr: 0.5, leach: 0.1, text: 'The crystals suddenly shrink in height (a phase change called H2→H3), and cracks open to ~20 nm between them, along boundaries with little tungsten.' },
-  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 1, crackW: 36, thr: 0.4, leach: 0.2, text: 'More cracks spread outward. Liquid electrolyte wets the fresh surfaces and starts to dissolve manganese and nickel (illustrative).' },
-  { volts: 4.5, soc: 1, dir: 'charging', cycle: 1, crackW: 55, thr: 0.33, leach: 0.4, text: 'Fully charged: a web of cracks up to ~55 nm wide. Notice they avoid the tungsten-rich boundaries: tungsten strengthens them.' },
-  { volts: 3.9, soc: 0.5, dir: 'discharging', cycle: 1, crackW: 34, thr: 0.33, leach: 0.5, text: 'Discharging: the crystals swell back, but the cracks only partly close, and the leached rims remain.' },
-  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 22, thr: 0.33, leach: 0.55, text: 'End of the first cycle: permanent damage. Cracks ~20 nm wide remain, and manganese is missing about 35 nm deep along every crack (sped up).' },
-  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 2, crackW: 52, thr: 0.27, leach: 0.7, text: 'Second charge: old cracks reopen at a lower voltage and grow (fatigue), and new ones form.' },
-  { volts: 4.5, soc: 1, dir: 'charging', cycle: 2, crackW: 70, thr: 0.22, leach: 0.85, text: 'The particle is breaking apart from the inside: cracks cut grains off, so they lose electrical contact and can no longer be charged. This is why batteries fade.' },
-  { volts: 3.0, soc: 0, dir: 'rest', cycle: 2, crackW: 40, thr: 0.22, leach: 0.95, text: 'After two cycles: cracked, and manganese leached from every exposed surface. Reset to start again.' },
+  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 0, thr: 1, leach: 0, text: "Uncharged battery. Crystal grains are intact. Tungsten is concentrated at their boundaries." },
+  { volts: 3.8, soc: 0.3, dir: 'charging', cycle: 1, crackW: 0, thr: 1, leach: 0, text: "During charging, lithium leaves the crystals. Lattice changes are still too small for visible cracks." },
+  { volts: 4.1, soc: 0.6, dir: 'charging', cycle: 1, crackW: 7, thr: 0.62, leach: 0, text: "During charging, cracks about 7 nm wide open between grains near the particle centre." },
+  { volts: 4.2, soc: 0.75, dir: 'charging', cycle: 1, crackW: 22, thr: 0.5, leach: 0.1, text: "Crystal height decreases during the H2→H3 phase transition. Cracks widen to ~20 nm at boundaries with little tungsten." },
+  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 1, crackW: 36, thr: 0.4, leach: 0.2, text: "Cracks extend outward. In this illustrative model, electrolyte contacts the exposed surfaces and manganese and nickel begin dissolving into it." },
+  { volts: 4.5, soc: 1, dir: 'charging', cycle: 1, crackW: 55, thr: 0.33, leach: 0.4, text: "At full charge, cracks are up to ~55 nm wide. Tungsten-rich boundaries remain less cracked in this model." },
+  { volts: 3.9, soc: 0.5, dir: 'discharging', cycle: 1, crackW: 34, thr: 0.33, leach: 0.5, text: "During discharge, crystal dimensions increase. Cracks partly close, but regions depleted of dissolved elements remain." },
+  { volts: 3.0, soc: 0, dir: 'rest', cycle: 1, crackW: 22, thr: 0.33, leach: 0.55, text: "After the first cycle, cracks ~20 nm wide remain. Manganese is depleted about 35 nm into each crack surface. Dissolution is accelerated in this model." },
+  { volts: 4.3, soc: 0.85, dir: 'charging', cycle: 2, crackW: 52, thr: 0.27, leach: 0.7, text: "During the second charge, existing cracks reopen at a lower voltage and widen. New cracks also form. This repeated damage is fatigue." },
+  { volts: 4.5, soc: 1, dir: 'charging', cycle: 2, crackW: 70, thr: 0.22, leach: 0.85, text: "Internal cracks isolate grains electrically. Isolated material no longer contributes to charging, reducing battery capacity." },
+  { volts: 3.0, soc: 0, dir: 'rest', cycle: 2, crackW: 40, thr: 0.22, leach: 0.95, text: "After two cycles, cracks remain and manganese is depleted at exposed surfaces. Reset to repeat the model." },
 ];
 
 // --------------------------------------------------------------------------------------------- hashing
@@ -320,7 +320,7 @@ export function buildGeometry(seed = 7, n = TRUTH_N): Geometry {
     }
   }
 
-  // showcase point: the W-richest triple-junction-ish boundary point near the main particle's centre
+  // representative position at a tungsten-rich triple boundary junction near the main particle's centre
   let showcase = { x: particles[0].cx, y: particles[0].cy };
   let best = -Infinity;
   for (let j = 0; j < n; j += 2) {
@@ -433,7 +433,7 @@ export function composition(geom: Geometry, st: CellState, out: Composition = al
 export function bulkAreal(): { ni: number; mn: number; co: number; w: number; mass: number } {
   const rhoT = SAMPLE.density * SAMPLE.thicknessNm * 1e-7;
   const M = nmcMolarMass(0.8, 0.1, 0.1);
-  const wf = 0.010; // slice average incl. boundaries (1.0 wt % for buildGeometry(7), pristine)
+  const wf = 0.010; // slice average incl. Boundaries (1.0 wt % for buildGeometry(7), pristine)
   const tm = rhoT * (1 - wf);
   return { ni: (tm * 0.8 * 58.693) / M, mn: (tm * 0.1 * 54.938) / M, co: (tm * 0.1 * 58.933) / M, w: rhoT * wf, mass: rhoT };
 }

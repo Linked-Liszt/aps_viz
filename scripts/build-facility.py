@@ -1,4 +1,4 @@
-"""Distil the researched facility dossier into src/data/facility.json for the app.
+"""Build src/data/facility.json from the research dossier and exhibit overrides.
 Usage: python3 scripts/build-facility.py <research/facility.json> src/data/facility.json
 
 Exhibit wording comes from scripts/exhibit-overrides/facility.json (see exhibit.py there); never hand-edit the output.
@@ -88,4 +88,4 @@ shown += [(f'explainers.{k}', v, 'prose') for k, v in keep['explainers'].items()
 check_text(shown)
 
 json.dump(keep, open(out, 'w'), indent=1)
-print('timeline', len(keep['timeline']), 'numbers', len(keep['exhibitNumbers']), 'explainers', sum(not annotation(k) for k in keep['explainers']))
+print(f"Wrote {len(keep['timeline'])} timeline entries, {len(keep['exhibitNumbers'])} number cards and {sum(not annotation(k) for k in keep['explainers'])} primer answers.")

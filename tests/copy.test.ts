@@ -119,7 +119,7 @@ describe('guided tour text', () => {
         const acr = BEAMLINES[s.beamline].acronym;
         const n = s.title.split(new RegExp(`(?<![\\w-])${acr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\w-])`)).length - 1;
         expect(n, `"${s.title}" names ${acr} ${n}×`).toBe(1);
-        expect(s.title.startsWith(`${acr} — `), s.title).toBe(true);
+        expect(s.title.startsWith(`${acr}. `), s.title).toBe(true);
       }
     });
   });

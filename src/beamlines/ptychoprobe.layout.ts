@@ -10,7 +10,7 @@ import { METRO_ORIGIN, XRF_ORIGIN, endstation, fluorescenceCone, metrology, opti
 import { TANK_PIN_X, detectorMover, eigerDetector, selunDetector } from './ptychoprobe/detector';
 
 /**
- * 33-ID PtychoProbe — single in-line beamline (no canting, no branches):
+ * 33-ID PtychoProbe is a single in-line beamline without canting or branches. Its component sequence follows.
  * revolver undulator (one 2.35 m device, downstream half of the straight) → windowless HHL front end → 33-ID-A FOE
  * (M1 horizontal HHL mirror, horizontal LN2 Si(111) DCM, [DMM: FDR baseline, unconfirmed → ghost], M2 vertical mirror)
  * → shielded transport → 33-ID-B (SSA/BDA1, shutters) → shielded transport through mini-hutches → 33-ID-C (SSA/BDA2,

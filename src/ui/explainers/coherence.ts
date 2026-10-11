@@ -1,5 +1,5 @@
 /**
- * Station "coherence" — CHEX (28-ID) and the facility story: "How coherent is the light?"
+ * Station "coherence". CHEX (28-ID) and the facility story: "X-ray coherence"
  *
  * Two linked views:
  *   1. Energy chart: coherent fraction f = f_x·f_y of undulator radiation vs photon energy (5–110 keV, log–log)
@@ -12,7 +12,7 @@
  * Equations, approximations, parameter values and sources: ./coherence/physics.ts (header comment). In brief:
  *   σ_r = √(2λL)/4π, σ_r' = √(λ/2L) (Kim 1989), Σ² = σ_e² + σ_r², Σ'² = σ_e'² + σ_r'², f_i = (λ/4π)/(Σ_iΣ'_i);
  *   L = 2.4 m; APS: FDR 2019 Table 2.1; APS-U: storage-ring parameters 2024 Table 5 (zero current);
- *   idealised: no energy spread, Gaussian beams, unfocused beam — said so in the station's last note, together
+ *   idealised: no energy spread, Gaussian beams, unfocused beam. Said so in the station's last note, together
  *   with the SRW design values (FDR Ch. 4) that show the APS-U curves are an upper bound at high energy.
  * CHEX energies (15/25/35/75/105 keV) and instrument distances (35.5–72 m) from the chex research dossier.
  */
@@ -47,8 +47,8 @@ const CSS = `
 `;
 
 const mod: ExplainerModule = {
-  title: 'How coherent is the light?',
-  subtitle: 'Slide the X-ray energy and see how much of the beam marches in step — before and after the upgrade.',
+  title: "X-ray coherence",
+  subtitle: "Change photon energy to compare coherent fractions and interference patterns before and after the upgrade.",
   mount(host, ctx) {
     const accent = ctx.color || '#5cd3ff';
     const station = createStation(host, { color: accent, layout: 'side' });
@@ -65,10 +65,10 @@ const mod: ExplainerModule = {
     const chex = ctx.beamlineId === 'chex';
 
     // ------------------------------------------------------------ canvases
-    const cChart = canvas2d(visual, { label: '1 · How much of the beam is in step?' });
+    const cChart = canvas2d(visual, { label: "1 · Coherent fraction" });
     const visual2 = document.createElement('div');
     visual2.className = 'stn-visual';
-    const cYoung = canvas2d(visual, { label: '2 · Test it: Young’s double slit' });
+    const cYoung = canvas2d(visual, { label: "2 · Young's double-slit test" });
     const wrapOf = (c: Canvas2D) => c.canvas.parentElement as HTMLElement;
 
     // kit canvases default to touch-action:none; in the stacked (phone) layout that would trap vertical swipes
@@ -95,7 +95,7 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      `**Drag the energy** (or the chart)${chex ? ', or jump to a CHEX station,' : ''} and watch the detectors: stripes (fringes) appear only where the light at the two slits marches **in step**. The bell over each slit mask shows how strongly the light at each point is in step with the left slit (the *degree of coherence*). Both detectors get photons at the same rate, so brightness differences are not shown.`,
+      `Change the energy with the slider or chart${chex ? ', or select a CHEX station,' : ''} to compare interference fringes. Fringes require a stable phase relationship between the X-rays at the two slits. The curve above each slit mask represents the degree of coherence relative to the left slit. Both detector panels use the same photon rate, so they compare coherence without showing brightness differences.`,
     );
     const guideEl = controls.lastElementChild as HTMLElement;
 
@@ -114,7 +114,7 @@ const mod: ExplainerModule = {
     const chips = document.createElement('div');
     chips.className = 'coh-chips';
     chips.setAttribute('role', 'group');
-    chipsLabel.textContent = 'CHEX fixed-energy stations, keV (sets energy and distance):';
+    chipsLabel.textContent = "CHEX stations · keV · energy and distance presets:";
     if (chex) gE.append(chipsLabel, chips);
     const chipBtns = (chex ? P.CHEX_STOPS : []).map((s) => {
       const b = button(chips, `${s.station.slice(-1)} · ${s.E}`, () => {
@@ -124,11 +124,11 @@ const mod: ExplainerModule = {
         sZ.set(st.Z);
         changed(true);
       });
-      b.title = `${s.station}: ${s.E} keV, instrument ${s.Z} m from the source (${s.what})`;
+      b.title = `${s.station}: ${s.E} keV, ${s.Z} m from source. ${s.what}.`;
       return { b, s };
     });
 
-    const gS = group(controls, 'Young’s double-slit test');
+    const gS = group(controls, "Young's double-slit test");
     const sD = slider(gS, {
       label: 'Slit spacing',
       min: 1,
@@ -156,8 +156,8 @@ const mod: ExplainerModule = {
     const tPlane = toggle<Plane>(gS, {
       label: 'Slits placed',
       options: [
-        { value: 'x', label: '↔ sideways', title: 'Horizontal: the direction the old beam was 275 µm wide' },
-        { value: 'y', label: '↕ up–down', title: 'Vertical: the old beam was already only 10 µm tall' },
+        { value: 'x', label: "↔ Horizontal", title: 'Horizontal: the direction the old beam was 275 µm wide' },
+        { value: 'y', label: "↕ Vertical", title: 'Vertical: the old beam was already only 10 µm tall' },
       ],
       value: st.plane,
       onChange: (v) => {
@@ -166,12 +166,12 @@ const mod: ExplainerModule = {
       },
     });
     // reduced motion: the detectors show a still picture (refilled when a parameter changes) instead of live photons
-    const motion = motionGate(station, gS, { title: 'Your device asks for reduced motion, so the detectors show a still picture. Press to watch the photons arrive.' });
+    const motion = motionGate(station, gS, { title: "Reduced motion is enabled on your device. The panels display static photon distributions. Press to animate individual photon arrivals." });
 
     const gB = group(controls, 'APS-U beam shape');
     const tMode = toggle<Mode>(gB, {
       options: [
-        { value: 'round', label: 'Round (user mode)', title: 'Full coupling, κ = 1: εx = εy = 28.7 pm (how APS-U runs for users since 2025)' },
+        { value: 'round', label: "Round user mode", title: "Full coupling κ = 1 gives εx = εy = 28.7 pm. User operation has used this mode since 2025." },
         { value: 'flat', label: 'Flat', title: 'Low coupling, κ = 0.1: εx = 39.7 pm, εy = 4.0 pm' },
       ],
       value: st.mode,
@@ -199,13 +199,13 @@ const mod: ExplainerModule = {
       changed(true);
     });
     const gN = group(controls, 'Numbers');
-    const rOld = readout(gN, 'Old APS: in step');
-    const rNew = readout(gN, 'APS-U: in step', { color: accent });
-    const rGain = readout(gN, 'In-step share grows', { big: true, color: accent });
-    const rFlux = readout(gN, 'In-step X-rays per second (design)', { color: accent });
+    const rOld = readout(gN, "Old APS coherent fraction");
+    const rNew = readout(gN, "APS-U coherent fraction", { color: accent });
+    const rGain = readout(gN, "Coherent fraction ratio", { big: true, color: accent });
+    const rFlux = readout(gN, "Coherent flux gain · design", { color: accent });
     rFlux.el.title =
-      'Design coherent flux, APS-U ÷ APS (IPAC’21 envelope, best undulator at each energy, ±30 %): the larger in-step share × twice the current × better undulators';
-    const rXi = readout(gN, 'In-step patch at the slits');
+      "Design APS-U ÷ APS coherent flux from the IPAC'21 envelope, using the best undulator at each energy. Uncertainty is ±30 %. It includes coherent fraction, twice the current and upgraded undulators.";
+    const rXi = readout(gN, "Coherence length at slits");
     const rowLabel = (r: { el: HTMLElement }) => r.el.querySelector('.stn-readout-label') as HTMLElement;
     // only touch the DOM when a readout's text actually changes
     for (const r of [rOld, rNew, rGain, rFlux, rXi]) {
@@ -222,23 +222,23 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      '**Why does the gain grow with energy?** To stay in step, light must come from a source about as small and as parallel as its waves are short. In each direction the in-step share is at most (λ/4π) ÷ (emittance + λ/4π), where λ/4π — the light’s own limit — is 20 pm·rad at 5 keV and 10 pm·rad at 10 keV, shrinking as the waves get shorter. The old beam (3.1 nm·rad sideways) was far above that at every energy, so its share fell in proportion to the wavelength. The new beam (29–40 pm·rad) is only 1.5–4× above it at 5–10 keV, so its share falls more slowly at first, and the ratio keeps climbing toward ≈ ×130 (round) or ×670 (flat).',
+      "In each direction, coherent fraction is at most (λ/4π) ÷ (emittance + λ/4π). Wavelength λ sets the diffraction limit λ/4π: 20 pm·rad at 5 keV and 10 pm·rad at 10 keV. The old horizontal electron emittance of 3.1 nm·rad exceeded that limit across the energy range, so coherent fraction fell approximately with wavelength. The new emittance of 29 to 40 pm·rad is only 1.5 to 4× above the limit at 5 to 10 keV. Its fraction initially falls more slowly, so the APS-U ÷ APS ratio increases toward ≈130 for a round beam or ≈670 for a flat beam.",
     );
     note(
       controls,
       station,
       chex
-        ? '**Why CHEX cares.** CHEX mostly uses 15–105 keV X-rays, which pass through the walls of real growth reactors. Before the upgrade only about 1 X-ray in 10,000 at 25 keV was in step; now about 1 in 125 is, enough to film the speckle of atoms rearranging while a crystal grows.'
-        : '**Why it matters.** In-step X-rays make speckle and interference patterns that show how atoms and tiny structures are arranged and how they move: the basis of techniques such as X-ray photon correlation spectroscopy (XPCS) and coherent imaging. High-energy X-rays pass through real devices and reactors, but they were the hardest to keep in step, so that is where the upgrade helps most.',
+        ? "CHEX uses mainly 15 to 105 keV X-rays, which penetrate growth-reactor walls. At 25 keV, the coherent fraction was about 1 in 10,000 before the upgrade and is now about 1 in 125. The larger coherent flux permits speckle measurements of structural changes during crystal growth."
+        : "Coherent X-rays produce interference and speckle patterns used to measure atomic and nanoscale structure and motion. X-ray photon correlation spectroscopy and coherent imaging use these patterns. Higher-energy X-rays penetrate devices and reactors but have shorter wavelengths and lower coherent fractions. The upgrade gives its largest relative coherence gain at these energies.",
     );
     note(
       controls,
       station,
-      `**What this model leaves out.** It assumes zero beam current and no electron energy spread. The real spread (0.136 %) widens the light’s natural angle spread — about 1.7× already at the 5th harmonic (${chex ? 'CHEX at 25 keV, 74 periods' : '25 keV from a 2.07-m, 2.8-cm-period undulator with 74 periods'}), more at 75–105 keV, and more for APS-U than for the old ring — and other fits give a natural source size about 2× the one used here. Design simulations of two APS-U beamlines (final design report, chapter 4) find 0.5–0.9 % in step at 25 keV, against 0.8–2.2 % here: read the APS-U curves as an upper bound. Coherent *flux* gains also include twice the current and optimised undulators (design report: ×540 at 20 keV). ${chex ? 'CHEX’s interim 2.07-m undulators give' : 'A 2.07-m undulator gives'} 4–11 % less than the 2.4 m assumed. Ideal optics keep the in-step share.`,
+      `The model uses zero-current electron beam parameters and omits electron energy spread. The actual spread of 0.136 % broadens the natural radiation divergence by about 1.7× at the 5th harmonic, ${chex ? 'CHEX at 25 keV with 74 periods' : '25 keV from a 2.07 m undulator with a 2.8 cm period and 74 periods'}. Broadening is greater at 75 to 105 keV and for APS-U than the old ring. Other fitted beam models give natural source sizes about 2× larger. Final Design Report chapter 4 simulations give 0.5 to 0.9 % coherence at 25 keV, compared with 0.8 to 2.2 % here. The APS-U curves are therefore upper bounds. Coherent flux gains include twice the current and optimized undulators; the design gain is 540× at 20 keV. ${chex ? 'CHEX interim undulators are' : 'An undulator is'} 2.07 m long, giving 4 to 11 % less coherent fraction than the assumed 2.4 m. Ideal optics preserve coherent fraction.`,
     );
 
-    cChart.canvas.setAttribute('aria-label', 'Chart: coherent fraction of the X-rays before and after the upgrade versus X-ray energy, and their ratio (on large screens also the electron-beam emittances against the light’s limit λ/4π). Drag to change the energy.');
-    cYoung.canvas.setAttribute('aria-label', 'Young’s double-slit test for the old APS and APS-U: the source to scale, the slit mask with the degree of coherence, and the detector building up fringes photon by photon.');
+    cChart.canvas.setAttribute('aria-label', "Coherent fraction versus X-ray energy for the old APS and APS-U, with their ratio. Larger screens include electron emittance and the diffraction limit λ/4π. Drag to change energy.");
+    cYoung.canvas.setAttribute('aria-label', "Young's double-slit test for the old APS and APS-U. The source is to scale, slit masks show degree of coherence, and detected photons form interference fringes.");
     // ------------------------------------------------------------ updates
     let capTimer = 0;
     let lastCapT = 0;
@@ -293,7 +293,7 @@ const mod: ExplainerModule = {
       const cf = coherentFluxGain(st.E);
       rFlux.set(Number.isFinite(cf) ? `≈ ×${approxGain(cf)}` : 'no design data');
       const L = young.lanes;
-      rowLabel(rXi).textContent = `In-step patch at the slits, ${st.plane === 'x' ? 'sideways' : 'up–down'}`;
+      rowLabel(rXi).textContent = `Coherence length at slits · ${st.plane === 'x' ? 'horizontal' : 'vertical'}`;
       rXi.set(`${fmtUm(L.old.xi)} → ${fmtUm(L.neu.xi)}`);
     }
 
@@ -311,22 +311,22 @@ const mod: ExplainerModule = {
       const pos = chex ? P.nearestChexPosition(st.Z) : null;
       const stop = chex ? P.CHEX_STOPS.find((s) => Math.abs(s.E - st.E) < 0.05 && Math.abs(s.Z - st.Z) < 0.05) : undefined;
       const cf = coherentFluxGain(st.E);
-      const at = `At ${st.Z.toFixed(1)} m${pos ? ` (${pos.name})` : ''}`;
+      const at = `At ${st.Z.toFixed(1)} m${pos ? `, ${pos.name}` : ''}`;
 
-      // g is the ratio of in-step *fractions*; the number of in-step photons per second also gains 2× current and
+      // g is the ratio of coherent fractions; coherent photon flux also gains 2× current and
       // better undulators (design coherent flux ≈ brightness ratio)
-      let v = `**At ${Et} (wavelength ${(n.lambda * 1e10).toFixed(3)} Å), only ${fmtInN(o.f)} of the old APS’s X-rays marched in step; with APS-U (${st.mode} beam) it is ${fmtInN(n.f)} — ${fmtPct(n.f)}, from ${fmtPct(n.x.f)} sideways × ${fmtPct(n.y.f)} up–down — a ${fmtGain(g).slice(1)}× larger share.** `;
-      if (Number.isFinite(cf) && cf > 1.5 * g) v += `Add twice the current and better undulators, and the design delivers about **${approxGain(cf)} times more in-step X-rays per second**. `;
+      let v = `At ${Et}, with wavelength ${(n.lambda * 1e10).toFixed(3)} Å, the coherent fraction is ${fmtInN(o.f)} for the old APS and ${fmtInN(n.f)} for the APS-U ${st.mode} beam. The APS-U fraction is ${fmtPct(n.f)}, from horizontal ${fmtPct(n.x.f)} × vertical ${fmtPct(n.y.f)}. It is ${fmtGain(g).slice(1)}× larger. `;
+      if (Number.isFinite(cf) && cf > 1.5 * g) v += `Including twice the current and upgraded undulators, the design coherent flux gain is about ${approxGain(cf)}×. `;
       if (vo < 0.15 && vn > 0.5)
-        v += `${at}, the light at the two slits stays in step over ~${fmtUm(L.neu.xi)} with APS-U (its *coherence length*), so stripes (fringes) appear, with ${pct(vn)} contrast. The old beam is in step over only ~${fmtUm(L.old.xi)} — less than the ${dT} slit spacing — so its stripes wash out (${pct(vo)}).`;
+        v += `${at}, the APS-U coherence length is ~${fmtUm(L.neu.xi)}, giving fringes with ${pct(vn)} contrast at the ${dT} slit spacing. The old APS coherence length is only ~${fmtUm(L.old.xi)}, shorter than this spacing, giving ${pct(vo)} contrast.`;
       else if (vo >= 0.15 && vn > 0.5)
-        v += `${at}, even the old beam makes ${vo > 0.8 ? 'clear' : 'some'} stripes (${pct(vo)} contrast, APS-U ${pct(vn)}): the slits are close enough (${dT}) for its ~${fmtUm(L.old.xi)} in-step patch (its *coherence length*). Raise the energy or spread the slits and watch which stripes survive.`;
+        v += `${at}, the ${dT} slit spacing is within the old APS coherence length of ~${fmtUm(L.old.xi)}. Both patterns have fringes: ${pct(vo)} contrast for the old APS and ${pct(vn)} for APS-U. Increase energy or slit spacing to compare changes in contrast.`;
       else if (vn <= 0.5 && vn > 0.08)
-        v += `${at}, ${vo < 0.15 ? 'APS-U’s stripes are fading too' : 'both sets of stripes are fading'} (${pct(vn)} contrast): its in-step patch (its *coherence length*, ~${fmtUm(L.neu.xi)}) is ${L.neu.xi > st.d ? 'only just bigger than' : 'about the size of'} the ${dT} slit spacing. Bring the slits closer, or move them farther from the source.`;
-      else v += `${at}, both blur out: ${dT} is wider than either beam’s in-step patch (APS-U ~${fmtUm(L.neu.xi)}). Bring the slits closer or move them farther away.`;
-      if (st.plane === 'y') v += ' Up–down, the old beam was already thin, so the upgrade matters less in this direction — its big win is side to side.';
-      else v += ` Higher energy means shorter waves, which are harder to keep in step: that is where the upgrade${chex ? ', and CHEX,' : ''} gain${chex ? '' : 's'} the most.`;
-      if (stop) v += ` *(${stop.station}: ${stop.what} at ${stop.E} keV.)*`;
+        v += `${at}, the APS-U coherence length of ~${fmtUm(L.neu.xi)} is ${L.neu.xi > st.d ? 'only slightly larger than' : 'about equal to'} the ${dT} slit spacing. APS-U fringe contrast is ${pct(vn)}. Move the slits closer together or farther from the source to increase it.`;
+      else v += `${at}, the ${dT} slit spacing exceeds both coherence lengths, including APS-U at ~${fmtUm(L.neu.xi)}. Both patterns have little contrast. Move the slits closer together or farther from the source.`;
+      if (st.plane === 'y') v += " The old APS beam was already narrow vertically, so the largest coherence gain is horizontal.";
+      else v += ` Higher photon energy means shorter wavelength and lower coherent fraction. The relative gain after the upgrade is greater at higher energies${chex ? ', including the CHEX range' : ''}.`;
+      if (stop) v += ` ${stop.station}: ${stop.what} at ${stop.E} keV.`;
       return v;
     }
 

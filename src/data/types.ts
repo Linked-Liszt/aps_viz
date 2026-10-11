@@ -1,12 +1,11 @@
 /**
- * Content model. Beamline dossiers are researched JSON files (src/data/beamlines/*.json), fact-checked
- * against the APS-U Final Design Report (2019) and newer publications; every number carries a reference id.
+ * Content model for beamline dossiers in src/data/beamlines/*.json. Values were checked against the
+ * APS-U Final Design Report of 2019 and newer publications. Numerical claims have source reference IDs.
  *
- * Every displayed text exists once, written like a museum label for every reader: a plain lead, the mechanism with
- * each technical term defined in passing, then one or two telling numbers and the caveat a specialist would look for.
- * Dense detail lives in compact tables (`specs`, `keyParameters`) and in fine-print fields shown to everyone in small
- * type (`distanceNote`, `detectors`, `sampleEnvironments`, `quantitative`, `geometryNotes`, `whatItShows`,
- * `openQuestions`, `source.*`).
+ * Each field has one text for all readers. Explain mechanisms in plain words, define technical terms,
+ * and preserve the conditions attached to numerical claims. `specs` and `keyParameters` are table fields.
+ * Position notes, detectors, sample environments, quantitative details, geometry notes, figure descriptions,
+ * open questions and source descriptions appear as fine print.
  */
 
 export type ComponentCategory =
@@ -145,7 +144,7 @@ export interface BeamlineMeta {
   id: string;
   sectorNumber: number;
   color: string;
-  /** Expanded name only (no acronym, sector or station), e.g. 'X-ray Photon Correlation Spectroscopy'. Titles use `${acronym} — ${displayName}`. */
+  /** Expanded beamline name without an acronym, sector or station, such as 'X-ray Photon Correlation Spectroscopy'. */
   displayName: string;
   /** Experiment stations, e.g. '4-ID-B, G, H'. */
   stations: string;

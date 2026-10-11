@@ -13,12 +13,12 @@ import {
 } from './chex/stations';
 
 /**
- * CHEX — Coherent High-Energy X-ray sector, 28-ID (two canted undulators, four branches, eight instrument positions).
+ * CHEX is the Coherent High-Energy X-ray sector at 28-ID. It has two canted undulators, four branches and eight instrument positions.
  *
  * Geometry (sources and digitising notes in ./chex/geom.ts):
  * • The group is rotated +0.5 mrad (cantMrad) so local +X runs along the OUTBOARD canted beam (upstream undulator →
  *   tunable branch A/B/C). The INBOARD beam (downstream undulator, shared by the fixed-energy branches) runs at −1 mrad,
- *   i.e. 28 mm inboard at 28 m and 40 mm at 40 m — drawn at TRUE scale (visible in the optics close-ups only).
+ *   The offset is 28 mm inboard at 28 m and 40 mm at 40 m. It is drawn at true scale and is visible only in optics close-ups.
  * • Three thin side-bounce crystals tap the inboard beam inside 28-ID-A: diamond at 28.3 m → D/E (2θ = 23.15° outboard),
  *   diamond at 38.3 m → F (22.8° outboard), silicon at 40.2 m → G (4.95° inboard). Each branch is a straight line from
  *   its crystal; every dossier distance is a PATH length along its own branch, so components are placed with bp() at

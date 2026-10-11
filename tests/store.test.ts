@@ -28,7 +28,7 @@ const saved = vi.hoisted(() => {
 
 /*
  * The hash router in isolation. parseHash only checks the *format* of a hash and must never throw; the App then
- * redirects views that name no real place (unknown beamline, sector 0/99/abc, tour stop 99) — that part is covered
+ * redirects views that name no real place (unknown beamline, sector 0/99/abc, tour stop 99). Those redirects are covered
  * end to end in e2e/exhibit.spec.ts ("deep links that name no real place …").
  */
 

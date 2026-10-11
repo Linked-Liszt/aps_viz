@@ -137,7 +137,7 @@ export function fft2(re: Float64Array, im: Float64Array, n: number, inverse = fa
 /**
  * Real-input 2D FFT with half-spectrum output, used by the Cahn–Hilliard integrator (both of its transforms act on
  * real fields). Rows are transformed two at a time (z = x_r + i x_{r+1}, then split by Hermitian symmetry), and only
- * the N/2+1 non-redundant columns are transformed — about half the work of a complex 2D FFT.
+ * the N/2+1 non-redundant columns are transformed. About half the work of a complex 2D FFT.
  * Spectrum layout is TRANSPOSED: index kx·N + ky, kx = 0…N/2, ky = 0…N−1 (contiguous column FFTs).
  */
 export class RealFFT2 {

@@ -2,8 +2,8 @@
  * 9-ID CSSI geometry constants (metres from the centre of the ID straight, the FDR distance origin; beam frame:
  * +X downstream, +Y up with 0 = beam height 1.4 m, +Z outboard).
  *
- * Sources (see the dossier): exact z only for the CSSI sample (54.992 m), GIXS sample (56.590 m) and the XBPMs
- * (42.38 / 53.43 m) — 9-ID user manual ELOG 916 and the XBPM drawing. KB mirror centres from the manual's hexapod-to-KB
+ * The 9-ID user manual ELOG 916 and XBPM drawing give exact z positions for the CSSI sample at 54.992 m,
+ * the GIXS sample at 56.590 m and the XBPMs at 42.38 and 53.43 m. KB mirror centres are calculated from the manual's hexapod-to-KB
  * distances (1.552 m to KB-H, 1.818 m to KB-V) with the hexapod at ~55.9 m → H ≈ 54.35 m, V ≈ 54.08 m, i.e. a ~0.65 m
  * working distance to the CSSI sample (SPIE 2025). Grand Tube: 2.75 m bore × ~20.5 m, 57.5–78.0 m; detectors
  * 2.9–21.8 m from the CSSI sample.

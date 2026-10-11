@@ -1,5 +1,5 @@
 /**
- * Station "hedm" — HEXM (20-ID): high-energy diffraction microscopy, far field + near field.
+ * Station "hedm". HEXM (20-ID): high-energy diffraction microscopy, far field + near field.
  *
  * One idea: hard X-rays see through millimetres of metal, and every crystal grain inside "flashes" a spot onto a
  * detector when the rotating sample brings its atomic planes to the Bragg angle. From those spots a computer
@@ -43,8 +43,8 @@ export function hangMass(sigmaGPa: number, Dmm: number): string {
 const tPct = (T: number) => (T >= 0.995 ? '100' : T >= 0.1 ? (T * 100).toFixed(0) : T >= 0.001 ? (T * 100).toFixed(1) : '< 0.1');
 
 const mod: ExplainerModule = {
-  title: 'Seeing inside a metal under load',
-  subtitle: 'Turn a nickel-alloy rod in a high-energy X-ray beam, watch its grains flash onto the detector, then pull on it.',
+  title: "Grain structure under load",
+  subtitle: "Rotate and stretch a nickel-alloy rod. High-energy X-ray diffraction locates its grains and measures their strain.",
   mount(host, ctx) {
     const station = createStation(host, { color: ctx.color, layout: 'side' });
     const accent = /^#[0-9a-f]{6}$/i.test(ctx.color) ? ctx.color : '#fb923c';
@@ -55,7 +55,7 @@ const mod: ExplainerModule = {
     const smpC = canvas2d(station.visual, { label: '1 · Sample slice, from above' });
     const detC = canvas2d(station.visual, { label: '2 · Far-field detector' });
     const penC = canvas2d(station.visual, { label: '3 · How deep X-rays reach' });
-    const ansC = canvas2d(station.visual, { label: '4 · What the computer finds' });
+    const ansC = canvas2d(station.visual, { label: "4 · Reconstructed grains" });
     const wrap = (c: { canvas: HTMLCanvasElement }) => c.canvas.parentElement!;
     const wraps = { smp: wrap(smpC), det: wrap(detC), pen: wrap(penC), ans: wrap(ansC) };
     const labelOf = (w: HTMLElement) => w.querySelector('.stn-canvas-label') as HTMLElement | null;
@@ -135,7 +135,7 @@ const mod: ExplainerModule = {
     };
 
     // ------------------------------------------------------------------ controls
-    // 0. detector: far field / near field (the station's two "acts")
+    // 0. Detector: far field / near field (the station's two "acts")
     const gDet = group(station.controls, 'Detector');
     const tMode = toggle<Mode>(gDet, {
       options: [
@@ -149,12 +149,12 @@ const mod: ExplainerModule = {
     const setDetNote = () =>
       detNote.set(
         vs.mode === 'ff'
-          ? 'The **far-field** detector, 1 m back, sorts spots by angle. From them the computer works out each grain’s tilt, its stretch and its centre, but not its shape. Measured repeatability at APS beamline 1-ID-E: about 5 µm in position, 0.02° in tilt and 2×10^{−4} in strain. Spot colours only mark which grain made them.'
-          : 'The **near-field** camera sits only 5–10 mm (7 mm here) behind a sample lit by a thin sheet of beam, so each spot is still a projection of its grain’s outline: together the spots redraw every grain’s **shape**. HEXM’s 20-ID-E serves near field, far field and very far field (detectors up to ~16 m away) from one calibrated sample position.',
+          ? "Far-field spots are recorded 1 m behind the sample. Their angles determine each grain's orientation, strain and centre, but not its shape. Measurements at APS beamline 1-ID-E had repeatability of about 5 µm in position, 0.02° in orientation and 2×10^{−4} in strain. Spot colours identify the contributing grain."
+          : "Near-field images are recorded 5 to 10 mm behind a sample illuminated by a thin beam sheet; this model uses 7 mm. Each spot retains a projection of its grain outline. Multiple angles determine grain shapes. At HEXM 20-ID-E, near-field, far-field and very-far-field measurements use one calibrated sample position. The most distant detectors are ~16 m away.",
       );
     setDetNote();
 
-    // 1. beam
+    // 1. Beam
     const gBeam = group(station.controls, 'X-ray beam');
     const sE = slider(gBeam, {
       label: 'Energy',
@@ -168,14 +168,14 @@ const mod: ExplainerModule = {
         paramsChanged();
       },
     });
-    const rT = readout(gBeam, 'Gets through the rod');
+    const rT = readout(gBeam, "Transmission through rod");
     note(
       gBeam,
       station,
-      'Higher-energy X-rays slip through more metal and bounce off the atoms at **smaller angles**, so the rings shrink: their size scales roughly as 1/E (at 70 keV nickel’s 111 ring bends X-rays through just 2θ = 4.99°). But each reflection also weakens as the energy rises, about as 1/E², so the brightest spots come where deeper reach and weaker reflection balance: the green ▼ in panel 3. Thicker parts need higher energies (this estimate leaves out the source spectrum and the detector’s efficiency, which both fall at high energy). HEXM covers 35–120 keV with a bent double-Laue silicon monochromator (energy spread ΔE/E ≈ 10^{−3}).',
+      "Higher-energy X-rays penetrate farther through metal and diffract at smaller angles. Ring radii scale approximately as 1/E. At 70 keV, nickel's 111 ring is at 2θ = 4.99°. Reflection intensity also falls approximately as 1/E², so the brightest spots occur at an energy that balances transmission and scattering. The green ▼ in panel 3 marks this estimate. Thicker samples require higher energies. The estimate omits the source spectrum and detector efficiency, both of which decrease at high energy. At HEXM, energies from 35 to 120 keV are selected by diffraction through a bent double-Laue silicon monochromator. Its bandwidth is ΔE/E ≈10^{−3}.",
     );
 
-    // 2. sample
+    // 2. Sample
     const gS = group(station.controls, 'Sample: nickel-alloy rod');
     const sD = slider(gS, {
       label: 'Rod diameter',
@@ -190,7 +190,7 @@ const mod: ExplainerModule = {
       },
     });
     const sPull = slider(gS, {
-      label: 'Pull (stretch)',
+      label: "Applied tensile strain",
       min: 0,
       max: 100,
       step: 1,
@@ -217,10 +217,10 @@ const mod: ExplainerModule = {
     note(
       gS,
       station,
-      'A **nickel alloy** like those in jet engines. Each coloured patch is a **grain**: a tiny crystal with its own tilt. Pull gently and the atoms spring back; past the **yield point** the metal stretches for good. A nickel crystal is stiffer along some directions than others (136 GPa along a cube edge, 304 GPa along a cube diagonal), so each grain stretches by its own amount. 24 grains keep the picture clear; a real far-field scan follows 10^{2}–10^{4} grains at once.',
+      "Nickel alloys are used in jet engines. Each coloured region is a grain: a crystal with its own orientation. Below yield, strain reverses when the load is removed. Above yield, some deformation is permanent. Nickel stiffness depends on crystal direction: 136 GPa along a cube edge and 304 GPa along a cube diagonal. Grains therefore strain by different amounts under the same load. This model has 24 grains for visibility. Real far-field scans follow 10^{2} to 10^{4} grains at once.",
     );
 
-    // 3. rotation
+    // 3. Rotation
     const gRot = group(station.controls, 'Turn the sample');
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap';
@@ -252,29 +252,29 @@ const mod: ExplainerModule = {
     note(
       gRot,
       station,
-      'A real scan takes a picture every 0.1–0.25° through a full turn: 1,440–3,600 pictures. Here one second ≈ 15°. Each set of atomic planes passes the Bragg angle twice per turn (four times, counting the same planes seen from the other side). Planes lying almost square to the rotation axis never reach it, which leaves blind gaps at the top and bottom of each ring.',
+      "Real scans record an image every 0.1 to 0.25° over a full turn, giving 1,440 to 3,600 images. Here one second corresponds to ≈15° of rotation. Each set of atomic planes reaches the Bragg angle twice per turn, or four times including its reverse orientation. Planes nearly perpendicular to the rotation axis never reach that angle, leaving gaps at the top and bottom of each ring.",
     );
 
-    // 4. selected grain
-    const gSel = group(station.controls, 'Grain you are following');
+    // 4. Selected grain
+    const gSel = group(station.controls, "Selected grain");
     const card = document.createElement('div');
     card.className = 'stn-readout';
     card.style.cssText = 'display:block;line-height:1.45';
     gSel.appendChild(card);
 
     // 5. APS-U
-    const gU = group(station.controls, 'What APS-U adds');
+    const gU = group(station.controls, "APS-U conditions");
     note(
       gU,
       station,
-      'The upgraded ring packs its electrons into a far tighter beam: its horizontal emittance (size × spread) fell from 3,113 to 42 pm. At these high energies the X-ray beam’s size and spread are set mostly by the electrons, so the gain carries over. At 20-ID-E, 180 m from the source, lenses spread the beam over samples **3–4 mm** across (about 1 mm before) or focus it to 0.43 × 0.21 µm (design, 70 keV) to zoom in on one grain; data should come ~100× faster than at 1-ID before the upgrade. Today’s source is an interim pair of permanent-magnet undulators; the design flux (≈10^{14} photons/s at 70 keV) assumes the superconducting undulator planned for 2026–27.',
+      "Horizontal electron emittance, the product of beam size and angular spread, fell from 3,113 to 42 pm after the upgrade. At high X-ray energies, electron beam size and spread largely determine the X-ray beam. At 20-ID-E, 180 m from the source, the beam can be adjusted to 3 to 4 mm width, compared with about 1 mm before the upgrade. The design focus at 70 keV is 0.43 × 0.21 µm for individual grains. Measurements are expected to be ~100× faster than at pre-upgrade 1-ID. The interim source is a pair of permanent-magnet undulators. The design flux of ≈10^{14} photons/s at 70 keV assumes a superconducting undulator planned for 2026 to 2027.",
     );
 
-    // 6. the model's fine print, in smaller type
+    // 6. The model's fine print, in smaller type
     const gModel = group(station.controls, 'About this model');
     const modelNote = note(gModel, station, '');
     modelNote.set(
-      `A simulation, not data. Nickel is modelled as a face-centred cubic crystal (a = 3.524 Å) with elastic constants C_{11}, C_{12}, C_{44} = 246.5, 147.3, 124.7 GPa; each grain’s strain is the average of the two textbook bounds (Reuss and Voigt) under a straight pull, giving an overall stiffness ≈221 GPa. The yield stress (900 MPa), hardening (1.5 GPa) and plastic smearing (0.9° spread in tilt per % of permanent stretch) are illustrative. Spot brightness follows simple (kinematic) diffraction theory: it scales with λ³ (λ the wavelength), the atoms’ scattering strength, their thermal jiggling, polarization, the time each set of planes spends at the Bragg angle, the grain’s volume and the share of X-rays that get through, from NIST XCOM absorption data. The grey ▼ in panel 3 marks a molybdenum lab tube’s 17.5 keV line. A grain counts as found once ≥ 8 of its spots, and ≥ 8 % of its full-turn spots, are recorded (an illustrative threshold). The near-field camera here has ${NF.npx}² pixels of ${((2 * NF.half * 1000) / NF.npx).toFixed(0)} µm (real: ≈1.5 µm), and the map ${NF_VOX}² cells, each testing the ${sim.ng} far-field orientations (after yield also 4 tilted pieces per grain). Real codes (IceNine, HEXRD, MIDAS) search all orientations and use 2–3 camera distances; HEXM’s design aim is ≈1 µm and 0.01°.`,
+      `This simulation uses face-centred cubic nickel with a = 3.524 Å and elastic constants C_{11}, C_{12}, C_{44} = 246.5, 147.3, 124.7 GPa. Grain strains are the average of the Reuss and Voigt bounds under uniaxial tension, giving an overall stiffness of ≈221 GPa. Yield stress of 900 MPa, hardening of 1.5 GPa and plastic orientation spread of 0.9° per % permanent strain are illustrative. Kinematic diffraction intensity depends on λ³, atomic scattering strength, thermal motion, polarization, time at the Bragg angle, grain volume and transmission from NIST XCOM absorption data. Here λ is wavelength. The grey ▼ marks the 17.5 keV line of a molybdenum laboratory tube. A grain is identified after ≥8 spots and ≥8 % of its full-turn spots are recorded; this threshold is illustrative. The near-field camera has ${NF.npx}² pixels of ${((2 * NF.half * 1000) / NF.npx).toFixed(0)} µm, compared with ≈1.5 µm in actual cameras. The ${NF_VOX}² map cells each test the ${sim.ng} far-field orientations, plus 4 tilted pieces per grain after yield. Software such as IceNine, HEXRD and MIDAS searches all orientations and uses 2 to 3 camera distances. HEXM design targets are ≈1 µm spatial and 0.01° angular resolution.`,
     );
     (gModel.lastElementChild as HTMLElement).style.fontSize = '11.5px';
 
@@ -312,7 +312,7 @@ const mod: ExplainerModule = {
       rT.el.querySelector<HTMLElement>('.stn-readout-value')!.style.color = T < 0.01 ? '#f87171' : T < 0.1 ? '#fbbf24' : '';
       const M = sim.macro;
       const sMPa = Math.round(M.sigma * 1000);
-      rStress.set(sim.eps === 0 ? 'none' : M.yielded ? `${sMPa} MPa, yielded` : `${sMPa} MPa, springy`);
+      rStress.set(sim.eps === 0 ? 'none' : M.yielded ? `${sMPa} MPa, yielded` : `${sMPa} MPa, elastic`);
       refreshCard();
     }
 
@@ -343,11 +343,11 @@ const mod: ExplainerModule = {
       const seen = sim.seenSpots[g];
       const e = sim.strain.subarray(g * 9, g * 9 + 9);
       const U = sim.Ucur.subarray(g * 9, g * 9 + 9);
-      add(sim.found[g] ? `Found: ${seen} of its ${tot} spots recorded` : tot ? `Not found yet (${seen} of ${tot} spots)` : 'Too faint to see at this energy', { small: true });
-      add(`Pull runs ≈ along its crystal direction ⟨${P.loadAxisHkl(U)}⟩, where its stiffness (Young’s modulus) is ${P.youngDir(sim.el, [U[6], U[7], U[8]]).toFixed(0)} GPa`, { small: true });
+      add(sim.found[g] ? `Found: ${seen} of its ${tot} spots recorded` : tot ? `Not identified · ${seen} of ${tot} spots` : "Intensity too low at this energy", { small: true });
+      add(`The tensile axis is approximately along crystal direction ⟨${P.loadAxisHkl(U)}⟩. Young's modulus in that direction is ${P.youngDir(sim.el, [U[6], U[7], U[8]]).toFixed(0)} GPa`, { small: true });
       if (sim.eps > 0) {
-        add(`Its atoms: ${sgn(e[8] * 100, 2)} % farther apart along the pull`, { small: true });
-        add('Full strain, ×10⁻⁴ (rows/columns x, y, z; z = pull):', { small: true, color: '#8394a9' });
+        add(`Atomic spacing along tensile axis: ${sgn(e[8] * 100, 2)} % change`, { small: true });
+        add("Strain tensor ×10⁻⁴; axes x, y, z; tensile axis z:", { small: true, color: '#8394a9' });
         const f = (v: number) => sgn(v * 1e4, 0).replace('+', '').padStart(5, ' ');
         add(`${f(e[0])}${f(e[1])}${f(e[2])}\n${f(e[3])}${f(e[4])}${f(e[5])}\n${f(e[6])}${f(e[7])}${f(e[8])}`, { mono: true, small: true, color: '#e9eef5' });
       } else add('Not pulled yet', { small: true });
@@ -369,7 +369,7 @@ const mod: ExplainerModule = {
       const l2 = labelOf(wraps.det);
       const l4 = labelOf(wraps.ans);
       if (l2) l2.textContent = m === 'ff' ? '2 · Far-field detector' : '2 · Near-field camera';
-      if (l4) l4.textContent = m === 'ff' ? '4 · What the computer finds' : '4 · Reconstructed grain map';
+      if (l4) l4.textContent = m === 'ff' ? "4 · Reconstructed grains" : '4 · Reconstructed grain map';
       sim.nfDirty = true;
       lastParam = 0;
       det.invalidate();
@@ -525,28 +525,28 @@ const mod: ExplainerModule = {
       const att = fmtLen(1 / sim.mu);
       const tNote =
         T < 0.005
-          ? ` At ${E} keV almost no X-rays get through ${D} mm of nickel (the beam fades to 1/e every ${att}): **raise the energy** to see inside.`
+          ? ` At ${E} keV, almost no X-rays are transmitted through ${D} mm of nickel. Intensity falls to 1/e over ${att}. Increase the energy to measure the interior.`
           : T < 0.15
-            ? ` Only **${tPct(T)} %** of the beam gets through ${D} mm of nickel (it fades to 1/e every ${att}), so the spots are faint: try a higher energy.`
+            ? ` Transmission through ${D} mm of nickel is ${tPct(T)} %. Intensity falls to 1/e over ${att}, making the spots faint. Try a higher energy.`
             : '';
       if (vs.mode === 'ff') {
         const nRec = sim.recordedSpots();
         if (sim.nVisited === 0)
-          return `Press **▶ Turn** or drag the sample. As the rod turns, each crystal grain **flashes** when its layers of atoms meet the ${E} keV beam at exactly the Bragg angle θ, where λ = 2d sinθ (λ the X-ray wavelength, ${sim.lambda.toFixed(3)} Å here; d the spacing of the layers), and throws a spot onto the detector 1 m away.${tNote}`;
-        let v = `**${sim.nFound} of ${sim.ng} grains** found from **${nRec} spots** over ${sim.nVisited}° of turning. A grain flashes when its atom layers meet the ${E} keV beam at exactly the Bragg angle; spots from the same kind of layer fall on one ring (nickel’s 111 ring at 2θ = ${(P.twoThetaOf(sim.fams[0].d, sim.lambda) / P.DEG).toFixed(2)}°).${tNote}`;
-        if (sim.eps === 0) v += ' Now **pull** on the rod.';
+          return `Press ▶ Turn or drag the sample. During rotation, each grain diffracts the ${E} keV beam when its atomic planes reach the Bragg angle θ. Bragg's law is λ = 2d sinθ, where d is plane spacing and λ is wavelength, ${sim.lambda.toFixed(3)} Å here. Spots are recorded 1 m behind the sample.${tNote}`;
+        let v = `${sim.nFound} of ${sim.ng} grains have been identified from ${nRec} spots over ${sim.nVisited}° of rotation. Diffraction occurs when atomic planes reach the Bragg angle. Spots from planes of the same spacing form a ring. The nickel 111 ring is at 2θ = ${(P.twoThetaOf(sim.fams[0].d, sim.lambda) / P.DEG).toFixed(2)}°.${tNote}`;
+        if (sim.eps === 0) v += " Apply tension to the rod.";
         else if (!M.yielded) {
           const fit = sim.ringFits().find((f) => f.fam === 0);
-          v += ` Pulled at **${sMPa} MPa** (like hanging **${hangMass(M.sigma, sim.D)}** from this ${D} mm rod), atoms along the pull sit **${pct(ax.mean, 2)} %** farther apart on average, from ${pct(ax.min, 2)} to ${pct(ax.max, 2)} % grain by grain, because each crystal is stiffer in some directions than others. Spots at the top and bottom creep inward${sim.mag > 1 ? ' (×20 on screen)' : ' (at true size less than a pixel: try **×20**)'}, so the rings turn into ovals${fit ? `: the 111 oval gives ${sgn(fit.epsPar * 100, 2)} % along the pull and ${sgn(fit.epsPerp * 100, 2)} % across it` : ''}.`;
+          v += ` The tensile stress is ${sMPa} MPa, equivalent to a load of ${hangMass(M.sigma, sim.D)} on this ${D} mm rod. Atomic spacing along the tensile axis increases by ${pct(ax.mean, 2)} % on average, with grain values from ${pct(ax.min, 2)} to ${pct(ax.max, 2)} %. The variation comes from direction-dependent crystal stiffness. Spots near the ring top and bottom move inward${sim.mag > 1 ? '; shifts are magnified ×20' : '; true shifts are less than a pixel, so try ×20'}. The rings become elliptical${fit ? `. A fit to the 111 ring gives ${sgn(fit.epsPar * 100, 2)} % strain along the tensile axis and ${sgn(fit.epsPerp * 100, 2)} % across it` : ''}.`;
         } else
-          v += ` Past the **yield point** the rod stretches for good (**${pct(M.epsP, 1)} %**), yet the atoms are still only about **${pct(ax.mean, 2)} %** farther apart: layers of atoms **slip** past each other instead. The crystals bend, so their spots **smear** into arcs (a ${(sim.fx.spread / P.DEG).toFixed(1)}° spread in tilt, illustrative).`;
+          v += ` Above yield, the rod has ${pct(M.epsP, 1)} % permanent strain. Atomic spacing has increased by only about ${pct(ax.mean, 2)} %. The remaining deformation comes from slip between atomic planes. Grain bending broadens the spots into arcs. The illustrative orientation spread is ${(sim.fx.spread / P.DEG).toFixed(1)}°.`;
         return v;
       }
       const st = ans.stats;
       const mapped = Math.round(st.mapped * 100);
-      if (sim.nVisited === 0) return `Press **▶ Turn** or drag the sample. A camera just **7 mm** behind the rod catches each spot almost where it leaves its grain.${tNote}`;
-      let v = `A camera just **7 mm** behind the rod catches each spot almost where it leaves its grain, so every spot is a thin **streak as wide as its grain** looks from that angle; many angles together give the grain’s shape, as in a CT scan. For each point of the slice the computer tries the orientations found in the far field and keeps the one whose predicted spots land on bright pixels: **${mapped} %** mapped so far (fit at least 50 % sure), ${Math.round(st.correct * 100)} % to the right grain.${tNote}`;
-      if (M.yielded) v += ` Bent past yield, each grain breaks into **slightly tilted pieces** (≈${(sim.fx.spread / P.DEG).toFixed(1)}° apart, illustrative): the dark lines inside the grains.`;
+      if (sim.nVisited === 0) return `Press ▶ Turn or drag the sample. Near-field spots are recorded 7 mm behind the rod, close to the grain from which they diffracted.${tNote}`;
+      let v = `Near-field spots are recorded 7 mm behind the rod. Each is a streak with the projected width of its grain. Measurements at multiple angles determine grain shape, as in computed tomography. At each point in the slice, the computer tests the far-field orientations and selects the one whose predicted spots best agree with bright pixels. The mapped fraction is ${mapped} %, using a minimum 50 % confidence threshold. Of these, ${Math.round(st.correct * 100)} % have the correct grain assignment.${tNote}`;
+      if (M.yielded) v += ` Above yield, grains are represented by slightly tilted pieces separated by ≈${(sim.fx.spread / P.DEG).toFixed(1)}°. This is illustrative. Dark lines mark the pieces within each grain.`;
       return v;
     }
     const refreshCaption = (force = false) => {

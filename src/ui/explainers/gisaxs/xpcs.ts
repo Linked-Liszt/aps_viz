@@ -1,5 +1,5 @@
 /**
- * "Speckle memory" — a live GI-XPCS readout. Each recorded detector frame (photon counts in a region of interest on
+ * Speckle correlation. A live GI-XPCS readout. Each recorded detector frame (photon counts in a region of interest on
  * the Yoneda band around ±q*) is divided pixel-by-pixel by the ensemble-average intensity ⟨I(q)⟩ (the smooth GISAXS
  * pattern), u = I/⟨I⟩, as XPCS normalises by the mean intensity per pixel / q-ring, and then correlated with every
  * earlier frame in a ring buffer with the standard (mean-normalised) two-time estimator
@@ -9,7 +9,7 @@
  * i.e. one row of the normalised two-time correlation function at the current age t (C = 1 for identical speckle,
  * 0 once fully decorrelated). Without the ⟨I⟩ normalisation the static envelope (Yoneda band, rod shape) would keep
  * C(τ) high after the speckle itself has decorrelated. Shot noise is independent between frames, so it does NOT bias
- * C(τ > 0) — it only scatters it. Shot-noise scatter of one point for (nearly) unchanged speckle, from the noise-free
+ * C(τ > 0). It only scatters it. Shot-noise scatter of one point for (nearly) unchanged speckle, from the noise-free
  * frame (v_i, expected counts m_i·v_i in bin i, Poisson): Var(u_a u_b) = (v² + v/m)² − v⁴ = 2v³/m + v²/m² per bin, so
  *   σ_C ≈ N √(Σ_i (2v_i³/m_i + v_i²/m_i²)) / (Σ_i v_i)² / β        (shown as a ±1σ band around the curve)
  * In a coarsening system the dynamics slow down with age, so the decay of C(τ) stretches as time goes on ("aging").
@@ -204,13 +204,13 @@ export class SpeckleMemory {
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = noisy ? TOKENS.warn : TOKENS.ink;
     const span = this.nCurve ? this.lags[this.nCurve - 1] : 0;
-    const noiseMsg = `noisy: ±${this.sigma.toFixed(2)} per point`;
-    const msg = note ?? (this.nCurve < 3 ? 'recording…' : noisy ? noiseMsg : hl !== null ? `memory ≈ ${hl.toFixed(1)} s` : span >= 3 ? `memory > ${Math.floor(span)} s` : 'recording…');
+    const noiseMsg = `uncertainty ±${this.sigma.toFixed(2)} per point`;
+    const msg = note ?? (this.nCurve < 3 ? 'recording…' : noisy ? noiseMsg : hl !== null ? `correlation half-life ≈ ${hl.toFixed(1)} s` : span >= 3 ? `correlation half-life > ${Math.floor(span)} s` : 'recording…');
     ctx.fillText(msg, x1, 14);
     if (this.earlier) {
       ctx.font = `500 9.5px ${TOKENS.font}`;
       ctx.fillStyle = TOKENS.ink3;
-      ctx.fillText('--- 10 s earlier (older film)', x1, y1 + 12);
+      ctx.fillText("--- 10 s earlier · older film", x1, y1 + 12);
     }
     ctx.restore();
   }

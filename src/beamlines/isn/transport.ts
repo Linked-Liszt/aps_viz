@@ -10,7 +10,7 @@ import { M, boxSpan, cyl, shadowed } from './kit';
  * frame (absolute x from the source; z = lateral, + outboard), following the drawn beam axis (beamSide).
  */
 
-/** Merge every mesh of `src` (after its transforms) into one mesh per material — cheap to draw for long repeated runs. */
+/** Apply the transforms in `src`, then merge its meshes into one per material to reduce draw calls for repeated transport sections. */
 function mergeByMaterial(src: THREE.Object3D): THREE.Group {
   src.updateMatrixWorld(true);
   const byMat = new Map<THREE.Material, THREE.BufferGeometry[]>();

@@ -13,7 +13,7 @@ import {
 } from './atomic/parts';
 
 /**
- * ATOMIC — coherent imaging (BCDI), 34-ID-F: inboard branch of the canted 34-ID pair (3DMN = outboard partner).
+ * ATOMIC uses coherent imaging, BCDI, at 34-ID-F. It is the inboard branch of the canted pair, with 3DMN outboard.
  *
  * Geometry (see ./atomic/geom.ts for sources):
  * • The group is rotated −0.5 mrad (cantMrad) so local +X is ATOMIC's initial beam direction; the 3DMN exhibit uses +0.5 mrad,
@@ -27,8 +27,8 @@ import {
  * • Hutches: A/B/C boxes and the stepped E outline as in the 3DMN exhibit; 34-ID-F with its real trapezoidal outline (FDR Fig.
  *   4.58) and the taller roof of the PDR elevation. ATOMIC's shielded pipe crosses 34-ID-E ~0.4 m inboard of the 3DMN beam,
  *   between the micro-station gantry posts and through the nano enclosure walls (collars), as in FDR Fig. 4.58.
- * • Hero: the detector-positioning diffractometer — a 4.4 m boom on a δ ring + floor arc rail (radius ~4.3 m, FDR plan),
- *   posed at δ = 30°, γ = 16.8° (2θ = 34°, Au 111 at 9 keV) with a 2.5 m flight tube and the BCDI detector at 3.0 m — the
+ * • Hero: the detector-positioning diffractometer has a 4.4 m boom on a δ ring and floor arc rail with radius about 4.3 m, per the FDR plan,
+ *   posed at δ = 30°, γ = 16.8° (2θ = 34°, Au 111 at 9 keV) with a 2.5 m flight tube and the BCDI detector at 3.0 m. The model also includes the
  *   granite sample platform carrying zoom KB2 and the goniometer, a Laue detector 28 mm from the crystal, an SDD at 90°, and an
  *   animated envelope of the two-stage zoom KB (KB1 in 34-ID-C → sliding intermediate focus → KB2), lateral scale ×~30.
  * • Exaggerations (stated in the dossier/part comments): undulator gaps 20 mm (real ≥ 8.5 mm), DCM crystal offset ×18, the
@@ -258,7 +258,7 @@ function custom(ctx: BuildCtx): void {
   };
   update(0.35);
   if (!REDUCED_MOTION) ctx.onFrame((_dt, t) => update(0.5 - 0.5 * Math.cos((2 * Math.PI * t) / 18)));
-  ctx.addLabel('Zoom optics: the intermediate focus slides between the two KB pairs', at(61.2, atomicSide(61.2) - 0.05, 0.42), { maxDist: 16 });
+  ctx.addLabel('The intermediate focus position varies between the two KB pairs.', at(61.2, atomicSide(61.2) - 0.05, 0.42), { maxDist: 16 });
 
   // ---- the diffracted (Bragg) beam: sample → BCDI detector through the flight tube; the coherent speckle fan is drawn as a
   // narrow cone that just covers the 28 mm sensor

@@ -9,7 +9,7 @@
  *   φ̂ⁿ⁺¹ (1 + Δt S k² + Δt ε² k⁴) = φ̂ⁿ (1 + Δt S k²) − Δt k² FT[φ³ − φ]ⁿ
  *
  * Topography: island cover s = clamp((φ+1)/2) is turned into polydisperse domes h = H₀ · s · b^0.7, where b is a
- * smoothed (two box passes ≈ Gaussian) copy of s with radius ∝ L — so bigger islands are taller, as for ripened
+ * smoothed (two box passes ≈ Gaussian) copy of s with radius ∝ L. So bigger islands are taller, as for ripened
  * droplets. The height map is sliced into K horizontal layers (fractional occupancy) for the DWBA (see scatter.ts).
  *
  * Physical scale: 1 px = 20 nm, N = 128 → 2.56 µm square patch. Spacing grows from ≈140 nm to ≈400 nm.

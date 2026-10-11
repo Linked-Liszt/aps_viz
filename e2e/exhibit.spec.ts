@@ -288,6 +288,8 @@ test('guided tour advances and exits', async ({ page }) => {
   await page.getByRole('button', { name: 'Take the guided tour' }).click();
   await expect(page).toHaveURL(/#\/tour\/0/);
   await expect(page.locator('.tour')).toHaveClass(/is-open/);
+  await expect(page.locator('.tour-station')).toHaveCount(0);
+  await expect(page.locator('.tour').getByRole('button', { name: /Play tour|Pause tour/ })).toHaveCount(0);
   await page.locator('.tour').getByRole('button', { name: /Next/ }).click();
   await expect(page).toHaveURL(/#\/tour\/1/);
   await page.locator('.tour').getByRole('button', { name: /Exit tour/ }).click();
@@ -308,6 +310,278 @@ test('a tour stop at a beamline declutters its pins', async ({ page }) => {
     .toBe(true);
   // the tour has no component list beside the model: only headline pins (BeamlineScene.setPinMode('tour'))
   await expect.poll(async () => (await pinCounts(page)).nonHeadline).toBe(0);
+  expect(errors).toEqual([]);
+});
+
+for (const [i, id] of FEATURES.entries()) {
+  test(`the ${id} tour stop opens its full-screen station and keeps the tour position`, async ({ page }) => {
+    const step = i + 4;
+    const errors = await open(page, `#/tour/${step}`);
+    const tour = page.locator('.tour');
+    const launch = tour.getByRole('button', { name: 'Try the interactive station', exact: true });
+    await expect(tour.locator('.tour-actions .tour-open')).toBeVisible();
+    await expect(launch).toHaveAttribute('aria-haspopup', 'dialog');
+    await launch.click();
+    const modal = page.locator('.modal');
+    await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
+    await expect(page).toHaveURL(new RegExp(`#/tour/${step}$`));
+    await expect(page.locator('.modal.is-open .kicker-bl')).toContainText(id, { ignoreCase: true });
+    await page.keyboard.press('Escape');
+    await expect(modal).not.toHaveClass(/is-open/);
+    await expect(tour).toHaveClass(/is-open/);
+    await expect(launch).toBeFocused();
+    await expect(page).toHaveURL(new RegExp(`#/tour/${step}$`));
+    await tour.getByRole('button', { name: 'Next', exact: true }).click();
+    await expect(page).toHaveURL(new RegExp(`#/tour/${step + 1}$`));
+    expect(errors).toEqual([]);
+  });
+}
+
+test('Step inside keeps a Return to tour button across station and component exploration', async ({ page }) => {
+  const errors = await open(page, '#/tour/5');
+  await beamlineReady(page, 'xpcs');
+  await page.locator('.tour-open').click();
+  await expect(page).toHaveURL(/#\/beamline\/xpcs$/);
+  const back = page.getByRole('button', { name: 'Return to tour', exact: true });
+  await expect(back).toBeVisible();
+  await page.locator('.bl-panel').getByRole('button', { name: 'Try the interactive station', exact: true }).click();
+  await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
+  await page.keyboard.press('Escape');
+  await expect(back).toBeVisible();
+  await expect(page).toHaveURL(/#\/beamline\/xpcs$/);
+  await page.locator('.bl-panel .tab', { hasText: 'Inside' }).click();
+  await page.locator('.stop-btn').first().click();
+  await expect(page).toHaveURL(/#\/beamline\/xpcs\/.+/);
+  await expect(back).toBeVisible();
+  await back.click();
+  await expect(page).toHaveURL(/#\/tour\/5$/);
+  await expect(page.locator('.tour-next')).toBeFocused();
+  await page.locator('.tour-next').click();
+  await expect(page).toHaveURL(/#\/tour\/6$/);
+  expect(errors).toEqual([]);
+});
+
+test('the tour stop is remembered while changing beamlines and resumes from the toolbar or T', async ({ page }) => {
+  const errors = await open(page, '#/tour/8');
+  await page.locator('.tour-open').click();
+  await expect(page).toHaveURL(/#\/beamline\/hexm$/);
+  await page.locator('.bl-title').focus();
+  await page.keyboard.press('2');
+  await expect(page).toHaveURL(/#\/beamline\/xpcs$/);
+  await expect(page.locator('.bl-tour-return')).toHaveAttribute('title', 'Return to guided tour stop 9');
+  await page.locator('.topbar-tools').getByRole('button', { name: 'Guided tour', exact: true }).click();
+  await expect(page).toHaveURL(/#\/tour\/8$/);
+  await page.locator('.tour-open').click();
+  await expect(page).toHaveURL(/#\/beamline\/hexm$/);
+  await page.locator('.bl-title').focus();
+  await page.keyboard.press('t');
+  await expect(page).toHaveURL(/#\/tour\/8$/);
+  expect(errors).toEqual([]);
+});
+
+test('returning to the APS clears the saved tour stop', async ({ page }) => {
+  const errors = await open(page, '#/tour/5');
+  await page.locator('.tour-open').click();
+  await expect(page.locator('.bl-tour-return')).toBeVisible();
+  await page.getByRole('button', { name: 'Close beamline and return to the APS', exact: true }).click();
+  await expect(page).toHaveURL(/#\/$/);
+  await page.keyboard.press('2');
+  await expect(page).toHaveURL(/#\/beamline\/xpcs$/);
+  await expect(page.locator('.bl-tour-return')).toBeHidden();
+  await page.locator('.topbar-tools').getByRole('button', { name: 'Guided tour', exact: true }).click();
+  await expect(page).toHaveURL(/#\/tour\/0$/);
+  expect(errors).toEqual([]);
+});
+
+test('changing tour stops or using browser Back closes the current full-screen station', async ({ page }) => {
+  const errors = await open(page, '#/tour/5');
+  const launch = page.locator('.tour-station');
+  await launch.click();
+  await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
+  await page.evaluate(() => { location.hash = '#/tour/6'; });
+  await expect(page.locator('.modal')).not.toHaveClass(/is-open/);
+  await expect(page).toHaveURL(/#\/tour\/6$/);
+  await launch.click();
+  await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
+  await page.goBack();
+  await expect(page).toHaveURL(/#\/tour\/5$/);
+  await expect(page.locator('.modal')).not.toHaveClass(/is-open/);
+  await expect(page.locator('.tour')).toHaveClass(/is-open/);
+  expect(errors).toEqual([]);
+});
+
+for (const viewport of [{ width: 320, height: 568 }, { width: 390, height: 844 }]) {
+  for (const id of ['polar', 'xpcs', 'ptychoprobe']) {
+    test(`tour station and return controls for ${id} fit a ${viewport.width}px phone`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      const step = FEATURES.indexOf(id) + 4;
+      const errors = await open(page, `#/tour/${step}`);
+      const launch = page.locator('.tour-station');
+      await expect(launch).toBeVisible();
+      await page.locator('.tour').evaluate(el => Promise.all(el.getAnimations().map(a => a.finished)));
+      const card = await page.locator('.tour').boundingBox();
+      expect(card!.y).toBeGreaterThanOrEqual(56);
+      const github = page.getByRole('link', { name: 'GitHub repository', exact: true });
+      await expect(github).toHaveAttribute('href', 'https://github.com/Linked-Liszt/aps_viz');
+      const linkBox = await github.boundingBox();
+      const brandBox = await page.locator('.brand').boundingBox();
+      expect(linkBox!.x).toBeGreaterThan(brandBox!.x + brandBox!.width);
+      expect(linkBox!.x + linkBox!.width).toBeLessThanOrEqual(viewport.width);
+      for (const control of [launch, page.locator('.tour-open')]) {
+        const box = await control.boundingBox();
+        expect(box).not.toBeNull();
+        expect(box!.x).toBeGreaterThanOrEqual(0);
+        expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
+        expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height);
+      }
+      await launch.click();
+      await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
+      await page.locator('.modal-close').click();
+      await expect(launch).toBeFocused();
+      await page.locator('.tour-open').click();
+      const back = page.locator('.bl-tour-return');
+      await expect(back).toBeVisible();
+      await page.locator('.bl-panel').evaluate(el => Promise.all(el.getAnimations().map(a => a.finished)));
+      const backBox = await back.boundingBox();
+      const nameBox = await page.locator('.bl-title').boundingBox();
+      expect(Math.abs(backBox!.y + backBox!.height / 2 - nameBox!.y - nameBox!.height / 2)).toBeLessThan(2);
+      await back.click();
+      await expect(page).toHaveURL(new RegExp(`#/tour/${step}$`));
+      await expect(page.locator('.tour-next')).toBeFocused();
+      expect(errors).toEqual([]);
+    });
+  }
+}
+
+test('the tour keeps the outgoing beamline visible while the next model prepares', async ({ page }) => {
+  const errors = await open(page, '#/tour/4');
+  await page.waitForFunction(() => (window as any).__app?.bl?.data.id === 'polar' && (window as any).__app.bl.group.visible);
+  await page.evaluate(async () => {
+    const w = window as any;
+    const a = w.__app;
+    const { BeamlineScene } = await import('/src/scene/beamline/BeamlineScene.ts' as string);
+    const prepare = BeamlineScene.prototype.prepare;
+    BeamlineScene.prototype.prepare = function () {
+      const ready = prepare.call(this);
+      return this.data.id === 'xpcs' ? ready.then(() => new Promise<void>((resolve) => { w.releaseNextModel = resolve; })) : ready;
+    };
+    w.transitionFrames = [];
+    a.stage.onFrame(() => w.transitionFrames.push({ focus: a.site.focusId, outgoing: a.previousBeamline?.group.visible }));
+  });
+  await page.locator('.tour').getByRole('button', { name: /Next/ }).click();
+  await page.waitForFunction(() => !!(window as any).releaseNextModel);
+  const heldAt = await page.evaluate(() => (window as any).__app.frameCount);
+  await page.waitForFunction((frame) => (window as any).__app.frameCount > frame + 3, heldAt);
+  expect(await page.evaluate(() => {
+    const a = (window as any).__app;
+    return { focus: a.site.focusId, incoming: a.bl.data.id, incomingVisible: a.bl.group.visible, outgoing: a.previousBeamline?.data.id, outgoingVisible: a.previousBeamline?.group.visible };
+  })).toEqual({ focus: 'polar', incoming: 'xpcs', incomingVisible: false, outgoing: 'polar', outgoingVisible: true });
+  expect(await page.evaluate(() => (window as any).transitionFrames.every((f: { focus: string }) => f.focus === 'polar'))).toBe(true);
+  await page.evaluate(() => (window as any).releaseNextModel());
+  await page.waitForFunction(() => (window as any).__app.bl.group.visible && (window as any).__app.site.focusId === 'xpcs');
+  expect(await page.evaluate(() => (window as any).__app.previousBeamline)).toBeNull();
+  expect(errors).toEqual([]);
+});
+
+test('recent beamline models are reused and the cache stays bounded', async ({ page }) => {
+  const errors = await open(page);
+  for (const id of ['polar', 'xpcs']) {
+    await page.evaluate((bid) => { location.hash = `#/beamline/${bid}`; }, id);
+    await page.waitForFunction((bid) => (window as any).__app.bl?.data.id === bid && (window as any).__app.bl.group.visible, id);
+  }
+  await page.evaluate(() => { (window as any).savedXpcs = (window as any).__app.bl; location.hash = '#/'; });
+  await page.waitForFunction(() => (window as any).__app.applied.mode === 'overview');
+  await page.locator('.feature-card').filter({ hasText: 'XPCS' }).click();
+  await page.waitForFunction(() => (window as any).__app.bl?.group.visible);
+  expect(await page.evaluate(() => (window as any).__app.bl === (window as any).savedXpcs)).toBe(true);
+  expect(await page.evaluate(() => {
+    const a = (window as any).__app;
+    const hidden = a.sceneCache.get('polar');
+    return !hidden.group.visible && !a.stage.pickables.some((obj: any) => hidden.pickables.has(obj));
+  })).toBe(true);
+  await page.evaluate(() => { location.hash = '#/beamline/cssi'; });
+  await page.waitForFunction(() => (window as any).__app.bl?.data.id === 'cssi' && (window as any).__app.bl.group.visible);
+  expect(await page.evaluate(() => {
+    const a = (window as any).__app;
+    return { cached: [...a.sceneCache.keys()], evicted: !a.stage.scene.getObjectByName('beamline-polar') };
+  })).toEqual({ cached: ['xpcs', 'cssi'], evicted: true });
+  await page.evaluate(() => { location.hash = '#/beamline/xpcs'; });
+  await page.waitForFunction(() => (window as any).__app.bl?.data.id === 'xpcs' && (window as any).__app.bl.group.visible);
+  expect(await page.evaluate(() => {
+    const a = (window as any).__app;
+    return a.bl === (window as any).savedXpcs && a.stage.pickables.some((o: any) => { for (let p = o; p; p = p.parent) if (p === a.bl.group) return true; return false; });
+  })).toBe(true);
+  await page.locator('.strip-stop').first().click();
+  await expect(page.locator('.comp-card')).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('leaving during construction cancels the partial model without restoring it later', async ({ page }) => {
+  const errors = await open(page);
+  await page.locator('.feature-card').filter({ hasText: 'CHEX' }).click();
+  await page.waitForFunction(() => (window as any).__app.pendingBuild === 'chex' && !!(window as any).__app.bl);
+  await page.keyboard.press('Escape');
+  await expect(page).toHaveURL(/#\/$/);
+  await page.waitForFunction(() => !(window as any).__app.bl && !(window as any).__app.pendingBuild);
+  await page.locator('.feature-card').filter({ hasText: 'ATOMIC' }).click();
+  await page.waitForFunction(() => (window as any).__app.bl?.data.id === 'atomic' && (window as any).__app.bl.group.visible);
+  expect(await page.evaluate(() => {
+    const a = (window as any).__app;
+    return { focus: a.site.focusId, partialRemoved: !a.stage.scene.getObjectByName('beamline-chex'), cached: [...a.sceneCache.keys()] };
+  })).toEqual({ focus: 'atomic', partialRemoved: true, cached: ['atomic'] });
+  expect(errors).toEqual([]);
+});
+
+test('rapid tour navigation does not reveal a skipped model', async ({ page }) => {
+  const errors = await open(page, '#/tour/4');
+  await page.waitForFunction(() => (window as any).__app.bl?.group.visible);
+  await page.evaluate(async () => {
+    const w = window as any;
+    const a = w.__app;
+    const { BeamlineScene } = await import('/src/scene/beamline/BeamlineScene.ts' as string);
+    const prepare = BeamlineScene.prototype.prepare;
+    BeamlineScene.prototype.prepare = function () {
+      const ready = prepare.call(this);
+      return this.data.id === 'xpcs' ? ready.then(() => new Promise<void>((resolve) => { w.releaseSkippedModel = resolve; })) : ready;
+    };
+    w.focusChanges = [];
+    const focus = a.site.setFocus;
+    a.site.setFocus = function (id: string | null, sector: number | null) { w.focusChanges.push(id); return focus.call(this, id, sector); };
+  });
+  await page.locator('.tour').getByRole('button', { name: /Next/ }).click();
+  await page.waitForFunction(() => !!(window as any).releaseSkippedModel);
+  await page.evaluate(() => {
+    (document.querySelector('.tour-next') as HTMLButtonElement).click();
+    (window as any).releaseSkippedModel();
+  });
+  await page.waitForFunction(() => (window as any).__app.bl?.data.id === 'cssi' && (window as any).__app.bl.group.visible);
+  expect(await page.evaluate(() => (window as any).focusChanges)).toEqual(['cssi']);
+  expect(await page.evaluate(() => !!(window as any).__app.stage.scene.getObjectByName('beamline-xpcs'))).toBe(false);
+  expect(errors).toEqual([]);
+});
+
+test('following the X-ray path waits for the complete model', async ({ page }) => {
+  const errors = await open(page);
+  await page.evaluate(async () => {
+    const w = window as any;
+    const { BeamlineScene } = await import('/src/scene/beamline/BeamlineScene.ts' as string);
+    const prepare = BeamlineScene.prototype.prepare;
+    BeamlineScene.prototype.prepare = function () {
+      return prepare.call(this).then(() => new Promise<void>((resolve) => { w.releasePathModel = resolve; }));
+    };
+  });
+  await page.locator('.feature-card').filter({ hasText: '3DMN' }).click();
+  await page.waitForFunction(() => !!(window as any).releasePathModel);
+  await page.getByRole('button', { name: 'Follow X-ray path' }).click();
+  expect(await page.evaluate(() => {
+    const a = (window as any).__app;
+    return { requested: a.rideRequested, started: !!a.ride };
+  })).toEqual({ requested: true, started: false });
+  await page.evaluate(() => (window as any).releasePathModel());
+  await page.waitForFunction(() => !!(window as any).__app.ride?.run);
+  expect(await page.evaluate(() => (window as any).__app.bl.group.visible)).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(page).toHaveURL(/#\/$/);
   expect(errors).toEqual([]);
 });
 
@@ -351,7 +625,7 @@ test('the phone comparison keeps values whole and supports keyboard scrolling', 
   expect(errors).toEqual([]);
 });
 
-test('the author’s welcome greets the visitor and the author’s note opens from the top bar', async ({ page }) => {
+test("the author's welcome link opens the note and the note also opens from the top bar", async ({ page }) => {
   const errors = track(page);
   // test mode skips the welcome unless ?welcome asks for it
   await page.goto('/?test&welcome#/');
@@ -360,9 +634,31 @@ test('the author’s welcome greets the visitor and the author’s note opens fr
   await expect(modal).toHaveClass(/is-open/, { timeout: 60_000 });
   expect(await page.evaluate(() => (window as any).__app.frameCount)).toBeGreaterThan(2);
   await expect(page.locator('.modal.is-open .author-md')).toBeVisible();
-  await page.locator('.modal.is-open').getByRole('button', { name: 'Continue' }).click();
+  await expect(modal.locator('.modal-title')).toHaveText('From the author');
+  await expect(modal.locator('.author-kicker')).toHaveCount(0);
+  await expect(modal.getByRole('button', { name: "Read the author's note" })).toHaveCount(0);
+  const noteLink = page.locator('.modal.is-open .author-md a[href="#author-note"]');
+  await expect(noteLink).toBeVisible();
+  await noteLink.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog', { name: "Author's note", exact: true })).toBeVisible();
+  await expect(modal.locator('.modal-title')).toHaveText("Author's note");
+  await expect(page).toHaveURL(/#\/$/);
+  await expect(page.locator('.modal.is-open .author-md pre code')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'From the author', exact: true })).toBeVisible();
+  await expect(noteLink).toBeFocused();
+  await expect(modal).not.toHaveAttribute('inert', '');
+  // Reopen the note and close with its button too. Each return keeps the welcome interactive.
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog', { name: "Author's note", exact: true })).toBeVisible();
+  await modal.getByRole('button', { name: 'Close', exact: true }).click();
+  await expect(page.getByRole('dialog', { name: 'From the author', exact: true })).toBeVisible();
+  await expect(noteLink).toBeFocused();
+  await modal.getByRole('button', { name: 'Explore freely', exact: true }).click();
   await expect(modal).not.toHaveClass(/is-open/);
-  await page.locator('.topbar-tools').getByRole('button', { name: 'Author’s note' }).click();
+  await expect(page.locator('.intro')).toHaveCount(0);
+  await page.locator('.topbar-tools').getByRole('button', { name: "Author's note" }).click();
   await expect(modal).toHaveClass(/is-open/);
   await expect(page.locator('.modal.is-open .author-md')).toBeVisible();
   await page.keyboard.press('Escape');
@@ -370,11 +666,62 @@ test('the author’s welcome greets the visitor and the author’s note opens fr
   expect(errors).toEqual([]);
 });
 
+for (const choice of ['Start the guided tour', 'Explore freely'] as const) {
+  test(`a new home visitor chooses ${choice} in the single opening dialog`, async ({ page }) => {
+    const errors = track(page);
+    await page.goto('/');
+    const modal = page.locator('.modal');
+    await expect(page.getByRole('dialog', { name: 'From the author', exact: true })).toBeVisible({ timeout: 60_000 });
+    await expect(page.locator('.intro')).toHaveCount(0);
+    const tour = modal.getByRole('button', { name: 'Start the guided tour', exact: true });
+    const explore = modal.getByRole('button', { name: 'Explore freely', exact: true });
+    await expect(tour).toBeFocused();
+    await explore.focus();
+    await page.keyboard.press('Tab');
+    await expect(modal.getByRole('button', { name: 'Close', exact: true })).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(explore).toBeFocused();
+    await modal.getByRole('button', { name: choice, exact: true }).click();
+    await expect(modal).not.toHaveClass(/is-open/);
+    await expect(page.locator('.intro')).toHaveCount(0);
+    await expect(page.locator('.topbar')).not.toHaveAttribute('inert', '');
+    await expect(page.locator('#stage')).not.toHaveAttribute('inert', '');
+    expect(await page.evaluate(() => localStorage.getItem('apsu.intro'))).toBe('seen');
+    if (choice === 'Start the guided tour') {
+      await expect(page).toHaveURL(/#\/tour\/0$/);
+      await expect(page.locator('.tour')).toHaveClass(/is-open/);
+    } else {
+      expect(await page.evaluate(() => (window as any).__app.applied.mode)).toBe('overview');
+      await expect(page.locator('.ov-panel')).toBeVisible();
+    }
+    expect(errors).toEqual([]);
+  });
+}
+
+for (const hash of ['#/beamline/xpcs', '#/sector/12', '#/tour/3']) {
+  test(`a new visitor with a direct link to ${hash} skips the welcome and introduction`, async ({ page }) => {
+    const errors = track(page);
+    await page.goto(`/${hash}`);
+    await page.waitForFunction(() => !!(window as any).__app?.applied, null, { timeout: 60_000 });
+    const drawnFrom = await page.evaluate(() => (window as any).__app.frameCount);
+    await page.waitForFunction((n) => (window as any).__app.frameCount > n + 5, drawnFrom, { timeout: 60_000 });
+    await expect(page.locator('.modal')).not.toHaveClass(/is-open/);
+    await expect(page.locator('.intro')).toHaveCount(0);
+    await expect(page).toHaveURL(new RegExp(hash.replaceAll('/', '\\/') + '$'));
+    // Going home later in the same visit must not schedule a welcome either.
+    await page.locator('.brand').click();
+    await expect(page).toHaveURL(/#\/$/);
+    await expect(page.locator('.modal')).not.toHaveClass(/is-open/);
+    await expect(page.locator('.intro')).toHaveCount(0);
+    expect(errors).toEqual([]);
+  });
+}
+
 test('the story stations fit the dialog at 1440×900', async ({ page }) => {
   const errors = await open(page);
   await page.locator('.topbar-tools').getByRole('button', { name: /The upgrade/ }).click();
   await expect(page.locator('.modal')).toHaveClass(/is-open/);
-  for (const name of ['A new kind of ring', 'Brightness', 'Undulators', 'Coherence']) {
+  for (const name of ['Storage-ring magnets', 'Brightness', 'Undulators', 'Coherence']) {
     await page.locator('.modal.is-open .story-tabs [role=tab]', { hasText: name }).click();
     await expect(page.locator('.modal.is-open .story-stage .station-host .stn')).toBeVisible({ timeout: 30_000 });
     await expect.configure({ soft: true }).poll(() => stationMisfit(page), { timeout: 5_000, message: `${name} fits 1440×900` }).toEqual([]);
@@ -564,13 +911,22 @@ for (const id of FEATURES) {
     });
     expect(transmissive).toEqual([]);
 
+    const launch = page.getByRole('button', { name: 'Try the interactive station', exact: true });
+    const modal = page.locator('.modal');
+    await launch.click();
+    await expect(modal).toHaveClass(/is-open/);
+    await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
+    await page.keyboard.press('Escape');
+    await expect(modal).not.toHaveClass(/is-open/);
+    await expect(page.locator('.bl-panel .tab[aria-selected="true"]')).toHaveText('Overview');
+    await expect(launch).toBeFocused();
+
     await page.locator('.bl-panel .tab', { hasText: 'How it works' }).click();
     await expect(page.locator('.bl-panel .station-host')).toBeVisible();
     await expect(page.locator('.bl-panel .station-host .stn')).toBeVisible({ timeout: 30_000 });
 
     // Full screen at 1440×900: the station fits the dialog (no scrolling dialog, no station taller than its host)
     await page.locator('.bl-panel .station-expand').click();
-    const modal = page.locator('.modal');
     await expect(modal).toHaveClass(/is-open/);
     await expect(page.locator('.modal.is-open .station-host .stn')).toBeVisible({ timeout: 30_000 });
     // soft: a station that does not fit is reported, and the rest of the route is still checked

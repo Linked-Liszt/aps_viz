@@ -38,7 +38,7 @@ function buildIndex(): Entry[] {
     if (!b) continue;
     out.push({
       kind: 'beamline',
-      title: `${b.acronym} — ${m.displayName}`,
+      title: `${b.acronym}. ${m.displayName}`,
       sub: `${m.sectorNumber}-ID · ${m.short}`,
       hay: `${b.acronym} ${m.displayName} ${b.fullName} ${b.sector} ${m.stations} ${m.short} ${b.tagline}`,
       text: `${b.summary ?? ''} ${b.whatAPSUEnables?.text ?? ''}`,
@@ -49,7 +49,7 @@ function buildIndex(): Entry[] {
       out.push({
         kind: 'technique',
         title: t.abbrev ? `${t.name} (${t.abbrev})` : t.name,
-        sub: `Technique at ${b.acronym} · opens “How it works”`,
+        sub: `Technique at ${b.acronym}. Opens "How it works".`,
         hay: `${t.name} ${t.abbrev ?? ''} ${b.acronym}`,
         text: t.text ?? '',
         view: { mode: 'beamline', id: m.id },
@@ -79,7 +79,7 @@ function buildIndex(): Entry[] {
     out.push({
       kind: 'sector',
       title: `Sector ${n}`,
-      sub: [info?.plainLabel, bls.map((b) => b.name).join(' · ')].filter(Boolean).join(' — ') || 'Beamlines in this sector',
+      sub: [info?.plainLabel, bls.map((b) => b.name).join(' · ')].filter(Boolean).join('. ') || 'Beamlines in this sector',
       // the sector card spells out the APS's own division once: find it by either name
       hay: `sector ${n} ${info?.plainLabel ?? ''} ${info?.operators ?? ''}${/\bXSD\b/.test(info?.operators ?? '') ? ' X-ray Science Division' : ''} ${names}`,
       text: [...texts].join(' '),
@@ -248,7 +248,7 @@ export class Search {
               h('span', { class: 'sr-text' }, h('span', { class: 'sr-title' }, r.title), h('span', { class: 'sr-sub' }, r.sub)),
             ),
           )
-        : [h('li', { class: 'sr-empty', role: 'option', 'aria-disabled': 'true' }, 'No matches. Try “mirror”, “XPCS”, “detector”, “ptychography” or a sector number.')]),
+        : [h('li', { class: 'sr-empty', role: 'option', 'aria-disabled': 'true' }, 'No matches. Search for a component, beamline, technique or sector number.')]),
     );
     if (this.results.length) this.input.setAttribute('aria-activedescendant', `sr-${this.sel}`);
     else this.input.removeAttribute('aria-activedescendant');

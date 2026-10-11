@@ -1,29 +1,28 @@
 /**
- * Ptychography physics for the "The lens is a computer" station (PtychoProbe, 33-ID). Pure functions, no DOM.
+ * Ptychography physics for the "Ptychographic image reconstruction" station (PtychoProbe, 33-ID). Pure functions, no DOM.
  *
  * Geometry (one consistent set, 10 keV):
  *   λ = hc/E = 1.23984 keV·nm / 10 keV = 0.124 nm.
  *   Detector crop M × M = 64 × 64 px. Far-field sampling gives the reconstruction pixel
- *     Δx = λ z / (M p) = 2 nm      (p = 75 µm pixels at z ≈ 77 mm; the PtychoProbe fast detector can sit from
- *                                   75 mm behind the sample — research dossier r16)
+ *     Δx = λ z / (M p) = 2 nm      (p = 75 µm pixels at z ≈ 77 mm; the sample-to-detector distance at PtychoProbe is at least
+ *                                   75 mm. Research dossier r16)
  *   so the detector edge is at spatial frequency f_max = 1/(2Δx) = 0.25 nm⁻¹ (half-period 2 nm), i.e. a scattering
  *   angle θ_max = λ f_max = 31 mrad. Object array N × N = 128 × 128 px = 256 nm field.
  *
  * Probe (the X-ray beam at the sample): a Fresnel zone plate with the PtychoProbe 5-nm design parameters
  *   (outermost zone Δr_N = 4 nm, D = 180 µm → f = D Δr_N/λ = 5.8 mm, 11 250 zones; FDR, dossier r1),
  *   NA = λ/(2Δr_N) = 15.5 mrad. The focal field is the inverse Fourier transform of the (annular, central-stop)
- *   pupil; the sample sits Δz = 1.5 µm downstream of focus (≈ 3 depths of focus λ/NA² = 0.52 µm — a deliberately
+ *   pupil; the sample sits Δz = 1.5 µm downstream of focus (≈ 3 depths of focus λ/NA² = 0.52 µm. A deliberately
  *   defocused probe, common practice to spread the dose and increase overlap), applied with the paraxial (Fresnel)
  *   transfer function
  *     P(r) = F⁻¹[ pupil(f) · exp(−iπ λ Δz |f|²) ]
  *   Pupil radius on the detector = NA/λ = 1/(2Δr_N) = 0.125 nm⁻¹ = 16 px: the bright-field disc reaches half-way
- *   to the detector edge; everything outside it is dark-field scattering from the sample — information the lens
- *   alone could not image (coherent lens cut-off: half-period Δr_N = 4 nm, vs 2 nm at the detector edge).
+ *   to the detector edge; everything outside it is dark-field scattering from the sample. Information outside the lens imaging bandwidth (coherent lens cut-off: half-period Δr_N = 4 nm, vs 2 nm at the detector edge).
  *   Probe "diameter" for the overlap definition = geometric cone diameter d = 2·NA·Δz ≈ 46 nm.
  *
  * Object: thin (projection-approximation) complex transmission of a single patterned layer,
  *   O(r) = a(r) e^{−iφ(r)},  φ = k δ t,  a = exp(−k β t),  k = 2π/λ,
- *   with δ, β at 10 keV from the CXRO (Henke) tables / NIST XCOM μ/ρ (Cu δ 1.58e-5 β 1.91e-6 — just above the Cu K
+ *   with δ, β at 10 keV from the CXRO (Henke) tables / NIST XCOM μ/ρ (Cu δ 1.58e-5 β 1.91e-6. Just above the Cu K
  *   edge; Au δ 3.0e-5 β 2.25e-6; W δ 2.8e-5 β 1.84e-6, W is just below its L3 edge so ±10 %). Thicknesses 120–150 nm
  *   keep the layer inside the depth of field of a 2-nm-resolution image, DOF ≈ 5.2 Δx²/λ ≈ 170 nm, so the
  *   projection (multiplicative exit-wave) approximation holds. 150 nm of Au gives a 0.23 rad phase shift but absorbs
@@ -40,16 +39,16 @@
  *   or rPIE (Maiden, Johnson & Li, Optica 4, 736 (2017)) for the object:
  *   O ← O + P^∗ (ψ'_j − ψ_j) / [(1 − a)|P|² + a·max|P|²],  a = 0.15.
  *   Detector pixels beyond an optional detector radius are treated as unmeasured (Ψ' = Ψ there; not used by the
- *   station — with a probe of pupil radius r_p, object frequencies up to r_det + r_p still reach the detector, so a
+ *   station. With a probe of pupil radius r_p, object frequencies up to r_det + r_p still reach the detector, so a
  *   crop is not a clean resolution knob). Constraints: |O| ≤ 1 (passive sample) and Σ|P|² fixed to the measured
- *   photons per shot (I0-monitor normalisation) — together they pin the O·c, P/c scale ambiguity that otherwise
+ *   photons per shot (I0-monitor normalisation). Together they pin the O·c, P/c scale ambiguity that otherwise
  *   drifts and diverges at ~10³ photons/shot. Plain ePIE is still not noise-robust: below ~3 × 10³ photons/shot the
  *   probe update fits the noise (the probe turns to speckle, FRC lost) whatever α, β or a Fourier-support constraint
- *   on P — an algorithm limit (maximum-likelihood solvers do better), so the station's exposure range starts at
+ *   on P. An algorithm limit (maximum-likelihood solvers do better), so the station's exposure range starts at
  *   10 µs (3.1 × 10³ photons/shot at the pre-upgrade flux), where the result is a noisy ~10 nm image. Probe refinement starts after the first full sweep (common practice);
  *   the station visits the first sweep in scan order (then random order) so the image visibly assembles.
  *   Initial guesses: O = 1 (empty membrane), P = the nominal lens model but with a wrong defocus (1.0 µm instead of
- *   1.5 µm) — the algorithm must fix it.
+ *   1.5 µm). The algorithm must fix it.
  *
  * Quality metrics (simulation only): ε = ‖O_t − γO_r‖/‖O_t − ⟨O_t⟩‖ and the FRC against the truth (FrcMeter,
  *   below), γ the best complex scale, both over ONE fixed field of view (the chip, FOV below) for every scan. An
@@ -61,14 +60,14 @@
  * Overlap: linear overlap o = 1 − s/d (Bunk et al., Ultramicroscopy 108, 481 (2008): o ≳ 60 % needed).
  *   Raster grid (with ±1 px jitter to avoid the raster-grid pathology, Thibault et al., Ultramicroscopy 109, 338
  *   (2009)) or Fermat spiral r_n = c√n, θ_n = n·137.508° (Huang et al., Opt. Express 22, 12634 (2014)), c chosen for
- *   the same point density. Positions are integer pixels (no sub-pixel shifts, no position errors) — idealised.
+ *   the same point density. Positions are integer pixels (no sub-pixel shifts, no position errors). Idealised.
  *
  * Flux: PtychoProbe FDR prediction 3.1e10 ph/s in the focus of the 4-nm-zone ZP at 10 keV (dossier r1). That FDR
- *   number assumes Si(311) bandwidth (ΔE/E ≈ 3e-5) — a zone plate with N = 11 250 zones needs ΔE/E ≲ 1/N ≈ 9e-5 to
- *   stay achromatic, which the installed Si(111) DCM (1.4e-4) does not meet — and the FDR's two-undulator 4.6 m
+ *   number assumes Si(311) bandwidth (ΔE/E ≈ 3e-5). A zone plate with N = 11 250 zones needs ΔE/E ≲ 1/N ≈ 9e-5 to
+ *   stay achromatic, which the installed Si(111) DCM (1.4e-4) does not meet. And the FDR's two-undulator 4.6 m
  *   source; the as-built single ~2.35 m device gives roughly 3× less coherent flux (dossier estimate). So it is a
  *   design value, used as such. Pre-upgrade value = that ÷ 100, the "more than two orders of magnitude"
- *   coherent-flux gain of APS-U (dossier r19, r3) — an illustrative scaling, not a measured number for a specific
+ *   coherent-flux gain of APS-U (dossier r19, r3). An illustrative scaling, not a measured number for a specific
  *   pre-upgrade instrument. Dwell times: EIGER2 at 2 kHz (0.5 ms) to a 30 kHz fast detector
  *   (33 µs) (dossier r15); the slider spans 10 µs (100 kHz, beyond today's detectors) to 3 ms. Ptychographic resolution goal ~1 nm on radiation-hard samples (r5); 5 nm focus goal (r1).
  */
@@ -85,7 +84,7 @@ export const GEOM = {
   M: 64,
   /** reconstruction pixel (nm) */
   dxNm: 2,
-  /** zone-plate outermost zone width (nm) — PtychoProbe 5-nm design */
+  /** zone-plate outermost zone width (nm). PtychoProbe 5-nm design */
   drNnm: 4,
   /** zone-plate diameter (µm) */
   zpDiamUm: 180,
@@ -209,7 +208,7 @@ function chipShapes(): Shape[] {
         if (g[r][c] === '#') s.push(rect('Au', x0 + c * cell, LETTERS.y0 + r * cell, x0 + (c + 1) * cell, LETTERS.y0 + (r + 1) * cell));
     x0 += 5 * cell + LETTERS.gap;
   }
-  // Siemens star (gold): half-period π r / spokes → 2 px (4 nm) at the rim, 1 px (2 nm) at r ≈ 5 px — a resolution gauge
+  // Siemens star (gold): half-period π r / spokes → 2 px (4 nm) at the rim, 1 px (2 nm) at r ≈ 5 px. A resolution gauge
   const { cx, cy, R, spokes } = STAR;
   s.push({
     mat: 'Au',
@@ -442,7 +441,7 @@ export function makeScan(pattern: ScanPattern, overlap: number, dPx = PROBE_D_PX
       if (rr > R * Math.SQRT2 + 0.5) break;
       const px = R + rr * Math.cos(i * golden);
       const py = R + rr * Math.sin(i * golden);
-      // keep the square field of view (same area as the raster) — points outside are dropped, not clamped
+      // keep the square field of view (same area as the raster). Points outside are dropped, not clamped
       if (px < -0.5 || px > span + 0.5 || py < -0.5 || py > span + 0.5) continue;
       xs.push(clampI(px));
       ys.push(clampI(py));
@@ -712,7 +711,7 @@ export interface SolverOpts {
   beta?: number;
   /** detector radius (px) beyond which pixels are treated as unmeasured; Infinity = whole detector */
   rDet?: number;
-  /** enforce |O| ≤ 1 (a passive sample cannot amplify the beam) — stabilises low-dose reconstructions */
+  /** enforce |O| ≤ 1 (a passive sample has no optical gain). Stabilises low-dose reconstructions */
   clampO?: boolean;
   /** visit the positions in scan order during the first sweep (random order afterwards) */
   firstSweepInOrder?: boolean;
@@ -720,7 +719,7 @@ export interface SolverOpts {
 }
 
 /**
- * Live ePIE / rPIE solver. step(k) processes k scan points (one FFT pair each); a full sweep over all points
+ * Live ePIE / rPIE solver. Step(k) processes k scan points (one FFT pair each); a full sweep over all points
  * in a random order is one iteration. Allocation-free after construction.
  */
 export class PtychoSolver {
@@ -986,8 +985,8 @@ export function compareObject(truth: ComplexField, rec: ComplexField, mask: Uint
 }
 
 /**
- * Field of view used for every quality metric (128-px units): flat over [lo, hi]² — the chip's features span
- * 28–100 px — with a raised-cosine taper `taper` px wide outside it. Every scan the station offers puts its probe
+ * Field of view used for every quality metric (128-px units): flat over [lo, hi]². The chip's features span
+ * 28–100 px. With a raised-cosine taper `taper` px wide outside it. Every scan the station offers puts its probe
  * centres over the same square (32–96 px), so the FOV is the region the experimenter means to image.
  */
 export const FOV = { lo: 32, hi: 96, taper: 10 };
@@ -1027,10 +1026,9 @@ export function litMask(illum: Float32Array, frac = 0.25): Uint8Array {
 /**
  * Resolution meter: Fourier ring correlation between the (γ-aligned) reconstruction and the true object,
  *   FRC(f) = Re Σ_{|k|∈f} F_t(k) F_r^∗(k) / √(Σ|F_t|² Σ|F_r|²),
- * over a smooth window w(r) (mean removed inside the window) — the fixed field of view fovWindow(), the same for
+ * over a smooth window w(r) (mean removed inside the window). The fixed field of view fovWindow(), the same for
  * every scan, so that poorly lit gaps of a sparse scan count against it (see the header). The resolution is
- * the half-period 1/(2q) at the first ring beyond the FRC maximum where the (3-ring averaged) FRC drops below 0.5 —
- * the usual threshold when comparing with ground truth (it corresponds to the 1/7 half-data-set threshold,
+ * the half-period 1/(2q) at the first ring beyond the FRC maximum where the (3-ring averaged) FRC drops below 0.5. * the usual threshold when comparing with ground truth (it corresponds to the 1/7 half-data-set threshold,
  * Rosenthal & Henderson, J. Mol. Biol. 333, 721 (2003)). Searching outward from the maximum measures the
  * high-frequency cut-off; low-frequency phase errors (typical of noisy ptychography, few pixels per ring) are left to
  * the overall error ε. Only available in a simulation, where the truth is known.

@@ -14,7 +14,7 @@ export function revolverUndulator(): THREE.Group {
   const gap = 0.0089;
   const half = (p: number) => Math.round((L * 1000) / (p / 2));
   // Per jaw: the active 2.1 cm structure faces the beam; the 2.5 cm structure sits on the INBOARD face of the same
-  // rotating holder (90° away) — rotating the holder by 90° (gap opened) swaps them.
+  // The other magnet array is 90° away on the rotating holder. A 90° rotation with the gap open swaps the arrays.
   for (const s of [1, -1]) {
     const yFace = s * (gap / 2);
     const n = half(21);

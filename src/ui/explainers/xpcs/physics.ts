@@ -1,5 +1,5 @@
 /**
- * XPCS station — pure physics helpers (no DOM; unit-tested in tests/xpcs.test.ts).
+ * XPCS station. Pure physics helpers (no DOM; unit-tested in tests/xpcs.test.ts).
  *
  * Equations and sources
  * ---------------------
@@ -7,7 +7,7 @@
  *  Water viscosity:        η(T) = A·10^{B/(T−C)}, A = 2.414e-5 Pa·s, B = 247.8 K, C = 140 K
  *                          (Vogel-type engineering fit; ≈1–2 % over 0–100 °C vs. IAPWS tables)
  *  Sphere form factor:     F(x) = 3 (sin x − x cos x) / x³,  x = q a,  P = F²    (Rayleigh 1911)
- *  Siegert relation:       g2(q,τ) = 1 + β |f(q,τ)|²  (Gaussian/“fully developed” speckle statistics)
+ *  Siegert relation:       g2(q,τ) = 1 + β |f(q,τ)|²  (Gaussian/"fully developed" speckle statistics)
  *  Free diffusion ISF:     f(q,τ) = exp(−D q² τ)  ⇒  g2 = 1 + β exp(−2 Γ τ),  Γ = D q²
  *  Mode-sum contrast:      incoherent sum of independent speckle patterns with weights w_m:
  *                          β = Σ w_m² / (Σ w_m)²   (Goodman, Speckle Phenomena in Optics, §3)
@@ -28,7 +28,7 @@
  *    with the 2026 directory's 1×10¹³ ph/s at 9 keV → ≈500× (different energy, bandwidth and mode
  *    definition, so indicative only: the dossier quotes "~500–850×").
  *  - Facility: APS-U FDR (2019) Table 1.1, coherent flux @ 20 keV 312×10¹¹ (brightness mode) vs 0.6×10¹¹
- *    ph/s (APS 2019) → ≈520×. Plain-language APS messaging: “100 to 500 times more coherent X-rays”.
+ *    ph/s (APS 2019) → ≈520×. Plain-language APS messaging: "100 to 500 times more coherent X-rays".
  *  - Our own Gaussian-source estimate at 10 keV (coherentGainEstimate below): Kim photon terms
  *    σ_r = √(2λL)/4π, σ_r′ = √(λ/2L); electron σ, σ′ from the dossier (APS 2019: 280/11.6/10/3.4 µm,µrad;
  *    APS-U brightness mode at 200 mA: 14.7/2.8/3.2/1.3) → coherent fraction 0.056 % → 8.8 % (×157);
@@ -131,7 +131,7 @@ export interface SourceParams {
 /** 8-ID before (2019: two in-line 3.3 cm Undulator A, 7 GeV, 100 mA) and after the upgrade (two 2.1 cm HPMU arrays,
  * 6 GeV, 200 mA, brightness mode with IBS: FDR Table 1.1). Electron σ, σ′ as quoted in the research dossier. */
 export const SOURCES: { aps: SourceParams; apsu: SourceParams } = {
-  aps: { name: 'APS (2019)', eGeV: 7, currentMA: 100, periodM: 0.033, nPeriods: 144, lengthM: 4.8, sx: 280e-6, sxp: 11.6e-6, sy: 10e-6, syp: 3.4e-6 },
+  aps: { name: "APS · 2019", eGeV: 7, currentMA: 100, periodM: 0.033, nPeriods: 144, lengthM: 4.8, sx: 280e-6, sxp: 11.6e-6, sy: 10e-6, syp: 3.4e-6 },
   apsu: { name: 'APS-U', eGeV: 6, currentMA: 200, periodM: 0.021, nPeriods: 224, lengthM: 4.7, sx: 14.7e-6, sxp: 2.8e-6, sy: 3.2e-6, syp: 1.3e-6 },
 };
 
@@ -281,7 +281,7 @@ export function speckleSamplingErr(beta: number, nPix: number, cohAreaPx: number
 }
 
 /**
- * How much longer a source with `gain`× fewer photons must measure to reach the same SNR, for long runs
+ * Measurement time with `gain`× fewer photons to reach the same SNR, for long runs
  * (both noise terms ∝ √T):  T_A/T_U = (G² + x)/(1 + x),  x = (SNR_shot,U / SNR_spk)².
  * → G² when even the bright source is photon-starved (x ≪ 1); → 1 when both are speckle-limited.
  */
@@ -418,7 +418,7 @@ const SUP: Record<string, string> = { '-': '⁻', '0': '⁰', '1': '¹', '2': '�
 
 /** 1.14×10⁻³ style. */
 export function sci(v: number, digits = 2): string {
-  if (!Number.isFinite(v)) return '—';
+  if (!Number.isFinite(v)) return "Unknown";
   if (v === 0) return '0';
   const e = Math.floor(Math.log10(Math.abs(v)));
   const m = v / Math.pow(10, e);
@@ -433,7 +433,7 @@ export function sci(v: number, digits = 2): string {
 
 /** Seconds → "52 µs", "3.6 ms", "0.42 s", "2.1 min". */
 export function fmtTime(s: number): string {
-  if (!Number.isFinite(s)) return '—';
+  if (!Number.isFinite(s)) return "Unknown";
   const a = Math.abs(s);
   const p = (v: number) => (v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1).replace(/\.0$/, '') : v.toFixed(2).replace(/0$/, ''));
   if (a < 1e-3) return `${p(s * 1e6)} µs`;

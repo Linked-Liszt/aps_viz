@@ -79,7 +79,7 @@ export function fft2d(re: Float32Array | Float64Array, im: Float32Array | Float6
   for (let c = 0; c < n; c++) fft1d(re, im, n, c, n, inverse);
 }
 
-/** Swap quadrants so zero frequency sits in the centre (in place, n even). */
+/** Swap quadrants in place to put zero frequency at the centre. Requires even n. */
 export function fftshift2d<T extends Float32Array | Float64Array>(a: T, n: number): T {
   const h = n / 2;
   for (let y = 0; y < h; y++) {

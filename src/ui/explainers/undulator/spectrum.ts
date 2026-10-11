@@ -1,11 +1,11 @@
 /**
- * Panel 3 — on-axis spectrum, log–log, in the units of the X-ray Data Booklet: photons/s/mrad²/0.1 % BW.
+ * Panel 3. On-axis spectrum, log–log, in the units of the X-ray Data Booklet: photons/s/mrad²/0.1 % BW.
  *   • spikes: odd harmonics E_n of the current setting; height = 1.744×10¹⁴N²E²I·F_n(K) × energy-spread ×
  *     beam-divergence × phase-error factors (physics.ts `peakFlux`). Their true width (ΔE/E ≈ 1/(nN) ≈ 1 %/n) is narrower than a pixel at this scale, and
  *     on a log axis a sinc² line falls to zero at ±1/(nN), so each line is drawn as a vertical stroke.
  *   • bands: where the 1st/3rd/5th harmonic peaks can go as the gap (or SCU current) is varied ("tuning curves").
  *   • dashed: the ring's bending magnet (APS-U B:M3 0.653 T / APS 0.599 T); dotted: an ILLUSTRATIVE wiggler
- *     (λ = 15 cm, 1.6 T, 16 periods — not an APS device).
+ *     (λ = 15 cm, 1.6 T, 16 periods. Not an APS device).
  *   • hover shows an energy; click/tap asks the station to tune there (main module decides harmonic + gap).
  */
 import { TOKENS, plotFrame, type Canvas2D, type PlotFrame } from '../kit';
@@ -138,7 +138,7 @@ export class SpectrumView {
     const f = plotFrame(
       ctx,
       { x: 0, y: 24, w, h: plotH },
-      { min: EMIN, max: EMAX, log: true, ticks: [1, 2, 5, 10, 20, 50, 100, 200], format: (v) => String(v), label: 'X-ray photon energy (keV)  →  shorter waves' },
+      { min: EMIN, max: EMAX, log: true, ticks: [1, 2, 5, 10, 20, 50, 100, 200], format: (v) => String(v), label: "X-ray photon energy (keV) → shorter wavelength" },
       { min: FMIN, max: FMAX, log: true, ticks: yt, format: (v) => `10${P.sup(Math.round(Math.log10(v)))}`, label: plotH >= 260 ? 'on-axis flux, ph/s/mrad²/0.1% BW' : 'ph/s/mrad²/0.1% BW' },
     );
     this.frame = f;
@@ -263,8 +263,8 @@ export class SpectrumView {
       ctx.fillRect(x0 - 2, y - 10, tw + 4, 13);
       label(ctx, text, x0, y, color, 10.5, 'left', 600);
     };
-    refLabel(this.bmF, `bending magnet, ${inp.ring.bmB.toFixed(2)} T`, TOKENS.old);
-    refLabel(this.wgF, 'wiggler (example, K ≈ 22)', TOKENS.ink2);
+    refLabel(this.bmF, `bending magnet · ${inp.ring.bmB.toFixed(2)} T`, TOKENS.old);
+    refLabel(this.wgF, "example wiggler · K ≈ 22", TOKENS.ink2);
 
     // legend (top band of the plot, above every peak); peak labels stay below it
     const legendBottom = this.legend(ctx, f, narrow);
@@ -340,7 +340,7 @@ export class SpectrumView {
   /** draws the legend in the plot's top band; returns its bottom y */
   private legend(ctx: CanvasRenderingContext2D, f: PlotFrame, narrow: boolean): number {
     const items: { kind: 'line' | 'band' | 'dash' | 'dot'; text: string; color: string }[] = [
-      { kind: 'line', text: 'this undulator now', color: this.accent },
+      { kind: 'line', text: "current undulator spectrum", color: this.accent },
       { kind: 'band', text: 'tuning range of harmonics 1, 3, 5', color: this.accent },
       { kind: 'dash', text: 'bending magnet', color: TOKENS.old },
       { kind: 'dot', text: 'wiggler', color: TOKENS.ink2 },

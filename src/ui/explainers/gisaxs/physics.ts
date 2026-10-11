@@ -1,6 +1,6 @@
 /**
- * Grazing-incidence X-ray optics for the "Skimming the surface" station (CSSI, APS 9-ID).
- * Pure functions only (no DOM), unit-tested in tests/gisaxs.test.ts.
+ * Grazing-incidence X-ray optics for the "Grazing-incidence surface scattering" station (CSSI, APS 9-ID).
+ * Pure functions only without DOM access, unit-tested in tests/gisaxs.test.ts.
  *
  * Equations (small-angle forms where noted):
  *   λ[nm] = hc/E = 1.2398420 / E[keV]                        k = 2π/λ
@@ -168,7 +168,7 @@ export function penetrationDepthDosch(alpha: number, o: Optics): number {
   return o.lambda / (2 * Math.SQRT2 * Math.PI) / Math.sqrt(Math.sqrt(a2 * a2 + 4 * o.beta * o.beta) - a2);
 }
 
-/** Refraction angle inside the medium (rad): Re √(α² − α_c²) — zero (evanescent) below α_c. */
+/** Refraction angle inside the medium (rad): Re √(α² − α_c²). Zero (evanescent) below α_c. */
 export function refractedAngle(alpha: number, o: Optics): number {
   const s = Math.sin(alpha);
   csqrt(s * s - 2 * o.delta, 2 * o.beta, _w);

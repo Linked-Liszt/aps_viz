@@ -1,8 +1,8 @@
 /**
- * View 2 — "The magnet's fingerprint": schematic Pt L₃ and L₂ absorption for left- and right-circular X-rays
+ * View 2. Absorption spectra: schematic Pt L₃ and L₂ absorption for left- and right-circular X-rays
  * (top) and their difference, the XMCD (bottom), on a broken energy axis (the two edges are 1.7 keV apart).
- * The lines are μ_L / μ_R at P_c = 0.98; the dots are what the beam selected in view 1 measures
- * (μ_L for LCP, μ_R for RCP, their average for linear light, in between for elliptical).
+ * The lines are μ_L / μ_R at P_c = 0.98. Dots represent absorption for the polarization selected in view 1:
+ * μ_L for LCP, μ_R for RCP, their average for linear light and an intermediate value for elliptical light.
  * The y-range of the XMCD plot is fixed (full saturation), so the signal visibly shrinks with M.
  */
 import { TOKENS, type Canvas2D } from '../kit';
@@ -73,10 +73,10 @@ export class SpectraPlot {
       lx += 21;
       lx += rich(ctx, label, lx, ly, { size: 11, color: TOKENS.ink2 }) + (narrow ? 10 : 14);
     };
-    leg(COL.left, '↺ left twist μ_L', 'line');
-    leg(COL.right, '↻ right twist μ_R', 'line');
+    leg(COL.left, "↺ left circular μ_L", 'line');
+    leg(COL.right, "↻ right circular μ_R", 'line');
     leg(this.accent, 'difference Δμ = μ_L − μ_R', 'fill');
-    leg(v.beamColor, 'your beam', 'glow');
+    leg(v.beamColor, "selected polarization", 'glow');
 
     // ---------------- frames
     const padL = 44;
@@ -121,7 +121,7 @@ export class SpectraPlot {
     };
     // longer wording where the plot is tall enough
     const fit = (a: string, b: string, len: number) => (textW(ctx, a, { size: 11 }) <= len - 8 ? a : b);
-    yl(fit('absorption μ (normalized)', 'absorption μ', yTop1 - yTop0), (yTop0 + yTop1) / 2);
+    yl(fit("absorption μ · normalized", 'absorption μ', yTop1 - yTop0), (yTop0 + yTop1) / 2);
     yl(fit('Δμ (% of L₃ edge step)', 'Δμ (% of step)', yBot1 - yBot0), (yBot0 + yBot1) / 2);
 
     for (const win of wins) {
@@ -147,7 +147,7 @@ export class SpectraPlot {
       ctx.strokeStyle = COL.left;
       path(ctx, xs, win.e.muL, xm, yMu);
       ctx.stroke();
-      // what the selected beam measures: data points every DOT_STEP samples
+      // Absorption for the selected polarization, sampled every DOT_STEP steps.
       ctx.fillStyle = v.beamColor;
       ctx.strokeStyle = TOKENS.bg;
       ctx.lineWidth = 1.2;
@@ -213,7 +213,7 @@ export class SpectraPlot {
       ctx.lineTo(bx + 6, yy - 4);
       ctx.stroke();
     }
-    rich(ctx, narrow ? 'energy above each edge (eV)' : 'X-ray energy above each edge, E − E_{edge} (eV) · schematic shapes', padL + (w - padL - padR) / 2, h - 5, {
+    rich(ctx, narrow ? 'energy above each edge (eV)' : "X-ray energy above edge, E − E_{edge} (eV) · schematic shapes", padL + (w - padL - padR) / 2, h - 5, {
       size: 11,
       color: TOKENS.ink2,
       align: 'center',
@@ -238,9 +238,9 @@ export class SpectraPlot {
     const a2 = -(v.rb.q - v.rb.p) * P.POLAR.pc;
     if (big) {
       const roomy = ww >= 230;
-      const t3 = pk3.v > 0 ? 'left absorbs more' : 'right absorbs more';
+      const t3 = pk3.v > 0 ? "greater left-circular absorption" : "greater right-circular absorption";
       this.tag(xm3(pk3.x), tagY(pk3.v * 0.6), yD(0), roomy ? `${t3}, area ${signed(a3, 2)} eV` : t3, L3.x0, L3.x0 + ww);
-      this.tag(xm2(pk2.x), tagY(pk2.v * 0.6), yD(0), roomy ? `flipped at L₂, area ${signed(a2, 2)} eV` : 'flipped at L₂', L2.x0, L2.x0 + ww);
+      this.tag(xm2(pk2.x), tagY(pk2.v * 0.6), yD(0), roomy ? `opposite sign at L₂, area ${signed(a2, 2)} eV` : "opposite sign at L₂", L2.x0, L2.x0 + ww);
     }
     // sum-rule read-back in the empty upper right of the L₂ window
     {
@@ -250,7 +250,7 @@ export class SpectraPlot {
         ['sum rules on these curves', TOKENS.ink3, 600],
         [`orbital m_{orb} ${signed(v.rb.mOrb, 3)} μ_B`, TOKENS.ink, 600],
         [`spin m_{spin,eff} ${signed(v.rb.mSpinEff, 3)} μ_B`, TOKENS.ink, 600],
-        [Math.abs(v.rb.mSpinEff) > 0.01 ? `ratio ${(v.rb.mOrb / v.rb.mSpinEff).toFixed(3)}` : 'ratio —', TOKENS.ink3, 500],
+        [Math.abs(v.rb.mSpinEff) > 0.01 ? `ratio ${(v.rb.mOrb / v.rb.mSpinEff).toFixed(3)}` : "ratio undefined", TOKENS.ink3, 500],
       ] as [string, string, number][];
       for (const [s, c, wgt] of lines) {
         rich(ctx, s, bxl, by, { size: 10.5, color: c, align: 'right', weight: wgt });

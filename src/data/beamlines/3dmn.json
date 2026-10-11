@@ -1,11 +1,11 @@
 {
   "id": "3dmn",
-  "sector": "34-ID (station 34-ID-E)",
+  "sector": "34-ID, station 34-ID-E",
   "acronym": "3DMN",
-  "fullName": "3D Micro & Nano Diffraction — polychromatic (Laue) and monochromatic micro/nano-diffraction with depth resolution",
+  "fullName": "3D Micro & Nano Diffraction, depth-resolved polychromatic and monochromatic diffraction",
   "status2026": {
     "state": "commissioning",
-    "detail": "APS weekly 'Beamline Commissioning Progress' chart dated 2026-10-05 lists '34-ID-E: 3DMN XSD' at stage 5 of 6 ('Scientific Commissioning and Early Experiments'), not yet stage 6 ('Restart of General User Program'). The APS Proposal Types page (updated 2026-10-07) already lists 34-ID-E among beamlines taking General User and Rapid Access proposals. History: Jan 2025 update said 3DMN/ATOMIC infrastructure would be 'in construction' after the other seven feature beamlines; Aug 2025 update put 3DMN in technical commissioning with first experiments expected early 2026; the Jan 26 2026 chart still showed stage 4 (technical commissioning). The APS-U project itself received final DOE approval (CD-4) in Jan 2026. A talk at the ModSim 2026 workshop (BNL, 12–14 Aug 2026) by the APS coded-aperture team reported that the beamline had been down since mid-2023, that early 2D experiments had run about two weeks before the talk (i.e. around late July 2026), that HPC-scale (3D, coded-aperture) experiments would start in winter, and that 34-ID-E is planning a new detector with ≈10× faster collection.",
+    "detail": "The APS commissioning chart dated 5 October 2026 places '34-ID-E: 3DMN XSD' at stage 5, 'Scientific Commissioning and Early Experiments'. General-user restart is stage 6. The proposal-types page updated 7 October nevertheless accepts General User and Rapid Access proposals for 34-ID-E. In January 2025, construction was scheduled after the other seven feature beamlines. The August update listed technical commissioning with early-2026 experiments expected. The 26 January 2026 chart still listed technical commissioning, stage 4. The upgrade project received final Department of Energy approval, CD-4, in January 2026. At the 12 to 14 August 2026 ModSim workshop at Brookhaven, the coded-aperture team reported early two-dimensional experiments around late July following a shutdown from mid-2023. Computing-intensive three-dimensional coded-aperture experiments were planned for winter. A new detector with about ten times faster collection was also planned.",
     "sources": [
       "r7",
       "r8",
@@ -16,58 +16,58 @@
       "r41"
     ]
   },
-  "tagline": "A 'rainbow' X-ray beam as fine as a virus maps, in 3D, how the tiny crystals inside a material are tilted and stretched.",
-  "summary": "Metals, rocks and microchips are made of tiny crystals, or grains; how each grain is tilted, squeezed and stretched decides whether a turbine blade cracks or a transistor works. At 34-ID-E, 3D Micro & Nano Diffraction (3DMN) maps that in 3D. Mirrors focus a 'rainbow' beam, X-rays of many energies at once (roughly 5–30 keV), into a spot designed to be about 100 nm wide; a second station aims for 40 nm. Each grain the beam crosses reflects the energies that fit its atomic layers, throwing a Laue pattern of spots onto a camera half a metre above; the pattern reveals the grain's orientation and distortion. A platinum wire or tiny gold barcode sweeps just above the surface; the spots it hides show how deep each signal came from. As of October 2026, 3DMN is in scientific commissioning: early experiments began in summer, and it already takes general-user proposals.",
+  "tagline": "Researchers map crystal orientation and strain within materials in three dimensions using a focused multi-energy X-ray beam.",
+  "summary": "Metals, rocks and microchips contain crystals called grains. Grain orientation and strain affect properties such as fracture resistance and electrical performance. At 34-ID-E, researchers use 3D Micro & Nano Diffraction, 3DMN, to map these quantities in three dimensions. X-rays over roughly 5 to 30 keV are focused by mirrors into a design spot about 100 nm wide. The design spot at the second station is 40 nm. Each grain diffracts wavelengths determined by its atomic spacing and orientation. A detector about half a metre above the sample records the resulting Laue pattern. A platinum wire or patterned gold mask is scanned near the surface. From changes in the transmitted diffraction, researchers distinguish signals from different depths. As of October 2026, 3DMN is in scientific commissioning, with summer early experiments and general-user proposals accepted.",
   "whatAPSUEnables": {
-    "text": "A focusing mirror forms a shrunken image of the X-ray source, so a smaller source allows a smaller spot. In the design's brightness mode, the upgraded ring's electron source is about 19 times narrower horizontally (14.7 µm root-mean-square width instead of 280 µm) and 3 times narrower vertically, and more precisely shaped mirrors can use the whole beam: the old ones reached about 500 nm only when stopped down to a 60 µm opening. The design spots shrink from 300–500 nm to about 100 nm and 40 nm, fine enough to resolve strain inside the walls of tangled defects that harden metals. A more coherent beam also makes lens-free 3D imaging of single grains practical. The design team multiplied a brighter source (×100), better mirrors (×9), coded-aperture depth scans (×5) and low-noise detectors (×10): about 900 times faster for most experiments and up to 45,000 times for some. These are design estimates; the detector purchases were cut from the project, and no as-built spot size is published.",
+    "text": "The focal spot includes a demagnified image of the X-ray source. In the design brightness mode, horizontal source width falls about nineteenfold, from 280 to 14.7 µm root-mean-square, and vertical width falls about threefold. The old mirrors required a 60 µm opening for a roughly 500 nm focus. More accurate new surfaces accept the full beam for design spots near 100 nm and 40 nm. These sizes are intended to resolve strain within dislocation walls in deformed metals. Increased coherence also permits three-dimensional imaging of individual grains. Design gains include a hundredfold brightness increase, ninefold mirror improvement, fivefold reduction in depth-scan frames with coded apertures, and tenfold detector improvement. Combined estimates are about 900 times faster for most measurements and up to 45,000 for some. Detector purchases were removed from the project scope. As-built spot sizes remain unpublished.",
     "quantitative": [
-      "Horizontal electron source size: 280 µm rms before the upgrade → 14.7 µm rms (APS-U brightness mode, 324 bunches); vertical 10 → 3.2 µm rms.",
-      "Source brightness rises by a factor of ≈100, and the FDR says focused spot size and intensity improve 'linearly with the brightness'. Caveat: this is loose wording. For fixed optics, focused flux density scales with source brightness, while spot size scales with source size × demagnification, not linearly with brightness. FDR Chapter 1 quotes a larger brightness gain (≈540× at 20 keV for an undulator optimized for 20 keV, Table 1.1); '≈100' is the 3DMN section's round number.",
-      "Focus: 300 × 300 nm (pre-upgrade web specification) or 300–500 nm (H) × 300–700 nm (V) (wiki) → design 103 × 68 nm² (micro) and 37 × 37 nm² (nano) at 14 keV. These are FWHM-like sizes; the RMS sizes are ≈50 × 35 and ≈19 × 19 nm.",
-      "Pink-beam flux on the sample: ≈10¹¹ ph/s before the upgrade → ≈10¹⁴ ph/s design; monochromatic ≈10⁹ → ≈10¹¹ (directory) to ≈10¹² (PDR) ph/s.",
-      "The old KB mirrors reached ≈500 nm only when apertured to ≈60 × 60 µm²; fully illuminated new mirrors give ≈9× more flux at the same or a smaller spot.",
-      "PDR overall gain estimate: ≈900× for most experiments, ≈4,500× for many and up to ≈45,000× for some.",
-      "Depth scans: a coded aperture needs ≈120 µm of scan (8 bits × 15 µm) vs a 600 µm wire scan in 1 µm steps, ≈5× fewer frames with lower noise; the PDR target is 400 instead of 2,000 images per depth scan.",
-      "Projected raw data: ≈2.8 PB a year, vs ≈400 TB a year at pre-upgrade 34-ID-E.",
-      "Estimated horizontal coherent fraction at 14 keV: ≈0.2% before the upgrade → ≈9% with APS-U, using Gaussian source sizes and divergences from FDR Table 1.1 plus single-electron undulator terms for a 2.1 m device (derived here; approximate)."
+      "In the 324-bunch brightness-mode design, horizontal electron-beam width changes from 280 to 14.7 µm and vertical width from 10 to 3.2 µm. These are root-mean-square widths.",
+      "The 3DMN design section uses a brightness gain of about 100. Its phrase about spot size and intensity improving linearly with brightness needs qualification. For fixed optics, flux density scales with brightness; spot size depends on source size and demagnification. Final-design Table 1.1 gives about 540 times greater brightness at 20 keV for an undulator optimized at that energy.",
+      "Pre-upgrade specifications give a 300 × 300 nm spot, or ranges of 300 to 500 nm horizontally and 300 to 700 nm vertically. At 14 keV, design spots are 103 × 68 nm at the micro station and 37 × 37 nm at the nano station. The tabulated widths are approximately full widths at half maximum; corresponding root-mean-square widths are about 50 × 35 and 19 × 19 nm.",
+      "Pink-beam sample flux changes from about 10¹¹ photons/s before the upgrade to a design 10¹⁴ photons/s. Monochromatic flux changes from about 10⁹ to 10¹¹ photons/s in the directory or 10¹² in the preliminary design.",
+      "The old mirrors required an opening about 60 × 60 µm for a 500 nm focus. Fully illuminated new mirrors give an estimated ninefold flux increase at the same or smaller spot size.",
+      "The preliminary design estimates about 900 times faster acquisition for most experiments, 4,500 for many and up to 45,000 for some.",
+      "A coded-aperture depth scan covers about 120 µm, eight 15 µm bits, compared with a 600 µm wire scan in 1 µm steps. This requires about five times fewer frames with lower noise. The preliminary-design target is 400 images rather than 2,000 per depth scan.",
+      "Projected annual raw data is about 2.8 PB, compared with about 400 TB at pre-upgrade 34-ID-E.",
+      "The derived horizontal coherent fraction at 14 keV increases from about 0.2% to 9%. This estimate uses Gaussian source sizes and divergences from final-design Table 1.1, plus single-electron photon contributions for a 2.1 m undulator."
     ]
   },
   "techniques": [
     {
-      "name": "Polychromatic (pink-beam) Laue micro/nano-diffraction",
+      "name": "Polychromatic Laue microdiffraction and nanodiffraction",
       "abbrev": "Laue",
-      "text": "Polychromatic Laue diffraction shines a beam of many X-ray energies at once, a 'pink' beam (the mirror has trimmed the highest energies from the undulator's spectrum), at a sample that stays still. Each set of atomic layers in a grain reflects the wavelength that fits its spacing and angle (Bragg's law), so every grain throws a pattern of spots whose directions fingerprint how it is oriented and how its shape is distorted. A spot reveals its direction but not its wavelength, so the pattern gives the deviatoric strain, the five components of distortion that change shape, but not the overall swelling or shrinking; typical precision is about 10⁻⁴, at best about 2 × 10⁻⁵. Scanning the sample gives 2D maps, and depth resolution adds the third dimension. Most of the useful signal on the top detector comes from 12–17 keV X-rays."
+      "text": "Laue diffraction uses many X-ray energies simultaneously with a stationary sample. The mirror-filtered spectrum is called pink beam. Each set of crystal planes diffracts the wavelength satisfying Bragg's law for its spacing and angle. Spot directions determine grain orientation and deviatoric strain, the five components that change crystal shape. Without spot wavelengths, the overall expansion or contraction remains unknown. Typical strain precision is about 10⁻⁴, reaching about 2 × 10⁻⁵ under favourable conditions. Sample scanning gives two-dimensional maps; aperture scanning adds depth. Most useful signal on the upper detector is from 12 to 17 keV."
     },
     {
-      "name": "Differential-aperture X-ray microscopy (wire scan)",
+      "name": "Differential-aperture X-ray microscopy with a wire",
       "abbrev": "DAXM",
-      "text": "Differential-aperture X-ray microscopy (DAXM) adds depth to Laue diffraction. The beam passes deep into the sample, so spots made at many depths land on the detector together. A platinum wire, about 50–100 µm thick, is stepped about 1 µm at a time within a millimetre of the surface; when its edge hides a spot in one frame but not the previous one, the straight line from that detector pixel past the wire's edge meets the incoming beam at the depth where the spot was made. Typical resolution is 0.5–1 µm along the beam. The method was introduced at the APS by an Oak Ridge team (Larson, Yang, Ice, Budai and Tischler, Nature 2002) and became the signature technique of 34-ID-E."
+      "text": "Differential-aperture X-ray microscopy, DAXM, separates diffraction from different depths. A platinum wire about 50 to 100 µm thick is scanned in roughly 1 µm steps within a millimetre of the surface. As its edge blocks a detector pixel, the corresponding ray path is determined. Its intersection with the incident beam locates the scattering depth. Typical depth resolution along the beam is 0.5 to 1 µm. Larson, Yang, Ice, Budai and Tischler introduced the method at the APS in Nature in 2002. It became a principal method at 34-ID-E."
     },
     {
-      "name": "Coded-aperture depth-resolved Laue (mask scan)",
+      "name": "Coded-aperture depth-resolved Laue diffraction",
       "abbrev": "CA-Laue",
-      "text": "Coded-aperture Laue replaces the wire with a gold 'barcode' that slides over the diffracted beams. Its 256-bit pattern of gold bars and gaps follows a de Bruijn sequence, in which every run of 8 bits appears only once, so the on-off pattern each spot traces as the mask moves identifies where along the mask it was seen, and from that the depth it came from. About 120 µm of scan (8 bits of 15 µm) is enough, against about 600 µm for a wire, so a depth scan needs about five times fewer frames and has less noise; software decodes it with a search followed by a least-squares fit. Demonstrated at 34-ID-E before the upgrade and published in 2022–2025, it is expected to become the default once the reconstruction software matures."
+      "text": "A patterned gold mask replaces the wire in coded-aperture Laue diffraction. Its 256-bit de Bruijn sequence contains each eight-bit subsequence once. The sequence of blocked and transmitted intensity during motion identifies the mask position and scattering depth. Eight bits of 15 µm require about 120 µm of scan, compared with about 600 µm for a wire. About five times fewer frames are needed, with lower noise. Reconstruction uses a search followed by a least-squares fit. The method was demonstrated at 34-ID-E before the upgrade and published during 2022 to 2025. It is expected to become standard as reconstruction software matures."
     },
     {
       "name": "Monochromatic energy-scan micro/nano-diffraction",
       "abbrev": "mono / E-scan",
-      "text": "With the monochromator in, the beam has a single energy, selected to about one part in 10,000 by two silicon crystals. Scanning that energy until an indexed Laue spot lights up measures its exact wavelength, and so the true spacing of those atomic layers: the one quantity a multi-energy pattern cannot give. That fixes the overall scale of the lattice and completes the strain measurement, all six components including the overall swelling or shrinking; combined with the wire, energy scans give depth-resolved lattice spacings. One cost: the monochromator reflects sideways, the plane in which horizontally polarized X-rays reflect least efficiently, so flux losses grow toward low energies, by estimates from about 5–10% at 12 keV to between a quarter and a half at 5.3 keV."
+      "text": "Two silicon crystals select a narrow energy band, about one part in 10,000. The energy is scanned until a selected indexed Laue reflection occurs. Its wavelength determines the absolute crystal-plane spacing, which is absent from a multi-energy pattern. The resulting overall expansion or contraction completes the six-component strain tensor. Combined with wire scanning, energy scans resolve lattice spacing by depth. Horizontal reflection is less efficient for horizontally polarized incident light. Estimated polarization losses grow from about 5 to 10% at 12 keV to roughly 25 to 50% at 5.3 keV."
     },
     {
       "name": "Bragg coherent diffraction imaging on Laue-indexed grains",
       "abbrev": "BCDI",
-      "text": "Bragg coherent diffraction imaging turns the speckled fringe around one diffraction spot into a 3D image of a single grain, showing its shape and the strain inside it. 3DMN pairs it with Laue diffraction: the multi-energy pattern first reveals exactly how a grain is oriented, so the energy that brings a chosen reflection onto a detector can be predicted. Then a single-energy beam is used, a movable detector about 2–3 m away records the speckle, and energy scans take the place of rotating the sample. The upgraded source's coherence, its waves in step across the beam, makes this practical; the design offers it at the micro station only."
+      "text": "Bragg coherent diffraction imaging reconstructs a grain's shape and internal strain from intensity fringes around a reflection. Laue indexing first determines its orientation, from which the energy for a selected reflection is calculated. A coherent single-energy beam and a detector about 2 to 3 m away are then used. Energy scans replace sample rotation. The increased coherent fraction supports this method. The design includes it only at the micro station."
     },
     {
       "name": "Scanning X-ray fluorescence",
       "abbrev": "µXRF",
-      "text": "Atoms struck by the beam emit X-rays at energies characteristic of each element (X-ray fluorescence), so a detector beside the sample maps which elements are where. At 3DMN this mainly helps locate features and landmarks before a diffraction map. The detector is an energy-dispersive silicon drift detector of the Vortex class; the preliminary design preferred a 1 mm thick sensor to catch higher-energy emission lines."
+      "text": "X-ray fluorescence has energies characteristic of the emitting elements. An energy-resolving silicon drift detector beside the sample records elemental maps. At 3DMN these measurements mainly locate features before diffraction mapping. The preliminary design preferred a 1 mm thick Vortex-class sensor for higher-energy fluorescence lines."
     }
   ],
   "scienceCases": [
     {
       "title": "Hidden stresses inside dislocation cells of deformed metals",
-      "text": "When copper is bent, its dislocations, line defects in the stacking of atoms, tangle into walls that divide each grain into cells. Depth-resolved Laue microscopy at the APS (Levine and colleagues, 2006) measured the elastic strain cell by cell and found it surprisingly large and widely spread; follow-up work found walls and cell interiors strained in opposite directions, as Mughrabi's composite model predicts. 3DMN aims for voxels, 3D pixels, of about 100 nm to resolve strain inside a single wall. A 2026 study fed pre-upgrade 34-ID-E wire scans of one grain of stainless steel, stretched by 2% and mapped with 0.5 µm depth resolution, to an unsupervised machine-learning model that picked out the cell structure and its strain.",
+      "text": "Deformation produces dislocations, line defects in atomic order. In copper, these defects form walls that divide grains into cells. Levine and colleagues measured large, widely distributed elastic strain cell by cell at the APS in 2006. Later measurements found opposite strain in walls and interiors, consistent with Mughrabi's composite model. The 3DMN design targets roughly 100 nm three-dimensional pixels to resolve strain within a wall. A 2026 study used pre-upgrade wire scans of a stainless-steel grain stretched by 2%, with 0.5 µm depth resolution. Unsupervised machine learning identified cell structures and their strain.",
       "refs": [
         "r16",
         "r5",
@@ -77,22 +77,22 @@
     },
     {
       "title": "The strain field of a single dislocation",
-      "text": "A dislocation is a single line defect in the stacking of atoms, but it bends the crystal around it. Hofmann and colleagues (2013) mapped the rotations and strains around one dislocation at 34-ID-E, in a thin freestanding membrane of gallium arsenide and indium gallium arsenide (GaAs/In₀.₂Ga₀.₈As/GaAs), and found them matching elasticity theory that allows for the crystal's direction-dependent stiffness. Doing the same for a dislocation buried in bulk material needs beams smaller than 100 nm, one of the stated reasons for building 3DMN.",
+      "text": "A dislocation distorts the surrounding crystal. Hofmann and colleagues mapped rotation and strain around one dislocation at 34-ID-E in 2013. The sample was a freestanding GaAs/In₀.₂Ga₀.₈As/GaAs membrane. Measurements agreed with elasticity calculations that include direction-dependent stiffness. Extending this measurement to a dislocation buried in bulk material requires a beam below 100 nm, a stated 3DMN design objective.",
       "refs": [
         "r17",
         "r5"
       ]
     },
     {
-      "title": "Additively manufactured (3D-printed) alloys",
-      "text": "Metal 3D printing freezes molten alloy into tree-like dendrites, with the chemistry changing every few hundred nanometres. In nickel superalloys of the IN625 and IN718 type, the main dendrite arms are about 1 µm apart and the side arms about 300 nm, with matching segregation of alloying elements, so strain measurements at 34-ID-E before the upgrade averaged over the structure. A probe below 200 nm, combined with energy scans, is designed to measure the complete strain, all six components, at that scale.",
+      "title": "3D-printed alloys",
+      "text": "Solidification during metal 3D printing produces branched dendrites and composition changes over hundreds of nanometres. In nickel superalloys such as IN625 and IN718, primary arms are about 1 µm apart and secondary arms about 300 nm apart. Alloying elements segregate on these scales. The pre-upgrade beam averaged over this structure. A probe below 200 nm with energy scans is intended to determine all six strain components within it.",
       "refs": [
         "r5"
       ]
     },
     {
       "title": "Materials at terapascal pressure",
-      "text": "Squeezing materials such as hydrogen between diamond tips to millions of atmospheres leaves samples only a few micrometres wide, and nano-fabricated anvil tips shrink them toward 100 nm. The science case cites the crystal structures of hydrogen phases III–V (samples 1–3 µm across) and diffraction at terapascal pressures, about 10 million atmospheres, as needing beams of about 50 nm with about 100 times more brightness. The micro station's long working distance was chosen to leave room for such cells.",
+      "text": "Compression between diamond tips to millions of atmospheres leaves samples only a few micrometres wide. Nanofabricated tips reduce sample dimensions toward 100 nm. The science case includes hydrogen phases III to V with 1 to 3 µm samples, and terapascal diffraction at about ten million atmospheres. These measurements require a beam near 50 nm and roughly a hundredfold brightness increase. The micro station's working distance provides space for pressure cells.",
       "refs": [
         "r5",
         "r4"
@@ -100,15 +100,15 @@
     },
     {
       "title": "Strain engineering in transistors and oxide devices",
-      "text": "Chip makers deliberately stretch silicon so that electrons move through it faster. 3DMN aims to map that strain inside finished devices, including strain gradients at edges and interfaces in silicon-on-insulator and CMOS (complementary metal-oxide-semiconductor) structures with features below 32 nm. It also aims to watch nanoscale domains (stripes, toroids and bubbles) switch under applied fields and changing temperature in ferroelectrics, whose built-in electric polarization can be flipped, and multiferroics, which combine that with magnetism. The preliminary design report quotes IBM on industry's need for smaller probes.",
+      "text": "Strain changes electron mobility in silicon. Measurements in finished devices are proposed for strain gradients at edges and interfaces in silicon-on-insulator and complementary metal-oxide-semiconductor structures with features below 32 nm. Other proposals concern domain switching under electric fields and temperature changes. Ferroelectrics have reversible electric polarization. Multiferroics combine electric polarization with magnetism. Relevant domain structures include stripes, toroids and bubbles. The preliminary design cites IBM on the industrial need for smaller probes.",
       "refs": [
         "r5",
         "r4"
       ]
     },
     {
-      "title": "Find a grain, then image it coherently",
-      "text": "In a material made of many grains, you first need to know which grain to look at and how it is turned. The Laue pattern provides that map; then a single-energy coherent beam can image a chosen grain, or a small particle of another phase (a precipitate) inside it, in 3D. The design case: work out the grain orientations in the superalloy Inconel 617 with the multi-energy beam, predict the energy and direction of a reflection from a carbide precipitate at a triple junction, where three grains meet, and record it coherently on a detector 2–3 m away. Similar Laue-then-coherent-imaging work was shown in 2020 at 34-ID-C, and on tungsten samples cut out with a focused ion beam to contain chosen dislocations.",
+      "title": "Coherent imaging after Laue indexing",
+      "text": "Laue indexing determines grain positions and orientations in a polycrystal. A selected grain or precipitate is then measured with coherent single-energy diffraction for three-dimensional reconstruction. In the Inconel 617 design example, indexing determines the energy and direction of a reflection from a carbide precipitate at a junction of three grains. A detector 2 to 3 m away records coherent scattering. Related work was demonstrated at 34-ID-C in 2020 and on tungsten specimens cut by focused ion beam to contain selected dislocations.",
       "refs": [
         "r5",
         "r20",
@@ -117,7 +117,7 @@
     },
     {
       "title": "Coded apertures for fast 3D Laue",
-      "text": "Borrowing an idea from X-ray astronomy, an APS team replaced the depth-finding wire with a gold barcode so that 3D scans need far fewer frames. In a test before the upgrade on a 75 µm nickel foil, with a 7–30 keV multi-energy beam focused to about 300 nm and the detector 510.9 mm above, the coded aperture recovered the full depth range of about 100 µm with less noise than a 100 µm platinum wire, using five times fewer scan points. Follow-up work added digital autofocusing, which calibrates the mask's exact position, and design rules: bits at least as large as the signal, an aspect ratio near 1, and scans of at least 8 bits.",
+      "text": "An APS team demonstrated coded-aperture depth reconstruction before the upgrade on a 75 µm nickel foil. A 7 to 30 keV beam was focused to about 300 nm, with the detector 510.9 mm above. The gold mask recovered the approximately 100 µm depth range with lower noise and five times fewer scan points than a 100 µm platinum wire. Later work added computational calibration of mask position. Design rules include bits at least as wide as the signal, aspect ratio near one, and scans of at least eight bits.",
       "refs": [
         "r12",
         "r13",
@@ -128,81 +128,81 @@
   "keyParameters": [
     {
       "label": "Energy range",
-      "value": "5.3–30 keV",
+      "value": "5.3 to 30 keV",
       "source": "r1",
-      "note": "FDR beam-delivery spec (shared with ATOMIC). Current APS Beamline Directory lists 5.5–30 keV; pre-upgrade 34-ID-E was 7–30 keV. Upper limit set by mirror critical angle; lower by mono geometry."
+      "note": "The final design gives the shared ATOMIC beam-delivery range. The directory lists 5.5 to 30 keV; the former 34-ID-E range was 7 to 30 keV. Mirror critical angle limits the upper energy and monochromator geometry the lower energy."
     },
     {
       "label": "Source",
-      "value": "Planar hybrid PM undulator, 28 mm period, 2.1 m, upstream slot of canted straight (outboard branch)",
+      "value": "Planar hybrid PM undulator, 28 mm period, 2.1 m, upstream slot of canted straight, outboard branch",
       "source": "r1",
-      "note": "FDR Table 4.62. Max power 777 W through 2 × 2 mm² FE mask at 30 m with K = 2.459. As-built era: IPAC'24 (Dejus et al.) lists the new 2.8 cm canted HPMUs with required K = 2.48 at 8.5 mm minimum gap, E1 = 3.0 keV, canted length ≈2.1 m."
+      "note": "Final-design Table 4.62 gives 777 W through the 2 × 2 mm exit mask at 30 m for K = 2.459. IPAC'24 lists required K = 2.48 at the 8.5 mm minimum gap, first harmonic 3.0 keV and roughly 2.1 m canted magnetic length."
     },
     {
       "label": "Canting",
-      "value": "1 mrad between 3DMN (outboard/upstream) and ATOMIC (inboard/downstream)",
+      "value": "1 mrad between upstream outboard 3DMN and downstream inboard ATOMIC",
       "source": "r2",
-      "note": "0.5 mrad canting magnets at both ends + 1 mrad magnet between the two undulators."
+      "note": "End canting magnets deflect 0.5 mrad each, with a 1 mrad magnet between undulators."
     },
     {
       "label": "Front end",
-      "value": "Canted-undulator front end (CUFE), windowless (differential pump), 2 × (2 mm H × 2 mm V) exit apertures 1 mrad apart at 25.4 m; 2 × 10 kW",
+      "value": "Canted-undulator front end, CUFE, windowless, differential pump, 2 ×, 2 mm H × 2 mm V exit apertures 1 mrad apart at 25.4 m; 2 × 10 kW",
       "source": "r1",
-      "note": "Exit collimator 2 × (5 × 5 mm²) at 26.1 m."
+      "note": "The exit collimator at 26.1 m has two 5 × 5 mm openings."
     },
     {
-      "label": "First mirror (34ID-MR-1)",
+      "label": "First mirror, 34ID-MR-1",
       "value": "Flat, horizontally deflecting, 3.0 mrad, Si/Rh/Pt stripes, notched substrate, at 29.6 m",
       "source": "r1",
-      "note": "Absorbs up to ≈189 W (Si stripe, 1 × 1 mm² acceptance, 9.1 keV 3rd harmonic), 0.48 W/mm² (FDR Table 4.66). PDR (2017) had proposed LN₂-cooled Si mirrors. Deflection sense: FDR text does not state it, but the FDR Fig. 4.59 schematic (angles exaggerated) shows the 3DMN mirror steering its beam further outboard and the ATOMIC mirror steering inboard, as the PDR proposed."
+      "note": "The silicon stripe absorbs up to about 189 W, or 0.48 W/mm², with 1 × 1 mm acceptance and the 9.1 keV third harmonic in Table 4.66. The 2017 plan proposed liquid-nitrogen-cooled mirrors. Final-design text omits deflection sense; the Fig. 4.59 schematic and preliminary-design text place 3DMN reflection outboard and ATOMIC inboard."
     },
     {
-      "label": "Monochromator (34ID-MN-2)",
-      "value": "Horizontally deflecting Si(111) double-crystal, ≈1.1 mm offset, pink-beam bypass, heated 2nd crystal (ΔT ≈ 60 K), at 53.8 m",
+      "label": "Monochromator, 34ID-MN-2",
+      "value": "Horizontally deflecting Si(111) double-crystal, ≈1.1 mm offset, pink-beam bypass, heated 2nd crystal, ΔT ≈ 60 K, at 53.8 m",
       "source": "r1",
-      "note": "Si(111) inferred from FDR Table 4.67 (12.5° at 9.1 keV) and stated in PDR. Acceptance needed < 300 × 300 µm². Pre-upgrade precursor: a new 1 mm-offset, horizontally reflecting Si(111) 'synthetic channel-cut' (6–20 keV, air-bearing granite stage, chamber slid sideways to switch pink/mono, heated 2nd crystal) was installed at 34-ID-C before the upgrade (Pateras et al. 2020)."
+      "note": "Si(111) is specified in the preliminary design and inferred from the 12.5° angle at 9.1 keV in final-design Table 4.67. Required acceptance is below 300 × 300 µm. A predecessor synthetic-channel-cut Si(111) device was installed at 34-ID-C before the upgrade, described by Pateras and colleagues in 2020. It covered 6 to 20 keV, with a 1 mm offset, air-bearing granite support, sideways pink-beam retraction and heated second crystal."
     },
     {
-      "label": "Energy resolution (mono)",
+      "label": "Energy resolution, mono",
       "value": "dE/E ≈ 10⁻⁴",
       "source": "r4",
       "note": "Si(111) double bounce; same as pre-upgrade spec."
     },
     {
-      "label": "Micro-focus spot (design, 14 keV)",
+      "label": "Micro-focus spot, design, 14 keV",
       "value": "103 × 68 nm² (H × V) brightness mode; 91 × 100 nm² timing mode",
       "source": "r1",
-      "note": "ShadowOui ray trace, FDR Table 4.64; KB at ≈60 m. Current Beamline Directory quotes 0.15 × 0.15 µm. No published as-built measurement found. Size definition is not stated in Table 4.64; the same ray traces give RMS ≈50 (H) × 35 (V) nm at zero figure error (FDR Fig. 4.61), so the tabulated values are ≈2× RMS, i.e. FWHM-like. APS-U Key Performance Parameters for feature beamlines were brightness at a defined energy plus usable energy range (only ISN had a focal-spot KPP), so 'all feature beamlines met their KPPs' (MEDSI 2025) does not certify a 3DMN spot size."
+      "note": "These are final-design Table 4.64 ray traces near 60 m. The directory lists 0.15 × 0.15 µm; measured as-built width is unpublished. The table omits width definition. Fig. 4.61 gives root-mean-square widths near 50 × 35 nm at zero figure error, so the table values are approximately twice these, similar to full width at half maximum. The upgrade performance criteria were brightness and usable energy range, with focal width specified only for ISN. Reported compliance therefore does not verify the 3DMN focus."
     },
     {
-      "label": "Nano-focus spot (design, 14 keV)",
+      "label": "Nano-focus spot, design, 14 keV",
       "value": "37 × 37 nm² brightness mode; 38 × 37 nm² timing mode",
       "source": "r1",
-      "note": "KB at ≈65.5 m. Whether the nano station is installed/commissioned as of Oct 2026 is not documented publicly. RMS ≈19 × 19 nm in the same ray traces (FDR Fig. 4.61)."
+      "note": "The nano pair is near 65.5 m. Installation and commissioning are undocumented as of October 2026. Fig. 4.61 gives root-mean-square widths near 19 × 19 nm."
     },
     {
-      "label": "Flux on sample (design)",
+      "label": "Flux on sample, design",
       "value": "Micro 4.9 × 10¹², nano 4.9 × 10¹¹ ph/s/0.1%BW at 14 keV; pink ≈10¹⁴ ph/s; mono ≈10¹¹–10¹² ph/s",
       "source": "r1",
-      "note": "Pink/mono totals from PDR and Beamline Directory (10¹⁴ pink; 10¹¹ mono at 15 keV)."
+      "note": "Pink and monochromatic totals are from the preliminary design and directory. The directory gives 10¹⁴ pink photons/s and 10¹¹ monochromatic photons/s at 15 keV."
     },
     {
       "label": "KB mirrors",
-      "value": "Two fixed-figure (prefigured elliptical cylinder) Pt-coated KB pairs at 3.0 mrad; micro at ≈60 m, nano at ≈65.5 m",
+      "value": "Two fixed-figure, prefigured elliptical cylinder Pt-coated KB pairs at 3.0 mrad; micro at ≈60 m, nano at ≈65.5 m",
       "source": "r1",
-      "note": "Figure-error tolerance (<10% spot growth): micro H 0.75 nm, V 0.5 nm rms; nano H 0.5 nm, V 0.4 nm rms."
+      "note": "To limit spot growth below 10%, root-mean-square figure errors must be below 0.75 nm horizontally and 0.5 nm vertically at the micro station, or 0.5 and 0.4 nm at the nano station."
     },
     {
       "label": "Working distance",
-      "value": "≥ 50 mm (micro, design goal); ≈30 mm (nano)",
+      "value": "≥ 50 mm, micro, design goal; ≈30 mm, nano",
       "source": "r4",
-      "note": "PDR 2017 values; PDR also gives focal lengths f_h = 70 mm, f_v = 142 mm (62 m station) and 55/120 mm (66 m station) – may differ as built."
+      "note": "Working distances are 2017 design values. That design gives horizontal and vertical focal lengths 70 and 142 mm for a station at 62 m, and 55 and 120 mm for one at 66 m. As-built geometry may differ."
     },
     {
-      "label": "Detector geometry (reference: pre-upgrade 34-ID-E)",
-      "value": "PerkinElmer XRD1621 (2048 × 2048, 200 µm pixels, 409.6 mm square) ≈511–513 mm above sample in 90° reflection geometry; two 1024 × 1024 (204.8 mm) PE side panels ≈0.40 m perpendicular distance (≈0.43 m to panel centre), outboard and inboard",
+      "label": "Detector geometry, reference: pre-upgrade 34-ID-E",
+      "value": "PerkinElmer XRD1621, 2048 × 2048, 200 µm pixels, 409.6 mm square ≈511 to 513 mm above sample in 90° reflection geometry; two 1024 × 1024, 204.8 mm PE side panels ≈0.40 m perpendicular distance, ≈0.43 m to panel centre, outboard and inboard",
       "source": "r12",
-      "note": "From Gursoy et al. 2022 (510.9 mm), Das et al. 2018 ('XRD 1621', ≈511 mm) and lauelab geometry files geoN_2022-03-29 / 2023-04-06 (top 'PE1621 723-3335', P_z ≈513 mm; sides 'PE0822 883-4841/4843', P_z ≈400 mm, |P| ≈428 mm). Model naming is inconsistent across APS sources: the 2024 computing strategy lists 'PE XRD 1620 AN' + '2 × PE XRD 0820 AN', the 34-ID-E Instruments page lists XRD 0820 AN, while the 2022–23 geometry files identify the side panels as PE0822 units. 3DMN design calls for Pilatus-6M-class top detector + two 1–2M side detectors (computing strategy: Pilatus 6M + 2 × 2 MP, 6 → 10 Mpixel per point), but detector purchases were descoped from APS-U; as-built detectors unknown. A ModSim 2026 talk (Aug 2026) says 34-ID-E is planning a new detector with ≈10× collection speed (model not stated; the same slides mention wire reconstructions 'with Eiger')."
+      "note": "The pre-upgrade top distance is 510.9 mm in Gursoy and colleagues, 2022, and about 511 mm in Das and colleagues, 2018. Lauelab geometry files dated 2022-03-29 and 2023-04-06 identify top PE1621 723-3335 near 513 mm and side PE0822 883-4841/4843 near 400 mm perpendicular distance, or 428 mm to the centre. Model names differ across sources. The 2024 computing strategy lists PE XRD 1620 AN and two PE XRD 0820 AN panels; the Instruments page also lists XRD 0820 AN. Planned replacements were a Pilatus 6M-class top and two 1 to 2 megapixel side panels. The computing strategy estimates growth from 6 to 10 megapixels per point with two 2-megapixel sides. Purchases were removed from the upgrade scope. The August 2026 ModSim talk proposed a tenfold faster detector without naming it and mentioned wire reconstruction with Eiger. Current detectors remain unknown."
     },
     {
       "label": "Sample geometry",
@@ -212,27 +212,27 @@
     },
     {
       "label": "Depth-resolving aperture",
-      "value": "Pt wire (≈50 µm historically; 100 µm in 2022 tests; 101.5 µm in geometry files) ≈0.2–1 mm above sample; or Au coded aperture (4.6 µm Au, 7.5/15 µm bits, 256-bit de Bruijn)",
+      "value": "Platinum wire 0.2 to 1 mm above the sample. Historical diameter about 50 µm; 2022 tests 100 µm; geometry files 101.5 µm. Alternative gold mask has 4.6 µm thickness and 7.5/15 µm bits in a 256-bit de Bruijn sequence.",
       "source": "r12",
-      "note": "≈50 µm Pt wire ≈200 µm above surface on the 34-ID-E 'End near focus' photo page (CCD-era, pre-2009 setup); ≈50 µm wire."
+      "note": "The CCD-era End near focus photo, before 2009, depicts an approximately 50 µm platinum wire about 200 µm above the sample."
     },
     {
       "label": "Depth resolution",
-      "value": "≈0.5–1 µm along the beam (DAXM, pre-upgrade)",
+      "value": "≈0.5 to 1 µm along the beam, DAXM, pre-upgrade",
       "source": "r18",
-      "note": "0.5 µm in SharafEldin et al. 2026; 1 µm steps in coded-aperture work. Goal ≈100 nm with the new beams, at ≈5× more frames per scan unless coded apertures are used."
+      "note": "SharafEldin and colleagues, 2026, report 0.5 µm depth resolution. Coded-aperture demonstrations use 1 µm steps. The new-beam goal is about 100 nm, requiring roughly five times more frames without coded apertures."
     },
     {
       "label": "Strain resolution",
-      "value": "≈10⁻⁴ in deviatoric strain (best ≈2 × 10⁻⁵)",
+      "value": "≈10⁻⁴ in deviatoric strain, best ≈2 × 10⁻⁵",
       "source": "r4",
-      "note": "PDR: 'dd/d = 10⁻⁴'; 1999 APS report: better than 2 parts in 10⁵ under favourable conditions. Deviatoric tensor from white-beam indexing (Chung & Ice 1999); complete tensor by adding one monochromatic energy measurement (Ice et al. 2005). Geometry check (derived here): one 200 µm pixel at ≈511 mm is ≈3.9 × 10⁻⁴ rad in 2θ, i.e. ≈2 × 10⁻⁴ in plane-normal direction / dd/d at 2θ = 90°, so the ≈10⁻⁴ (best ≈2 × 10⁻⁵) figures rely on sub-pixel peak fitting over many reflections (the PDR's '1 pixel ≈ 10⁻⁴' design rule would need ≈1 m detector distance)."
+      "note": "The preliminary-design target is dd/d = 10⁻⁴. A 1999 APS report gives better than 2 × 10⁻⁵ under favourable conditions. White-beam indexing determines deviatoric strain; one monochromatic energy measurement completes the tensor. At about 511 mm, a 200 µm pixel subtends 3.9 × 10⁻⁴ rad in 2θ, or about 2 × 10⁻⁴ in plane-normal direction and dd/d at 2θ = 90°. Precision at 10⁻⁴ or below requires subpixel fitting across reflections. The design rule of one pixel near 10⁻⁴ would require roughly 1 m distance."
     },
     {
       "label": "Thermal stability requirement",
-      "value": "Hutch 0.03–0.05 °C; nano-instrument enclosure ≤ 0.02 °C",
+      "value": "Hutch 0.03 to 0.05 °C; nano-instrument enclosure ≤ 0.02 °C",
       "source": "r4",
-      "note": "A 100 mm Al part grows 100 nm for a 0.04 °C change (PDR)."
+      "note": "The preliminary design calculates 100 nm expansion for a 100 mm aluminium part during a 0.04 °C change."
     },
     {
       "label": "Distances",
@@ -242,84 +242,84 @@
     },
     {
       "label": "Analysis software",
-      "value": "LaueGo (Igor Pro; wire-scan reconstruction, peak search, indexing 'euler', strain refinement) → lauelab (Python/C/CUDA, alpha, 2023-) and laue-portal (Dash web workflow, HPC/Polaris)",
+      "value": "LaueGo on Igor Pro for wire reconstruction, peak search, euler indexing and strain refinement. Lauelab uses Python, C and CUDA, in alpha development from 2023. Laue-portal is a Dash web workflow with Polaris computing.",
       "source": "r26",
-      "note": "LaueGo by J. Z. Tischler; lauelab reproduces LaueGo arithmetic and supports wire-scan reconstruction and indexing; laue-portal; coded-aperture decoder 'cold'; 50 Polaris nodes processed 6–12 h coded-aperture scans (data from Feb/Apr 2023) and returned results 12–15 min behind the detector (SC'23 Workshops / XLOOP 2023 best paper). Background: Liu & Ice 2014 chapter."
+      "note": "J. Z. Tischler wrote LaueGo. Lauelab reproduces its numerical methods for wire reconstruction and indexing. Laue-portal supplies a web workflow, with cold for coded-mask decoding. Fifty Polaris nodes processed February and April 2023 coded scans of 6 to 12 h duration and returned results 12 to 15 minutes behind collection. This appears in the SC'23 Workshops and XLOOP 2023 paper. Liu and Ice, 2014, provide background."
     }
   ],
   "source": {
     "insertionDevices": [
       {
-        "name": "3DMN undulator (U28, upstream)",
-        "type": "planar hybrid permanent-magnet undulator (new APS-U structure: NdFeB with heavy-rare-earth grain-boundary-diffusion coercivity enhancement, vanadium-permendur poles)",
+        "name": "Upstream 3DMN undulator U28",
+        "type": "Planar hybrid permanent-magnet undulator. The new structure uses NdFeB magnets with heavy-rare-earth grain-boundary diffusion for increased coercivity and vanadium-permendur poles.",
         "periodMm": 28,
         "lengthM": 2.1,
         "count": 1,
         "polarization": "linear horizontal",
-        "notes": "Upstream device of the canted 34-ID straight → outboard branch. K up to ≈2.46 (value used for FDR max-power calc: 777 W through 2 × 2 mm² at 30 m); IPAC'24 lists required K = 2.48 at the 8.5 mm minimum gap, E1 = 3.0 keV. First harmonic E1 = 12.2/(1+K²/2) keV at 6 GeV → ≈3.0 keV at K=2.459 (3rd harmonic 9.1 keV, FDR Table 4.66); higher energies via odd harmonics. APS-U HPMU drive: min gap 8.5 mm, gap taper up to 5 mm (useful to broaden the pink spectrum for Laue, as requested in the PDR). Note: ATOMIC's directory entry quotes 2.3 m for its revolver; the FDR value (2.1 m) is used here and is supported by IPAC'24 ('canted length ≈2.1 m, full length ≈2.4 m').",
+        "notes": "The upstream 34-ID device supplies the outboard branch. The final-design maximum-power calculation uses K = 2.459, giving 777 W through a 2 × 2 mm mask at 30 m. IPAC'24 gives required K = 2.48 at the 8.5 mm minimum gap and first harmonic near 3.0 keV. At 6 GeV, E1 = 12.2/(1+K²/2) keV, giving about 3.0 keV at K = 2.459 and third harmonic 9.1 keV in Table 4.66. Higher energies use odd harmonics. Maximum gap taper is 5 mm, requested in the preliminary design for broadening the Laue spectrum. The final-design 2.1 m magnetic length is consistent with IPAC'24 canted-device length, compared with about 2.4 m full length. The ATOMIC directory's 2.3 m revolver value differs.",
         "source": "r1"
       },
       {
-        "name": "ATOMIC undulator (revolver U25/U21, downstream) – partner beamline",
-        "type": "planar hybrid PM revolver undulator (two magnet arrays, 25 and 21 mm)",
+        "name": "Downstream ATOMIC revolver undulator U25/U21",
+        "type": "Planar hybrid permanent-magnet revolver undulator with 25 and 21 mm structures",
         "periodMm": 25,
         "lengthM": 2.1,
         "count": 1,
         "polarization": "linear horizontal",
-        "notes": "Downstream device → inboard branch feeding ATOMIC (34-ID-F). Max power 763/738 W through 2 × 2 mm² at 30 m (K = 1.939/1.305). Not part of 3DMN but shares the straight, canting magnets and front end.",
+        "notes": "The downstream device supplies inboard ATOMIC at 34-ID-F. Maximum power through the 2 × 2 mm mask at 30 m is 763 W at K = 1.939 or 738 W at K = 1.305. It shares the straight section, canting magnets and front end with 3DMN.",
         "source": "r1"
       }
     ],
-    "canting": "Two undulators canted by 1.0 mrad (0.5 mrad magnets at each end of the straight and a 1 mrad magnet between the devices). 3DMN = upstream device = outboard beam; ATOMIC = downstream device = inboard beam. Before the upgrade (after the 2011 canting upgrade) the assignment was reversed: 34-ID-E took the inboard (downstream) beam and 34-ID-C the outboard beam.",
-    "frontEnd": "Canted-undulator front end (CUFE) rated 2 × 10 kW and 280 kW/mrad², windowless exit with differential pumping, clearing magnet, low-power photon shutter, burn-through fixed mask, GRID fluorescence XBPM1 (+ XBPM2 integrated in the exit mask), photon and safety shutters; exit mask at 25.4 m with two 2 × 2 mm² apertures 1 mrad apart; W exit collimator 2 × (5 × 5 mm²) at 26.1 m.",
-    "sourceSizeAndDivergence": "APS-U electron beam at the ID (FDR Table 1.1), brightness mode (324 bunches, 42 pm): σx = 14.7 µm, σy = 3.2 µm, σx' = 2.8 µrad, σy' = 1.3 µrad; timing mode (48 bunches, 32 pm): 12.9 / 8.8 µm, 2.5 / 3.7 µrad. Pre-upgrade APS: 280 / 10 µm, 11.6 / 3.4 µrad. Single-electron photon terms for a 2.1 m device at 14 keV (derived here, σr = √(2·λ·L)/(4·π), σr' = √(λ/(2L))): ≈1.5 µm and ≈4.6 µrad, giving total photon source ≈14.8 × 3.6 µm rms and ≈5.4 × 4.8 µrad rms. Caveat: the canted source points sit ≈1 m either side of the straight centre where beta functions differ slightly."
+    "canting": "The angle between devices is 1.0 mrad. End magnets each deflect 0.5 mrad, with a 1 mrad magnet between the devices. Upstream 3DMN is outboard; downstream ATOMIC is inboard. From the 2011 canting upgrade until the ring upgrade, the assignment was reversed. Then 34-ID-E used the downstream inboard beam and 34-ID-C the outboard beam.",
+    "frontEnd": "The canted-undulator front end has limits of two 10 kW beams and 280 kW/mrad² peak density. Differential pumping provides a windowless exit. Components include clearing magnet, low-power photon shutter, burn-through mask, GRID fluorescence monitor XBPM1, exit-mask monitor XBPM2, and photon and safety shutters. At 25.4 m, two 2 × 2 mm exit openings are separated by 1 mrad. At 26.1 m, the tungsten collimator has two 5 × 5 mm openings.",
+    "sourceSizeAndDivergence": "Final-design Table 1.1 gives root-mean-square electron-beam widths and divergences. In brightness mode with 324 bunches and 42 pm emittance, horizontal and vertical widths are 14.7 and 3.2 µm; divergences are 2.8 and 1.3 µrad. Timing mode with 48 bunches and 32 pm gives 12.9 and 8.8 µm, with 2.5 and 3.7 µrad. Pre-upgrade values are 280 and 10 µm, with 11.6 and 3.4 µrad. For a 2.1 m device at 14 keV, derived photon contributions are about 1.5 µm and 4.6 µrad, from σr = √(2·λ·L)/(4·π) and σr' = √(λ/(2L)). The combined photon source is about 14.8 × 3.6 µm and 5.4 × 4.8 µrad root-mean-square. Source points are about 1 m from the straight centre, where beta functions differ slightly."
   },
   "branches": [
     {
       "id": "3dmn",
-      "name": "3DMN (outboard canted branch)",
-      "description": "U28 (upstream undulator) → CUFE → outboard mirror MR-1 (34-ID-A) → masks (34-ID-B) → BPM, slits, small-offset HDCM with pink bypass, pink shutter (34-ID-C) → micro-diffraction instrument (≈60 m) and designed nano-diffraction position (≈65.5 m, installation unconfirmed) in 34-ID-E → pink beam stop at 66.9 m."
+      "name": "3DMN outboard canted branch",
+      "description": "The upstream U28 supplies the outboard branch through the shared front end. Mirror MR-1 in A precedes masks in B, monitoring and slits in C, the small-offset crystal monochromator with pink bypass, and shutter. The micro instrument is near 60 m in E and planned nano instrument near 65.5 m, with installation unconfirmed. The stop is at 66.9 m."
     },
     {
       "id": "atomic",
-      "name": "ATOMIC (inboard, partner)",
-      "description": "Context only (ATOMIC has its own exhibit). Revolver U25/U21 (downstream undulator) → inboard mirror MR-2 → ATOMIC DCM and zoom KB1 in 34-ID-C → shielded pipe straight through 34-ID-E (55.1–67.5 m) → KB2 and coherent-imaging diffractometer in 34-ID-F (≈68–70 m) → beam stop 78.7 m."
+      "name": "Partner ATOMIC inboard branch",
+      "description": "The downstream U25/U21 revolver supplies inboard ATOMIC. Mirror MR-2 precedes its monochromator and first mirror pair in C. Shielded transport extends through E from 55.1 to 67.5 m. The final mirrors and coherent-imaging instrument occupy F near 68 to 70 m, with a stop at 78.7 m. ATOMIC has a separate exhibit."
     }
   ],
   "components": [
     {
       "id": "u28-undulator",
-      "name": "3DMN undulator (28 mm period, upstream)",
+      "name": "3DMN undulator, 28 mm period, upstream",
       "category": "undulator",
       "branch": "3dmn",
       "distanceM": -1.2,
-      "distanceNote": "Distances in this exhibit are measured, as in FDR Table 4.63, from the centre of the 34-ID straight (the canting-magnet position). The U28 is the upstream device; its centre is placed ≈1.2 m upstream (approximate: two 2.1 m devices plus a central canting magnet in the ≈4.8 m straight).",
+      "distanceNote": "Distances in this exhibit are measured, as in FDR Table 4.63, from the centre of the 34-ID straight, the canting-magnet position. The U28 is the upstream device; its centre is placed ≈1.2 m upstream, approximate: two 2.1 m devices plus a central canting magnet in the ≈4.8 m straight.",
       "enclosure": "Storage ring tunnel (sector 34 straight)",
       "deflection": "none",
-      "text": "The X-ray source: a 2.1 m row of alternating permanent magnets with a 28 mm period, the repeat length of the magnet pattern, that steers the ring's 6 GeV electrons into a tight slalom, so they emit an intense, narrow X-ray beam. Closing the gap between the magnet rows strengthens the field and lowers the X-ray energies; at the 8.5 mm minimum gap its fundamental, the lowest of its emission peaks, lies near 3.0 keV, and higher energies come from odd harmonics, overtones at 3, 5, 7… times it. Laue diffraction wants a smooth spread of energies, so the gap can be tapered by up to 5 mm along the device to broaden the harmonics; whether this is used after the upgrade is not documented.",
+      "text": "This 2.1 m undulator has alternating permanent magnets with a 28 mm period. Their fields bend 6 GeV electron trajectories; radiation from successive bends combines into a narrow beam. Closing the gap strengthens the field and lowers the harmonic energies. At the 8.5 mm minimum gap, the first harmonic is near 3.0 keV. Higher odd harmonics occur at 3, 5, 7 and further odd multiples. A gap taper up to 5 mm broadens the harmonics for a smoother Laue spectrum. Use of taper after the upgrade is undocumented.",
       "specs": {
         "period": "28 mm",
-        "length": "2.1 m (FDR)",
+        "length": "2.1 m, FDR",
         "K (max-power case)": "2.459",
         "max power through FE mask": "777 W",
-        "min gap": "8.5 mm (APS-U HPMU spec)",
+        "min gap": "8.5 mm, APS-U HPMU spec",
         "max taper": "5 mm",
         "position": "upstream, outboard beam",
         "K (IPAC'24, at 8.5 mm gap)": "2.48 (E1 = 3.0 keV)",
-        "E1 at K = 2.459": "≈3.0 keV (3rd harmonic 9.1 keV)"
+        "E1 at K = 2.459": "≈3.0 keV, 3rd harmonic 9.1 keV"
       },
       "source": "r1"
     },
     {
       "id": "canting-magnets",
-      "name": "Canting magnets (0.5 / 1.0 / 0.5 mrad)",
+      "name": "Canting magnets, 0.5, 1.0 and 0.5 mrad",
       "category": "other",
       "branch": null,
       "distanceM": 0.0,
-      "distanceNote": "Centre magnet at the straight centre (0 m, the distance reference); 0.5 mrad magnets at both ends of the straight (≈±2.4 m, approx.).",
+      "distanceNote": "The central magnet defines distance zero. The end magnets each deflect 0.5 mrad and are placed approximately 2.4 m either side of the centre.",
       "enclosure": "Storage ring tunnel",
       "deflection": "none",
-      "text": "Three small steering magnets kink the electron path by 1 mrad, about 0.06°, between the two undulators that share this straight section, so their X-ray beams drift apart and one slot in the ring feeds two beamlines: 3DMN and its neighbour ATOMIC. 3DMN takes the upstream undulator and the outboard beam, away from the ring; before the upgrade, its predecessor used the inboard one.",
+      "text": "Three magnets change the electron direction by 1 mrad, about 0.06°, between the undulators. Their diverging X-ray beams supply 3DMN and ATOMIC from one straight section. The upstream device supplies outboard 3DMN, away from the ring. Before the upgrade, 34-ID-E used the inboard beam.",
       "specs": {
         "canting angle": "1.0 mrad",
         "end magnets": "0.5 mrad each"
@@ -328,14 +328,14 @@
     },
     {
       "id": "atomic-revolver",
-      "name": "ATOMIC revolver undulator (U25/U21, downstream) – partner",
+      "name": "Partner ATOMIC downstream revolver undulator, U25/U21",
       "category": "undulator",
       "branch": "atomic",
       "distanceM": 1.2,
-      "distanceNote": "Downstream device of the same straight, centre ≈+1.2 m from the straight centre (approx.).",
+      "distanceNote": "Downstream device of the same straight, centre ≈+1.2 m from the straight centre, approx..",
       "enclosure": "Storage ring tunnel",
       "deflection": "none",
-      "text": "The second undulator in the straight section feeds ATOMIC, the sister beamline next door, which images strain inside single nanocrystals with coherent X-rays. It is a 'revolver': two magnet rows, with 25 mm and 21 mm periods, share one support, and the device switches to whichever suits the chosen energy. It is shown for context and plays no part in 3DMN's experiments.",
+      "text": "The downstream revolver undulator supplies ATOMIC for coherent imaging of strain in nanocrystals. Two magnet structures with 25 and 21 mm periods share a rotating support. The selected period depends on measurement energy. This source is included to explain the shared straight section; it does not supply 3DMN.",
       "specs": {
         "periods": "25 / 21 mm",
         "length": "2.1 m"
@@ -344,18 +344,18 @@
     },
     {
       "id": "cufe-front-end",
-      "name": "Canted-undulator front end (CUFE)",
+      "name": "Canted-undulator front end, CUFE",
       "category": "frontEnd",
       "branch": null,
       "distanceM": 19.4,
-      "distanceNote": "Front end occupies roughly 14–25 m inside the tunnel/ratchet wall; 19.4 m is the documented position of the upstream (GRID) mask. Other element positions not given in FDR – approximate.",
+      "distanceNote": "The front end extends roughly 14 to 25 m within the shielding tunnel. The upstream GRID mask position is documented at 19.4 m. Other positions are approximate and absent from the final design.",
       "enclosure": "Storage ring tunnel",
       "deflection": "none",
-      "text": "The gatekeeper between accelerator and beamline, inside the tunnel's shielding. Its masks soak up kilowatts of unwanted heat (it is rated for two beams of 10 kW each), a fluorescence beam-position monitor measures where the beam points, and photon and safety shutters can stop it completely. It has no exit window: differential pumping keeps the vacuums apart, because a window there would degrade the beam's coherence.",
+      "text": "The front end connects the accelerator to the beamlines inside the concrete tunnel. Masks absorb unwanted power, fluorescence monitors measure beam position, and photon and safety shutters block beam for access. The power limit is 10 kW for each of two beams. Differential pumping separates the vacuums without a window, preserving the coherent wavefront.",
       "specs": {
         "power limit": "2 × 10 kW",
         "peak power density limit": "280 kW/mrad²",
-        "exit": "windowless (differential pump)",
+        "exit": "windowless, differential pump",
         "XBPM": "GRID XBPM1 + XBPM2 in exit mask",
         "elements": "clearing magnet, low-power photon shutter, burn-through fixed mask, GRID XBPM1, photon shutter 2, safety shutters"
       },
@@ -363,16 +363,16 @@
     },
     {
       "id": "fe-exit-mask",
-      "name": "Front-end exit mask (two 2 × 2 mm² apertures)",
+      "name": "Front-end exit mask, two 2 × 2 mm² apertures",
       "category": "frontEnd",
       "branch": null,
       "distanceM": 25.4,
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "A heavy metal block with two 2 mm square openings 1 mrad apart, one for each of the twin beams. It lets only the bright central core of each beam into the first optics hutch and absorbs the rest; a second beam-position monitor (XBPM2) is built into it.",
+      "text": "This metal block has two 2 mm square openings on axes separated by 1 mrad. Each transmits the central portion of one beam while the surrounding block absorbs the rest. Beam-position monitor XBPM2 is integrated into it.",
       "specs": {
-        "apertures": "2 × (2 × 2 mm²)",
+        "apertures": "2 ×, 2 × 2 mm²",
         "separation": "1 mrad"
       },
       "source": "r1"
@@ -386,23 +386,23 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "A tungsten block with two 5 mm square openings, one per beam. It stops bremsstrahlung, very-high-energy gamma rays made when stored electrons strike leftover gas in the ring, from following the X-rays into the beamline. The openings were narrowed for the upgrade to help beamlines whose monochromators shift the beam only slightly, as 3DMN's does by about 1 mm.",
+      "text": "This tungsten block has a 5 mm square opening for each beam. It confines bremsstrahlung, high-energy radiation from interactions of stored electrons with residual gas. The upgrade reduced the opening for small monochromator offsets such as 3DMN's roughly 1 mm offset.",
       "specs": {
-        "apertures": "2 × (5 × 5 mm²)",
+        "apertures": "2 ×, 5 × 5 mm²",
         "material": "W"
       },
       "source": "r1"
     },
     {
       "id": "atomic-wb-slits",
-      "name": "White-beam slits, inboard (ATOMIC) 34ID-SL-1",
+      "name": "White-beam slits, inboard, ATOMIC 34ID-SL-1",
       "category": "slits",
       "branch": "atomic",
       "distanceM": 26.8,
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "Adjustable jaws with tungsten edges that trim ATOMIC's beam while it still carries the undulator's full 'white' spectrum. They sit just upstream of 3DMN's own pair, each pair working on one of the twin beams.",
+      "text": "Tungsten-edged jaws limit the ATOMIC white beam, containing the full undulator spectrum. Each branch has separate slits; these are upstream of the 3DMN pair.",
       "specs": {
         "type": "variable-aperture photon absorber, W edges"
       },
@@ -410,14 +410,14 @@
     },
     {
       "id": "wb-slits-3dmn",
-      "name": "White-beam slits, outboard (3DMN) 34ID-SL-2",
+      "name": "White-beam slits, outboard, 3DMN 34ID-SL-2",
       "category": "slits",
       "branch": "3dmn",
       "distanceM": 27.3,
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "Water-cooled jaws with tungsten edges that trim 3DMN's raw 'white' beam, which still carries the undulator's full spectrum and power, to the central millimetre or so its optics need. Removing the excess here keeps heat off the mirror: downstream, the mirror needs only about 1 × 1 mm of beam and the monochromator less than 0.3 × 0.3 mm.",
+      "text": "Water-cooled tungsten-edged jaws limit the 3DMN white beam before the mirror. Reducing the opening lowers absorbed heat. Required illumination is about 1 × 1 mm at the mirror and less than 0.3 × 0.3 mm at the monochromator.",
       "specs": {
         "type": "variable-aperture photon absorber, W edges",
         "acceptance needed": "≈1 × 1 mm² at mirror, < 300 × 300 µm² at mono"
@@ -433,7 +433,7 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "A tungsten shielding block with openings for the two X-ray beams. It stops stray gamma rays from the accelerator (bremsstrahlung) so that only the X-rays continue.",
+      "text": "This tungsten collimator has openings for both X-ray beams. It confines stray bremsstrahlung from the accelerator.",
       "specs": {
         "material": "W"
       },
@@ -448,7 +448,7 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "A lead block just behind the tungsten collimator, adding a second layer of protection against stray high-energy radiation from the accelerator. Openings let the two X-ray beams through.",
+      "text": "A lead collimator follows the tungsten block for additional shielding against high-energy accelerator radiation. Both X-ray beams pass through openings.",
       "specs": {
         "material": "Pb"
       },
@@ -456,22 +456,22 @@
     },
     {
       "id": "outboard-mirror",
-      "name": "Outboard horizontal deflecting mirror 34ID-MR-1 (3DMN)",
+      "name": "Outboard horizontal deflecting mirror 34ID-MR-1, 3DMN",
       "category": "mirror",
       "branch": "3dmn",
       "distanceM": 29.6,
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "horizontal",
-      "text": "3DMN's first mirror: a flat, super-polished silicon mirror that the X-rays strike at a grazing 3 mrad (0.17°). It steers the 3DMN beam outboard, away from its twin, and acts as a filter: above a cutoff energy X-rays are no longer reflected, so the highest energies and much of the heat are left behind. Three coating stripes, bare silicon, rhodium and platinum, set estimated cutoffs near 10, 22 and 28 keV. A notch cut along the substrate reduces heat distortion about tenfold; the mirror absorbs up to 189 W.",
+      "text": "The flat silicon mirror reflects the 3DMN beam outboard at a 3 mrad grazing angle, or 0.17°. Higher-energy X-rays are not reflected, reducing downstream heat. Silicon, rhodium and platinum stripes give estimated cutoffs near 10, 22 and 28 keV. A substrate notch reduces thermal deformation about tenfold. Absorbed power reaches 189 W.",
       "specs": {
         "figure": "flat",
         "grazing angle": "3.0 mrad",
         "coatings": "Si, Rh, Pt stripes",
         "absorbed power (Si stripe, 9.1 keV)": "189 W, 0.48 W/mm²",
-        "cooling": "notch design (coolant not stated in FDR; PDR proposed LN₂)",
-        "deflection direction": "outboard (PDR text; FDR Fig. 4.59 schematic)",
-        "estimated cutoffs at 3 mrad": "Si ≈10, Rh ≈22, Pt ≈28 keV (some usable flux to 30 keV, PDR)",
+        "cooling": "notch design, coolant not stated in FDR; PDR proposed LN₂",
+        "deflection direction": "outboard, PDR text; FDR Fig. 4.59 schematic",
+        "estimated cutoffs at 3 mrad": "Si ≈10, Rh ≈22, Pt ≈28 keV, some usable flux to 30 keV, PDR",
         "absorbed power (Rh stripe)": "120 W",
         "notch effect": "≈10× less thermal deformation",
         "slope error (ray-trace assumption)": "0.1 µrad rms"
@@ -487,24 +487,24 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "Shielding just after the mirror. Once the X-ray beam has been bent, anything still travelling straight ahead, such as bremsstrahlung from the accelerator, is unwanted, and this collimator stops it.",
+      "text": "This shielding block is after the mirror, where the reflected X-rays and straight-through bremsstrahlung follow different paths. It confines the straight-through radiation.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "atomic-mirror",
-      "name": "Inboard horizontal deflecting mirror 34ID-MR-2 (ATOMIC)",
+      "name": "Inboard horizontal deflecting mirror 34ID-MR-2, ATOMIC",
       "category": "mirror",
       "branch": "atomic",
       "distanceM": 31.3,
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "horizontal",
-      "text": "ATOMIC's twin of 3DMN's first mirror: flat silicon with silicon, rhodium and platinum stripes at the same 3 mrad grazing angle. It steers the neighbouring beam the other way, inboard toward the ring, so the two beams end up about 0.4 m apart in the 3DMN hutch.",
+      "text": "The ATOMIC mirror has silicon, rhodium and platinum stripes at a 3 mrad grazing angle. Reflection is inboard toward the ring, opposite the 3DMN deflection. The beam paths are about 0.4 m apart in 34-ID-E.",
       "specs": {
         "grazing angle": "3.0 mrad",
         "coatings": "Si, Rh, Pt stripes",
-        "deflection direction": "inboard (PDR text; FDR Fig. 4.59 schematic)"
+        "deflection direction": "inboard, PDR text; FDR Fig. 4.59 schematic"
       },
       "source": "r1"
     },
@@ -514,10 +514,10 @@
       "category": "collimator",
       "branch": null,
       "distanceM": 32.2,
-      "distanceNote": "FDR Table 4.63 (branch not stated).",
+      "distanceNote": "FDR Table 4.63, branch not stated.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "Another collimator, stopping stray radiation that travels straight on past the second mirror. After the two mirrors, only the reflected beams should continue downstream.",
+      "text": "This collimator confines stray radiation continuing straight past the ATOMIC mirror. The reflected X-ray beam follows a separate path.",
       "specs": {},
       "source": "r1"
     },
@@ -530,7 +530,7 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "A fluorescent screen that can drop into the beams and glow where the X-rays strike, so a camera shows staff exactly where both reflected beams are. It sits just after the two mirrors, before the beams leave the first optics hutch.",
+      "text": "A fluorescent screen moves into the reflected beams for camera alignment measurements. It is after both mirrors and before the first-hutch exit.",
       "specs": {},
       "source": "r1"
     },
@@ -543,7 +543,7 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-A",
       "deflection": "none",
-      "text": "The end of the 'white' beam. A heavy block stops anything still travelling straight, while two openings pass the mirror-reflected beams, now called 'pink' because the mirrors have removed the highest energies. No white beam travels beyond this point.",
+      "text": "This stop absorbs straight-through white beam. Openings transmit the two reflected pink beams, whose highest energies have been rejected by the mirrors. No white beam continues beyond this point.",
       "specs": {},
       "source": "r1"
     },
@@ -553,10 +553,10 @@
       "category": "beamPipe",
       "branch": null,
       "distanceM": 36.0,
-      "distanceNote": "Spans 36.0–42.5 m (FDR Table 4.63; existing white-beam transport reused).",
+      "distanceNote": "Spans 36.0 to 42.5 m, FDR Table 4.63; existing white-beam transport reused.",
       "enclosure": "between 34-ID-A and 34-ID-B",
       "deflection": "none",
-      "text": "A lead-shielded vacuum pipe that carries both pink beams 6.5 m across the experiment-hall floor, from the first optics hutch to the next, so people can walk around it safely. It is the beamline's existing transport, reused.",
+      "text": "The reused 6.5 m lead-shielded pipe transports both pink beams from the first optics hutch across open experiment floor to the next enclosure. Shielding permits use of the surrounding floor during beam operation.",
       "specs": {
         "length": "6.5 m"
       },
@@ -568,10 +568,10 @@
       "category": "collimator",
       "branch": "3dmn",
       "distanceM": 46.9,
-      "distanceNote": "FDR Table 4.63 (inboard PM-2 at same position for ATOMIC).",
+      "distanceNote": "FDR Table 4.63, inboard PM-2 at same position for ATOMIC.",
       "enclosure": "34-ID-B",
       "deflection": "none",
-      "text": "A metal aperture that trims 3DMN's pink beam and protects everything downstream from a stray or misaligned beam. ATOMIC has a matching mask at the same position; the preliminary design described a septum mask here that splits the two beam paths into independent pipes.",
+      "text": "This mask limits the outboard 3DMN pink beam and absorbs misaligned radiation. An ATOMIC mask occupies the same longitudinal position. The preliminary design specified a septum mask here to separate the branches into independent pipes.",
       "specs": {},
       "source": "r1"
     },
@@ -584,7 +584,7 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-B",
       "deflection": "none",
-      "text": "The last heavy lead shielding against stray high-energy radiation before the optics hutch 34-ID-C. It also acts as a bremsstrahlung stop, absorbing gamma rays from the accelerator that would otherwise travel on with the X-rays.",
+      "text": "This lead collimator and stop absorb high-energy accelerator radiation before the monochromator enclosure, 34-ID-C.",
       "specs": {
         "material": "Pb"
       },
@@ -596,12 +596,12 @@
       "category": "monochromator",
       "branch": "atomic",
       "distanceM": 51.0,
-      "distanceNote": "FDR Table 4.63 (ATOMIC BPM 49.7 m and slits 50.3 m precede it).",
+      "distanceNote": "FDR Table 4.63, ATOMIC BPM 49.7 m and slits 50.3 m precede it.",
       "enclosure": "34-ID-C",
       "deflection": "horizontal",
-      "text": "ATOMIC's own monochromator, a near-twin of 3DMN's: two silicon crystals that pick out one X-ray energy between 5.3 and 30 keV, with a bypass for the full pink beam and a heated second crystal. ATOMIC uses the single-energy beam for coherent imaging. Shown for context.",
+      "text": "The ATOMIC monochromator has two silicon crystals for energy selection from 5.3 to 30 keV, a pink-beam bypass and a heated second crystal. Coherent imaging uses its narrow-band beam. It is included here as part of the shared layout.",
       "specs": {
-        "energy": "5.3–30 keV"
+        "energy": "5.3 to 30 keV"
       },
       "source": "r1"
     },
@@ -611,12 +611,12 @@
       "category": "kbMirror",
       "branch": "atomic",
       "distanceM": 52.0,
-      "distanceNote": "FDR Table 4.63 gives 52.0 m; FDR text says 'station C at 54 m' – conflict noted.",
+      "distanceNote": "Final-design Table 4.63 places the pair at 52.0 m, while the text gives station C at 54 m. The discrepancy is unresolved.",
       "enclosure": "34-ID-C",
       "deflection": "none",
-      "text": "The first of ATOMIC's two pairs of Kirkpatrick–Baez (KB) mirrors, curved mirrors that focus X-rays at grazing incidence. They are bendable, and together with the second pair near ATOMIC's sample they zoom the spot between about 50 nm and 2 µm. Shown for context; its position is uncertain (52.0 m in a design table, 54 m in the text).",
+      "text": "The first ATOMIC Kirkpatrick-Baez pair focuses by two perpendicular grazing reflections. Both pairs are bendable. Adjusting their curvature together changes the final spot from about 50 nm to 2 µm. The first pair's position is 52.0 m in the design table and 54 m in the text. It is included for layout context.",
       "specs": {
-        "zoom range (with KB2)": "50 nm – 2 µm"
+        "zoom range (with KB2)": "50 nm to 2 µm"
       },
       "source": "r1"
     },
@@ -629,42 +629,42 @@
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-C",
       "deflection": "none",
-      "text": "A beam-position monitor that measures exactly where 3DMN's pink beam is, just before its slits and monochromator. Pointing stability matters: any drift of the beam here shows up as motion of the 100 nm focus.",
+      "text": "This monitor measures 3DMN beam position before the slits and monochromator. Motion here changes the position of the approximately 100 nm focus.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "slits-3dmn",
-      "name": "Slits (3D Nano) 34ID-SL-4",
+      "name": "Slits, 3D Nano 34ID-SL-4",
       "category": "slits",
       "branch": "3dmn",
       "distanceM": 53.1,
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-C",
       "deflection": "none",
-      "text": "Precision jaws that choose how much of the beam travels on to the monochromator and the focusing mirrors. The preliminary design notes that the monochromator needs to accept less than 0.3 × 0.3 mm of beam.",
+      "text": "These jaws limit illumination of the monochromator and focusing mirrors. The preliminary-design monochromator acceptance is below 0.3 × 0.3 mm.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "hdcm-3dmn",
-      "name": "Small-offset horizontal double-crystal monochromator 34ID-MN-2 (3DMN)",
+      "name": "Small-offset horizontal double-crystal monochromator 34ID-MN-2, 3DMN",
       "category": "monochromator",
       "branch": "3dmn",
       "distanceM": 53.8,
       "distanceNote": "FDR Table 4.63.",
       "enclosure": "34-ID-C",
       "deflection": "horizontal",
-      "text": "The monochromator: two silicon (111) crystals that reflect only the X-ray energy satisfying Bragg's law at their angle, selected to about one part in 10,000 over 5.3–30 keV. It is designed to slide out of the way in seconds, letting the full pink beam through (the mode shown here), and it reflects sideways, shifting the beam by only about 1.1 mm. To bring the single-energy beam back onto the pink one at the focus, the second crystal is kept about 60 °C warmer: the silicon expands, tilting the exit beam by an estimated 20–125 µrad depending on energy. Closing a full 1.1 mm offset at the micro mirrors would need about 180 µrad, so how the two beams are matched in practice awaits confirmation from the beamline staff.",
+      "text": "Two Si(111) crystals select energy by Bragg reflection over 5.3 to 30 keV with relative width about 10⁻⁴. The design permits retraction in seconds for pink beam, the configuration shown here. Horizontal reflections shift the beam sideways about 1.1 mm. Heating the second crystal by about 60 °C changes lattice spacing and exit angle to align the two modes. The calculated angle change is about 20 to 125 µrad depending on energy. Closing the full offset at the micro mirrors would require about 180 µrad. The operating alignment procedure is unconfirmed.",
       "specs": {
         "crystals": "Si(111)",
-        "energy": "5.3–30 keV",
+        "energy": "5.3 to 30 keV",
         "offset": "≈1.1 mm",
         "dE/E": "≈10⁻⁴",
         "2nd-crystal heating": "ΔT ≈ 60 K",
-        "absorbed power": "0.94–2.24 W (FDR Table 4.67)",
+        "absorbed power": "0.94 to 2.24 W, FDR Table 4.67",
         "deflection": "horizontal",
-        "Bragg angle": "≈21.9° (5.3 keV) to ≈3.8° (30 keV)",
+        "Bragg angle": "≈21.9°, 5.3 keV to ≈3.8°, 30 keV",
         "exit-beam tilt, ΔT = 60 K (derived)": "≈125 / 70 / 45 / 21 µrad at 5.3 / 9 / 14 / 30 keV",
         "rotational stability (PDR)": "0.2 µrad rms"
       },
@@ -676,10 +676,10 @@
       "category": "shutter",
       "branch": "3dmn",
       "distanceM": 54.8,
-      "distanceNote": "FDR Table 4.63 (ATOMIC SH-1 at same position).",
+      "distanceNote": "FDR Table 4.63, ATOMIC SH-1 at same position.",
       "enclosure": "34-ID-C",
       "deflection": "none",
-      "text": "A heavy safety shutter for 3DMN's pink beam. When it closes, the 3DMN hutch 34-ID-E is safe to enter, even while ATOMIC's beam keeps running through it in its shielded pipe.",
+      "text": "This safety shutter blocks 3DMN pink beam for access to 34-ID-E. The ATOMIC beam remains enclosed in its shielded pipe during operation through E.",
       "specs": {},
       "source": "r1"
     },
@@ -689,26 +689,26 @@
       "category": "beamPipe",
       "branch": "atomic",
       "distanceM": 55.1,
-      "distanceNote": "Spans 55.1–67.5 m (FDR Table 4.63). In FDR Fig. 4.58 it runs ≈0.4 m inboard of the 3DMN beam (approx. from figure).",
+      "distanceNote": "Spans 55.1 to 67.5 m, FDR Table 4.63. In FDR Fig. 4.58 it runs ≈0.4 m inboard of the 3DMN beam, approx. from figure.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "ATOMIC's beam passes straight through the 3DMN hutch inside a lead-shielded pipe 12.4 m long, about 0.4 m inboard of 3DMN's beam. People can enter 34-ID-E to work on 3DMN while ATOMIC runs next door.",
+      "text": "The ATOMIC beam crosses 34-ID-E in 12.4 m of lead-shielded pipe, about 0.4 m inboard of the 3DMN beam. The shielding permits access to E during ATOMIC operation.",
       "specs": {
         "length": "12.4 m",
-        "span": "55.1–67.5 m"
+        "span": "55.1 to 67.5 m"
       },
       "source": "r1"
     },
     {
       "id": "micro-kb",
-      "name": "Micro-focusing KB mirror pair (micro-diffraction instrument 34ID-BI-1)",
+      "name": "Micro-focusing KB mirror pair, micro-diffraction instrument 34ID-BI-1",
       "category": "kbMirror",
       "branch": "3dmn",
       "distanceM": 60.0,
-      "distanceNote": "FDR Table 4.63 / text: KB and instrument at 60 m (ray traces at '60 m'). The pair deflects both vertically (first mirror) and horizontally (second mirror).",
+      "distanceNote": "FDR Table 4.63 / text: KB and instrument at 60 m, ray traces at '60 m'. The pair deflects both vertically, first mirror and horizontally, second mirror.",
       "enclosure": "34-ID-E",
       "deflection": "vertical + horizontal",
-      "text": "Two short curved mirrors, a Kirkpatrick–Baez (KB) pair, focus the beam to about 100 nm: the first squeezes it vertically, the second horizontally, each at a grazing 3 mrad. Unlike lenses, mirrors bend every X-ray energy the same way, so the pink and single-energy beams share one focus. Ray tracing gives a design spot of 103 × 68 nm (horizontal × vertical, roughly full width at half maximum) at 14 keV, with 4.9 × 10¹² photons per second in a 0.1% energy band. To get there, the platinum-coated surfaces must match their ideal ellipses to within 0.5–0.75 nm (root-mean-square), a few atomic spacings. The beamline directory quotes 150 × 150 nm; no as-built measurement has been published.",
+      "text": "Two Kirkpatrick-Baez mirrors focus vertically and horizontally at 3 mrad grazing incidence. Focusing is independent of energy, so pink and monochromatic beam have the same nominal focus. At 14 keV, ray tracing gives 103 × 68 nm, approximately full widths at half maximum, with 4.9 × 10¹² photons/s in a 0.1% band. The platinum-coated surfaces require 0.5 to 0.75 nm root-mean-square shape accuracy. The directory lists 150 × 150 nm. As-built measurements are unpublished.",
       "specs": {
         "coating": "Pt",
         "angle": "3.0 mrad",
@@ -724,14 +724,14 @@
     },
     {
       "id": "micro-sample-stage",
-      "name": "Micro station sample stage (45° geometry)",
+      "name": "Micro station sample stage, 45° geometry",
       "category": "sample",
       "branch": "3dmn",
       "distanceM": 60.1,
-      "distanceNote": "Approx.: focus ≈0.1 m downstream of the 60.0 m KB position (PDR focal lengths f_v ≈142 mm, f_h ≈70 mm); not tabulated.",
+      "distanceNote": "Position is approximate. focus ≈0.1 m downstream of the 60.0 m KB position, PDR focal lengths f_v ≈142 mm, f_h ≈70 mm; not tabulated.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "The sample sits tilted at 45° to the beam on a stack of motorised stages that step it through the focus in moves as small as about 10 nm, building a map point by point. An optical microscope looks squarely at its tilted face, and at least 50 mm between the last mirror and the focus leaves room for heaters, loading rigs and diamond-anvil pressure cells.",
+      "text": "Motorized stages scan a sample tilted 45° through the beam in steps down to about 10 nm. An optical microscope views the surface normally. A working distance of at least 50 mm provides space for heaters, mechanical loading and diamond pressure cells.",
       "specs": {
         "resolution (PDR)": "≈10 nm",
         "geometry": "45° reflection"
@@ -740,34 +740,34 @@
     },
     {
       "id": "micro-wire",
-      "name": "Depth-profiling wire / knife-edge scanner (DAXM)",
+      "name": "Depth-profiling wire / knife-edge scanner, DAXM",
       "category": "wire",
       "branch": "3dmn",
       "distanceM": 60.1,
-      "distanceNote": "Approx.: at the micro sample; wire ≈0.2–1 mm above the sample surface.",
+      "distanceNote": "Position is approximate. at the micro sample; wire ≈0.2 to 1 mm above the sample surface.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "The depth finder: a platinum wire about 50–100 µm thick, roughly a hair's width, glides 0.2–1 mm above the sample surface in steps of about 1 µm. Each time its edge hides a diffraction spot, the straight line from that detector pixel past the wire's edge crosses the incoming beam at the depth where the spot was made: a moving shadow that pinpoints its source. A scan takes 50–2,000 frames per sample point and resolves 0.5–1 µm along the beam. The wire and its gap are enlarged in the model so they can be seen.",
+      "text": "A platinum wire about 50 to 100 µm thick is scanned 0.2 to 1 mm above the surface in roughly 1 µm steps. Blocking of a detector pixel determines a ray path from the wire edge to that pixel. Its intersection with the incident beam gives scattering depth. Scans take 50 to 2,000 frames per sample point with 0.5 to 1 µm resolution along the beam. The wire and gap are enlarged in the model.",
       "specs": {
         "material": "Pt",
-        "diameter": "≈50–100 µm",
-        "height above sample": "≈0.2–1 mm",
+        "diameter": "≈50 to 100 µm",
+        "height above sample": "≈0.2 to 1 mm",
         "scan direction": "H = (Y+Z)/√2",
         "step": "≈1 µm",
-        "frames per point": "50–2,000"
+        "frames per point": "50 to 2,000"
       },
       "source": "r12"
     },
     {
       "id": "coded-aperture",
-      "name": "Coded aperture (gold barcode mask) – R&D option",
+      "name": "Experimental coded gold aperture",
       "category": "codedAperture",
       "branch": "3dmn",
       "distanceM": 60.1,
-      "distanceNote": "Approx.: replaces the wire at the micro sample, ≈0.84–1 mm above the surface (as in the 34-ID-E tests); drawn parked beside the wire.",
+      "distanceNote": "Position is approximate. replaces the wire at the micro sample, ≈0.84 to 1 mm above the surface, as in the 34-ID-E tests; drawn parked beside the wire.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "An experimental alternative to the wire: a gold 'barcode' on a thin silicon nitride membrane, a 256-bit pattern of bars and gaps in which no run of 8 bits repeats. One short sweep of about 120 µm encodes the depth of every spot at once, so a 3D scan needs about a fifth of the frames a wire would. The gold is about 4.6 µm thick, with nominal 7.5 µm bars and 15 µm gaps. Shown parked beside the wire, enlarged.",
+      "text": "The alternative coded mask has gold bars on a silicon-nitride membrane. Its 256-bit de Bruijn pattern contains each eight-bit subsequence once. A scan about 120 µm long determines diffraction depths with about one-fifth of the wire-scan frames. Gold thickness is about 4.6 µm, with nominal 7.5 µm bars and 15 µm gaps. The enlarged mask is shown parked beside the wire.",
       "specs": {
         "code": "de Bruijn, order 8, 256 bits",
         "bits": "7.5 µm (1) / 15 µm (0)",
@@ -781,16 +781,16 @@
     },
     {
       "id": "top-area-detector",
-      "name": "Main area detector above the sample (90° reflection geometry)",
+      "name": "Main area detector above the sample, 90° reflection geometry",
       "category": "detector",
       "branch": "3dmn",
       "distanceM": 60.1,
-      "distanceNote": "Along-beam position = micro sample (60.1 m). Panel centre ≈0.513 m above the sample and ≈30 mm downstream of it, face horizontal (pre-upgrade lauelab geometry file geoN_2023-04-06; 510.9 mm in Gursoy et al. 2022).",
+      "distanceNote": "Along-beam position = micro sample, 60.1 m. Panel centre ≈0.513 m above the sample and ≈30 mm downstream of it, face horizontal, pre-upgrade lauelab geometry file geoN_2023-04-06; 510.9 mm in Gursoy et al. 2022.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "A large flat X-ray camera hangs about half a metre above the sample, looking down, and catches the Laue spots thrown up at around 90°, a fingerprint of each grain's tilt and strain. Before the upgrade it was a PerkinElmer amorphous-silicon panel with 2048 × 2048 pixels of 200 µm; at that distance one pixel corresponds to about 2 × 10⁻⁴ in lattice spacing, so the quoted 10⁻⁴ precision relies on locating spots to a fraction of a pixel. The design called for a low-noise photon-counting detector of the Pilatus 6M class, but its purchase was cut from the project; the detector in use now is not documented. The coloured rays in the model are calculated for two nickel grains, coloured by each spot's X-ray energy.",
+      "text": "The main detector faces downward about half a metre above the sample. Laue spot directions determine grain orientation and strain. The pre-upgrade PerkinElmer panel had 2048 × 2048 pixels of 200 µm. At that distance, a pixel corresponds to about 2 × 10⁻⁴ in lattice spacing, so 10⁻⁴ strain precision requires subpixel fitting. A Pilatus 6M-class detector was specified, but its purchase was removed from the upgrade scope. The current detector is undocumented. Model rays are calculated for two nickel grains and coloured by photon energy.",
       "specs": {
-        "pre-upgrade model": "PE XRD1621 (2048², 200 µm px)",
+        "pre-upgrade model": "PE XRD1621, 2048², 200 µm px",
         "distance": "≈511 mm",
         "design target": "Pilatus 6M class",
         "pre-upgrade panel": "409.6 mm square, 200 µm pixels"
@@ -803,41 +803,41 @@
       "category": "detector",
       "branch": "3dmn",
       "distanceM": 60.1,
-      "distanceNote": "Along-beam position ≈ micro sample; panel centres ≈0.14 m upstream of it. Each panel is tilted 45° about the beam axis (face normal pointing up-and-outboard / up-and-inboard), ≈0.40 m perpendicular distance, centre ≈0.43 m from the sample: 'Yellow' outboard, 'Purple' inboard (pre-upgrade lauelab geometry file geoN_2023-04-06).",
+      "distanceNote": "The side panel centres are about 0.14 m upstream of the micro sample. Each is tilted 45° about the beam, with its normal upward and outboard or inboard. Perpendicular distance is about 0.40 m and centre distance about 0.43 m. These positions follow pre-upgrade lauelab file geoN_2023-04-06, with Yellow outboard and Purple inboard.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "Two smaller cameras, tilted in from either side about 0.4 m from the sample, catch spots the main camera misses. A wider spread of spots pins down each grain's orientation and distortion more precisely, especially the shear components of strain. Before the upgrade they were PerkinElmer panels of 1024 × 1024 pixels, nicknamed 'Yellow' (outboard) and 'Purple' (inboard); the design calls for 1–2 megapixel detectors.",
+      "text": "Two side detectors record reflections outside the main panel's acceptance, improving orientation and strain measurements, especially shear. Each is about 0.4 m from the sample. The pre-upgrade 1024 × 1024 PerkinElmer panels were called Yellow outboard and Purple inboard. The design specifies 1 to 2 megapixels per panel.",
       "specs": {
-        "pre-upgrade": "2 × PE 1024² (XRD 0820 AN / PE0822)",
+        "pre-upgrade": "Two PerkinElmer 1024 × 1024 panels, named XRD 0820 AN or PE0822 in different sources",
         "distance": "≈0.40 m perpendicular, ≈0.43 m to centre"
       },
       "source": "r11"
     },
     {
       "id": "fluorescence-detector",
-      "name": "Fluorescence detector (SDD)",
+      "name": "Fluorescence detector, SDD",
       "category": "detector",
       "branch": "3dmn",
       "distanceM": 60.1,
-      "distanceNote": "Along-beam position ≈ micro sample; snout a few cm from the sample (approx.).",
+      "distanceNote": "Along-beam position ≈ micro sample; snout a few cm from the sample, approx..",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "Atoms struck by the beam emit X-rays at energies unique to each element. This silicon drift detector, its snout a few centimetres from the sample, reads that fluorescence to map the chemistry and to find landmarks on the sample. The preliminary design preferred a 1 mm thick sensor to catch higher-energy emission lines.",
+      "text": "A silicon drift detector a few centimetres from the sample records characteristic elemental fluorescence. Elemental maps locate features for subsequent diffraction. The preliminary design preferred a 1 mm thick sensor for higher-energy emission lines.",
       "specs": {},
       "source": "r4"
     },
     {
       "id": "bcdi-far-field-detector",
-      "name": "Far-field coherent (BCDI) detector, movable",
+      "name": "Far-field coherent, BCDI detector, movable",
       "category": "detector",
       "branch": "3dmn",
       "distanceM": 60.8,
-      "distanceNote": "Approx.: PDR places it ≈2–3 m from the micro sample (e.g. 3.3 m at 12 keV for 1.5 µm particles with 75 µm pixels). Drawn ≈2.2 m away, up and outboard (2θ ≈72°, e.g. Ni 400 at 12 keV) so the diffracted ray leaves through the 45° sample surface and clears the gantry and side detectors; its along-beam coordinate is therefore ≈60.8 m. Position illustrative.",
+      "distanceNote": "The preliminary design places the far detector about 2 to 3 m from the micro sample. One example uses 3.3 m at 12 keV for 1.5 µm particles and 75 µm pixels. The exhibit position is illustrative, about 2.2 m upward and outboard at 2θ near 72°, as for Ni 400 at 12 keV. This path exits through the 45° sample surface and clears the gantry and side panels. Its along-beam coordinate is about 60.8 m.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "A camera on a robot or large translation stage, about 2–3 m away, records the fine speckle around a single diffraction spot. A computer turns that speckle into a 3D image of one grain's shape and internal strain (Bragg coherent diffraction imaging), made practical by the upgraded source's coherence. Energy scans step through the reflection while the sample stays fixed. Micro station only; its position in the model is illustrative.",
+      "text": "A movable detector about 2 to 3 m from the sample records coherent intensity fringes around a selected Bragg reflection. Computation reconstructs a grain's three-dimensional shape and strain from these measurements. Energy scans traverse the reflection while the sample remains stationary. This design mode is only for the micro station. The model position is illustrative.",
       "specs": {
-        "distance": "≈2–3 m (PDR)"
+        "distance": "≈2 to 3 m, PDR"
       },
       "source": "r1"
     },
@@ -847,27 +847,27 @@
       "category": "sampleEnvironment",
       "branch": "3dmn",
       "distanceM": 64.0,
-      "distanceNote": "Approx.: upstream wall of a ≈2.8–3 m enclosure around the 65.5 m instrument (3000 mm dimension in FDR Fig. 4.67; ≈2.5 m footprint at ≈64.3–66.8 m in Fig. 4.58).",
+      "distanceNote": "Position is approximate. upstream wall of a ≈2.8 to 3 m enclosure around the 65.5 m instrument, 3000 mm dimension in FDR Fig. 4.67; ≈2.5 m footprint at ≈64.3 to 66.8 m in Fig. 4.58.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "The nano station is designed to sit in its own clear-walled room, about 3 m long, inside the hutch. A 10 cm aluminium part grows by 100 nm, more than twice the 40 nm design spot, if it warms by just 0.04 °C, so this enclosure is meant to hold the air steady to 0.02 °C; the hutch itself is held to 0.03–0.05 °C. The design also moves the electronics outside and stands the instrument on an ultra-stable table, because the old steel-legged table vibrated by about 50 nm.",
+      "text": "The nano instrument is designed within a clear-walled enclosure about 3 m long. A 100 mm aluminium part expands about 100 nm during a 0.04 °C temperature change, exceeding the 40 nm spot. The local stability requirement is 0.02 °C, compared with 0.03 to 0.05 °C for the hutch. Electronics are outside the enclosure and the instrument rests on a stable table. The old steel-supported table had roughly 50 nm vibration.",
       "specs": {
         "length": "≈3 m",
         "stability": "≤ 0.02 °C",
-        "hutch stability": "0.03–0.05 °C"
+        "hutch stability": "0.03 to 0.05 °C"
       },
       "source": "r1"
     },
     {
       "id": "nano-kb",
-      "name": "Nano-focusing KB mirror pair (nano-diffraction instrument 34ID-BI-2)",
+      "name": "Nano-focusing KB mirror pair, nano-diffraction instrument 34ID-BI-2",
       "category": "kbMirror",
       "branch": "3dmn",
       "distanceM": 65.5,
-      "distanceNote": "FDR Table 4.63 / text: 65.5 m (ray traces at '65 m'). The pair deflects both vertically (first mirror) and horizontally (second mirror).",
+      "distanceNote": "FDR Table 4.63 / text: 65.5 m, ray traces at '65 m'. The pair deflects both vertically, first mirror and horizontally, second mirror.",
       "enclosure": "34-ID-E",
       "deflection": "vertical + horizontal",
-      "text": "A shorter-focus Kirkpatrick–Baez mirror pair, further from the source at 65.5 m, designed to squeeze the beam to about 40 nm: 37 × 37 nm at 14 keV in ray-traced design, with 4.9 × 10¹¹ photons per second in a 0.1% energy band, ten times less than the micro station. Its platinum-coated surfaces must be accurate to 0.4–0.5 nm (root-mean-square), and the working distance shrinks to about 30 mm. Whether the nano station has been installed and commissioned is not publicly documented as of October 2026.",
+      "text": "The design focal width for the shorter-focus mirror pair at 65.5 m is about 40 nm. At 14 keV, ray tracing gives 37 × 37 nm with 4.9 × 10¹¹ photons/s in a 0.1% band, ten times less flux than the micro station. Platinum-coated surface accuracy must be 0.4 to 0.5 nm root-mean-square. Working distance is about 30 mm. Installation and commissioning remain undocumented as of October 2026.",
       "specs": {
         "spot (14 keV)": "37 × 37 nm²",
         "flux": "4.9 × 10¹¹ ph/s/0.1%BW",
@@ -885,10 +885,10 @@
       "category": "sample",
       "branch": "3dmn",
       "distanceM": 65.6,
-      "distanceNote": "Approx.: a few cm downstream of the nano KB.",
+      "distanceNote": "Position is approximate. a few cm downstream of the nano KB.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "An ultra-precise stage, tracked by laser interferometers, holds the sample steady to a few nanometres (about 5 nm in the preliminary design) while it is scanned through the 40 nm spot. It rests on an ultra-stable optical table inside the thermal enclosure.",
+      "text": "Interferometers measure sample-stage position during scanning through the approximately 40 nm focus. The preliminary design specifies about 5 nm positioning accuracy. The stage rests on a stable optical table inside the thermal enclosure.",
       "specs": {
         "precision (PDR)": "≈5 nm"
       },
@@ -900,10 +900,10 @@
       "category": "wire",
       "branch": "3dmn",
       "distanceM": 65.6,
-      "distanceNote": "Approx.: just above the sample.",
+      "distanceNote": "Position is approximate. just above the sample.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "The nano station's depth finder: a precision knife edge or wire, moved with about 5 nm precision just above the sample. It uses the same moving-shadow principle as the micro station's wire and coded aperture, at a finer scale.",
+      "text": "A knife edge or wire is scanned just above the nano sample with about 5 nm precision. Blocking at known positions separates diffraction from different depths, as at the micro station.",
       "specs": {},
       "source": "r1"
     },
@@ -913,10 +913,10 @@
       "category": "detector",
       "branch": "3dmn",
       "distanceM": 65.6,
-      "distanceNote": "Above/around the sample (approx.).",
+      "distanceNote": "Above/around the sample, approx..",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "Flat X-ray cameras above and beside the nano sample collect its Laue patterns. The volume the beam probes is tiny, and the diffracted signal shrinks with the thickness of each depth slice, so these detectors must be very low-noise. The design calls for one large detector above, two at the sides and one for forward scattering; what is installed is unknown.",
+      "text": "Detectors above and beside the nano sample record Laue patterns. The diffracted intensity decreases with illuminated depth-slice thickness, requiring low noise. The design includes an upper panel, two side panels and a forward panel. Installed detectors are unknown.",
       "specs": {},
       "source": "r1"
     },
@@ -929,20 +929,20 @@
       "distanceNote": "FDR Table 4.63; end of the 3DMN beam.",
       "enclosure": "34-ID-E",
       "deflection": "none",
-      "text": "The end of the line for 3DMN: a block of heavy metal at 66.9 m, by the wall between hutches E and F, that safely absorbs whatever remains of the pink beam. ATOMIC's beam continues past it in its shielded pipe.",
+      "text": "This heavy-metal stop absorbs remaining 3DMN pink beam at 66.9 m beside the E/F wall. The ATOMIC beam continues separately in its shielded pipe.",
       "specs": {},
       "source": "r1"
     },
     {
       "id": "atomic-endstation",
-      "name": "ATOMIC coherent-imaging endstation (34ID-BI-3) – partner",
+      "name": "Partner ATOMIC coherent-imaging endstation, 34ID-BI-3",
       "category": "diffractometer",
       "branch": "atomic",
       "distanceM": 69.5,
-      "distanceNote": "FDR Table 4.63 (KB2 at 68.1 m; beam stop 78.7 m).",
+      "distanceNote": "FDR Table 4.63, KB2 at 68.1 m; beam stop 78.7 m.",
       "enclosure": "34-ID-F",
       "deflection": "none",
-      "text": "Next door in 34-ID-F, ATOMIC uses the twin beam for coherent imaging of strain inside individual nanocrystals, with sample and detector diffractometers. A design table places its second zoom mirror pair at 68.1 m; the drawings put it closer to the sample, and the as-built position is unpublished. It works over the same 5.3–30 keV range. Listed here for context only.",
+      "text": "The ATOMIC instrument in 34-ID-F uses the neighbouring beam for coherent imaging of strain in nanocrystals, with sample and detector diffractometers. The second zoom mirror pair is at 68.1 m in a table but nearer the sample in drawings. The as-built position is unpublished. Its energy range is 5.3 to 30 keV. It is included here for layout context.",
       "specs": {},
       "source": "r1"
     }
@@ -950,176 +950,176 @@
   "enclosures": [
     {
       "name": "34-ID-A",
-      "role": "First optics enclosure (FOE), white beam; shared by 3DMN and ATOMIC",
+      "role": "First optics enclosure for white beam, shared by 3DMN and ATOMIC",
       "startM": 24.4,
       "endM": 36.0,
       "widthM": 2.5,
       "branch": null,
-      "notes": "Boundaries read from the FDR Fig. 4.58 scale bar (about ±0.3 m; width very approximate). Contains FE exit mask/collimator, both CUFE white-beam slits, W and Pb collimators, both horizontal deflecting mirrors (29.6 m, 31.3 m), secondary collimators, diagnostic flag and the pink mask / white-beam stop (34.0 m). Downstream of PM-1 only pink beam exists."
+      "notes": "Boundaries are scaled from final-design Fig. 4.58, with about ±0.3 m longitudinal uncertainty and less certain width. The enclosure contains the front-end exit mask and collimator, separate white-beam slits, tungsten and lead collimators, mirrors at 29.6 and 31.3 m, secondary collimators, diagnostic flag, and the pink mask and white-beam stop at 34.0 m. Only pink beam continues downstream."
     },
     {
       "name": "34-ID-B",
-      "role": "Second optics enclosure (masks/shielding); existing station",
+      "role": "Existing second optics enclosure for masks and shielding",
       "startM": 42.3,
       "endM": 47.8,
       "widthM": 2.4,
       "branch": null,
-      "notes": "Approx. from Fig. 4.58. Reached via shielded transport 36.0–42.5 m. Houses inboard/outboard pink photon masks (46.9 m) and Pb collimator/bremsstrahlung stop (47.3 m)."
+      "notes": "Boundaries are scaled from Fig. 4.58. Shielded transport extends from 36.0 to 42.5 m. Inboard and outboard pink masks are at 46.9 m; the lead collimator and stop are at 47.3 m."
     },
     {
       "name": "34-ID-C",
-      "role": "Optics enclosure for both branches (repurposed former 34-ID-C coherent-diffraction station)",
+      "role": "Shared optics enclosure, repurposed from the former 34-ID-C coherent-diffraction station",
       "startM": 47.8,
       "endM": 55.0,
       "widthM": 3.6,
       "branch": null,
-      "notes": "Approx. from Fig. 4.58. ATOMIC BPM/slits/DCM/KB1 (49.7–52.0 m), 3DMN BPM (52.7), slits (53.1), HDCM (53.8) and both pink-beam shutters (54.8 m) at its downstream wall. Downstream wall placed at ≈55.0 m: FDR Table 4.63 puts the pink-beam shutters (inside C) at 54.8 m and the start of the 'shielded pipe through 34-ID-E' at 55.1 m."
+      "notes": "Boundaries are scaled from Fig. 4.58. ATOMIC monitoring, slits, monochromator and first mirror pair occupy 49.7 to 52.0 m. The 3DMN monitor is at 52.7 m, slits at 53.1 m and monochromator at 53.8 m. Both pink-beam shutters are at 54.8 m. The downstream wall is near 55.0 m, between the shutters in C and transport through E beginning at 55.1 m in Table 4.63."
     },
     {
       "name": "34-ID-E",
-      "role": "3DMN experimental station (micro- and nano-diffraction instruments); ATOMIC transport passes through",
+      "role": "3DMN microdiffraction and nanodiffraction enclosure. Shielded ATOMIC transport passes through.",
       "startM": 55.0,
       "endM": 67.5,
       "widthM": 4.3,
       "branch": "3dmn",
-      "notes": "Approx. from Fig. 4.58/4.68: stepped outline, ≈2.6 m wide from ≈55.0 to ≈59.3 m (footprint of the old 34-ID-D third optics enclosure) and ≈4.3 m wide from ≈59.3 to 67.5 m. PDR (2017) planned to join the old D and E stations and add ≈2 m. Instrument footprints drawn at ≈58.2–60.7 m (micro) and ≈64.3–66.8 m (nano). Requires 0.03–0.05 °C air stability and a temperature-stabilized user/control area at the entrance (PDR). Upstream wall ≈55.0 m constrained by FDR Table 4.63 (shutters 54.8 m in C; ST-2 'through 34-ID-E' 55.1–67.5 m). The FDR's instrument ESD is titled '34-ID-D/E 3DMN Endstation Instrumentation', consistent with D and E having been merged."
+      "notes": "The stepped outline is scaled from Figs. 4.58 and 4.68. Width is about 2.6 m from 55.0 to 59.3 m, occupying the former 34-ID-D third optics enclosure, then about 4.3 m to 67.5 m. The 2017 plan proposed joining D and E with about 2 m added length. Micro and nano footprints are about 58.2 to 60.7 m and 64.3 to 66.8 m. Air stability is specified as 0.03 to 0.05 °C, with a temperature-stabilized control area at the entrance. The upstream wall near 55.0 m is constrained by shutters in C at 54.8 m and the E transport starting at 55.1 m. The final-design instrument document uses the exact title \"34-ID-D/E 3DMN Endstation Instrumentation\", consistent with the merged enclosures."
     },
     {
       "name": "34-ID-F",
-      "role": "ATOMIC experimental station (new construction) – partner",
+      "role": "New ATOMIC experimental enclosure",
       "startM": 67.5,
       "endM": 79.8,
       "widthM": null,
       "branch": "atomic",
-      "notes": "Approx. from Fig. 4.58; trapezoidal hutch with a large detector arm; ATOMIC beam stop at 78.7 m."
+      "notes": "The trapezoidal outline and large detector arm are scaled from Fig. 4.58. The ATOMIC stop is at 78.7 m."
     }
   ],
   "instruments": [
     {
-      "name": "3D micro-diffraction instrument (34ID-BI-1)",
+      "name": "3D microdiffraction instrument, 34ID-BI-1",
       "enclosure": "34-ID-E (≈60 m)",
-      "text": "The workhorse station, at about 60 m. A Kirkpatrick–Baez mirror pair, two curved mirrors focusing in turn vertically and horizontally, brings pink (multi-energy) or single-energy X-rays to about 100 nm (103 × 68 nm in design at 14 keV; the directory quotes 150 × 150 nm) on a sample tilted at 45°. A wire or gold coded aperture sweeps above it for depth, area detectors above and beside it catch the Laue spots, and a far detector can record coherent speckle for Bragg coherent imaging. Each map point takes a scan of 50–2,000 frames, which software reconstructs into depth, indexes and turns into orientation and strain; energy scans add absolute strain. At least 50 mm between mirror and focus leaves room for heaters, loading rigs, diamond-anvil cells and an in situ nanoindenter.",
+      "text": "The micro station is near 60 m. Kirkpatrick-Baez mirrors focus pink or single-energy X-rays on a sample tilted 45°. The design spot is 103 × 68 nm at 14 keV; the directory lists 150 × 150 nm. A wire or coded gold mask separates diffraction by depth. Upper and side detectors record Laue spots, and a distant detector is specified for coherent imaging. Each scan point requires 50 to 2,000 frames. Software reconstructs depth, indexes reflections and calculates orientation and deviatoric strain. Energy scans determine absolute strain. A working distance of at least 50 mm accommodates heaters, loading equipment, diamond cells and an in situ nanoindenter.",
       "detectors": [
-        "Large area detector above the sample in 90° reflection geometry (pre-upgrade PerkinElmer XRD1621, 2048 × 2048, at ≈511 mm; design Pilatus 6M class).",
-        "Two side area detectors (pre-upgrade PerkinElmer 1024 × 1024 panels, XRD 0820 AN / 'PE0822'; design 1–2 Mpixel).",
-        "Silicon drift fluorescence detector (Vortex class).",
-        "Forward-scattering medium area detector on a horizontal motion (PDR); the pre-upgrade directory lists a Mar 165 CCD for forward scattering.",
-        "Movable far-field small-pixel detector at ≈2–3 m for Bragg coherent imaging.",
-        "Ion chambers before and after the KB mirrors (pre-upgrade I_start, I_middle, I_final)."
+        "Large area detector above the sample in 90° reflection geometry, pre-upgrade PerkinElmer XRD1621, 2048 × 2048, at ≈511 mm; design Pilatus 6M class.",
+        "Two side area detectors, pre-upgrade PerkinElmer 1024 × 1024 panels, XRD 0820 AN / 'PE0822'; design 1 to 2 Mpixel.",
+        "Silicon drift fluorescence detector, Vortex class.",
+        "Forward-scattering medium area detector on a horizontal motion, PDR; the pre-upgrade directory lists a Mar 165 CCD for forward scattering.",
+        "Movable far-field small-pixel detector at ≈2 to 3 m for Bragg coherent imaging.",
+        "Ion chambers before and after the KB mirrors, pre-upgrade I_start, I_middle, I_final."
       ],
       "sampleEnvironments": [
-        "Small environmental chambers within the ≥ 50 mm working distance (PDR).",
-        "Diamond-anvil cells (high pressure).",
-        "Heating and cooling, electric and magnetic fields, and mechanical loading (FDR science scope).",
-        "In situ nanoindenter (NIST-funded development, PDR)."
+        "Small environmental chambers within the ≥ 50 mm working distance, PDR.",
+        "Diamond-anvil cells, high pressure.",
+        "Heating and cooling, electric and magnetic fields, and mechanical loading, FDR science scope.",
+        "In situ nanoindenter, NIST-funded development, PDR."
       ],
       "source": "r1"
     },
     {
-      "name": "3D nano-diffraction instrument (34ID-BI-2)",
+      "name": "3D nanodiffraction instrument, 34ID-BI-2",
       "enclosure": "34-ID-E (≈65.5 m)",
-      "text": "A quieter twin at the back of the hutch, at 65.5 m, designed to focus to about 40 nm for the finest details. It is meant to sit in its own clear-walled enclosure held steady to 0.02 °C, on an ultra-stable table, with interferometer-tracked stages accurate to about 5 nm and very low-noise detectors, since each thin depth slice gives only a faint signal. Its shorter working distance, about 30 mm, limits it to compact sample environments. Whether it has been built and commissioned is not publicly documented as of October 2026.",
+      "text": "The nano station at 65.5 m targets about 40 nm. Its design specifies a clear-walled enclosure with 0.02 °C thermal stability, a stable table and interferometric sample positioning accurate to about 5 nm. Low-noise detectors are needed for the small diffracting volume in each depth slice. The approximately 30 mm working distance limits sample environments to compact equipment. Construction and commissioning remain undocumented as of October 2026.",
       "detectors": [
-        "Flat-panel or photon-counting area detectors above and beside the sample (design).",
-        "Silicon drift fluorescence detector (design)."
+        "Flat-panel or photon-counting area detectors above and beside the sample, design.",
+        "Silicon drift fluorescence detector, design."
       ],
       "sampleEnvironments": [
-        "The reduced working distance (≈30 mm, PDR) limits environments to compact stages."
+        "The reduced working distance, ≈30 mm, PDR limits environments to compact stages."
       ],
       "source": "r1"
     }
   ],
   "totalLengthM": 66.9,
-  "geometryNotes": "The beamlines form a canted pair: 3DMN takes the upstream undulator of the 34-ID straight and the outboard beam; ATOMIC takes the downstream undulator and the inboard beam, 1 mrad apart (FDR). This reverses the pre-upgrade assignment (the old 34-ID-E used the inboard beam).\n\nEach branch has its own flat mirror in 34-ID-A at 3.0 mrad grazing incidence (6 mrad deflection): 3DMN at 29.6 m, ATOMIC at 31.3 m. The PDR states that the 3DMN mirror deflects outboard and ATOMIC's inboard (≈11 mrad between the pink beams at 2.5 mrad), and the FDR Fig. 4.59 schematic shows the same; in FDR Fig. 4.58 the 3DMN pink beam runs ≈0.4 m outboard of the ATOMIC shielded pipe through 34-ID-E (read from the drawing; consistent with opposite deflections: ≈58 mm from canting plus ≈6 mrad × 28 m on each side). Both monochromators are horizontally deflecting small-offset (≈1.1 mm) DCMs in 34-ID-C, so the monochromatic beam is offset sideways by ≈1 mm, not upward.\n\nAll hutches are on the experiment floor within the existing sector-34 footprint (no long-beamline building): A (FOE) ≈24.4–36.0 m, shielded transport 36.0–42.5 m, B ≈42.3–47.8 m, C ≈47.8–55.0 m, E ≈55.0–67.5 m (stepped width), F ≈67.5–79.8 m (read from the FDR figure scale bar).\n\nInside E the 3DMN beam ends at a pink-beam stop at 66.9 m, while ATOMIC's beam continues in a shielded pipe (55.1–67.5 m) into F.\n\nInstrument geometry: beam along +Z; sample surface tilted 45° (normal pointing up and upstream); the main detector looks straight down on the sample from ≈0.5 m above (2θ ≈ 90° at its centre); two side detectors at ≈0.4 m perpendicular distance (≈0.43 m to their centres), outboard and inboard, slightly upstream and raised; the wire moves along H = (Y+Z)/√2, parallel to the sample surface, ≈0.2–1 mm above it; the KB pair sits just upstream of the sample (vertical mirror first, horizontal mirror ≈6–7 cm from the focus at the micro station, per the PDR focal lengths).\n\n34-ID-E coordinates: X horizontal outboard (toward the hutch doors), Y up, Z downstream. The nano instrument sits inside a ≈3 m long glass thermal enclosure on an ultra-stable table at the downstream end of E.\n\nExhibit conventions: distances are measured from the centre of the 34-ID straight (U28 centre at ≈−1.2 m, ATOMIC revolver at ≈+1.2 m); hutch outlines and offsets are read from FDR Fig. 4.58; the 1 mrad canting plus opposite 6 mrad mirror deflections put the two beams ≈0.4 m apart in 34-ID-E. Sub-millimetre parts (wire, coded aperture, sample gap, DCM crystal offset) are enlarged in the 3D model for visibility; their true sizes are given in the text.",
+  "geometryNotes": "The 34-ID pair has a 1 mrad angle between sources. The upstream undulator supplies the outboard 3DMN beam; the downstream undulator supplies inboard ATOMIC. This reverses the pre-upgrade assignment, when 34-ID-E used the inboard beam.\n\nEach branch has a flat mirror in 34-ID-A at 3.0 mrad grazing incidence, giving 6 mrad deflection. The 3DMN mirror is at 29.6 m, ATOMIC's at 31.3 m. Preliminary-design text and final-design Fig. 4.59 place the deflections outboard and inboard respectively. At the preliminary-design 2.5 mrad incidence, beam separation was about 11 mrad. Final-design Fig. 4.58 depicts about 0.4 m between the 3DMN beam and ATOMIC pipe in 34-ID-E. This is consistent with roughly 58 mm source-angle separation plus 6 mrad × 28 m deflection on each side. Both small-offset horizontal crystal monochromators are in 34-ID-C and displace the beam sideways by about 1.1 mm.\n\nThe hutches occupy the existing sector-34 experiment floor. Final-design plan-scaled extents are A from about 24.4 to 36.0 m, shielded transport from 36.0 to 42.5 m, B from 42.3 to 47.8 m, C from 47.8 to 55.0 m, E from 55.0 to 67.5 m with stepped width, and F from 67.5 to 79.8 m.\n\nThe 3DMN pink-beam stop is at 66.9 m in E. ATOMIC continues through E in shielded transport from 55.1 to 67.5 m, entering F.\n\nAt the 3DMN sample, the beam direction is +Z. The surface is tilted 45°, with its normal upward and upstream. The upper detector is about 0.5 m above, with its centre at 2θ near 90°. Side panels are outboard and inboard, slightly upstream and raised, about 0.4 m away perpendicularly or 0.43 m to their centres. The wire moves parallel to the surface along H = (Y+Z)/√2, about 0.2 to 1 mm above it. The vertical focusing mirror is first. The horizontal mirror is about 6 to 7 cm from the micro focus, based on preliminary-design focal lengths.\n\nThe coordinates are X outboard toward the doors, Y upward and Z downstream. The nano station occupies a roughly 3 m glass thermal enclosure on a stable table downstream in E.\n\nExhibit distances refer to the straight-section centre, with the 28 mm-period undulator near −1.2 m and the ATOMIC revolver near +1.2 m. Enclosure outlines and offsets are scaled from final-design Fig. 4.58. The source angle and opposing mirror deflections give about 0.4 m beam separation in E. The wire, coded mask, sample gap and monochromator offset are enlarged for visibility. Their physical sizes are stated in the text.",
   "interactiveIdeas": [
     {
-      "title": "Laue constellation: rainbow vs. one colour",
-      "concept": "Visitor rotates a crystal (e.g. fcc Ni) under a focused beam. Pink mode: a constellation of spots appears on a detector panel 0.5 m above. Mono mode: almost all spots vanish; an energy slider scans until one spot lights up, revealing its exact energy.",
-      "whatUserLearns": "Why polychromatic Laue sees every grain without rotating the sample, why spot positions give orientation, and why a single-colour energy scan is needed to get the absolute lattice spacing.",
-      "physicsToGetRight": "Bragg: λ = 2 d sin(θ); E[keV] = 12.398/λ[Å]. k_out = k_in - 2(k_in·n)n for plane normal n; a spot exists if the required energy E_hkl = 12.398/(2 d_hkl sin θ) lies in the incident band (~5-30 keV after the mirror; most signal 12-17 keV on the top detector). Harmonics (nh nk nl) land on the same pixel. Top detector centre at 2θ = 90°, so E = 12.398/(√2 d). Spot intensity ~ |F_hkl|² × spectrum × Lorentz/polarization; undulator harmonics (U28 E1 = 12.2/(1+K²/2) keV) make the 'rainbow' lumpy unless tapered."
+      "title": "Laue diffraction and energy selection",
+      "concept": "Visitors rotate a crystal, such as face-centred-cubic nickel. A detector 0.5 m above records many spots under pink illumination. With monochromatic illumination, most reflections are absent. An energy scan brings a selected reflection into diffraction and determines its wavelength.",
+      "whatUserLearns": "Multi-energy illumination records reflections from differently oriented grains without rotating the sample. Spot directions determine orientation. A narrow-band energy measurement supplies absolute lattice spacing.",
+      "physicsToGetRight": "Use Bragg's law λ = 2 d sinθ and E[keV] = 12.398/λ[Å]. For plane normal n, k_out = k_in − 2(k_in·n)n. A reflection occurs if E_hkl = 12.398/(2 d_hkl sinθ) falls within the approximately 5 to 30 keV mirror-filtered band. Most upper-panel signal is from 12 to 17 keV. Harmonics nh, nk, nl share a pixel. At the top centre, 2θ = 90° and E = 12.398/(√2 d). Intensity depends on |F_hkl|², spectrum and Lorentz and polarization factors. U28 first harmonic is E1 = 12.2/(1+K²/2) keV. Taper broadens its uneven harmonic spectrum."
     },
     {
-      "title": "The wire that sees depth (DAXM)",
-      "concept": "Side view: beam enters a 45° sample; three grains at different depths send rays up to a pixelated detector. Visitor drags a wire across; per-pixel intensity curves step down; taking the difference and tracing the ray past the wire edge places each signal at its depth, building a 3D grain map.",
-      "whatUserLearns": "Depth resolution comes from geometry (pinhole-camera triangulation), not from focusing; why many frames are needed and what limits resolution.",
-      "physicsToGetRight": "Depth along beam D = intersection of the line (pixel → tangent point on wire edge) with the beam line (lauelab formulas: tan(φ) = (tan φ0 ∓ tan dφ)/(1 ± tan φ0 tan dφ), tan dφ = a/√(r² - a²)). For a pixel directly above the wire, a wire step dH along H = (Y+Z)/√2 moves the triangulated point along the beam by dH/√2 × L/(L-h) ~ 0.71 dH (h = wire height ~0.2-1 mm, L ~ 510 mm). Pixel blur ~ p·h/L ~ 0.08-0.4 µm for 200 µm pixels. Depth below surface = depth along beam × sin(45°). Leading edge removes intensity (positive difference), trailing edge restores it (negative). Wire diameter 50-100 µm Pt; step ~1 µm; scan length set by the angular fan (hundreds of µm)."
+      "title": "Depth reconstruction with a wire",
+      "concept": "Three depths within a sample tilted 45° contribute diffraction to an upper detector. Visitors scan a wire across the outgoing rays. Intensity differences identify blocking positions. Rays traced from the pixels past the edge intersect the incident beam at their scattering depths.",
+      "whatUserLearns": "Wire geometry determines scattering depth. Aperture position, detector pixels and scan step limit depth resolution, requiring many frames.",
+      "physicsToGetRight": "Depth along the beam is the intersection with a ray from a detector pixel tangent to the wire. Lauelab uses tanφ = (tanφ0 ∓ tandφ)/(1 ± tanφ0 tandφ), with tandφ = a/√(r² − a²). For a pixel directly above, motion dH along H = (Y+Z)/√2 changes beam depth by dH/√2 × L/(L−h), about 0.71 dH. Wire height h is about 0.2 to 1 mm and detector distance L about 510 mm. Pixel blur p·h/L is about 0.08 to 0.4 µm for 200 µm pixels. Normal depth below the surface is beam depth times sin45°. The leading edge removes intensity and the trailing edge restores it, giving opposite differences. Platinum diameter is 50 to 100 µm; step is about 1 µm. Angular acceptance sets a scan length of hundreds of micrometres."
     },
     {
-      "title": "Barcode for X-rays (coded aperture)",
-      "concept": "Replace the wire with a gold barcode built from a de Bruijn sequence. Each pixel records an on/off 'Morse code'; the visitor slides a window along the code to find the unique match and thus the depth. A race: wire scan vs. barcode scan to reconstruct the same grain map.",
-      "whatUserLearns": "How x-ray-astronomy coded apertures were miniaturised to speed up 3D microscopy; uniqueness of every 8-bit window; trade-off between bit size, thickness and noise.",
-      "physicsToGetRight": "Order-8 binary de Bruijn sequence, length 256 (every 8-bit substring unique); bits 7.5 µm (Au, 1) / 15 µm (open, 0) → ≥ 120 µm scan for unique decoding vs ~600 µm wire scan; measurement d = A_p s (Toeplitz coding matrix); decode by exhaustive offset search + NNLS; 4.6 µm Au transmits a significant fraction at 20-30 keV (contrast drops with energy and with obliquity up to ~20° on a 51 cm detector); signals larger than a bit blur the code."
+      "title": "Depth reconstruction with a coded mask",
+      "concept": "Visitors replace the wire with a gold de Bruijn mask. Blocked and transmitted intensity at each pixel forms a sequence during motion. A search for its unique match identifies mask position and depth. The display compares frame counts for wire and mask reconstruction of the same volume.",
+      "whatUserLearns": "Each eight-bit window is unique. This reduces the required scan length. Bit size, absorption thickness and noise constrain decoding.",
+      "physicsToGetRight": "Use an order-eight binary de Bruijn sequence with 256 bits and unique eight-bit subsequences. Gold bits are nominally 7.5 µm wide for binary one; openings are 15 µm for zero. At least 120 µm scan is required, versus roughly 600 µm for a wire. Measurement is d = A_p s with a Toeplitz coding matrix. Reconstruction uses exhaustive offset search and non-negative least squares. A 4.6 µm gold layer transmits significant flux at 20 to 30 keV. Contrast decreases with energy and obliquity up to about 20° on a detector 51 cm away. Signals wider than a bit blur the sequence."
     },
     {
-      "title": "Shrink the source, shrink the spot",
-      "concept": "Split screen: old APS vs APS-U source shapes (280 × 10 µm vs 14.7 × 3.2 µm rms) feed the same KB pair. Sliders for mirror distance/focal length, slit opening and mirror figure error show spot size and flux.",
-      "whatUserLearns": "A focused spot is an image of the source; brightness, not just flux, sets how small and intense the spot can be; why the old station had to throw away photons with slits and why sub-nanometre mirror figure is needed.",
-      "physicsToGetRight": "Spot FWHM ~ √[(2.355 σ_src q/p)² + (diffraction ~ 0.88 λ q / D, D = illuminated mirror aperture, i.e. 0.44 λ/NA with NA = D/2q)² + (~2 × 2.355 × σ_slope × q)²]; demagnification p/q ~ 60 m / 0.07-0.15 m ~ 400-900; source FWHM = 2.355 σ (horizontal 35 µm APS-U vs 660 µm old). Use FDR results as anchors: 103 × 68 nm² (micro), 37 × 37 nm² (nano) at 14 keV (FWHM-like; RMS ~50 × 35 and ~19 × 19 nm, FDR Figs. 4.60-4.61); tolerance 0.4-0.75 nm rms figure error for <10% growth. Beam pointing: a lateral source shift dx moves the focus by dx q/p; an angular error dψ of the beam at the KB moves it by ~dψ × q."
+      "title": "Source size, aperture and focal width",
+      "concept": "A split view compares old electron-beam widths of 280 × 10 µm with upgraded widths of 14.7 × 3.2 µm, both root-mean-square. The same mirror pair is used. Controls change source distance, focal distance, opening and surface error. The display calculates spot width and flux.",
+      "whatUserLearns": "The focus contains a demagnified source image plus diffraction and surface-error contributions. A smaller source and more accurate mirrors increase usable flux at a small focus.",
+      "physicsToGetRight": "Add focal contributions in quadrature. Source-image full width at half maximum is 2.355 σ_src q/p. Diffraction width is about 0.88 λq/D, equivalent to 0.44 λ/NA with NA = D/(2q). Slope-error width is about 2 × 2.355 × σ_slope × q. Demagnification is roughly 60 m divided by 0.07 to 0.15 m, or 400 to 900. Horizontal source full width is about 35 µm upgraded and 660 µm old. Final-design anchors at 14 keV are 103 × 68 nm micro and 37 × 37 nm nano, with corresponding root-mean-square values near 50 × 35 and 19 × 19 nm. Root-mean-square figure tolerance is 0.4 to 0.75 nm for below 10% degradation. Source displacement dx moves the focus by dx q/p. Beam-angle error dψ at the mirror moves it about dψ q."
     },
     {
-      "title": "Flip the monochromator, keep the spot",
-      "concept": "Animated small-offset DCM: crystals slide in (single colour) and out (pink). A heater on crystal 2 slowly warms it; the exit beam tilts until the mono spot overlaps the pink spot on the sample.",
-      "whatUserLearns": "How thermal expansion of silicon is used as a micro-steering knob; why pink and mono must hit the same sub-micron volume.",
-      "physicsToGetRight": "Si(111) d = 3.1356 Å; θ_B from 21.9° (5.3 keV) to 3.8° (30 keV). Heating crystal 2 by ΔT changes d by α ΔT (α_Si ~ 2.6 × 10⁻⁶ /K); Bragg angle mismatch Δθ = α ΔT tan(θ_B); exit-beam tilt 2 Δθ (~125 / 70 / 45 / 21 µrad at 5.3 / 9 / 14 / 30 keV for 60 K). Offset ~1.1 mm; closing it at the micro KB ~6 m downstream would need ~180 µrad, at the nano KB ~11.7 m downstream ~95 µrad. Horizontal-deflection polarization loss: PDR kinematic cos²(2θ) estimate ~1/2 at 5.3 keV, ~1/4 at 8 keV, ~10% at 12 keV; perfect-crystal (Darwin-width) scaling |cos 2θ| gives ~28% / ~12% / ~5%. dE/E ~ 1.3 × 10⁻⁴ for Si(111). Present the FDR wording ('intersects the pink beam at the sample') and flag the exact criterion as unconfirmed."
+      "title": "Alignment of pink and monochromatic beam",
+      "concept": "An animation inserts or retracts the small-offset monochromator. Heating the second crystal changes its lattice spacing and outgoing beam angle. The display compares the two spots at the sample.",
+      "whatUserLearns": "Thermal expansion changes Bragg angle and exit direction. Pink and narrow-band measurements require illumination of the same submicrometre sample volume.",
+      "physicsToGetRight": "Si(111) spacing is 3.1356 Å. Bragg angles range from 21.9° at 5.3 keV to 3.8° at 30 keV. With expansion coefficient α ≈ 2.6 × 10⁻⁶/K, heating changes spacing by αΔT and angle by Δθ = αΔT tanθB. Exit tilt is 2Δθ, about 125, 70, 45 and 21 µrad at 5.3, 9, 14 and 30 keV for 60 K. Closing 1.1 mm offset over about 6 m to the micro mirrors requires 180 µrad; over 11.7 m to nano mirrors requires 95 µrad. The preliminary-design kinematic polarization-loss estimates are about one-half at 5.3 keV, one-quarter at 8 keV and 10% at 12 keV. Perfect-crystal Darwin-width scaling with |cos2θ| gives about 28%, 12% and 5% losses. Si(111) energy width is about 1.3 × 10⁻⁴. The final design specifies intersection at the sample. The actual alignment criterion remains unconfirmed."
     },
     {
-      "title": "Strain decoder: what moves a Laue spot?",
-      "concept": "Apply a rotation, a shear (deviatoric) strain, or a uniform expansion to a crystal and watch the Laue spots. Rotation moves all spots together; shear changes angles between spots; uniform expansion moves nothing - until you switch to the monochromator and see the energy shift.",
-      "whatUserLearns": "Laue patterns measure orientation and 5 of the 6 strain components; the 6th (volume change) needs one energy measurement; how this maps dislocation cells and residual stress in printed metals.",
-      "physicsToGetRight": "Spot directions depend only on q-hat = q/|q|; a uniform dilatation scales all |q| without changing directions (invisible to Laue). Deviatoric strain ~10⁻⁴ resolution (best ~2 × 10⁻⁵). One 200 µm pixel at 510 mm is ~3.9 × 10⁻⁴ rad in 2θ, i.e. ~2 × 10⁻⁴ rad in the plane-normal direction (~2 × 10⁻⁴ in dd/d at 2θ = 90°); sub-pixel peak fitting over many reflections reaches 10⁻⁴ or better (the PDR's design rule of '1 pixel ~ 10⁻⁴' is a goal, not met exactly at 0.51 m). Rotations of 0.01° are easily visible. Full tensor = deviatoric (Laue) + dilatational (one reflection's energy, dE/E ~10⁻⁴)."
+      "title": "Orientation and strain from diffraction spots",
+      "concept": "Visitors apply rotation, shear or uniform expansion to a crystal. Rotation changes all reflection directions together; shear changes their relative angles. Uniform expansion leaves directions unchanged but changes the monochromatic energy at which a reflection occurs.",
+      "whatUserLearns": "Laue spot directions determine orientation and five shape-changing strain components. One energy measurement supplies overall expansion or contraction, completing the six-component tensor.",
+      "physicsToGetRight": "Spot direction depends on q/|q|. Uniform expansion changes |q| while preserving its direction. Deviatoric strain resolution is about 10⁻⁴, reaching 2 × 10⁻⁵ under favourable conditions. At 510 mm, a 200 µm pixel spans about 3.9 × 10⁻⁴ rad in 2θ and 2 × 10⁻⁴ in plane-normal direction and dd/d at 90°. Subpixel fitting over many reflections gives better precision. The preliminary rule of one pixel near 10⁻⁴ is a target, not exact at 0.51 m. Rotations near 0.01° are readily resolved. Add a reflection-energy measurement near 10⁻⁴ relative width for the dilatational strain component."
     }
   ],
   "funFacts": [
-    "The 3DMN nano-focusing mirrors must match their ideal elliptical shape to within 0.4–0.5 nanometres rms – only a couple of atomic spacings – or the 40 nm spot blurs (FDR 2019).",
-    "A 10-cm piece of aluminium grows by 100 nm if it warms by just 0.04 °C, so the nano station sits in its own enclosure held to 0.02 °C (PDR 2017).",
-    "Using a sliding wire as a 'differential aperture' to get depth from a Laue pattern was introduced by the ORNL team of Larson, Yang, Ice, Budai and Tischler at the APS and published in Nature in 2002; it became the signature technique of 34-ID-E.",
-    "The old station's depth wire was a ≈50 micrometre platinum wire hovering ≈200 micrometres above the sample (34-ID-E 'End near focus' photo of the CCD-era, pre-2009 setup); 2022–23 geometry files use a 101.5 µm wire.",
-    "The gold 'barcode' coded aperture uses a de Bruijn sequence: in its 256 bits, every run of 8 bits appears exactly once – an idea borrowed from X-ray astronomy (Gursoy et al. 2022).",
-    "In 3DMN's monochromator the second silicon crystal is kept about 60 °C warmer than the first; silicon's thermal expansion then tilts the exit beam by roughly 0.02–0.13 milliradian (more at low energies), intended to bring the single-colour and rainbow beams onto the same path (FDR); how the as-built system keeps both on the same sub-100 nm spot is unpublished.",
-    "Most of the Laue signal on the top detector comes from photons of about 12–17 keV: at lower energies few sets of atomic planes can reflect to 90 degrees, and at higher energies the reflections grow weak (PDR).",
-    "Before the upgrade, demand was so high that 34-ID-E proposals typically needed a review score of about 1.4 – closer to 'extraordinary' than 'excellent' – to get beam time (PDR).",
-    "As early as 2005, 34-ID-E demonstrated achromatic mirror focusing to 85 × 95 nm² at 15 keV (APS User Meeting poster, Liu et al.).",
-    "The design team estimated the upgrade could make some 3D experiments up to 45,000 times faster: ×100 brighter source, ×9 better mirrors, ×5 coded apertures, ×10 better detectors (PDR).",
-    "3DMN is expected to produce ≈2.8 petabytes of raw data a year, about 7 times the pre-upgrade station (APS computing strategy 2024).",
-    "ATOMIC's X-ray beam travels straight through the 3DMN hutch inside a shielded pipe, so both beamlines can run while people work in 34-ID-E (FDR).",
-    "Before the upgrade 3DMN's predecessor used the inboard canted beam; after the upgrade 3DMN takes the outboard one (34-ID-E wiki vs FDR Table 4.62 / Fig. 4.59).",
-    "A 2026 study fed 3D wire-scan maps of a stainless-steel grain from 34-ID-E to an unsupervised machine-learning model to pick out dislocation cells at 0.5 micrometre depth resolution (SharafEldin et al.)."
+    "The final-design nano mirrors require 0.4 to 0.5 nm root-mean-square shape accuracy for a roughly 40 nm focus.",
+    "A 100 mm aluminium part expands about 100 nm during a 0.04 °C temperature increase. The preliminary design specifies a 0.02 °C local thermal enclosure for the nano station.",
+    "Larson, Yang, Ice, Budai and Tischler introduced wire-based depth-resolved Laue diffraction at the APS in Nature in 2002. The method became a principal technique at 34-ID-E.",
+    "The pre-2009 End near focus photograph depicts a platinum wire about 50 µm thick, roughly 200 µm above the sample. Geometry files from 2022 and 2023 instead use 101.5 µm diameter.",
+    "The 256-bit gold mask contains every eight-bit subsequence once. Gursoy and colleagues' 2022 coded-aperture method adapts a principle used in X-ray astronomy.",
+    "The final design specifies a second monochromator crystal about 60 °C warmer than the first. Thermal expansion changes exit angle by roughly 0.02 to 0.13 mrad, more at lower energy. This is intended to align pink and single-energy illumination. The procedure for maintaining the same sub-100 nm spot is unpublished.",
+    "Most useful upper-detector signal is from 12 to 17 keV. At lower energies fewer reflections reach 90°; at higher energies intensity falls. This energy range is from the preliminary design.",
+    "The preliminary design reports high pre-upgrade beamtime demand. Successful 34-ID-E proposals typically needed a review score near 1.4, between extraordinary and excellent and closer to extraordinary.",
+    "Liu and colleagues demonstrated energy-independent mirror focusing to 85 × 95 nm at 15 keV in an APS User Meeting poster in 2005.",
+    "The preliminary-design gain budget multiplies a hundredfold brightness increase, ninefold mirror improvement, fivefold coded-aperture improvement and tenfold detector improvement. The largest combined estimate is 45,000-fold faster acquisition.",
+    "The 2024 computing strategy projects about 2.8 PB of raw data per year, roughly seven times pre-upgrade 34-ID-E output.",
+    "Shielded ATOMIC transport crosses 34-ID-E. The final design permits access to the 3DMN hutch during ATOMIC operation, with independent operation of both branches.",
+    "The former 34-ID-E used the inboard source. The final design assigns outboard 3DMN and inboard ATOMIC.",
+    "SharafEldin and colleagues' 2026 study applied unsupervised machine learning to 34-ID-E wire-scan volumes. It identified stainless-steel dislocation cells from data with 0.5 µm depth resolution."
   ],
   "figures": [
     {
       "file": "3dmn/fdr-fig4-58-34id-layout-plan.png",
-      "caption": "Plan of sector 34 from ≈24 m to ≈80 m: the shared optics hutches 34-ID-A, -B and -C, the 3DMN station 34-ID-E (stepped outline) with its micro (≈60 m) and nano (≈65.5 m) instrument footprints, and ATOMIC's beam continuing in a shielded pipe into the trapezoidal 34-ID-F. Metre scale along the bottom; APS-U Final Design Report (2019), Fig. 4.58.",
+      "caption": "Sector 34 plan from about 24 to 80 m. Shared optics occupy 34-ID-A, B and C. The stepped 34-ID-E outline contains micro and nano instrument footprints near 60 and 65.5 m. ATOMIC transport continues into trapezoidal 34-ID-F. A metre scale runs below. From the 2019 Final Design Report, Fig. 4.58.",
       "source": "r1",
       "page": 118,
-      "whatItShows": "Hutch boundaries and component positions along the beam (scale bar in metres); the 3DMN pink beam ending at ≈67 m in 34-ID-E with the micro (≈60 m) and nano (≈65.5 m) instrument footprints, and the ATOMIC beam continuing in a shielded pipe into the trapezoidal 34-ID-F hutch. PDF page 118 = printed p. 4-95."
+      "whatItShows": "Enclosure boundaries and component positions. The 3DMN beam ends near 67 m in E, while ATOMIC continues into F. PDF page 118 corresponds to printed page 4-95."
     },
     {
       "file": "3dmn/fdr-fig4-59-optical-layout.png",
-      "caption": "How one straight section feeds two beamlines: the 2.8 cm planar undulator (3DMN) and the 2.5/2.1 cm revolver (ATOMIC), white-beam slits, outboard and inboard mirrors, monochromators, the 3DMN KB mirror and ATOMIC's zoom optics. Schematic, angles exaggerated; APS-U FDR (2019), Fig. 4.59.",
+      "caption": "Optical sequence for the 2.8 cm-period 3DMN source and 2.5/2.1 cm ATOMIC revolver. Branch slits, opposite mirror deflections, monochromators, 3DMN focusing and ATOMIC two-stage focusing are shown. Angles are exaggerated. From the 2019 final design, Fig. 4.59.",
       "source": "r1",
       "page": 121,
-      "whatItShows": "Order of optics on each branch and which undulator feeds which beamline (angles exaggerated; not to scale). PDF page 121 = printed p. 4-98. Upscaled 1.5× from the embedded image."
+      "whatItShows": "Branch assignment and optical order in a schematic. PDF page 121 corresponds to printed page 4-98. The embedded image was enlarged 1.5-fold."
     },
     {
       "file": "3dmn/fdr-fig4-67-nano-instrument.png",
-      "caption": "Concept of the 3DMN nano-diffraction instrument: ultra-stability optical table inside a ≈3 m thermal enclosure, KB-mirror positioner, interferometric nano-positioners, precision knife-edge scanner and flat-panel detectors; the beam enters from the right. APS-U FDR (2019), Fig. 4.67.",
+      "caption": "Nano instrument concept, with a stable table inside an approximately 3 m thermal enclosure. Mirror and sample positioners, interferometers, precision edge scanner and flat-panel detectors are shown. Beam enters from the right. From the 2019 final design, Fig. 4.67.",
       "source": "r1",
       "page": 127,
-      "whatItShows": "Layout and scale of the nano station (3000 mm dimension), beam entering from the right. PDF page 127 = printed p. 4-104. Upscaled 1.6× from the embedded image."
+      "whatItShows": "Nano-station arrangement with a 3000 mm scale dimension. PDF page 127 corresponds to printed page 4-104. The image was enlarged 1.6-fold."
     },
     {
       "file": "3dmn/fdr-fig4-60-focal-spots-14keV.png",
-      "caption": "Design focal spots at 14 keV from ray tracing: the micro-focusing (60 m) and nano-focusing (65 m) mirror pairs in the ring's brightness and timing modes (103 × 68, 91 × 100, 37 × 37 and 38 × 37 nm²; FWHM-like sizes). APS-U Final Design Report (2019), Fig. 4.60.",
+      "caption": "Ray-traced spots at 14 keV. For the micro pair near 60 m, brightness and timing modes give 103 × 68 and 91 × 100 nm. For the nano pair near 65 m, they give 37 × 37 and 38 × 37 nm. Widths are approximately full widths at half maximum. From the 2019 final design, Fig. 4.60.",
       "source": "r1",
       "page": 121,
-      "whatItShows": "Design spot shapes and line profiles; note the different axis ranges (±0.5 µm micro vs ±0.2 µm nano). Rendered from the PDF page at 200 dpi (vector text). PDF page 121 = printed p. 4-98."
+      "whatItShows": "Design profiles with axes spanning ±0.5 µm for micro and ±0.2 µm for nano. Rendered at 200 dpi from PDF page 121, printed page 4-98."
     },
     {
       "file": "3dmn/fdr-fig4-61-kb-figure-error-tolerance.png",
-      "caption": "How perfect must the mirrors be? Calculated spot size (blue) and peak intensity (red) versus mirror shape error for the micro (60 m) and nano (65 m) pairs at 14 keV: about a nanometre of error already enlarges the spot and dims its peak, so the tolerances are 0.4–0.75 nm rms. APS-U Final Design Report (2019), Fig. 4.61.",
+      "caption": "Calculated spot width in blue and peak intensity in red as mirror-shape error increases. Micro and nano pairs near 60 and 65 m are simulated at 14 keV. Nanometre-scale error broadens the spot and reduces peak intensity, giving root-mean-square tolerances of 0.4 to 0.75 nm. From the 2019 final design, Fig. 4.61.",
       "source": "r1",
       "page": 122,
-      "whatItShows": "Why sub-nanometre mirror figure is needed (tolerances 0.75/0.5 nm micro, 0.5/0.4 nm nano for <10% degradation) and that the zero-error RMS sizes are ≈50 × 35 nm (micro) and ≈19 × 19 nm (nano). Rendered from the PDF page at 200 dpi. PDF page 122 = printed p. 4-99."
+      "whatItShows": "For below 10% degradation, micro horizontal and vertical tolerances are 0.75 and 0.5 nm; nano tolerances are 0.5 and 0.4 nm. Zero-error root-mean-square widths are about 50 × 35 nm and 19 × 19 nm respectively. Rendered at 200 dpi from PDF page 122, printed page 4-99."
     }
   ],
   "references": [
@@ -1494,20 +1494,20 @@
     }
   ],
   "openQuestions": [
-    "Nano-diffraction station: FDR (2019) specifies it at 65.5 m, but no public 2024–2026 source confirms it is installed/commissioned; the 2024 APS computing strategy says the APS-U project 'descoped certain parts of the 3DMN Feature beamline, including detector purchases', and APS updates describe only 'infrastructure' for 34-ID being delivered within the project. Treat the nano station as designed, status unknown. A Dec 2021 user town hall covered 'timing and scope of the 34-ID construction' but its slides are not public.",
-    "As-built detectors: unknown. Pre-upgrade 34-ID-E used PerkinElmer XRD1621 (top) + 2× XRD0820 (sides); the design called for Pilatus-6M-class + two 1–2M detectors; purchases were descoped from APS-U. ATOMIC's directory lists an Eiger 500K 'for Laue diffraction only' at 34-ID-F – not evidence for 3DMN. Aug 2026: the coded-aperture team's ModSim talk says a new detector with ≈10× collection speed is planned and lists 'Wire Reconstructions (HPC possible with Eiger)' – which detector is installed now is still not stated publicly.",
-    "As-built focal sizes/flux: FDR ray traces give 103 × 68 nm² (micro) and 37 × 37 nm² (nano) at 14 keV; the Beamline Directory quotes 0.15 × 0.15 µm and 10¹⁴ (pink) / 10¹¹ (mono, 15 keV) ph/s; no commissioning measurement has been published. MEDSI 2025 states all feature beamlines met their KPPs but gives no 3DMN numbers. Note that APS-U feature-beamline KPPs were brightness at a defined energy and usable energy range (only ISN had a spot-size KPP), so meeting the KPP does not certify the 3DMN focal size.",
-    "Undulator length: FDR gives 2.1 m for both canted devices; the ATOMIC directory entry says its revolver is 2.3 m. As-built 3DMN U28 length not independently confirmed.",
-    "First-mirror cooling: PDR (2017) proposed LN₂-cooled Si mirrors; FDR (2019) specifies flat 3-stripe Si mirrors at 3.0 mrad with a 'notch' anti-deformation design but no coolant. Deflection sense is no longer open in the design record: the PDR text and the FDR Fig. 4.59 schematic both show 3DMN deflecting outboard and ATOMIC inboard, consistent with the ≈0.4 m separation in Fig. 4.58; as-built confirmation still welcome.",
-    "Mono heater criterion: the FDR says the heated second crystal tilts the mono beam so it 'intersects the pink beam at the sample position'; Pateras et al. (34-ID-C precursor) say it keeps the mono beam 'coincident to the pink beam in the final focusing optics' – these describe the same crossing point (KB ≈0.1 m from the sample), so they do not conflict. The open issue is quantitative: 2·α·ΔT·tan(θ_B) at ΔT ≈ 60 K gives ≈20–125 µrad (30 → 5.3 keV), whereas closing a 1.1 mm offset at the micro KB (≈6 m) needs ≈180 µrad and at the nano KB (≈11.7 m) ≈95 µrad; and a crossing angle ψ at the KB shifts the focus by ≈ψ × q (microns). How the as-built system keeps pink and mono on the same sub-100 nm spot (energy-dependent ΔT, KB re-alignment, residual offset) needs confirmation from beamline staff.",
-    "Hutch boundaries and widths are read from the FDR Fig. 4.58 scale bar (about ±0.3 m; widths rougher); 34-ID-D no longer appears in the FDR naming and appears to have been absorbed into the enlarged 34-ID-E.",
-    "Sample positions: FDR tabulates instrument/KB positions (60.0 m, 65.5 m); actual focal-plane positions depend on as-built focal lengths (PDR design 70/142 mm micro, 55/120 mm nano, working distance ≥ 50 / ≈30 mm).",
-    "Depth-resolution hardware in routine use after the upgrade (Pt wire vs coded aperture/mask scans): coded apertures are demonstrated (2022–2025) and 'mask scan' reconstruction was 'R&D prototyping' in 2024; routine user availability not confirmed.",
-    "Whether undulator gap taper (supported up to 5 mm by the APS-U HPMU drive) is used to smooth the pink-beam spectrum for Laue after the upgrade.",
-    "Energy range: 5.3–30 keV (FDR, PDR) vs 5.5–30 keV (current directory).",
-    "Status: on 2026-10-05 3DMN was at stage 5 (scientific commissioning/early experiments); the date it enters the general user program (stage 6) is not announced, although 34-ID-E already appears on the GU proposal beamline list. Early 2D experiments ran around late July 2026 and 3D (HPC-scale coded-aperture) experiments were planned 'in winter' (ModSim 2026 talk).",
-    "Minor FDR inconsistency for the partner beamline: ATOMIC KB1 at 52.0 m (Table 4.63) vs 'station C at 54 m' (text). Also the old 34-ID-E wiki says the canted beams are separated by '1 µrad' – an obvious typo for 1 mrad.",
-    "Pink-beam flux comparison: PDR says ≈10¹⁴ ph/s pink is '≈50×' current operations at 500 nm, while the 2016 web spec lists 10¹¹ ph/s (white) for the old station – the two pre-upgrade baselines are inconsistent.",
-    "Detector model naming: the pre-upgrade top panel is 'XRD 1621' in Das et al. 2018 and the lauelab geometry ID ('PE1621'), but 'XRD 1620 AN' in the 2024 computing strategy; the side panels are 'XRD 0820 AN' on the Instruments page/computing strategy but 'PE0822' in 2022–23 geometry files. The generic name 'PerkinElmer 2k × 2k / 1k × 1k a-Si flat panels' avoids implying that the model assignment is confirmed."
+    "The final design places the nano station at 65.5 m. No public 2024 to 2026 source confirms installation or commissioning. The 2024 computing strategy reports scope reductions including detector purchases, and APS updates describe delivery of infrastructure. The exhibit therefore treats the station as a design with unknown status. A December 2021 scope town hall has no public slides.",
+    "Installed detectors are unknown. Pre-upgrade instruments had a PerkinElmer XRD1621 top panel and two XRD0820 side panels. Planned Pilatus 6M-class and two 1 to 2 megapixel replacements were removed from the upgrade scope. The ATOMIC Eiger 500K directory entry applies to 34-ID-F. The August 2026 ModSim talk proposed tenfold faster collection without identifying a detector and mentioned wire reconstruction with Eiger.",
+    "As-built focal widths and fluxes are unpublished. Design ray traces at 14 keV give 103 × 68 nm micro and 37 × 37 nm nano. The directory lists 0.15 × 0.15 µm, 10¹⁴ pink photons/s and 10¹¹ monochromatic photons/s at 15 keV. MEDSI 2025 reports performance-criterion compliance but no 3DMN widths. Brightness and energy range were the criteria; only ISN had a focal-width criterion.",
+    "The final design gives 2.1 m for both canted devices, compared with the ATOMIC directory's 2.3 m revolver length. The 3DMN magnetic length lacks independent as-built confirmation.",
+    "The preliminary design proposed liquid-nitrogen-cooled silicon mirrors. The final design specifies three stripes, 3.0 mrad incidence and a deformation-reducing notch but omits coolant. The design documents agree on outboard 3DMN and inboard ATOMIC reflection, consistent with the approximately 0.4 m plan separation. As-built confirmation remains absent.",
+    "The final design describes pink and monochromatic beam intersection at the sample. Pateras and colleagues describe intersection at the final optics in the 34-ID-C predecessor. The mirrors are about 0.1 m from the focus, so these are similar alignment descriptions. Quantitatively, 2αΔT tanθB for 60 K gives about 20 to 125 µrad over 30 to 5.3 keV. Closing 1.1 mm over the approximately 6 m distance to micro mirrors requires 180 µrad, or 95 µrad over 11.7 m to nano mirrors. A crossing angle ψ also shifts focus by roughly ψq, potentially micrometres. The operating procedure for coincident sub-100 nm spots is unconfirmed, including temperature adjustment, mirror realignment and residual offset.",
+    "Enclosure dimensions are scaled from final-design Fig. 4.58, with about ±0.3 m longitudinal uncertainty and less certain widths. Label 34-ID-D is absent and appears incorporated into the expanded E enclosure.",
+    "The tabulated 60.0 and 65.5 m positions refer to instruments and mirrors. Actual focus depends on as-built focal lengths. Preliminary values are horizontal and vertical 70 and 142 mm micro, 55 and 120 mm nano, with working distances at least 50 mm and about 30 mm.",
+    "Routine post-upgrade use of wire or coded-mask depth scanning is unconfirmed. Coded apertures were demonstrated during 2022 to 2025; mask reconstruction was research prototyping in the 2024 computing strategy.",
+    "The undulator supports up to 5 mm gap taper. Its use for smoothing the post-upgrade Laue spectrum is undocumented.",
+    "Design energy range is 5.3 to 30 keV, compared with the current directory's 5.5 to 30 keV.",
+    "The 5 October 2026 chart lists scientific commissioning and early experiments at stage 5. General-user restart date at stage 6 is unannounced, although proposals are accepted. Early two-dimensional measurements ran around late July 2026; computing-intensive three-dimensional coded-mask experiments were planned for winter in the ModSim talk.",
+    "For partner ATOMIC, the first mirror pair is at 52.0 m in Table 4.63 and 54 m in text. The former 34-ID-E wiki gives source separation as 1 µrad, a unit error for 1 mrad.",
+    "Pre-upgrade pink-flux baselines differ. The preliminary design describes about 10¹⁴ photons/s as a fiftyfold increase over 500 nm operation. The 2016 web specification gives 10¹¹ white photons/s for the old station. These are inconsistent comparison baselines.",
+    "Pre-upgrade panel names differ among sources. The top is XRD 1621 in Das and colleagues and PE1621 in geometry files, but XRD 1620 AN in the 2024 computing strategy. Side panels are XRD 0820 AN on the Instruments page and computing strategy, or PE0822 in 2022 and 2023 geometry files. Generic PerkinElmer 2k × 2k and 1k × 1k amorphous-silicon panel descriptions avoid an unconfirmed model assignment."
   ]
 }

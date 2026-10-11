@@ -1,14 +1,14 @@
 /**
- * Panel 1 — one sector of the ring seen from above, with an animated stream of electrons.
+ * Panel 1. One sector of the ring seen from above, with an animated stream of electrons.
  *
  * Top: the reference orbit through the sector's magnets (bends drawn EXAG× sharper so the 9° turn is visible).
  * Electrons carry a relative energy offset δ (colour: amber = more energy, violet = less) and sit at
  *     x = η(s)·δ + x_β,
- * i.e. they fan out by energy in proportion to the dispersion η(s) and come back together at the next straight
+ * Energy-dependent offsets follow the dispersion η(s) and return to zero at the next straight
  * (the achromat condition). Electrons emit X-ray photons in the bends at a rate ∝ |B| (photons per unit length
  * ∝ γ/ρ ∝ B at fixed E). Each emission removes energy du from the electron while its position stays put, so its
- * betatron offset jumps by Δx_β = η(s)·du — quantum excitation: a photon emitted where η is large leaves the
- * electron wobbling. The wobble damps (radiation damping) and δ relaxes back (rf). Amplitudes, rates and the
+ * betatron offset jumps by Δx_β = η(s)·du. Quantum excitation: a photon emitted where η is large leaves the
+ * electron oscillating transversely. The oscillation damps (radiation damping) and δ relaxes back (rf). Amplitudes, rates and the
  * damping time are illustrative (exaggerated), not to scale.
  *
  * Bottom: η_x(s) along the sector (APS-U: digitised FDR Fig. 2.2; others: thin-lens model), bends shaded.
@@ -161,16 +161,16 @@ export class SectorView {
     // a short canvas gets the compact wording (one legend row leaves more room for the drawing)
     const full = this.c.w >= 900;
     const items: { color: string; label: string; kind: 'box' | 'dot' | 'line' | 'text' }[] = [
-      { color: COL.bend, label: full ? 'bend (dipole)' : 'bend', kind: 'box' },
+      { color: COL.bend, label: full ? "dipole bend" : 'bend', kind: 'box' },
       { color: COL.reverse, label: 'backward bend', kind: 'box' },
-      { color: COL.quad, label: full ? 'focusing (quadrupole)' : 'focusing', kind: 'box' },
-      { color: COL.sext, label: full ? 'corrector (sextupole)' : 'corrector', kind: 'box' },
+      { color: COL.quad, label: full ? "quadrupole focusing" : 'focusing', kind: 'box' },
+      { color: COL.sext, label: full ? "sextupole correction" : 'corrector', kind: 'box' },
       { color: TOKENS.xray, label: full ? 'X-ray photon' : 'photon', kind: 'line' },
       { color: COL.hi, label: full ? 'e⁻ with more energy' : 'e⁻ more energy', kind: 'dot' },
       { color: COL.lo, label: 'less', kind: 'dot' },
     ];
     if (this.lat.id !== 'apsu') items.splice(1, 1);
-    items.push({ color: TOKENS.ink3, label: full ? `· bends drawn ${EXAG}× sharper, energy fan exaggerated` : `· bends ${EXAG}× sharper, fan exaggerated`, kind: 'text' });
+    items.push({ color: TOKENS.ink3, label: full ? `· bend angles ${EXAG}× larger, energy-dependent offsets enlarged` : `· bend angles ${EXAG}× larger, offsets enlarged`, kind: 'text' });
     return items;
   }
 
@@ -542,17 +542,17 @@ export class SectorView {
   private headerText(st: P.BendStats): [string, string] {
     const lat = this.lat;
     const native = (lat.id === 'apsu' && this.E === 6) || (lat.id === 'aps' && this.E === 7);
-    const E = `${this.E.toFixed(1)} GeV${lat.id !== 'generic' && !native ? ' (what if)' : ''}`;
+    const E = `${this.E.toFixed(1)} GeV${lat.id !== 'generic' && !native ? ' · hypothetical' : ''}`;
     if (lat.id === 'apsu') {
       return [
-        native ? 'APS-U today: 7 gentle bends per sector' : 'The APS-U lattice: 7 gentle bends per sector',
-        `7 bends of ${st.minDeg.toFixed(2)}–${st.maxDeg.toFixed(2)}° (+9.95° in all), 6 backward bends (−0.94°) · ${E}`,
+        native ? "APS-U · 7 bends per sector" : "APS-U lattice · 7 bends per sector",
+        `7 bends of ${st.minDeg.toFixed(2)} to ${st.maxDeg.toFixed(2)}° · +9.95° total · 6 backward bends · −0.94° · ${E}`,
       ];
     }
-    if (lat.id === 'aps') return ['The old APS: 2 sharp bends per sector', `2 bends of 4.5°, each 3.06 m long · fan: simplified model · ${E}`];
+    if (lat.id === 'aps') return ['APS before upgrade · 2 bends per sector', `2 bends of 4.5°, each 3.06 m long · simplified dispersion model · ${E}`];
     const M = lat.M;
     const th = (P.SECTOR_BEND_DEG / M).toFixed(M >= 8 ? 3 : 2);
-    return [`What if: ${M} bends per sector`, `${M} equal bends of ${th}° · a simplified model · ${E}`];
+    return [`Hypothetical lattice · ${M} bends per sector`, `${M} equal bends of ${th}° · simplified model · ${E}`];
   }
 
   private drawLegend(ctx: CanvasRenderingContext2D): void {
@@ -667,10 +667,10 @@ export class SectorView {
     const m = this.lat.modelEta;
     const src = m ? 'simplified model' : 'APS-U design';
     const opts = [
-      `How far the energies fan apart: dispersion ηₓ, ${src} (shaded: bends)`,
-      `Energy fan-out, dispersion ηₓ (${src}; shaded: bends)`,
-      `Energy fan-out, ηₓ (${src})`,
-      'Energy fan-out, ηₓ',
+      `Offset per energy difference · dispersion ηₓ · ${src} · shaded bends`,
+      `Dispersion ηₓ · ${src} · shaded bends`,
+      `Dispersion ηₓ · ${src}`,
+      "Dispersion ηₓ",
     ];
     ctx.save();
     ctx.font = `600 12px ${TOKENS.font}`;

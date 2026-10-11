@@ -1,292 +1,293 @@
 {
-  "$comment": "Exhibit-copy overrides applied by scripts/build-facility.py on top of research/facility.json (see exhibit.py). exhibitNumbers are keyed by the research label, timeline entries by their research date (null drops an entry; a `date` patch re-dates it), explainers (the primer answers; research key plainExplainers) by key. Every text exists once, for every reader – no plain/expert variants: a lead in everyday words, the mechanism or derivation with terms defined in passing, then the telling number and its caveat. Brightness framing everywhere: about 500× (100–1,000× depending on X-ray energy; ×540 at 20 keV in the design). Explainers separate paragraphs with one blank line.",
-
+  "$comment": "Exhibit wording applied to research/facility.json by scripts/build-facility.py. Number cards are keyed by research label, timeline entries by research date, and primer answers by explainer key. Sources, notes, physical values and published reference metadata remain in the research record. Authored display text uses plain sentences and straight quotes. Primer paragraphs are separated by a blank line. Brightness gains are design calculations, about 500 times overall and 100 to 1,000 times depending on X-ray energy.",
   "exhibitNumbers": {
     "Speed of the electrons": {
-      "value": "99.9999996% of the speed of light – only about 1.1 m/s slower than light",
-      "explanation": "In a one-second race with light, an electron would lose by only about a metre: it trails light at a slow walking pace. The figure follows from the beam energy: at 6 GeV each electron carries γ ≈ 11,742 times its rest energy (6,000 MeV ÷ 0.511 MeV, the Lorentz factor), so 1 − v/c ≈ 1/(2γ²) = 3.6 × 10⁻⁹."
+      "value": "99.9999996% of light speed, about 1.1 m/s slower than light",
+      "explanation": "At 6 GeV, an electron travels only about 1.1 m less than light in one second. Its energy is about 11,742 times its rest energy. This ratio is the Lorentz factor, γ = 6,000 MeV ÷ 0.511 MeV ≈ 11,742. The speed follows from 1 − v/c ≈ 1/(2γ²) = 3.6 × 10⁻⁹."
     },
     "Laps per second": {
-      "explanation": "Because the electrons travel at very nearly the speed of light, the lap rate is simply light speed divided by the ring's circumference: f₀ = c ÷ C = 299,792,458 m/s ÷ 1,103.61 m. The radio-frequency system that drives the ring runs at exactly 1,296 times this rate, about 352 MHz."
+      "explanation": "The lap rate is light speed divided by the ring's circumference, f₀ = c ÷ C = 299,792,458 m/s ÷ 1,103.61 m. The electrons move slowly enough below light speed that the difference is negligible here. The radio-frequency system runs at exactly 1,296 times the lap rate, about 352 MHz.",
+      "value": "271,647 laps around the 1.1 km ring each second"
     },
     "One lap": {
-      "explanation": "One lap takes 1 ÷ 271,647 of a second, or 3.68 millionths of a second (microseconds). A given bunch of electrons therefore sends a flash of light down each beamline once every 3.68 µs."
+      "explanation": "One lap takes 1 ÷ 271,647 of a second, or 3.68 microseconds. A microsecond is a millionth of a second. Each bunch of electrons sends a light pulse down each beamline once every 3.68 µs.",
+      "value": "3.68 microseconds"
     },
     "Distance per day": {
-      "value": "about 26 billion km a day (about 173 times the Earth–Sun distance)",
-      "explanation": "An electron that stayed in the ring for a whole day would travel far enough to reach the Sun and back more than 80 times: 271,647 laps/s × 1.1036 km × 86,400 s ≈ 2.59 × 10¹⁰ km, about 173 times the Earth–Sun distance of 1.496 × 10⁸ km. In practice none stays that long – each bunch is swapped for a fresh one about every 72 minutes."
+      "value": "About 26 billion km per day, 173 times the Earth–Sun distance",
+      "explanation": "An electron circulating for a whole day would travel 271,647 laps/s × 1.1036 km × 86,400 s ≈ 2.59 × 10¹⁰ km. That is about 173 times the Earth–Sun distance of 1.496 × 10⁸ km, enough for more than 80 round trips. In practice, each bunch is replaced about every 72 minutes."
     },
     "Electrons in the ring": {
-      "explanation": "A current counts every pass of every electron, and each electron passes any given point 271,647 times a second. So the charge actually stored is the current divided by the lap rate: 0.2 A ÷ 271,647 Hz = 736 nanocoulombs (nC), or 4.6 × 10¹² electrons."
+      "explanation": "The beam current measures the charge passing a point each second. Each electron passes that point 271,647 times a second, so the stored charge is the current divided by the lap rate. At 0.2 A, this is 0.2 A ÷ 271,647 Hz = 736 nanocoulombs, or 4.6 × 10¹² electrons.",
+      "value": "4.6 trillion electrons, carrying 736 nanocoulombs"
     },
     "Electrons in one bunch": {
-      "value": "about 21 billion in the usual 216-bunch mode, up to about 65 billion in the 48-bunch timing mode",
-      "explanation": "The electrons travel in separate bunches, and how many share a bunch depends on the fill. In the 216-bunch mode, 736 nC ÷ 216 = 3.4 nC per bunch (2.1 × 10¹⁰ electrons). The 48-bunch timing mode packs about 10–11 nC (6.2–6.7 × 10¹⁰ electrons) into each, but the injector limits it to 130–140 mA rather than the 200-mA design, which would put 15.3 nC (9.6 × 10¹⁰ electrons) in every bunch."
+      "value": "About 21 billion in 216-bunch mode, up to about 65 billion in 48-bunch timing mode",
+      "explanation": "In 216-bunch mode, each bunch carries 736 nC ÷ 216 = 3.4 nC, or 2.1 × 10¹⁰ electrons. In 48-bunch timing mode, each carries about 10 to 11 nC, or 6.2 to 6.7 × 10¹⁰ electrons. The injector limits timing-mode current to 130 to 140 mA. The 200 mA design would require 15.3 nC, or 9.6 × 10¹⁰ electrons, per bunch."
     },
     "Bunch spacing": {
-      "value": "17 ns apart in today's 216-bunch mode (a light pulse every 17 billionths of a second); 77 ns in timing mode",
-      "explanation": "The ring's radio-frequency field forms 1,296 ‘buckets’ – slots 2.84 ns apart in which a bunch can ride. Filling every 6th bucket gives 216 bunches 17 ns apart, assuming they are evenly spaced (the exact fill pattern is not published); every 27th bucket gives the 48-bunch timing mode, 76.7 ns apart."
+      "value": "17 ns in 216-bunch mode, 77 ns in timing mode",
+      "explanation": "The radio-frequency field creates 1,296 stable slots, called buckets, spaced 2.84 ns apart. Filling every sixth bucket gives 216 bunches at 17 ns intervals. This assumes even spacing; the exact fill pattern is not published. Filling every 27th bucket gives 48 bunches at 76.7 ns intervals. A nanosecond is a billionth of a second."
     },
     "Ring size": {
-      "value": "1,103.6 m around (about 350 m across), 40 identical 27.6-m sectors",
-      "explanation": "The ring is built from 40 identical sectors of 27.59 m each, 1,103.61 m in all. Treated as a circle it would be about 351 m across (circumference ÷ π), though strictly it is 40 curved arcs joined by straight sections."
+      "value": "1,103.6 m around, about 350 m across, with 40 sectors",
+      "explanation": "The ring has 40 identical sectors, each 27.59 m long, for a circumference of 1,103.61 m. Rounded to 27.6 m per sector, this is about 1.1 km. A circle with that circumference would be about 351 m across. The actual ring consists of curved arcs joined by straight sections."
     },
     "A slightly smaller ring": {
-      "explanation": "The straight sections that hold the undulators stayed exactly where they were, so undulator beamlines needed only re-surveying and fine alignment. Fitting the new arcs between those fixed points shortened the ring from 1,103.99 m to 1,103.61 m and moved every bending-magnet source about 1.8 m upstream and 42 mm towards the ring's centre, so the bending-magnet beamlines were realigned. The shorter path also raised the radio frequency by about 342 parts per million."
+      "explanation": "The straight sections containing the undulators stayed in place, so their beamlines needed re-surveying and fine alignment. Fitting new arcs between these fixed points shortened the ring from 1,103.99 m to 1,103.61 m. Each bending-magnet source moved about 1.8 m upstream and 42 mm toward the ring's centre, requiring beamline realignment. The shorter path also raised the radio frequency by about 342 parts per million.",
+      "value": "38 cm shorter than the old ring"
     },
     "Magnets": {
-      "explanation": "Each sector holds 7 bending magnets; 6 ‘reverse bends’ (quadrupoles mounted off-centre so they also bend the beam slightly backwards); 10 further quadrupoles, the lenses that focus the beam; 6 sextupoles, which correct the focusing for electrons of slightly different energies; and 4 fast steering correctors: 33 × 40 + 1 = 1,321. The old ring had 80 dipoles (bending magnets), 400 quadrupoles, 280 sextupoles, 317 correctors and 20 skew quadrupoles."
+      "explanation": "Each sector contains 33 magnets, and one extra corrector sits near injection. The total is 33 × 40 + 1 = 1,321, of 15 main types. Each sector has 7 forward bending magnets and 6 reverse bends, which are quadrupoles mounted off-centre to add a small backward bend. It also has 10 further quadrupoles to focus the beam, 6 sextupoles to correct focusing across electron energies, and 4 fast steering correctors. The old ring had 80 dipoles, 400 quadrupoles, 280 sextupoles, 317 correctors and 20 skew quadrupoles.",
+      "value": "1,321 electromagnets, compared with 1,097 before the upgrade"
     },
     "Bending magnets per sector": {
-      "explanation": "Each sector turns the beam through a net 9° (360° ÷ 40). Sharing that turn among seven gentle bends instead of two sharp ones keeps the electron beam from spreading out; the six small backward bends give the designers an extra handle that lowered the design emittance (beam size × angular spread) from 67 to 42 pm·rad."
+      "explanation": "Each sector turns the beam through a net 9°, or 360° ÷ 40. Seven forward bends spread this turn over more magnets, reducing the growth of the electron beam. Six small reverse bends change how electrons of different energies spread through the arc. They reduced the design emittance, the beam size multiplied by its angular spread, from 67 to 42 pm·rad.",
+      "value": "7 forward and 6 reverse bends, replacing 2 forward bends"
     },
     "Total bending": {
-      "value": "the beam is bent through 435° per lap, not 360°",
-      "explanation": "Some magnets bend the beam slightly the wrong way, so the others must bend it by more than a full circle: +397.8° forwards and −37.7° backwards add up to about 435° of bending for a net 360° lap."
+      "value": "About 435° of bending per lap, with a net turn of 360°",
+      "explanation": "Some magnets bend the beam backward, so the forward bends must turn it through more than 360°. The forward turns total +397.8° and the backward turns −37.7°. Together they give about 435° of bending, while the net turn closes the ring at 360°."
     },
     "Magnet strength": {
-      "value": "quadrupole gradients of about 80–100 tesla per metre – 4–5× the roughly 20 T/m of the old ring",
-      "explanation": "A quadrupole's gradient – how quickly its field grows away from the beam axis – measures how hard it focuses. Focusing this strong needs small magnet bores, about 26 mm across, and pole tips of vanadium permendur, a cobalt–iron alloy that carries stronger fields than ordinary magnet iron."
+      "value": "Quadrupole gradients of about 80 to 100 T/m, compared with about 20 T/m before",
+      "explanation": "A quadrupole's gradient measures how quickly its magnetic field increases away from the beam axis. A larger gradient provides stronger focusing. The new gradients are about 4 to 5 times the old value. They require bores about 26 mm across and pole tips made from vanadium permendur, a cobalt–iron alloy that supports stronger fields than ordinary magnet iron."
     },
     "Pre-built modules": {
       "value": "200 modules, each up to about 6.5 m long and 27 tonnes",
-      "explanation": "The magnets were mounted and aligned on their plinths or girders in an off-site workspace before the shutdown. Once the old ring was out, each module was carried into the tunnel on a ‘Traksporter’, set down within 25 mm of its place, aligned to 1 mm and grouted to the floor. Each sector has five (engineering names DLM-A, QMQ-A, FODO, QMQ-B, DLM-B): the central FODO module is the heaviest, about 27 tonnes over 6.3 m, and the two DLM modules the longest, about 6.5 m."
+      "explanation": "The magnets were mounted and aligned on supports in an off-site workspace before the shutdown. Each module was carried into the tunnel on a Traksporter, placed within 25 mm of its final position, aligned to 1 mm and grouted to the floor. Each sector has five modules, named DLM-A, QMQ-A, FODO, QMQ-B and DLM-B. The central FODO module is the heaviest, about 27 tonnes over 6.3 m. The two DLM modules are the longest, about 6.5 m."
     },
     "Installation pace": {
-      "value": "about 1.2 modules a day",
-      "explanation": "All 200 magnet modules went into the tunnel between 12 July and 20 December 2023 – 162 days, an average of about 1.2 modules per calendar day."
+      "value": "About 1.2 modules per day",
+      "explanation": "All 200 magnet modules were installed between 12 July and 20 December 2023. Over those 162 days, installation averaged about 1.2 modules per calendar day."
     },
     "Alignment": {
-      "value": "magnets on a module lined up to 15 micrometres rms (30 µm specified) – thinner than a human hair",
-      "explanation": "Within each module the magnets share a common support and are aligned to 15 µm rms (root-mean-square, a typical deviation) against a 30-µm specification. From one module to the next, measured after installation, the misalignment is 50 µm horizontally and 35 µm vertically rms, inside a ±100-µm specification – all the way around a 1.1-km ring."
+      "value": "15 µm rms within each module, against a 30 µm specification",
+      "explanation": "Within each module, magnets share a support and are aligned to 15 µm rms. Root-mean-square, or rms, measures the typical deviation from alignment. The specification was 30 µm. After installation, alignment between modules measured 50 µm horizontally and 35 µm vertically rms, within the ±100 µm specification around the 1.1 km ring."
     },
     "Vibration budget": {
-      "explanation": "The rule is that the electron beam must stay steady to within 10% of its own size. A quadrupole that moves even slightly deflects the beam passing through it, so quadrupole vibration at 1–100 Hz (cycles per second) is budgeted at 10 nanometres rms (root-mean-square)."
+      "explanation": "The electron beam must stay steady to within 10% of its size. A moving quadrupole deflects the beam passing through it, so vibration between 1 and 100 cycles per second is limited to 10 nm rms. Root-mean-square, or rms, measures the typical vibration amplitude.",
+      "value": "10 nm rms for quadrupole vibration at 1 to 100 Hz"
     },
     "Beam size at an undulator": {
-      "value": "about 12 × 8 micrometres (rms) in the round-beam user mode, or 14 × 3 µm in the flat mode, vs 275 × 10 µm before",
-      "explanation": "Where the X-rays are made, the electron beam is now thinner than a human hair: 12.3 × 8.3 µm (horizontal × vertical root-mean-square size) in the round-beam mode used for most user runs, or about 29 × 19 µm full width at half maximum – down from roughly half a millimetre wide. The flat mode gives 14.5 × 3.1 µm. Both are zero-current model values; in area the cross-section is about 27–62 times smaller than the old beam's."
+      "value": "About 12 × 8 µm rms in round-beam user mode, compared with 275 × 10 µm before",
+      "explanation": "The zero-current model sizes are 12.3 × 8.3 µm rms in round-beam mode, or about 29 × 19 µm full width at half maximum. Root-mean-square, or rms, describes the width of the electron distribution. The old beam was 275 × 10 µm rms, roughly half a millimetre wide at half maximum. The flat-mode sizes are 14.5 × 3.1 µm rms, about 14 × 3 µm rounded. The cross-sectional area is about 27 to 62 times smaller than before, depending on mode."
     },
     "Emittance": {
-      "value": "about 42 pm·rad natural vs 3,100 pm·rad before – about 75 times smaller (APS rounds this to ‘almost a factor of 100’); 28–44 pm·rad measured depending on coupling",
-      "explanation": "Emittance is the electron beam's size multiplied by its angular spread, measured in picometre-radians (pm·rad); its fall is the main reason the X-rays are so much brighter. Using the model (‘natural’) value of 41.5 pm·rad, 3,100 ÷ 41.5 ≈ 75. Measured values depend on how it is shared between the two planes (coupling): 44 pm·rad horizontally in the flat beam, or 28 horizontally and 31 vertically in the round beam. That vertical value is only a little below the old ring's 40 pm·rad, so in round mode almost all of the gain is horizontal."
+      "value": "About 42 pm·rad natural emittance, compared with 3,100 pm·rad before; 28 to 44 pm·rad measured",
+      "explanation": "Emittance is beam size multiplied by angular spread, in picometre-radians. The natural, or model, value is 41.5 pm·rad, giving 3,100 ÷ 41.5 ≈ 75 times less than before. APS describes this as \"almost a factor of 100\". Measurements depend on coupling, the sharing of emittance between the two planes. They give 44 pm·rad horizontally in flat mode, or 28 horizontally and 31 vertically in round mode. The old vertical value was 40 pm·rad, so most of the round-mode improvement is horizontal."
     },
     "Brightness": {
-      "value": "about 500 times brighter (100–1,000× depending on X-ray energy)",
-      "explanation": "Brightness counts how many X-rays come from how small a spot into how narrow a cone, within a narrow band of energies – not simply how many X-rays there are. The smaller, more parallel source and twice the current give ×540 at 20 keV (for an undulator optimised for 20 keV), roughly ×200 at 10 keV and ×600–800 at 50–100 keV. Coherent flux rises by similar factors (about ×160 at 10 keV, ×600 at 20 keV). All are design calculations."
+      "value": "About 500 times brighter; 100 to 1,000 times depending on X-ray energy",
+      "explanation": "Brightness measures photon output per source area, angular spread and narrow energy band. A smaller, more parallel source and twice the current give a design gain of ×540 at 20 keV for an undulator optimized for that energy. Other design estimates are roughly ×200 at 10 keV and ×600 to ×800 at 50 to 100 keV. Coherent flux gains are about ×160 at 10 keV and ×600 at 20 keV. These are calculations, not measured brightness gains."
     },
     "Vacuum chamber": {
-      "value": "a 22-mm-wide tube (about the width of a coin) instead of a 42 × 85 mm chamber; ID chambers just 6.3 mm tall with 0.6-mm walls",
-      "explanation": "A narrow pipe lets the magnet poles sit close to the beam, which makes the strong focusing possible. Inside the undulators (insertion devices, ID) the chamber is flattened further so the two rows of undulator magnets can close around it, to a gap of 8.5 mm at the design minimum for most devices."
+      "value": "22 mm wide, compared with a 42 × 85 mm chamber before; undulator chambers are 6.3 mm tall",
+      "explanation": "The 22 mm vacuum pipe leaves space for magnet poles close to the beam, supporting stronger focusing. Inside insertion devices, or undulators, the chamber is flattened to 6.3 mm tall with 0.6 mm walls. Most devices have an 8.5 mm design minimum magnet gap."
     },
     "Power radiated by the beam": {
-      "value": "about 0.59 MW from the bending magnets, up to about 0.9 MW with all undulators closed",
-      "explanation": "On every lap each electron loses about 2.94 MeV as light in the bending magnets (as-built model; the 2019 design gave 2.87 MeV); with 0.2 A of current that is 587 kW. With every undulator gap closed the loss rises to 4.47 MeV per lap, or 894 kW. Twelve radio-frequency (RF) cavities put all of it back on every lap."
+      "value": "About 0.59 MW from bending magnets, up to about 0.9 MW with all undulators closed",
+      "explanation": "Each electron loses about 2.94 MeV as radiation in the bending magnets per lap in the as-built model; the 2019 design gave 2.87 MeV. At 0.2 A, this is 587 kW. Closing every undulator gap raises the loss to 4.47 MeV per lap, or 894 kW. Twelve radio-frequency cavities replace the lost energy on every lap."
     },
     "Energy stored in the beam": {
-      "value": "4.4 kilojoules – like a one-tonne car rolling at 3 m/s",
-      "explanation": "The stored energy is the beam's charge times its energy per unit charge: 736 nC × 6 GV = 4.42 kJ, the same as a 1,000-kg car rolling at 2.97 m/s (from ½mv²). It is modest in total but packed into a beam thinner than a hair, so when the whole beam has to be dumped, a ‘fan-out’ kicker magnet first spreads the bunches across the dump's surface."
+      "value": "4.4 kilojoules",
+      "explanation": "Stored energy is charge multiplied by energy per unit charge, 736 nC × 6 GV = 4.42 kJ. For comparison, a 1,000 kg car moving at 2.97 m/s has the same kinetic energy, from ½mv², or about 3 m/s rounded. The beam concentrates this energy in a small cross-section. Before a full-beam dump, a fan-out kicker magnet spreads the bunches across the dump surface."
     },
     "Swap-out": {
-      "value": "about every 20 seconds the most depleted bunch is kicked out to a dump and a fresh one from the booster takes its place",
-      "explanation": "The new ring's tiny stable region leaves no room to top bunches up with small puffs of electrons, so it swaps whole bunches while experiments keep running. Kicker pulses only about 11 ns long must hit one bunch and miss its neighbours 17 ns away. Each of the 216 bunches is renewed about every 72 minutes (216 × 20 s), by which time – with a beam lifetime of about 2 hours – it has lost about 45% of its charge; the fresh bunch carries 5.4–6.1 nC, about 35 billion electrons."
+      "value": "One depleted bunch is replaced about every 20 seconds",
+      "explanation": "The stable region in the new ring is too small to add electrons to stored bunches, so whole bunches are replaced during experiments. Kicker pulses about 11 ns long select one bunch without hitting neighbours 17 ns away. Each of the 216 bunches is renewed about every 72 minutes, from 216 × 20 s. With a beam lifetime of about 2 hours, it has then lost about 45% of its charge. A fresh bunch carries 5.4 to 6.1 nC, about 35 billion electrons."
     },
     "Superconducting harmonic cavity": {
-      "value": "a niobium cavity at 2.1 K (−271 °C) that stretches each bunch 2–4×",
-      "explanation": "The cavity has no power source of its own: the passing bunches make it ring at 1.4 GHz, four times the main radio frequency, and its field stretches each bunch so the electrons collide less often. In operation that about doubles the beam lifetime; the design expected about four times."
+      "value": "Niobium at 2.1 K, or −271 °C; bunches lengthen by a factor of 2 to 4",
+      "explanation": "The passing bunches excite the cavity at 1.4 GHz, four times the main radio frequency. The cavity has no external power source. Its electric field lengthens the bunches, reducing electron collisions that remove particles from the beam. In operation this roughly doubles the beam lifetime; the design expected a factor of four."
     },
     "Beam position monitors": {
-      "explanation": "Fourteen pickups in each of the 40 sectors sense where the beam passes, so its orbit can be corrected and held steady. As of 2025 the corrections run in software up to 50 times a second; a fast orbit feedback with a 1-kHz bandwidth was left out of the project's scope and is now being completed by the operating facility."
+      "explanation": "Fourteen pickups in each of 40 sectors measure the beam position so its orbit can be corrected. As of 2025, software corrections run up to 50 times per second. Fast orbit feedback with a 1 kHz bandwidth was removed from the project's scope and is being completed by the operating facility.",
+      "value": "560 pickups measure the beam position around the ring"
     },
     "Power supplies": {
-      "explanation": "The 2,247 supplies are 1,002 unipolar (current in one direction), 921 slow bipolar (either direction), 322 fast and 2 that each drive a whole string of bending magnets in series – all the M1 bends on one, all the M2 bends on the other."
+      "explanation": "There are 1,002 unipolar supplies, with current in one direction, and 921 slow bipolar supplies, with current in either direction. Another 322 are fast supplies. Two supplies each drive a string of bending magnets in series, one for all M1 bends and one for all M2 bends.",
+      "value": "2,247 power supplies"
     },
     "Dark time": {
-      "value": "352 days from switch-off (24 April 2023) to the start of commissioning (10 April 2024); first X-rays to a beamline after 420 days",
-      "explanation": "In that time the old ring was removed (60 days), 200 new magnet modules were installed, and the new ring was assembled, tested and baked out under vacuum. The first stored beam came 10 days into commissioning, and the first X-rays reached a beamline (27-ID) on 17 June 2024."
+      "value": "352 days from 24 April 2023 shutdown to 10 April 2024 commissioning; first beamline X-rays after 420 days",
+      "explanation": "The old ring was removed in 60 days. Crews then installed 200 magnet modules and assembled, tested and vacuum-baked the new ring. The first stored beam came 10 days into commissioning. X-rays first reached beamline 27-ID on 17 June 2024."
     },
     "Old ring removed": {
-      "value": "about 1,900 tons of material planned for disposal or recycling, including about 200 girders of 6.8–11.3 tons each",
-      "explanation": "Not all of it was scrapped: some of the old magnets went to Jefferson Lab and Brookhaven National Laboratory for reuse in the Electron-Ion Collider project."
+      "value": "About 1,900 tons planned for disposal or recycling, including about 200 girders of 6.8 to 11.3 tons each",
+      "explanation": "Some old magnets were retained for reuse. Jefferson Lab and Brookhaven National Laboratory received magnets for the Electron-Ion Collider project."
     },
     "Cost": {
-      "explanation": "The total project cost was fixed in December 2018, when the US Department of Energy (DOE) approved the project's baseline (‘Critical Decision 2’). Argonne reports that the upgrade was delivered on that budget."
+      "explanation": "The US Department of Energy fixed the project cost in December 2018 when it approved the performance baseline, Critical Decision 2. Argonne reports that the upgrade was delivered within that budget.",
+      "value": "$815 million"
     },
     "Users": {
-      "explanation": "The beamlines are run by the APS and by partner institutions and host experiments in materials science, chemistry, biology, geoscience and engineering. In its first year of user operation the new ring delivered beam for 96.5% of the scheduled hours."
+      "explanation": "The APS and partner institutions operate beamlines for materials science, chemistry, biology, geoscience and engineering. In its first year of user operation, the upgraded ring delivered beam for 96.5% of scheduled hours.",
+      "value": "More than 5,500 scientists annually; 72 beamlines; 5,000 user hours per year"
     },
     "Undulator precision": {
-      "value": "gap set with 0.5-micrometre resolution and repeatable to better than 3 µm; photon energy controlled to about 1 eV while scanning 1 keV per second",
-      "explanation": "An undulator's X-ray energy is set by the gap between its two rows of magnets, so the gap must be reproducible to micrometres for the energy to come out right to about one electron-volt – even while the energy is being scanned at 1 keV per second."
+      "value": "0.5 µm gap resolution, repeatability better than 3 µm; about 1 eV energy control at a 1 keV/s scan rate",
+      "explanation": "An undulator's magnet gap sets its X-ray energy. Reproducing the gap within micrometres keeps that energy accurate to about one electron-volt, even during scans at 1 keV per second."
     },
     "Beam height": {
-      "explanation": "Roughly chest height for an adult: the dimension shown on the 2019 Final Design Report's drawings of the straight sections."
+      "explanation": "The 2019 Final Design Report specifies this height in its straight-section drawings. It places the electron beam roughly at adult chest height.",
+      "value": "1.40 m above the tunnel floor"
     }
   },
-
   "timeline": {
     "1995-03-18": {
-      "event": "Beam makes its first turn around the original APS storage ring; on 25 March the radio-frequency (RF) system first captures it into stable bunches."
+      "event": "Electrons make their first turn around the original APS storage ring. On 25 March, the radio-frequency system first captures them in stable bunches."
     },
     "2010-04-27": {
-      "event": "The US Department of Energy (DOE) approves the ‘mission need’ for an APS upgrade – Critical Decision 0 (CD-0), the first formal step of a major DOE project."
+      "event": "The US Department of Energy approves the need for an APS upgrade. This is Critical Decision 0, or CD-0, the first formal approval for a major DOE project."
     },
     "2014-03": {
       "date": "c. 2014",
-      "event": "Following a July 2013 report by DOE's Basic Energy Sciences Advisory Committee (BESAC) that recommends multi-bend-achromat (MBA) rings, APS physicist Michael Borland sketches a first ‘straw-man’ MBA design for the APS in technical note LS-337 (date approximate)."
+      "event": "A July 2013 report by DOE's Basic Energy Sciences Advisory Committee recommends multi-bend-achromat rings. Around 2014, APS physicist Michael Borland outlines an initial APS design in technical note LS-337. The date is approximate."
     },
     "2016-02-04": {
-      "event": "DOE approves the choice of a multi-bend-achromat ring and the project's cost range (a revised Critical Decision 1, CD-1)."
+      "event": "DOE approves the multi-bend-achromat design and the project's cost range under a revised Critical Decision 1, or CD-1."
     },
     "2016-06-09": {
-      "event": "DOE's Basic Energy Sciences Advisory Committee (BESAC) calls the upgrade ‘absolutely central’ and ‘ready to initiate construction’."
+      "event": "DOE's Basic Energy Sciences Advisory Committee describes the upgrade as \"absolutely central\" and \"ready to initiate construction\"."
     },
     "2016-10-06": {
-      "event": "DOE lets the project start buying components that take a long time to make (CD-3B, long-lead procurement)."
+      "event": "DOE approves advance purchases of components with long manufacturing times. This is the CD-3B procurement approval."
     },
     "2018-12-13": {
-      "event": "DOE fixes the project's scope, schedule and budget – a total project cost of $815 million (CD-2, the performance baseline)."
+      "event": "DOE approves the project's scope, schedule and $815 million budget. This CD-2 approval establishes the performance baseline."
     },
     "2019-05": {
-      "event": "The project publishes its Final Design Report (APSU-2.01-RPT-003), the engineering blueprint for the new ring and beamlines."
+      "event": "The project publishes the Final Design Report, APSU-2.01-RPT-003, detailing the new ring and beamlines."
     },
     "2019-07-25": {
-      "event": "DOE approves the start of construction of the $815-million upgrade (CD-3)."
+      "event": "DOE approves construction of the $815 million upgrade under CD-3."
     },
     "2021-05": {
-      "event": "The project passes the halfway mark by cost; after a ten-month slip caused by the COVID-19 pandemic, first beam is expected in mid-2024."
+      "event": "The project has incurred half its planned cost. COVID-19 delays have moved expected first beam back ten months to mid-2024."
     },
     "2023-04-24": {
-      "event": "The original APS ring shuts down for good, and a ‘dark period’ of about a year without X-rays begins."
+      "event": "The original APS storage ring shuts down permanently. Experiments begin a planned period of about a year without X-rays."
     },
     "2023-06-23": {
-      "event": "Removal of the old storage ring is complete, 60 days after switch-off."
+      "event": "Removal of the old storage ring is complete, 60 days after shutdown."
     },
     "2023-07-12": {
       "event": "The first of 200 pre-assembled magnet modules is installed in the tunnel."
     },
     "2023-09": {
-      "event": "The injector comes back to life: the linear accelerator (linac) restarts, followed by the particle accumulator ring in October 2023 and the booster synchrotron in February 2024."
+      "event": "The linear accelerator restarts. The particle accumulator ring follows in October 2023 and the booster synchrotron in February 2024."
     },
     "2023-10-27": {
-      "event": "First vacuum bake-out of the new ring: the chambers are heated under vacuum to drive gas off their walls."
+      "event": "The first vacuum bake-out begins. Heating the chambers under vacuum removes gas from their walls."
     },
     "2023-12-20": {
-      "event": "The last of the 200 magnet modules is installed, 162 days after the first."
+      "event": "The last of 200 magnet modules is installed, 162 days after the first."
     },
     "2024-02-15": {
-      "event": "The last component goes in: assembly of the new storage ring is complete."
+      "event": "The last component is installed, completing storage-ring assembly."
     },
     "2024-03-24": {
       "event": "Testing and vacuum bake-out of the new ring are complete."
     },
     "2024-03-25/28": {
-      "event": "Reviewers check that the new accelerator is ready to run safely (Accelerator Readiness Review)."
+      "event": "An Accelerator Readiness Review checks that the new accelerator can operate safely."
     },
     "2024-04-10": {
-      "event": "DOE authorizes the start of commissioning – switching on and tuning the new ring with beam."
+      "event": "DOE authorizes commissioning. Operators can begin circulating beam and tuning the new ring."
     },
     "2024-04-13": {
       "event": "Electrons make their first turns around the new ring."
     },
     "2024-04-20": {
-      "event": "First stored beam: electrons keep circulating instead of being lost after a few turns, at a current of 0.15 mA."
+      "event": "The ring stores its first beam at 0.15 mA. Electrons continue circulating rather than being lost after a few turns."
     },
     "2024-04-29": {
-      "event": "The world's first multi-bunch swap-out injection: 12 bunches, with the weakest replaced by a fresh one every 30 seconds."
+      "event": "APS-U performs the world's first multi-bunch swap-out injection. With 12 bunches stored, the weakest is replaced every 30 seconds."
     },
     "2024-05-02": {
-      "event": "The septum – the pulsed magnet that guides new electrons into the ring – fails after about a million pulses when its copper current bar ruptures; beam operation resumes ten days later."
+      "event": "The septum magnet fails when its copper current bar ruptures after about a million pulses. This pulsed magnet directs incoming electrons into the ring. Beam operation resumes ten days later."
     },
     "2024-05-12": {
-      "event": "The ring stores 10 mA spread over many bunches; from 17 May the beam's own light gradually cleans gas off the chamber walls (vacuum conditioning)."
+      "event": "The ring stores 10 mA across many bunches. From 17 May, radiation from the beam removes gas from chamber walls in a process called vacuum conditioning."
     },
     "2024-05-17": {
-      "event": "The stored current reaches 25 mA, enough for beamline commissioning to begin (announced the next day)."
+      "event": "Stored current reaches 25 mA, enough for beamline commissioning. The milestone is announced the next day."
     },
     "2024-05-27": {
-      "event": "The stored current reaches 50 mA."
+      "event": "Stored current reaches 50 mA."
     },
     "2024-06-02": {
-      "event": "The spare septum magnet develops a vacuum leak, and the repaired original is reinstalled."
+      "event": "The spare septum magnet develops a vacuum leak. The repaired original is reinstalled."
     },
     "2024-06-17": {
-      "event": "First X-rays reach a scientific beamline – 27-ID, for resonant inelastic X-ray scattering – with 50 mA stored, ending the period dedicated to machine commissioning."
+      "event": "At 50 mA, X-rays first reach scientific beamline 27-ID for resonant inelastic X-ray scattering. The period dedicated to machine commissioning ends."
     },
     "2024-07-17": {
       "event": "The upgraded APS is formally dedicated."
     },
     "2024-08": {
-      "event": "Measurements at beamlines 3-ID-B and 29-ID confirm the most tightly squeezed beam of any storage-ring light source at the time: an emittance (beam size × angular spread) of 45 pm·rad in the flat beam and 28 pm·rad horizontally in the round beam (announced 23 August)."
+      "event": "Measurements at 3-ID-B and 29-ID confirm the lowest emittance of any storage-ring light source at the time. Emittance, beam size multiplied by angular spread, is 45 pm·rad horizontally in flat mode and 28 pm·rad horizontally in round mode. The results are announced on 23 August."
     },
     "2024-09": {
-      "event": "Round-the-clock experiments for users begin at 100 mA, in a 162-bunch mode and a 48-bunch timing mode."
+      "event": "Round-the-clock user experiments begin at 100 mA, with a 162-bunch mode and a 48-bunch timing mode."
     },
     "2024-10-08": {
       "date": "2024-10",
-      "event": "The superconducting cavity that stretches the electron bunches, so the beam lasts longer, is first used during user runs at 0.5 MV; by 2025 it runs at 1.1 MV with 200 mA stored."
+      "event": "The superconducting bunch-lengthening cavity is first used during user runs at 0.5 MV. By 2025 it operates at 1.1 MV with 200 mA stored."
     },
     "2025-01": null,
     "2025-01-27": {
-      "event": "Beam returns after the winter shutdown, and the first 2025 user run starts at 180 mA – the first half in the standard multi-bunch mode, the second in timing mode – with 27 beamlines accepting users and 43 still in commissioning."
+      "event": "Beam returns after the winter shutdown, and the first 2025 user run begins at 180 mA. The first half uses standard multi-bunch mode; the second uses timing mode. There are 27 beamlines accepting users and 43 in commissioning."
     },
     "2025-02-04": {
-      "event": "The ring reaches its full design current of 200 mA – twice the old APS's – and uses it for user operation."
+      "event": "The ring reaches its 200 mA design current, twice the old current, and uses it for user operation."
     },
     "2025-04": {
-      "event": "With the full 200 mA stored, the horizontal emittance is measured at about 33 pm·rad (operating conditions not stated)."
+      "event": "Horizontal emittance is measured at about 33 pm·rad with 200 mA stored. The operating conditions are not stated."
     },
     "2025-07": {
-      "event": "Feature beamlines reach milestones: the High-Energy X-ray Microscope (HEXM, 20-ID) measures its first sample, the Coherent High-Energy X-ray beamline (CHEX, 28-ID) sees first light in all four branches, and sector 34 sees first light."
+      "event": "HEXM at 20-ID measures its first sample. CHEX at 28-ID receives first light in all four branches, and sector 34 also receives first light."
     },
     "2025-08": {
-      "event": "Argonne holds its own director's review of whether the project has delivered everything it promised, ahead of DOE's completion review (CD-4)."
+      "event": "Argonne holds a director's review of project delivery before DOE's CD-4 completion review."
     },
     "2025-09 (late)": {
-      "event": "DOE reviewers unanimously recommend declaring the project complete (Critical Decision 4, CD-4) and proceeding to close-out."
+      "event": "DOE reviewers unanimously recommend project completion under Critical Decision 4, or CD-4, followed by close-out."
     },
     "2025-10": {
-      "event": "PtychoProbe (33-ID) and ATOMIC (34-ID) enter commissioning, so all of the feature beamlines are online; 51 beamlines are accepting users."
+      "event": "PtychoProbe at 33-ID and ATOMIC at 34-ID enter commissioning. All feature beamlines have reached commissioning or user operation, and 51 beamlines are accepting users."
     },
     "2025-10-08": {
-      "event": "After its first year of user operation the new ring delivers beam 96.5% of the scheduled time. It runs 200 mA in 216 bunches (140 mA in 48 bunches in timing mode) as a round, fully coupled beam, with a 2–4-hour lifetime."
+      "event": "After its first year of user operation, the new ring has delivered beam for 96.5% of scheduled hours. It runs at 200 mA in 216-bunch mode and 140 mA in 48-bunch timing mode. The beam is round and fully coupled, with a lifetime of 2 to 4 hours."
     },
     "2025-11": {
-      "event": "The PtychoProbe instrument is installed at 33-ID – the last feature beamline built under the project."
+      "event": "The PtychoProbe instrument is installed at 33-ID, the last feature beamline built by the project."
     },
     "2026-01-29": {
-      "event": "The project reports that all of its scope has been delivered; formal completion is under DOE review, and the first 2026 user run is set to start on 2 February."
+      "event": "The project reports that all planned work has been delivered. DOE is reviewing formal completion, and the first 2026 user run is scheduled for 2 February."
     },
     "2026-02-05": {
-      "event": "DOE's final approval is announced: the APS Upgrade is officially complete, at $815 million, with 9 new beamlines and 15 enhanced ones."
+      "event": "DOE announces final approval of the APS Upgrade. The $815 million project delivered 9 new beamlines and 15 enhancements."
     },
     "2026-06-10": {
-      "event": "The APS begins replacing the klystrons – large vacuum-tube amplifiers – that power its radio-frequency (RF) cavities with solid-state amplifiers: a first set of four is being installed to drive one sector's four cavities, with the whole storage ring expected to convert by 2028 and the booster after that."
+      "event": "The APS begins replacing the klystron vacuum-tube amplifiers that power its radio-frequency cavities with solid-state amplifiers. Four are being installed for one sector's four cavities. Storage-ring conversion is expected by 2028, followed by the booster."
     },
     "2026-09-22": {
       "date": "2026-09",
-      "event": "The eight superconducting undulators planned for sectors 1, 11, 20 and 28 are delayed and not yet installed (September 2026). Permanent-magnet undulators stand in there, and at sector 6, where the 2019 design also showed a superconducting device."
+      "event": "As of September 2026, the eight superconducting undulators planned for sectors 1, 11, 20 and 28 are delayed and not installed. Permanent-magnet devices remain in use there and at sector 6, where the 2019 design also specified a superconducting device."
     },
     "2026-10-09": null
   },
-
   "explainers": {
-    "whatIsSynchrotron": "A synchrotron light source is a racetrack for electrons, built to make light. At the APS, electrons are accelerated in a straight linear accelerator (linac), gathered in a small ring, then brought up to 6 billion electron-volts (6 GeV) in a booster ring – by then they move at 99.9999996% of the speed of light. They circulate in the main storage ring, a 1.1-km loop of magnets around a vacuum pipe, and whenever a magnet bends their path they give off light in a narrow forward cone, like sparks flung off a grinding wheel.\n\nFor electrons this fast that light spans everything from infrared to hard X-rays, and the X-rays are what the APS is built for. The brightest come from undulators – rows of alternating magnets in 35 of the ring's 40 straight sections – and travel down beamlines to experiment stations, where scientists study everything from batteries to proteins. Twelve radio-frequency cavities give back the energy the electrons lose as light, about 2.9–4.5 MeV per electron on every lap depending on how many undulator gaps are closed, and every 20 seconds or so the most depleted bunch of electrons is swapped for a fresh one so the current stays steady.",
-
-    "whatIsUndulator": "An undulator is a row of magnets with alternating north and south poles, about 2.1–2.4 m long, whose pattern repeats every 1.35 to 3.3 cm (the ‘period’). Electrons flying through it are wiggled gently from side to side, some 60 to 175 times. Because the electrons travel at almost the speed of light, the light from each wiggle adds in step with the light from all the others, but only at certain wavelengths – so the X-rays emerge as a very narrow, intense beam concentrated at particular energies, a fundamental and its harmonics.\n\nOpening or closing the gap between the top and bottom rows of magnets – 8.5 mm at closest for most devices, set with half-micrometre resolution – changes the field and so tunes the X-ray energy. One special electromagnetic undulator at sector 29 uses a 12.5-cm period. Superconducting undulators replace the permanent magnets with coils of superconducting wire cooled to −269 °C, giving stronger fields for very hard X-rays. Eight are planned for APS-U: in-line pairs with 16.5-mm periods at sectors 1 and 20 (1.9 m long), a canted pair – two devices angled slightly apart to feed two beamlines – with 16.5-mm periods at sector 11 (1.5 m), and a canted 18.5-mm pair at sector 28 (1.2–1.3 m). Building them proved harder than expected; as of September 2026 none is installed, and permanent-magnet undulators stand in.",
-
-    "whatIsMBA": "To go round the ring the electrons must be bent through 360°. In the old APS each of the 40 sectors bent the beam with just 2 large magnets, so every bend was fairly sharp – and each sharp bend shakes the electron cloud (the light is given off in random bursts) and makes it spread out. The upgrade uses a ‘multi-bend achromat’ (MBA): each sector now has 7 gentler bends, with strong focusing magnets between them that keep squeezing the beam. Theory says the beam's emittance – its size times its angular spread – shrinks roughly with the cube of the number of bends per sector, so going from 2 to 7 bends alone makes it about 40 times smaller.\n\nThe design is a ‘hybrid’ seven-bend achromat based on the concept of the ESRF-EBS, the upgraded European Synchrotron Radiation Facility, with bending magnets whose field steps down along their length. APS-U adds six small ‘reverse bends’ per sector – quadrupoles mounted slightly off-centre, so they also nudge the beam the wrong way. They give the designers an extra handle on how electrons of different energies are spread out through the arc, cutting the design emittance from about 67 to 42 picometre-radians (pm·rad); with the energy also lowered from 7 to 6 GeV, the emittance fell from about 3,100 to 42 pm·rad. ‘Achromat’ means that electrons with slightly different energies all leave the sector on the same path.",
-
-    "whyEmittanceMatters": "Emittance measures how big and how spread-out the electron beam is: its width multiplied by how much its electrons fan out in angle. The X-rays inherit both. A wide, spreading source is like a floodlight; a tiny, nearly parallel one is more like a laser pointer – though the X-rays are still only partly coherent. Scientists want the small, parallel source because it can be focused to spots only nanometres across, and its beam stays narrow over the long path to distant experiments.\n\nAPS-U cut the horizontal emittance about 75-fold, from 3,100 to 42 picometre-radians (pm·rad). At an undulator the beam shrank from about 275 × 10 micrometres (root-mean-square sizes, horizontal × vertical) to about 12 × 8 µm in the round-beam mode used for most user runs, or about 14 × 3 µm in the flat-beam mode. With the X-rays coming from a much smaller, better-aimed source, and twice the current, the beam is about 500 times brighter – 100 to 1,000 times depending on X-ray energy, in design calculations. The gain is largest at high X-ray energies, where the old beam was furthest from the ‘diffraction limit’ – an emittance of about the wavelength divided by 4π, below which shrinking the electron beam adds little.",
-
-    "whatIsCoherence": "Light is a wave. ‘Coherent’ light has wave crests that march in step, so it can make clean interference patterns – like the ripples from two pebbles dropped into a pond together. A laser is highly coherent; a light bulb is not. An X-ray source is fully coherent only if it is both tiny and nearly parallel: its size times its angular spread must be smaller than about the wavelength divided by 4π – roughly 10 picometre-radians for 10-keV X-rays.\n\nA larger source is only partly coherent, and only a small fraction of its photons can be used for coherent experiments: well under 0.1% of a 10-keV beam at the old APS, a few percent at APS-U. Together with better undulators and twice the current, that gives more than 100 times more coherent photons – about 160 times at 10 keV and 600 times at 20 keV, in design calculations. Coherent X-rays let scientists reconstruct images from interference (‘speckle’) patterns, as in ptychography and coherent diffraction imaging, with a resolution set by how far out the scattered signal can be recorded rather than by the quality of X-ray lenses. Watching the speckle pattern flicker reveals how nanoparticles, polymer chains or magnetic domains move (X-ray photon correlation spectroscopy, XPCS).",
-
-    "whatIsSwapOut": "The old APS kept its current steady by ‘topping up’: every minute or two it added a small puff of new electrons to bunches already circulating, which needs a wide, gentle magnetic ‘catch zone’ around the beam. The new ring's strong focusing leaves almost no room for that – the stable region at the injection point is only about ±1.5 mm wide – so the APS swaps instead, replacing a whole depleted bunch with a fresh, full one from the booster.\n\nA few hundred turns before each swap, a small ‘decoherence’ kick puffs up the outgoing bunch so that it is spread out enough not to damage the dump. Then three fast kicker magnets, pulsing for only about 11 billionths of a second, knock that bunch into a shielded dump and, with the same pulse, place the fresh bunch exactly into its slot – while missing the neighbouring bunches 17 ns away. In 2025 operation this happens about every 20 seconds, renewing each of the 216 bunches roughly every 72 minutes. APS-U is the first storage-ring light source to run this way.",
-
-    "whatIsBunchLengthening": "Electrons in a tightly packed bunch occasionally collide with one another and get knocked out of the beam (Touschek scattering), so small, dense bunches die quickly. APS-U thins the crowd with a superconducting niobium ‘harmonic cavity’, cooled to 2.1 K (−271 °C), that the passing beam itself rings like a bell; its field, at four times the main radio frequency, stretches each bunch to 2–4 times its natural length without making the beam any wider.\n\nIn operation the cavity runs at 1.1 megavolts (MV) with 200 mA stored and roughly doubles the beam lifetime – the design expected about four times. The flip side is longer X-ray flashes: the design puts a stretched bunch at about 88–104 picoseconds (trillionths of a second) rms, depending on the fill pattern.",
-
-    "whyLowerEnergy": "The upgrade lowered the electron energy from 7 to 6 billion electron-volts (GeV). That sounds like a step backwards, but it helps in three ways. Emittance grows with the square of the energy, so 6 GeV alone gives about 36% more brightness; the magnets can be weaker for the same focusing; and the beam loses much less energy to light on each lap – the loss scales with the fourth power of energy – which makes 200 mA, twice the old current, affordable in radio-frequency power.\n\nThere are costs. Every undulator harmonic comes out about 27% lower in photon energy, which the APS makes up with shorter-period undulators and higher harmonics. A lower-energy beam is also more sensitive to collective instabilities, in which the bunches' own fields act back on them, and to electrons scattering off one another inside the bunches.",
-
-    "whyRoundBeams": "APS-U usually runs with ‘full coupling’: the emittance (beam size × angular spread) is shared about equally between the horizontal and vertical planes, about 28–31 picometre-radians (pm·rad) each, making a nearly round beam. Spreading the electrons out vertically makes the bunches less dense, so fewer are lost by colliding with each other (Touschek scattering) and the beam lasts longer; the design treated round beams as the default.\n\nA ‘flat’, low-coupling mode, about 40 × 4 pm·rad, gives a much smaller vertical source and the highest brightness, at the cost of a shorter lifetime; it is workable for fills with many bunches. In the round beam the vertical emittance, about 31 pm·rad measured, is only a little below the old ring's 40 pm·rad, so almost all of the upgrade's gain in round mode is horizontal."
+    "whatIsSynchrotron": "A synchrotron light source circulates electrons to produce light. At the APS, a linear accelerator, or linac, starts the electrons. A small accumulator ring gathers them into bunches, and a booster ring accelerates them to 6 billion electron-volts, or 6 GeV. At this energy they move at 99.9999996% of light speed. They circulate in a 1.1 km storage ring, where magnets bend their paths. The electrons emit radiation in a narrow forward cone as they bend.\n\nThe radiation spans infrared through hard X-rays. The APS uses the X-rays to study materials and biological samples. Undulators, rows of alternating magnets in 35 of the 40 straight sections, produce the brightest beams. Beamlines carry them to experiment stations. Twelve radio-frequency cavities replace the 2.9 to 4.5 MeV each electron loses per lap, depending on how many undulator gaps are closed. Replacing one depleted bunch about every 20 seconds keeps the current steady.",
+    "whatIsUndulator": "An undulator has two rows of magnets with alternating north and south poles. Most APS devices are about 2.1 to 2.4 m long, with a magnetic pattern repeating every 1.35 to 3.3 cm. This repeat distance is the period. Electrons deflect from side to side about 60 to 175 times per pass. Radiation from these deflections reinforces at particular wavelengths, producing a narrow beam at a fundamental energy and its harmonics. The harmonics are higher-energy multiples of the fundamental. Opening or closing the magnet gap changes the field and tunes the X-ray energy. Most devices have an 8.5 mm design minimum gap, controlled with half-micrometre resolution. Sector 29 has a special electromagnetic device with a 12.5 cm period.\n\nSuperconducting undulators use wire coils cooled to −269 °C to produce stronger fields for high-energy X-rays. Eight are planned for APS-U. Sectors 1 and 20 each have an in-line pair with 16.5 mm periods and 1.9 m lengths. Sector 11 has two devices angled apart to feed independent beamlines, with 16.5 mm periods and 1.5 m lengths. Sector 28 has an angled pair with 18.5 mm periods and 1.2 to 1.3 m lengths. Manufacturing delays mean none was installed as of September 2026. Permanent-magnet devices are in use instead.",
+    "whatIsMBA": "Each of the APS ring's 40 sectors turns the electron beam through a net 9°. The old ring used two main bends per sector. Emitting photons changes the electrons' energies randomly, which contributes to beam spreading. A multi-bend achromat, or MBA, distributes the turn among more bends and uses focusing magnets between them. Theory predicts that emittance, beam size multiplied by angular spread, decreases roughly as the cube of the number of bends per sector. Changing from two to seven bends alone gives about a 40-fold reduction.\n\nAPS-U uses a hybrid seven-bend achromat based on the ESRF-EBS design at the European Synchrotron Radiation Facility. The bending-magnet field decreases along each magnet. Six off-centre quadrupoles per sector add small reverse bends to control how electrons of different energies spread through the arc. These reduced the design emittance from about 67 to 42 picometre-radians, or pm·rad. With electron energy also reduced from 7 to 6 GeV, the change from the old ring is about 3,100 to 42 pm·rad. An achromat returns electrons with slightly different energies to the same path at the sector exit.",
+    "whyEmittanceMatters": "Emittance measures electron-beam size multiplied by angular spread. X-rays inherit both the source size and the spread of electron directions. A small, nearly parallel source can be focused to nanometre spots and remains narrow on the path to distant experiments. A smaller electron beam also increases the fraction of X-rays usable for coherent measurements.\n\nAPS-U reduced the horizontal emittance about 75-fold, from 3,100 to 42 pm·rad. Horizontal × vertical rms source sizes changed from about 275 × 10 µm to about 12 × 8 µm in round-beam user mode, or about 14 × 3 µm in flat mode. Root-mean-square, or rms, describes the electron distribution's width. This smaller source and twice the current give about 500 times greater brightness by design, with gains of 100 to 1,000 times depending on X-ray energy. The gain is greatest at high energies, where the old source was furthest from the diffraction limit. Near this limit, about wavelength divided by 4π in emittance, reducing the electron beam adds little.",
+    "whatIsCoherence": "Coherent light maintains a consistent relationship between its wave phases, so overlapping waves produce stable interference patterns. A laser is highly coherent; light from a bulb is much less so. For a fully coherent X-ray source, size multiplied by angular spread must be below about wavelength divided by 4π. This is roughly 10 pm·rad at 10 keV.\n\nA larger source is partly coherent, so only a fraction of its photons is usable for coherent experiments. At 10 keV this was well below 0.1% at the old APS and is a few percent at APS-U. Better undulators and twice the current increase coherent flux further. Design gains are more than 100-fold, about 160 times at 10 keV and 600 times at 20 keV. Ptychography and coherent diffraction imaging reconstruct images from interference patterns called speckle. Their resolution depends on how far the scattered signal can be recorded. X-ray photon correlation spectroscopy, or XPCS, measures motion from changes in speckle, including motion of nanoparticles, polymer chains and magnetic domains.",
+    "whatIsSwapOut": "The old APS added electrons to stored bunches every minute or two to maintain current. This top-up injection needed a large stable region around the stored beam. Stronger focusing leaves a stable region only about ±1.5 mm at the new injection point. APS-U therefore replaces whole depleted bunches with fresh ones from the booster.\n\nA few hundred turns before a swap, a small decoherence kick spreads the outgoing bunch to prevent damage at the dump. Three fast kicker magnets then direct it into a shielded dump and place a fresh bunch in the same slot. Their pulses last about 11 ns, short enough to miss neighbouring bunches 17 ns away. In 2025 operation, one swap occurred about every 20 seconds, renewing each of 216 bunches roughly every 72 minutes. APS-U is the first storage-ring light source to operate this way.",
+    "whatIsBunchLengthening": "Electrons in dense bunches occasionally scatter off one another and leave the stored beam. This loss process is Touschek scattering. A superconducting niobium harmonic cavity lengthens the bunches to reduce their density without widening the beam. It operates at 2.1 K, or −271 °C. The passing bunches excite a field at four times the main radio frequency, lengthening them by a factor of 2 to 4.\n\nAt 1.1 MV and 200 mA, the cavity roughly doubles the beam lifetime in operation. The design expected about a fourfold increase. Longer bunches produce longer X-ray pulses. The design bunch lengths are about 88 to 104 ps rms, depending on fill pattern. A picosecond is a trillionth of a second; rms describes the width of the bunch distribution.",
+    "whyLowerEnergy": "APS-U reduced electron energy from 7 to 6 billion electron-volts, or GeV. For a fixed lattice, emittance grows with energy squared, so this reduction alone gives about 36% more brightness. Lower energy also allows weaker magnets for the same focusing. Radiation loss per lap scales with energy to the fourth power. Reducing that loss makes a 200 mA current, twice the old value, possible within the radio-frequency power capacity.\n\nThe tradeoff is lower photon energy, about 27% less for each undulator harmonic. Shorter-period undulators and higher harmonics compensate for this. Lower-energy bunches are also more sensitive to instabilities caused by their own electromagnetic fields and to collisions between their electrons.",
+    "whyRoundBeams": "APS-U usually shares emittance about equally between the horizontal and vertical planes. This is full coupling. Each plane measures about 28 to 31 pm·rad, producing a nearly round beam. Spreading electrons vertically lowers bunch density and reduces losses from Touschek scattering, collisions that remove electrons from the beam. The design used round beams as the default operating mode.\n\nFlat mode has low coupling and emittances of about 40 × 4 pm·rad. Its smaller vertical source gives higher brightness but a shorter lifetime. It is workable with many bunches in the ring. In round mode, the measured vertical emittance of about 31 pm·rad is close to the old ring's 40 pm·rad. Most of the round-mode improvement is therefore horizontal."
   }
 }

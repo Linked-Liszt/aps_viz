@@ -67,7 +67,7 @@ export class PathStrip {
         'div',
         { class: 'strip-tools' },
         h('button', { class: 'btn btn-ghost', type: 'button', title: 'Frame the whole beamline (F)', onclick: () => this.onOverview() }, icon('eye', 15), 'Whole beamline'),
-        h('button', { class: 'btn btn-ghost', type: 'button', title: 'Fly along the X-ray path (R)', onclick: () => this.onRide() }, icon('play', 15), 'Ride the beam'),
+        h('button', { class: 'btn btn-ghost', type: 'button', title: 'Move the camera along the X-ray path (R)', onclick: () => this.onRide() }, icon('play', 15), 'Follow X-ray path'),
         h('span', { class: 'flex1' }),
         h(
           'span',
@@ -77,7 +77,7 @@ export class PathStrip {
             { title: 'White beam: the full undulator spectrum. Pink beam: after a mirror has removed the high-energy part. Monochromatic: a single X-ray energy selected by a crystal or multilayer.' },
             h('i', { class: 'lg-white' }), ' white ', h('i', { class: 'lg-pink' }), ' pink ', h('i', { class: 'lg-mono' }), ' monochromatic',
           ),
-          h('span', { title: 'Where many components sit close together the map is stretched so each stays clickable; the distances in the labels are exact.' }, h('i', { class: 'lg-stretch' }), ' stretched'),
+          h('span', { title: 'Closely spaced components are drawn farther apart for easier selection. Distance labels use the listed positions.' }, h('i', { class: 'lg-stretch' }), ' stretched'),
         ),
       ),
       this.scroller,

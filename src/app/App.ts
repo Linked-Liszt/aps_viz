@@ -25,9 +25,9 @@ import { clamp, ease } from '../lib/tween';
 import type { Beamline, BeamlineMeta } from '../data/types';
 
 const BUILDING_NOTES: Record<string, string> = {
-  lom: 'Lab/Office Module: offices, labs and user support space for the neighbouring sectors.',
-  'long-beamline-building': 'Built for the APS Upgrade (opened 2022): houses the end stations of the ~200 m long ISN (19-ID) and HEXM (20-ID) beamlines.',
-  injector: 'Part of the injector complex that feeds electrons to the storage ring.',
+  lom: 'Lab/Office Modules contain offices, laboratories and user support space for neighbouring sectors.',
+  'long-beamline-building': 'The Long Beamline Building opened in 2022 for the APS Upgrade. It contains the end stations of ISN at 19-ID and HEXM at 20-ID, whose beamlines are about 200 m long.',
+  injector: 'Part of the injector complex, where electrons are accelerated before injection into the storage ring.',
   office: 'APS offices, control room and conference space.',
   neighbour: 'Neighbouring Argonne user facility.',
 };
@@ -39,28 +39,28 @@ const BUILDING_NOTES: Record<string, string> = {
  * `text` is the one sector-card text for every reader: what is there and what it does, then the precise caveat.
  */
 const RF_STRAIGHT = {
-  short: 'RF accelerating cavities (4)',
-  text: 'This straight holds four of the ring’s 12 radio-frequency (RF) accelerating cavities. On every lap their 352 MHz field gives each electron back the energy it loses as light: about 2.9–4.5 MeV, depending on how many undulator gaps are closed. All 12 are single-cell copper cavities, four to a straight, in sectors 36, 37 and 40.',
+  short: 'Four radio-frequency accelerating cavities',
+  text: 'Four of the ring\'s 12 radio-frequency accelerating cavities are in this straight section. Their 352 MHz electric field restores the energy each electron loses as light on every lap. The loss is about 2.9 to 4.5 MeV, depending on how many undulator gaps are closed. The 12 single-cell copper cavities are arranged in groups of four in sectors 36, 37 and 40.',
 };
 const MACHINE_SECTORS: Record<number, { short: string; text: string }> = {
   36: RF_STRAIGHT,
   37: RF_STRAIGHT,
   38: {
-    short: 'Bunch-lengthening cavity (per the 2019 design)',
-    text: 'In the 2019 Final Design Report this straight holds the superconducting bunch-lengthening cavity, together with the extraction kickers, fast magnets that kick bunches out of the ring. Driven only by the passing bunches, the cavity rings at 1.4 GHz, four times the main radio frequency, and stretches each bunch so the electrons collide less often and the stored beam lasts longer. Where it sits as built is not confirmed.',
+    short: 'Bunch-lengthening cavity in the 2019 design',
+    text: 'The 2019 Final Design Report places a superconducting bunch-lengthening cavity in this straight section, alongside fast magnets that extract bunches from the ring. Passing bunches excite the cavity at 1.4 GHz, four times the main radio frequency. The cavity lengthens each bunch so electrons collide less often and the stored beam lasts longer. Its installed location is unconfirmed.',
   },
   39: {
-    short: 'Injection (per the 2019 design)',
+    short: 'Injection in the 2019 design',
     // the 2019 design injected vertically through a DC Lambertson septum; the pulsed septum came with the 2021 change
     // to horizontal injection (research: facility.json swapOut.plane)
-    text: 'In the 2019 Final Design Report this is the injection straight, where fresh electron bunches from the booster enter the ring to replace depleted ones (swap-out). That design injected vertically, through a steady-field (DC) Lambertson septum, a magnet that steers the incoming beam in beside the stored one, and kickers, with the swap-out dump in the A:M1 magnet. As built, injection is horizontal, through a pulsed septum and three stripline kickers in one straight. The booster-to-ring transfer line enters at this straight, but which sector holds the as-built injection is not confirmed.',
+    text: 'The 2019 Final Design Report places injection in this straight section. Fresh electron bunches from the booster replace depleted bunches in a process called swap-out. The design used vertical injection through a steady-field Lambertson septum and kicker magnets. The septum steers the incoming beam beside the stored beam, and the design places the dump inside the A:M1 magnet. The installed system injects horizontally through a pulsed septum and three stripline kickers in one straight section. The booster transfer line enters at the straight section shown here, but the sector containing the installed injection system is unconfirmed.',
   },
   40: RF_STRAIGHT,
 };
 
-/** Who runs a sector, with the APS's own division spelled out once ('XSD: Imaging' → 'X-ray Science Division (XSD): Imaging'). */
+/** Expand XSD to X-ray Science Division in the operator description. */
 function operatorsText(s: string): string {
-  return s.replace(/\bXSD\b/, 'X-ray Science Division (XSD)');
+  return s.replace(/\bXSD\b/, 'X-ray Science Division, XSD');
 }
 
 /** Directory titles that only restate the sector ("Sector 10 - Bending Magnet Beamline") say nothing on a card. */
@@ -112,7 +112,7 @@ const OWN_KEYS = '.station-host, .stn, .popover, .modal, .search';
 const STATION = '.station-host, .stn';
 
 /**
- * Orchestrates the 3D stage and the exhibit UI around a single source of truth: the routed View.
+ * Update the 3D stage and exhibit UI to match the routed View.
  */
 export class App {
   readonly stage: Stage;
@@ -131,16 +131,25 @@ export class App {
   private sectorCard: HTMLElement;
   private intro: HTMLElement | null = null;
   private ride: { cancel: () => void } | null = null;
+  private rideRequested = false;
   private frameCount = 0;
   /** resolves once the per-beamline layouts have loaded (never rejects) */
   private ready: Promise<void> = Promise.resolve();
   private layoutsReady = false;
   /** the view currently shown (the store may already hold a newer one that is waiting for the layouts) */
   private applied: View | null = null;
-  /** beamline whose scene is about to be built (its panel is already showing; see buildSoon) */
+  /** Requested beamline whose scene is still being prepared. */
   private pendingBuild: string | null = null;
-  /** beamline whose station is open in the full-screen modal */
-  private stationOwner: string | null = null;
+  private buildRequest = 0;
+  private buildAbort: AbortController | null = null;
+  /** Keep the outgoing model on screen until the next one is ready. */
+  private previousBeamline: BeamlineScene | null = null;
+  /** At most two completed models, including the open one. */
+  private sceneCache = new Map<string, BeamlineScene>();
+  /** View that opened the full-screen station. Navigation away from it closes the dialog. */
+  private stationOwner: Extract<View, { mode: 'beamline' | 'tour' }> | null = null;
+  /** Tour stop to return to while exploring a beamline during this visit. */
+  private tourReturnStep: number | null = null;
   private insetsQueued = false;
 
   constructor(stageHost: HTMLElement, labelHost: HTMLElement, private ui: HTMLElement) {
@@ -195,6 +204,7 @@ export class App {
     this.stage.onFrame((dt) => {
       this.site.update(dt, this.stage.time);
       this.bl?.update(dt);
+      this.previousBeamline?.update(dt);
       if (++this.frameCount % 6 === 0) this.updateHud();
     });
 
@@ -214,20 +224,29 @@ export class App {
       .catch((e) => console.error('feature beamline layouts could not be applied', e));
     this.scheduleView();
 
-    // The author's welcome greets every visit (not in automated tests unless ?welcome); the first-visit intro follows it.
+    // Only home entries show the opening dialog. Direct links open their requested view.
+    const homeEntry = ['', '#', '#/'].includes(location.hash);
+    const atHome = () => store.state.view.mode === 'overview' && !store.state.view.focus;
     const startIntro = () => {
-      if (!store.state.introSeen && store.state.view.mode === 'overview') this.showIntro();
+      if (homeEntry && atHome() && !store.state.introSeen) this.showIntro();
     };
     const params = new URLSearchParams(location.search);
-    if (hasWelcome() && (!params.has('test') || params.has('welcome'))) {
+    if (homeEntry && hasWelcome() && (!params.has('test') || params.has('welcome'))) {
       // a dialog pauses rendering: wait until the opening view has been drawn so the facility shows behind the welcome
       // (the view is applied once the beamline layouts load; after 4 s the welcome opens regardless)
       const t0 = performance.now();
       let drawnFrom = -1;
       const whenDrawn = () => {
+        // Do not interrupt a visitor who navigated or opened another overlay while the scene loaded.
+        if (!atHome() || this.modal.isOpen || this.search.isOpen) return;
         if (this.applied && drawnFrom < 0) drawnFrom = this.frameCount;
-        if ((drawnFrom >= 0 && this.frameCount - drawnFrom > 3) || performance.now() - t0 > 4000) openWelcome(this.modal, startIntro);
-        else requestAnimationFrame(whenDrawn);
+        if ((drawnFrom >= 0 && this.frameCount - drawnFrom > 3) || performance.now() - t0 > 4000) {
+          openWelcome(
+            this.modal,
+            () => store.set({ introSeen: true }),
+            () => store.go({ mode: 'tour', step: 0 }),
+          );
+        } else requestAnimationFrame(whenDrawn);
       };
       whenDrawn();
     } else startIntro();
@@ -264,17 +283,17 @@ export class App {
       if (f !== undefined) faces.set(m.sectorNumber, f);
     }
     if (faces.size) this.site.buildRatchet(faces);
-    // a beamline opened before the layouts arrived owns its sector: keep the new overview models out of it
+    // Do not add overview models in the sector of an already open beamline.
     if (this.bl?.group.visible) this.site.setFocus(this.bl.data.id, this.bl.meta.sectorNumber);
     this.stage.requestShadowUpdate();
     this.stage.invalidateLabels();
   }
 
   /**
-   * Adaptive quality: if the frame rate stays poor, step down one tier and say so; after a long stretch of good
-   * frame rates, step back up (never above the tier the session started with). Never overrides a quality the user
-   * picked, and its choices are not remembered across visits. It looks away while a dialog covers the scene, while an
-   * interactive station runs in the panel (its own CPU load is not the 3D scene's) and for a while after either.
+   * Lower rendering quality one tier if the frame rate stays low. Restore a tier after sustained good frame rates,
+   * up to the tier the session started with. Do not override an explicit user choice or save automatic changes.
+   * Skip measurements while a dialog is open or a panel station is running, and briefly after either closes.
+   * Station CPU load is excluded from the measurements used to adjust the 3D renderer.
    */
   private startGovernor(): void {
     if (IS_TEST) return;
@@ -318,7 +337,7 @@ export class App {
         if (now - lastUpAt < 60000) bounces++; // stepped up too eagerly: wait longer next time
         const next = tiers[q - 1];
         store.set({ quality: next });
-        this.toast(`Switched to ${next === 'low' ? 'Light' : 'Balanced'} rendering to keep things smooth — change it in ⚙ settings.`);
+        this.toast(`Switched to ${next === 'low' ? 'Light' : 'Balanced'} rendering because the frame rate was low. You can change the rendering setting in Display settings.`);
       } else if (q < ceiling && bounces < 3 && fast >= 8 * 2 ** bounces) {
         slow = fast = 0;
         lastUpAt = now;
@@ -341,7 +360,7 @@ export class App {
 
   private wireUi(): void {
     this.topbar.onHome = () => this.goHome();
-    this.topbar.onTour = () => store.go({ mode: 'tour', step: 0 });
+    this.topbar.onTour = () => this.startTour();
     this.topbar.onStory = () => this.openStory();
     this.topbar.onHelp = () => this.openHelp();
     this.topbar.onAuthor = () => openAuthorNote(this.modal);
@@ -351,14 +370,16 @@ export class App {
     this.overview.onStory = () => this.openStory();
     this.overview.onTour = () => store.go({ mode: 'tour', step: 0 });
     this.panel.onClose = () => store.go({ mode: 'overview' });
+    this.panel.onReturnToTour = () => {
+      this.startTour();
+      requestAnimationFrame(() => this.tour.focusNext());
+    };
     // design-record figures open full size in the dialog (keyboard-accessible, no new tab in a kiosk)
     this.panel.onOpenFigure = (content, label) => this.modal.open(content, undefined, label);
     this.panel.onSelectComponent = (cid) => this.selectComponent(cid);
     this.panel.onExpandExplainer = (id) => {
       const v = store.state.view;
-      const m = v.mode === 'beamline' ? metaById(v.id) : undefined;
-      this.stationOwner = m?.id ?? null;
-      void openExplainerModal(this.modal, id, m?.color ?? '#5cd3ff', m?.id);
+      if (v.mode === 'beamline') this.openStation(id, v.id);
     };
     this.strip.onSelect = (cid) => this.selectComponent(cid);
     this.strip.onOverview = () => {
@@ -371,6 +392,21 @@ export class App {
     this.tour.onStep = (i) => store.go({ mode: 'tour', step: i }, true);
     this.tour.onExit = () => store.go({ mode: 'overview' });
     this.tour.onOpenBeamline = (id) => store.go({ mode: 'beamline', id });
+    this.tour.onOpenStation = (id) => {
+      const station = metaById(id)?.explainers[0];
+      if (station) this.openStation(station, id);
+    };
+  }
+
+  private startTour(): void {
+    store.go({ mode: 'tour', step: this.tourReturnStep ?? 0 });
+  }
+
+  private openStation(id: string, beamlineId: string): void {
+    const v = store.state.view;
+    const m = metaById(beamlineId);
+    this.stationOwner = v.mode === 'beamline' || v.mode === 'tour' ? v : null;
+    openExplainerModal(this.modal, id, m?.color ?? '#5cd3ff', m?.id);
   }
 
   private wireStage(): void {
@@ -511,7 +547,8 @@ export class App {
         break;
       case 't':
       case 'T':
-        store.go(v.mode === 'tour' ? { mode: 'overview' } : { mode: 'tour', step: 0 });
+        if (v.mode === 'tour') store.go({ mode: 'overview' });
+        else this.startTour();
         break;
       case '?':
         this.openHelp();
@@ -594,7 +631,7 @@ export class App {
     switch (info.kind) {
       case 'component':
         // the open beamline's parts; in a tour beamline stop a click steps inside at that part
-        return !!this.bl && (mode === 'beamline' || mode === 'tour');
+        return !!this.bl?.group.visible && (mode === 'beamline' || mode === 'tour');
       case 'feature':
         // whole feature beamlines only while no detailed beamline is open (they are faded behind one)
         return !this.bl && (mode === 'overview' || mode === 'tour');
@@ -921,6 +958,8 @@ export class App {
 
   private applyView(v: View, prev: View | null): void {
     if (sameView(prev, v)) return; // e.g. a redundant store.go from a tab click: keep the visitor's camera
+    if (v.mode === 'beamline' && prev?.mode === 'tour') this.tourReturnStep = prev.step;
+    else if (v.mode !== 'beamline') this.tourReturnStep = null;
     this.stopRide();
     this.hovercard.classList.remove('is-on');
     this.stage.refreshHover();
@@ -930,8 +969,13 @@ export class App {
       this.site.setTourMode({});
     }
     if (v.mode !== 'overview') this.site.highlightSector(null);
-    // a full-screen station belongs to its beamline (browser Back, search…)
-    if (this.stationOwner && this.modal.isOpen && (v.mode !== 'beamline' || v.id !== this.stationOwner)) this.modal.close();
+    const owner = this.stationOwner;
+    if (owner && this.modal.isOpen) {
+      const stays = owner.mode === 'tour'
+        ? v.mode === 'tour' && v.step === owner.step
+        : v.mode === 'beamline' && v.id === owner.id;
+      if (!stays) this.modal.close();
+    }
 
     if (v.mode === 'overview') this.showOverview(v, prev);
     else if (v.mode === 'beamline') this.showBeamline(v, prev);
@@ -969,9 +1013,8 @@ export class App {
     this.dismissIntro();
     this.closeSectorCard();
     const entering = this.bl?.data.id !== v.id;
-    if (entering) this.leaveBeamline(true);
     this.beamlineUi(v, layout);
-    if (entering || this.pendingBuild === v.id) this.buildSoon(v.id, prev === null);
+    if (entering) this.buildSoon(v.id, prev === null);
     else this.showInScene(v, prev?.mode !== 'beamline', false);
   }
 
@@ -981,6 +1024,7 @@ export class App {
     const meta = metaById(v.id)!;
     this.overview.setVisible(false);
     this.panel.hiddenIds = new Set(Object.entries(layout.comp ?? {}).filter(([, o]) => o.hidden).map(([k]) => k));
+    this.panel.setTourReturn(this.tourReturnStep);
     this.panel.show(data, meta, v.component ?? null);
     this.strip.show(data, meta.color, (cid) => this.branchOf(data, layout, cid), this.branchLabels(data, layout), layout);
     this.strip.setActive(v.component ?? null);
@@ -1020,18 +1064,18 @@ export class App {
   }
 
   /**
-   * Build a beamline's scene once the browser has painted the panel that is already showing (building takes a few
-   * hundred milliseconds), then show whatever view is current by then: the visitor may have picked a component, or
-   * left again, meanwhile.
+   * Start construction after the panel has painted. The scene builds in small tasks while the camera moves.
+   * Component selection or navigation can change while construction is in progress.
    */
   private buildSoon(id: string, instant: boolean): void {
+    const request = ++this.buildRequest;
     this.pendingBuild = id;
     requestAnimationFrame(() =>
       setTimeout(() => {
-        if (this.pendingBuild !== id) return;
+        if (request !== this.buildRequest || this.pendingBuild !== id) return;
         this.pendingBuild = null;
         const v = this.applied;
-        const wanted = v?.mode === 'beamline' ? v.id : v?.mode === 'tour' && TOUR[v.step]?.shot.kind === 'beamline' ? (TOUR[v.step].shot as { id: string }).id : null;
+        const wanted = this.wantedBeamline();
         if (!v || wanted !== id) return;
         try {
           const uiLayout = layoutFor(id);
@@ -1074,44 +1118,82 @@ export class App {
 
   /** Build and open a beamline scene. Returns false when it could not be built at all. */
   private enterBeamline(id: string): boolean {
-    this.leaveBeamline(true);
+    this.cancelBuild();
+    const outgoing = this.bl?.group.visible ? this.bl : this.previousBeamline;
     const data = BEAMLINES[id];
     const meta = metaById(id);
     if (!data || !meta) return false;
-    const bl = this.buildBeamline(data, meta);
+    const cached = this.sceneCache.get(id);
+    const bl = cached ?? this.buildBeamline(data, meta);
     if (!bl) return false;
     this.bl = bl;
+    this.previousBeamline = outgoing === bl ? null : outgoing;
     // nano-optics are millimetres in size: allow the camera right up to them inside a beamline
     this.stage.controls.minDistance = 0.12;
     bl.setPinMode(store.state.view.mode === 'tour' ? 'tour' : 'normal');
-    bl.onBatched = () => this.stage.requestShadowUpdate();
-    const c = bl.toWorld(bl.at(bl.length / 2));
-    this.stage.fitShadow(c, Math.max(40, bl.length * 0.65));
-    // only beamlines with moving parts need their shadows refreshed; static ones update on demand (e.g. after batching)
-    this.stage.setShadowRate(bl.animated ? BEAMLINE_SHADOW_HZ : 0);
-    // Shown only once its shaders are compiled (in parallel where the driver can), so no frame stalls on compilation;
-    // until then the overview models of the sector stay in place while the camera already flies in.
-    bl.group.visible = false;
-    const reveal = () => this.revealBeamline(bl);
-    void Promise.resolve()
-      .then(() => bl.prepare())
-      .then(reveal, reveal);
+    if (cached) this.revealBeamline(bl);
+    else this.prepareBeamline(bl);
     return true;
+  }
+
+  private prepareBeamline(bl: BeamlineScene, fallback = false): void {
+    const abort = new AbortController();
+    this.buildAbort = abort;
+    this.pendingBuild = bl.data.id;
+    void bl.buildAsync(abort.signal)
+      .then(() => {
+        abort.signal.throwIfAborted();
+        return bl.prepare();
+      })
+      .then(() => {
+        if (abort.signal.aborted || this.bl !== bl || this.wantedBeamline() !== bl.data.id) return;
+        this.buildAbort = null;
+        this.pendingBuild = null;
+        this.revealBeamline(bl);
+        const followPath = this.rideRequested;
+        const v = this.applied;
+        if (v?.mode === 'beamline') {
+          if (bl.layout !== layoutFor(bl.data.id)) {
+            if (v.component && !placedIds(bl.data, bl.layout).includes(v.component)) {
+              store.go({ mode: 'beamline', id: bl.data.id }, true);
+              return;
+            }
+            this.beamlineUi(v, bl.layout);
+          }
+          if (v.component || fallback) this.showInScene(v, true, false);
+        } else if (fallback && v) this.showInScene(v, true, false);
+        if (followPath && v?.mode === 'beamline') this.rideBeam();
+      })
+      .catch((e) => {
+        if (abort.signal.aborted || this.bl !== bl || this.wantedBeamline() !== bl.data.id) return;
+        this.buildAbort = null;
+        bl.dispose(this.retainedScenes());
+        if (!fallback) {
+          console.error(`beamline ${bl.data.id}: the scene could not be built; retrying with the default layout`, e);
+          const replacement = this.buildBeamline(bl.data, bl.meta, true);
+          if (replacement) {
+            this.bl = replacement;
+            replacement.setPinMode(store.state.view.mode === 'tour' ? 'tour' : 'normal');
+            this.prepareBeamline(replacement, true);
+            return;
+          }
+        }
+        if (this.applied) this.recover(this.applied, e);
+      });
   }
 
   /**
    * The detailed scene for a beamline. A layout that throws while building degrades to the default layout (and, if
    * even that fails, to nothing); whatever the failed attempt registered is removed again.
    */
-  private buildBeamline(data: Beamline, meta: BeamlineMeta): BeamlineScene | null {
+  private buildBeamline(data: Beamline, meta: BeamlineMeta, fallback = false): BeamlineScene | null {
     const id = data.id;
-    const attempts = [layoutFor(id), DEFAULT_LAYOUT(id)];
+    const attempts = fallback ? [DEFAULT_LAYOUT(id)] : [layoutFor(id), DEFAULT_LAYOUT(id)];
     for (let i = 0; i < attempts.length; i++) {
       try {
-        return new BeamlineScene(this.stage, data, meta, attempts[i], (cid) => this.onPinClick(id, cid));
+        return new BeamlineScene(this.stage, data, meta, attempts[i], (cid) => this.onPinClick(id, cid), true);
       } catch (e) {
         console.error(`beamline ${id}: the scene could not be built${i ? ' even with the default layout' : '; retrying with the default layout'}`, e);
-        this.stage.removePickables((p) => p.kind === 'component');
         this.stage.scene.getObjectByName(`beamline-${id}`)?.removeFromParent();
       }
     }
@@ -1120,32 +1202,76 @@ export class App {
 
   private revealBeamline(bl: BeamlineScene): void {
     if (this.bl !== bl) return;
-    bl.group.visible = true;
+    const previous = this.previousBeamline;
+    this.previousBeamline = null;
+    if (previous && previous !== bl) {
+      previous.hide();
+      this.site.hideGenericHutches(previous.meta.sectorNumber, false);
+    }
+    bl.show();
+    const c = bl.toWorld(bl.at(bl.length / 2));
+    this.stage.fitShadow(c, Math.max(40, bl.length * 0.65));
+    bl.onBatched = () => this.stage.requestShadowUpdate();
+    this.stage.setShadowRate(bl.animated ? BEAMLINE_SHADOW_HZ : 0);
     this.site.setFocus(bl.data.id, bl.meta.sectorNumber);
     this.site.hideGenericHutches(bl.meta.sectorNumber, true);
+    this.sceneCache.delete(bl.data.id);
+    this.sceneCache.set(bl.data.id, bl);
+    while (this.sceneCache.size > 2) {
+      const oldest = this.sceneCache.keys().next().value!;
+      const evicted = this.sceneCache.get(oldest)!;
+      this.sceneCache.delete(oldest);
+      evicted.dispose(this.retainedScenes());
+    }
     this.stage.requestShadowUpdate();
     this.stage.invalidateLabels();
     this.stage.refreshHover();
     this.updateHud();
   }
 
-  /** Tear down the open beamline scene (and, unless `keepUi`, its panel and strip). */
-  private leaveBeamline(keepUi = false): void {
+  /** Return to the site view, keeping recent models hidden for later visits. */
+  private leaveBeamline(): void {
     this.stopRide();
-    this.pendingBuild = null;
+    this.cancelBuild();
     this.stage.controls.minDistance = 1.2;
-    if (this.bl) {
-      const bl = this.bl;
-      this.bl = null;
+    for (const bl of new Set([this.bl, this.previousBeamline])) {
+      if (!bl) continue;
       this.site.hideGenericHutches(bl.meta.sectorNumber, false);
-      bl.dispose();
-      this.stage.fitShadow(new THREE.Vector3(), 330);
-      this.stage.setShadowRate(0);
+      bl.hide();
     }
+    this.bl = null;
+    this.previousBeamline = null;
+    this.stage.fitShadow(new THREE.Vector3(), 330);
+    this.stage.setShadowRate(0);
     this.site.setFocus(null, null);
-    if (keepUi) return;
     this.panel.hide();
     this.strip.hide();
+  }
+
+  private retainedScenes(): Set<BeamlineScene> {
+    const scenes = new Set(this.sceneCache.values());
+    if (this.bl) scenes.add(this.bl);
+    if (this.previousBeamline) scenes.add(this.previousBeamline);
+    return scenes;
+  }
+
+  private cancelBuild(): void {
+    ++this.buildRequest;
+    this.pendingBuild = null;
+    if (!this.buildAbort) return;
+    this.buildAbort.abort();
+    this.buildAbort = null;
+    if (this.bl && this.sceneCache.get(this.bl.data.id) !== this.bl) {
+      this.bl.dispose(this.retainedScenes());
+      this.bl = null;
+    }
+  }
+
+  private wantedBeamline(): string | null {
+    const v = this.applied;
+    if (v?.mode === 'beamline') return v.id;
+    const shot = v?.mode === 'tour' ? TOUR[v.step]?.shot : null;
+    return shot?.kind === 'beamline' ? shot.id : null;
   }
 
   private branchOf(data: Beamline, layout: BeamlineLayout, cid: string): string | null {
@@ -1205,17 +1331,22 @@ export class App {
   }
 
   private stopRide(): void {
+    this.rideRequested = false;
     this.ride?.cancel();
     this.ride = null;
   }
 
   /**
-   * Fly along the X-ray path from the source to the last component. Anything else that moves the camera (another
+   * Move the camera along the X-ray path from the source to the last component. Anything else that moves the camera (another
    * view, framing, a drag) ends it, also during the short fly-in. Under reduced motion it jumps from stop to stop.
    */
   private rideBeam(): void {
     const bl = this.bl;
     if (!bl) return;
+    if (this.pendingBuild) {
+      this.rideRequested = true;
+      return;
+    }
     this.stopRide();
     this.stage.cancelFlight();
     const ride = {
@@ -1311,10 +1442,9 @@ export class App {
     }
     if (shot.kind === 'beamline') {
       const v = this.applied;
-      if (this.bl?.data.id === shot.id && this.pendingBuild !== shot.id) {
+      if (this.bl?.data.id === shot.id) {
         if (v) this.showInScene(v, false, false);
       } else {
-        this.leaveBeamline(true);
         this.buildSoon(shot.id, false);
       }
       return;

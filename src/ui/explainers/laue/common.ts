@@ -13,7 +13,7 @@ const ELUT = new Uint8ClampedArray(256 * 3);
   for (let i = 0; i < 256; i++) {
     const t = i / 255;
     const hue = 275 * t;
-    // lift the lightness of blue/violet so high-energy spots stay visible on the dark background
+    // lift the lightness of blue/violet so high-energy spots remain visible on the dark background
     const lift = t > 0.55 ? (t - 0.55) / 0.45 : 0;
     const [r, g, b] = hsl(hue, 0.92, 0.6 - 0.07 * Math.sin(Math.PI * Math.min(t, 0.55) / 0.55) + 0.1 * lift);
     ELUT[i * 3] = r;
@@ -37,7 +37,7 @@ export function eRgb(E: number): [number, number, number] {
   return [ELUT[i], ELUT[i + 1], ELUT[i + 2]];
 }
 const cssCache = new Map<number, string>();
-/** CSS colour of energy E (alpha quantised to 1/200; strings are cached — this runs for every spot every frame) */
+/** CSS colour of energy E (alpha quantised to 1/200; strings are cached. This runs for every spot every frame) */
 export function eCss(E: number, alpha = 1): string {
   const i = Math.round(eT(E) * 255);
   const a = Math.max(0, Math.min(200, Math.round(alpha * 200)));
@@ -163,7 +163,7 @@ const CSS = `
 .laue-row .stn-btn { padding: 6px 9px; font-size: 12px; }
 .laue-row .stn-btn[aria-pressed=true] { border-color: var(--c, #5cd3ff); background: color-mix(in oklab, var(--c, #5cd3ff) 22%, #0b111b); }
 .laue-canvas-focus canvas:focus-visible { outline: 2px solid var(--c, #5cd3ff); outline-offset: -2px; border-radius: 8px; }
-/* stacked (side panel / phone): a balanced multi-column flow instead of a grid — the groups differ a lot in height */
+/* Stacked side-panel and phone layouts use column flow for groups of different heights. */
 .laue-root.stn-stack .stn-controls { display: block; column-width: 200px; column-gap: 16px; }
 .laue-root.stn-stack .stn-controls > .laue-ctl > * { break-inside: avoid; margin-bottom: 14px; }
 .laue-root { overflow-y: auto; }

@@ -1,5 +1,5 @@
 /**
- * HEDM station — simulation state (no DOM).
+ * HEDM station. Simulation state without DOM access.
  *
  *  • Far field: every (grain, reflection, ω-solution) spot on a 432 mm flat panel 1 m downstream, with
  *    radial shifts from the grain's elastic strain (optionally magnified for display) and an intensity from
@@ -9,9 +9,9 @@
  *    Bragg angles referred to their grain centroids (no parallax, independent of the ×20 display), giving the
  *    diffraction elastic constants E_hkl = σ/ε_∥ (≈ 270, 175, 246 GPa for 111, 200, 220 with this model).
  *  • Far-field indexing (illustrative): a grain counts as found once ≥ 8 spots and ≥ 8 % of its detectable
- *    full-turn spots have been recorded (one more grain per 0.2 s) — real codes (MIDAS, HEXRD, ImageD11)
+ *    full-turn spots have been recorded (one more grain per 0.2 s). Real codes (MIDAS, HEXRD, ImageD11)
  *    test candidate orientations against the spot list with a completeness threshold over the scanned ω range.
- *  • Near field: a line beam lights the slice; a 128 × 128 camera (25 µm pixels, coarse on purpose) sits 7 mm
+ *  • Near field: a slice is illuminated by a line beam; a 128 × 128 camera (25 µm pixels, coarse on purpose) sits 7 mm
  *    behind the axis. True frames are ray-cast voxel-by-voxel (48 × 48 voxel slice), on demand per 1° ω bin from
  *    a list of Bragg events sorted by ω; each grain carries 4 sub-grains that become misoriented after yield.
  *    Reconstruction = forward model (as in IceNine / HEXRD nf): each voxel tests the 24 far-field grain
@@ -123,7 +123,7 @@ export class HedmSim {
   /** voxel centres in mm (rebuilt with the rod diameter) */
   private vpx: Float32Array;
   private vpy: Float32Array;
-  /** voxels grouped by sub-grain (gs = 4·grain + sub): subVox[subStart[gs] .. subStart[gs+1]) */
+  /** voxels grouped by sub-grain (gs = 4·grain + sub): subVox[subStart[gs] .. SubStart[gs+1]) */
   private readonly subStart: Int32Array;
   private readonly subVox: Int32Array;
   /**
@@ -132,7 +132,7 @@ export class HedmSim {
    * so a rebuild after a slider change costs a few ms instead of casting all ~4·10⁵ voxel rays up front.
    */
   private sBinStart = new Int32Array(NBIN + 1);
-  /** voxel range subVox[sV0 .. sV1) that diffracts, and its grain */
+  /** voxel range subVox[sV0 .. SV1) that diffracts, and its grain */
   private sV0: Int32Array;
   private sV1: Int32Array;
   private sG: Uint8Array;
@@ -486,7 +486,7 @@ export class HedmSim {
 
   // ---------------------------------------------------------------- rotation coverage
 
-  /** Mark bins swept between ω0 and ω1 (radians). forwardWrap: animation (always increasing, wraps at 2π). */
+  /** Mark bins swept between ω0 and ω1 (radians). ForwardWrap: animation (always increasing, wraps at 2π). */
   sweep(om0: number, om1: number, forwardWrap: boolean): number[] {
     const fresh: number[] = [];
     const b0 = Math.floor(om0 / P.DEG);
@@ -826,7 +826,7 @@ export class HedmSim {
 
   /**
    * best() for every voxel at once (same result and tie-breaking), sweeping the tests/hits arrays in memory
-   * order (candidate-major) — ~10× faster than calling best(v) per voxel, which strides by nv.
+   * order (candidate-major). ~10× faster than calling best(v) per voxel, which strides by nv.
    */
   bestAll(outO: Int16Array, outC: Float32Array): void {
     const nv = this.nv;

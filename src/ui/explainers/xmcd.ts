@@ -1,5 +1,5 @@
 /**
- * Station "xmcd" — POLAR (4-ID): "Magnets seen in polarized light" (X-ray magnetic circular dichroism).
+ * Station "Magnetism from X-ray absorption" at POLAR 4-ID. X-ray magnetic circular dichroism.
  *
  * Three linked views:
  *   1. The beam: the undulator's linear-horizontal light passes a diamond quarter-wave plate (Bragg-transmission
@@ -7,8 +7,8 @@
  *      linear-V; animated E-field helix in a cabinet projection plus a head-on view of the E-vector tip.
  *   2. Schematic Pt L₃ (11.564 keV) and L₂ (13.273 keV) absorption of an L1₀ FePt film for left- and right-circular
  *      light, and their difference (XMCD), which flips with M and vanishes with M; the sum rules are applied to the
- *      displayed curves (the box in view 2). Dots = what the beam selected in view 1 measures (μ_L, μ_R, their mean for
- *      linear light; P_c = 0.98 for one plate, |P_lin| = 0.9 for linear-V from two plates, measured −0.80…−0.95).
+ *      displayed curves (the box in view 2). Dots represent absorption for the polarization selected in view 1: μ_L, μ_R or their mean for
+ *      linear light. P_c = 0.98 for one plate; |P_lin| = 0.9 for linear-V from two plates, measured −0.80 to −0.95.
  *   3. The magnet: hysteresis loop of a granular Stoner–Wohlfarth ensemble (field up to POLAR's 9 T) and the Weiss
  *      mean-field M(T) with T_C = 750 K; an illustrative diamond-anvil-cell pressure suppresses T_C and the moment.
  *
@@ -57,8 +57,8 @@ const CSS = `
 `;
 
 const mod: ExplainerModule = {
-  title: 'Magnets seen in polarized light',
-  subtitle: 'Twist the X-rays left or right, then flip, heat or squeeze a magnet: the gap between the two absorption curves is its magnetism.',
+  title: "Magnetism from X-ray absorption",
+  subtitle: "Change X-ray polarization and reverse, heat or pressurize the magnet. Compare the absorption of left- and right-circular X-rays.",
   mount(host, ctx) {
     const accent = ctx.color || '#c084fc';
     const station = createStation(host, { color: accent, layout: 'side' });
@@ -84,9 +84,9 @@ const mod: ExplainerModule = {
     let magDirty = true;
 
     // ------------------------------------------------------------ canvases
-    const cA = canvas2d(visual, { label: '1 · Twist the light (diamond phase retarder)' });
-    const cB = canvas2d(visual, { label: "2 · The magnet's fingerprint (schematic)" });
-    const cC = canvas2d(visual, { label: '3 · The magnet: M(H) and M(T)' });
+    const cA = canvas2d(visual, { label: "1 · Diamond phase retarder" });
+    const cB = canvas2d(visual, { label: "2 · Absorption spectra · schematic" });
+    const cC = canvas2d(visual, { label: "3 · Magnetization M(H) and M(T)" });
     const wrapOf = (c: Canvas2D) => c.canvas.parentElement as HTMLElement;
     wrapOf(cA).style.gridColumn = '1 / -1';
     // extra containers for the narrow (side-panel) order: each control group sits next to the plot it drives
@@ -117,17 +117,17 @@ const mod: ExplainerModule = {
     note(
       controls,
       station,
-      '**Try it:** give the X-rays a twist, then **flip the magnet**: the shaded difference turns upside down. Then **heat** it past its Curie point, or squeeze it (illustrative). The moments in panel 2 come from applying the sum rules to the curves as drawn.',
+      "Select circular polarization, then flip the magnet to reverse the absorption difference. Heat above the Curie point to remove spontaneous magnetization, or apply pressure in this illustrative model. The moments in panel 2 are calculated from the displayed curves using the sum rules.",
     );
     const guideEl = controls.lastElementChild as HTMLElement;
-    const gL = group(controls, '1 · The X-ray light (polarization)');
+    const gL = group(controls, "1 · X-ray polarization");
     const tPol = toggle<Pol>(gL, {
       options: [
-        { value: 'L', label: '↺ Left', title: `Left-handed corkscrew (left-circular, positive helicity): diamond tilted by Δθ = −${DQ.toFixed(1)}″, phase delay δ = −90°` },
-        { value: 'R', label: '↻ Right', title: `Right-handed corkscrew (right-circular, negative helicity): Δθ = +${DQ.toFixed(1)}″, δ = +90°` },
-        { value: 'E', label: '⬭ Oval', title: `Partly twisted (elliptical): Δθ = −${(2 * DQ).toFixed(1)}″, δ = −45°` },
-        { value: 'H', label: '↔ Flat', title: 'Flat, side to side (linear-horizontal), as the undulator makes it: diamond moved out, δ = 0' },
-        { value: 'V', label: '↕ Upright', title: 'Flat, up and down (linear-vertical): two quarter-wave plates, δ = 180°' },
+        { value: 'L', label: "↺ Left circular", title: `Left-circular polarization with positive helicity. Diamond offset Δθ = −${DQ.toFixed(1)}″; phase delay δ = −90°.` },
+        { value: 'R', label: "↻ Right circular", title: `Right-circular polarization with negative helicity. Δθ = +${DQ.toFixed(1)}″; δ = +90°.` },
+        { value: 'E', label: "⬭ Elliptical", title: `Elliptical polarization. Δθ = −${(2 * DQ).toFixed(1)}″; δ = −45°.` },
+        { value: 'H', label: "↔ Horizontal", title: "Linear-horizontal polarization from the undulator. Diamond removed; δ = 0." },
+        { value: 'V', label: "↕ Vertical", title: "Linear-vertical polarization from two quarter-wave plates; δ = 180°." },
       ],
       value: st.pol,
       onChange: (v) => {
@@ -140,8 +140,8 @@ const mod: ExplainerModule = {
     const rowL = document.createElement('div');
     rowL.className = 'xmcd-row';
     gL.appendChild(rowL);
-    const bAuto = button(rowL, '⇄ Auto-flip the twist (slowed)', () => setAuto(!st.auto));
-    bAuto.title = 'POLAR flips the twist about 15 times a second (piezo-rocked diamond, lock-in detection); here once every 1.2 s';
+    const bAuto = button(rowL, "⇄ Alternate polarization", () => setAuto(!st.auto));
+    bAuto.title = "POLAR alternates polarization at about 15 Hz using a piezo-driven diamond and lock-in detection. This display changes it every 1.2 s.";
     bAuto.setAttribute('aria-pressed', 'false');
 
     // ------------------------------------------------------------ controls: magnet
@@ -226,25 +226,25 @@ const mod: ExplainerModule = {
     resetRow.className = 'xmcd-row';
     gN.appendChild(resetRow);
     const bReset = button(resetRow, '↺ Reset', reset);
-    bReset.title = 'Back to the start: left-twisted light, magnet up, 300 K, no field, no pressure';
+    bReset.title = "Restore left-circular polarization, upward magnetization, 300 K, zero field and zero pressure";
 
     note(
       controls,
       station,
-      `**How the twist is made.** The undulator's light wiggles **flat**, side to side. A 0.5 mm-thick **diamond**, turned a hair (${DQ.toFixed(0)}″, about 0.008°) away from the angle at which it would reflect the X-rays, splits each wiggle into two diagonal parts and holds one back by a quarter wave: out comes a **corkscrew**, 98 % circular. Turn it the other way for the opposite twist; POLAR rocks the diamond back and forth about **15 times a second**. Such plates work from about 2.7 to 14 keV, at a 5–30× cost in flux.`,
+      `Radiation from the undulator is linearly polarized, with horizontal electric-field oscillations. A diamond 0.5 mm thick is set ${DQ.toFixed(0)}″, or about 0.008°, from its Bragg reflection angle. Within the diamond, one diagonal electric-field component acquires a quarter-wavelength delay relative to the other. The resulting electric field rotates, with 98 % circular polarization. Reverse the diamond offset to reverse the polarization. At POLAR, the diamond angle is alternated at about 15 Hz. Phase-retarder operation covers about 2.7 to 14 keV, with flux reduced by a factor of 5 to 30.`,
     );
     const lightEl = controls.lastElementChild as HTMLElement;
 
     note(
       controls,
       station,
-      '**Why it matters.** Each element absorbs X-rays at its own energy, so XMCD (X-ray magnetic circular dichroism) reports the magnetism of one kind of atom at a time. Platinum is not magnetic on its own; here its iron neighbours magnetize it. The **sum rules** turn the areas of the difference peaks into the atom’s spin and orbital magnetic moments: an orbital moment shows up as an imbalance between the L₃ and L₂ peaks. They work best at heavy-element L edges like these. FePt is the material of heat-assisted hard drives, which heat a grain near its Curie point so a small field can flip it.',
+      "Each element has characteristic X-ray absorption energies, so X-ray magnetic circular dichroism, or XMCD, measures one element's magnetism at a time. Platinum is not magnetic on its own. Iron neighbours induce magnetism in the platinum atoms of this FePt film. The sum rules relate the integrated absorption difference to spin and orbital magnetic moments. An orbital moment gives an imbalance between the L₃ and L₂ peaks. The rules work best at heavy-element L edges such as these. Heat-assisted hard drives use FePt and heat grains near their Curie point so a small field can reverse their magnetization.",
     );
     const whyEl = controls.lastElementChild as HTMLElement;
     note(
       controls,
       station,
-      '*Not to scale: these X-ray waves are only a ten-millionth of a millimetre long. The curve shapes are simplified, the moments are illustrative values like those computed for platinum in FePt (spin 0.35, orbital 0.05 Bohr magnetons), the mean-field magnetism is too flat at low temperature, and the pressure model is a toy; the physics behind them is real. POLAR’s cryostats cover 1.4–450 K (hotter is shown for the physics), and its diamond anvil cells reach 3 Mbar (300 GPa), with about 6 Mbar the goal.*',
+      "The displayed waves are not to scale; their wavelength is about a ten-millionth of a millimetre. The absorption curve shapes are simplified. Illustrative moments resemble calculations for platinum in FePt: spin 0.35 and orbital 0.05 Bohr magnetons. The mean-field model varies too little at low temperature. The pressure dependence is illustrative. POLAR's cryostats cover 1.4 to 450 K; higher temperatures are displayed to demonstrate the physics. Its diamond anvil cells reach 3 Mbar, or 300 GPa, with a goal of about 6 Mbar.",
     );
     const caveatEl = controls.lastElementChild as HTMLElement;
 
@@ -262,16 +262,16 @@ const mod: ExplainerModule = {
     cC.canvas.setAttribute('aria-label', 'Hysteresis loop and magnetization versus temperature; drag to set field or temperature');
     let b = sliderBits(sH);
     setMd(b.label, 'Magnetic field μ_{0}H');
-    setMd(b.hint, 'POLAR’s magnet reaches ±9 T along the beam');
+    setMd(b.hint, "The field at POLAR is up to ±9 T along the beam");
     b = sliderBits(sT);
     setMd(b.label, 'Temperature');
-    setMd(b.hint, 'Its magnetism vanishes at the Curie point, T_{C} = 750 K (477 °C)');
+    setMd(b.hint, "Spontaneous magnetization vanishes at the Curie point, T_{C} = 750 K or 477 °C");
     b = sliderBits(sP);
-    setMd(b.label, 'Squeeze: pressure (illustrative)');
-    setMd(b.hint, '1 GPa ≈ 10,000 atmospheres · toy model: magnetism gone at 150 GPa');
+    setMd(b.label, "Pressure · illustrative");
+    setMd(b.hint, "1 GPa ≈ 10,000 atmospheres. This illustrative model loses magnetization at 150 GPa.");
     b = sliderBits(sR);
-    setMd(b.label, 'What if: orbital ÷ spin moment');
-    setMd(b.hint, 'm_{orb}/m_{spin,eff}: Pt in FePt ≈ 0.14. At ⅔ the L₂ signal vanishes, as seen in the iridate Sr_{2}IrO_{4}');
+    setMd(b.label, "Orbital ÷ spin moment");
+    setMd(b.hint, "m_{orb}/m_{spin,eff} is ≈0.14 for Pt in FePt. At ⅔, the L₂ signal vanishes, as observed in the iridate Sr_{2}IrO_{4}.");
     const rl = (r: { el: HTMLElement }, s: string) => setMd(r.el.querySelector('.stn-readout-label'), s);
     rl(rSig, 'Magnetic signal at L₃');
     rSig.el.title = 'Peak of the difference μ_L − μ_R at the L₃ edge, in % of the edge step';
@@ -373,7 +373,7 @@ const mod: ExplainerModule = {
       rSig.set(Math.abs(p3) < 0.05 ? '0.0 %' : `${signed(p3, 1)} %`);
       rM.set(Math.abs(mag.M) < 0.01 ? '0 %' : `${Math.round(Math.abs(mag.M) * 100)} % ${mag.M > 0 ? '→ with beam' : '← against'}`);
       rTc.set(mag.tc > 0 ? `${Math.round(mag.tc)} K · ${Math.round(mag.tc - 273.15)} °C` : 'gone');
-      rHc.set(mag.m0 > 1e-3 ? `${mag.hc.toFixed(2)} T` : '—');
+      rHc.set(mag.m0 > 1e-3 ? `${mag.hc.toFixed(2)} T` : "None");
     }
 
     // ------------------------------------------------------------ captions
@@ -389,37 +389,37 @@ const mod: ExplainerModule = {
       const zfc = demag && mag.zfc;
       /** the field is close to the coercive field (rather than back near zero after a partial reversal) */
       const nearHc = Math.abs(st.H) > 0.6 * mag.hc;
-      const Ttxt = `${Math.round(st.T)} K (${Math.round(st.T - 273.15)} °C)`;
+      const Ttxt = `${Math.round(st.T)} K or ${Math.round(st.T - 273.15)} °C`;
       const left = pcT > 0;
-      const twist = st.pol === 'E' ? 'oval-twisted' : left ? 'left-twisted' : 'right-twisted';
-      const other = left ? 'right-twisted' : 'left-twisted';
+      const twist = st.pol === 'E' ? "elliptically polarized" : left ? "left-circular" : "right-circular";
+      const other = left ? "right-circular" : "left-circular";
 
       let v = '';
       if (mag.tc <= 0) {
-        v = `**Squeezed to ${Math.round(st.P)} GPa (about ${(st.P / 100).toFixed(1)} million atmospheres), this magnet has lost its magnetism**, so the gap between the curves is gone. Real materials give up their magnetism at very different squeezes, and POLAR measures where, in diamond anvil cells. *(Toy pressure model: magnetism gone at 150 GPa.)*`;
+        v = `At ${Math.round(st.P)} GPa, about ${(st.P / 100).toFixed(1)} million atmospheres, this model has no magnetization or absorption difference. Actual materials lose magnetism at different pressures. At POLAR, those changes are measured in diamond anvil cells. The pressure dependence here is illustrative, with magnetization vanishing at 150 GPa.`;
       } else if (hot) {
         v =
           Math.abs(mag.M) > 0.03
-            ? `**At ${Ttxt} the magnet is above its Curie point (${Math.round(mag.tc)} K): its atomic magnets jiggle out of line.** The strong field still lines up a few of them, leaving a faint difference (${signed(p3, 1)} % of the edge step): magnetism induced by the field, not the magnet’s own. Switch the field off and it vanishes.`
-            : `**At ${Ttxt}, hotter than its Curie point (${Math.round(mag.tc)} K), the atomic magnets jiggle out of line and the magnetism is gone.** Left- and right-twisted X-rays are absorbed equally: no difference. Heat-assisted hard drives write bits this way: heat, flip, cool.`;
+            ? `At ${Ttxt}, above the Curie point of ${Math.round(mag.tc)} K, thermal motion disrupts alignment of the atomic moments. The strong field still aligns some moments, producing a difference of ${signed(p3, 1)} % of the edge step. This magnetization is induced by the field. Turn the field off to remove it.`
+            : `At ${Ttxt}, above the Curie point of ${Math.round(mag.tc)} K, thermal motion disrupts alignment of the atomic moments. Left- and right-circular X-rays are absorbed equally. Heat-assisted hard drives use heating and cooling near the Curie point to reverse magnetization and record bits.`;
       } else if (zfc) {
-        v = `**The magnetism came back with no field to guide it, so the tiny grains froze pointing both ways and cancel out** (the magnet is *thermally demagnetized*). Every grain is magnetic, yet the difference is almost gone. Press **Flip the magnet** (a 9-tesla pulse) to line them up.`;
+        v = `The grains cooled without an applied field, so their magnetizations point in opposite directions and nearly cancel. This is thermal demagnetization. Each grain is magnetic, but the net absorption difference is small. Flip the magnet to apply a 9-tesla pulse and align them.`;
       } else if (demag && nearHc) {
-        v = `**At ${num(st.H, 1)} tesla, about half of the tiny grains have flipped and half have not**, so their magnetism nearly cancels and the gap almost closes. This field, about ${mag.hc.toFixed(1)} tesla, is the magnet's *coercive field*. The grains differ, so they flip over a spread of fields; push harder and every grain flips.`;
+        v = `At ${num(st.H, 1)} tesla, about half the grains have reversed their magnetization. Their moments nearly cancel, reducing the absorption difference. This is near the coercive field of ${mag.hc.toFixed(1)} tesla. Different grains reverse at different fields. Increase the field to reverse all grains.`;
       } else if (demag) {
-        v = `**About half of the tiny grains point each way, and they stay like that at ${num(st.H, 1)} tesla: the magnet remembers.** Their magnetism cancels, so the gap stays almost closed. Only a field stronger than about ${mag.hc.toFixed(1)} tesla lines them all up again.`;
+        v = `About half the grains point in each direction at ${num(st.H, 1)} tesla. Their near cancellation persists because magnetization depends on field history, a property called hysteresis. A field stronger than about ${mag.hc.toFixed(1)} tesla aligns all grains again.`;
       } else if (Math.abs(pcT) < 0.1) {
-        v = `**Flat-wiggling light cannot tell which way the magnet points.** It has no twist (circular polarization ≈ 0), so it measures the average of the two curves and your beam's dots sit in the middle. Choose a **left** or **right** twist to see the magnetism.`;
+        v = `Linearly polarized X-rays have approximately zero circular polarization. Their absorption is the average of the left- and right-circular curves and does not distinguish the magnetization direction in this model. Select left- or right-circular polarization to measure the absorption difference.`;
       } else if (st.pol === 'E') {
-        v = `**The oval twist is part corkscrew, part flat, so it picks up only about ${Math.round(Math.abs(pcT) * 100)} % of the magnetic gap:** its dots sit between the left- and right-twist curves. A full twist gives the biggest signal, which is why POLAR makes its corkscrews as round as it can (98 %).`;
+        v = `The elliptically polarized beam has ${Math.round(Math.abs(pcT) * 100)} % circular polarization. The measured magnetic absorption difference is reduced by this factor. The points lie between the left- and right-circular curves. The XMCD signal is greatest with circular polarization. Circular polarization at POLAR reaches 98 %.`;
       } else {
         const more = (p3 > 0) === left;
-        v = `**${cap(twist)} X-rays are absorbed ${more ? 'more' : 'less'} than ${other} ones at platinum's absorption edge (X-ray energy 11.56 keV).** The gap between them, shaded in the lower plot, is there only because the atoms are magnetized ${mag.M > 0 ? 'along' : 'against'} the beam: this is **X-ray magnetic circular dichroism (XMCD)**, ${signed(p3, 1)} % of the edge step at L₃ and ${signed(p2, 1)} % at L₂. `;
-        if (mag.M < 0) v += 'The magnet is flipped, so the gap is upside down. ';
-        else v += 'Flip the magnet and the gap turns upside down. ';
-        if (st.P > 0) v += `Squeezed to ${Math.round(st.P)} GPa, the magnetism is weaker *(illustrative)*.`;
-        else if (st.T > 0.75 * mag.tc) v += 'Near the Curie point the magnetism is already fading.';
-        else v += `The sum rules turn the two areas into platinum’s moments: ${signed(rb.mSpinEff, 2)} (effective spin) and ${signed(rb.mOrb, 3)} (orbital) Bohr magnetons along the beam.`;
+        v = `${cap(twist)} X-rays are absorbed ${more ? 'more' : 'less'} than ${other} X-rays at platinum's 11.56 keV absorption edge. The difference exists because the atoms are magnetized ${mag.M > 0 ? 'along' : 'against'} the beam. This is X-ray magnetic circular dichroism, or XMCD. The difference is ${signed(p3, 1)} % of the edge step at L₃ and ${signed(p2, 1)} % at L₂. `;
+        if (mag.M < 0) v += "Reversing the magnetization reversed the absorption difference. ";
+        else v += "Flip the magnet to reverse the absorption difference. ";
+        if (st.P > 0) v += `At ${Math.round(st.P)} GPa, magnetization is lower in this illustrative pressure model.`;
+        else if (st.T > 0.75 * mag.tc) v += "Magnetization decreases near the Curie point.";
+        else v += `The sum rules give platinum moments along the beam of ${signed(rb.mSpinEff, 2)} Bohr magnetons for effective spin and ${signed(rb.mOrb, 3)} Bohr magnetons for orbital motion.`;
       }
       return v;
     }
@@ -605,11 +605,11 @@ const mod: ExplainerModule = {
       const d = DQ;
       // [plate, plate detail, wave, wave detail]
       const L: Record<Pol, [string, string, string, string]> = {
-        L: ['diamond, tilted', `by Δθ = −${d.toFixed(1)}″ (0.008°)`, 'left-handed corkscrew', '↺ left-circular, 98 %'],
-        R: ['diamond, tilted', `the other way, Δθ = +${d.toFixed(1)}″`, 'right-handed corkscrew', '↻ right-circular, 98 %'],
-        E: ['diamond, tilted', `twice as far, Δθ = −${(2 * d).toFixed(1)}″`, 'oval corkscrew', 'elliptical, 69 % circular'],
-        H: ['diamond moved out', 'nothing changes', 'flat, side to side', 'linear-horizontal, no twist'],
-        V: ['two diamonds', 'two quarter waves add up', 'flat, up and down', 'linear-vertical, ~90 %'],
+        L: ['diamond, tilted', `Δθ = −${d.toFixed(1)}″ · 0.008°`, "left-circular polarization", '↺ left-circular, 98 %'],
+        R: ['diamond, tilted', `the other way, Δθ = +${d.toFixed(1)}″`, "right-circular polarization", '↻ right-circular, 98 %'],
+        E: ['diamond, tilted', `twice as far, Δθ = −${(2 * d).toFixed(1)}″`, "elliptical polarization", 'elliptical, 69 % circular'],
+        H: ['diamond moved out', "phase delay unchanged", "horizontal polarization", "linear-horizontal"],
+        V: ['two diamonds', "two quarter-wave delays", "vertical polarization", 'linear-vertical, ~90 %'],
       };
       const t = L[st.pol];
       beamState.plateLabel = t[0];

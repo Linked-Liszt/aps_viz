@@ -109,7 +109,7 @@ export function fastShutter(): THREE.Group {
 export function kbChamberAndKBV(): THREE.Group {
   const g = new THREE.Group();
   const X = (x: number) => x - KBV.x;
-  // granite table on air-bearing pads, and the Invar (athermal) baseplate — metrology loop 466 mm down to the base
+  // Granite table on air-bearing pads and the thermally stable Invar baseplate. The metrology loop extends 466 mm to the base.
   g.add(boxSpan(X(TABLE.x0), X(TABLE.x1), FLOOR + 0.08, TABLE.top, -TABLE.halfW, TABLE.halfW, M.granite(), 0.02));
   for (const x of [TABLE.x0 + 0.2, TABLE.x1 - 0.2]) for (const z of [-0.42, 0.42]) g.add(boxSpan(X(x) - 0.1, X(x) + 0.1, FLOOR, FLOOR + 0.08, z - 0.08, z + 0.08, M.blackAnod(), 0.005));
   g.add(boxSpan(X(TABLE.x0) + 0.08, X(TABLE.x1) - 0.08, TABLE.top, TABLE.base, -0.5, 0.5, M.invar(), 0.006));

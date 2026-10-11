@@ -1,5 +1,5 @@
 /**
- * Station “Watch nanoparticles dance” — X-ray photon correlation spectroscopy (XPCS) at 8-ID.
+ * Station "Nanoparticle motion". X-ray photon correlation spectroscopy (XPCS) at 8-ID.
  *
  * What it simulates (details + equations in xpcs/physics.ts and xpcs/sim.ts):
  *  - 1000 colloidal spheres (radius a) Brownian-diffusing in water: D = k_B T/(6πηa), η(T) from the Vogel
@@ -19,9 +19,9 @@
  *    run-to-run scatter (physics.ts xpcsSnrModel). Hence the time APS needs for equal quality,
  *    (G² + x)/(1 + x): ≈100× at the defaults (APS-U speckle-limited), → G² = 250,000× for photon-starved
  *    (fast / weak) signals, which is the B² scaling of XPCS time resolution.
- *  - Single-pixel trace and real-space view connect “twinkle” ↔ correlation ↔ particle motion.
+ *  - Single-pixel trace and real-space view connect intensity changes, correlation and particle motion.
  *  - Readouts: τ = 1/(Dq²) (theory), contrast β and τ from a weighted fit of g2 = 1 + β e^{−2Γτ} to the selected
- *    source's data (shown only once the lags reach the decay and the contrast SNR ≥ 4; APS usually: “too noisy”).
+ *    source's data (shown only once the lags reach the decay and the contrast SNR ≥ 4; APS usually: "too noisy").
  *    Measured SNR check (16 seeds, defaults, 1500 frames): run-to-run SNR of the short-τ contrast 14.9 (APS-U)
  *    and 1.37 (APS) vs model 15.8 and 1.79, i.e. the model is good to ~10 % when speckle-limited and ~30 %
  *    optimistic when photon-starved (the UI says so).
@@ -94,7 +94,7 @@ function snrMeter(parent: HTMLElement, accent: string): { set(u: number, a: numb
     rows.push({ bar, val });
   }
   box.setAttribute('role', 'group');
-  box.title = 'Expected signal-to-noise of the curve’s starting height (short delays), from photon counting and the number of independent speckles averaged';
+  box.title = "Expected signal-to-noise of the curve's height at short delays, from photon counts and the number of independent speckles averaged";
   parent.appendChild(box);
   const frac = (v: number) => Math.max(0, Math.min(1, Math.log10(1 + Math.max(0, v)) / Math.log10(1 + 1000)));
   return {
@@ -109,7 +109,7 @@ function snrMeter(parent: HTMLElement, accent: string): { set(u: number, a: numb
 }
 
 const mod: ExplainerModule = {
-  title: 'Watch nanoparticles dance',
+  title: "Nanoparticle motion",
   subtitle: 'Drag the ring on the X-ray speckle, then switch the source between APS and APS-U.',
   mount(host, ctx) {
     const station = createStation(host, { color: ctx.color, layout: 'side' });
@@ -118,8 +118,8 @@ const mod: ExplainerModule = {
     const sim = new XpcsSim(31);
 
     // ------------------------------------------------------------------ canvases
-    const smpC = canvas2d(station.visual, { label: '1 · Sample (real space)' });
-    const detC = canvas2d(station.visual, { label: '2 · Detector (far field)' });
+    const smpC = canvas2d(station.visual, { label: "1 · Sample positions" });
+    const detC = canvas2d(station.visual, { label: "2 · Detector pattern" });
     const g2C = canvas2d(station.visual, { label: '3 · How fast it changes' });
     const wraps = { smp: smpC.canvas.parentElement!, det: detC.canvas.parentElement!, g2: g2C.canvas.parentElement! };
     const det = new DetectorView(detC, sim);
@@ -203,7 +203,7 @@ const mod: ExplainerModule = {
       hoverRing: false,
       t: 0,
     };
-    // reduced motion: start paused (the ▶ Play button runs the twinkling speckle on request)
+    // reduced motion: start paused The ▶ Play button starts the changing speckle pattern on request.
     let running = !prefersReducedMotion();
     /** detector frames still to be measured silently while paused under reduced motion (see PREFILL_FRAMES) */
     let prefill = 0;
@@ -275,11 +275,11 @@ const mod: ExplainerModule = {
     applyLayout();
 
     // ------------------------------------------------------------------ controls
-    // 1. source
+    // 1. Source
     const gSrc = group(station.controls, 'X-ray source');
     const srcToggle = toggle<'aps' | 'apsu'>(gSrc, {
       options: [
-        { value: 'aps', label: 'APS (pre-2023)', title: 'The original APS storage ring (1996–2023)' },
+        { value: 'aps', label: 'APS before upgrade', title: 'The original APS storage ring (1996–2023)' },
         { value: 'apsu', label: 'APS-U', title: 'The upgraded multi-bend-achromat ring (2024–)' },
       ],
       value: 'apsu',
@@ -294,10 +294,10 @@ const mod: ExplainerModule = {
     note(
       gSrc,
       station,
-      `The upgraded ring squeezes its electron beam ~20× narrower and ~4× more parallel, and carries twice the current. Only **coherent** photons, from a source patch whose size × angular spread is below about half a wavelength, form crisp speckle, so coherent flux grows with brightness: **~${G_TXT}× more** here, ${G_TXT}× more light in every speckle (documented for 8-ID: 500–850×, depending on energy and bandwidth).`,
+      `The upgraded electron beam is about 20× narrower, its angular spread is about 4× smaller, and its current is twice as large. Coherent photons form speckle patterns. They come from a source region whose size × angular spread is below about half a wavelength. Coherent flux therefore grows with brightness. This model uses ~${G_TXT}× more coherent photons for APS-U. The documented gain at 8-ID is 500 to 850×, depending on energy and bandwidth.`,
     );
 
-    // 2. sample
+    // 2. Sample
     const gSmp = group(station.controls, 'Sample: spheres in water');
     const sRad = slider(gSmp, {
       label: 'Particle radius a',
@@ -321,10 +321,10 @@ const mod: ExplainerModule = {
     note(
       gSmp,
       station,
-      'Bigger or colder particles wander more slowly: the speckles calm down and the curve slides to the right. Stokes–Einstein gives their diffusion constant, D = k_{B}T/6πηa: a is the particle radius, T the temperature in kelvin, η the water’s viscosity, and k_{B} Boltzmann’s constant, which connects temperature to energy. The slice holds 1,000 dilute spheres, ~40 in the beam; a real 1 mm-thick sample has 10^{4}–10^{6}, with the same speckle statistics.',
+      "Larger or colder particles diffuse more slowly, so the speckle pattern changes more slowly and the correlation curve decays at longer delays. The Stokes–Einstein relation gives the diffusion constant D = k_{B}T/6πηa. Here a is the particle radius, T is the temperature in kelvin, η is the water's viscosity, and k_{B} is Boltzmann's constant, which relates temperature to energy. The simulated slice contains 1,000 dilute spheres, with ~40 in the beam. A real sample 1 mm thick contains 10^{4} to 10^{6} particles in the beam, with the same speckle statistics.",
     );
 
-    // 3. measurement
+    // 3. Measurement
     const gMeas = group(station.controls, 'Measurement');
     const ringFmt = (r: number) => fmtLen((2 * Math.PI) / (sim.qOf(r) * 1e10));
     const sRing = slider(gMeas, {
@@ -337,11 +337,11 @@ const mod: ExplainerModule = {
       onInput: (v) => setRing(v, vs.theta, true),
     });
     const viewToggle = toggle<DetView>(gMeas, {
-      label: 'Detector shows',
+      label: 'Detected pattern',
       options: [
-        { value: 'photons', label: 'Photons', title: `What the detector records: individual photons (sum of the last ${DISP_FRAMES} frames)` },
-        { value: 'ideal', label: 'Ideal', title: 'The noise-free speckle intensity (infinitely many photons)' },
-        { value: 'long', label: 'Long exp.', title: 'Average over ~50 ms: fast speckles wash out, the average structure remains' },
+        { value: 'photons', label: 'Photons', title: `Photon counts over the last ${DISP_FRAMES} detector frames` },
+        { value: 'ideal', label: 'Ideal', title: "Noise-free speckle intensity for infinitely many photons" },
+        { value: 'long', label: "Long exposure", title: "Average over ~50 ms. Fast changes average out, leaving the average structure." },
       ],
       value: DEF.view,
       onChange: (v) => {
@@ -354,11 +354,11 @@ const mod: ExplainerModule = {
         refreshCaption(true);
       },
     });
-    const rTau = readout(gMeas, 'Scrambles in τ = 1/Dq²', { big: true, color: accent });
-    const rBeta = readout(gMeas, `Contrast β, fit (theory ${sim.beta.toFixed(2)})`);
-    rBeta.el.title = 'Starting height of the curve above 1: how crisp the speckle is (1 = perfectly coherent beam)';
+    const rTau = readout(gMeas, "Decay time τ = 1/Dq²", { big: true, color: accent });
+    const rBeta = readout(gMeas, `Fitted contrast β · theory ${sim.beta.toFixed(2)}`);
+    rBeta.el.title = "Height of the correlation curve above 1 at zero delay. Higher contrast means more variation between bright and dark speckles; 1 corresponds to a perfectly coherent beam.";
     const rFit = readout(gMeas, 'τ from the fit');
-    rFit.el.title = 'Weighted fit of g₂ = 1 + β·exp(−2τ/τ_fit) to the selected source’s data, shown once the curve stands clear of the noise';
+    rFit.el.title = "Weighted fit of g₂ = 1 + β·exp(−2τ/τ_fit) to the selected source's measurements. Displayed once the correlation can be distinguished from noise.";
     const rTime = readout(gMeas, 'Measuring time');
     const btnRow = document.createElement('div');
     btnRow.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap';
@@ -381,19 +381,19 @@ const mod: ExplainerModule = {
     note(
       gMeas,
       station,
-      'Drag the ring on the detector: bigger rings (larger scattering vector q) watch finer details, 2π/q across, and finer details change faster. Each ring is 3 pixels wide, a frame comes every 50 µs, and the error bars compare 8 sectors of the ring.',
+      "Drag the ring on the detector. Larger scattering vectors q correspond to finer details of size 2π/q, which change faster. Each ring is 3 pixels wide. Detector frames are 50 µs apart, and the error bars compare 8 sectors of the ring.",
     );
     const gIdea = group(station.controls, 'What XPCS measures');
     note(
       gIdea,
       station,
-      'An ordinary X-ray picture averages the twinkling away and shows only the particles’ size and arrangement (small-angle scattering; try **Long exp.**). XPCS keeps the twinkle and asks: *how alike is the pattern now and a time τ later?* That correlation is g_{2}(τ) = ⟨I(t)·I(t+τ)⟩/⟨I⟩^{2}: I is the scattered intensity at time t, and brackets mean an average over measurements. It starts at 1 + β, where the **speckle contrast** β is how crisp the speckle is (0.53 here; real setups often accept 0.1–0.3 for more flux), and sinks to 1 once the particles have moved. For many freely diffusing particles g_{2} = 1 + β·e^{−2Dq²τ}, where q sets the detail size 2π/q: how soon it sinks gives the diffusion constant D, and D gives the particle size, as in dynamic light scattering, but at nanometre scales and in opaque samples.',
+      "Ordinary small-angle scattering measures the particles' size and arrangement from the average pattern. Try Long exposure to average out changes in the speckles. XPCS measures how similar the pattern remains after a time interval τ. Its correlation is g_{2}(τ) = ⟨I(t)·I(t+τ)⟩/⟨I⟩^{2}, where I is the scattered intensity at time t and brackets mean an average over measurements. The curve starts at 1 + β. The speckle contrast β describes the variation between bright and dark speckles; it is 0.53 here. Real setups often accept 0.1 to 0.3 to collect more photons. The correlation falls to 1 as particle motion changes the pattern. For many freely diffusing particles, g_{2} = 1 + β·e^{−2Dq²τ}. The scattering vector q corresponds to detail size 2π/q. The decay rate gives the diffusion constant D, which gives the particle size for particles in a fluid of known viscosity and temperature. Dynamic light scattering uses the same principle. XPCS measures motion at nanometre scales and can examine opaque samples.",
     );
     const gAbout = group(station.controls, 'At 8-ID');
     note(
       gAbout,
       station,
-      'The 8-ID beamline is built for exactly this: watching how things move, from nanoparticles and gels to metallic glasses, on times from **millionths of a second** (its Rigaku 3M detector takes a frame every 19.2 µs, about 1 µs in bursts) to hours: small-angle XPCS in 8-ID-I, wide-angle in 8-ID-E. When photons are scarce, doubling the coherent photon rate lets it follow delays four times shorter at the same signal-to-noise.',
+      "At 8-ID, XPCS measures motion in nanoparticles, gels and metallic glasses over intervals from millionths of a second to hours. Frames are recorded every 19.2 µs with the Rigaku 3M detector, or about 1 µs in bursts. Small-angle XPCS runs in 8-ID-I and wide-angle XPCS in 8-ID-E. When photon counts limit the measurement, doubling the coherent photon rate allows delays four times shorter at the same signal-to-noise.",
     );
     // ------------------------------------------------------------------ actions
     function setSample(radiusNm: number, tempC: number) {
@@ -455,7 +455,7 @@ const mod: ExplainerModule = {
     const dc = detC.canvas;
     dc.tabIndex = 0;
     dc.setAttribute('role', 'slider');
-    dc.setAttribute('aria-label', 'Detector: choose the q ring (arrow keys or drag)');
+    dc.setAttribute('aria-label', "Detector ring selection. Use arrow keys or drag to choose q.");
     dc.setAttribute('aria-valuemin', String(RING_MIN));
     dc.setAttribute('aria-valuemax', String(RING_MAX));
     dc.style.cursor = 'crosshair';
@@ -546,7 +546,7 @@ const mod: ExplainerModule = {
       }
       return k;
     };
-    const fmtSnr = (v: number) => (v <= 0 ? '—' : v < 0.1 ? '<0.1' : v < 10 ? v.toFixed(1) : Math.round(v).toString());
+    const fmtSnr = (v: number) => (v <= 0 ? 'Unknown' : v < 0.1 ? '<0.1' : v < 10 ? v.toFixed(1) : Math.round(v).toString());
     function refreshReadouts() {
       const tauS = 1 / sim.gammaAt(vs.ringR);
       rTau.set(fmtTime(tauS));
@@ -585,16 +585,16 @@ const mod: ExplainerModule = {
       const tLong = LONG_FRAMES * GEOM.frameS;
       const tauIn = 1 / sim.gammaAt(RING_MIN);
       const tauOut = 1 / sim.gammaAt(sim.half);
-      const residual = `Speckle contrast left on your ring: ${emaResidualContrast(sim.beta, tauS, tLong).toFixed(2)}, down from ${sim.beta.toFixed(2)}. `;
+      const residual = `The contrast on the selected ring is ${emaResidualContrast(sim.beta, tauS, tLong).toFixed(2)}, down from ${sim.beta.toFixed(2)}. `;
       const viewSentence =
         vs.view === 'ideal'
-          ? 'You are looking at the **ideal** speckle — what infinitely many photons would show. '
+          ? "The ideal view shows the noise-free intensity for infinitely many photons. "
           : vs.view === 'long'
             ? (tauIn < 0.1 * tLong
-                ? 'In the **long exposure** the twinkling averages away: you see only the particles’ average shape and arrangement (ordinary small-angle scattering) — the motion is lost. '
+                ? "The long exposure averages out the changing speckles. It shows the particles' average shape and arrangement, as in ordinary small-angle scattering, without information about their motion. "
                 : tauOut < 0.1 * tLong
-                  ? 'In the **long exposure** the fast outer speckles average away into the particles’ average shape (ordinary small-angle scattering); near the centre, where the pattern changes more slowly than the ~50 ms window, grainy speckle survives. '
-                  : 'In the **long exposure** the pattern hardly smooths out: these particles move so slowly that the speckle outlasts the ~50 ms window. ') + residual
+                  ? "In the long exposure, the fast changes in the outer speckles average out to the particles' average shape, as in ordinary small-angle scattering. Near the centre, the speckle pattern changes more slowly than the ~50 ms averaging window and remains visible. "
+                  : "These particles move so slowly that the speckle pattern changes little during the ~50 ms exposure. The long exposure therefore leaves most of the speckle contrast visible. ") + residual
             : '';
       // time APS needs for the same quality: (G² + x)/(1 + x), x = (SNR_shot,U/SNR_speckle)² (validated model, stable
       // in T). Quoted to one significant figure: the model is good to ~15–25 %.
@@ -605,21 +605,21 @@ const mod: ExplainerModule = {
       // why the factor is not simply G²: APS-U is limited by how many independent speckles it averages, not by photons
       const regime =
         xReg > 1
-          ? ` Not ${G_TXT}² = ${G2_TXT}×: here APS-U is limited by how many independent speckles it averages, not by photons.`
-          : ` Close to ${G_TXT}² = ${G2_TXT}×: when photons are scarce, the time for equal quality grows with the square of the photon ratio.`;
+          ? ` The gain is below ${G_TXT}² = ${G2_TXT}× because the number of independent speckles averaged limits APS-U here.`
+          : ` The gain approaches ${G_TXT}² = ${G2_TXT}×. When photon counts limit the measurement, the time for equal quality grows with the square of the photon ratio.`;
       let srcSentence: string;
       if (vs.src === 1) {
         srcSentence =
-          (snr[1] >= 8 ? `With **APS-U** the curve is already clean after ${T} of measuring.` : 'With **APS-U** the curve sharpens within a fraction of a second of measuring.') +
-          ` The old **APS**, with ${G_TXT}× fewer coherent photons, ` +
-          (snr[0] < 3 ? 'is still lost in the noise' : 'is noisier') +
-          (reliable ? `: it would need about **${fmtRatio(ratio)}× longer** for the same quality.${regime}` : '.');
+          (snr[1] >= 8 ? `With APS-U, the correlation is well resolved after ${T} of measuring.` : "With APS-U, the correlation becomes better resolved within a fraction of a second.") +
+          ` The old APS, with ${G_TXT}× fewer coherent photons, ` +
+          (snr[0] < 3 ? "has noise larger than the correlation signal" : 'is noisier') +
+          (reliable ? `: it would need about ${fmtRatio(ratio)}× longer for the same quality.${regime}` : '.');
       } else {
         const every = nA > 0 ? Math.round(1 / nA) : Infinity;
-        const word = snr[0] < 3 ? 'still buried in noise' : snr[0] < 10 ? 'noisy' : 'visible, but noisier';
-        const upTo = ratio < 0.3 * APSU_GAIN * APSU_GAIN ? `, and up to **${G2_TXT}×** for faster motions, where every photon counts` : '';
+        const word = snr[0] < 3 ? "not distinguishable from noise" : snr[0] < 10 ? 'noisy' : 'visible, but noisier';
+        const upTo = ratio < 0.3 * APSU_GAIN * APSU_GAIN ? `, and up to ${G2_TXT}× for faster motion, where low photon counts limit the measurement` : '';
         srcSentence =
-          `With the old **APS** a pixel here catches a photon only about once every ${every.toLocaleString('en-US')} frames, so after the same ${T} the curve is ${word}.` +
+          `With the old APS, a pixel on this ring records about one photon every ${every.toLocaleString('en-US')} frames. After ${T}, the correlation is ${word}.` +
           (reliable ? ` Matching APS-U would take about **${fmtRatio(ratio)}× longer** here${upTo}.` : '');
       }
       let okU = 0;
@@ -628,14 +628,14 @@ const mod: ExplainerModule = {
         if (mapData.gamma[1][k] > 0) okU++;
         if (mapData.gamma[0][k] > 0) okA++;
       }
-      const dFit = Number.isFinite(mapData.Dfit) ? `; their fit gives D = ${(mapData.Dfit * 1e12).toFixed(2)} µm²/s, against ${(sim.D * 1e12).toFixed(2)} from Stokes–Einstein` : '';
-      const mapSentence = `**All rings at once:** each dot is the rate Γ = 1/τ at which one ring’s speckles change. On these log axes they fall on a line of slope 2, the fingerprint of diffusion (Γ = Dq²): details half as big scramble 4× faster. So far APS-U has pinned down **${okU}** of ${MAP_RINGS.length} rings, the old APS **${okA}**${dFit}. `;
-      const ringSentence = `Your ring (q = ${sci(q)} Å^{−1}) watches details about **${detail}** across (the faint stripes in panel 1): there the pattern scrambles in **${fmtTime(tauS)}**, the time the particles need to drift ~${shuffle}. `;
+      const dFit = Number.isFinite(mapData.Dfit) ? `. The fitted diffusion constant is D = ${(mapData.Dfit * 1e12).toFixed(2)} µm²/s, compared with ${(sim.D * 1e12).toFixed(2)} from the Stokes–Einstein relation` : '';
+      const mapSentence = `Each dot represents the rate Γ = 1/τ at which the speckles on one ring change. On these logarithmic axes, diffusion gives a line of slope 2 because Γ = Dq². Details half as large change 4× faster. APS-U has resolved ${okU} of ${MAP_RINGS.length} rings, compared with ${okA} for the old APS${dFit}. `;
+      const ringSentence = `The selected ring has q = ${sci(q)} Å^{−1}, corresponding to details about ${detail} across. The faint stripes in panel 1 represent this scale. The pattern changes in ${fmtTime(tauS)}, the time needed for particles to diffuse ~${shuffle}. `;
       const caption =
-        `In this simulated slice about **${nInBeamCache} particles** sit in the X-ray spot; their scattered waves interfere into a **speckle** pattern that twinkles as they jiggle. ` +
+        `About ${nInBeamCache} particles are in the X-ray spot in this simulated slice. Their scattered waves interfere to form speckles, which change as the particles diffuse. ` +
         viewSentence +
         (plotMode === 'map' ? mapSentence : ringSentence) +
-        (tooFast ? '**At under 2.5 frames (125 µs), that is too fast for the detector** (real frames would also blur the speckle; not modelled here): pick a smaller ring or slow the particles down. ' : '') +
+        (tooFast ? "The decay time is under 2.5 frames, or 125 µs, which is too fast to resolve. Real frames would also blur the speckle; this model does not include that effect. Choose a smaller ring or slow the particles down. " : '') +
         srcSentence;
       if (!force && caption === capKey) return;
       capKey = caption;

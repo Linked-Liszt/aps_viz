@@ -1,5 +1,5 @@
 /**
- * View 1 — "Twist the light": the beam travelling left → right in a cabinet projection.
+ * View 1. X-ray polarization: the beam travelling left → right in a cabinet projection.
  *   undulator (linear-H) → diamond quarter-wave plate(s) → polarized wave → FePt film (grain mosaic, M arrow),
  *   optional diamond anvils around the sample, and a head-on inset showing the path of the E-vector tip.
  * World axes: z along the beam (screen right), X horizontal transverse (pointing away from the viewer, drawn
@@ -145,10 +145,10 @@ export class BeamView {
     const yl = h - 22;
     const yw = compact ? h - 54 : yl;
     const items: Lbl[] = [
-      { x: (xU0 + xU1) / 2, y: yl, main: 'undulator', sub: 'flat, side to side', pri: 4 },
+      { x: (xU0 + xU1) / 2, y: yl, main: 'undulator', sub: "horizontal linear", pri: 4 },
       { x: twoPlates ? (xP + xP2) / 2 : xP, y: yl, main: s.plateLabel, sub: s.plateSub, pri: 1 },
       { x: (xAfter + xS) / 2, y: yw, main: s.waveLabel, sub: s.waveSub, pri: 0, color: beamColor(pol.pc) },
-      { x: xS, y: yl, main: 'magnet: FePt film', sub: 'Pt edge 11.56 keV', pri: 2 },
+      { x: xS, y: yl, main: "FePt film", sub: 'Pt edge 11.56 keV', pri: 2 },
     ];
     this.labels(items, w);
     ctx.restore();
@@ -233,7 +233,7 @@ export class BeamView {
       ctx.fillStyle = i % 2 ? 'rgba(96,165,250,0.55)' : 'rgba(248,113,113,0.55)';
       ctx.fillRect(x + 0.5, axisY + gap, bw - 1, bh);
     }
-    // electron wiggle (horizontal plane → drawn along the receding X direction)
+    // electron oscillation (horizontal plane → drawn along the receding X direction)
     ctx.strokeStyle = rgba(TOKENS.electron, 0.8);
     ctx.lineWidth = 1.3;
     ctx.beginPath();

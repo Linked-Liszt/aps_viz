@@ -3,7 +3,7 @@ import type { Beamline, BeamlineComponent } from '../../data/types';
 
 /**
  * Per-beamline geometric interpretation of a dossier. The dossier says WHAT is WHERE (distance from source);
- * the layout says how branches sit side-by-side and adds any bespoke "hero" models.
+ * The layout defines branch positions and supplies beamline-specific models.
  * Local frame: +X downstream from the ID source point, +Y up (0 = beam height), +Z outboard.
  */
 export interface BranchLayout {
@@ -102,16 +102,15 @@ export interface BuildCtx {
  *   never merged.
  * - Everything the scene creates (geometries, materials, textures) is disposed when the beamline closes, except
  *   palette / engine singletons (see markShared in scene/palette.ts); module-cached resources re-upload on reuse.
- * - Engine labels (hutch names, ruler marks, addLabel captions) are shown and hidden by the engine's declutter pass:
- *   they give way to pins and never sit under UI chrome. A label that custom() hides (`visible = false`) or detaches
- *   while building is left alone from then on.
+ * - The engine hides hutch names, ruler marks and addLabel captions that overlap pins or interface panels. After
+ *   custom() hides a label with `visible = false` or detaches it during construction, the engine stops changing it.
  */
 
 export interface BeamlineLayout {
   id: string;
   /** Rotate the whole beamline about the source (canted pairs), mrad. */
   cantMrad?: number;
-  /** Shift the whole beamline sideways (m) — for the second line of a canted sector. */
+  /** Lateral shift of the whole beamline in metres, used for the second line of a canted sector. */
   sideOffsetM?: number;
   /** Source point shift along the straight (m), e.g. for canted ID pairs. */
   sourceShiftM?: number;
@@ -128,7 +127,7 @@ export interface BeamlineLayout {
   camera?: { along?: number; side?: number; up?: number; distanceScale?: number };
   /** where each branch's engine beam ends (m from source); default = last sample-like component */
   beamEndM?: number | Record<string, number>;
-  /** branches drawn as context only (dimmer beam, no pulses, quiet pins) — e.g. a canted partner beamline */
+  /** Context-only branches, such as a canted partner beamline, use dimmer beams, no pulses and lower-priority pins. */
   partnerBranches?: string[];
   /** lateral position of the distance ruler (m, + outboard); default 3.4 */
   rulerSide?: number;

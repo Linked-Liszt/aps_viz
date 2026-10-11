@@ -365,8 +365,8 @@ export function foCollimators(beamY: number): THREE.Group {
 }
 
 /**
- * The phase-retarder tank (existing 4-ID-D tank, reused): three Bragg-transmission plate stages — pr1, pr2 diamond
- * (C(111)/C(220)) and pr3 thin Si(111). Each stage's diffraction plane is tilted 45° about the beam so σ and π are equal.
+ * The reused 4-ID-D phase-retarder tank contains three Bragg-transmission plate stages.
+ * Stages pr1 and pr2 use diamond C(111)/C(220), and pr3 uses thin Si(111). Each stage's diffraction plane is tilted 45° about the beam so σ and π are equal.
  * Plates drawn at θB(C 111, 10 keV) = 17.5°. The roll of the diffraction plane is drawn at 225° (any odd multiple of 45° gives
  * equal σ and π; the as-installed one is not published) so the goniometer bodies sit below-outboard and the plates face the
  * default inboard camera. Museum cut-away: the lid is left open (steel rim only) and the plates are drawn ~7× real size
